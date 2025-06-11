@@ -117,4 +117,20 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( 2, $affected );
 	}
+
+	/**
+	 * It should report deletions when Events does
+	 *
+	 * @test
+	 */
+	public function should_report_no_deletions_when_posts_are_deleted() {
+		$post_id = self::factory()->post->create();
+		$requests = new Requests();
+		$events   = new Events();
+
+		$controller = new Controller( new Meta_Watcher(), $requests, $events );
+		$affected   = $controller->delete_custom_tables_data( $post_id, $requests->from_http_request() );
+
+		$this->assertEquals( 0, $affected );
+	}
 }

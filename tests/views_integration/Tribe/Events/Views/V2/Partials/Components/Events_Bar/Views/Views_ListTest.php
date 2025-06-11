@@ -27,16 +27,19 @@ class Views_ListTest extends HtmlPartialTestCase
 				'view_url'   => 'https://test.tri.be/events/list/',
 				'view_class' => 'Tribe\Events\Views\V2\Views\List_View',
 				'view_label' => 'List',
+				'aria_label' => 'Display Events in List View',
 			],
 			'month' => (object) [
 				'view_url'   => 'https://test.tri.be/events/month/',
 				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
 				'view_label' => 'Month',
+				'aria_label' => 'Display Events in Month View',
 			],
 			'day'   => (object) [
 				'view_url'   => 'https://test.tri.be/events/today/',
 				'view_class' => 'Tribe\Events\Views\V2\Views\Day_View',
 				'view_label' => 'Day',
+				'aria_label' => 'Display Events in Day View',
 			],
 		];
 

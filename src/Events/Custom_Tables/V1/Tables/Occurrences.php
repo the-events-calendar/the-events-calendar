@@ -29,7 +29,7 @@ class Occurrences extends Abstract_Custom_Table {
 	 *
 	 * @inheritDoc
 	 */
-	const SCHEMA_VERSION = '1.0.2';
+	const SCHEMA_VERSION = '1.0.3';
 
 	/**
 	 * @inheritDoc
@@ -65,10 +65,10 @@ class Occurrences extends Abstract_Custom_Table {
 			`occurrence_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			`event_id` bigint(20) unsigned NOT NULL,
 			`post_id` bigint(20) unsigned NOT NULL,
-			`start_date` varchar(19) NOT NULL,
-			`start_date_utc` varchar(19) NOT NULL,
-			`end_date` varchar(19) NOT NULL,
-			`end_date_utc` varchar(19) NOT NULL,
+			`start_date` datetime NOT NULL,
+			`start_date_utc` datetime NOT NULL,
+			`end_date` datetime NOT NULL,
+			`end_date_utc` datetime NOT NULL,
 			`duration` mediumint(30) DEFAULT 7200,
 			`hash` varchar(40) NOT NULL,
 			`updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -77,9 +77,10 @@ class Occurrences extends Abstract_Custom_Table {
 	}
 
 	/**
-	 * Overrides the base method to add `event_id` as key.
+	 * Overrides the base method to add `event_id`, `post_id` as kesys.
 	 *
 	 * @since 6.0.6 Will now create an `event_id` index, removes the foreign key from the previous version.
+	 * @since 6.11.1   Will now create an `post_id, start_date, end_date` and `post_id, start_date_utc, end_date_utc` indexes.
 	 *
 	 * {@inheritdoc}
 	 */
@@ -89,10 +90,30 @@ class Occurrences extends Abstract_Custom_Table {
 		$updated           = false;
 		if (
 			$this->exists()
-			&& ! $this->has_index( 'event_id', $this_table )
 		) {
-			$SQL     = "ALTER TABLE {$this_table} ADD INDEX (event_id)";
-			$updated = $wpdb->query( $SQL );
+			$updated_index_queries = true;
+			$index_queries         = [
+				'event_id'                                 => "ALTER TABLE {$this_table} ADD INDEX (event_id)",
+
+				/*
+				 * The post_id is always part of the queries.
+				 * The order matters in indexes; end_date is used alone in some queries, while the start_date is mostly used
+				 * together with the end_date.
+				 * Finally, UTC and non-UTC version are always used together.
+				 */
+				'idx_wp_tec_occurrences_post_id_dates'     => "ALTER TABLE {$this_table} ADD INDEX idx_wp_tec_occurrences_post_id_dates (post_id, end_date, start_date)",
+				'idx_wp_tec_occurrences_post_id_dates_utc' => "ALTER TABLE {$this_table} ADD INDEX idx_wp_tec_occurrences_post_id_dates_utc (post_id, end_date_utc, start_date_utc)",
+			];
+
+			foreach ( $index_queries as $column => $index_query ) {
+				if ( $this->has_index( $column, $this_table ) ) {
+					continue;
+				}
+
+				$updated_index_queries &= $wpdb->query( $index_query );
+			}
+
+			$updated = $updated_index_queries;
 		} else if ( $this->exists()
 		            && $this->has_constraint( 'event_id', $this_table ) ) {
 			// We are moving away from foreign key constraints. If this is our old schema, find the FK name and drop it.
@@ -104,8 +125,8 @@ class Occurrences extends Abstract_Custom_Table {
 		}
 
 		$message = $updated
-			? "Added event_id as key in {$this_table}"
-			: "Failed to add event_id as key in {$this_table}";
+			? "Added indexes in {$this_table}"
+			: "Failed to add indexes in {$this_table}";
 
 		$results[ $this_table . '.event_id' ] = $message;
 

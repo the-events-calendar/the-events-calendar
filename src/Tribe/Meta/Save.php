@@ -38,13 +38,13 @@ class Tribe__Events__Meta__Save {
 	}
 
 	/**
-	 * ensure only one venue or organizer is created during post preview
-	 * subsequent previews will reuse that same post
+	 * Ensure only one venue or organizer is created during post preview.
+	 * Subsequent previews will reuse that same post.
 	 *
-	 * ensure that preview post is the one that's used when the event is published,
-	 * unless we're publishing with a saved venue
+	 * Ensure that preview post is the one that's used when the event is published,
+	 * unless we're publishing with a saved venue.
 	 *
-	 * @param string $post_type Can be 'venue' or 'organizer'
+	 * @param string $post_type Can be 'venue' or 'organizer'.
 	 */
 	protected function manage_preview_metapost( $post_type, $event_id ) {
 
@@ -147,7 +147,7 @@ class Tribe__Events__Meta__Save {
 			return false;
 		}
 
-		// don't do anything on autosave or auto-draft either or massupdates
+		// Don't do anything on autosave or auto-draft either or massupdates.
 		if ( $this->is_autosave() || $this->is_auto_draft() || $this->context->is_bulk_editing() || $this->context->is_inline_save() ) {
 			return false;
 		}

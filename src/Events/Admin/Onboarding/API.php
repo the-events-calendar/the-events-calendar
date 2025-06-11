@@ -154,12 +154,18 @@ class API {
 		$finished = $params['finished'] ?? false;
 		$skipped  = $params['skippedTabs'] ?? [];
 		$complete = $params['completedTabs'] ?? [];
+		$current  = $params['currentTab'] ?? 0;
 
 		// Remove any elements in $completed from $skipped.
 		$skipped = array_values( array_diff( $skipped, $complete ) );
 
 		if ( $begun ) {
-			$complete = array_push( $complete, 0 );
+			$complete = array_merge( $complete, [ 0 ] );
+		}
+
+		// Add current tab to completed if it's not in skipped.
+		if ( ! in_array( $current, $skipped, true ) ) {
+			$complete = array_merge( $complete, [ $current ] );
 		}
 
 		if ( $finished ) {
@@ -170,7 +176,7 @@ class API {
 		$settings                   = tribe( Data::class )->get_wizard_settings();
 		$settings['begun']          = $begun;
 		$settings['finished']       = $finished;
-		$settings['current_tab']    = $params['currentTab'] ?? 0;
+		$settings['current_tab']    = $current;
 		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
 		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
 
@@ -183,8 +189,8 @@ class API {
 			$params['_wpnonce']
 		);
 
-		// Add a snapshot of the data from the last request.
-		$settings['last_send'] = $params;
+		// Merge the new params with existing last_send data instead of overwriting.
+		$settings['last_send'] = array_merge( $settings['last_send'] ?? [], $params );
 
 		// Update the option.
 		$updated = tribe( Data::class )->update_wizard_settings( $settings );

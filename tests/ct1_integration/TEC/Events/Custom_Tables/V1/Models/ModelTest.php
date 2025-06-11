@@ -8,6 +8,21 @@ use TEC\Events\Custom_Tables\V1\Tables\Events;
 use WP_Post;
 
 class ModelTest extends WPTestCase {
+	protected function _before() {
+		parent::_before();
+		/**
+		 * For the purpose of this test, we do not want to use the cache query.
+		 * Other tests are covering correct and timely cache invalidation on update and insert of rows.
+		 */
+		Builder::use_query_cache( false );
+	}
+
+	protected function _after() {
+		parent::_after();
+		// Restore the use of cache in the builder.
+		Builder::use_query_cache( true );
+	}
+
 	/**
 	 * It should allow using raw WHERE clauses for filtering
 	 *
@@ -238,7 +253,7 @@ class ModelTest extends WPTestCase {
 		$this->assertEquals(
 			6,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 5 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to count results, 5 queries to fetch.'
 		);
 		$this->assertCount( 10, $results );
 		$this->assertEquals(
@@ -254,9 +269,9 @@ class ModelTest extends WPTestCase {
 		$wpdb_queries = $wpdb->num_queries;
 		$results = iterator_to_array( $all, true );
 		$this->assertEquals(
-			3,
+			4,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 2 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to run results, 3 queries to fetch.'
 		);
 		$this->assertCount( 5, $results );
 		$this->assertEquals(
@@ -272,9 +287,9 @@ class ModelTest extends WPTestCase {
 		$wpdb_queries = $wpdb->num_queries;
 		$results = iterator_to_array( $all, true );
 		$this->assertEquals(
-			3,
+			4,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 2 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to count results, 3 queries to fetch.'
 		);
 		$this->assertCount( 5, $results );
 		$this->assertEquals(
@@ -293,7 +308,7 @@ class ModelTest extends WPTestCase {
 		$this->assertEquals(
 			3,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 2 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to count results, 2 queries to fetch.'
 		);
 		$this->assertCount( 4, $results );
 		$this->assertEquals(

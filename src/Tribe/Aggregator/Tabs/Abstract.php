@@ -55,10 +55,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	}
 
 	public function handle_submit() {
-		$data = array(
-			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
-		);
-
 		if ( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ! $this->is_active() ) {
 			return;
 		}
@@ -72,14 +68,12 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		}
 
 		// validate nonce
-		if ( empty( $_POST['tribe_aggregator_nonce'] ) || ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'], 'tribe-aggregator-save-import' ) ) {
-			wp_send_json_error( $data );
-		}
+		$this->validate_nonce( 'tribe-aggregator-save-import' );
 
 		$post_data = $_POST['aggregator'];
 
 		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
-			wp_send_json_error( $data );
+			wp_send_json_error( $this->get_failure_data(), 400 );
 		}
 
 		$data = $post_data[ $post_data['origin'] ];
@@ -160,6 +154,37 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 			'post_data' => $post_data,
 			'meta' => $meta,
 		);
+	}
+
+	/**
+	 * Return the default data with an error message.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @return array The default data with an error message.
+	 */
+	protected function get_failure_data(): array {
+		return [
+			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
+		];
+	}
+
+	/**
+	 * Validates the nonce for the AJAX request.
+	 *
+	 * If the nonce is invalid, this will send a JSON error response and end the request.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @param string $action    The action name to verify the nonce against.
+	 * @param string $nonce_var The name of the nonce variable in the request.
+	 *
+	 * @return void
+	 */
+	protected function validate_nonce( string $action, string $nonce_var = 'tribe_aggregator_nonce' ) {
+		if ( ! wp_verify_nonce( tec_get_request_var( $nonce_var, '' ), $action ) ) {
+			wp_send_json_error( $this->get_failure_data(), 400 );
+		}
 	}
 
 	/**

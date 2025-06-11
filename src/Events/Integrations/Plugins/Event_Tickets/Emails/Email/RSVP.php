@@ -13,9 +13,8 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Han
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
 use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
-use TEC\Tickets\Emails\Email_Abstract;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
-use \Tribe__Utils__Array as Arr;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class RSVP.

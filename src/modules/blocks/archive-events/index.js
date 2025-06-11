@@ -9,15 +9,13 @@ const { useBlockProps } = wp.blockEditor;
 /**
  * Small component to simplify some pseudo event blocks.
  *
- * @param {Object} props The component props.
+ * @param {Object} props       The component props.
  * @param {string} props.width The width of the event item.
- * @returns {JSX.Element} A div with a width and height.
- * @constructor
+ * @return {JSX.Element} A div with a width and height.
+ * @class
  */
 const EventItem = ( { width = '40%' } ) => {
-	return (
-		<div style={ { width, height: 16, background: '#eee', margin: '18px 4px' } } />
-	);
+	return <div style={ { width, height: 16, background: '#eee', margin: '18px 4px' } } />;
 };
 
 EventItem.propTypes = {
@@ -32,10 +30,7 @@ export default {
 	title: __( 'Archive Events', 'the-events-calendar' ),
 	icon: 'calendar-alt',
 	category: 'tribe-events',
-	keywords: [
-		__( 'Archive Events', 'the-events-calendar' ),
-		__( 'The Events Calendar', 'the-events-calendar' ),
-	],
+	keywords: [ __( 'Archive Events', 'the-events-calendar' ), __( 'The Events Calendar', 'the-events-calendar' ) ],
 	edit: ( props ) => {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const { className, ...blockProps } = useBlockProps();
@@ -46,18 +41,25 @@ export default {
 				<p>
 					{
 						// eslint-disable-next-line max-len
-						__( 'This block serves as a placeholder for your The Events Calendar archive events template. It will display the event search fields and event results.', 'the-events-calendar' )
+						__(
+							'This block serves as a placeholder for your The Events Calendar archive events template. It will display the event search fields and event results.',
+							'the-events-calendar'
+						)
 					}
 				</p>
 				<div>
-					<input type={ 'text' } style={ {
-						height: 22,
-						width: '50%',
-						margin: 4,
-						padding: 4,
-						borderRadius: 4,
-						maxWidth: 400,
-					} } disabled />
+					<input
+						type={ 'text' }
+						style={ {
+							height: 22,
+							width: '50%',
+							margin: 4,
+							padding: 4,
+							borderRadius: 4,
+							maxWidth: 400,
+						} }
+						disabled
+					/>
 				</div>
 				<EventItem width={ '40%' } />
 				<EventItem width={ '60%' } />

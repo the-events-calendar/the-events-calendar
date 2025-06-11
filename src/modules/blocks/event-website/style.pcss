@@ -1,7 +1,7 @@
 .tribe-editor__event-website__label {
 	align-items: center;
 	display: inline-flex;
-	font-family: 'Helvetica', 'sans-serif';
+	font-family: Helvetica, sans-serif;
 	justify-content: center;
 	max-width: 100%;
 
@@ -10,38 +10,38 @@
 	}
 
 	&--placeholder {
-		color: #8D949B;
-		cursor: text;
 		background-color: transparent;
-		padding: 0 20px;
+		border: 2px dashed #e1e3e6;
+		color: #8d949b;
+		cursor: text;
 		font-size: 1.125rem;
 		min-height: 54px;
-		border: 2px dashed #E1E3E6;
+		padding: 0 20px;
 	}
 }
 
 .tribe-editor__event-website__label-text {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	color: #fff;
 	background-color: transparent;
+	border: 0;
+	color: #fff;
 	flex-grow: 1;
 	font-size: 1.125rem;
-	font-weight: normal;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
 	table-layout: fixed;
 	width: 100%;
 
 	input {
-		padding: 0 20px;
+		background-color: #009fd4;
+		border: 2px solid #009fd4;
+		color: #fff;
+		font-family: Helvetica, sans-serif;
 		font-size: 1.125rem;
-		min-height: 50px;
-		background-color: #009FD4;
-		border: 2px solid #009FD4;
-		color: #FFF;
-		font-family: 'Helvetica', 'sans-serif';
-		overflow: hidden;
 		max-width: calc(100% - 20px);
+		min-height: 50px;
+		overflow: hidden;
+		padding: 0 20px;
 
 		&:focus {
 			box-shadow: none;
@@ -50,13 +50,14 @@
 	}
 
 	&--empty {
+
 		input {
-			border: 2px dashed #E1E3E6;
-			background-color: #FFF;
-			color: #8D949B;
+			background-color: #fff;
+			border: 2px dashed #e1e3e6;
+			color: #8d949b;
 
 			&::placeholder {
-				color: #8D949B;
+				color: #8d949b;
 			}
 		}
 	}
@@ -97,9 +98,10 @@
 	}
 
 	&--selected {
-		border: 1px solid #E5E8EB;
+		border: 1px solid #e5e8eb;
 
 		.tribe-editor__event-website__label-text {
+
 			#tribe-events-website-link {
 				background-color: transparent;
 				border: none;
@@ -121,9 +123,9 @@
 			position: relative;
 
 			&::before {
-				background-color: #E5E8EB;
+				background-color: #e5e8eb;
 				bottom: 15%;
-				content: '';
+				content: "";
 				height: 60%;
 				left: -15px;
 				position: absolute;

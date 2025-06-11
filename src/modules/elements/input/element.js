@@ -42,7 +42,7 @@ class Input extends Component {
 	 * Default types for properties required for this component
 	 *
 	 * @param validated {boolean} If this component needs to be validated
-	 * @param required {boolean} If this input is required
+	 * @param required  {boolean} If this input is required
 	 */
 	static propTypes = {
 		validate: PropTypes.bool,
@@ -101,7 +101,7 @@ class Input extends Component {
 	 * Validates the component using validateCallback if provided or using the logic based on the type inferring
 	 *
 	 * @param {string} value The value to be validated
-	 * @returns {boolean} `true` if the param is valid false otherwise
+	 * @return {boolean} `true` if the param is valid false otherwise
 	 */
 	validate( value ) {
 		const { validateCallback } = this.props;
@@ -113,7 +113,7 @@ class Input extends Component {
 	 * based on the type="url" of the <input> component.
 	 *
 	 * @param {string} value The value to be validated
-	 * @returns {boolean} `true` if the param is valid false otherwise
+	 * @return {boolean} `true` if the param is valid false otherwise
 	 */
 	maybeValidate = ( value ) => {
 		const { type, required } = this.props;
@@ -144,7 +144,7 @@ class Input extends Component {
 	/**
 	 * If the component is valid or not based on the validation logic
 	 *
-	 * @returns {boolean} Whether the state is valid or not.
+	 * @return {boolean} Whether the state is valid or not.
 	 */
 	isValid() {
 		return this.state.isValid;
@@ -161,7 +161,7 @@ class Input extends Component {
 	 * If the Component is valid is going to Append the class: `is-valid` otherwise if it fails is going to use the
 	 * class `is-invalid`.
 	 *
-	 * @returns {string|*} The class names.
+	 * @return {string|*} The class names.
 	 */
 	getClassName() {
 		const { className, validate } = this.props;
@@ -176,9 +176,7 @@ class Input extends Component {
 			}
 		}
 
-		return classes
-			.filter( ( name ) => name && name.length )
-			.join( ' ' );
+		return classes.filter( ( name ) => name && name.length ).join( ' ' );
 	}
 
 	render() {
@@ -188,7 +186,7 @@ class Input extends Component {
 			<TextControl
 				{ ...properties }
 				className={ `${ this.getClassName() }` }
-				ref={ ( input ) => this.input = input }
+				ref={ ( input ) => ( this.input = input ) }
 				onChange={ this.onChange }
 				__nextHasNoMarginBottom={ true }
 			/>

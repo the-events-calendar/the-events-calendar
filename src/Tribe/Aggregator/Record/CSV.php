@@ -34,24 +34,15 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	}
 
 	public function queue_import( $args = array() ) {
-		$is_previewing = (
-			! empty( $_GET['action'] )
-			&& (
-				'tribe_aggregator_create_import' === $_GET['action']
-				|| 'tribe_aggregator_preview_import' === $_GET['action']
-			)
-		);
-
-		$data = $this->get_csv_data();
-
-		$result = array(
+		$data   = $this->get_csv_data();
+		$result = [
 			'status'       => 'success',
 			'message_code' => 'success',
-			'data'         => array(
+			'data'         => [
 				'import_id' => $this->id,
 				'items'     => $data,
-			),
-		);
+			],
+		];
 
 		$first_row = reset( $data );
 		$columns   = array_keys( $first_row );
@@ -61,9 +52,8 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		// store the import id
 		update_post_meta( $this->id, self::$meta_key_prefix . 'import_id', $this->id );
 
-		// only set as pending if we aren't previewing the record
-		if ( ! $is_previewing ) {
-			// if we get here, we're good! Set the status to pending
+		// Only set as pending if we aren't previewing the record.
+		if ( ! $this->is_previewing() ) {
 			$this->set_status_as_pending();
 		}
 

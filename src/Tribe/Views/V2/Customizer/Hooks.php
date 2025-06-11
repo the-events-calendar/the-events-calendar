@@ -37,19 +37,13 @@ class Hooks extends Service_Provider {
 	 */
 	public function register() {
 		// Register the Views V2 Customizer controls assets.
-		tribe_asset(
-			TEC::instance(),
-			'tribe-customizer-views-v2-controls',
-			'customizer-views-v2-controls.css'
-		);
-
-		tribe_asset(
+		tec_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-controls-js',
 			'customizer-views-v2-controls.js'
 		);
 
-		tribe_asset(
+		tec_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-live-preview-js',
 			'customizer-views-v2-live-preview.js',
@@ -103,8 +97,6 @@ class Hooks extends Service_Provider {
 	 * @return void
 	 */
 	public function add_filters() {
-		// Register the assets for Customizer controls.
-		add_action( 'customize_controls_print_styles', [ $this, 'enqueue_customizer_controls_styles' ] );
 		// Register assets for Customizer styles.
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
 		add_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
@@ -146,9 +138,11 @@ class Hooks extends Service_Provider {
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
 	 * @since 5.9.0
+	 * @since 6.13.0 Deprecated.
+	 *
+	 * @deprecated No longer needed.
 	 */
 	public function enqueue_customizer_controls_styles() {
-		tribe_asset_enqueue( 'tribe-customizer-views-v2-controls' );
 	}
 
 	/**

@@ -1,66 +1,68 @@
 /* eslint-disable */
-var tribe_aggregator = tribe_aggregator || {};
+window.tribe_aggregator = window.tribe_aggregator || {};
+window.tribe_aggregator.notice = window.tribe_aggregator.notice || {};
 
-// Setup the global Variable
-tribe_aggregator.notice = {
 
-	selector: {
-		notice: '.tribe-notice-aggregator-update-msg',
-		progress: '.progress',
-		tracker: '.tracker',
-		created: '.track-created .value',
-		updated: '.track-updated .value',
-		skipped: '.track-skipped .value',
-		remaining: '.track-remaining .value',
-		bar: '.bar',
-	},
+( function( $, ea ) {
+	// Setup the global Variable
+	ea.notice = {
 
-	progress: {},
-};
+		selector: {
+			notice: '.tribe-notice-aggregator-update-msg',
+			progress: '.progress',
+			tracker: '.tracker',
+			created: '.track-created .value',
+			updated: '.track-updated .value',
+			skipped: '.track-skipped .value',
+			remaining: '.track-remaining .value',
+			bar: '.bar',
+		},
 
-( function( $, obj, ea ) {
-	obj.progress.init = function() {
-		obj.progress.data = {};
-		obj.progress.$ = {};
-		obj.progress.$.notice    = $( '.tribe-notice-aggregator-update-msg' );
-		obj.progress.$.spinner   = obj.progress.$.notice.find( 'img' );
-		obj.progress.$.progress  = obj.progress.$.notice.find( obj.selector.progress );
-		obj.progress.$.tracker   = obj.progress.$.notice.find( obj.selector.tracker );
-		obj.progress.$.created   = obj.progress.$.tracker.find( obj.selector.created );
-		obj.progress.$.updated   = obj.progress.$.tracker.find( obj.selector.updated );
-		obj.progress.$.skipped   = obj.progress.$.tracker.find( obj.selector.skipped );
-		obj.progress.$.remaining = obj.progress.$.tracker.find( obj.selector.remaining );
-		obj.progress.$.bar       = obj.progress.$.notice.find( obj.selector.bar );
-		obj.progress.data.time   = Date.now();
+		progress: {},
+	};
 
-		obj.progress.hasHeartBeat = 'undefined' !== typeof wp && wp.heartbeat;
+	ea.notice.progress.init = function() {
+		ea.notice.progress.data = {};
+		ea.notice.progress.$ = {};
+		ea.notice.progress.$.notice    = $( '.tribe-notice-aggregator-update-msg' );
+		ea.notice.progress.$.spinner   = ea.notice.progress.$.notice.find( 'img' );
+		ea.notice.progress.$.progress  = ea.notice.progress.$.notice.find( ea.notice.selector.progress );
+		ea.notice.progress.$.tracker   = ea.notice.progress.$.notice.find( ea.notice.selector.tracker );
+		ea.notice.progress.$.created   = ea.notice.progress.$.tracker.find( ea.notice.selector.created );
+		ea.notice.progress.$.updated   = ea.notice.progress.$.tracker.find( ea.notice.selector.updated );
+		ea.notice.progress.$.skipped   = ea.notice.progress.$.tracker.find( ea.notice.selector.skipped );
+		ea.notice.progress.$.remaining = ea.notice.progress.$.tracker.find( ea.notice.selector.remaining );
+		ea.notice.progress.$.bar       = ea.notice.progress.$.notice.find( ea.notice.selector.bar );
+		ea.notice.progress.data.time   = Date.now();
 
-		if ( obj.progress.hasHeartBeat ) {
+		ea.notice.progress.hasHeartBeat = 'undefined' !== typeof wp && wp.heartbeat;
+
+		if ( ea.notice.progress.hasHeartBeat ) {
 			wp.heartbeat.interval( 15 );
 		}
 
-		setTimeout( obj.progress.start );
+		setTimeout( ea.notice.progress.start );
 	};
 
-	obj.progress.start = function () {
-		if ( 'object' !== typeof tribe_aggregator_save ) {
+	ea.notice.progress.start = function () {
+		if ( 'object' !== typeof window.tribe_aggregator_save ) {
 			return;
 		}
 
-		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
-		if ( ! obj.progress.hasHeartBeat ) {
-			obj.progress.send_request();
+		ea.notice.progress.update(window.tribe_aggregator_save.progress, window.tribe_aggregator_save.progressText);
+		if ( ! ea.notice.progress.hasHeartBeat ) {
+			ea.notice.progress.send_request();
 		}
 	};
 
-	obj.progress.continue = true;
+	ea.notice.progress.continue = true;
 	$(document).on('heartbeat-send', function (event, data) {
-		if ( 'object' !== typeof tribe_aggregator_save ) {
+		if ( 'object' !== typeof window.tribe_aggregator_save ) {
 			return;
 		}
 
-		if ( obj.progress.continue ) {
-			data.ea_record = tribe_aggregator_save.record_id;
+		if ( ea.notice.progress.continue ) {
+			data.ea_record = window.tribe_aggregator_save.record_id;
 		}
 	});
 
@@ -70,48 +72,48 @@ tribe_aggregator.notice = {
 			return;
 		}
 
-		obj.progress.handle_response(data.ea_progress);
+		ea.notice.progress.handle_response(data.ea_progress);
 	});
 
-	obj.progress.handle_response = function( data ) {
+	ea.notice.progress.handle_response = function( data ) {
 
 		if ( data.html ) {
-			obj.progress.data.notice.html( data.html );
+			ea.notice.progress.data.notice.html( data.html );
 		}
 
 		if ( ! isNaN( parseInt( data.progress, 10 ) ) ) {
-			obj.progress.update( data );
+			ea.notice.progress.update( data );
 		}
 
-		obj.progress.continue = data.continue;
-		if (data.continue && !obj.progress.hasHeartBeat) {
-			setTimeout(obj.progress.send_request, 15000);
+		ea.notice.progress.continue = data.continue;
+		if (data.continue && !ea.notice.progress.hasHeartBeat) {
+			setTimeout(ea.notice.progress.send_request, 15000);
 		}
 
 		if ( data.error ) {
-			obj.progress.$.notice.find( '.tribe-message' ).html( data.error_text );
-			obj.progress.$.tracker.remove();
-			obj.progress.$.notice.find( '.progress-container' ).remove();
-			obj.progress.$.notice.removeClass( 'notice-warning' ).addClass( 'notice-error' );
+			ea.notice.progress.$.notice.find( '.tribe-message' ).html( data.error_text );
+			ea.notice.progress.$.tracker.remove();
+			ea.notice.progress.$.notice.find( '.progress-container' ).remove();
+			ea.notice.progress.$.notice.removeClass( 'notice-warning' ).addClass( 'notice-error' );
 		} else if ( data.complete ) {
-			obj.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
-			obj.progress.$.tracker.remove();
-			obj.progress.$.notice.find( '.progress-container' ).remove();
-			obj.progress.$.notice.removeClass( 'notice-warning' ).addClass( 'notice-success' );
-			obj.progress.$.notice.show();
+			ea.notice.progress.$.notice.find( '.tribe-message' ).html( data.complete_text );
+			ea.notice.progress.$.tracker.remove();
+			ea.notice.progress.$.notice.find( '.progress-container' ).remove();
+			ea.notice.progress.$.notice.removeClass( 'notice-warning' ).addClass( 'notice-success' );
+			ea.notice.progress.$.notice.show();
 		}
 	};
 
-	obj.progress.send_request = function() {
+	ea.notice.progress.send_request = function() {
 		var payload = {
-			record:  tribe_aggregator_save.record_id,
-			check:  tribe_aggregator_save.check,
+			record:  window.tribe_aggregator_save.record_id,
+			check:  window.tribe_aggregator_save.check,
 			action: 'tribe_aggregator_realtime_update'
 		};
-		$.post( ajaxurl, payload, obj.progress.handle_response, 'json' );
+		$.post( ajaxurl, payload, ea.notice.progress.handle_response, 'json' );
 	};
 
-	obj.progress.update = function( data ) {
+	ea.notice.progress.update = function( data ) {
 		var percentage = parseInt( data.progress, 10 );
 
 		// The percentage should never be out of bounds, but let's handle such a thing gracefully if it arises.
@@ -130,7 +132,7 @@ tribe_aggregator.notice = {
 			}
 
 			var count = data.counts[ types[ i ] ];
-			var $target = obj.progress.$[ types[ i ] ];
+			var $target = ea.notice.progress.$[ types[ i ] ];
 
 			// update updated and skipped count only if higher
 			if ( 'updated' === types[ i ] || 'skipped' === types[ i ] ) {
@@ -143,32 +145,32 @@ tribe_aggregator.notice = {
 				$target.html( count );
 			}
 
-			if ( ! obj.progress.$.tracker.hasClass( 'has-' + types[ i ] ) ) {
-				obj.progress.$.tracker.addClass( 'has-' + types[ i ] );
+			if ( ! ea.notice.progress.$.tracker.hasClass( 'has-' + types[ i ] ) ) {
+				ea.notice.progress.$.tracker.addClass( 'has-' + types[ i ] );
 			}
 		}
 
-		obj.progress.$.bar.css( 'width', percentage + '%' );
-		obj.progress.$.progress.attr( 'title', data.progress_text );
+		ea.notice.progress.$.bar.css( 'width', percentage + '%' );
+		ea.notice.progress.$.progress.attr( 'title', data.progress_text );
 	};
 
-	obj.progress.remove_notice = function() {
+	ea.notice.progress.remove_notice = function() {
 		var effect = {
 			opacity: 0,
 			height:  'toggle'
 		};
 
-		obj.progress.$.notice.animate( effect, 1000, function() {
-			obj.progress.$.notice.remove();
+		ea.notice.progress.$.notice.animate( effect, 1000, function() {
+			ea.notice.progress.$.notice.remove();
 		} );
 	};
 
 	$(document).on(
 		'tribe_aggregator_init_notice',
 		function() {
-			obj.progress.init();
+			ea.notice.progress.init();
 		}
 	);
 
-	obj.progress.init();
-} )( jQuery, tribe_aggregator.notice, tribe_aggregator );
+	ea.notice.progress.init();
+} )( jQuery, window.tribe_aggregator );

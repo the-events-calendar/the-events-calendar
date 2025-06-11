@@ -126,6 +126,44 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Determines whether we are in a Single organizer page or not, based only on global context.
+	 *
+	 * @since  6.11.0
+	 *
+	 * @return bool Whether the current request is for the single organizer template or not.
+	 */
+	public function is_single_organizer() {
+		if ( ! did_action( 'parse_query' ) ) {
+			return false;
+		}
+
+		$conditions = [
+			is_singular( TEC::ORGANIZER_POST_TYPE ),
+		];
+
+		return in_array( true, $conditions, true );
+	}
+
+	/**
+	 * Determines whether we are in a Single Venue page or not, based only on global context.
+	 *
+	 * @since  6.11.0
+	 *
+	 * @return bool Whether the current request is for the single venue template or not.
+	 */
+	public function is_single_venue() {
+		if ( ! did_action( 'parse_query' ) ) {
+			return false;
+		}
+
+		$conditions = [
+			is_singular( TEC::VENUE_POST_TYPE ),
+		];
+
+		return in_array( true, $conditions, true );
+	}
+
+	/**
 	 * Sets the current view context to `single-event` for the legacy view system.
 	 *
 	 * @since 6.4.1

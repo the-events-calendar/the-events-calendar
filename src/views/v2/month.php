@@ -40,7 +40,7 @@ if ( empty( $disable_event_search ) ) {
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-	<div class="tribe-common-l-container tribe-events-l-container">
+	<section class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
 		<?php $this->template( 'components/json-ld-data' ); ?>
@@ -75,7 +75,7 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/after' ); ?>
 
-	</div>
+	</section>
 
 </div>
 

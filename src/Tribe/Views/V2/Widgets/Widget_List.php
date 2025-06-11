@@ -203,7 +203,7 @@ class Widget_List extends Widget_Abstract {
 		$alterations['no_upcoming_events'] = tribe_is_truthy( $arguments['no_upcoming_events'] );
 
 		// Add posts per page.
-		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
+		$alterations['events_per_page'] = isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
 			(int) $arguments['limit'] :
 			5;
 

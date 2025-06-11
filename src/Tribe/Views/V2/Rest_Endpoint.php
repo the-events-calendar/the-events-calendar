@@ -8,8 +8,8 @@
  */
 namespace Tribe\Events\Views\V2;
 
-use WP_REST_Request;
 use WP_REST_Request as Request;
+use WP_REST_Response as Response;
 use WP_REST_Server as Server;
 use WP_User;
 
@@ -35,19 +35,21 @@ class Rest_Endpoint {
 	 * The field name for the primary nonce.
 	 *
 	 * @since 6.1.4
+	 * @since 6.11.1 Changed to `tvn1` from `_tec_view_rest_nonce_primary`.
 	 *
 	 * @var string
 	 */
-	const PRIMARY_NONCE_KEY = '_tec_view_rest_nonce_primary';
+	const PRIMARY_NONCE_KEY = 'tvn1';
 
 	/**
 	 * The field name for the secondary nonce.
 	 *
 	 * @since 6.1.4
-	 *
+	 * @since 6.11.1 Changed to `tvn2` from `_tec_view_rest_nonce_secondary`.
+	 * 
 	 * @var string
 	 */
-	const SECONDARY_NONCE_KEY = '_tec_view_rest_nonce_secondary';
+	const SECONDARY_NONCE_KEY = 'tvn2';
 
 	/**
 	 * Rest Endpoint namespace
@@ -308,52 +310,61 @@ class Rest_Endpoint {
 	 * @return array $arguments Request arguments following the WP_REST API Standards [ name => options, ... ]
 	 */
 	public function get_request_arguments() {
-		$arguments = [
-			'url' => [
-				'required'          => true,
-				'validate_callback' => static function ( $url ) {
-					return is_string( $url );
-				},
-				'sanitize_callback' => static function ( $url ) {
-					return filter_var( $url, FILTER_SANITIZE_URL );
-				},
-			],
-			'view' => [
-				'required'          => false,
-				'validate_callback' => static function ( $view ) {
-					return is_string( $view );
-				},
-				'sanitize_callback' => static function ( $view ) {
-					return tec_sanitize_string( $view );
-				},
-			],
-			static::PRIMARY_NONCE_KEY => [
-				'required'          => false,
-				'validate_callback' => static function ( $nonce ) {
-					return is_string( $nonce );
-				},
-				'sanitize_callback' => static function ( $nonce ) {
-					return tec_sanitize_string( $nonce );
-				},
-			],
-			static::SECONDARY_NONCE_KEY => [
-				'required'          => false,
-				'validate_callback' => static function ( $nonce ) {
-					return is_string( $nonce );
-				},
-				'sanitize_callback' => static function ( $nonce ) {
-					return tec_sanitize_string( $nonce );
-				},
-			],
-			'view_data' => [
-				'required'          => false,
-				'validate_callback' => static function ( $view_data ) {
-					return is_array( $view_data );
-				},
-				'sanitize_callback' => static function ( $view_data ) {
-					return is_array( $view_data ) ? $view_data : [];
-				},
-			],
+		$arguments = [];
+
+		// URL is required, and should be a string.
+		$arguments['u'] = [
+			'required'          => true,
+			'validate_callback' => static function ( $url ) {
+				return is_string( $url );
+			},
+			'sanitize_callback' => static function ( $url ) {
+				return filter_var( $url, FILTER_SANITIZE_URL );
+			},
+		];
+
+		// View is not required, but if it is passed, it should be a string.
+		$arguments['view'] = [
+			'required'          => false,
+			'validate_callback' => static function ( $view ) {
+				return is_string( $view );
+			},
+			'sanitize_callback' => static function ( $view ) {
+				return tec_sanitize_string( $view );
+			},
+		];
+
+		// Primary nonce is not required, but if it is passed, it should be a string.
+		$arguments[ static::PRIMARY_NONCE_KEY ] = [
+			'required'          => false,
+			'validate_callback' => static function ( $nonce ) {
+				return is_string( $nonce );
+			},
+			'sanitize_callback' => static function ( $nonce ) {
+				return tec_sanitize_string( $nonce );
+			},
+		];
+
+		// Secondary nonce is not required, but if it is passed, it should be a string.
+		$arguments[ static::SECONDARY_NONCE_KEY ] = [
+			'required'          => false,
+			'validate_callback' => static function ( $nonce ) {
+				return is_string( $nonce );
+			},
+			'sanitize_callback' => static function ( $nonce ) {
+				return tec_sanitize_string( $nonce );
+			},
+		];
+
+		// View data is not required, but if it is passed, it should be an array.
+		$arguments['view_data'] = [
+			'required'          => false,
+			'validate_callback' => static function ( $view_data ) {
+				return is_array( $view_data );
+			},
+			'sanitize_callback' => static function ( $view_data ) {
+				return is_array( $view_data ) ? $view_data : [];
+			},
 		];
 
 		// Arguments specific to AJAX requests; we add them to all requests as long as the argument is not required.
@@ -383,7 +394,7 @@ class Rest_Endpoint {
 	/**
 	 * Register the endpoint if available.
 	 *
-	 * @since  4.9.7
+	 * @since 4.9.7
 	 * @since 5.2.1 Add support for the POST method.
 	 *
 	 * @return boolean If we registered the endpoint.
@@ -394,14 +405,70 @@ class Rest_Endpoint {
 			'methods'             => [ Server::READABLE, Server::CREATABLE ],
 			// @todo [BTRIA-600]: Make sure we do proper handling of caches longer then 12h.
 			'permission_callback' => [ $this, 'is_valid_request' ],
-			'callback'            => static function ( Request $request ) {
-				if ( ! headers_sent() ) {
-					header( 'Content-Type: text/html; charset=' . esc_attr( get_bloginfo( 'charset' ) ) );
-				}
-				View::make_for_rest( $request )->send_html();
-			},
+			'callback'            => [ $this, 'send_html' ],
 			'args'                => $this->get_request_arguments(),
 		] );
+	}
+
+	/**
+	 * Sends the HTML for the view.
+	 *
+	 * @since 6.11.1
+	 *
+	 * @param Request $request The request object.
+	 * 
+	 * @return Response The response object.
+	 */
+	public function send_html( Request $request ) {
+		$request = $this->unshrink_url_components( $request );
+		$html    = View::make_for_rest( $request )->get_html();
+
+		// Setup the response data.
+		$data = [
+			'html' => $html,
+		];
+
+		// Return the response, a 200 status code is set by default.
+		return new Response( $data );
+	}
+
+	/**
+	 * Register the endpoint so it will be cached.
+	 * 
+	 * @since 6.11.1
+	 * 
+	 * @param array $allowed_endpoints The allowed endpoints.
+	 * 
+	 * @return array The allowed endpoints.
+	 */
+	public function include_rest_for_caching( $allowed_endpoints ): array {
+		$namespace = static::ROOT_NAMESPACE;
+		if ( ! isset( $allowed_endpoints[ $namespace ] ) || ! in_array( 'html', $allowed_endpoints[ $namespace ] ) ) {
+			$allowed_endpoints[ $namespace ][] = 'html';
+		}
+
+		return $allowed_endpoints;
+	}
+
+	/**
+	 * Unshrink the URL components.
+	 *
+	 * @since 6.11.1
+	 *
+	 * @param Request $request The request object.
+	 *
+	 * @return Request The request object.
+	 */
+	public function unshrink_url_components( Request $request ) {
+		$request->set_param( 'url', $request->get_param( 'u' ) );
+		$request->set_param( 'prev_url', $request->get_param( 'pu' ) );
+		$request->set_param( 'should_manage_url', $request->get_param( 'smu' ) );
+
+		$request->set_param( 'u', null );
+		$request->set_param( 'pu', null );
+		$request->set_param( 'smu', null );
+
+		return $request;
 	}
 
 	/**
@@ -550,11 +617,12 @@ class Rest_Endpoint {
 		 * Filters the HTTP method Views should use to fetch their contents calling the back-end endpoint.
 		 *
 		 * @since 5.2.1
+		 * @since 6.11.1 Changed default to `GET`, for performance reasons.
 		 *
 		 * @param string $method The HTTP method Views will use to fetch their content. Either `POST` (default) or
 		 *                       `GET`. Invalid values will be set to the default `POST`.
 		 */
-		$method = strtoupper( (string) apply_filters( 'tribe_events_views_v2_endpoint_method', 'POST' ) );
+		$method = strtoupper( (string) apply_filters( 'tribe_events_views_v2_endpoint_method', 'GET' ) );
 
 		$method = in_array( $method, [ 'POST', 'GET' ], true ) ? $method : 'POST';
 

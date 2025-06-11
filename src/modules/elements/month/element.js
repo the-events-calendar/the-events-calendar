@@ -65,7 +65,7 @@ export default class Month extends Component {
 		super( ...arguments );
 
 		this.state = {
-			toMonth: toMonth,
+			toMonth,
 			from: null,
 			to: null,
 		};
@@ -112,7 +112,7 @@ export default class Month extends Component {
 	getSelectedDays = () => {
 		const { withRange, from, to } = this.props;
 		if ( withRange ) {
-			return { from: from, to: to };
+			return { from, to };
 		}
 		return from;
 	};

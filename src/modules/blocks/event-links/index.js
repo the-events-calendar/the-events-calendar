@@ -22,7 +22,7 @@ export default {
 	title: __( 'Event Sharing', 'the-events-calendar' ),
 	description: __(
 		'Encourage visitors to add your event to their calendars with handy sharing buttons.',
-		'the-events-calendar',
+		'the-events-calendar'
 	),
 	icon: <Sharing />,
 	category: 'tribe-events',

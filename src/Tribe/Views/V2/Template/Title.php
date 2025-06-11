@@ -371,7 +371,7 @@ class Title {
 				$posts = $repo->all();
 
 				$is_paginated    = isset( $repo->query_args['posts_per_page'] ) && - 1 !== $repo->query_args['posts_per_page'];
-				$has_next_events = count( $posts ) > $view->get_context()->get( 'events_per_page', 12 );
+				$has_next_events = count( $posts ) > (int) $view->get_context()->get( 'events_per_page', 12 );
 				if ( $is_paginated && $has_next_events ) {
 					array_pop( $posts );
 				}

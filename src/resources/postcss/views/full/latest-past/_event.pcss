@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 * Event
 	 * ----------------------------------------------------------------------------- */
@@ -7,9 +8,9 @@
 
 		.tribe-events-calendar-latest-past__event-date-tag-datetime {
 
-			&:after {
+			&::after {
 				background-color: var(--tec-color-accent-primary);
-				content: '';
+				content: "";
 				height: 100%;
 				position: absolute;
 				right: calc(100% - 3px);
@@ -29,6 +30,7 @@
 
 	.tribe-events-calendar-latest-past__event-date-tag-month,
 	.tribe-events-calendar-latest-past__event-date-tag-year {
+
 		@mixin mobile-body-3;
 	}
 
@@ -67,6 +69,7 @@
 	}
 
 	.tribe-events-calendar-latest-past__event-title-link {
+
 		@mixin event-title-link-color;
 	}
 }

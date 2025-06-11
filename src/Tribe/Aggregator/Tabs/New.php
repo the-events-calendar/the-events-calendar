@@ -1,11 +1,15 @@
 <?php
 // Don't load directly
 
+use TEC\Events\Traits\Can_Edit_Events;
 use Tribe\Events\Admin\Settings;
 
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Tabs__Abstract {
+
+	use Can_Edit_Events;
+
 	/**
 	 * Static Singleton Holder
 	 *
@@ -84,14 +88,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
+		// Set up the basic error object.
+		$base_error = new WP_Error( 'error:create-import-failed' );
+
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
-			return;
+			return $base_error;
 		}
 
 		$submission = parent::handle_submit();
 
 		if ( empty( $submission['record'] ) || empty( $submission['post_data'] ) || empty( $submission['meta'] ) ) {
-			return;
+			return $base_error;
 		}
 
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
@@ -104,7 +111,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
-			return;
+			return true;
 		}
 
 		// Prevents Accidents
@@ -401,12 +408,24 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function ajax_save_credentials() {
-		if ( empty( $_POST['tribe_credentials_which'] ) ) {
-			$data = array(
-				'message' => __( 'Invalid credential save request', 'the-events-calendar' ),
-			);
+		$this->validate_nonce( 'tribe-aggregator-ajax-nonce' );
 
-			wp_send_json_error( $data );
+		if ( ! $this->current_user_can_edit_events() ) {
+			wp_send_json_error(
+				[
+					'message_code' => 'error:save-credentials-failed',
+					'message'      => __( 'You do not have permission to save credentials.', 'the-events-calendar' ),
+				],
+				403
+			);
+		}
+
+		if ( empty( $_POST['tribe_credentials_which'] ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'Invalid credential save request', 'the-events-calendar' ),
+				]
+			);
 		}
 
 		$which = $_POST['tribe_credentials_which'];
@@ -445,6 +464,18 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function ajax_create_import() {
+		$this->validate_nonce( 'tribe-aggregator-save-import' );
+
+		if ( ! $this->current_user_can_edit_events() ) {
+			wp_send_json_error(
+				[
+					'message_code' => 'error:create-import-failed',
+					'message'      => __( 'You do not have permission to create an import.', 'the-events-calendar' ),
+				],
+				403
+			);
+		}
+
 		$result = $this->handle_submit();
 
 		if ( is_wp_error( $result ) ) {
@@ -452,7 +483,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			$service      = tribe( 'events-aggregator.service' );
 			$result       = (object) array(
 				'message_code' => $result->get_error_code(),
-				'message'      => $service->get_service_message( $result->get_error_code(), $result->get_error_data() ),
+				'message'      => $service->get_service_message( $result->get_error_code(), $result->get_error_data() ?? [] ),
 			);
 			wp_send_json_error( $result );
 		}
@@ -461,7 +492,19 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function ajax_fetch_import() {
-		$import_id = $_GET['import_id'];
+		$this->validate_nonce( 'tribe-aggregator-ajax-nonce' );
+
+		if ( ! $this->current_user_can_edit_events() ) {
+			wp_send_json_error(
+				[
+					'message_code' => 'error:fetch-import-failed',
+					'message'      => __( 'You do not have permission to fetch an import.', 'the-events-calendar' ),
+				],
+				403
+			);
+		}
+
+		$import_id = tec_get_request_var( 'import_id', 0 );
 
 		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $import_id );
 

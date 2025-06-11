@@ -79,6 +79,14 @@ class iCalendar_Export extends Link_Abstract {
 			return '';
 		}
 
-		return $ical->link->url;
+		/**
+		 * Filters the iCalendar export URL.
+		 *
+		 * @since 6.11.0
+		 *
+		 * @param string $feed_url The iCalendar export URL.
+		 * @param View   $view The view.
+		 */
+		return (string) apply_filters( 'tec_views_v2_subscribe_links_ics_feed_url', $ical->link->url, $view );
 	}
 }

@@ -7,13 +7,16 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
- * @version 5.16.0
+ * @since 5.16.0
+ * @since 6.12.0 Added aria attributes to add to calendar button.
+ *
+ * @version 6.12.0
  *
  * @var array<Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract> $items Array containing subscribe/export objects.
- *
  */
+
 if ( empty( $items ) ) {
 	return;
 }
@@ -35,7 +38,7 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 							class="tribe-events-c-subscribe-dropdown__button-text"
 							aria-expanded="false"
 							aria-controls="tribe-events-subscribe-dropdown-content"
-							aria-label="<?php esc_attr__( 'View links to add events to your calendar', 'the-events-calendar' ); ?>"
+							aria-label="<?php echo esc_attr__( 'View links to add events to your calendar', 'the-events-calendar' ); ?>"
 						>
 							<?php echo esc_html__( 'Add to calendar', 'the-events-calendar' ); ?>
 						</button>
@@ -62,4 +65,5 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 		</div>
 	</div>
 
-<?php add_filter( 'the_content', 'do_blocks', 9 );
+<?php
+add_filter( 'the_content', 'do_blocks', 9 );

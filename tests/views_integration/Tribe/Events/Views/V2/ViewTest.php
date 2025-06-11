@@ -263,7 +263,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			'2019-10-11' => [ '2019-10-11', '2019-10-11' ],
 			'false'      => [ false, false ],
 			'now'        => [ 'now', false ],
-			'today'      => [ 'today', date( Dates::DBDATEFORMAT ) ],
+			'today'      => [ 'today', gmdate( Dates::DBDATEFORMAT ) ],
 		];
 	}
 

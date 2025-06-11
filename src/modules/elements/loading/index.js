@@ -16,9 +16,9 @@ import './style.pcss';
 /**
  * The loading element.
  *
- * @param {Object} props The component props.
+ * @param {Object} props           The component props.
  * @param {string} props.className The class name to add to the container.
- * @returns {JSX.Element} The spinner component.
+ * @return {JSX.Element} The spinner component.
  */
 const Loading = ( { className } ) => {
 	return (

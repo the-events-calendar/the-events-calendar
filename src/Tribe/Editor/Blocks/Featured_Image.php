@@ -1,6 +1,7 @@
 <?php
 class Tribe__Events__Editor__Blocks__Featured_Image
 extends Tribe__Editor__Blocks__Abstract {
+	use TEC\Events\Traits\Block_Trait;
 
 	/**
 	 * Which is the name/slug of this block
@@ -11,6 +12,17 @@ extends Tribe__Editor__Blocks__Abstract {
 	 */
 	public function slug() {
 		return 'featured-image';
+	}
+
+	/**
+	 * Whether the block should register assets
+	 *
+	 * @since 6.13.0
+	 *
+	 * @return bool
+	 */
+	public function should_register_assets(): bool {
+		return false;
 	}
 
 	/**
@@ -29,25 +41,5 @@ extends Tribe__Editor__Blocks__Abstract {
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
 		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
-	}
-
-	/**
-	 * Register the Assets for when this block is active
-	 *
-	 * @since 4.7
-	 *
-	 * @return void
-	 */
-	public function assets() {
-		tribe_asset(
-			tribe( 'tec.main' ),
-			'tribe-events-block-' . $this->slug(),
-			'app/' . $this->slug() . '/frontend.css',
-			[],
-			'wp_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'has_block' ],
-			]
-		);
 	}
 }

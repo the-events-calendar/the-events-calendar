@@ -22,14 +22,14 @@ tribe.events.views.breakpoints = {};
  *
  * @since  5.0.0
  *
- * @param  {FunctionConstructor} $   jQuery
- * @param  {Object} obj tribe.events.views.breakpoints
+ * @param {FunctionConstructor} $   jQuery
+ * @param {Object}              obj tribe.events.views.breakpoints
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -58,16 +58,16 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {jQuery}  $container jQuery object of view container.
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.setContainerClasses = function( $container, data ) {
-		var breakpoints = Object.keys( data.breakpoints );
+	obj.setContainerClasses = function ( $container, data ) {
+		const breakpoints = Object.keys( data.breakpoints );
 
-		breakpoints.forEach( function( breakpoint ) {
-			var className = obj.selectors.breakpointClassPrefix + breakpoint;
+		breakpoints.forEach( function ( breakpoint ) {
+			const className = obj.selectors.breakpointClassPrefix + breakpoint;
 			obj.breakpoints[ breakpoint ] = data.breakpoints[ breakpoint ];
 
 			if ( $container.outerWidth() < data.breakpoints[ breakpoint ] ) {
@@ -83,11 +83,11 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {Event} event event object for 'resize' event
+	 * @param {Event} event event object for 'resize' event
 	 *
 	 * @return {void}
 	 */
-	obj.handleResize = function( event ) {
+	obj.handleResize = function ( event ) {
 		obj.setContainerClasses( event.data.container, event.data.data );
 	};
 
@@ -96,14 +96,12 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( $container ) {
-		$container
-			.off( 'resize.tribeEvents', obj.handleResize )
-			.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
+	obj.unbindEvents = function ( $container ) {
+		$container.off( 'resize.tribeEvents', obj.handleResize ).off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
 
 	/**
@@ -111,14 +109,14 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {jQuery}  $container jQuery object of view container.
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( $container, data ) {
+	obj.bindEvents = function ( $container, data ) {
 		$container
-			.on( 'resize.tribeEvents', { container: $container, data: data }, obj.handleResize )
+			.on( 'resize.tribeEvents', { container: $container, data }, obj.handleResize )
 			.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
 	};
 
@@ -127,13 +125,14 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {Object} settings Settings that this request was made with
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {jqXHR}  jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
+	obj.deinit = function ( event, jqXHR, settings ) {
+		// eslint-disable-line no-unused-vars
 		obj.unbindEvents( event.data.container );
 	};
 
@@ -142,12 +141,12 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {jQuery}  $container jQuery object of view container.
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.initTasks = function( $container, data ) {
+	obj.initTasks = function ( $container, data ) {
 		if ( ! ( $container instanceof jQuery ) ) {
 			// eslint-disable-next-line no-param-reassign
 			$container = $( $container );
@@ -156,7 +155,7 @@ tribe.events.views.breakpoints = {};
 		obj.bindEvents( $container, data );
 		obj.setContainerClasses( $container, data );
 
-		var state = { initialized: true };
+		const state = { initialized: true };
 		$container.data( 'tribeEventsBreakpoints', state );
 	};
 
@@ -165,20 +164,20 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param  {int}     index      jQuery.each index param from 'afterSetup.tribeEvents' event.
-	 * @param  {jQuery}  $container jQuery object of view container.
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
+	 * @param {int}    index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
+	obj.init = function ( event, index, $container, data ) {
 		if ( ! ( $container instanceof jQuery ) ) {
 			// eslint-disable-next-line no-param-reassign
 			$container = $( $container );
 		}
 
-		var state = $container.data( 'tribeEventsBreakpoints' );
+		const state = $container.data( 'tribeEventsBreakpoints' );
 		if ( state && state.initialized ) {
 			return;
 		}
@@ -191,18 +190,18 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {HTMLElement} container HTML element of the script tag calling setup
+	 * @param {HTMLElement} container HTML element of the script tag calling setup
 	 *
 	 * @return {void}
 	 */
-	obj.setup = function( container ) {
-		var $container = $( container );
+	obj.setup = function ( container ) {
+		const $container = $( container );
 
 		if ( ! $container.is( obj.selectors.container ) ) {
 			return;
 		}
-		var $data = $container.find( obj.selectors.dataScript );
-		var data = {};
+		const $data = $container.find( obj.selectors.dataScript );
+		let data = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
@@ -219,7 +218,7 @@ tribe.events.views.breakpoints = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
+	obj.ready = function () {
 		$document.on( 'afterSetup.tribeEvents', obj.selectors.container, obj.init );
 	};
 

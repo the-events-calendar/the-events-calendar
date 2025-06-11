@@ -9,12 +9,12 @@
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
+
 namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe__Events__Main as Plugin;
-use \Tribe\Events\Views\V2\Assets as TEC_Assets;
+use Tribe\Events\Views\V2\Assets as TEC_Assets;
 use TEC\Common\Contracts\Service_Provider;
-
 
 /**
  * Register Assets related to Widgets.
@@ -34,7 +34,7 @@ class Assets extends Service_Provider {
 	public function register() {
 		$plugin = Plugin::instance();
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-widgets-v2-events-list-skeleton',
 			'widget-events-list-skeleton.css',
@@ -54,7 +54,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-widgets-v2-events-list-full',
 			'widget-events-list-full.css',

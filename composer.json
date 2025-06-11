@@ -56,16 +56,16 @@
     "changelogger": {
       "changelog": "changelog.md",
       "types": {
-        "version" : "Version",
-        "feat" : "Feature",
-        "tweak" : "Tweak",
-        "fix" : "Fix",
-        "performance" : "Performance",
-        "security" : "Security",
-        "accessibility" : "Accessibility",
-        "compatibility" : "Compatibility",
-        "deprecated" : "Deprecated",
-        "language" : "Language"
+        "version": "Version",
+        "feat": "Feature",
+        "fix": "Fix",
+        "tweak": "Tweak",
+        "performance": "Performance",
+        "security": "Security",
+        "accessibility": "Accessibility",
+        "compatibility": "Compatibility",
+        "deprecated": "Deprecated",
+        "language": "Language"
       },
       "versioning": {
         "filename": "bin/ModifiedSemverVersioning.php"
@@ -78,8 +78,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Tribe\\Events\\" : "src/Tribe",
-      "TEC\\Events\\" : "src/Events"
+      "Tribe\\Events\\": "src/Tribe",
+      "TEC\\Events\\": "src/Events"
     },
     "classmap": ["src/deprecated/Traits/"]
   },

@@ -41,7 +41,7 @@ const blocks = [
 	singleEvent,
 ];
 
-blocks.forEach( block => {
+blocks.forEach( ( block ) => {
 	const blockName = block.id.includes( '/' ) ? block.id : `tribe/${ block.id }`;
 	registerBlockType( blockName, block );
 } );

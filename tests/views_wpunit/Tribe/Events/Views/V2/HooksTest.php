@@ -14,7 +14,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 	public function test_filter_redirect_canonical() {
 		$this->set_fn_return( 'doing_filter', 'redirect_canonical' );
 		$mock_context = new Context();
-		$mock_context->set_locations( [
+		$mock_context->add_locations( [
 			'tec_post_type' => true,
 			'view_request'  => 'month',
 		] );

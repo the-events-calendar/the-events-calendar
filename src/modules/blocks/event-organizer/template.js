@@ -8,20 +8,14 @@ import { isEmpty } from 'lodash';
 /**
  * WordPress dependencies
  */
-import {
-	Spinner,
-	PanelBody,
-} from '@wordpress/components';
+import { Spinner, PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { wpEditor } from '@moderntribe/common/utils/globals';
-import {
-	SearchOrCreate,
-	EditLink,
-} from '@moderntribe/events/elements';
+import { SearchOrCreate, EditLink } from '@moderntribe/events/elements';
 import OrganizerDetails from './details';
 import OrganizerForm from './form';
 import { Organizer as OrganizerIcon } from '@moderntribe/events/icons';
@@ -56,12 +50,7 @@ class EventOrganizer extends PureComponent {
 	};
 
 	componentDidUpdate( prevProps ) {
-		const {
-			isSelected,
-			edit,
-			create,
-			setSubmit,
-		} = this.props;
+		const { isSelected, edit, create, setSubmit } = this.props;
 		const unSelected = prevProps.isSelected && ! isSelected;
 		if ( unSelected && ( edit || create ) ) {
 			setSubmit();
@@ -81,24 +70,11 @@ class EventOrganizer extends PureComponent {
 			return this.renderLoading();
 		}
 
-		return (
-			<OrganizerForm
-				{ ...toFields( fields ) }
-				submit={ onFormSubmit }
-			/>
-		);
-	}
+		return <OrganizerForm { ...toFields( fields ) } submit={ onFormSubmit } />;
+	};
 
 	renderSearch() {
-		const {
-			clientId,
-			isSelected,
-			organizers,
-			store,
-			postType,
-			onItemSelect,
-			onCreateNew,
-		} = this.props;
+		const { clientId, isSelected, organizers, store, postType, onItemSelect, onCreateNew } = this.props;
 
 		return (
 			<SearchOrCreate
@@ -147,11 +123,7 @@ class EventOrganizer extends PureComponent {
 	}
 
 	renderBlock() {
-		return (
-			<section key={ this.props.clientId }>
-				{ this.renderContent() }
-			</section>
-		);
+		return <section key={ this.props.clientId }>{ this.renderContent() }</section>;
 	}
 
 	renderSettings() {
@@ -164,20 +136,14 @@ class EventOrganizer extends PureComponent {
 		return (
 			<InspectorControls key="inspector">
 				<PanelBody title={ __( 'Organizer Settings', 'the-events-calendar' ) }>
-					<EditLink
-						postId={ attributes.organizer }
-						label={ __( 'Edit Organizer', 'the-events-calendar' ) }
-					/>
+					<EditLink postId={ attributes.organizer } label={ __( 'Edit Organizer', 'the-events-calendar' ) } />
 				</PanelBody>
 			</InspectorControls>
 		);
 	}
 
 	render() {
-		return [
-			this.renderBlock(),
-			this.renderSettings(),
-		];
+		return [ this.renderBlock(), this.renderSettings() ];
 	}
 }
 

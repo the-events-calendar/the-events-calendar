@@ -4,27 +4,12 @@
 import { wpData, postObjects } from '@moderntribe/common/utils/globals';
 import { editor } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
-import {
-	reducer as datetimeReducer,
-	selectors as datetimeSelectors,
-} from './datetime';
-import {
-	reducer as priceReducer,
-	selectors as priceSelectors,
-} from './price';
-import {
-	selectors as venueSelectors,
-} from './venue';
-import {
-	reducer as websiteReducer,
-	selectors as websiteSelectors,
-} from './website';
+import { reducer as datetimeReducer, selectors as datetimeSelectors } from './datetime';
+import { reducer as priceReducer, selectors as priceSelectors } from './price';
+import { selectors as venueSelectors } from './venue';
+import { reducer as websiteReducer, selectors as websiteSelectors } from './website';
 
-const {
-	select: wpSelect,
-	dispatch: wpDispatch,
-	subscribe: wpSubscribe,
-} = wpData;
+const { select: wpSelect, dispatch: wpDispatch, subscribe: wpSubscribe } = wpData;
 
 /**
  * Set meta for given key.
@@ -33,7 +18,7 @@ const {
  * @param {Object}   map      Map of state key to meta key.
  * @param {string}   mapKey   State key for map.
  * @param {Function} selector Selector to get block state.
- * @returns {Object} Object of post meta to be saved.
+ * @return {Object} Object of post meta to be saved.
  */
 export const setMeta = ( map, mapKey, selector ) => {
 	const metaKey = map[ mapKey ];
@@ -46,16 +31,19 @@ export const setMeta = ( map, mapKey, selector ) => {
  *
  * @param {Object} blockToMapAndSelectorMap Map of block to state and meta map and selector.
  * @param {string} blockKey                 Block key for map.
- * @returns {Object} Object of post meta to be saved for given block.
+ * @return {Object} Object of post meta to be saved for given block.
  */
 export const setBlockMeta = ( blockToMapAndSelectorMap, blockKey ) => {
 	const [ map, selector ] = blockToMapAndSelectorMap[ blockKey ];
 	const mapKeys = Object.keys( map );
 
-	return mapKeys.reduce( ( prevValue, mapKey ) => ( {
-		...prevValue,
-		...setMeta( map, mapKey, selector ),
-	} ), {} );
+	return mapKeys.reduce(
+		( prevValue, mapKey ) => ( {
+			...prevValue,
+			...setMeta( map, mapKey, selector ),
+		} ),
+		{}
+	);
 };
 
 /**
@@ -82,10 +70,13 @@ const subscribe = () => {
 		const blockKeys = Object.keys( blockToMapAndSelectorMap );
 		const postId = wpSelect( 'core/editor' ).getCurrentPostId();
 
-		const meta = blockKeys.reduce( ( prevValue, blockKey ) => ( {
-			...prevValue,
-			...setBlockMeta( blockToMapAndSelectorMap, blockKey ),
-		} ), {} );
+		const meta = blockKeys.reduce(
+			( prevValue, blockKey ) => ( {
+				...prevValue,
+				...setBlockMeta( blockToMapAndSelectorMap, blockKey ),
+			} ),
+			{}
+		);
 
 		wpDispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, { meta } );
 	} );

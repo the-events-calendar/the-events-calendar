@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__REST__V1__Endpoints__Single_Organizer
  *
- * @since bucket/full-rest-api
+ * @since 4.9.4
  */
 class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
@@ -17,7 +17,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function get( WP_REST_Request $request ) {
 		$organizer = get_post( $request['id'] );
@@ -42,7 +42,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function create( WP_REST_Request $request, $return_id = false ) {
 		$postarr = $this->prepare_postarr( $request );
@@ -85,7 +85,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
 	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function insert( $data ) {
 		$data = (array) $data;
@@ -116,7 +116,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function get_documentation() {
 		$get_defaults  = $delete_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
@@ -205,7 +205,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return array
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function READ_args() {
 		return [
@@ -225,7 +225,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return array
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function CREATE_args() {
 		return [
@@ -365,7 +365,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return string
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	protected function get_post_type() {
 		return Tribe__Events__Main::ORGANIZER_POST_TYPE;
@@ -378,7 +378,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 *
 	 * @return bool
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	protected function is_post_type( $data ) {
 		return tribe_is_organizer( $data );

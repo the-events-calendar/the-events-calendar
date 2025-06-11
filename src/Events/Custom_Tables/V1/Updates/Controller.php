@@ -305,6 +305,7 @@ class Controller {
 	 * Deletes an Event custom tables information.
 	 *
 	 * @since 6.0.0
+	 * @since 6.11.1 - Ensures this is only called for Events.
 	 *
 	 * @param int                  $post_id The deleted Event post ID.
 	 * @param WP_REST_Request|null $request A reference to the request object triggering the deletion, if any.
@@ -312,6 +313,10 @@ class Controller {
 	 * @return int|false Either the number of affected rows, or `false` on failure.
 	 */
 	public function delete_custom_tables_data( int $post_id, WP_REST_Request $request = null ) {
+		if ( ! tribe_is_event( $post_id ) ) {
+			return false;
+		}
+
 		if ( null === $request ) {
 			$request = $this->requests->from_http_request();
 		}

@@ -1,0 +1,193 @@
+name: "Release: Replace TBD Entries"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  replace-tbd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print current ref to summary
+        run: |
+          echo "### Debugging Information" >> $GITHUB_STEP_SUMMARY
+          echo "- Current ref: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set Variables
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+          echo "current_branch=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+
+      - name: Set up Git configuration
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+
+      - name: Check for version files
+        id: check-version
+        run: |
+          # Set default version in case we can't find one
+          CURRENT_VERSION="0.0.0"
+          
+          # Look for package.json
+          if [ -f "package.json" ]; then
+            PACKAGE_VERSION=$(grep -Po '"version":\s*"\K[^"]+' package.json)
+            if [ ! -z "$PACKAGE_VERSION" ]; then
+              CURRENT_VERSION="$PACKAGE_VERSION"
+              echo "Found version in package.json: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+          
+          # Look for plugin.php or main PHP file
+          for file in $(find . -name "*.php" -type f -not -path "*/vendor/*" -not -path "*/node_modules/*"); do
+            if grep -q "Version:" "$file"; then
+              PHP_VERSION=$(grep -Po 'Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?' "$file")
+              if [ ! -z "$PHP_VERSION" ]; then
+                CURRENT_VERSION="$PHP_VERSION"
+                echo "Found version in $file: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
+                break
+              fi
+            fi
+          done
+          
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "## Current Version" >> $GITHUB_STEP_SUMMARY
+          echo "* Version: \`$CURRENT_VERSION\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Create branch for changes
+        id: create-branch
+        run: |
+          BRANCH_NAME="task/replace-tbd-${{ steps.vars.outputs.timestamp }}-${{ steps.vars.outputs.sha_short }}"
+          git checkout -b "$BRANCH_NAME"
+          # Push the branch immediately to establish it on remote
+          git push --set-upstream origin "$BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Find and replace TBD entries
+        id: replace-tbd
+        run: |
+          CURRENT_VERSION="${{ steps.check-version.outputs.current_version }}"
+          FOUND_TBD=false
+          CHANGES_MADE=false
+          
+          echo "## Files Changed" >> $GITHUB_STEP_SUMMARY
+          
+          # Define file extensions to search
+          FILE_EXTENSIONS=(
+            "*.php"
+            "*.js"
+            "*.jsx"
+            "*.ts"
+            "*.tsx"
+            "*.css"
+            "*.scss"
+            "*.md"
+            "*.txt"
+          )
+          
+          # Define directories to exclude
+          EXCLUDE_DIRS=(
+            "*/vendor/*"
+            "*/node_modules/*"
+            "*/.git/*"
+            "*/tests/*"
+          )
+          
+          # Build the find command
+          FIND_CMD="find . -type f \("
+          
+          # Add file extensions with proper separator
+          for i in "${!FILE_EXTENSIONS[@]}"; do
+            if [ "$i" -gt 0 ]; then
+              FIND_CMD+=" -o"
+            fi
+            FIND_CMD+=" -name \"${FILE_EXTENSIONS[$i]}\""
+          done
+          
+          FIND_CMD+=" \)"
+          
+          # Add excluded directories
+          for dir in "${EXCLUDE_DIRS[@]}"; do
+            FIND_CMD+=" -not -path \"$dir\""
+          done
+          
+          # Search in files based on the constructed command
+          for file in $(eval "$FIND_CMD"); do
+            if grep -q "TBD" "$file"; then
+              FOUND_TBD=true
+              
+              # Find and display all line numbers where TBD appears
+              grep -n "TBD" "$file" | while IFS=: read -r line_num content; do
+                # Create a GitHub-compatible file path (remove leading ./ if present)
+                github_file_path="$file"
+                if [[ "$github_file_path" == "./"* ]]; then
+                  github_file_path="${github_file_path:2}"
+                fi
+                
+                # Create a markdown link to the file at specific line in the branch
+                echo "- [\`$file@L$line_num\`](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/$github_file_path#L$line_num)" >> $GITHUB_STEP_SUMMARY
+              done
+              
+              # Replace TBD with version
+              sed -i "s/TBD/$CURRENT_VERSION/g" "$file"
+              CHANGES_MADE=true
+            fi
+          done
+          
+          if [ "$FOUND_TBD" = false ]; then
+            echo "No TBD entries found in the repository." >> $GITHUB_STEP_SUMMARY
+            echo "found_tbd=false" >> $GITHUB_OUTPUT
+          else
+            echo "found_tbd=true" >> $GITHUB_OUTPUT
+          fi
+          
+          if [ "$CHANGES_MADE" = true ]; then            
+            # Let PR creation handle it
+            echo "changes_made=true" >> $GITHUB_OUTPUT
+          else
+            echo "No changes made to the repository." >> $GITHUB_STEP_SUMMARY
+            echo "changes_made=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.replace-tbd.outputs.changes_made == 'true'
+        uses: peter-evans/create-pull-request@v6
+        id: cpr
+        with:
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+          base: "${{ github.ref_name }}"
+          branch: "${{ steps.create-branch.outputs.branch_name }}"
+          title: "[BOT] Replace TBD entries with version ${{ steps.check-version.outputs.current_version }}"
+          body: |
+            This is an automated PR created by ${{ github.actor }}.
+            It replaces all "TBD" entries in the codebase with the current version: ${{ steps.check-version.outputs.current_version }}
+            
+            Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          labels: "automation"
+          commit-message: |
+            Replace TBD entries with version ${{ steps.check-version.outputs.current_version }}
+            
+            This is an automated PR created by ${{ github.actor }}.
+            Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          delete-branch: false
+          push-to-fork: ''
+
+      - name: Check outputs
+        if: steps.replace-tbd.outputs.changes_made == 'true' && steps.cpr.outputs.pull-request-number
+        run: |
+          echo "## Pull Request" >> $GITHUB_STEP_SUMMARY
+          echo "* Number - ${{ steps.cpr.outputs.pull-request-number }}" >> $GITHUB_STEP_SUMMARY
+          echo "* URL - [${{ steps.cpr.outputs.pull-request-url }}](${{ steps.cpr.outputs.pull-request-url }})" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes
+        if: steps.replace-tbd.outputs.changes_made == 'false'
+        run: |
+          echo "## No Pull Request Created" >> $GITHUB_STEP_SUMMARY
+          echo "No TBD entries were found or changed in the repository." >> $GITHUB_STEP_SUMMARY 

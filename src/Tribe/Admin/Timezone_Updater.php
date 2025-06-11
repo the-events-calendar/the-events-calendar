@@ -96,7 +96,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 */
 	public function notice_assets() {
 		$plugin = Tribe__Events__Main::instance();
-		$script = trailingslashit( $plugin->plugin_url ) . 'src/resources/js/events-admin-timezone-updater.js';
+		$script = trailingslashit( $plugin->plugin_url ) . 'build/js/events-admin-timezone-updater.js';
 		$handle = 'tribe-events-ajax-timezone-update';
 
 		wp_enqueue_script( $handle, $script, [ 'jquery' ], false, true );

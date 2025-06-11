@@ -27,7 +27,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	/**
 	 * Gets the Colors for the Button background
 	 *
-	 * @since  F17.5
+	 * @since 4.5.6
 	 *
 	 * @param  array  $settings Section array of settings
 	 * @return string
@@ -54,7 +54,7 @@ final class Tribe__Events__Customizer__General_Theme extends Tribe__Customizer__
 	/**
 	 * Creates the Section ghost settings for Customizer
 	 *
-	 * @since  F17.5
+	 * @since 4.5.6
 	 *
 	 * @param  array  $settings Section array of settings
 	 * @return array

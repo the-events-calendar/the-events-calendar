@@ -102,14 +102,13 @@ class Asset_Loader {
 		}
 
 		// @todo use asset facility here
-		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_style(
 			'tec-ct1-upgrade-admin-css',
-			TEC::instance()->plugin_url . "src/resources/css/custom-tables-v1/ct1-upgrade{$min}.css"
+			TEC::instance()->plugin_url . 'build/css/custom-tables-v1/ct1-upgrade.css'
 		);
 		wp_register_script(
 			'tec-ct1-upgrade-admin-js',
-			TEC::instance()->plugin_url . "src/resources/js/custom-tables-v1/ct1-upgrade{$min}.js"
+			TEC::instance()->plugin_url . 'build/js/custom-tables-v1/ct1-upgrade.js'
 		);
 
 		// We want to make sure the main JS file will be loaded as an ES6 module.
@@ -140,6 +139,6 @@ class Asset_Loader {
 		remove_filter( 'script_loader_tag', [ $this, 'register_module_scripts' ] );
 
 		// Add our type flag so we can use ES6 module syntax
-		return str_replace( "<script ", "<script type='module' ", $tag );
+		return str_replace( '<script ', "<script type='module' ", $tag );
 	}
 }

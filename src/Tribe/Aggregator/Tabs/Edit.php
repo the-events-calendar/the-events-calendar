@@ -1,6 +1,11 @@
 <?php
 
+use TEC\Events\Traits\Can_Edit_Events;
+
 class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__Tabs__Abstract {
+
+	use Can_Edit_Events;
+
 	/**
 	 * Static Singleton Holder
 	 *
@@ -151,6 +156,18 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 	 * Handles the previewing of a scheduled import edit
 	 */
 	public function ajax_preview_import() {
+		$this->validate_nonce( 'tribe-aggregator-save-import' );
+
+		if ( ! $this->current_user_can_edit_events() ) {
+			wp_send_json_error(
+				[
+					'message_code' => 'error:create-import-failed',
+					'message'      => __( 'You do not have permission to create an import.', 'the-events-calendar' ),
+				],
+				403
+			);
+		}
+
 		$result = $this->handle_submit();
 
 		if ( is_wp_error( $result ) ) {
