@@ -9,18 +9,22 @@ import {
 	METADATA_EVENT_CURRENCY,
 	METADATA_EVENT_CURRENCY_POSITION,
 	METADATA_EVENT_CURRENCY_SYMBOL,
-	METADATA_EVENT_IS_FREE
+	METADATA_EVENT_IS_FREE,
 } from '../../constants';
 import { Currency } from '@tec/common/classy/types/Currency';
 import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
 
 export default function EventCost(): JSX.Element {
 	const { meta, defaultCurrency } = useSelect( ( select ) => {
-		const { getEditedPostAttribute }: {
-			getEditedPostAttribute: ( attribute: string ) => any
+		const {
+			getEditedPostAttribute,
+		}: {
+			getEditedPostAttribute: ( attribute: string ) => any;
 		} = select( 'core/editor' );
-		const { getDefaultCurrency }: {
-			getDefaultCurrency: () => Currency
+		const {
+			getDefaultCurrency,
+		}: {
+			getDefaultCurrency: () => Currency;
 		} = select( 'tec/classy' );
 		return {
 			meta: getEditedPostAttribute( 'meta' ) || {},
@@ -42,8 +46,7 @@ export default function EventCost(): JSX.Element {
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
 	const eventCurrencyPosition: CurrencyPosition =
-		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
-		defaultCurrency.position;
+		meta[ METADATA_EVENT_CURRENCY_POSITION ] || defaultCurrency.position;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	const [ costHasFocus, setCostHasFocus ] = useState< boolean >( false );
@@ -91,10 +94,8 @@ export default function EventCost(): JSX.Element {
 	 * @return {string} The formatted currency value.
 	 */
 	const formatCurrencyValue = ( value: string ): string => {
-		return currencyPosition === 'prefix'
-			? `${ currencySymbol }${ value }`
-			: `${ value }${ currencySymbol }`;
-	}
+		return currencyPosition === 'prefix' ? `${ currencySymbol }${ value }` : `${ value }${ currencySymbol }`;
+	};
 
 	/**
 	 * Formats the event cost value for display.
@@ -123,7 +124,7 @@ export default function EventCost(): JSX.Element {
 		}
 
 		// Convert pieces to numbers and find min/max
-		const numbers = pieces.map( piece => {
+		const numbers = pieces.map( ( piece ) => {
 			const num = parseFloat( piece );
 			return isNaN( num ) ? 0 : Number( num.toFixed( 2 ) );
 		} );

@@ -24,9 +24,7 @@ module.exports = {
 		],
 		'^.+\\.js$': 'babel-jest',
 	},
-	transformIgnorePatterns: [
-		'/node_modules/(?!client-zip|@wordpress/.*)',
-	],
+	transformIgnorePatterns: [ '/node_modules/(?!client-zip|@wordpress/.*)' ],
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],

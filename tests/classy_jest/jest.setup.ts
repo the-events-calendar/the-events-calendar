@@ -18,17 +18,17 @@ global.TextEncoder = NodeTextEncoder as unknown as typeof TextEncoder;
  */
 
 // Mock client-zip package
-jest.mock('client-zip', () => ({
+jest.mock( 'client-zip', () => ( {
 	downloadZip: jest.fn(),
 	makeZip: jest.fn(),
 	predictLength: jest.fn(),
-}));
+} ) );
 
 /**
  * @see: https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
  * @see: https://github.com/WordPress/gutenberg/blob/trunk/packages/jest-preset-default/scripts/setup-globals.js
  */
-global.window.matchMedia = () => ({
+global.window.matchMedia = () => ( {
 	matches: false,
 	addListener: () => {},
 	addEventListener: () => {},
@@ -37,7 +37,7 @@ global.window.matchMedia = () => ({
 	media: '',
 	onchange: null,
 	dispatchEvent: () => true,
-});
+} );
 
 // Mocking the `scrollIntoView` function; it's not implemented in JSDOM.
 // @see: https://github.com/jsdom/jsdom/issues/1695
@@ -50,19 +50,19 @@ window.Element.prototype.scrollIntoView = function () {};
  */
 const originalWarn = console.warn;
 
-console.warn = (msg: string | Error) => {
+console.warn = ( msg: string | Error ) => {
 	// From the `PostFeaturedImage` component of the `@wordpress/editor` package.
-	if (msg.toString().includes('motion() is deprecated. Use motion.create() instead')) {
+	if ( msg.toString().includes( 'motion() is deprecated. Use motion.create() instead' ) ) {
 		return;
 	}
-	originalWarn(msg);
+	originalWarn( msg );
 };
 
 /**
  * Mocks for the global TinyMCE instance loaded on the `window` object by the `wp-tinymce` dependency.
  */
 interface TinyMCEMock {
-	get: (id: string) => {
+	get: ( id: string ) => {
 		initialized: boolean;
 		on: jest.Mock;
 		off: jest.Mock;
@@ -75,26 +75,26 @@ interface TinyMCEMock {
 }
 
 global.window.tinymce = {
-	get: () => ({
+	get: () => ( {
 		initialized: true,
 		on: jest.fn(),
 		off: jest.fn(),
 		initialization: false,
-		init: jest.fn((config: any, callback: () => void) => {
+		init: jest.fn( ( config: any, callback: () => void ) => {
 			callback();
-		}),
-	}),
+		} ),
+	} ),
 	EditorManager: {
 		editors: [],
 	},
 } as TinyMCEMock;
 
 global.window.wp = {
-	...(global.window.wp || {}),
+	...( global.window.wp || {} ),
 	oldEditor: {
 		remove: jest.fn(),
 		initialize: jest.fn(),
-		getContent: jest.fn().mockReturnValue('<p>Initial content</p>'),
+		getContent: jest.fn().mockReturnValue( '<p>Initial content</p>' ),
 	},
 };
 
@@ -145,7 +145,7 @@ const defaultSettings = {
 	defaultCurrency,
 };
 
-((global.window as unknown) as TECWindow).tec = {
+( global.window as unknown as TECWindow ).tec = {
 	common: {
 		classy: {
 			data: {
