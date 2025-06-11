@@ -14,7 +14,7 @@ class Tribe__Events__Plugin_Register extends Tribe__Abstract_Plugin_Register {
 			'Tribe__Events__Pro__Main'                 => '7.6.0-dev',
 			'Tribe__Events__Filterbar__View'           => '5.5.7-dev',
 			'Tribe__Events__Community__Main'           => '5.0.7-dev',
-			'Tribe__Tickets__Main'                     => '5.23.0-dev',
+			'Tribe__Tickets__Main'                     => '5.24.0-dev',
 			'Tribe__Tickets_Plus__Main'                => '6.5.0-dev',
 			'Tribe__Events__Tickets__Eventbrite__Main' => '4.6.14-dev',
 			'Tribe__Events__Community__Tickets__Main'  => '4.9.3-dev',

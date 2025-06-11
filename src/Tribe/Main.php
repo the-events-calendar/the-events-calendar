@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.21.1.1-dev';
+		protected $min_et_version = '5.24.0-dev';
 
 		/**
 		 * Maybe display data wrapper

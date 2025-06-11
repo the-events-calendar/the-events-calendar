@@ -8,6 +8,7 @@
  * Author: The Events Calendar
  * Author URI: https://evnt.is/1x
  * Text Domain: the-events-calendar
+ * Domain Path: /lang
  * License: GPLv2 or later
  * Elementor tested up to: 3.23.1
  * Elementor Pro tested up to: 3.23.0
