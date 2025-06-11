@@ -44,7 +44,12 @@ const customEntryPoints = compileCustomEntryPoints({
    * Handling this correctly requires adding a PostCSS processor specific to the PostCSS files that
    * will handle the nesting correctly.
    */
-  '/src/resources/postcss': createTECPostCss('tec.events'),
+  '/src/resources/postcss': createTECPostCss(
+    'tec.events',
+    [
+      'postcss-inline-svg',
+    ],
+  ),
 
   /**
    * This deals with existing Blocks frontend styles being compiled separately.

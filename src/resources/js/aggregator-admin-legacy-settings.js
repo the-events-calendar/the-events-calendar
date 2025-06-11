@@ -1,6 +1,4 @@
-var tribe_aggregator = tribe_aggregator || {};
-
-( function ( $, data ) {
+( function ( $ ) {
 	// eslint-disable-line no-unused-vars
 	'use strict';
 
@@ -44,4 +42,4 @@ var tribe_aggregator = tribe_aggregator || {};
 			} );
 		} );
 	} );
-} )( jQuery, tribe_aggregator );
+} )( jQuery );
