@@ -75,6 +75,7 @@ export default function EventLocation( props: FieldProps ) {
 				address: venue.address,
 				city: venue.city,
 				country: venue.country,
+				countryCode: '',
 				province: venue.province,
 				stateprovince: venue.state,
 				zip: venue.zip,
@@ -90,6 +91,7 @@ export default function EventLocation( props: FieldProps ) {
 			address: '',
 			city: '',
 			country: '',
+			countryCode: '',
 			province: '',
 			stateprovince: '',
 			zip: '',
@@ -143,7 +145,7 @@ export default function EventLocation( props: FieldProps ) {
 
 				// Update the fetched set of venues by making sure a new version of venues will override the already
 				// fetched version.
-				const safeResultIds = new Set( safeResults.venues.map( ( venue ) => venue.id ) );
+				const safeResultIds = new Set( safeResults.venues.map( ( venue: FetchedVenue ): number => venue.id ) );
 				fetched.current = [
 					...fetched.current.filter( ( venue ) => ! safeResultIds.has( venue.id ) ),
 					...safeResults.venues,
@@ -215,7 +217,7 @@ export default function EventLocation( props: FieldProps ) {
 		if ( venueData.id ) {
 			// Updating an existing venue.
 			fetchPromise = apiFetch( {
-				path: `/tribe/events/v1/venue/${ venueData.id }`,
+				path: `/tribe/events/v1/venues/${ venueData.id }`,
 				method: 'PUT',
 				data: {
 					venue: venueData.name,
@@ -224,7 +226,6 @@ export default function EventLocation( props: FieldProps ) {
 					country: venueData.country,
 					province: isCountryUs ? '' : venueData.stateprovince,
 					state: isCountryUs ? venueData.stateprovince : '',
-					// stateprovince: venueData.stateprovince, -- required?
 					zip: venueData.zip,
 					phone: venueData.phone,
 					website: venueData.website,
@@ -243,7 +244,6 @@ export default function EventLocation( props: FieldProps ) {
 					country: venueData.country,
 					province: isCountryUs ? '' : venueData.stateprovince,
 					state: isCountryUs ? venueData.stateprovince : '',
-					// stateprovince: venueData.stateprovince, -- required?
 					zip: venueData.zip,
 					phone: venueData.phone,
 					website: venueData.website,

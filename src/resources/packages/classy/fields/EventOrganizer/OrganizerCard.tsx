@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IconEdit, IconTrash } from '@tec/common/classy/components';
 import { Button } from '@wordpress/components';
 import { FetchedOrganizer } from '../../types/FetchedOrganizer';
+import { decodeEntities } from '@wordpress/html-entities';
 
 export default function OrganizerCard(
 	props: FetchedOrganizer & {
@@ -17,11 +18,11 @@ export default function OrganizerCard(
 			key={ objectId }
 			data-object-id={ objectId }
 		>
-			<h4 className="classy-linked-post-card__title">{ name }</h4>
-			<span className="classy-linked-post-card__detail">{ phone }</span>
-			<span className="classy-linked-post-card__detail">{ email }</span>
+			<h4 className="classy-linked-post-card__title">{ decodeEntities( name ) }</h4>
+			<span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span>
+			<span className="classy-linked-post-card__detail">{ decodeEntities( email ) }</span>
 			<Button variant="link" className="classy-linked-post-card__detail" target="_blank">
-				{ website }
+				{ decodeEntities( website ) }
 			</Button>
 
 			<div className="classy-linked-post-card__actions">

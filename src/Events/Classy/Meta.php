@@ -361,7 +361,7 @@ class Meta extends Controller_Contract {
 				'Failed to save UTC dates for event.',
 				[
 					'post_id' => $post_id,
-					'error' => $e->getMessage(),
+					'error'   => $e->getMessage(),
 				]
 			);
 

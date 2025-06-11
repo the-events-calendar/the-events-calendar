@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { IconEdit, IconTrash } from '@tec/common/classy/components';
 import { Button } from '@wordpress/components';
 import { FetchedVenue } from '../../types/FetchedVenue';
+import { decodeEntities } from '@wordpress/html-entities';
 
 function buildFullAddress( fetchedVenue: FetchedVenue, addressSeparator = ', ' ): string[] {
 	const { address, city, state, province, zip, country } = fetchedVenue;
@@ -54,19 +55,25 @@ export default function VenueCard(
 	const [ addressLine1, addressLine2, addressLine3 ] = buildFullAddress( props, addressSeparator );
 	const fullAddress = (
 		<Fragment>
-			{ addressLine1 && <div className="classy-linked-post-card__detail-line">{ addressLine1 }</div> }
-			{ addressLine2 && <div className="classy-linked-post-card__detail-line">{ addressLine2 }</div> }
-			{ addressLine3 && <div className="classy-linked-post-card__detail-line">{ addressLine3 }</div> }
+			{ addressLine1 && (
+				<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine1 ) }</div>
+			) }
+			{ addressLine2 && (
+				<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine2 ) }</div>
+			) }
+			{ addressLine3 && (
+				<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine3 ) }</div>
+			) }
 		</Fragment>
 	);
 
 	return (
 		<div className="classy__linked-post-card classy__linked-post-card--venue" data-object-id={ venueId }>
-			<h4 className="classy-linked-post-card__title">{ name }</h4>
+			<h4 className="classy-linked-post-card__title">{ decodeEntities( name ) }</h4>
 			<span className="classy-linked-post-card__detail">{ fullAddress }</span>
-			<span className="classy-linked-post-card__detail">{ phone }</span>
+			<span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span>
 			<Button variant="link" className="classy-linked-post-card__detail" href={ website } target="_blank">
-				{ website }
+				{ decodeEntities( website ) }
 			</Button>
 
 			<div className="classy-linked-post-card__actions">
