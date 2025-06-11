@@ -2,8 +2,9 @@ import * as React from 'react';
 import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
-import { IconNew, InputLabel } from '@tec/common/classy/components';
+import { IconNew, LabeledInput } from '@tec/common/classy/components';
 import { OrganizerData } from '../../types/OrganizerData';
+import { decodeEntities } from '@wordpress/html-entities';
 
 const defaultValues = {
 	name: '',
@@ -59,48 +60,60 @@ export default function OrganizerUpsert( props: {
 			<span className="classy-section-separator"></span>
 
 			<section className="classy-modal__content classy-modal__content--organizer classy-field__inputs classy-field__inputs--unboxed">
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.name }
-					onChange={ ( value ) => {
-						const newValue = value || '';
-						setConfirmEnabled( newValue !== '' );
+				<LabeledInput label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ decodeEntities( currentValues.name ) }
+						onChange={ ( value ) => {
+							const newValue = value || '';
+							setConfirmEnabled( newValue !== '' );
 
-						return setValues( {
-							...currentValues,
-							name: newValue,
-						} );
-					} }
-					required
-				/>
+							return setValues( {
+								...currentValues,
+								name: newValue,
+							} );
+						} }
+						required
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.phone }
-					onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
-					type="tel"
-					placeholder=""
-				/>
+				<LabeledInput label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ decodeEntities( currentValues.phone ) }
+						onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
+						type="tel"
+						placeholder=""
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.website }
-					onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
-					type="url"
-					placeholder=""
-				/>
+				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ decodeEntities( currentValues.website ) }
+						onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
+						type="url"
+						placeholder=""
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.email }
-					onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
-					type="email"
-					placeholder=""
-				/>
+				<LabeledInput label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ decodeEntities( currentValues.email ) }
+						onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
+						type="email"
+						placeholder=""
+					/>
+				</LabeledInput>
 			</section>
 
 			<footer className="classy-modal__footer classy-modal__footer--organizer">
