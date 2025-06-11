@@ -92,7 +92,13 @@ class Controller extends Controller_Contract {
 	 *          endOfDayCutoff:{
 	 *              hours: int,
 	 *              minutes: int
-	 *          }
+	 *          },
+	 *          defaultCurrency: array{
+	 *              code: string,
+	 *              symbol: string,
+	 *              position: string
+	 *          },
+	 *          venuesLimit: int
 	 *     }
 	 * } The filtered data passed to the Classy application.
 	 */
@@ -106,6 +112,7 @@ class Controller extends Controller_Contract {
 				'position' => tribe_get_option( 'reverseCurrencyPosition', false ) ? 'postfix' : 'prefix',
 			],
 			'timeRangeSeparator' => tribe_get_option( 'timeRangeSeparator', ' - ' ),
+			'venuesLimit'        => 1,
 		];
 
 		$data['settings'] = array_merge( $data['settings'], $additional_settings );

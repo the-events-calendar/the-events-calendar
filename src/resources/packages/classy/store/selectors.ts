@@ -5,6 +5,7 @@ import { Settings } from '@tec/common/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
 import { StoreState } from '../types/StoreState';
+import { TECSettings } from '../types/Settings';
 
 /**
  * Returns the event date and time details, read from its meta. If the meta is not set,
@@ -118,4 +119,17 @@ export function isNewEvent(): boolean {
 		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 
 	return ! _EventStartDate || ! _EventEndDate;
+}
+
+/**
+ * Returns the venue limit from the settings.
+ *
+ * @since TBD
+ *
+ * @return {number} The venue limit.
+ */
+export function getVenuesLimit(): number {
+	// @ts-ignore
+	const { venuesLimit = 1 } = select( 'tec/classy' ).getSettings() as TECSettings;
+	return Math.max( 0, venuesLimit );
 }

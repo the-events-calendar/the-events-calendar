@@ -187,7 +187,7 @@ export default function VenueUpsert( props: {
 				</LabeledInput>
 
 				{ isUnitedStates ? (
-					<LabeledInput label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }>
+					<LabeledInput label={ _x( 'State', 'United Stateslic state input label', 'the-events-calendar' ) }>
 						<CustomSelectControl
 							className="classy-field__control classy-field__control--input"
 							label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }

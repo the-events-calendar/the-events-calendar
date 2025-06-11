@@ -5,7 +5,7 @@ import { Button, CustomSelectControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import { IconAdd, IconVideoCamera } from '@tec/common/classy/components';
+import { IconAdd } from '@tec/common/classy/components';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
@@ -41,14 +41,34 @@ export default function EventLocation( props: FieldProps ) {
 	// Initially set the options to an array that only contains the placeholder.
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 
-	const venueIds = useSelect( ( select ): number[] => {
-		return (
-			// @ts-ignore
-			( select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || [] )?.[ METADATA_EVENT_VENUE_ID ]?.map(
-				( id: string ): number => parseInt( id, 10 )
-			) || []
-		);
-	}, [] );
+	const { venueIds, venuesLimit } = useSelect(
+		(
+			select
+		): {
+			venueIds: number[];
+			venuesLimit: number;
+		} => {
+			const editorSelect: {
+				getEditedPostAttribute: ( attribute: string ) => any;
+			} = select( 'core/editor' );
+			const classyEventsSelector: {
+				getVenuesLimit: () => number;
+			} = select( 'tec/classy/events' );
+
+			const venueIds =
+				( editorSelect.getEditedPostAttribute( 'meta' ) || [] )?.[ METADATA_EVENT_VENUE_ID ]?.map(
+					( id: string ): number => parseInt( id, 10 )
+				) || [];
+
+			const venuesLimit = classyEventsSelector.getVenuesLimit() || 1;
+
+			return {
+				venueIds,
+				venuesLimit,
+			};
+		},
+		[]
+	);
 
 	const { editPost } = useDispatch( 'core/editor' );
 
@@ -261,7 +281,8 @@ export default function EventLocation( props: FieldProps ) {
 					// A new venue has been created: add it to the fetched set of venues.
 					fetched.current.push( data );
 
-					// Add the venue ID to the list of current venue IDs: we assume the user created the Venue to add it.
+					// Add the venue ID to the list of current venue IDs: we assume the user created the Venue to add
+					// it.
 					const newCurrentVenueIds = [ ...currentVenueIds, data.id ];
 					setCurrentVenueIds( newCurrentVenueIds );
 
@@ -352,7 +373,7 @@ export default function EventLocation( props: FieldProps ) {
 						</Fragment>
 					) }
 
-					{ ! isAdding && currentVenueIds.length > 0 && (
+					{ ! isAdding && currentVenueIds.length > 0 && currentVenueIds.length < venuesLimit && (
 						<div className="classy-field__input">
 							<Button
 								variant="link"
@@ -392,16 +413,16 @@ export default function EventLocation( props: FieldProps ) {
 					/>
 				) }
 
-				<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--footer">
-					<Button
-						variant="link"
-						className="classy-field__control classy-field__control--cta"
-						onClick={ () => console.log( 'Virtual event details not implemented yet' ) }
-					>
-						<IconVideoCamera />
-						{ _x( 'Add virtual event details', 'Cancel the venue selection', 'the-events-calendar' ) }
-					</Button>
-				</div>
+				{ /*<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--footer">*/ }
+				{ /*	<Button*/ }
+				{ /*		variant="link"*/ }
+				{ /*		className="classy-field__control classy-field__control--cta"*/ }
+				{ /*		onClick={ () => console.log( 'Virtual event details not implemented yet' ) }*/ }
+				{ /*	>*/ }
+				{ /*		<IconVideoCamera />*/ }
+				{ /*		{ _x( 'Add virtual event details', 'Cancel the venue selection', 'the-events-calendar' ) }*/ }
+				{ /*	</Button>*/ }
+				{ /*</div>*/ }
 			</div>
 		</div>
 	);
