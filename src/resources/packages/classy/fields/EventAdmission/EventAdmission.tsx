@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Button, ButtonGroup } from '@wordpress/components';
+import { Button, ButtonGroup, Slot } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
@@ -24,8 +24,8 @@ export default function EventAdmission( props: FieldProps ) {
 			</div>
 
 			<div className="classy-field__inputs">
-				{ /* If not using tickets, do not show the buttons. */ }
-				{ isUsingTickets && (
+				{ /* If tickets aren't supported, do not show the buttons. */ }
+				{ areTicketsSupported && (
 					<div className="class-field__inputs-section classy-field__inputs-section--row">
 						<ButtonGroup className="components-button-group--classy">
 							<Button
@@ -50,7 +50,15 @@ export default function EventAdmission( props: FieldProps ) {
 					</div>
 				) }
 
-				<EventCost />
+				{ /* Provide a slot for tickets to render their fields. */ }
+				{ isUsingTickets && (
+					<Slot name="tec.classy.fields.tickets" />
+				) }
+
+				{ /* When not using tickets, render the EventCost component. */ }
+				{ ! isUsingTickets && (
+					<EventCost />
+				) }
 			</div>
 		</div>
 	);
