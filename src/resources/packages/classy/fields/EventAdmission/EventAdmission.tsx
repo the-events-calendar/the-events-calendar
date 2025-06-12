@@ -6,7 +6,6 @@ import { _x } from '@wordpress/i18n';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { IconTicket } from '@tec/common/classy/components';
 import { EventCost } from '../EventCost';
-import clsx from 'clsx';
 
 export default function EventAdmission( props: FieldProps ) {
 	// Initially select and subscribe to the store that will control whether tickets are supported or not.
