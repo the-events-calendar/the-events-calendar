@@ -161,6 +161,8 @@ class Controller extends Controller_Contract {
 			->add_to_group( 'tec-classy' )
 			->register();
 
+		/*
+		 * There is currently no style to load.
 		Asset::add(
 			'tec-classy-events-style',
 			'style-classy.css'
@@ -171,5 +173,6 @@ class Controller extends Controller_Contract {
 			->add_dependency( 'tec-classy-style' )
 			->add_to_group( 'tec-classy' )
 			->register();
+		*/
 	}
 }
