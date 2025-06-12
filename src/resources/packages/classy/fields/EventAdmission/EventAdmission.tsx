@@ -9,14 +9,6 @@ import { EventCost } from '../EventCost';
 import clsx from 'clsx';
 
 export default function EventAdmission( props: FieldProps ) {
-	const { meta } = useSelect( ( select ) => {
-		const selector = select( 'core/editor' );
-		return {
-			// @ts-ignore
-			meta: selector.getEditedPostAttribute( 'meta' ) || {},
-		};
-	}, [] );
-
 	// Initially select and subscribe to the store that will control whether tickets are supported or not.
 	const areTicketsSupported: boolean = useSelect( ( select: Function ) => {
 		return select( 'tec/classy/events' ).areTicketsSupported();

@@ -10,12 +10,14 @@ import { METADATA_EVENT_URL } from '../../constants';
 
 export default function EventDetails( props: FieldProps ) {
 	const { postContent, meta } = useSelect( ( select ) => {
-		const selector = select( 'core/editor' );
+		const store: {
+			getEditedPostContent: () => string;
+			getEditedPostAttribute: ( attribute: string ) => any;
+		} = select( 'core/editor' );
+
 		return {
-			// @ts-ignore
-			postContent: selector.getEditedPostContent() || '',
-			// @ts-ignore
-			meta: selector.getEditedPostAttribute( 'meta' ) || {},
+			postContent: store.getEditedPostContent() || '',
+			meta: store.getEditedPostAttribute( 'meta' ) || {},
 		};
 	}, [] );
 	const { editPost } = useDispatch( 'core/editor' );

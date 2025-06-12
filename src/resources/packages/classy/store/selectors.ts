@@ -48,8 +48,8 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 	const eventTimezone = meta?._EventTimezone || settings.timezoneString;
 
 	return {
-		eventStart,
-		eventEnd,
+		eventStart: eventStart.toISOString(),
+		eventEnd: eventEnd.toISOString(),
 		isMultiday,
 		isAllDay,
 		eventTimezone,

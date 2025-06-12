@@ -227,8 +227,8 @@ export default function EventDateTime( props: FieldProps ) {
 
 	const [ isSelectingDate, setIsSelectingDate ] = useState< 'start' | 'end' | false >( false );
 	const [ dates, setDates ] = useState( {
-		start: eventStart,
-		end: eventEnd,
+		start: getDate( eventStart ),
+		end: getDate( eventEnd ),
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );

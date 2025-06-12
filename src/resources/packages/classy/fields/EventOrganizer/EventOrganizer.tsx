@@ -42,14 +42,16 @@ export default function EventOrganizer( props: FieldProps ) {
 	// Initially set the options to an array that only contains the placeholder.
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 
-	const organizerIds = useSelect( ( select ): number[] => {
-		return (
-			// @ts-ignore
-			( select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {} )?.[ METADATA_EVENT_ORGANIZER_ID ]?.map(
-				( id: string ): number => parseInt( id, 10 )
-			) || []
-		);
+	const meta = useSelect( ( select ): number[] => {
+		const store: {
+			getEditedPostAttribute: ( attribute: string ) => any;
+		} = select( 'core/editor' );
+
+		return store.getEditedPostAttribute( 'meta' ) || {};
 	}, [] );
+
+	const organizerIds =
+		meta?.[ METADATA_EVENT_ORGANIZER_ID ]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
 
 	const { editPost } = useDispatch( 'core/editor' );
 

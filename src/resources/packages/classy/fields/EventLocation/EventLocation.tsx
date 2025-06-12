@@ -41,34 +41,32 @@ export default function EventLocation( props: FieldProps ) {
 	// Initially set the options to an array that only contains the placeholder.
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 
-	const { venueIds, venuesLimit } = useSelect(
+	const { meta, venuesLimit } = useSelect(
 		(
 			select
 		): {
-			venueIds: number[];
+			meta: Object;
 			venuesLimit: number;
 		} => {
-			const editorSelect: {
+			const editorStore: {
 				getEditedPostAttribute: ( attribute: string ) => any;
 			} = select( 'core/editor' );
-			const classyEventsSelector: {
+			const classyStore: {
 				getVenuesLimit: () => number;
 			} = select( 'tec/classy/events' );
 
-			const venueIds =
-				( editorSelect.getEditedPostAttribute( 'meta' ) || [] )?.[ METADATA_EVENT_VENUE_ID ]?.map(
-					( id: string ): number => parseInt( id, 10 )
-				) || [];
-
-			const venuesLimit = classyEventsSelector.getVenuesLimit() || 1;
+			const meta = editorStore.getEditedPostAttribute( 'meta' ) || {};
+			const venuesLimit = classyStore.getVenuesLimit() || 1;
 
 			return {
-				venueIds,
+				meta,
 				venuesLimit,
 			};
 		},
 		[]
 	);
+
+	const venueIds = meta?.[ METADATA_EVENT_VENUE_ID ]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
 
 	const { editPost } = useDispatch( 'core/editor' );
 

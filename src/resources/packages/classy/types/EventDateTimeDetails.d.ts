@@ -1,8 +1,8 @@
 import { Settings } from '@tec/common/classy/types/LocalizedData';
 
 export type EventDateTimeDetails = {
-	eventStart: Date;
-	eventEnd: Date;
+	eventStart: string;
+	eventEnd: string;
 	isMultiday: boolean;
 	isAllDay: boolean;
 	eventTimezone: string;

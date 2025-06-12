@@ -15,21 +15,24 @@ import { Currency } from '@tec/common/classy/types/Currency';
 import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
 
 export default function EventCost(): JSX.Element {
-	const { meta, defaultCurrency } = useSelect( ( select ) => {
+	const meta = useSelect( ( select ) => {
 		const {
 			getEditedPostAttribute,
 		}: {
 			getEditedPostAttribute: ( attribute: string ) => any;
 		} = select( 'core/editor' );
+
+		return getEditedPostAttribute( 'meta' ) || {};
+	}, [] );
+
+	const defaultCurrency = useSelect( ( select ) => {
 		const {
 			getDefaultCurrency,
 		}: {
 			getDefaultCurrency: () => Currency;
 		} = select( 'tec/classy' );
-		return {
-			meta: getEditedPostAttribute( 'meta' ) || {},
-			defaultCurrency: getDefaultCurrency(),
-		};
+
+		return getDefaultCurrency();
 	}, [] );
 
 	const freeText = __( 'Free', 'the-events-calendar' );
