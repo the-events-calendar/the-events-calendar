@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Fragment, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import apiFetch from '@wordpress/api-fetch';
-import { Button, CustomSelectControl } from '@wordpress/components';
+import { Button, CustomSelectControl, Slot } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
@@ -411,16 +411,31 @@ export default function EventLocation( props: FieldProps ) {
 					/>
 				) }
 
-				{ /*<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--footer">*/ }
-				{ /*	<Button*/ }
-				{ /*		variant="link"*/ }
-				{ /*		className="classy-field__control classy-field__control--cta"*/ }
-				{ /*		onClick={ () => console.log( 'Virtual event details not implemented yet' ) }*/ }
-				{ /*	>*/ }
-				{ /*		<IconVideoCamera />*/ }
-				{ /*		{ _x( 'Add virtual event details', 'Cancel the venue selection', 'the-events-calendar' ) }*/ }
-				{ /*	</Button>*/ }
-				{ /*</div>*/ }
+				{ /**
+				 * Renders at the end of the Event Location field of The Events Calendar.
+				 *
+				 * Extending plugins must hook on the `tec.classy.render` filter and render components in this Slot.
+				 *
+				 * Example:
+				 * ```
+				 * addFilter(
+				 * 	'tec.classy.render',
+				 * 	'tec.classy.my-plugin',
+				 * 	(fields: React.ReactNode | null) => (
+				 * 		<Fragment>
+				 * 			{fields}
+				 * 			<Fill name='tec.classy.events.event-location.after'>
+				 * 				<p>HELLO FROM MY PLUGIN</p>
+				 * 			</Fill>
+				 * 		</Fragment>
+				 * 	)
+				 * );
+				 * ```
+				 *
+				 * Note that, as in any filter, it's up to the extending plugin to manage priority in the filter
+				 * or whether previous nodes will be rendered or not.
+				 */ }
+				<Slot name="tec.classy.events.event-location.after" />
 			</div>
 		</div>
 	);
