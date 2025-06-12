@@ -7,7 +7,7 @@ import { useSelect } from '@wordpress/data';
 import { POST_TYPE_EVENT } from '../constants';
 
 /**
- * Render fields for the Event post type.
+ * Renders fields for the Event post type.
  *
  * @since TBD
  *
