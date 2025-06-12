@@ -23,9 +23,17 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Classy;
  */
 class Controller extends Controller_Contract {
-
 	use Can_Edit_Events;
 	use Supported_Post_Types;
+
+	/**
+	 * The action that will be fired when this controller is registered.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $registration_action = 'tec_classy_events_registered';
 
 	/**
 	 * Registers the hooks and filters for this controller.
