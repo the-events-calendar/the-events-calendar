@@ -47,7 +47,7 @@ export default function EventOrganizer( props: FieldProps ) {
 			getEditedPostAttribute: ( attribute: string ) => any;
 		} = select( 'core/editor' );
 
-		return store.getEditedPostAttribute( 'meta' ) || {};
+		return store.getEditedPostAttribute( 'meta' ) || null;
 	}, [] );
 
 	const organizerIds =

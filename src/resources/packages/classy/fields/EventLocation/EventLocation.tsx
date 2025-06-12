@@ -55,7 +55,7 @@ export default function EventLocation( props: FieldProps ) {
 				getVenuesLimit: () => number;
 			} = select( 'tec/classy/events' );
 
-			const meta = editorStore.getEditedPostAttribute( 'meta' ) || {};
+			const meta = editorStore.getEditedPostAttribute( 'meta' ) || null;
 			const venuesLimit = classyStore.getVenuesLimit() || 1;
 
 			return {

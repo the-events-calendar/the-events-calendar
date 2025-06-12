@@ -17,11 +17,11 @@ export default function EventDetails( props: FieldProps ) {
 
 		return {
 			postContent: store.getEditedPostContent() || '',
-			meta: store.getEditedPostAttribute( 'meta' ) || {},
+			meta: store.getEditedPostAttribute( 'meta' ) || null,
 		};
 	}, [] );
 	const { editPost } = useDispatch( 'core/editor' );
-	const eventUrlMeta: string = meta[ METADATA_EVENT_URL ] || '';
+	const eventUrlMeta: string = meta?.[ METADATA_EVENT_URL ] || '';
 
 	const [ description, setDescription ] = useState< string >( postContent || '' );
 	const [ eventUrlValue, setEventUrlValue ] = useState< string >( eventUrlMeta );

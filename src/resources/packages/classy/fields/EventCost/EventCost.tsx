@@ -22,7 +22,7 @@ export default function EventCost(): JSX.Element {
 			getEditedPostAttribute: ( attribute: string ) => any;
 		} = select( 'core/editor' );
 
-		return getEditedPostAttribute( 'meta' ) || {};
+		return getEditedPostAttribute( 'meta' ) || null;
 	}, [] );
 
 	const defaultCurrency = useSelect( ( select ) => {
@@ -39,17 +39,17 @@ export default function EventCost(): JSX.Element {
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const isFreeMeta: boolean = meta[ METADATA_EVENT_IS_FREE ] || false;
+	const isFreeMeta: boolean = meta?.[ METADATA_EVENT_IS_FREE ] || false;
 	const [ isFree, setIsFree ] = useState< boolean >( isFreeMeta );
 
-	const eventCostMeta: string = meta[ METADATA_EVENT_COST ] || '';
+	const eventCostMeta: string = meta?.[ METADATA_EVENT_COST ] || '';
 	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
 
-	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
+	const eventCurrencySymbolMeta: string = meta?.[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
 	const eventCurrencyPosition: CurrencyPosition =
-		meta[ METADATA_EVENT_CURRENCY_POSITION ] || defaultCurrency.position;
+		meta?.[ METADATA_EVENT_CURRENCY_POSITION ] || defaultCurrency.position;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	const [ costHasFocus, setCostHasFocus ] = useState< boolean >( false );
