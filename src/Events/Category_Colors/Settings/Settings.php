@@ -197,7 +197,7 @@ class Settings {
 			'category-color-show-hidden-categories' => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Show hidden categories in legend', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Show only the next event in each Series', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( "Display categories in the legend even if they aren't currently shown on the calendar.", 'the-events-calendar' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 			],

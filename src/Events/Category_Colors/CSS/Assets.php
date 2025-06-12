@@ -50,7 +50,7 @@ class Assets {
 			'/css/category-colors/frontend-category.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( Tribe__Events__Main::class . '-packages' )
 			->add_to_group( 'tec-events-category-colors' )
 			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
@@ -60,7 +60,7 @@ class Assets {
 			'/css/category-colors/category-legend.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( Tribe__Events__Main::class . '-packages' )
 			->add_to_group( 'tec-events-category-colors' )
 			->set_condition( [ $this, 'should_enqueue_frontend_legend' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
@@ -70,7 +70,7 @@ class Assets {
 			'/js/views/category-color-selector.js',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( Tribe__Events__Main::class . '-packages' )
 			->add_to_group( 'tec-events-category-colors' )
 			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
@@ -126,7 +126,7 @@ class Assets {
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_legend',
-			tribe_get_option( $this->generator->get_option_key(), true ),
+			! tribe_get_option( 'category-color-custom-css', false ),
 			$this
 		);
 	}
