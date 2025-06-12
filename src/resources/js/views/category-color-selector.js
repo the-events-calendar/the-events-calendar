@@ -65,28 +65,6 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const DEFAULT_BUBBLE_COUNT = 5;
 
 	// =============
-	// Page Load Detection
-	// =============
-	/**
-	 * Detects if the current page load is a full reload (F5/Ctrl+R)
-	 * and clears sessionStorage if it is.
-	 * @since TBD
-	 */
-	const handlePageLoad = () => {
-		// Check for full page reload using Performance API
-		const navigationEntry = performance.getEntriesByType( 'navigation' )[0];
-		const isFullReload = navigationEntry?.type === 'reload' ||
-			( performance.navigation && performance.navigation.type === 1 );
-
-		if ( isFullReload ) {
-			sessionStorage.removeItem( 'tec_category_color_selected' );
-		}
-	};
-
-	// Run page load detection immediately
-	handlePageLoad();
-
-	// =============
 	// Utilities
 	// =============
 
