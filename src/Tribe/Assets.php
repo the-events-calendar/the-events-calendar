@@ -4,6 +4,7 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use TEC\Common\StellarWP\Assets\Config;
+use Tribe__Events__Main as TEC;
 
 /**
  * Registers and Enqueues the assets
