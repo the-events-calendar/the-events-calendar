@@ -11,7 +11,7 @@ import { getRegistry } from '@tec/common/classy/store';
  *
  * @return {void} The ECP store is registered.
  */
-const registerStore = () => {
+const registerStore = (): void => {
 	( getRegistry() as WPDataRegistry ).registerStore( STORE_NAME, storeConfig );
 
 	/**
