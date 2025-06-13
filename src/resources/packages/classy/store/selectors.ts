@@ -8,6 +8,30 @@ import { StoreState } from '../types/StoreState';
 import { TECSettings } from '../types/Settings';
 
 /**
+ * Retrieves the post meta from the editor.
+ *
+ * @since TBD
+ *
+ * @returns {EventMeta} The event meta or an empty object if not available.
+ */
+export function getPostMeta(): EventMeta {
+	// @ts-ignore
+	return select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+}
+
+/**
+ * Retrieves the settings from the Classy store.
+ *
+ * @since TBD
+ *
+ * @returns {Settings} The settings or an empty object if not available.
+ */
+export function getSettings(): Settings {
+	// @ts-ignore
+	return select( 'tec/classy' ).getSettings() ?? {};
+}
+
+/**
  * Returns the event date and time details, read from its meta. If the meta is not set,
  * it will return default values.
  *
@@ -16,10 +40,8 @@ import { TECSettings } from '../types/Settings';
  * @returns {EventDateTimeDetails} The event date and time details.
  */
 export function getEventDateTimeDetails(): EventDateTimeDetails {
-	// @ts-ignore
-	const meta: EventMeta = select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
-	// @ts-ignore
-	const settings: Settings = select( 'tec/classy' ).getSettings();
+	const meta = getPostMeta();
+	const settings = getSettings();
 
 	const eventStartDateString = meta?._EventStartDate ?? '';
 	const eventEndDateString = meta?._EventEndDate ?? '';
@@ -65,14 +87,11 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
  * @return {number[]} Array of Organizer IDs.
  */
 export function getEditedPostOrganizerIds(): number[] {
-	// @ts-ignore
-	const meta: EventMeta = select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+	const meta = getPostMeta();
 
-	const ids = ( meta?.[ METADATA_EVENT_ORGANIZER_ID ] ?? [] ).map( ( id: string | number ) =>
+	return ( meta?.[ METADATA_EVENT_ORGANIZER_ID ] ?? [] ).map( ( id: string | number ) =>
 		typeof id === 'string' ? parseInt( id ) : id
 	);
-
-	return ids;
 }
 
 /**
@@ -83,14 +102,11 @@ export function getEditedPostOrganizerIds(): number[] {
  * @return {number[]} Array of Venue IDs.
  */
 export function getEditedPostVenueIds(): number[] {
-	// @ts-ignore
-	const meta: EventMeta = select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+	const meta = getPostMeta();
 
-	const ids = ( meta?.[ METADATA_EVENT_VENUE_ID ] ?? [] ).map( ( id: string | number ) =>
+	return ( meta?.[ METADATA_EVENT_VENUE_ID ] ?? [] ).map( ( id: string | number ) =>
 		typeof id === 'string' ? parseInt( id ) : id
 	);
-
-	return ids;
 }
 
 /**
@@ -114,9 +130,7 @@ export function areTicketsSupported( state: StoreState ): boolean {
  * @return {boolean} Whether the current event post is a new one or not.
  */
 export function isNewEvent(): boolean {
-	const { _EventStartDate, _EventEndDate }: EventMeta =
-		// @ts-ignore
-		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+	const { _EventStartDate, _EventEndDate }: EventMeta = getPostMeta();
 
 	return ! _EventStartDate || ! _EventEndDate;
 }
@@ -129,7 +143,6 @@ export function isNewEvent(): boolean {
  * @return {number} The venue limit.
  */
 export function getVenuesLimit(): number {
-	// @ts-ignore
-	const { venuesLimit = 1 } = select( 'tec/classy' ).getSettings() as TECSettings;
+	const { venuesLimit = 1 } = getSettings() as TECSettings;
 	return Math.max( 0, venuesLimit );
 }
