@@ -41,6 +41,8 @@ if ( ! $event->thumbnail->exists ) {
 				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
 			<?php endif; ?>
 			class="tribe-events-calendar-month__calendar-event-tooltip-featured-image"
+			width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+			height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
 		/>
 	</a>
 </div>

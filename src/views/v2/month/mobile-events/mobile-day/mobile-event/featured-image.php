@@ -36,5 +36,7 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 			title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
 		<?php endif; ?>
 		class="tribe-events-calendar-month-mobile-events__mobile-event-featured-image"
+		width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+		height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
 	/>
 </div>

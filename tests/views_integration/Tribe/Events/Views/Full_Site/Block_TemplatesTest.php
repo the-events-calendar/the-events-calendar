@@ -25,7 +25,7 @@ class Block_TemplatesTest extends HtmlTestCase {
 		$array_template = (array) $template;
 		asort( $array_template );
 		// Dynamic fields, ditch them for snapshots.
-		foreach ( [ 'wp_id', 'author', 'modified' ] as $field ) {
+		foreach ( [ 'wp_id', 'author', 'modified', 'plugin' ] as $field ) {
 			$array_template[ $field ] = null;
 		}
 
