@@ -619,10 +619,10 @@ class Tribe__Events__Assets {
 		 * @since 4.8.1
 		 *
 		 * @param array $data {
-	     *     These items exist on the TEC object in admin JS.
-	     *
-	     *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
-	     *     @type string post_type The Event post type.
+		 *     These items exist on the TEC object in admin JS.
+		 *
+		 *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
+		 *     @type string post_type The Event post type.
 		 * }
 		 */
 		return apply_filters( 'tribe_events_admin_js_ajax_url_data', $data );
