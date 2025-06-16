@@ -27,6 +27,11 @@
 if ( empty( $category_colors_enabled ) ) {
 	return;
 }
+
+// Get the base URL for category links.
+$base_url      = home_url( '/' );
+$events_slug   = tribe_get_option( 'eventsSlug', 'events' );
+$category_slug = Tribe__Events__Main::instance()->get_category_slug();
 ?>
 <div class="tec-events-category-color-filter"
 	role="button"
@@ -35,22 +40,7 @@ if ( empty( $category_colors_enabled ) ) {
 	aria-expanded="false"
 	aria-label="<?php esc_attr_e( 'Select categories to highlight', 'the-events-calendar' ); ?>">
 
-	<div class="tec-events-category-color-filter__colors">
-		<?php foreach ( array_slice( $category_colors_category_dropdown, 0, 5 ) as $index => $category ) : ?>
-			<span
-				<?php
-				tribe_classes(
-					[
-						'tec-events-category-color-filter__color-circle',
-						'tribe_events_cat-' . $category['slug'],
-						empty( $category['primary'] ) ? 'tec-events-category-color-filter__color-circle--default' : '',
-					]
-				);
-				?>
-			>
-			</span>
-		<?php endforeach; ?>
-	</div>
+	<div class="tec-events-category-color-filter__colors" id="tec-category-color-legend"></div>
 
 	<span class="tec-events-category-color-filter__dropdown-icon">
 		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tec-events-category-color-filter__dropdown-icon-svg' ] ] ); ?>
@@ -64,7 +54,7 @@ if ( empty( $category_colors_enabled ) ) {
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
 				<li class="tec-events-category-color-filter__dropdown-item" role="option">
 					<label>
-						<?php if ( $category_colors_super_power ) { ?>
+						<?php if ( $category_colors_super_power ) : ?>
 							<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
 								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
@@ -74,11 +64,29 @@ if ( empty( $category_colors_enabled ) ) {
 								esc_attr( sprintf( __( 'Highlight events in %s', 'the-events-calendar' ), $category['name'] ) );
 								?>
 ">
-						<?php } ?>
-						<span class="tec-events-category-color-filter__label"><?php echo esc_html( $category['name'] ); ?></span>
+							<span class="tec-events-category-color-filter__label"><?php echo esc_html( $category['name'] ); ?></span>
+						<?php else : ?>
+							<?php
+							// Build the category URL dynamically and escape it.
+							$category_url = esc_url( $base_url . $events_slug . '/' . $category_slug . '/' . $category['slug'] . '/' );
+							?>
+							<a href="<?php echo esc_url( $category_url ); ?>"
+								<?php
+								tec_classes(
+									[
+										'tec-events-category-color-filter__label',
+										'tec-events-category-color-filter__color-circle',
+										'tribe_events_cat-' . $category['slug'],
+									]
+								);
+								?>
+								aria-label="<?php /* translators: %s is the category name. */ echo esc_attr( sprintf( __( 'View events in %s', 'the-events-calendar' ), $category['name'] ) ); ?>">
+								<?php echo esc_html( $category['name'] ); ?>
+							</a>
+						<?php endif; ?>
 						<span
 							<?php
-							tribe_classes(
+							tec_classes(
 								[
 									'tec-events-category-color-filter__color-dot',
 									'tribe_events_cat-' . $category['slug'],
