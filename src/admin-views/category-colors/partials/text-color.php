@@ -4,9 +4,14 @@
  *
  * Expects $value to be set in the parent template.
  *
- * @since TBD
+ * @version TBD
+ *
+ * @var string $value The value.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 ?>
 <div class="tec-events-category-colors__field">
 	<label for="tec-events-category-colors-text"><?php esc_html_e( 'Text Color', 'the-events-calendar' ); ?></label>

@@ -4,9 +4,14 @@
  *
  * Displays a live preview of the selected colors and provides a link to accessibility documentation.
  *
- * @since TBD
+ * @version TBD
+ *
+ * @var string $value The value.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 ?>
 <div class="tec-events-category-colors__field--preview">
 	<label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>

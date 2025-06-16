@@ -2,10 +2,15 @@
 /**
  * Template for editing category colors in the "Edit Category" form.
  *
+ * @version TBD
+ *
  * @var array  $category_colors An associative array of meta keys and their values.
  * @var object $taxonomy        The taxonomy object.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 ?>
 
 <tr class="form-field tec-events-category-colors__wrap">

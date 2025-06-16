@@ -2,10 +2,15 @@
 /**
  * Template for adding category colors in the "Add Category" form.
  *
+ * @version TBD
+ *
  * @var array  $category_colors An associative array of meta keys and their values.
  * @var object $taxonomy        The taxonomy object.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 ?>
 
 <div class="tec-events-category-colors__wrap">
