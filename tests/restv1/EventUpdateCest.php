@@ -889,6 +889,8 @@ class EventUpdateCest extends BaseRestCest {
 			'city' => 'Washington, DC',
 			'country' => 'United States',
 			'state' => 'District of Columbia',
+			'province' => 'DC',
+			'stateProvince' => 'Washington DC',
 			'zip' => '20500',
 			'phone' => '+1 202-456-1111',
 			'description' => 'Home and office of the United States president',
@@ -903,6 +905,8 @@ class EventUpdateCest extends BaseRestCest {
 			'city' => 'Ottawa',
 			'country' => 'Canada',
 			'state' => 'Ontario',
+			'province' => 'ON',
+			'stateProvince' => 'Eastern Ontario',
 			'zip' => 'K1A 0A9',
 			'phone' => '+1 613-992-4793',
 			'description' => 'Home of the Parliament of Canada',
@@ -917,6 +921,8 @@ class EventUpdateCest extends BaseRestCest {
 			'city' => 'Pretoria',
 			'country' => 'South Africa',
 			'state' => 'Gauteng',
+			'province' => 'GP',
+			'stateProvince' => 'Pretoria Region',
 			'zip' => '0002',
 			'phone' => '+27 12 300 5200',
 			'description' => 'Official seat of the South African government',
@@ -931,6 +937,8 @@ class EventUpdateCest extends BaseRestCest {
 			'city' => 'Paris',
 			'country' => 'France',
 			'state' => 'Île-de-France',
+			'province' => 'IDF',
+			'stateProvince' => 'Paris Region',
 			'zip' => '75008',
 			'phone' => '+33 1 42 92 81 00',
 			'description' => 'Official residence of the President of France',
@@ -962,6 +970,8 @@ class EventUpdateCest extends BaseRestCest {
 				'city'          => $example['city'],
 				'country'       => $example['country'],
 				'state'         => $example['state'],
+				'province'      => $example['province'],
+				'stateProvince' => $example['stateProvince'],
 				'zip'           => $example['zip'],
 				'phone'         => $example['phone'],
 				'description'   => $example['description'],
@@ -984,6 +994,8 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertEquals( $example['city'], $venue_response['city'] );
 		$I->assertEquals( $example['country'], $venue_response['country'] );
 		$I->assertEquals( $example['state'], $venue_response['state'] );
+		$I->assertEquals( $example['province'], $venue_response['province'] );
+		$I->assertEquals( $example['stateProvince'], $venue_response['stateprovince'] );
 		$I->assertEquals( $example['zip'], $venue_response['zip'] );
 		$I->assertEquals( $example['phone'], $venue_response['phone'] );
 		$I->assertEquals( $example['description'], strip_tags( $venue_response['description'] ) );
