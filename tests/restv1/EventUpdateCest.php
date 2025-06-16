@@ -880,11 +880,73 @@ class EventUpdateCest extends BaseRestCest {
 	}
 
 	/**
+	 * Data provider for venue tests
+	 */
+	public function venueDataProvider() {
+		yield 'US Venue' => [
+			'venue' => 'White House',
+			'address' => '1600 Pennsylvania Ave NW',
+			'city' => 'Washington, DC',
+			'country' => 'United States',
+			'state' => 'District of Columbia',
+			'zip' => '20500',
+			'phone' => '+1 202-456-1111',
+			'description' => 'Home and office of the United States president',
+			'website' => 'http://whitehouse.gov',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+
+		yield 'Canadian Venue' => [
+			'venue' => 'Parliament Hill',
+			'address' => 'Wellington St',
+			'city' => 'Ottawa',
+			'country' => 'Canada',
+			'state' => 'Ontario',
+			'zip' => 'K1A 0A9',
+			'phone' => '+1 613-992-4793',
+			'description' => 'Home of the Parliament of Canada',
+			'website' => 'http://parl.ca',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+
+		yield 'African Venue' => [
+			'venue' => 'Union Buildings',
+			'address' => 'Government Avenue',
+			'city' => 'Pretoria',
+			'country' => 'South Africa',
+			'state' => 'Gauteng',
+			'zip' => '0002',
+			'phone' => '+27 12 300 5200',
+			'description' => 'Official seat of the South African government',
+			'website' => 'http://www.thepresidency.gov.za',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+
+		yield 'French Venue' => [
+			'venue' => 'Palais de l‘Élysée',
+			'address' => '55 Rue du Faubourg Saint-Honoré',
+			'city' => 'Paris',
+			'country' => 'France',
+			'state' => 'Île-de-France',
+			'zip' => '75008',
+			'phone' => '+33 1 42 92 81 00',
+			'description' => 'Official residence of the President of France',
+			'website' => 'http://www.elysee.fr',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+	}
+
+	/**
 	 * It should allow inserting a venue along with the event
 	 *
 	 * @test
+	 * @dataProvider venueDataProvider
 	 */
-	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I ) {
+	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I, \Codeception\Example $example ) {
 		$event_id = $I->haveEventInDatabase();
 
 		$I->generate_nonce_for_role( 'administrator' );
@@ -895,16 +957,17 @@ class EventUpdateCest extends BaseRestCest {
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
 			'venue'       => [
-				'venue'         => 'A venue',
-				'address'       => '123 Main St',
-				'city'          => 'New York',
-				'country'       => 'US',
-				'state'         => 'NY',
-				'zip'           => '10001',
-				'phone'         => '555-1234',
-				'website'       => 'http://example.com',
-				'show_map'      => true,
-				'show_map_link' => true
+				'venue'         => $example['venue'],
+				'address'       => $example['address'],
+				'city'          => $example['city'],
+				'country'       => $example['country'],
+				'state'         => $example['state'],
+				'zip'           => $example['zip'],
+				'phone'         => $example['phone'],
+				'description'   => $example['description'],
+				'website'       => $example['website'],
+				'show_map'      => $example['show_map'],
+				'show_map_link' => $example['show_map_link']
 			],
 		];
 
@@ -916,16 +979,17 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venue', $response );
 		$venue_response = $response['venue'];
 		$I->assertArrayHasKey( 'id', $venue_response );
-		$I->assertEquals( 'A venue', $venue_response['venue'] );
-		$I->assertEquals( '123 Main St', $venue_response['address'] );
-		$I->assertEquals( 'New York', $venue_response['city'] );
-		$I->assertEquals( 'US', $venue_response['country'] );
-		$I->assertEquals( 'NY', $venue_response['state'] );
-		$I->assertEquals( '10001', $venue_response['zip'] );
-		$I->assertEquals( '555-1234', $venue_response['phone'] );
-		$I->assertEquals( 'http://example.com', $venue_response['website'] );
-		$I->assertTrue( $venue_response['show_map'] );
-		$I->assertTrue( $venue_response['show_map_link'] );
+		$I->assertEquals( $example['venue'], $venue_response['venue'] );
+		$I->assertEquals( $example['address'], $venue_response['address'] );
+		$I->assertEquals( $example['city'], $venue_response['city'] );
+		$I->assertEquals( $example['country'], $venue_response['country'] );
+		$I->assertEquals( $example['state'], $venue_response['state'] );
+		$I->assertEquals( $example['zip'], $venue_response['zip'] );
+		$I->assertEquals( $example['phone'], $venue_response['phone'] );
+		$I->assertEquals(	$example['description'], strip_tags( $venue_response['description'] ) );
+		$I->assertEquals( $example['website'], $venue_response['website'] );
+		$I->assertEquals( $example['show_map'], $venue_response['show_map'] );
+		$I->assertEquals( $example['show_map_link'], $venue_response['show_map_link'] );
 	}
 
 	/**
