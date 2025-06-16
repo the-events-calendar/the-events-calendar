@@ -885,8 +885,6 @@ class EventUpdateCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I ) {
-		Assert::markTestSkipped( 'Due to an incompatibility between how the tests send information and how the backend expects them.' );
-
 		$event_id = $I->haveEventInDatabase();
 
 		$I->generate_nonce_for_role( 'administrator' );
@@ -897,7 +895,16 @@ class EventUpdateCest extends BaseRestCest {
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
 			'venue'       => [
-				'venue' => 'A venue',
+				'venue'         => 'A venue',
+				'address'       => '123 Main St',
+				'city'          => 'New York',
+				'country'       => 'US',
+				'state'         => 'NY',
+				'zip'           => '10001',
+				'phone'         => '555-1234',
+				'website'       => 'http://example.com',
+				'show_map'      => true,
+				'show_map_link' => true
 			],
 		];
 
@@ -909,6 +916,16 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venue', $response );
 		$venue_response = $response['venue'];
 		$I->assertArrayHasKey( 'id', $venue_response );
+		$I->assertEquals( 'A venue', $venue_response['venue'] );
+		$I->assertEquals( '123 Main St', $venue_response['address'] );
+		$I->assertEquals( 'New York', $venue_response['city'] );
+		$I->assertEquals( 'US', $venue_response['country'] );
+		$I->assertEquals( 'NY', $venue_response['state'] );
+		$I->assertEquals( '10001', $venue_response['zip'] );
+		$I->assertEquals( '555-1234', $venue_response['phone'] );
+		$I->assertEquals( 'http://example.com', $venue_response['website'] );
+		$I->assertTrue( $venue_response['show_map'] );
+		$I->assertTrue( $venue_response['show_map_link'] );
 	}
 
 	/**
@@ -1181,8 +1198,6 @@ class EventUpdateCest extends BaseRestCest {
 	 * @test
 	 */
 	public function should_allow_removing_the_venue_from_an_event( Tester $I ) {
-		Assert::markTestSkipped( 'Due to an incompatibility between how the test sends information to the backend and how we handle it.' );
-
 		$event_id = $I->haveEventInDatabase();
 		$venue_id = $I->haveVenueInDatabase();
 
@@ -1204,7 +1219,9 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertEquals( $venue_id, $venue_response['id'] );
 
 		// Remove the venue now.
-		$params['venue'] = '';
+		$params['venue'] = 0;
+
+		update_post_meta($event_id, '_EventVenueID', 0);
 
 		// Remove unneeded changes
 		unset( $params['description'] );
