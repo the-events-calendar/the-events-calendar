@@ -986,7 +986,7 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertEquals( $example['state'], $venue_response['state'] );
 		$I->assertEquals( $example['zip'], $venue_response['zip'] );
 		$I->assertEquals( $example['phone'], $venue_response['phone'] );
-		$I->assertEquals(	$example['description'], strip_tags( $venue_response['description'] ) );
+		$I->assertEquals( $example['description'], strip_tags( $venue_response['description'] ) );
 		$I->assertEquals( $example['website'], $venue_response['website'] );
 		$I->assertEquals( $example['show_map'], $venue_response['show_map'] );
 		$I->assertEquals( $example['show_map_link'], $venue_response['show_map_link'] );
