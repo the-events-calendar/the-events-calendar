@@ -11,12 +11,6 @@ use Tribe__Context as Context;
 class HooksTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
-	public function setUp() {
-		parent::setUp();
-		// Let's make sure we do not run "second" tests on a cached value.
-		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
-	}
-
 	public function test_filter_redirect_canonical() {
 		$this->set_fn_return( 'doing_filter', 'redirect_canonical' );
 		$mock_context = new Context();
