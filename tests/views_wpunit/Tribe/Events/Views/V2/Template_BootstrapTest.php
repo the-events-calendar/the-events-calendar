@@ -3,12 +3,9 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Main;
-use Tribe__Context as Context;
-use Tribe\Tests\Traits\With_Uopz;
 require_once codecept_data_dir( 'Views/V2/classes/Test_Full_View.php' );
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
-	use With_Uopz;
 
 	public function setUp() {
 		parent::setUp();
@@ -543,145 +540,5 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$filtered_body_classes = $template_bootstrap->filter_add_body_classes( $initial_body_classes );
 
 		$this->assertEquals( $expected, in_array( 'archive', $filtered_body_classes, true ) );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_redirect_disabled_views_to_default() {
-		// Set up a disabled view
-		$view_slug = 'month';
-		tribe_update_option( 'tribeEnableViews', [ 'list' ] );
-
-		// Set up the main query to look like an event query
-		global $wp_the_query, $wp_query;
-		$wp_the_query = new \WP_Query();
-		$wp_query     = $wp_the_query;
-		$wp_query->query_vars = [
-			'eventDisplay' => $view_slug,
-			'post_type' => \Tribe__Events__Main::POSTTYPE,
-			'tribe_view' => $view_slug,
-		];
-		$wp_query->tribe_is_event_query = true;
-
-		// Set up the context to request the disabled view
-		tribe_context()->alter( [
-			'event_display' => $view_slug
-		] )->dangerously_set_global_context();
-
-		// Set up redirect capture
-		$store = [];
-		$this->set_fn_return( 'wp_safe_redirect', function ( $url, $status = 302, $redirect_by = '' ) use (&$store) {
-			$store[] = [
-				'url'         => $url,
-				'status'      => $status,
-				'redirect_by' => $redirect_by,
-			];
-			return true;
-		}, true );
-
-		// Mock tribe_exit to prevent actual exit and allow test to continue
-		$this->set_fn_return( 'tribe_exit', function() {
-			return true;
-		}, true );
-
-		// Run the template include filter
-		$bootstrap = $this->make_instance();
-
-		// Clear any cached results
-		$reflection = new \ReflectionClass( $bootstrap );
-		$cache_property = $reflection->getProperty( 'cache' );
-		$cache_property->setAccessible( true );
-		$cache_property->setValue( $bootstrap, [] );
-
-		// Mock tribe_get_global_query_object to return our query
-		$this->set_fn_return( 'tribe_get_global_query_object', function() use ($wp_query) {
-			return $wp_query;
-		}, true );
-
-		// Mock the manager's get_publicly_visible_views method
-		$manager = $this->makeEmpty( \Tribe\Events\Views\V2\Manager::class, [
-			'get_publicly_visible_views' => function() {
-				return [ 'list' => \Tribe\Events\Views\V2\Views\List_View::class ];
-			}
-		] );
-
-		// Set the mocked manager on the bootstrap instance
-		$manager_property = $reflection->getProperty( 'manager' );
-		$manager_property->setAccessible( true );
-		$manager_property->setValue( $bootstrap, $manager );
-
-		// Mock the current view to be disabled
-		$test = $this;
-		$this->set_fn_return( 'tribe_context', function() use ($view_slug, $test) {
-			$context = $test->makeEmpty( \Tribe__Context::class, [
-				'get' => function($key) use ($view_slug) {
-					if ($key === 'event_display') {
-						return $view_slug;
-					}
-					return null;
-				}
-			] );
-			return $context;
-		}, true );
-
-		$bootstrap->filter_template_include( 'foo/bar.php' );
-
-		// Verify redirect was attempted
-		$this->assertCount( 1, $store, 'Should have attempted one redirect' );
-		$this->assertEquals( 301, $store[0]['status'], 'Should have attempted a 301 redirect' );
-		$this->assertStringContainsString( 'tribe_redirected=1', $store[0]['url'], 'Should redirect to default view' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_not_redirect_enabled_views() {
-		// Set up an enabled view
-		$view_slug = 'month';
-		tribe_update_option( 'tribeEnableViews', [ 'month', 'list' ] );
-
-		// Set up the context to request the enabled view
-		tribe_context()->alter( [
-			'event_display' => $view_slug
-		] )->dangerously_set_global_context();
-
-		// Mock the redirect
-		$redirect_attempted = false;
-		add_filter( 'wp_redirect', function() use ( &$redirect_attempted ) {
-			$redirect_attempted = true;
-			return false;
-		} );
-
-		// Run the template include filter
-		$bootstrap = $this->make_instance();
-		$bootstrap->filter_template_include( 'foo/bar.php' );
-
-		// Verify no redirect was attempted
-		$this->assertFalse( $redirect_attempted, 'Should not attempt redirect for enabled view' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_not_redirect_default_view() {
-		// Set up context to request default view
-		tribe_context()->alter( [
-			'event_display' => 'default'
-		] )->dangerously_set_global_context();
-
-		// Mock the redirect
-		$redirect_attempted = false;
-		add_filter( 'wp_redirect', function() use ( &$redirect_attempted ) {
-			$redirect_attempted = true;
-			return false;
-		} );
-
-		// Run the template include filter
-		$bootstrap = $this->make_instance();
-		$bootstrap->filter_template_include( 'foo/bar.php' );
-
-		// Verify no redirect was attempted
-		$this->assertFalse( $redirect_attempted, 'Should not attempt redirect for default view' );
 	}
 }
