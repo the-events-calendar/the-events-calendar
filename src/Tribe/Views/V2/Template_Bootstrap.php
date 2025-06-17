@@ -443,28 +443,6 @@ class Template_Bootstrap {
 			return $this->get_v1_embed_template_path();
 		}
 
-		// Check if the current view is enabled.
-		$view_slug = $context->get( 'event_display' );
-		if ( ! empty( $view_slug ) && 'default' !== $view_slug ) {
-			$public_views = $this->manager->get_publicly_visible_views();
-
-			// If current view is not publicly visible, redirect to default.
-			if ( ! isset( $public_views[ $view_slug ] ) ) {
-				$default = tribe_events_get_url(
-					[
-						'eventDisplay'     => 'default',
-						'tribe_redirected' => 1,
-					]
-				);
-
-				add_filter( 'tribe_events_views_v2_redirected', '__return_true' );
-
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect, StellarWP.CodeAnalysis.RedirectAndDie
-				wp_safe_redirect( $default, 301 );
-				tribe_exit();
-			}
-		}
-
 		return $this->get_template_object()->get_path();
 	}
 
