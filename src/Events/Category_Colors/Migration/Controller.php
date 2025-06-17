@@ -49,7 +49,7 @@ class Controller extends Controller_Contract {
 		add_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
 
 		// Check if we should force show the notice.
-		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', false );
+		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', true );
 
 		// Only skip registration if migration is completed and we're not forcing.
 		if ( ! $force_show && Status::$postprocessing_completed === Status::get_migration_status()['status'] ) {
