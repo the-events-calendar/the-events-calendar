@@ -10,8 +10,7 @@
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
-use TEC\Events\Category_Colors\Migration\Admin\Migration_Modal;
-use TEC\Events\Category_Colors\Migration\Status;
+
 
 /**
  * Class Migration_Notice
@@ -120,20 +119,22 @@ class Migration_Notice {
 	 */
 	protected function get_notice_message(): string {
 		$title = __( 'Category Colors Migration', 'the-events-calendar' );
-		$thickbox_url = '#TB_inline?width=550&height=250&inlineId=tec-category-colors-migration-thickbox';
+		$thickbox_url = '#TB_inline?width=550&height=325&inlineId=tec-category-colors-migration-thickbox';
+		$docs_url = 'https://theeventscalendar.com/knowledgebase/k/migrating-category-colors/';
 		return sprintf(
 			'<p><strong>%1$s</strong></p>
 			<p>%2$s</p>
 			<p>
 				<a href="%3$s" name="%4$s" class="thickbox button button-primary">%5$s</a>
-				<a href="%3$s" name="%4$s" class="thickbox button button-link">%6$s</a>
+				<a href="%7$s" class="button button-link" rel="noreferrer noopener" target="_blank">%6$s</a>
 			</p>',
 			esc_html( $title ),
 			esc_html__( "We've detected that you're using the Category Colors plugin. This functionality is now included in The Events Calendar! To continue using category colors, please migrate your settings.", 'the-events-calendar' ),
 			esc_attr( $thickbox_url ),
 			esc_attr( $title ),
 			esc_html__( 'Migrate Now', 'the-events-calendar' ),
-			esc_html__( 'What happens during migration?', 'the-events-calendar' )
+			esc_html__( 'What happens during migration?', 'the-events-calendar' ),
+			esc_url( $docs_url )
 		);
 	}
 
@@ -157,7 +158,7 @@ class Migration_Notice {
 	 */
 	public static function render_thickbox_content(): void {
 		$instance = tribe( static::class );
-		$context = [];
+		$context  = [];
 		$instance->get_template()->template( 'migration-modal', $context );
 	}
 

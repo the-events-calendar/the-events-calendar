@@ -17,8 +17,9 @@ use TEC\Events\Category_Colors\Admin\Controller as Admin_Controller;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
+use TEC\Events\Category_Colors\Migration\Plugin_Manager;
+use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
 use Tribe\Events\Views\V2\View;
-use WP_Post;
 
 /**
  * Class Controller
@@ -42,9 +43,20 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		$plugin_manager = tribe( Plugin_Manager::class );
+
+		// Register the migration controller if the legacy plugin is active OR migration is not finished.
+		$status = \TEC\Events\Category_Colors\Migration\Status::get_migration_status();
+		if (
+			$plugin_manager->is_plugin_active() ||
+			( ! isset( $status['status'] ) || $status['status'] !== \TEC\Events\Category_Colors\Migration\Status::$postprocessing_completed )
+		) {
+			$this->container->register_on_action( 'tribe_plugins_loaded', Migration_Controller::class );
+			return;
+		}
+
 		// Register admin, migration, and CSS controllers.
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin_Controller::class );
-		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
 
 		/** @var Settings $instance */
