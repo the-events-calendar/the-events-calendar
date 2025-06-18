@@ -121,14 +121,15 @@ class Migration_Flow_Test extends \Codeception\TestCase\WPTestCase {
 		$original_settings = Teccc_Options_Generator::generate_teccc_options(
 			2,
 			[
-				'terms'                    => [
+				'all_terms'                 => [
 					self::$test_categories[0] => [ 'test-category-1', 'Test Category 1' ],
 					self::$test_categories[1] => [ 'test-category-2', 'Test Category 2' ],
 				],
-				'legend_superpowers'       => true,
-				'show_ignored_cats_legend' => true,
-				'custom_legend_css'        => true,
-				'reset_show'               => true,
+				'legend_superpowers'        => true,
+				'show_ignored_cats_legend'  => true,
+				'custom_legend_css'         => true,
+				'reset_show'                => true,
+				'category-color-custom-CSS' => true,
 			]
 		);
 

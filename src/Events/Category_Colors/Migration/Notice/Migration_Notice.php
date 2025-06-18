@@ -11,6 +11,7 @@ namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Events\Category_Colors\Migration\Status;
+use Tribe__Template;
 
 /**
  * Class Migration_Notice
@@ -28,14 +29,28 @@ class Migration_Notice {
 	private Migration_Flow $flow;
 
 	/**
+	 * @var Tribe__Template
+	 */
+	protected $template;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since TBD
 	 *
-	 * @param Migration_Flow $flow The migration flow controller.
+	 * @param Migration_Flow       $flow     The migration flow controller.
+	 * @param Tribe__Template|null $template The template object.
 	 */
-	public function __construct( Migration_Flow $flow ) {
+	public function __construct( Migration_Flow $flow, ?Tribe__Template $template = null ) {
 		$this->flow = $flow;
+		if ( null === $template || empty( $template->get_template_folder() ) ) {
+			$template = new Tribe__Template();
+			$template->set_template_origin( \Tribe__Events__Main::instance() );
+			$template->set_template_folder( 'src/admin-views/category-colors/partials/' );
+			$template->set_template_context_extract( true );
+			$template->set_template_folder_lookup( false );
+		}
+		$this->template = $template;
 	}
 
 	/**
@@ -46,15 +61,6 @@ class Migration_Notice {
 	 * @var string
 	 */
 	protected const MIGRATION_NOTICE_ID = 'tec_category_colors_migration_notice';
-
-	/**
-	 * The notice ID for the migration success.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected const SUCCESS_NOTICE_ID = 'tec_category_colors_migration_success';
 
 	/**
 	 * The notice ID for the migration error.
@@ -71,20 +77,41 @@ class Migration_Notice {
 	 * @since TBD
 	 */
 	public function maybe_show_migration_notice(): void {
-		// Check if we should force show the notice.
-		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', false );
+		$status         = Status::get_migration_status();
+		$current_status = $status['status'] ?? null;
 
-		// Only show if forced or if conditions are met.
-		if ( ! $force_show && ! $this->flow->should_show_migration() ) {
+		// 1. Show the "Start Migration" thickbox notice if migration has not started.
+		if ( $current_status === null || $current_status === Status::$not_started ) {
+			add_thickbox();
+			AdminNotices::show( self::MIGRATION_NOTICE_ID, $this->get_notice_message() )
+				->urgency( 'warning' )
+				->dismissible( false )
+				->inline( true );
+			// Output the Thickbox content in the footer using a static method.
+			add_action( 'admin_footer', [ __CLASS__, 'render_thickbox_content' ] );
+
 			return;
 		}
 
-		$status  = $this->flow->get_progress();
-		$message = $this->get_notice_message( $status );
+		// 3. If migration is completed or skipped, show no notice.
+		if (
+			$current_status === Status::$postprocessing_completed ||
+			$current_status === Status::$preprocessing_skipped
+		) {
+			return;
+		}
 
-		AdminNotices::show( self::MIGRATION_NOTICE_ID, $message )
-			->urgency( 'warning' )
-			->dismissible( false )
+		// 2. Show the background notice for all other in-progress statuses.
+		AdminNotices::show(
+			'tec_category_colors_migration_background_notice',
+			sprintf(
+				'<p><strong>%s</strong></p><p>%s</p>',
+				__( 'Migration Started', 'the-events-calendar' ),
+				__( 'Your category colors migration is running in the background. You can continue using the site while it processes.', 'the-events-calendar' )
+			)
+		)
+			->urgency( 'info' )
+			->dismissible( true )
 			->inline( true );
 	}
 
@@ -93,111 +120,51 @@ class Migration_Notice {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $status The current migration status and progress.
-	 *
 	 * @return string The formatted message.
 	 */
-	protected function get_notice_message( array $status ): string {
-		// If migration is in progress, show progress.
-		if ( Status::$not_started !== $status['status'] ) {
-			return $this->get_progress_message( $status );
-		}
+	protected function get_notice_message(): string {
+		$title        = __( 'Category Colors Migration', 'the-events-calendar' );
+		$thickbox_url = '#TB_inline?width=550&height=325&inlineId=tec-category-colors-migration-thickbox';
+		$docs_url     = 'https://theeventscalendar.com/knowledgebase/k/migrating-category-colors/';
 
-		// Show initial migration prompt.
 		return sprintf(
-			'<p><strong>%s</strong></p><p>%s</p><p>%s %s</p>',
-			__( 'Important: Category Colors Migration Required', 'the-events-calendar' ),
-			__( "We've detected that you're using the Category Colors plugin. This functionality is now included in The Events Calendar! To continue using category colors, please migrate your settings.", 'the-events-calendar' ),
-			$this->get_migration_action_button(),
-			$this->get_learn_more_button()
+			'<p><strong>%1$s</strong></p>
+			<p>%2$s</p>
+			<p>
+				<a href="%3$s" name="%4$s" class="thickbox button button-primary">%5$s</a>
+				<a href="%7$s" class="button button-link" rel="noreferrer noopener" target="_blank">%6$s</a>
+			</p>',
+			esc_html( $title ),
+			esc_html__( "We've detected that you're using the Category Colors plugin. This functionality is now included in The Events Calendar! To continue using category colors, please migrate your settings.", 'the-events-calendar' ),
+			esc_attr( $thickbox_url ),
+			esc_attr( $title ),
+			esc_html__( 'Migrate Now', 'the-events-calendar' ),
+			esc_html__( 'What happens during migration?', 'the-events-calendar' ),
+			esc_url( $docs_url )
 		);
 	}
 
 	/**
-	 * Gets the progress message for in-progress migrations.
+	 * Gets the template instance.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $status The current migration status and progress.
-	 *
-	 * @return string The formatted progress message.
+	 * @return Tribe__Template The template instance.
 	 */
-	protected function get_progress_message( array $status ): string {
-		$progress_text = '';
-		if ( isset( $status['total_categories'] ) && isset( $status['processed_categories'] ) ) {
-			$progress_text = sprintf(
-				'<p>%s</p>',
-				sprintf(
-					// translators: %d are integers of the amount of categories being worked on.
-					__( 'Migration in progress: %1$1d,of %2$1d, categories processed.', 'the-events-calendar' ),
-					$status['processed_categories'],
-					$status['total_categories']
-				)
-			);
-		}
+	public function get_template(): Tribe__Template {
+		return $this->template;
+	}
 
-		// Set up buttons based on migration status.
-		$buttons = [];
-
-		// Add restart button if migration is stuck or failed.
-		if ( in_array( $status['status'], [ Status::$preprocessing_failed, Status::$validation_failed, Status::$execution_failed, Status::$postprocessing_completed ] ) ) {
-			$buttons[] = $this->get_migration_action_button( __( 'Restart Migration', 'the-events-calendar' ) );
-		}
-
-		// Always add Learn More button.
-		$buttons[] = sprintf(
-			'<a href="%s" class="button button-secondary">%s</a>',
-			'https://evnt.is/category-colors-migration',
-			__( 'Learn More', 'the-events-calendar' )
-		);
-
-		// Get the step title based on status.
-		switch ( $status['status'] ) {
-			case Status::$preprocessing_scheduled:
-			case Status::$preprocessing_in_progress:
-				$step_title = __( 'Category Colors Migration - Preparing Data', 'the-events-calendar' );
-				break;
-
-			case Status::$validation_scheduled:
-			case Status::$validation_in_progress:
-				$step_title = __( 'Category Colors Migration - Validating Data', 'the-events-calendar' );
-				break;
-
-			case Status::$execution_scheduled:
-			case Status::$execution_in_progress:
-				$step_title = __( 'Category Colors Migration - Migrating Colors', 'the-events-calendar' );
-				break;
-
-			case Status::$postprocessing_scheduled:
-			case Status::$postprocessing_in_progress:
-				$step_title = __( 'Category Colors Migration - Finalizing', 'the-events-calendar' );
-				break;
-
-			case Status::$preprocessing_failed:
-				$step_title = __( 'Category Colors Migration - Preparation Failed', 'the-events-calendar' );
-				break;
-
-			case Status::$validation_failed:
-				$step_title = __( 'Category Colors Migration - Validation Failed', 'the-events-calendar' );
-				break;
-
-			case Status::$execution_failed:
-				$step_title = __( 'Category Colors Migration - Migration Failed', 'the-events-calendar' );
-				break;
-			case Status::$postprocessing_completed:
-				$step_title = __( 'Category Colors Migration - Migration Completed', 'the-events-calendar' );
-				break;
-			default:
-				$step_title = __( 'Category Colors Migration', 'the-events-calendar' );
-				break;
-		}
-
-		return sprintf(
-			'<p><strong>%s</strong></p>%s<p>%s</p>',
-			$step_title,
-			$progress_text,
-			implode( ' ', $buttons )
-		);
+	/**
+	 * Renders the thickbox content for the migration modal.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static function render_thickbox_content(): void {
+		$instance = tribe( static::class );
+		$instance->get_template()->template( 'migration-modal' );
 	}
 
 	/**
@@ -228,15 +195,13 @@ class Migration_Notice {
 				->dismissible( true )
 				->inline( true );
 		} else {
-			// Show success notice.
-			AdminNotices::show( self::SUCCESS_NOTICE_ID, $this->get_success_message() )
-				->urgency( 'success' )
-				->dismissible( true )
-				->inline( true );
+			// Set a one-time user meta flag for the background notice.
+			update_user_meta( get_current_user_id(), '_tec_category_colors_migration_notice', 1 );
 		}
 
+		// Redirect back to the same page (no redirect to category page).
 		//phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-		wp_safe_redirect( admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) );
+		wp_safe_redirect( wp_get_referer() ?: admin_url() );
 		tribe_exit();
 	}
 
