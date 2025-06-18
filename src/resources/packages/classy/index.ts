@@ -1,7 +1,6 @@
-import { addFilter, addAction, didAction, doAction } from '@wordpress/hooks';
+import { addAction, addFilter, didAction, doAction } from '@wordpress/hooks';
 import renderFields from './functions/renderFields';
 import { STORE_NAME, storeConfig } from './store';
-import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { getRegistry } from '@tec/common/classy/store';
 
 /**
@@ -11,8 +10,8 @@ import { getRegistry } from '@tec/common/classy/store';
  *
  * @return {void} The ECP store is registered.
  */
-const registerStore = () => {
-	( getRegistry() as WPDataRegistry ).registerStore( STORE_NAME, storeConfig );
+const registerStore = (): void => {
+	getRegistry().registerStore( STORE_NAME, storeConfig );
 
 	/**
 	 * Fires after the TEC store is registered and the TEC Classy application is initialized.

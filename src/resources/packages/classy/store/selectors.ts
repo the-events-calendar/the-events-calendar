@@ -1,4 +1,4 @@
-import { select } from '@tec/common/classy/store';
+import { select } from '@wordpress/data';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 import { EventMeta } from '../types/EventMeta';
 import { Settings } from '@tec/common/classy/types/LocalizedData';
