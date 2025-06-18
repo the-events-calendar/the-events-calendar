@@ -14,6 +14,7 @@ namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Category_Colors\Admin\Controller as Admin_Controller;
+use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
@@ -46,10 +47,10 @@ class Controller extends Controller_Contract {
 		$plugin_manager = tribe( Plugin_Manager::class );
 
 		// Register the migration controller if the legacy plugin is active OR migration is not finished.
-		$status = \TEC\Events\Category_Colors\Migration\Status::get_migration_status();
+		$status        = Status::get_migration_status();
 		$skip_statuses = [
-			\TEC\Events\Category_Colors\Migration\Status::$preprocessing_skipped,
-			\TEC\Events\Category_Colors\Migration\Status::$postprocessing_completed,
+			Status::$preprocessing_skipped,
+			Status::$postprocessing_completed,
 		];
 		if (
 			$plugin_manager->is_plugin_active() ||

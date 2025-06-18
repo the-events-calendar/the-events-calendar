@@ -56,7 +56,6 @@ class Plugin_Manager {
 
 		// Register the migration handler.
 		add_action( 'admin_post_tec_start_category_colors_migration', [ $this, 'handle_migration' ] );
-
 	}
 
 	/**
@@ -90,7 +89,7 @@ class Plugin_Manager {
 			->inline()
 			->dismissible( false )
 			->withWrapper();
-		echo '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">' . AdminNotices::render( $notice, false ) . '</div>';
+		echo '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">' . esc_html( AdminNotices::render( $notice, false ) ) . '</div>';
 		// Ensure thickbox scripts/styles are loaded.
 		add_thickbox();
 	}

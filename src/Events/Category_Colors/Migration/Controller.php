@@ -48,6 +48,11 @@ class Controller extends Controller_Contract {
 	 */
 	private Plugin_Manager $plugin_manager;
 
+	/**
+	 * Register the provider.
+	 *
+	 * @since TBD
+	 */
 	public function do_register(): void {
 		$this->plugin_manager = tribe( Plugin_Manager::class );
 		$this->plugin_manager->register_legacy_hooks();

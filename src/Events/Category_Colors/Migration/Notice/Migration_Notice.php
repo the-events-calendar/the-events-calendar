@@ -10,7 +10,8 @@
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
-
+use TEC\Events\Category_Colors\Migration\Status;
+use Tribe__Template;
 
 /**
  * Class Migration_Notice
@@ -28,7 +29,7 @@ class Migration_Notice {
 	private Migration_Flow $flow;
 
 	/**
-	 * @var \Tribe__Template
+	 * @var Tribe__Template
 	 */
 	protected $template;
 
@@ -37,13 +38,13 @@ class Migration_Notice {
 	 *
 	 * @since TBD
 	 *
-	 * @param Migration_Flow $flow The migration flow controller.
-	 * @param \Tribe__Template|null $template The template object.
+	 * @param Migration_Flow       $flow     The migration flow controller.
+	 * @param Tribe__Template|null $template The template object.
 	 */
-	public function __construct( Migration_Flow $flow, ?\Tribe__Template $template = null ) {
+	public function __construct( Migration_Flow $flow, ?Tribe__Template $template = null ) {
 		$this->flow = $flow;
 		if ( null === $template || empty( $template->get_template_folder() ) ) {
-			$template = new \Tribe__Template();
+			$template = new Tribe__Template();
 			$template->set_template_origin( \Tribe__Events__Main::instance() );
 			$template->set_template_folder( 'src/admin-views/category-colors/partials/' );
 			$template->set_template_context_extract( true );
@@ -62,15 +63,6 @@ class Migration_Notice {
 	protected const MIGRATION_NOTICE_ID = 'tec_category_colors_migration_notice';
 
 	/**
-	 * The notice ID for the migration success.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected const SUCCESS_NOTICE_ID = 'tec_category_colors_migration_success';
-
-	/**
 	 * The notice ID for the migration error.
 	 *
 	 * @since TBD
@@ -85,11 +77,11 @@ class Migration_Notice {
 	 * @since TBD
 	 */
 	public function maybe_show_migration_notice(): void {
-		$status = \TEC\Events\Category_Colors\Migration\Status::get_migration_status();
-		$current_status = isset( $status['status'] ) ? $status['status'] : null;
+		$status         = Status::get_migration_status();
+		$current_status = isset( $status['status'] ) ?? $status['status'];
 
 		// 1. Show the "Start Migration" thickbox notice if migration has not started.
-		if ( $current_status === null || $current_status === \TEC\Events\Category_Colors\Migration\Status::$not_started ) {
+		if ( $current_status === null || $current_status === Status::$not_started ) {
 			add_thickbox();
 			AdminNotices::show( self::MIGRATION_NOTICE_ID, $this->get_notice_message() )
 				->urgency( 'warning' )
@@ -97,13 +89,14 @@ class Migration_Notice {
 				->inline( true );
 			// Output the Thickbox content in the footer using a static method.
 			add_action( 'admin_footer', [ __CLASS__, 'render_thickbox_content' ] );
+
 			return;
 		}
 
 		// 3. If migration is completed or skipped, show no notice.
 		if (
-			$current_status === \TEC\Events\Category_Colors\Migration\Status::$postprocessing_completed ||
-			$current_status === \TEC\Events\Category_Colors\Migration\Status::$preprocessing_skipped
+			$current_status === Status::$postprocessing_completed ||
+			$current_status === Status::$preprocessing_skipped
 		) {
 			return;
 		}
@@ -130,9 +123,10 @@ class Migration_Notice {
 	 * @return string The formatted message.
 	 */
 	protected function get_notice_message(): string {
-		$title = __( 'Category Colors Migration', 'the-events-calendar' );
+		$title        = __( 'Category Colors Migration', 'the-events-calendar' );
 		$thickbox_url = '#TB_inline?width=550&height=325&inlineId=tec-category-colors-migration-thickbox';
-		$docs_url = 'https://theeventscalendar.com/knowledgebase/k/migrating-category-colors/';
+		$docs_url     = 'https://theeventscalendar.com/knowledgebase/k/migrating-category-colors/';
+
 		return sprintf(
 			'<p><strong>%1$s</strong></p>
 			<p>%2$s</p>
