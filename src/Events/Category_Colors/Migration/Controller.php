@@ -21,7 +21,6 @@ use TEC\Events\Category_Colors\Migration\Scheduler\Validation_Action;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Flow;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Notice;
 
-
 /**
  * Class Controller
  *
@@ -58,7 +57,7 @@ class Controller extends Controller_Contract {
 		$this->plugin_manager->register_legacy_hooks();
 
 		// Check if we should force show the notice.
-		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', true );
+		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', false );
 
 		// Only skip registration if migration is completed and we're not forcing.
 		if ( ! $force_show && Status::$postprocessing_completed === Status::get_migration_status()['status'] ) {
