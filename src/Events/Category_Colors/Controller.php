@@ -15,7 +15,6 @@ namespace TEC\Events\Category_Colors;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Category_Colors\Admin\Controller as Admin_Controller;
 use TEC\Events\Category_Colors\Migration\Plugin_Manager;
-use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;

@@ -38,7 +38,7 @@ class Plugin_Manager {
 	 * @return void
 	 */
 	public function register_legacy_hooks(): void {
-		if ( ! $this->is_plugin_active() ) {
+		if ( ! $this->is_old_plugin_active() ) {
 			return;
 		}
 
@@ -52,7 +52,7 @@ class Plugin_Manager {
 
 		// Add thickbox support and modal content for migration.
 		add_action( 'admin_footer', [ __CLASS__, 'render_thickbox_content' ] );
-		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'disable_save_button_for_category_colors' ], 10, 3 );
+		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'disable_save_button_for_category_colors' ] );
 
 		// Register the migration handler.
 		add_action( 'admin_post_tec_start_category_colors_migration', [ $this, 'handle_migration' ] );
@@ -235,6 +235,7 @@ class Plugin_Manager {
 		}
 
 		// Redirect back to the same page (no redirect to category page).
+		//phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 		wp_safe_redirect( wp_get_referer() ?: admin_url() );
 		tribe_exit();
 	}
@@ -245,16 +246,10 @@ class Plugin_Manager {
 	 * @since TBD
 	 *
 	 * @param array<string> $no_save_tabs The tabs that should not save.
-	 * @param string        $admin_page   The admin page.
-	 * @param array<string> $settings     The settings.
 	 *
 	 * @return array<string> The tabs that should not save.
 	 */
-	public function disable_save_button_for_category_colors(
-		$no_save_tabs,
-		$admin_page,
-		$settings
-	) {
+	public function disable_save_button_for_category_colors( $no_save_tabs ) {
 		$no_save_tabs[] = 'category-colors';
 
 		return $no_save_tabs;

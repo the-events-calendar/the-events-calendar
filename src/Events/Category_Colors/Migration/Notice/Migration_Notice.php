@@ -201,6 +201,7 @@ class Migration_Notice {
 		}
 
 		// Redirect back to the same page (no redirect to category page).
+		//phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 		wp_safe_redirect( wp_get_referer() ?: admin_url() );
 		tribe_exit();
 	}
