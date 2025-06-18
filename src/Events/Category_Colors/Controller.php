@@ -70,6 +70,7 @@ class Controller extends Controller_Contract {
 
 		// Add filters for template variables and category data.
 		add_filter( 'tec_events_views_v2_view_template_vars', [ $this, 'add_category_colors_vars' ], 10, 2 );
+		add_filter( 'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php', [ $this, 'prevent_original_plugin_reactivation' ] );
 
 		foreach ( self::CATEGORY_TEMPLATE_VIEWS as $template ) {
 			add_filter( "tribe_template_context:{$template}", [ $this, 'add_category_data' ] );
@@ -128,4 +129,20 @@ class Controller extends Controller_Contract {
 
 		return $context;
 	}
+
+	/**
+	 * Prevents the legacy plugin from being reactivated.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, string> $actions The list of action links.
+	 *
+	 * @return array<string, string> Modified list without 'activate'.
+	 */
+	public function prevent_original_plugin_reactivation( array $actions ): array {
+		unset( $actions['activate'] );
+
+		return $actions;
+	}
+
 }

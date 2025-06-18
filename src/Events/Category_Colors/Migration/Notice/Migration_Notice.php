@@ -78,7 +78,7 @@ class Migration_Notice {
 	 */
 	public function maybe_show_migration_notice(): void {
 		$status         = Status::get_migration_status();
-		$current_status = isset( $status['status'] ) ?? $status['status'];
+		$current_status = $status['status'];
 
 		// 1. Show the "Start Migration" thickbox notice if migration has not started.
 		if ( $current_status === null || $current_status === Status::$not_started ) {

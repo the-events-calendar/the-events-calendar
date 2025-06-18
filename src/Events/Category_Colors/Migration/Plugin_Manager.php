@@ -185,24 +185,6 @@ class Plugin_Manager {
 	}
 
 	/**
-	 * Prevents the legacy plugin from being reactivated.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function prevent_reactivation(): void {
-		add_filter(
-			'plugin_action_links_' . self::PLUGIN_FILE,
-			function ( $actions ) {
-				unset( $actions['activate'] );
-
-				return $actions;
-			}
-		);
-	}
-
-	/**
 	 * Handles the migration process when the user clicks the migration button.
 	 *
 	 * @since TBD
