@@ -32,7 +32,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
 		Config::add_group_path( 'tec-events-category-colors', tribe( 'tec.main' )->plugin_path . 'build/', 'category-colors' );
 		$this->add_filters();
 		$this->enqueue_assets();

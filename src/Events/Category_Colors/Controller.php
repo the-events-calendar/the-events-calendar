@@ -14,11 +14,12 @@ namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Category_Colors\Admin\Controller as Admin_Controller;
+use TEC\Events\Category_Colors\Migration\Plugin_Manager;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
+use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
 use Tribe\Events\Views\V2\View;
-use WP_Post;
 
 /**
  * Class Controller
@@ -41,10 +42,16 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
+		$plugin_manager = $this->container->make( Plugin_Manager::class );
+
+		if ( $plugin_manager->should_show_migration_controller() ) {
+			$this->container->register_on_action( 'tribe_plugins_loaded', Migration_Controller::class );
+			return;
+		}
+
 		// Register admin, migration, and CSS controllers.
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin_Controller::class );
-		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
 
 		/** @var Settings $instance */
@@ -53,6 +60,7 @@ class Controller extends Controller_Contract {
 
 		// Add filters for template variables and category data.
 		add_filter( 'tec_events_views_v2_view_template_vars', [ $this, 'add_category_colors_vars' ], 10, 2 );
+		add_filter( 'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php', [ $plugin_manager, 'prevent_original_plugin_reactivation' ] );
 
 		foreach ( self::CATEGORY_TEMPLATE_VIEWS as $template ) {
 			add_filter( "tribe_template_context:{$template}", [ $this, 'add_category_data' ] );
