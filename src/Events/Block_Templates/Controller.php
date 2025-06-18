@@ -168,10 +168,12 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 5.14.2
 	 * @since 6.2.7 Added support for single event templates.
+	 * @since TBD Passing $query_result to get_filtered_block_templates().
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array               $query        {
 	 *                                          Optional. Arguments to retrieve templates.
+	 * @param string              $template_type The type of template being requested.
 	 *
 	 * @type array                $slug__in     List of slugs to include.
 	 * @type int                  $wp_id        Post ID of customized template.
