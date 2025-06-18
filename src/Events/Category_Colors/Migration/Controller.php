@@ -12,6 +12,7 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
@@ -48,12 +49,23 @@ class Controller extends Controller_Contract {
 	private Plugin_Manager $plugin_manager;
 
 	/**
+	 * Constructor for the Controller class.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container      $container      The container instance.
+	 * @param Plugin_Manager $plugin_manager The plugin manager instance.
+	 */
+	public function __construct( Container $container, Plugin_Manager $plugin_manager ) {
+		$this->plugin_manager = $plugin_manager;
+	}
+
+	/**
 	 * Register the provider.
 	 *
 	 * @since TBD
 	 */
 	protected function do_register(): void {
-		$this->plugin_manager = tribe( Plugin_Manager::class );
 		$this->plugin_manager->register_legacy_hooks();
 
 		// Check if we should force show the notice.

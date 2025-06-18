@@ -7,6 +7,9 @@
  * @package TEC\Events\Category_Colors\Migration
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 ?>
 <div id="tec-category-colors-migration-thickbox" style="display:none;">
 	<div class="tec-category-colors-migration-thickbox">

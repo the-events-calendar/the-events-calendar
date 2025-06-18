@@ -164,8 +164,7 @@ class Migration_Notice {
 	 */
 	public static function render_thickbox_content(): void {
 		$instance = tribe( static::class );
-		$context  = [];
-		$instance->get_template()->template( 'migration-modal', $context );
+		$instance->get_template()->template( 'migration-modal' );
 	}
 
 	/**
