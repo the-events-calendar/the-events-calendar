@@ -149,9 +149,9 @@ class Migration_Notice {
 	 *
 	 * @since TBD
 	 *
-	 * @return \Tribe__Template The template instance.
+	 * @return Tribe__Template The template instance.
 	 */
-	public function get_template(): \Tribe__Template {
+	public function get_template(): Tribe__Template {
 		return $this->template;
 	}
 
