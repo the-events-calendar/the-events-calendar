@@ -47,9 +47,13 @@ class Controller extends Controller_Contract {
 
 		// Register the migration controller if the legacy plugin is active OR migration is not finished.
 		$status = \TEC\Events\Category_Colors\Migration\Status::get_migration_status();
+		$skip_statuses = [
+			\TEC\Events\Category_Colors\Migration\Status::$preprocessing_skipped,
+			\TEC\Events\Category_Colors\Migration\Status::$postprocessing_completed,
+		];
 		if (
 			$plugin_manager->is_plugin_active() ||
-			( ! isset( $status['status'] ) || $status['status'] !== \TEC\Events\Category_Colors\Migration\Status::$postprocessing_completed )
+			( ! isset( $status['status'] ) || ! in_array( $status['status'], $skip_statuses, true ) )
 		) {
 			$this->container->register_on_action( 'tribe_plugins_loaded', Migration_Controller::class );
 			return;

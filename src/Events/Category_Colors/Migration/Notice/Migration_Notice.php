@@ -85,29 +85,41 @@ class Migration_Notice {
 	 * @since TBD
 	 */
 	public function maybe_show_migration_notice(): void {
-		// Show the one-time background notice if set.
-		if ( get_user_meta( get_current_user_id(), '_tec_category_colors_migration_notice', true ) ) {
-			AdminNotices::show(
-				'tec_category_colors_migration_background_notice',
-				sprintf(
-					'<p><strong>%s</strong></p><p>%s</p>',
-					__( 'Migration Started', 'the-events-calendar' ),
-					__( 'Your category colors migration is running in the background. You can continue using the site while it processes.', 'the-events-calendar' )
-				)
-			)
-				->urgency( 'info' )
-				->dismissible( true )
+		$status = \TEC\Events\Category_Colors\Migration\Status::get_migration_status();
+		$current_status = isset( $status['status'] ) ? $status['status'] : null;
+
+		// 1. Show the "Start Migration" thickbox notice if migration has not started.
+		if ( $current_status === null || $current_status === \TEC\Events\Category_Colors\Migration\Status::$not_started ) {
+			add_thickbox();
+			AdminNotices::show( self::MIGRATION_NOTICE_ID, $this->get_notice_message() )
+				->urgency( 'warning' )
+				->dismissible( false )
 				->inline( true );
-			delete_user_meta( get_current_user_id(), '_tec_category_colors_migration_notice' );
+			// Output the Thickbox content in the footer using a static method.
+			add_action( 'admin_footer', [ __CLASS__, 'render_thickbox_content' ] );
+			return;
 		}
 
-		add_thickbox();
-		AdminNotices::show( self::MIGRATION_NOTICE_ID, $this->get_notice_message() )
-			->urgency( 'warning' )
-			->dismissible( false )
+		// 3. If migration is completed or skipped, show no notice.
+		if (
+			$current_status === \TEC\Events\Category_Colors\Migration\Status::$postprocessing_completed ||
+			$current_status === \TEC\Events\Category_Colors\Migration\Status::$preprocessing_skipped
+		) {
+			return;
+		}
+
+		// 2. Show the background notice for all other in-progress statuses.
+		AdminNotices::show(
+			'tec_category_colors_migration_background_notice',
+			sprintf(
+				'<p><strong>%s</strong></p><p>%s</p>',
+				__( 'Migration Started', 'the-events-calendar' ),
+				__( 'Your category colors migration is running in the background. You can continue using the site while it processes.', 'the-events-calendar' )
+			)
+		)
+			->urgency( 'info' )
+			->dismissible( true )
 			->inline( true );
-		// Output the Thickbox content in the footer using a static method.
-		add_action( 'admin_footer', [ __CLASS__, 'render_thickbox_content' ] );
 	}
 
 	/**

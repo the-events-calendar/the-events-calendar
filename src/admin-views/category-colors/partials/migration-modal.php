@@ -22,10 +22,14 @@
 	</style>
 	<div class="tec-category-colors-migration-thickbox">
 		<h2><?php esc_html_e( 'Category Colors Migration', 'the-events-calendar' ); ?></h2>
-		<p><?php esc_html_e(
+		<p>
+			<?php
+			esc_html_e(
 				"You're about to migrate your Category Colors plugin settings to the new built-in Category Colors feature in The Events Calendar.",
 				'the-events-calendar'
-			); ?></p>
+			);
+			?>
+		</p>
 		<ul>
 			<li><?php esc_html_e( 'Your current category colors will be mapped to the corresponding event categories.', 'the-events-calendar' ); ?></li>
 			<li><?php esc_html_e( 'The Category Colors plugin will be deactivated after migration.', 'the-events-calendar' ); ?></li>
