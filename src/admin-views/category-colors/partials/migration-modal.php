@@ -9,17 +9,6 @@
 
 ?>
 <div id="tec-category-colors-migration-thickbox" style="display:none;">
-	<style>
-        .tec-category-colors-migration-thickbox ul {
-            list-style: disc inside !important;
-            margin-left: 1.5em !important;
-            padding-left: 0 !important;
-        }
-
-        .tec-category-colors-migration-thickbox li {
-            margin-bottom: 0.5em;
-        }
-	</style>
 	<div class="tec-category-colors-migration-thickbox">
 		<h2><?php esc_html_e( 'Category Colors Migration', 'the-events-calendar' ); ?></h2>
 		<p>
@@ -30,7 +19,7 @@
 			);
 			?>
 		</p>
-		<ul>
+		<ul class="ul-disc">
 			<li><?php esc_html_e( 'Your current category colors will be mapped to the corresponding event categories.', 'the-events-calendar' ); ?></li>
 			<li><?php esc_html_e( 'The Category Colors plugin will be deactivated after migration.', 'the-events-calendar' ); ?></li>
 			<li><?php esc_html_e( "Category color mapping is now done directly in the Event Categories page. You'll be redirected there to review your colors.", 'the-events-calendar' ); ?></li>
