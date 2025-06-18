@@ -63,6 +63,7 @@ class Teccc_Options_Generator {
 	public static function generate_teccc_options( int $number_of_categories = 7, array $args = [] ): array {
 		$defaults = [
 			'terms' => [],
+			'all_terms' => [],
 			'ignored_terms' => [],
 		];
 
@@ -77,6 +78,7 @@ class Teccc_Options_Generator {
 		} else {
 			$teccc_options['terms'] = $args['terms'];
 		}
+		$teccc_options['all_terms'] = $teccc_options['terms'];
 
 		// Set ignored terms if provided.
 		if ( ! empty( $args['ignored_terms'] ) ) {
@@ -115,4 +117,4 @@ class Teccc_Options_Generator {
 
 		return $terms;
 	}
-} 
+}
