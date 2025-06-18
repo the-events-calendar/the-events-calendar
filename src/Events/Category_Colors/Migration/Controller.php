@@ -57,6 +57,7 @@ class Controller extends Controller_Contract {
 	 * @param Plugin_Manager $plugin_manager The plugin manager instance.
 	 */
 	public function __construct( Container $container, Plugin_Manager $plugin_manager ) {
+		parent::__construct( $container );
 		$this->plugin_manager = $plugin_manager;
 	}
 
