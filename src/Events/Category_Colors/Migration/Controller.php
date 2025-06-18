@@ -12,6 +12,7 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
@@ -20,7 +21,6 @@ use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Validation_Action;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Flow;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Notice;
-use Tribe__Events__Main;
 
 /**
  * Class Controller
@@ -40,13 +40,34 @@ class Controller extends Controller_Contract {
 	private Migration_Notice $notice;
 
 	/**
+	 * The plugin manager instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Plugin_Manager
+	 */
+	private Plugin_Manager $plugin_manager;
+
+	/**
+	 * Constructor for the Controller class.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container      $container      The container instance.
+	 * @param Plugin_Manager $plugin_manager The plugin manager instance.
+	 */
+	public function __construct( Container $container, Plugin_Manager $plugin_manager ) {
+		parent::__construct( $container );
+		$this->plugin_manager = $plugin_manager;
+	}
+
+	/**
 	 * Register the provider.
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
-		// Add hooks to handle plugin deactivation.
-		add_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
+	protected function do_register(): void {
+		$this->plugin_manager->register_legacy_hooks();
 
 		// Check if we should force show the notice.
 		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', false );
@@ -103,24 +124,14 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function maybe_disable_category_colors_plugin(): void {
-		// Add a filter to prevent reactivation.
-		add_filter(
-			'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php',
-			function ( $actions ) {
-				unset( $actions['activate'] );
-
-				return $actions;
-			}
-		);
-
 		// Check if the plugin is currently active.
-		if ( ! is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
+		if ( ! $this->plugin_manager->is_plugin_active() ) {
 			return;
 		}
 
 		// Case 1: If teccc_options doesn't exist, the plugin has never been used.
-		if ( ! get_option( Config::ORIGINAL_SETTINGS_OPTION ) ) {
-			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+		if ( ! $this->plugin_manager->has_original_settings() ) {
+			$this->plugin_manager->deactivate_plugin();
 
 			return;
 		}
@@ -128,35 +139,16 @@ class Controller extends Controller_Contract {
 		// Case 2: Check migration status.
 		$status = Status::get_migration_status();
 		if ( Status::$postprocessing_completed === $status['status'] ) {
-			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+			$this->plugin_manager->deactivate_plugin();
 
 			return;
 		}
 
 		// Case 3: If no migration status exists, check if we have any category meta values.
-		if ( empty( $status ) ) {
-			$categories = get_terms(
-				[
-					'taxonomy'   => Tribe__Events__Main::TAXONOMY,
-					'hide_empty' => false,
-					'number'     => 1,
-				]
-			);
+		if ( empty( $status ) && ! $this->plugin_manager->has_category_meta() ) {
+			$this->plugin_manager->deactivate_plugin();
 
-			if ( empty( $categories ) ) {
-				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
-
-				return;
-			}
-
-			// Check for border color meta (primary in new system).
-			$has_meta = ! empty( get_term_meta( $categories[0]->term_id, Config::META_KEY_PREFIX . Config::META_KEY_MAP['border'], true ) );
-
-			if ( ! $has_meta ) {
-				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
-
-				return;
-			}
+			return;
 		}
 
 		// Show notice if plugin is deactivated.

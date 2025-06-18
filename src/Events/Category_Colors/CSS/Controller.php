@@ -28,7 +28,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
 		add_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_scripts' ] );
 	}
