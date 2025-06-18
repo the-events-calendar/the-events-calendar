@@ -42,7 +42,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
 		$plugin_manager = $this->container->make( Plugin_Manager::class );
 
 		if ( $plugin_manager->should_show_migration_controller() ) {

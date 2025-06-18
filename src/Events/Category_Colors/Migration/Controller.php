@@ -52,7 +52,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register(): void {
+	protected function do_register(): void {
 		$this->plugin_manager = tribe( Plugin_Manager::class );
 		$this->plugin_manager->register_legacy_hooks();
 
