@@ -89,7 +89,7 @@ class Plugin_Manager {
 			->inline()
 			->dismissible( false )
 			->withWrapper();
-		echo '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">' . esc_html( AdminNotices::render( $notice, false ) ) . '</div>';
+		echo '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">' . wp_kses_post( AdminNotices::render( $notice, false ) ) . '</div>';
 		// Ensure thickbox scripts/styles are loaded.
 		add_thickbox();
 	}
