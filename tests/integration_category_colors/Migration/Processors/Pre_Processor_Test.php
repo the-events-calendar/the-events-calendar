@@ -134,13 +134,13 @@ class Pre_Processor_Test extends WPTestCase {
 			$teccc_options = Teccc_Options_Generator::generate_teccc_options(
 				1,
 				[
-					'terms' => [
+					'all_terms' => [
 						1 => [ 'category-1', 'Category 1' ],
 					],
 				]
 			);
 			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ] = '#ff0000';
-			$teccc_options['terms']                                              = 'not-an-array'; // Corrupt the terms data
+			$teccc_options['all_terms']                                              = 'not-an-array'; // Corrupt the terms data
 
 			update_option( 'teccc_options', $teccc_options );
 		};
@@ -235,6 +235,8 @@ class Pre_Processor_Test extends WPTestCase {
 
 		$result = $this->processor->process();
 
+		codecept_debug($expected_result);
+		codecept_debug($result);
 		$this->assertEquals( $expected_result, $result );
 		$status = Status::get_migration_status();
 		$this->assertEquals( $expected_status, $status['status'] );
