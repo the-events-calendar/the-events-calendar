@@ -14,11 +14,11 @@ namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Category_Colors\Admin\Controller as Admin_Controller;
+use TEC\Events\Category_Colors\Migration\Plugin_Manager;
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
-use TEC\Events\Category_Colors\Migration\Plugin_Manager;
 use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
 use Tribe\Events\Views\V2\View;
 
@@ -44,18 +44,9 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$plugin_manager = tribe( Plugin_Manager::class );
+		$plugin_manager = $this->container->make( Plugin_Manager::class );
 
-		// Register the migration controller if the legacy plugin is active OR migration is not finished.
-		$status        = Status::get_migration_status();
-		$skip_statuses = [
-			Status::$preprocessing_skipped,
-			Status::$postprocessing_completed,
-		];
-		if (
-			$plugin_manager->is_plugin_active() ||
-			( ! isset( $status['status'] ) || ! in_array( $status['status'], $skip_statuses, true ) )
-		) {
+		if ( $plugin_manager->should_show_migration_controller() ) {
 			$this->container->register_on_action( 'tribe_plugins_loaded', Migration_Controller::class );
 			return;
 		}
@@ -70,7 +61,7 @@ class Controller extends Controller_Contract {
 
 		// Add filters for template variables and category data.
 		add_filter( 'tec_events_views_v2_view_template_vars', [ $this, 'add_category_colors_vars' ], 10, 2 );
-		add_filter( 'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php', [ $this, 'prevent_original_plugin_reactivation' ] );
+		add_filter( 'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php', [ $plugin_manager, 'prevent_original_plugin_reactivation' ] );
 
 		foreach ( self::CATEGORY_TEMPLATE_VIEWS as $template ) {
 			add_filter( "tribe_template_context:{$template}", [ $this, 'add_category_data' ] );
@@ -129,20 +120,4 @@ class Controller extends Controller_Contract {
 
 		return $context;
 	}
-
-	/**
-	 * Prevents the legacy plugin from being reactivated.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string, string> $actions The list of action links.
-	 *
-	 * @return array<string, string> Modified list without 'activate'.
-	 */
-	public function prevent_original_plugin_reactivation( array $actions ): array {
-		unset( $actions['activate'] );
-
-		return $actions;
-	}
-
 }

@@ -118,8 +118,25 @@ class Plugin_Manager {
 	 *
 	 * @return bool
 	 */
-	public function is_plugin_active(): bool {
+	public function is_old_plugin_active(): bool {
 		return is_plugin_active( self::PLUGIN_FILE );
+	}
+
+	/**
+	 * Checks if the old Category Colors plugin is installed.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function is_old_plugin_installed(): bool {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$plugins = get_plugins();
+
+		return array_key_exists( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php', $plugins );
 	}
 
 	/**
@@ -241,5 +258,49 @@ class Plugin_Manager {
 		$no_save_tabs[] = 'category-colors';
 
 		return $no_save_tabs;
+	}
+
+	/**
+	 * Prevents the legacy plugin from being reactivated.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, string> $actions The list of action links.
+	 *
+	 * @return array<string, string> Modified list without 'activate'.
+	 */
+	public function prevent_original_plugin_reactivation( array $actions ): array {
+		unset( $actions['activate'] );
+
+		return $actions;
+	}
+
+	/**
+	 * Determines whether the migration controller should be registered.
+	 *
+	 * This will return true if:
+	 * - The legacy Category Colors plugin is installed and active.
+	 * - The migration status is either not set or not in the list of statuses
+	 *   that indicate the migration has already been skipped or completed.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the migration controller should be initialized.
+	 */
+	public function should_show_migration_controller(): bool {
+		$status        = Status::get_migration_status();
+		$skip_statuses = [
+			Status::$preprocessing_skipped,
+			Status::$postprocessing_completed,
+		];
+
+		return (
+			$this->is_old_plugin_installed()
+			&& $this->is_old_plugin_active()
+			&& (
+				! isset( $status['status'] )
+				|| ! in_array( $status['status'], $skip_statuses, true )
+			)
+		);
 	}
 }
