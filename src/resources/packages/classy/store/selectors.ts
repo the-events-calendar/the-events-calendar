@@ -119,6 +119,7 @@ export function getEditedPostVenueIds(): number[] {
  * @return {boolean} Whether tickets are supported.
  */
 export function areTicketsSupported( state: StoreState ): boolean {
+	// todo: Restore this default back to false;
 	return state?.areTicketsSupported || true;
 }
 
