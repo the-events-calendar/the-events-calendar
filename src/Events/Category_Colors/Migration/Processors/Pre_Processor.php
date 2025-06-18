@@ -138,7 +138,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 * @return bool True if the terms data structure is valid, false otherwise.
 	 */
 	protected function validate_terms_structure(): bool {
-		$terms = $this->processed_settings['terms'] ?? [];
+		$terms = $this->processed_settings['all_terms'] ?? [];
 
 		if ( ! is_array( $terms ) ) {
 			$this->log_message( 'error', 'Terms data is not an array.', [], 'Pre_Processor' );
@@ -186,7 +186,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		$categories        = [];
 		$filtered_settings = $this->processed_settings;
 
-		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
+		foreach ( $this->processed_settings['all_terms'] ?? [] as $term_id => [$slug, $name] ) {
 			foreach ( array_keys( $filtered_settings ) as $key ) {
 				if ( strpos( $key, $slug . '-' ) !== 0 && strpos( $key, $slug . '_' ) !== 0 ) {
 					continue;

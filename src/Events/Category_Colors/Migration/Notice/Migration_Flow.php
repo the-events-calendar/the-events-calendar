@@ -72,14 +72,14 @@ class Migration_Flow {
 	 * }
 	 */
 	public function get_progress(): array {
-		$migration_data = get_option( Config::MIGRATION_DATA_OPTION, [] );
+		$migration_data = (array) get_option( Config::MIGRATION_DATA_OPTION, [] );
 		$status         = Status::get_migration_status();
 
 		return array_merge(
 			$migration_data,
 			[
-				'status'        => $status['status'],
-				'error_message' => $status['error_message'] ?? null,
+				'status'        => (string) $status['status'],
+				'error_message' => (string) $status['error_message'] ?? null,
 			]
 		);
 	}
