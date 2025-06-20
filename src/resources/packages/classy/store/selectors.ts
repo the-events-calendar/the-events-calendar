@@ -1,11 +1,11 @@
-import { select } from '@wordpress/data';
-import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
+import { select } from '@tec/common/classy/store';
 import { EventMeta } from '../types/EventMeta';
 import { Settings } from '@tec/common/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
 import { StoreState } from '../types/StoreState';
 import { TECSettings } from '../types/Settings';
+import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 
 /**
  * Retrieves the post meta from the editor.
@@ -15,7 +15,6 @@ import { TECSettings } from '../types/Settings';
  * @returns {EventMeta} The event meta or an empty object if not available.
  */
 export function getPostMeta(): EventMeta {
-	// @ts-ignore
 	return select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 }
 
@@ -27,7 +26,6 @@ export function getPostMeta(): EventMeta {
  * @returns {Settings} The settings or an empty object if not available.
  */
 export function getSettings(): Settings {
-	// @ts-ignore
 	return select( 'tec/classy' ).getSettings() ?? {};
 }
 
