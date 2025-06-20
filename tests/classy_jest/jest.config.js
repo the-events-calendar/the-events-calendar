@@ -29,7 +29,7 @@ module.exports = {
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
-	// Load modules only from TEC, override defaut resolution that could lead Comon loading from its own `nonode_modules`.
+	// Load modules only from TEC, override default resolution that could lead Common loading from its own `node_modules`.
 	moduleDirectories: [ path.resolve( __dirname, '../../node_modules' ) ],
 	moduleNameMapper: {
 		'@tec/common/(.*)$': '<rootDir>/../../common/src/resources/packages/$1',
