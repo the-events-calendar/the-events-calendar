@@ -125,7 +125,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function maybe_disable_category_colors_plugin(): void {
 		// Check if the plugin is currently active.
-		if ( ! $this->plugin_manager->is_plugin_active() ) {
+		if ( ! $this->plugin_manager->is_old_plugin_active() ) {
 			return;
 		}
 
