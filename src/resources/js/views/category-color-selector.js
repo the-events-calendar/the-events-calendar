@@ -196,28 +196,30 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		if (!legendContainer) return;
 		legendContainer.innerHTML = '';
 
-		const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
-		const catData = typeof tecCategoryColorData !== 'undefined' ? tecCategoryColorData : {};
+		// If categories are selected, show only those (up to 5)
+		if (selectedCategories.size > 0) {
+			const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
 
-		// Render selected category bubbles first
-		selected.forEach(slug => {
-			const span = document.createElement('span');
-			span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
-			if (catData[slug] && !catData[slug].primary) {
-				span.classList.add(SELECTORS.colorCircleDefault);
-			}
-			legendContainer.appendChild(span);
-		});
+			selected.forEach(slug => {
+				const span = document.createElement('span');
+				span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
+				legendContainer.appendChild(span);
+			});
+		} else {
 
-		// Render default bubbles for remaining slots
-		for (let i = selected.length; i < DEFAULT_BUBBLE_COUNT; i++) {
-			const span = document.createElement('span');
-			span.classList.add(
-				SELECTORS.colorCircle,
-				SELECTORS.colorCircleDefault,
-				SELECTORS.colorCircleDefaultN(i+1)
-			);
-			legendContainer.appendChild(span);
+			// Get the first 5 checkboxes from the dropdown
+			const checkboxes = qsa(SELECTORS.checkbox);
+			const firstFiveCheckboxes = Array.from(checkboxes).slice(0, DEFAULT_BUBBLE_COUNT);
+
+			// Render category bubbles from checkboxes
+			firstFiveCheckboxes.forEach(checkbox => {
+				const categorySlug = checkbox.dataset.category;
+				if (categorySlug) {
+					const span = document.createElement('span');
+					span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${categorySlug}`);
+					legendContainer.appendChild(span);
+				}
+			});
 		}
 	};
 
@@ -305,7 +307,6 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 								renderLegend();
 							}, 50 );
 						} catch ( error ) {
-							console.error( 'Error handling AJAX response:', error );
 							// Attempt recovery
 							ensureBindings();
 						}
@@ -364,7 +365,6 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const cleanupBindings = () => {
 		const picker = qs( SELECTORS.picker );
 		if ( !picker || !isBound( picker ) ) return;
-		unbindEvents();
 		picker.removeAttribute( SELECTORS.dataBound );
 	};
 
@@ -411,36 +411,6 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 			observer.observe(document.body, { childList: true, subtree: true });
 		}
 		window.addEventListener('beforeunload', cleanupBindings);
-	};
-
-	/**
-	 * Unbinds events for the category color picker.
-	 * @since TBD
-	 * @return {void}
-	 */
-	const unbindEvents = () => {
-		const picker = qs(SELECTORS.picker);
-		const closeButton = qs(SELECTORS.dropdownClose);
-		const resetButton = qs(SELECTORS.resetButton);
-		const grid = qs(SELECTORS.dropdown);
-		if (picker) {
-			picker.removeEventListener('click', toggleDropdown);
-		}
-		document.removeEventListener('click', handleDropdownClose);
-		if (grid) {
-			grid.removeEventListener('change', handleCheckboxChange);
-		}
-		if (closeButton) {
-			closeButton.removeEventListener('click', closeDropdown);
-		}
-		if (resetButton) {
-			resetButton.removeEventListener('click', resetSelection);
-		}
-		if (observer) {
-			observer.disconnect();
-			observer = null;
-		}
-		window.removeEventListener('beforeunload', cleanupBindings);
 	};
 
 	// =====================

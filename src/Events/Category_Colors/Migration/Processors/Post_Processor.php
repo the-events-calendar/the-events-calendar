@@ -14,6 +14,7 @@ namespace TEC\Events\Category_Colors\Migration\Processors;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Status;
+use TEC\Events\Category_Colors\Migration\Plugin_Manager;
 use TEC\Events\Category_Colors\CSS\Generator;
 
 /**
@@ -141,8 +142,9 @@ class Post_Processor extends Abstract_Migration_Step {
 
 		// If validation passed and the plugin was previously active, deactivate it.
 		if ( $validation_result && isset( $migration_data['was_plugin_active'] ) && $migration_data['was_plugin_active'] ) {
-			if ( is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
-				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+			$plugin_manager = tribe( Plugin_Manager::class );
+			if ( $plugin_manager->is_old_plugin_active() ) {
+				$plugin_manager->deactivate_plugin();
 				$this->log_message( 'info', 'Category Colors plugin deactivated after successful migration.', [], 'Post Processor' );
 			}
 		}
