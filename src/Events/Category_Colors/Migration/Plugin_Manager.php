@@ -14,6 +14,8 @@ use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Flow;
 use Tribe__Events__Main;
 use Tribe__Template;
+use Tribe__Admin__Helpers;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Plugin_Manager
@@ -66,6 +68,11 @@ class Plugin_Manager {
 	 * @return void
 	 */
 	public static function render_category_colors_notice() {
+		// Only show on TEC admin pages.
+		if ( ! ( new self() )->is_tec_admin_page() ) {
+			return;
+		}
+
 		$thickbox_url   = '#TB_inline?width=550&height=325&inlineId=tec-category-colors-migration-thickbox';
 		$migrate_url    = esc_attr( $thickbox_url );
 		$learn_more_url = esc_url( 'https://theeventscalendar.com/knowledgebase/k/migrating-category-colors/' );
@@ -297,5 +304,31 @@ class Plugin_Manager {
 				|| ! in_array( $status['status'], $skip_statuses, true )
 			)
 		);
+	}
+
+	/**
+	 * Checks if the current page is a TEC or Event Tickets admin page.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if on a TEC/Event Tickets admin page, false otherwise.
+	 */
+	public function is_tec_admin_page(): bool {
+		$helper = Tribe__Admin__Helpers::instance();
+
+		// If we are not on a tec post-type admin screen, bail.
+		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
+			return false;
+		}
+
+		/**
+		 * Filter to determine if we are on a TEC admin page.
+		 * Allows other classes to hook in and modify the return value.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_tec_admin_page Whether we are on a TEC admin page.
+		 */
+		return (bool) apply_filters( 'tec_category_colors_is_tec_admin_page', true );
 	}
 }
