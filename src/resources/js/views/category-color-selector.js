@@ -61,14 +61,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	let selectedCategories = new Set();
 	let ajaxHooked = false;
 	let observer = null;
-	let eventsBound = false;
 
-	/**
-	 * Default number of color bubbles to show in the legend.
-	 *
-	 * @since TBD
-	 * @type {number}
-	 */
 	const DEFAULT_BUBBLE_COUNT = 5;
 
 	// =============
@@ -206,16 +199,21 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		// If categories are selected, show only those (up to 5)
 		if (selectedCategories.size > 0) {
 			const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
-			
+			console.log('[CategoryColors] Rendering selected categories:', selected);
+
 			selected.forEach(slug => {
 				const span = document.createElement('span');
 				span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
 				legendContainer.appendChild(span);
 			});
 		} else {
+			console.log('[CategoryColors] No categories selected, rendering default bubbles');
+
 			// Get the first 5 checkboxes from the dropdown
 			const checkboxes = qsa(SELECTORS.checkbox);
 			const firstFiveCheckboxes = Array.from(checkboxes).slice(0, DEFAULT_BUBBLE_COUNT);
+
+			console.log('[CategoryColors] Found checkboxes:', firstFiveCheckboxes.length);
 
 			// Render category bubbles from checkboxes
 			firstFiveCheckboxes.forEach(checkbox => {
@@ -313,6 +311,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 								renderLegend();
 							}, 50 );
 						} catch ( error ) {
+							console.error( 'Error handling AJAX response:', error );
 							// Attempt recovery
 							ensureBindings();
 						}
@@ -331,9 +330,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		// Re-check checkboxes
 		qsa( SELECTORS.checkbox ).forEach( checkbox => {
 			const cat = checkbox.dataset.category;
-			if ( cat ) {
-				checkbox.checked = selectedCategories.has( cat );
-			}
+			checkbox.checked = selectedCategories.has( cat );
 		} );
 		updateEventVisibility();
 		renderLegend();
@@ -357,11 +354,23 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 				setTimeout( () => ensureBindings( retryCount + 1 ), 50 );
 				return;
 			}
-			if ( !eventsBound ) {
+			cleanupBindings();
+			if ( !isBound( picker ) ) {
 				bindEvents();
+				picker.setAttribute( SELECTORS.dataBound, 'true' );
 			}
-			picker.setAttribute( SELECTORS.dataBound, 'true' );
 		} );
+	};
+
+	/**
+	 * Removes old event bindings to prevent duplicate listeners.
+	 * @since TBD
+	 * @return {void}
+	 */
+	const cleanupBindings = () => {
+		const picker = qs( SELECTORS.picker );
+		if ( !picker || !isBound( picker ) ) return;
+		picker.removeAttribute( SELECTORS.dataBound );
 	};
 
 	/**
@@ -378,17 +387,15 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const bindEvents = () => {
-		if (eventsBound) return; // Prevent duplicate bindings
-		eventsBound = true;
-
 		const picker = qs(SELECTORS.picker);
 		const closeButton = qs(SELECTORS.dropdownClose);
 		const resetButton = qs(SELECTORS.resetButton);
-		const grid = qs(SELECTORS.dropdown);
-
 		if (picker) {
 			picker.addEventListener('click', toggleDropdown);
 		}
+		document.addEventListener('click', handleDropdownClose);
+		// Event delegation for checkboxes
+		const grid = qs(SELECTORS.dropdown);
 		if (grid) {
 			grid.addEventListener('change', handleCheckboxChange);
 		}
@@ -403,21 +410,12 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		if (resetButton) {
 			resetButton.addEventListener('click', resetSelection);
 		}
-
-		document.addEventListener('click', handleDropdownClose);
-		window.addEventListener('beforeunload', () => {
-			eventsBound = false;
-		});
-	};
-
-	/**
-	 * Unbinds events for the category color picker.
-	 * @since TBD
-	 * @return {void}
-	 */
-	const unbindEvents = () => {
-		// No-op, we don't need to remove listeners due to early return
-		eventsBound = false;
+		// MutationObserver to clean up bindings if DOM changes
+		if (!observer) {
+			observer = new MutationObserver(cleanupBindings);
+			observer.observe(document.body, { childList: true, subtree: true });
+		}
+		window.addEventListener('beforeunload', cleanupBindings);
 	};
 
 	// =====================
