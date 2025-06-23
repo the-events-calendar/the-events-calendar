@@ -11,6 +11,7 @@ namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
+use TEC\Events\Category_Colors\Migration\Plugin_Manager;
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Scheduler\Abstract_Action;
@@ -99,6 +100,13 @@ class Migration_Notice_Test extends WPTestCase {
 
 				return 123;
 			},
+			true
+		);
+
+		// Mock Plugin_Manager's is_tec_admin_page method to return true
+		$this->set_class_fn_return(
+			Plugin_Manager::class,
+			'is_tec_admin_page',
 			true
 		);
 	}

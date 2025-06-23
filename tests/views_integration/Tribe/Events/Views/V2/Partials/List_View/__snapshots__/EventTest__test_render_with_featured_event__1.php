@@ -1,6 +1,6 @@
 <?php return '<div  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
-	<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
+	<div  class="tribe-events-calendar-list__event-date-tag tribe-common-g-col post-7 tribe_events type-tribe_events status-publish hentry"  >
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20" aria-hidden="true">
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
 			Thu		</span>

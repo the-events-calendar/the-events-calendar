@@ -10,6 +10,7 @@
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
+use TEC\Events\Category_Colors\Migration\Plugin_Manager;
 use TEC\Events\Category_Colors\Migration\Status;
 use Tribe__Template;
 
@@ -79,6 +80,10 @@ class Migration_Notice {
 	public function maybe_show_migration_notice(): void {
 		$status         = Status::get_migration_status();
 		$current_status = $status['status'] ?? null;
+
+		if ( ! tribe( Plugin_Manager::class )->is_tec_admin_page() ) {
+			return;
+		}
 
 		// 1. Show the "Start Migration" thickbox notice if migration has not started.
 		if ( $current_status === null || $current_status === Status::$not_started ) {

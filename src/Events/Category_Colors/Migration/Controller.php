@@ -174,7 +174,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
-		remove_action( 'admin_init', [ $this->notice, 'maybe_show_migration_notice' ] );
+		remove_action( 'current_screen', [ $this->notice, 'maybe_show_migration_notice' ] );
 		remove_action( 'admin_post_tec_start_category_colors_migration', [ $this->notice, 'handle_migration' ] );
 	}
 
@@ -185,7 +185,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function hook(): void {
 		add_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
-		add_action( 'admin_init', [ $this->notice, 'maybe_show_migration_notice' ] );
+		add_action( 'current_screen', [ $this->notice, 'maybe_show_migration_notice' ] );
 		add_action( 'admin_post_tec_start_category_colors_migration', [ $this->notice, 'handle_migration' ] );
 	}
 }
