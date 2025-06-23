@@ -196,28 +196,34 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		if (!legendContainer) return;
 		legendContainer.innerHTML = '';
 
-		const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
-		const catData = typeof tecCategoryColorData !== 'undefined' ? tecCategoryColorData : {};
+		// If categories are selected, show only those (up to 5)
+		if (selectedCategories.size > 0) {
+			const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
+			console.log('[CategoryColors] Rendering selected categories:', selected);
+			
+			selected.forEach(slug => {
+				const span = document.createElement('span');
+				span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
+				legendContainer.appendChild(span);
+			});
+		} else {
+			console.log('[CategoryColors] No categories selected, rendering default bubbles');
+			
+			// Get the first 5 checkboxes from the dropdown
+			const checkboxes = qsa(SELECTORS.checkbox);
+			const firstFiveCheckboxes = Array.from(checkboxes).slice(0, DEFAULT_BUBBLE_COUNT);
+			
+			console.log('[CategoryColors] Found checkboxes:', firstFiveCheckboxes.length);
 
-		// Render selected category bubbles first
-		selected.forEach(slug => {
-			const span = document.createElement('span');
-			span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
-			if (catData[slug] && !catData[slug].primary) {
-				span.classList.add(SELECTORS.colorCircleDefault);
-			}
-			legendContainer.appendChild(span);
-		});
-
-		// Render default bubbles for remaining slots
-		for (let i = selected.length; i < DEFAULT_BUBBLE_COUNT; i++) {
-			const span = document.createElement('span');
-			span.classList.add(
-				SELECTORS.colorCircle,
-				SELECTORS.colorCircleDefault,
-				SELECTORS.colorCircleDefaultN(i+1)
-			);
-			legendContainer.appendChild(span);
+			// Render category bubbles from checkboxes
+			firstFiveCheckboxes.forEach(checkbox => {
+				const categorySlug = checkbox.dataset.category;
+				if (categorySlug) {
+					const span = document.createElement('span');
+					span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${categorySlug}`);
+					legendContainer.appendChild(span);
+				}
+			});
 		}
 	};
 
