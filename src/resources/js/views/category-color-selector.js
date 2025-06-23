@@ -199,7 +199,6 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		// If categories are selected, show only those (up to 5)
 		if (selectedCategories.size > 0) {
 			const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
-			console.log('[CategoryColors] Rendering selected categories:', selected);
 
 			selected.forEach(slug => {
 				const span = document.createElement('span');
@@ -207,13 +206,10 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 				legendContainer.appendChild(span);
 			});
 		} else {
-			console.log('[CategoryColors] No categories selected, rendering default bubbles');
 
 			// Get the first 5 checkboxes from the dropdown
 			const checkboxes = qsa(SELECTORS.checkbox);
 			const firstFiveCheckboxes = Array.from(checkboxes).slice(0, DEFAULT_BUBBLE_COUNT);
-
-			console.log('[CategoryColors] Found checkboxes:', firstFiveCheckboxes.length);
 
 			// Render category bubbles from checkboxes
 			firstFiveCheckboxes.forEach(checkbox => {
@@ -311,7 +307,6 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 								renderLegend();
 							}, 50 );
 						} catch ( error ) {
-							console.error( 'Error handling AJAX response:', error );
 							// Attempt recovery
 							ensureBindings();
 						}
