@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Remove class_exists() and use register_on_action() for Notifications [TEC-5336]

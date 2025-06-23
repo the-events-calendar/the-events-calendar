@@ -1,104 +1,152 @@
 .tribe-editor__calendars {
-	.DayPicker {
-		width: 100%;
-	}
 
+	.DayPicker,
+	.rdp-root {
+		width: 100%;
+		--rdp-day-height: 44px;
+		--rdp-day-width: 44px;
+		--rdp-day_button-height: 40px;
+		--rdp-day_button-width: 40px;
+	}
 
 	.DayPicker-Months {
 		justify-content: space-between;
 	}
 
-	.DayPicker-Month {
-		width: 46.2686567164%;
+	.rdp-months {
+		justify-content: center;
+	}
+
+	.DayPicker-Month,
+	.rdp-month {
 		margin: 0;
+		width: 46.2686567164%;
 	}
 
 	.DayPicker-Caption > div,
 	.DayPicker-Weekday,
-	.DayPicker-Day {
+	.DayPicker-Day,
+	.rdp-caption_label > div,
+	.rdp-weekday,
+	.rdp-day {
 		color: #545d66;
-		font-family: 'Helvetica', 'sans-serif';
-		font-weight: normal;
+		font-family: Helvetica, sans-serif;
+		font-weight: 400;
+		padding-bottom: 0;
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
 	}
 
-	.DayPicker-Caption > div {
+	.DayPicker-Caption > div,
+	.rdp-caption_label > div {
 		font-size: 1rem;
 		margin-bottom: 12px;
 		text-align: center;
 	}
 
-	.DayPicker-Weekday {
+	.DayPicker-Weekday,
+	.rdp-weekday {
 		font-size: 0.75rem;
 	}
 
-	.DayPicker-Day {
+	.DayPicker-Day,
+	.rdp-day {
 		font-size: 0.875rem;
 
 		&:hover {
+			background-color: #fff;
 			color: #007bb4;
-			background-color: #ffffff;
 		}
 	}
 
-	.DayPicker-Day--today {
-		color: #545D66;
+	.DayPicker-Day--today,
+	.rdp-today {
+		color: #545d66;
 	}
 
-	.DayPicker-Day--disabled {
+	.DayPicker-Day--disabled,
+	.rdp-disabled {
+		color: #ccc;
 		pointer-events: none;
-		color: #cccccc;
 	}
 
-	.DayPicker-Day--selected:not(.DayPicker-Day--outside) {
-		border-radius: 0;
+	.DayPicker-Day--selected:not(.DayPicker-Day--outside),
+	.rdp-day.rdp-selected:not(.rdp-outside) {
 		background-color: #009fd4;
-		color: #ffffff;
+		border-radius: 0;
+		color: #fff;
 
 		&:hover {
 			background-color: #007bb4;
-			color: #ffffff;
+			color: #fff;
 		}
 	}
 
-	.DayPicker-NavButton--prev {
+	.DayPicker-NavButton--prev,
+	.rdp-button_previous {
 		left: 0;
 		top: 0;
 	}
 
-	.DayPicker-NavButton--next {
+	.DayPicker-NavButton--next,
+	rdp-button_next {
 		right: 0;
 		top: 0;
 	}
 
-	.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside) {
+	.DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside),
+	.rdp-root:not(.rdp-disabled) .rdp-day:not(.rdp-disabled):not(.rdp-selected):not(.rdp-outside) {
+
 		&:hover {
-			background-color: #ffffff;
+			background-color: #fff;
 		}
 	}
 }
 
-.tribe-editor__daypicker-caption {
-	padding: 0 8px;
-	display: table-caption;
+.tribe-editor__daypicker-caption,
+.rdp-month_caption {
+	display: flex;
 	margin-bottom: 8px;
+	padding: 0 8px;
 
 	& > div {
+		color: #545d66;
+		font-family: Helvetica, sans-serif;
 		font-size: 1rem;
+		font-weight: 400;
 		margin-bottom: 12px;
 		text-align: center;
-		color: #545d66;
-		font-family: 'Helvetica', 'sans-serif';
-		font-weight: normal;
 	}
 }
 
 .tribe-editor__calendars--range {
-	.DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+
+	.DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside),
+	.rdp-day.rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-outside) {
 		background-color: #e7f5fa;
 		color: #545d66;
 
 		&:hover {
 			color: #007bb4;
+		}
+	}
+}
+
+.tribe-editor__date-input__popover {
+
+	.rdp-root {
+		width: 100%;
+		--rdp-day-height: 40px;
+		--rdp-day-width: 40px;
+		--rdp-day_button-height: 37px;
+		--rdp-day_button-width: 37px;
+
+		.rdp-day {
+			padding-bottom: 0;
+			padding-left: 0;
+			padding-right: 0;
+			padding-top: 0;
 		}
 	}
 }

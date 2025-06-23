@@ -56,16 +56,16 @@
     "changelogger": {
       "changelog": "changelog.md",
       "types": {
-        "version" : "Version",
-        "feat" : "Feature",
-        "tweak" : "Tweak",
-        "fix" : "Fix",
-        "performance" : "Performance",
-        "security" : "Security",
-        "accessibility" : "Accessibility",
-        "compatibility" : "Compatibility",
-        "deprecated" : "Deprecated",
-        "language" : "Language"
+        "version": "Version",
+        "feat": "Feature",
+        "fix": "Fix",
+        "tweak": "Tweak",
+        "performance": "Performance",
+        "security": "Security",
+        "accessibility": "Accessibility",
+        "compatibility": "Compatibility",
+        "deprecated": "Deprecated",
+        "language": "Language"
       },
       "versioning": {
         "filename": "bin/ModifiedSemverVersioning.php"
@@ -78,8 +78,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Tribe\\Events\\" : "src/Tribe",
-      "TEC\\Events\\" : "src/Events"
+      "Tribe\\Events\\": "src/Tribe",
+      "TEC\\Events\\": "src/Events"
     },
     "classmap": ["src/deprecated/Traits/"]
   },
@@ -102,7 +102,8 @@
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
     "stop-chromedriver": "docker stop chromedriver",
     "pup": [
-      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.7/pup.phar",
+      "Composer\\Config::disableProcessTimeout",
+      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.8/pup.phar",
       "@php bin/pup.phar"
     ]
   }

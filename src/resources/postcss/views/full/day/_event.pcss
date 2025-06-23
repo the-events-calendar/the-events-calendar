@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 * Event
 	 * ----------------------------------------------------------------------------- */
@@ -8,6 +9,7 @@
 	}
 
 	.tribe-events-calendar-day__event-title-link {
+
 		@mixin event-title-link-color;
 	}
 
@@ -18,9 +20,9 @@
 	.tribe-events-calendar-day__event--featured {
 		position: relative;
 
-		&:after {
+		&::after {
 			background-color: var(--tec-color-accent-primary);
-			content: '';
+			content: "";
 			height: 100%;
 			left: var(--tec-grid-gutter-small-half);
 			position: absolute;

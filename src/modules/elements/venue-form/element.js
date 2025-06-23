@@ -15,19 +15,11 @@ import { Component } from '@wordpress/element';
  * Internal dependencies
  */
 import { Input } from '@moderntribe/events/elements';
-import list, {
-	getCountries,
-	getStates,
-	getCountryCode,
-	getStateCode,
-} from '@moderntribe/events/editor/utils/geo-data';
-import {
-	setDefault,
-	getVenueCountry,
-	getVenueStateProvince,
-} from '@moderntribe/events/data/blocks/venue/utils';
+import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
+import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
 import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+
 const { RichText } = wpEditor;
 
 export function toFields( venue ) {
@@ -85,11 +77,7 @@ export default class VenueForm extends Component {
 		onSubmit: PropTypes.func,
 	};
 
-	static defaultProps = {
-		onSubmit: noop,
-	};
-
-	constructor( props ) {
+	constructor( props = { onSubmit: noop } ) {
 		super( ...arguments );
 
 		this.state = {
@@ -107,9 +95,7 @@ export default class VenueForm extends Component {
 	}
 
 	componentWillUnmount() {
-		const FIELDS = [
-			'title', 'address', 'city', 'country', 'zip', 'phone', 'url', 'stateProvince',
-		];
+		const FIELDS = [ 'title', 'address', 'city', 'country', 'zip', 'phone', 'url', 'stateProvince' ];
 		const fields = pick( this.state, FIELDS );
 		fields.country = get( list.countries, fields.country, '' ) || fields.country;
 		fields.stateProvince = get( list.us_states, fields.stateProvince, '' ) || fields.stateProvince;
@@ -118,7 +104,7 @@ export default class VenueForm extends Component {
 
 	onInputChange = ( key ) => ( value ) => {
 		this.setState( { [ key ]: value } );
-	}
+	};
 
 	saveRef = ( input ) => {
 		if ( input ) {
@@ -126,7 +112,7 @@ export default class VenueForm extends Component {
 			const { name } = props || {};
 			this.fields[ name ] = input;
 		}
-	}
+	};
 
 	renderOption( element ) {
 		return (
@@ -195,20 +181,10 @@ export default class VenueForm extends Component {
 	}
 
 	render() {
-		const {
-			title,
-			address,
-			city,
-			zip,
-			phone,
-			url,
-		} = this.state;
+		const { title = '', address = '', city = '', zip = '', phone = '', url = '' } = this.state;
 
 		return (
-			<div
-				className="tribe-editor__venue__form"
-				key="tribe-venue-form"
-			>
+			<div className="tribe-editor__venue__form" key="tribe-venue-form">
 				<RichText
 					tagName="h3"
 					format="string"
@@ -216,7 +192,6 @@ export default class VenueForm extends Component {
 					onChange={ ( value ) => {
 						this.setState( { title: value } );
 					} }
-					formattingControls={ [] }
 				/>
 				<div className="tribe-editor__venue__fields">
 					<Input
@@ -226,6 +201,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						value={ address }
 						onChange={ this.onInputChange( 'address' ) }
+						__nextHasNoMarginBottom={ true }
 					/>
 					<Input
 						type="text"
@@ -234,6 +210,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'city' ) }
 						value={ city }
+						__nextHasNoMarginBottom={ true }
 					/>
 					<div className="row">
 						{ this.renderCountry() }
@@ -248,6 +225,7 @@ export default class VenueForm extends Component {
 							ref={ this.saveRef }
 							onChange={ this.onInputChange( 'zip' ) }
 							value={ zip }
+							__nextHasNoMarginBottom={ true }
 						/>
 					</div>
 					<Input
@@ -257,6 +235,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'phone' ) }
 						value={ phone }
+						__nextHasNoMarginBottom={ true }
 					/>
 					<Input
 						type="url"
@@ -265,6 +244,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'url' ) }
 						value={ url }
+						__nextHasNoMarginBottom={ true }
 					/>
 				</div>
 			</div>

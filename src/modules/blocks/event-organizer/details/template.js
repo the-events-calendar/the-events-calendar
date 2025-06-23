@@ -11,16 +11,12 @@ import { decode } from 'he';
  */
 import { Dashicon } from '@wordpress/components';
 import { toFields } from '@moderntribe/events/elements/organizer-form/utils';
-import { Close as CloseIcon } from '@moderntribe/common/icons';
+import { ReactComponent as CloseIcon } from '@moderntribe/common/icons/close.svg';
+
 import './style.pcss';
 
-/**
- * Internal dependencies
- */
-
-const OrganizerDetails = ( props ) => {
+const OrganizerDetails = ( { organizer = {}, edit = noop, remove = noop, selected = false, volatile } ) => {
 	const maybeEdit = () => {
-		const { volatile, edit } = props;
 		if ( ! volatile ) {
 			return;
 		}
@@ -28,8 +24,6 @@ const OrganizerDetails = ( props ) => {
 	};
 
 	const renderEdit = () => {
-		const { edit, selected, volatile } = props;
-
 		if ( ! selected || ! volatile ) {
 			return null;
 		}
@@ -42,13 +36,9 @@ const OrganizerDetails = ( props ) => {
 	};
 
 	const renderDetails = () => {
-		const { organizer } = props;
 		const fields = toFields( organizer );
 		const { title, website, email, phone } = fields;
 
-		/**
-		 * @todo: Set onClick to a button, not h3.
-		 */
 		return (
 			<Fragment>
 				<div className="tribe-editor__organizer__title">
@@ -68,18 +58,13 @@ const OrganizerDetails = ( props ) => {
 	};
 
 	const renderActions = () => {
-		const { remove, selected } = props;
-
 		if ( ! selected ) {
 			return null;
 		}
 
 		return (
 			<div className="tribe-editor__organizer__actions">
-				<button
-					className="tribe-editor__organizer__actions--close"
-					onClick={ remove }
-				>
+				<button className="tribe-editor__organizer__actions--close" onClick={ remove }>
 					<CloseIcon />
 				</button>
 			</div>
@@ -100,13 +85,6 @@ OrganizerDetails.propTypes = {
 	remove: PropTypes.func,
 	selected: PropTypes.bool,
 	volatile: PropTypes.bool,
-};
-
-OrganizerDetails.defaultProps = {
-	organizer: {},
-	edit: noop,
-	remove: noop,
-	selected: false,
 };
 
 export default OrganizerDetails;

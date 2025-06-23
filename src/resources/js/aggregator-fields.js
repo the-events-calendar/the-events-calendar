@@ -1,126 +1,128 @@
 /* eslint-disable */
-var tribe_aggregator = tribe_aggregator || {};
+window.tribe_aggregator = window.tribe_aggregator || {};
 
-// Setup the global Variable
-tribe_aggregator.fields = {
-	// Store the Required Selectors
-	selector: {
-		container               : '.tribe-ea',
-		form                    : '.tribe-ea-form',
-		help                    : '.tribe-ea-help',
-		fields                  : '.tribe-ea-field',
-		dropdown                : '.tribe-ea-dropdown',
-		origin_field            : '#tribe-ea-field-origin',
-		field_url_source        : '#tribe-ea-field-url_source',
-		eventbrite_url_source   : '#tribe-ea-field-eventbrite_source',
-		post_status             : '.tribe-ea-field-post_status',
-		import_type_field       : '.tribe-import-type',
-		media_button            : '.tribe-ea-media_button',
-		datepicker              : '.tribe-datepicker',
-		save_credentials_button : '.enter-credentials .tribe-save',
-		preview_container       : '.tribe-preview-container',
-		preview_button          : '.tribe-preview:visible',
-		refine_filters          : '.tribe-refine-filters',
-		clear_filters_button    : '.tribe-clear-filters',
-		finalize_button         : '.tribe-finalize',
-		cancel_button           : '.tribe-cancel',
-		schedule_delete_link    : '.tribe-ea-tab-scheduled a.submitdelete',
-		tab_new                 : '.tribe-ea-tab-new',
-		action                  : '#tribe-action',
-		view_filters            : '.tribe-view-filters'
-	},
+( function( $, _, ea ) {
+	'use strict';
 
-	media: {},
+	ea.localized = window.tribe_aggregator_data || {};
 
-	// Store the jQuery elements
-	$: {},
-
-	// Store the methods for creating the fields
-	construct: {},
-
-	// Store the methods that will act as event handlers
-	events: {},
-
-	// store the current import_id
-	import_id: null,
-
-	// track how many result fetches have been executed via polling
-	result_fetch_count: 0,
-
-	// the maximum number of result fetches that can be done per frequency before erroring out
-	max_result_fetch_count: 15,
-
-	// frequency at which we will poll for results
-	polling_frequency_index: 0,
-
-	polling_frequencies: [
-		500,
-		1000,
-		5000,
-		20000
-	],
-
-	// A "module" of sorts related to Eventbrite only imports.
-	eventbrite: {
-		refineControls: '.tribe-refine-filters.eventbrite, .tribe-refine-filters.eventbrite .tribe-refine',
-		refineControlsHideMap: {
-			'event': 'tr.tribe-refine-filters',
-			'organizer': ''
+	// Setup the global Variable
+	ea.fields = {
+		// Store the Required Selectors
+		selector: {
+			container               : '.tribe-ea',
+			form                    : '.tribe-ea-form',
+			help                    : '.tribe-ea-help',
+			fields                  : '.tribe-ea-field',
+			dropdown                : '.tribe-ea-dropdown',
+			origin_field            : '#tribe-ea-field-origin',
+			field_url_source        : '#tribe-ea-field-url_source',
+			eventbrite_url_source   : '#tribe-ea-field-eventbrite_source',
+			post_status             : '.tribe-ea-field-post_status',
+			import_type_field       : '.tribe-import-type',
+			media_button            : '.tribe-ea-media_button',
+			datepicker              : '.tribe-datepicker',
+			save_credentials_button : '.enter-credentials .tribe-save',
+			preview_container       : '.tribe-preview-container',
+			preview_button          : '.tribe-preview:visible',
+			refine_filters          : '.tribe-refine-filters',
+			clear_filters_button    : '.tribe-clear-filters',
+			finalize_button         : '.tribe-finalize',
+			cancel_button           : '.tribe-cancel',
+			schedule_delete_link    : '.tribe-ea-tab-scheduled a.submitdelete',
+			tab_new                 : '.tribe-ea-tab-new',
+			action                  : '#tribe-action',
+			view_filters            : '.tribe-view-filters'
 		},
-		detect_type: function ( url ) {
-			if ( ! tribe_aggregator.source_origin_regexp.eventbrite ) {
-				return null;
-			}
 
-			var baseRegex = tribe_aggregator.source_origin_regexp.eventbrite;
-			var type_regexps = {
-				// E.g. https://www.eventbrite.fr/e/some-event
-				'event': baseRegex + 'e\/[A-z0-9_-]+',
-				// E.g. https://www.eventbrite.fr/o/some-organizer
-				'organizer': baseRegex + 'o\/[A-z0-9_-]+'
-			};
-			var type = undefined;
+		media: {},
 
-			_.each( type_regexps, function ( regularExpression, key ) {
-				var exp = new RegExp( regularExpression, 'g' );
-				var match = exp.exec( url );
+		// Store the jQuery elements
+		$: {},
 
-				if ( null === match ) {
-					return;
+		// Store the methods for creating the fields
+		construct: {},
+
+		// Store the methods that will act as event handlers
+		events: {},
+
+		// store the current import_id
+		import_id: null,
+
+		// track how many result fetches have been executed via polling
+		result_fetch_count: 0,
+
+		// the maximum number of result fetches that can be done per frequency before erroring out
+		max_result_fetch_count: 15,
+
+		// frequency at which we will poll for results
+		polling_frequency_index: 0,
+
+		polling_frequencies: [
+			500,
+			1000,
+			5000,
+			20000
+		],
+
+		// A "module" of sorts related to Eventbrite only imports.
+		eventbrite: {
+			refineControls: '.tribe-refine-filters.eventbrite, .tribe-refine-filters.eventbrite .tribe-refine',
+			refineControlsHideMap: {
+				'event': 'tr.tribe-refine-filters',
+				'organizer': ''
+			},
+			detect_type: function ( url ) {
+				if ( ! ea.localized.source_origin_regexp.eventbrite ) {
+					return null;
 				}
 
-				type = key;
-			} );
+				var baseRegex = ea.localized.source_origin_regexp.eventbrite;
+				var type_regexps = {
+					// E.g. https://www.eventbrite.fr/e/some-event
+					'event': baseRegex + 'e\/[A-z0-9_-]+',
+					// E.g. https://www.eventbrite.fr/o/some-organizer
+					'organizer': baseRegex + 'o\/[A-z0-9_-]+'
+				};
+				var type = undefined;
 
-			return type;
+				_.each( type_regexps, function ( regularExpression, key ) {
+					var exp = new RegExp( regularExpression, 'g' );
+					var match = exp.exec( url );
+
+					if ( null === match ) {
+						return;
+					}
+
+					type = key;
+				} );
+
+				return type;
+			}
 		}
-	}
-};
-
-( function( $, _, obj, ea ) {
-	'use strict';
+	};
 	/**
 	 * Sets up the fields for EA pages
 	 *
 	 * @return void
 	 */
-	obj.init = function() {
-		obj.$.container = $( obj.selector.container );
+	ea.fields.init = function() {
+		ea.fields.$.container = $( ea.fields.selector.container );
 
-		obj.$.form = $( obj.selector.form );
+		ea.fields.$.form = $( ea.fields.selector.form );
 
-		obj.$.action = $( obj.selector.action );
+		ea.fields.$.action = $( ea.fields.selector.action );
 
 		// Update what fields we currently have to setup
-		obj.$.fields = obj.$.container.find( obj.selector.fields );
+		ea.fields.$.fields = ea.fields.$.container.find( ea.fields.selector.fields );
 
 		// Setup the preview container
-		obj.$.preview_container = $( obj.selector.preview_container );
+		ea.fields.$.preview_container = $( ea.fields.selector.preview_container );
 
 		// setup some variables we might reuse
-		obj.origin = $( '#tribe-ea-field-origin' );
-		obj.importType = $( '#tribe-ea-field-url_import_type' );
-		obj.urlImport = {
+		ea.fields.origin = $( '#tribe-ea-field-origin' );
+		ea.fields.importType = $( '#tribe-ea-field-url_import_type' );
+		ea.fields.urlImport = {
 			startDate: $( '#tribe-ea-field-url_start' ),
 			originalMinDate: function() {
 				return $( '#tribe-ea-field-url_start' ).datepicker( 'option', 'minDate' ) || '';
@@ -128,8 +130,8 @@ tribe_aggregator.fields = {
 		};
 
 		// Setup each type of field
-		$.each( obj.construct, function( key, callback ){
-			callback( obj.$.fields );
+		$.each( ea.fields.construct, function( key, callback ){
+			callback( ea.fields.$.fields );
 		} );
 
 		// @TODO: I don't think this is necessary any more?
@@ -145,39 +147,39 @@ tribe_aggregator.fields = {
 		}
 
 		$( document )
-			.on( 'keypress'   , obj.selector.fields                    , obj.events.trigger_field_change )
-			.on( 'click'      , obj.selector.save_credentials_button   , obj.events.trigger_save_credentials )
-			.on( 'click'      , obj.selector.clear_filters_button      , obj.clear_filters )
-			.on( 'click'      , obj.selector.finalize_button           , obj.finalize_manual_import )
-			.on( 'click'      , obj.selector.preview_button            , obj.preview_import )
-			.on( 'click'      , obj.selector.cancel_button             , obj.events.cancel_edit )
-			.on( 'click'      , obj.selector.schedule_delete_link      , obj.events.verify_schedule_delete )
-			.on( 'click'      , obj.selector.view_filters              , obj.events.toggle_view_filters )
-			.on( 'blur'       , obj.selector.datepicker                , obj.date_helper )
-			.on( 'submit'     , obj.selector.tab_new                   , obj.events.suppress_submission )
-			.on( 'change'     , obj.selector.import_type_field         , function() {
+			.on( 'keypress'   , ea.fields.selector.fields                    , ea.fields.events.trigger_field_change )
+			.on( 'click'      , ea.fields.selector.save_credentials_button   , ea.fields.events.trigger_save_credentials )
+			.on( 'click'      , ea.fields.selector.clear_filters_button      , ea.fields.clear_filters )
+			.on( 'click'      , ea.fields.selector.finalize_button           , ea.fields.finalize_manual_import )
+			.on( 'click'      , ea.fields.selector.preview_button            , ea.fields.preview_import )
+			.on( 'click'      , ea.fields.selector.cancel_button             , ea.fields.events.cancel_edit )
+			.on( 'click'      , ea.fields.selector.schedule_delete_link      , ea.fields.events.verify_schedule_delete )
+			.on( 'click'      , ea.fields.selector.view_filters              , ea.fields.events.toggle_view_filters )
+			.on( 'blur'       , ea.fields.selector.datepicker                , ea.fields.date_helper )
+			.on( 'submit'     , ea.fields.selector.tab_new                   , ea.fields.events.suppress_submission )
+			.on( 'change'     , ea.fields.selector.import_type_field         , function() {
 				// Resets the Preview
-				obj.reset_preview()
+				ea.fields.reset_preview()
 
 				// Every time you change Type of import we reset the frequency field
 				var $this = $( this ),
-				    $frequency = $( this ).next( obj.selector.fields );
+				    $frequency = $( this ).next( ea.fields.selector.fields );
 
 				var importType = $this.val();
 
 				$frequency.val( ( 'schedule' === importType ? 'daily' : '' ) ).trigger( 'change' );
 
 				// set a data attribute on the form indicating the schedule type
-				obj.$.form.attr( 'data-type', importType );
+				ea.fields.$.form.attr( 'data-type', importType );
 
-				obj.maybeLimitUrlStartDate()
+				ea.fields.maybeLimitUrlStartDate()
 			} )
-			.on( 'change'     , obj.selector.origin_field              , function() {
+			.on( 'change'     , ea.fields.selector.origin_field              , function() {
 				var $field = $( this );
 				var selectData = $( this ).data( 'select2' );
 				var origin  = $field.val();
-				obj.$.form.attr( 'data-origin', origin );
-				obj.reset_preview();
+				ea.fields.$.form.attr( 'data-origin', origin );
+				ea.fields.reset_preview();
 
 				// reset all bumpdowns
 				$( '.tribe-bumpdown-active' ).removeClass( 'tribe-bumpdown-active' );
@@ -190,30 +192,30 @@ tribe_aggregator.fields = {
 
 				// A "reset" of the Post Status select2 selector when an origin is selected.
 				if ( '' !== origin ) {
-					$( obj.selector.post_status )
-						.val( ea.default_settings[ origin ][ 'post_status' ] )
+					$( ea.fields.selector.post_status )
+						.val( ea.localized.default_settings[ origin ][ 'post_status' ] )
 						.trigger( 'change' );
 				}
 
-				obj.maybeLimitUrlStartDate()
+				ea.fields.maybeLimitUrlStartDate()
 			} )
-			.on( 'change', obj.selector.eventbrite_url_source, function ( e ) {
+			.on( 'change', ea.fields.selector.eventbrite_url_source, function ( e ) {
 				// Show all UI controls at first, even if we bail the user will have a full UI.
-				$( obj.eventbrite.refineControls ).show();
+				$( ea.fields.eventbrite.refineControls ).show();
 
-				var type = obj.eventbrite.detect_type( $( '#tribe-ea-field-eventbrite_source' ).val() );
+				var type = ea.fields.eventbrite.detect_type( $( '#tribe-ea-field-eventbrite_source' ).val() );
 
 				if ( ! type ) {
 					return;
 				}
 
 				// And then hide the ones that should be hidden for this import type if there are any.
-				var controlsToHide = obj.eventbrite.refineControlsHideMap[ type ];
+				var controlsToHide = ea.fields.eventbrite.refineControlsHideMap[ type ];
 				if ( controlsToHide ) {
 					$( controlsToHide ).hide();
 				}
 			} )
-			.on( 'change', obj.selector.field_url_source, function( e ) {
+			.on( 'change', ea.fields.selector.field_url_source, function( e ) {
 				var $field = $( this );
 				var selectData = $( this ).data( 'select2' );
 				var value  = $field.val();
@@ -223,7 +225,7 @@ tribe_aggregator.fields = {
 					return;
 				}
 
-				_.each( ea.source_origin_regexp, function( regularExpression, key ) {
+				_.each( ea.localized.source_origin_regexp, function( regularExpression, key ) {
 					var exp = new RegExp( regularExpression, 'g' );
 					var match = exp.exec( value );
 
@@ -238,7 +240,7 @@ tribe_aggregator.fields = {
 					return;
 				}
 
-				var $origin = $( obj.selector.origin_field );
+				var $origin = $( ea.fields.selector.origin_field );
 
 				// Prevent Changing when dealing with Non-Existent Origin
 				if ( ! $origin.find( 'option[value="' + origin + '"]' ).length ) {
@@ -278,12 +280,12 @@ tribe_aggregator.fields = {
 		// Configure TimePickers
 		tribe_timepickers.setup_timepickers( $( tribe_timepickers.selector.timepicker ) );
 
-		if ( 'edit' === obj.$.action.val() ) {
-			obj.$.form.addClass( 'edit-form' );
-			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
+		if ( 'edit' === ea.fields.$.action.val() ) {
+			ea.fields.$.form.addClass( 'edit-form' );
+			$( ea.fields.selector.finalize_button ).html( ea.localized.l10n.edit_save );
 		}
 
-		if ( 'object' === typeof tribe_aggregator_save ) {
+		if ( 'object' === typeof window.tribe_aggregator_save ) {
 			$(document).trigger( 'tribe_aggregator_init_notice' );
 		}
 	};
@@ -291,12 +293,12 @@ tribe_aggregator.fields = {
 	/**
 	 * Send an Ajax request to preview the import
 	 */
-	obj.preview_import = function( event ) {
+	ea.fields.preview_import = function( event ) {
 		event.preventDefault();
 
 		var $form = $( '.tribe-ea-form.tribe-validation' );
 
-		obj.reset_post_status();
+		ea.fields.reset_post_status();
 
 		// Makes sure we have validation
 		$form.trigger( 'validation.tribe' );
@@ -306,7 +308,7 @@ tribe_aggregator.fields = {
 			return;
 		}
 
-		obj.reset_polling_counter();
+		ea.fields.reset_polling_counter();
 
 		// clear the warning area
 		var $message_container = $( '.tribe-fetch-warning-message' ).html( '' );
@@ -320,7 +322,7 @@ tribe_aggregator.fields = {
 		$import_id.data( 'value', $import_id.val() );
 		$import_id.val( '' );
 
-		var $preview = $( obj.selector.preview_button );
+		var $preview = $( ea.fields.selector.preview_button );
 		var $form = $preview.closest( 'form' );
 		var data = $form.serialize();
 
@@ -328,11 +330,11 @@ tribe_aggregator.fields = {
 		$post_id.val( $post_id.data( 'value' ) );
 		$import_id.val( $post_id.data( 'value' ) );
 
-		obj.$.preview_container
+		ea.fields.$.preview_container
 			.addClass( 'tribe-fetching' )
 			.removeClass( 'tribe-fetch-error' );
 
-		obj.$.form.removeClass( 'show-data' );
+		ea.fields.$.form.removeClass( 'show-data' );
 
 		$preview.prop( 'disabled', true );
 
@@ -341,20 +343,20 @@ tribe_aggregator.fields = {
 			table.clear().draw();
 		}
 
-		if ( 'edit' === obj.$.action.val() ) {
+		if ( 'edit' === ea.fields.$.action.val() ) {
 			// preview the import
-			obj.preview_save_import( data );
+			ea.fields.preview_save_import( data );
 		} else {
 			// create the import
-			obj.create_import( data );
+			ea.fields.create_import( data );
 		}
 	};
 
 	/**
 	 * Reset the post status to the default state when a new import is taking place
 	 */
-	obj.reset_post_status = function() {
-		var $origin = $( obj.selector.origin_field ); // eslint-disable-line no-var
+	ea.fields.reset_post_status = function() {
+		var $origin = $( ea.fields.selector.origin_field ); // eslint-disable-line no-var
 		var origin = $origin.length === 0 ? '' : $origin.val(); // eslint-disable-line no-var
 
 		if ( origin === '' ) {
@@ -362,38 +364,38 @@ tribe_aggregator.fields = {
 		}
 
 		// Set the default state of the post_status
-		$( obj.selector.post_status )
-			.val( ea.default_settings[ origin ].post_status )
+		$( ea.fields.selector.post_status )
+			.val( ea.localized.default_settings[ origin ].post_status )
 			.trigger( 'change' );
 	};
 
-	obj.reset_polling_counter = function() {
-		obj.polling_frequency_index = 0;
-		obj.result_fetch_count = 0;
+	ea.fields.reset_polling_counter = function() {
+		ea.fields.polling_frequency_index = 0;
+		ea.fields.result_fetch_count = 0;
 	};
 
 	/**
 	 * Clears the refine filters
 	 */
-	obj.reset_form = function() {
-		obj.$.fields.val( '' ).trigger( 'change' );
+	ea.fields.reset_form = function() {
+		ea.fields.$.fields.val( '' ).trigger( 'change' );
 		$( '[id$="import_frequency"]' ).val( 'daily' ).trigger( 'change' );
-		obj.$.form.removeClass( 'show-data' );
+		ea.fields.$.form.removeClass( 'show-data' );
 	};
 
 	/**
 	 * Resets the preview area of a form
 	 */
-	obj.reset_preview = function() {
-		obj.$.form.removeClass( 'show-data' );
+	ea.fields.reset_preview = function() {
+		ea.fields.$.form.removeClass( 'show-data' );
 		$( '.tribe-fetched, .tribe-fetching, .tribe-fetch-error' ).removeClass( 'tribe-fetched tribe-fetching tribe-fetch-error' );
 	};
 
 	/**
 	 * Clears the refine filters
 	 */
-	obj.clear_filters = function() {
-		$( obj.selector.refine_filters )
+	ea.fields.clear_filters = function() {
+		$( ea.fields.selector.refine_filters )
 			.find( 'input, select' )
 			.val( '' )
 			.trigger( 'change' );
@@ -402,7 +404,7 @@ tribe_aggregator.fields = {
 	/**
 	 * Edits an import and polls for results
 	 */
-	obj.preview_save_import = function( data ) {
+	ea.fields.preview_save_import = function( data ) {
 		var jqxhr = $.ajax( {
 			type: 'POST',
 			url: ajaxurl + '?action=tribe_aggregator_preview_import',
@@ -410,7 +412,7 @@ tribe_aggregator.fields = {
 			dataType: 'json'
 		} );
 
-		jqxhr.done( obj.handle_preview_create_results );
+		jqxhr.done( ea.fields.handle_preview_create_results );
 	};
 
 	/**
@@ -418,7 +420,7 @@ tribe_aggregator.fields = {
 	 *
 	 * @param object data Form data for the import
 	 */
-	obj.create_import = function( data ) {
+	ea.fields.create_import = function( data ) {
 		var jqxhr = $.ajax( {
 			type: 'POST',
 			url: ajaxurl + '?action=tribe_aggregator_create_import',
@@ -426,13 +428,13 @@ tribe_aggregator.fields = {
 			dataType: 'json'
 		} );
 
-		jqxhr.done( obj.handle_preview_create_results );
+		jqxhr.done( ea.fields.handle_preview_create_results );
 	};
 
 	/**
 	 * Handles the create/edit results
 	 */
-	obj.handle_preview_create_results = function( response ) {
+	ea.fields.handle_preview_create_results = function( response ) {
 		if ( ! response.success ) {
 			var error = response.data;
 
@@ -440,9 +442,9 @@ tribe_aggregator.fields = {
 				error = error.message;
 			}
 
-			obj.display_fetch_error( [
+			ea.fields.display_fetch_error( [
 				'<b>',
-					ea.l10n.preview_fetch_error_prefix,
+					ea.localized.l10n.preview_fetch_error_prefix,
 				'</b>',
 				' ' + error
 			].join( ' ' ) );
@@ -450,28 +452,34 @@ tribe_aggregator.fields = {
 		}
 
 		// set the import id of the page
-		obj.import_id = response.data.data.import_id;
-		$( '#tribe-import_id' ).val( obj.import_id );
+		ea.fields.import_id = response.data.data.import_id;
+		$( '#tribe-import_id' ).val( ea.fields.import_id );
 
 		if ( 'undefined' !== typeof response.data.data.items ) {
-			obj.init_datatable( response.data.data );
-			obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+			ea.fields.init_datatable( response.data.data );
+			ea.fields.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
 			return;
 		}
 
-		obj.$.container.find( '.spinner-message' ).html( ea.l10n.preview_polling[0] );
-		setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
+		ea.fields.$.container.find( '.spinner-message' ).html( ea.localized.l10n.preview_polling[0] );
+		setTimeout( ea.fields.poll_for_results, ea.fields.polling_frequencies[ ea.fields.polling_frequency_index ] );
 	};
 
 	/**
 	 * Poll for results from an import
 	 */
-	obj.poll_for_results = function() {
-		obj.result_fetch_count++;
+	ea.fields.poll_for_results = function() {
+		ea.fields.result_fetch_count++;
+
+		const urlParts = [
+			'action=tribe_aggregator_fetch_import',
+			`import_id=${ ea.fields.import_id }`,
+			`tribe_aggregator_nonce=${ ea.localized.nonce }`
+		];
 
 		var jqxhr = $.ajax( {
 			type: 'GET',
-			url: ajaxurl + '?action=tribe_aggregator_fetch_import&import_id=' + obj.import_id,
+			url: `${ ajaxurl }?` + urlParts.join( '&' ),
 			dataType: 'json'
 		} );
 
@@ -479,9 +487,9 @@ tribe_aggregator.fields = {
 			if ( 'undefined' !== typeof response.data.warning && response.data.warning ) {
 				var warning_message = response.data.warning;
 
-				obj.display_fetch_warning( [
+				ea.fields.display_fetch_warning( [
 					'<b>',
-					ea.l10n.preview_fetch_warning_prefix,
+					ea.localized.l10n.preview_fetch_warning_prefix,
 					'</b>',
 					' ' + warning_message
 				].join( ' ' ) );
@@ -496,9 +504,9 @@ tribe_aggregator.fields = {
 					error_message = response.data[0].message;
 				}
 
-				obj.display_fetch_error( [
+				ea.fields.display_fetch_error( [
 					'<b>',
-						ea.l10n.preview_fetch_error_prefix,
+						ea.localized.l10n.preview_fetch_error_prefix,
 					'</b>',
 					' ' + error_message
 				].join( ' ' ) );
@@ -506,24 +514,24 @@ tribe_aggregator.fields = {
 			}
 
 			if ( 'error' === response.data.status ) {
-				obj.display_fetch_error( response.data.message );
+				ea.fields.display_fetch_error( response.data.message );
 			} else if ( 'success' !== response.data.status ) {
-				if ( obj.result_fetch_count > obj.max_result_fetch_count ) {
-					obj.polling_frequency_index++;
-					obj.$.container.find( '.spinner-message' ).html( ea.l10n.preview_polling[ obj.polling_frequency_index ] );
-					obj.result_fetch_count = 0;
+				if ( ea.fields.result_fetch_count > ea.fields.max_result_fetch_count ) {
+					ea.fields.polling_frequency_index++;
+					ea.fields.$.container.find( '.spinner-message' ).html( ea.localized.l10n.preview_polling[ ea.fields.polling_frequency_index ] );
+					ea.fields.result_fetch_count = 0;
 				}
 
-				if ( 'undefined' === typeof obj.polling_frequencies[ obj.polling_frequency_index ] ) {
-					obj.display_fetch_error( ea.l10n.preview_timeout );
+				if ( 'undefined' === typeof ea.fields.polling_frequencies[ ea.fields.polling_frequency_index ] ) {
+					ea.fields.display_fetch_error( ea.localized.l10n.preview_timeout );
 				} else {
-					setTimeout( obj.poll_for_results, obj.polling_frequencies[ obj.polling_frequency_index ] );
+					setTimeout( ea.fields.poll_for_results, ea.fields.polling_frequencies[ ea.fields.polling_frequency_index ] );
 				}
 			} else {
 				response.data.data.items = response.data.data.events;
-				obj.init_datatable( response.data.data );
-				obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
-				$( obj.selector.preview_button ).prop( 'disabled', false );
+				ea.fields.init_datatable( response.data.data );
+				ea.fields.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetched' );
+				$( ea.fields.selector.preview_button ).prop( 'disabled', false );
 			}
 		} );
 	};
@@ -533,10 +541,10 @@ tribe_aggregator.fields = {
 	 *
 	 * @param array data Array of events to display in the table
 	 */
-	obj.init_datatable = function( data ) {
+	ea.fields.init_datatable = function( data ) {
 		var display_checkboxes = false;
 
-		var origin = $( obj.selector.origin_field ).val();
+		var origin = $( ea.fields.selector.origin_field ).val();
 		var is_csv = 'csv' === origin;
 		var is_eventbrite = 'eventbrite' === origin;
 
@@ -544,16 +552,16 @@ tribe_aggregator.fields = {
 		var import_type = 'manual';
 
 		// set the default settings
-		if ( 'undefined' !== typeof ea.default_settings[ origin ] ) {
-			for ( var settings_key in ea.default_settings[ origin ] ) {
-				if ( ! ea.default_settings[ origin ].hasOwnProperty( settings_key ) ) {
+		if ( 'undefined' !== typeof ea.localized.default_settings[ origin ] ) {
+			for ( var settings_key in ea.localized.default_settings[ origin ] ) {
+				if ( ! ea.localized.default_settings[ origin ].hasOwnProperty( settings_key ) ) {
 					continue;
 				}
 
 				var $setting_field = $( '#tribe-ea-field-' + settings_key );
 
 				$setting_field
-					.val( ea.default_settings[ origin ][ settings_key ] )
+					.val( ea.localized.default_settings[ origin ][ settings_key ] )
 					.trigger( 'change' );
 			}
 		}
@@ -565,15 +573,15 @@ tribe_aggregator.fields = {
         if ( 'manual' === import_type && !data.items.length ) {
 			var origin = data.origin;
 			var origin_specific_no_results_msg = (
-				'undefined' !== typeof ea.l10n[ origin ]
-				&& 'undefined' !== typeof ea.l10n[ origin ].no_results
+				'undefined' !== typeof ea.localized.l10n[ origin ]
+				&& 'undefined' !== typeof ea.localized.l10n[ origin ].no_results
 			);
 
 			var message = origin_specific_no_results_msg ?
-				ea.l10n[ origin ].no_results
-				: ea.l10n.no_results;
+				ea.localized.l10n[ origin ].no_results
+				: ea.localized.l10n.no_results;
 
-			obj.display_fetch_error(message);
+			ea.fields.display_fetch_error(message);
 			return;
 		}
 
@@ -581,20 +589,20 @@ tribe_aggregator.fields = {
 			display_checkboxes = true;
 		}
 
-		var $table = obj.$.preview_container.find( '.data-container table' );
+		var $table = ea.fields.$.preview_container.find( '.data-container table' );
 
 		var rows = [];
 		for ( var i in data.items ) {
 			var row = data.items[ i ];
 			row.checkbox = display_checkboxes ? '<input type="checkbox">' : '';
 			if ( row.all_day ) {
-				row.start_time = ea.l10n.all_day;
+				row.start_time = ea.localized.l10n.all_day;
 			} else {
 				if ( 'undefined' === typeof row.start_meridian || ! row.start_meridian ) {
 					if ( parseInt( row.start_hour, 10 ) > 11 ) {
-						row.start_meridian = ea.l10n.pm;
+						row.start_meridian = ea.localized.l10n.pm;
 					} else {
-						row.start_meridian = ea.l10n.am;
+						row.start_meridian = ea.localized.l10n.am;
 					}
 				}
 
@@ -614,7 +622,7 @@ tribe_aggregator.fields = {
 			$table.removeClass( 'display-checkboxes' );
 		}
 
-		obj.$.form.addClass( 'show-data' );
+		ea.fields.$.form.addClass( 'show-data' );
 
 		var args = {
 			lengthMenu: [
@@ -678,8 +686,8 @@ tribe_aggregator.fields = {
 
 					var $map_select = $map_row.find( '#column-' + column );
 
-					if ( 'undefined' !== typeof ea.csv_column_mapping[ content_type ][ column ] ) {
-						column_slug = ea.csv_column_mapping[ content_type ][ column ];
+					if ( 'undefined' !== typeof ea.localized.csv_column_mapping[ content_type ][ column ] ) {
+						column_slug = ea.localized.csv_column_mapping[ content_type ][ column ];
 					}
 					$map_select.find( 'option[value="' + column_slug + '"]' ).prop( 'selected', true );
 				}
@@ -700,29 +708,29 @@ tribe_aggregator.fields = {
 		}
 
 		$table.tribeDataTable( args );
-		obj.wrap_cell_content();
+		ea.fields.wrap_cell_content();
 
 		$table
-			.on( 'select.dt'  , obj.events.twiddle_finalize_button_text )
-			.on( 'deselect.dt', obj.events.twiddle_finalize_button_text )
-			.on( 'draw.dt', obj.wrap_cell_content );
+			.on( 'select.dt'  , ea.fields.events.twiddle_finalize_button_text )
+			.on( 'deselect.dt', ea.fields.events.twiddle_finalize_button_text )
+			.on( 'draw.dt', ea.fields.wrap_cell_content );
 
 		var text;
 
-		if ( 'new' === obj.$.action.val() ) {
+		if ( 'new' === ea.fields.$.action.val() ) {
 			if ( 'manual' === import_type && is_csv ) {
-				text = ea.l10n.import_all_no_number;
+				text = ea.localized.l10n.import_all_no_number;
 			} else if ( 'manual' === import_type ) {
-				text = ea.l10n.import_all.replace( '%d', rows.length );
+				text = ea.localized.l10n.import_all.replace( '%d', rows.length );
 			} else {
-				text = ea.l10n.create_schedule;
+				text = ea.localized.l10n.create_schedule;
 			}
 		}
 
-		$( obj.selector.finalize_button ).html( text );
+		$( ea.fields.selector.finalize_button ).html( text );
 	};
 
-	obj.wrap_cell_content = function() {
+	ea.fields.wrap_cell_content = function() {
 		$( '.dataTable' ).find( 'tbody td' ).each( function() {
 			var $cell = $( this );
 			$cell.html( '<div class="tribe-td-height-limit">' + $cell.html() + '</div>' );
@@ -732,34 +740,34 @@ tribe_aggregator.fields = {
 	/**
 	 * Displays a fetch error
 	 */
-	obj.display_fetch_error = function( message ) {
+	ea.fields.display_fetch_error = function( message ) {
 		var $message_container = $( '.tribe-fetch-error-message' );
-		obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-error' );
+		ea.fields.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-error' );
 
 		// clear out the error message area
 		$message_container.html('');
 
-		obj.display_error( $message_container, message );
-		$( obj.selector.preview_button ).prop( 'disabled', false );
+		ea.fields.display_error( $message_container, message );
+		$( ea.fields.selector.preview_button ).prop( 'disabled', false );
 	};
 
 	/**
 	 * Displays a fetch warning
 	 */
-	obj.display_fetch_warning = function( message ) {
+	ea.fields.display_fetch_warning = function( message ) {
 		var $message_container = $( '.tribe-fetch-warning-message' );
-		obj.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-warning' );
+		ea.fields.$.preview_container.removeClass( 'tribe-fetching' ).addClass( 'tribe-fetch-warning' );
 
 		// clear out the error message area
 		$message_container.html('');
 
-		obj.display_warning( $message_container, message );
+		ea.fields.display_warning( $message_container, message );
 	};
 
 	/**
 	 * Displays an error to a container on the page
 	 */
-	obj.display_error = function( $container, message ) {
+	ea.fields.display_error = function( $container, message ) {
 		$container.prepend(
 			[
 				'<div class="notice notice-error">',
@@ -774,7 +782,7 @@ tribe_aggregator.fields = {
 	/**
 	 * Displays a warning to a container on the page
 	 */
-	obj.display_warning = function( $container, message ) {
+	ea.fields.display_warning = function( $container, message ) {
 		$container.prepend(
 			[
 				'<div class="notice notice-warning">',
@@ -789,7 +797,7 @@ tribe_aggregator.fields = {
 	/**
 	 * displays a success message to a container on the page
 	 */
-	obj.display_success = function( $container, message ) {
+	ea.fields.display_success = function( $container, message ) {
 		$container.prepend(
 			[
 				'<div class="notice notice-success">',
@@ -804,8 +812,9 @@ tribe_aggregator.fields = {
 	/**
 	 * Saves credential form
 	 */
-	obj.save_credentials = function( $credentials_form ) {
+	ea.fields.save_credentials = function( $credentials_form ) {
 		var data = $credentials_form.find( '.tribe-fieldset' ).find( 'input' ).serialize();
+		data += `&tribe_aggregator_nonce=${ ea.localized.nonce }`;
 
 		var url = ajaxurl + '?action=tribe_aggregator_save_credentials';
 
@@ -821,7 +830,7 @@ tribe_aggregator.fields = {
 	/**
 	 * Submits the final version of the import for saving events
 	 */
-	obj.finalize_manual_import = function() {
+	ea.fields.finalize_manual_import = function() {
 		var origin = $( '#tribe-ea-field-origin' ).val();
 		var $table = $( '.dataTable' );
 		var table  = window.tribe_data_table;
@@ -833,7 +842,7 @@ tribe_aggregator.fields = {
 			}
 
 			if ( ! row_selection[0].length ) {
-				obj.display_error( $( '.tribe-finalize-container' ), ea.l10n.events_required_for_manual_submit );
+				ea.fields.display_error( $( '.tribe-finalize-container' ), ea.localized.l10n.events_required_for_manual_submit );
 				return;
 			}
 
@@ -874,7 +883,7 @@ tribe_aggregator.fields = {
 
 		$( '.dataTables_scrollBody' ).find( '[name^="aggregator[column_map]"]' ).remove();
 
-		obj.$.form.trigger( 'submit' );
+		ea.fields.$.form.trigger( 'submit' );
 	};
 
 	/**
@@ -883,7 +892,7 @@ tribe_aggregator.fields = {
 	 * @param  {object|string} e Searched object or the actual ID
 	 * @return {string}   ID of the object
 	 */
-	obj.search_id = function ( e ) {
+	ea.fields.search_id = function ( e ) {
 		var id = null;
 
 		if ( 'undefined' !== typeof e.id ){
@@ -903,7 +912,7 @@ tribe_aggregator.fields = {
 	 *
 	 * @return {jQuery}         Affected fields
 	 */
-	obj.construct.dropdown = function( $fields ) {
+	ea.fields.construct.dropdown = function( $fields ) {
 		var upsellFormatter = function( option ) {
 			var $option = $( option.element );
 
@@ -931,8 +940,8 @@ tribe_aggregator.fields = {
 	 *
 	 * @return {jQuery}         Affected fields
 	 */
-	obj.construct.media_button = function( $fields ) {
-		var $elements = $fields.filter( obj.selector.media_button );
+	ea.fields.construct.media_button = function( $fields ) {
+		var $elements = $fields.filter( ea.fields.selector.media_button );
 
 		if ( typeof wp === 'undefined' || ! wp.media || ! wp.media.editor ) {
 			return $elements;
@@ -945,7 +954,7 @@ tribe_aggregator.fields = {
 				$name = $( '#' + input + '_name' );
 
 			// Setup the WP Media for this slug
-			var media = obj.media[ input ] = wp.media( {
+			var media = ea.fields.media[ input ] = wp.media( {
 				title: $button.data( 'mediaTitle' ),
 				library: {
 					type: $button.data( 'mimeType' )
@@ -979,7 +988,7 @@ tribe_aggregator.fields = {
 			*/
 		} );
 
-		obj.$.container.on( 'click', obj.selector.media_button, function( e ) {
+		ea.fields.$.container.on( 'click', ea.fields.selector.media_button, function( e ) {
 			e.preventDefault();
 
 			if ( ! $( this ).is( ':visible' ) ) {
@@ -987,7 +996,7 @@ tribe_aggregator.fields = {
 			}
 
 			var input = $( this ).data( 'input' );
-			obj.media[ input ].open( input );
+			ea.fields.media[ input ].open( input );
 			return false;
 		} );
 
@@ -997,21 +1006,21 @@ tribe_aggregator.fields = {
 	/**
 	 * Triggers a change event on the given field
 	 */
-	obj.events.trigger_field_change = function() {
+	ea.fields.events.trigger_field_change = function() {
 		$( this ).trigger( 'change' );
 	};
 
 	/**
 	 * Triggers the saving of credentials
 	 */
-	obj.events.trigger_save_credentials = function() {
-		obj.save_credentials( $( this ).closest( '.enter-credentials' ) );
+	ea.fields.events.trigger_save_credentials = function() {
+		ea.fields.save_credentials( $( this ).closest( '.enter-credentials' ) );
 	};
 
 	/**
 	 * Suppress form submissions
 	 */
-	obj.events.suppress_submission = function( e ) {
+	ea.fields.events.suppress_submission = function( e ) {
 		var origin = $( '#tribe-ea-field-origin' ).val();
 
 		if ( $( '#tribe-selected-rows' ).val().length ) {
@@ -1024,24 +1033,24 @@ tribe_aggregator.fields = {
 	/**
 	 * Adjusts the "Import" button to have contextual text based on selected records to import
 	 */
-	obj.events.twiddle_finalize_button_text = function( e, dt ) {
-		if ( 'new' !== obj.$.action.val() ) {
+	ea.fields.events.twiddle_finalize_button_text = function( e, dt ) {
+		if ( 'new' !== ea.fields.$.action.val() ) {
 			return;
 		}
 
 		var selected_rows = dt.rows({ selected: true })[0].length;
-		var text = ea.l10n.import_checked;
+		var text = ea.localized.l10n.import_checked;
 
 		if ( ! selected_rows ) {
-			text = ea.l10n.import_all;
+			text = ea.localized.l10n.import_all;
 			selected_rows = dt.rows()[0].length;
 		}
 
 		text = text.replace( '%d', selected_rows );
-		$( obj.selector.finalize_button ).html( text );
+		$( ea.fields.selector.finalize_button ).html( text );
 	};
 
-	obj.events.cancel_edit = function( e ) {
+	ea.fields.events.cancel_edit = function( e ) {
 		e.preventDefault();
 		var url = window.location.href;
 		url = url.replace( 'tab=edit', 'tab=scheduled' );
@@ -1049,29 +1058,29 @@ tribe_aggregator.fields = {
 		window.location.href = url;
 	};
 
-	obj.events.verify_schedule_delete = function() {
-		return confirm( ea.l10n.verify_schedule_delete );
+	ea.fields.events.verify_schedule_delete = function() {
+		return confirm( ea.localized.l10n.verify_schedule_delete );
 	};
 
 	/**
 	 * Toggles the View Filters link on the Scheduled Imports/History page
 	 */
-	obj.events.toggle_view_filters = function( e ) {
+	ea.fields.events.toggle_view_filters = function( e ) {
 		e.preventDefault();
 		var $el = $( this );
 
 		$el.toggleClass( 'tribe-active' );
 		if ( $el.is( '.tribe-active' ) ) {
-			$el.html( ea.l10n.hide_filters );
+			$el.html( ea.localized.l10n.hide_filters );
 		} else {
-			$el.html( ea.l10n.view_filters );
+			$el.html( ea.localized.l10n.view_filters );
 		}
 	};
 
 	/**
 	 * helper text for date select
 	 */
-	obj.date_helper = function() {
+	ea.fields.date_helper = function() {
 		var $picker;
 
 		$picker = $( this );
@@ -1094,20 +1103,20 @@ tribe_aggregator.fields = {
 		jQuery( '#tribe-date-helper-date-' + origin ).html( selected_date );
 	};
 
-	obj.maybeLimitUrlStartDate = function() {
-		if( 'url' !== obj.origin.val() ){
+	ea.fields.maybeLimitUrlStartDate = function() {
+		if( 'url' !== ea.fields.origin.val() ){
 			return;
 		}
 
-		if( 'schedule' === obj.importType.val() ){
-			obj.urlImport.startDate.data( 'datepicker-min-date', 'today' );
+		if( 'schedule' === ea.fields.importType.val() ){
+			ea.fields.urlImport.startDate.data( 'datepicker-min-date', 'today' );
 
 			return;
 		}
 
-		obj.urlImport.startDate.data( 'datepicker-min-date', null );
+		ea.fields.urlImport.startDate.data( 'datepicker-min-date', null );
 	};
 
 	// Run Init on Document Ready
-	$( obj.init );
-} )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );
+	$( ea.fields.init );
+} )( jQuery, _, window.tribe_aggregator );

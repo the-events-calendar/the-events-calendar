@@ -3,17 +3,13 @@
  */
 import React from 'react';
 import moment from 'moment';
-import { noop } from 'lodash';
 import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import {
-	DatePicker as WPDatePicker,
-	Dropdown,
-} from '@wordpress/components';
+import { DatePicker as WPDatePicker, Dropdown } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -29,10 +25,16 @@ export default class DatePicker extends Component {
 		datetime: PropTypes.string,
 	};
 
-	static defaultProps = {
-		changeDatetime: noop,
-		datetime: toDatePicker(),
-	};
+	constructor( props ) {
+		super( props );
+
+		this.changeDatetime = props.changeDatetime.bind( this );
+
+		this.state = {
+			...props,
+			datetime: toDatePicker( toMoment( props.datetime ) ),
+		};
+	}
 
 	static getDerivedStateFromProps( nextProps, prevState ) {
 		const { datetime } = nextProps;
@@ -42,17 +44,6 @@ export default class DatePicker extends Component {
 
 		return {
 			datetime: toDatePicker( toMoment( datetime ) ),
-		};
-	}
-
-	constructor( props ) {
-		super( ...arguments );
-
-		this.changeDatetime = props.changeDatetime.bind( this );
-
-		this.state = {
-			...props,
-			datetime: toDatePicker( toMoment( props.datetime ) ),
 		};
 	}
 
@@ -66,25 +57,14 @@ export default class DatePicker extends Component {
 		this.onClose = onClose.bind( this );
 		const { datetime } = this.state;
 
-		return (
-			<WPDatePicker
-				key="date-picker"
-				currentDate={ moment( datetime ) }
-				onChange={ this.onChange }
-			/>
-		);
+		return <WPDatePicker key="date-picker" currentDate={ moment( datetime ) } onChange={ this.onChange } />;
 	};
 
 	renderToggle = ( { onToggle, isOpen } ) => {
 		const { datetime } = this.state;
 
 		return (
-			<button
-				type="button"
-				className="button-link"
-				onClick={ onToggle }
-				aria-expanded={ isOpen }
-			>
+			<button type="button" className="button-link" onClick={ onToggle } aria-expanded={ isOpen }>
 				{ toDate( this.normalize( datetime ) ) }
 			</button>
 		);

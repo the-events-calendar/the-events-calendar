@@ -8,43 +8,26 @@ import classNames from 'classnames';
 /**
  * WordPress dependencies
  */
-import {
-	ToggleControl,
-} from '@wordpress/components';
+import { ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
  */
 import { TimePicker } from '@moderntribe/common/elements';
-import {
-	Dashboard,
-	Month,
-	Upsell,
-} from '@moderntribe/events/elements';
-import {
-	date,
-	moment as momentUtil,
-	time,
-	globals,
-} from '@moderntribe/common/utils';
+import { Dashboard, Month, Upsell } from '@moderntribe/events/elements';
+import { date, moment as momentUtil, time, globals } from '@moderntribe/common/utils';
 
 /**
  * Module Code
  */
 
 const { FORMATS, TODAY } = date;
-const {
-	toMoment,
-	toDate,
-	toDateNoYear,
-	isSameYear,
-} = momentUtil;
+const { toMoment, toDate, toDateNoYear, isSameYear } = momentUtil;
 const { editorConstants, settings, wpHooks } = globals;
 
-FORMATS.date = settings() && settings().dateWithYearFormat
-	? settings().dateWithYearFormat
-	: __( 'F j', 'the-events-calendar' );
+FORMATS.date =
+	settings() && settings().dateWithYearFormat ? settings().dateWithYearFormat : __( 'F j', 'the-events-calendar' );
 
 const shouldHideUpsell = () => editorConstants().hideUpsell;
 
@@ -88,6 +71,7 @@ const renderMultiDayToggle = ( { multiDay, onMultiDayToggleChange } ) => {
 			label={ __( 'Multi-Day', 'the-events-calendar' ) }
 			checked={ multiDay }
 			onChange={ onMultiDayToggleChange }
+			__nextHasNoMarginBottom={ true }
 		/>
 	);
 };
@@ -135,9 +119,9 @@ class Calendars extends PureComponent {
 	static propTypes = {
 		end: PropTypes.string,
 		multiDay: PropTypes.bool,
-		onSelectDay: PropTypes.func,
+		onSelect: PropTypes.func,
 		start: PropTypes.string,
-	}
+	};
 
 	constructor( props ) {
 		super( props );
@@ -146,13 +130,14 @@ class Calendars extends PureComponent {
 
 	setVisibleMonth = ( visibleMonth ) => {
 		this.setState( { visibleMonth } );
-	}
+	};
 
 	render() {
-		const { start, end, multiDay, onSelectDay } = this.props;
+		const { start, end, multiDay, onSelect } = this.props;
 
 		const monthProps = {
-			onSelectDay: onSelectDay,
+			className: 'tribe-editor__calendars__month',
+			onSelect,
 			withRange: multiDay,
 			from: toMoment( start ).toDate(),
 			month: this.state.visibleMonth,
@@ -167,9 +152,7 @@ class Calendars extends PureComponent {
 	}
 }
 
-const renderDashboardHook = ( props ) => (
-	wpHooks.applyFilters( 'blocks.eventDatetime.dashboardHook', null, props )
-);
+const renderDashboardHook = ( props ) => wpHooks.applyFilters( 'blocks.eventDatetime.dashboardHook', null, props );
 
 const EventDateTimeDashboard = ( props ) => {
 	const { multiDay, allDay, separatorTime, isOpen } = props;
@@ -184,21 +167,19 @@ const EventDateTimeDashboard = ( props ) => {
 					<div className="tribe-editor__subtitle__footer-date">
 						<div className="tribe-editor__subtitle__time-pickers">
 							{ renderStartTimePicker( props ) }
-							{
-								( multiDay || ! allDay ) && (
-									<span className={ classNames(
+							{ ( multiDay || ! allDay ) && (
+								<span
+									className={ classNames(
 										'tribe-editor__separator',
-										'tribe-editor__time-picker__separator',
-									) }>
-										{ ` ${ separatorTime } ` }
-									</span>
-								)
-							}
+										'tribe-editor__time-picker__separator'
+									) }
+								>
+									{ ` ${ separatorTime } ` }
+								</span>
+							) }
 							{ renderEndTimePicker( props ) }
 						</div>
-						<div className="tribe-editor__subtitle__footer-multiday">
-							{ renderMultiDayToggle( props ) }
-						</div>
+						<div className="tribe-editor__subtitle__footer-multiday">{ renderMultiDayToggle( props ) }</div>
 					</div>
 					{ renderDashboardHook( props ) }
 					{ ! shouldHideUpsell() && <Upsell /> }
@@ -218,7 +199,7 @@ EventDateTimeDashboard.propTypes = {
 	onEndTimePickerChange: PropTypes.func,
 	onEndTimePickerClick: PropTypes.func,
 	onMultiDayToggleChange: PropTypes.func,
-	onSelectDay: PropTypes.func,
+	onSelect: PropTypes.func,
 	onStartTimePickerBlur: PropTypes.func,
 	onStartTimePickerChange: PropTypes.func,
 	onStartTimePickerClick: PropTypes.func,

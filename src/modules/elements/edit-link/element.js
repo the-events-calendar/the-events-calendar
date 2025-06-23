@@ -16,7 +16,7 @@ import { __ } from '@wordpress/i18n';
 import { globals } from '@moderntribe/common/utils';
 import './style.pcss';
 
-const EditLink = ( { postId, label, target } ) => {
+const EditLink = ( { postId = 0, label = __( 'Edit', 'the-events-calendar' ), target = '_blank' } ) => {
 	const admin = get( globals.common(), 'adminUrl', '' );
 	if ( ! admin || ! postId ) {
 		return null;
@@ -42,12 +42,6 @@ EditLink.propTypes = {
 	postId: PropTypes.number,
 	label: PropTypes.string,
 	target: PropTypes.string,
-};
-
-EditLink.defaultProps = {
-	postId: 0,
-	label: __( 'Edit', 'the-events-calendar' ),
-	target: '_blank',
 };
 
 export default EditLink;

@@ -8,7 +8,6 @@
 /**
  * Class Tribe__Events__Repositories__Venue
  *
- *
  * @since 4.9
  */
 class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Linked_Posts {
@@ -26,6 +25,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	 * Sets up the repository default parameters and schema.
 	 *
 	 * @since 4.9
+	 * @since 6.10.1 Added `show_map` and `show_map_link` aliases.
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -39,19 +39,24 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		];
 
 		// Add venue specific aliases.
-		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, [
-			'venue'         => 'post_title',
-			'address'       => '_VenueAddress',
-			'city'          => '_VenueCity',
-			'state'         => '_VenueState',
-			'province'      => '_VenueProvince',
-			'stateprovince' => '_VenueStateProvince',
-			'postal_code'   => '_VenueZip',
-			'zip'           => '_VenueZip',
-			'country'       => '_VenueCountry',
-			'phone'         => '_VenuePhone',
-			'website'       => '_VenueURL',
-		] );
+		$this->update_fields_aliases = array_merge(
+			$this->update_fields_aliases,
+			[
+				'venue'         => 'post_title',
+				'address'       => '_VenueAddress',
+				'city'          => '_VenueCity',
+				'state'         => '_VenueState',
+				'province'      => '_VenueProvince',
+				'stateprovince' => '_VenueStateProvince',
+				'postal_code'   => '_VenueZip',
+				'zip'           => '_VenueZip',
+				'country'       => '_VenueCountry',
+				'phone'         => '_VenuePhone',
+				'website'       => '_VenueURL',
+				'show_map'      => '_VenueShowMap',
+				'show_map_link' => '_VenueShowMapLink',
+			]
+		);
 
 		$this->linked_id_meta_key = '_EventVenueID';
 
@@ -69,10 +74,37 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		$this->schema = array_merge(
 			$this->schema,
 			[
-				'has_events'          => [ $this, 'filter_by_has_events' ],
-				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
+				'has_events'    => [ $this, 'filter_by_has_events' ],
+				'has_no_events' => [ $this, 'filter_by_has_no_events' ],
 			]
 		);
+	}
+
+	/**
+	 * Formats a venue handled by the repository to the expected format.
+	 *
+	 * @since 6.10.1 Added to Venue ORM.
+	 *
+	 * @param int|WP_Post $id The ID or object of the venue to be formatted.
+	 * @return WP_Post The formatted Venue object.
+	 */
+	protected function format_item( $id ) {
+		$formatted = null === $this->formatter
+			? tribe_get_venue_object( $id )
+			: $this->formatter->format_item( $id );
+
+		/**
+		 * Filters a single formatted venue result.
+		 *
+		 * @since 6.10.1
+		 *
+		 * @param mixed|WP_Post                $formatted The formatted venue result, usually a post object.
+		 * @param int                          $id        The formatted post ID.
+		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 */
+		$formatted = apply_filters( 'tribe_repository_venues_format_item', $formatted, $id, $this );
+
+		return $formatted;
 	}
 
 	/**

@@ -646,13 +646,7 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * Sends, echoing it and exiting, the view HTML on the page.
-	 *
-	 * @since 4.9.2
-	 *
-	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
-	 *                          `get_html` method.
-	 *
+	 * {@inheritDoc}
 	 */
 	public function send_html( $html = null ) {
 		$html = null === $html ? $this->get_html() : $html;
@@ -701,6 +695,15 @@ class View implements View_Interface {
 		 * available.
 		 */
 		$this->repository_args = $repository_args;
+
+		/**
+		 * Fire before the view HTML cache check.
+		 *
+		 * @since 6.10.2
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tec_events_before_view_html_cache', $this );
 
 		// If HTML_Cache is a class trait and we have content to display, display it.
 		if (
@@ -1311,7 +1314,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	}
+	} 
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
@@ -1337,7 +1340,7 @@ class View implements View_Interface {
 		 * @since 5.0.0
 		*/
 		$args = [
-			'posts_per_page'       => $context_arr['events_per_page'] + 1,
+			'posts_per_page'       => (int) $context_arr['events_per_page'] + 1,
 			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
 				'paged',
 				'page',
@@ -1406,7 +1409,7 @@ class View implements View_Interface {
 			1
 		);
 
-		return ( $current_page - 1 ) * $context->get( 'events_per_page' );
+		return ( $current_page - 1 ) * (int) $context->get( 'events_per_page' );
 	}
 
 	/**
@@ -1571,7 +1574,7 @@ class View implements View_Interface {
 	 * @return mixed                   Weather the array of events has a next page.
 	 */
 	public function has_next_event( array $events, $overwrite_flag = true ) {
-		$has_next_events = count( $events ) > $this->get_context()->get( 'events_per_page', 12 );
+		$has_next_events = count( $events ) > (int) $this->get_context()->get( 'events_per_page', 12 );
 		if ( (bool) $overwrite_flag ) {
 			$this->set_has_next_event( $has_next_events );
 		}
@@ -1713,6 +1716,7 @@ class View implements View_Interface {
 			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
+			'home_url'             => home_url(),
 			'rest_url'             => $endpoint->get_url(),
 			'rest_method'          => $endpoint->get_method(),
 			'rest_nonce'           => '', // For backwards compatibility in views. No longer used.
@@ -1754,6 +1758,7 @@ class View implements View_Interface {
 			'is_initial_load'      => $this->context->doing_php_initial_state(),
 			'public_views'         => $this->get_public_views( $url_event_date ),
 			'show_latest_past'     => $this->should_show_latest_past_events_view(),
+			'past'                 => $this->context->get( 'past', false ),
 		];
 
 		if ( ! $this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' ) ) {

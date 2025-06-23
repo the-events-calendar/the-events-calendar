@@ -88,22 +88,12 @@ class Telemetry {
 	public function filter_tribe_general_settings_debugging_section( $fields ): array {
 		$telemetry = tribe( Common_Telemetry::class );
 		$telemetry->init();
-		$status = $telemetry::get_status_object();
-		$opted = $status->get( self::$plugin_slug );
-
-		switch( $opted ) {
-			case Status::STATUS_ACTIVE :
-				$label = esc_html_x( 'Opt out of Telemetry', 'Settings label for opting out of Telemetry.', 'the-events-calendar' );
-			default :
-				$label = esc_html_x( 'Opt in to Telemetry', 'the-events-calendar' );
-		}
-
 
 		$fields['opt-in-status'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => $label,
+			'label'           => esc_html_x( 'Data share consent', 'Title for Data share section.', 'the-events-calendar' ),
 			'tooltip'         => sprintf(
-				// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
+			// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
 				_x(
 					'Enable this option to share usage data with The Events Calendar and StellarWP.
         This activates access to TEC AI chatbot and in-app priority support for premium users.
@@ -200,22 +190,30 @@ class Telemetry {
 		$current_screen = get_current_screen();
 		$helper = \Tribe__Admin__Helpers::instance();
 
-		// Are we on a tec post-type admin screen?
+		// If we are not on a tec post-type admin screen, bail.
 		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
 			return false;
 		}
 
-		// Are we on a post edit screen?
+		// If we are on a post edit screen, bail.
 		if ( $current_screen instanceof \WP_Screen && tribe_get_request_var( 'action' ) === 'edit' ) {
 			return false;
 		}
 
-		// Are we on a new post screen?
+		// If we are on a new post screen, bail.
 		if ( $current_screen instanceof \WP_Screen && $current_screen->action === 'add' ) {
 			return false;
 		}
 
-		return true;
+		/**
+		 * Filter to determine if we are on a TEC admin page.
+		 * Allows other classes to hook in and modify the return value.
+		 *
+		 * @since 6.13.0
+		 *
+		 * @param bool $is_tec_admin_page Whether we are on a TEC admin page.
+		 */
+		return (bool) apply_filters( 'tec_telemetry_is_tec_admin_page', true );
 	}
 
 	/**

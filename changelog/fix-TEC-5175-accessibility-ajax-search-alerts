@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Updated the event search page to handle search results better for screen readers, with alerts noting the results of the search.[TEC-5175]

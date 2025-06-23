@@ -1,1 +1,1 @@
-export const getPosition = ( showBefore ) => showBefore ? 'prefix' : 'suffix';
+export const getPosition = ( showBefore ) => ( showBefore ? 'prefix' : 'suffix' );

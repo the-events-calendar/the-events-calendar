@@ -15,11 +15,6 @@ const EVENTS_LIST_TEMPLATE = [
 	],
 ];
 
-const EventsList = () => (
-	<InnerBlocks
-		template={ EVENTS_LIST_TEMPLATE }
-		templateLock="all"
-	/>
-);
+const EventsList = () => <InnerBlocks template={ EVENTS_LIST_TEMPLATE } templateLock="all" />;
 
 export default EventsList;

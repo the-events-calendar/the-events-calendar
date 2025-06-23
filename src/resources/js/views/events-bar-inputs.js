@@ -22,14 +22,14 @@ tribe.events.views.eventsBarInputs = {};
  *
  * @since 4.9.4
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.eventsBarInputs
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} obj tribe.events.views.eventsBarInputs
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -52,9 +52,9 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleInputChange = function( event ) {
-		var $input = event.data.target;
-		var $wrapper = event.data.wrapper;
+	obj.handleInputChange = function ( event ) {
+		const $input = event.data.target;
+		const $wrapper = event.data.wrapper;
 
 		// Set the focus class if it has content.
 		$wrapper.toggleClass( event.data.inputClassFocus, '' !== $input.val().trim() );
@@ -69,19 +69,17 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindInputEvents = function( $container ) {
-		$container
-			.find( obj.selectors.inputWrapper )
-			.each( function( index, wrapper ) {
-				var $input = $( wrapper ).find( obj.selectors.input );
+	obj.unbindInputEvents = function ( $container ) {
+		$container.find( obj.selectors.inputWrapper ).each( function ( index, wrapper ) {
+			const $input = $( wrapper ).find( obj.selectors.input );
 
-				// Bail in case we dont find the input.
-				if ( ! $input.length ) {
-					return;
-				}
+			// Bail in case we dont find the input.
+			if ( ! $input.length ) {
+				return;
+			}
 
-				$input.off();
-			} );
+			$input.off();
+		} );
 	};
 
 	/**
@@ -93,35 +91,31 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindInputEvents = function( $container ) {
-		$container
-			.find( obj.selectors.inputWrapper )
-			.each( function( index, wrapper ) {
-				var inputWrapperClass = wrapper
-					.className
-					.match( /tribe-events-c-search__input-control--[a-z]+/ );
+	obj.bindInputEvents = function ( $container ) {
+		$container.find( obj.selectors.inputWrapper ).each( function ( index, wrapper ) {
+			const inputWrapperClass = wrapper.className.match( /tribe-events-c-search__input-control--[a-z]+/ );
 
-				if ( ! inputWrapperClass ) {
-					return;
-				}
+			if ( ! inputWrapperClass ) {
+				return;
+			}
 
-				var inputWrapperFocus = inputWrapperClass[0] + '-focus';
-				var $wrapper = $( wrapper );
-				var $input = $wrapper.find( obj.selectors.input );
+			const inputWrapperFocus = inputWrapperClass[ 0 ] + '-focus';
+			const $wrapper = $( wrapper );
+			const $input = $wrapper.find( obj.selectors.input );
 
-				// Bail in case we dont find the input.
-				if ( ! $input.length ) {
-					return;
-				}
+			// Bail in case we dont find the input.
+			if ( ! $input.length ) {
+				return;
+			}
 
-				$wrapper.toggleClass( inputWrapperFocus, '' !== $input.val().trim() );
+			$wrapper.toggleClass( inputWrapperFocus, '' !== $input.val().trim() );
 
-				$input.on(
-					'change',
-					{ target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus },
-					obj.handleInputChange
-				);
-			} );
+			$input.on(
+				'change',
+				{ target: $input, wrapper: $wrapper, inputClassFocus: inputWrapperFocus },
+				obj.handleInputChange
+			);
+		} );
 	};
 
 	/**
@@ -129,14 +123,15 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @since  4.9.5
 	 *
-	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {jqXHR}       jqXHR    Request object
+	 * @param {PlainObject} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
-		var $container = event.data.container;
+	obj.unbindEvents = function ( event, jqXHR, settings ) {
+		// eslint-disable-line no-unused-vars
+		const $container = event.data.container;
 		obj.unbindInputEvents( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.unbindEvents );
 	};
@@ -146,15 +141,16 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param  {jQuery}  $container jQuery object of view container
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery}  $container jQuery object of view container
+	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars, max-len
-		var $inputWrapper = $container.find( obj.selectors.inputWrapper );
+	obj.bindEvents = function ( event, index, $container, data ) {
+		// eslint-disable-line no-unused-vars, max-len
+		const $inputWrapper = $container.find( obj.selectors.inputWrapper );
 
 		if ( ! $inputWrapper.length ) {
 			return;
@@ -171,12 +167,8 @@ tribe.events.views.eventsBarInputs = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
-		$document.on(
-			'afterSetup.tribeEvents',
-			tribe.events.views.manager.selectors.container,
-			obj.bindEvents
-		);
+	obj.ready = function () {
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.bindEvents );
 	};
 
 	// Configure on document ready

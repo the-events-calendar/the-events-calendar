@@ -9,7 +9,8 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @since   6.1.4 Changing our nonce verification structures.
+ * @since 6.1.4 Changing our nonce verification structures.
+ * @since 6.12.0 Add aria-label to events list for improved accessibility.
  *
  * @version 6.2.0
  * @since 6.2.0 Moved the header information into a new components/header.php template.
@@ -43,7 +44,7 @@ if ( empty( $disable_event_search ) ) {
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-	<div class="tribe-common-l-container tribe-events-l-container">
+	<section class="tribe-common-l-container tribe-events-l-container">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
 		<?php $this->template( 'components/json-ld-data' ); ?>
@@ -56,7 +57,15 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/filter-bar' ); ?>
 
-		<div class="tribe-events-calendar-list">
+		<div
+			class="tribe-events-calendar-list"
+			aria-label="
+			<?php
+				/* translators: %s: Events (plural) */
+				echo esc_attr( sprintf( __( 'List of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) );
+			?>
+			"
+		>
 
 			<?php foreach ( $events as $event ) : ?>
 				<?php $this->setup_postdata( $event ); ?>
@@ -75,7 +84,7 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/after' ); ?>
 
-	</div>
+	</section>
 </div>
 
 <?php $this->template( 'components/breakpoints' ); ?>
