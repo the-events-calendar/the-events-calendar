@@ -50,6 +50,11 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
+		// Ensure the old Category Colors plugin is disabled and kept disabled.
+		if ( $plugin_manager->is_old_plugin_active() ) {
+			$plugin_manager->deactivate_plugin();
+		}
+
 		// Register admin, migration, and CSS controllers.
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin_Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
