@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<p class="tec-events-category-colors__description">
 		<?php esc_html_e( 'Select a primary color of your choice. You can further customize your color choices afterwards.', 'the-events-calendar' ); ?>
-		<a href="https://theeventscalendar.com/knowledgebase/k/accessibility-color-selection/">
+		<a href="https://evnt.is/accessibility">
 			<?php esc_html_e( 'Learn more about color selection and accessibility', 'the-events-calendar' ); ?>
 		</a>
 	</p>
