@@ -41,7 +41,7 @@
 		<span class="tec-events-category-colors__preview-text" data-default-text="Example"></span>
 	</div>
 	<p class="tec-events-category-colors__description">
-		Select a primary color of your choice. You can further customize your color choices afterwards.		<a href="https://theeventscalendar.com/knowledgebase/k/accessibility-color-selection/">
+		Select a primary color of your choice. You can further customize your color choices afterwards.		<a href="https://evnt.is/accessibility">
 			Learn more about color selection and accessibility		</a>
 	</p>
 </div>
