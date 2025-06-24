@@ -89,7 +89,7 @@ class Config {
 			'import'     => false,
 		],
 		'custom_legend_css'        => [
-			'mapped_key' => 'category-color-custom-CSS',
+			'mapped_key' => 'category-color-custom-css',
 			'validation' => 'boolean',
 			'import'     => true,
 		],
