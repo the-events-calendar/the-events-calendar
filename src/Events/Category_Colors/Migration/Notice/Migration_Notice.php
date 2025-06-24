@@ -90,7 +90,7 @@ class Migration_Notice {
 			add_thickbox();
 			AdminNotices::show( self::MIGRATION_NOTICE_ID, $this->get_notice_message() )
 				->urgency( 'warning' )
-				->dismissible( false )
+				->dismissible( true )
 				->inline( true );
 			// Output the Thickbox content in the footer using a static method.
 			add_action( 'admin_footer', [ __CLASS__, 'render_thickbox_content' ] );

@@ -281,6 +281,6 @@ class Worker_Test extends WPTestCase {
 		$settings      = $migrated_data['settings'] ?? [];
 
 		// Assert the new setting is set to '1' (enabled).
-		$this->assertEquals( '1', $settings['category-color-custom-CSS'] ?? null );
+		$this->assertEquals( '1', $settings['category-color-custom-css'] ?? null );
 	}
 }
