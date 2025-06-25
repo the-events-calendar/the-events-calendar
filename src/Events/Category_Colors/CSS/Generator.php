@@ -139,10 +139,10 @@ class Generator {
 		$background = $this->sanitize_color( $category['background'] );
 		$text       = $this->sanitize_color( $category['text'] );
 
-		$taxonomy = Tribe__Events__Main::TAXONOMY;
+		$taxonomy       = Tribe__Events__Main::TAXONOMY;
 		$css_properties = [];
 
-		// Only add properties if they have valid values
+		// Only add properties if they have valid values.
 		if ( ! empty( $primary ) ) {
 			$css_properties[] = "    --tec-color-category-primary: {$primary};";
 		}
@@ -155,7 +155,7 @@ class Generator {
 			$css_properties[] = "    --tec-color-category-text: {$text};";
 		}
 
-		// If no properties to add, return empty string
+		// If no properties to add, return empty string.
 		if ( empty( $css_properties ) ) {
 			return '';
 		}

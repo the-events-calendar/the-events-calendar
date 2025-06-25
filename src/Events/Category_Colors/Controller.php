@@ -110,7 +110,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_category_colors_vars( array $template_vars, View $view ): array {
 		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
-		$categories = $dropdown_provider->get_dropdown_categories();
+		$categories        = $dropdown_provider->get_dropdown_categories();
 
 		/**
 		 * Filters whether the Category Colors frontend UI should be displayed.
@@ -118,17 +118,17 @@ class Controller extends Controller_Contract {
 		 * @since TBD
 		 *
 		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
-		 * @param View $view The current view instance.
+		 * @param View $view             The current view instance.
 		 */
 		$show_frontend_ui = apply_filters( 'tec_events_category_colors_show_frontend_ui', true, $view );
 
-		// Early bail if frontend UI should not be displayed
+		// Early bail if frontend UI should not be displayed.
 		if ( ! $show_frontend_ui ) {
 			return $template_vars;
 		}
 
-		// Check if feature is enabled for view and categories have colors
-		$template_vars['category_colors_enabled'] = $dropdown_provider->should_display_on_view( $view ) && ! empty( $categories );
+		// Check if feature is enabled for view and categories have colors.
+		$template_vars['category_colors_enabled']           = $dropdown_provider->should_display_on_view( $view ) && ! empty( $categories );
 		$template_vars['category_colors_category_dropdown'] = $categories;
 		$template_vars['category_colors_super_power']       = tribe_get_option( 'category-color-legend-superpowers', false );
 		$template_vars['category_colors_show_reset_button'] = tribe_get_option( 'category-color-reset-button', false );
@@ -150,9 +150,9 @@ class Controller extends Controller_Contract {
 		if ( ! $event ) {
 			return $context;
 		}
-		
+
 		$category_data = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category_with_meta( $event );
-		
+
 		if ( $category_data ) {
 			$context['category_colors_priority_category'] = $category_data['category'];
 			$context['category_colors_meta'] = $category_data['meta'];
