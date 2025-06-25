@@ -150,7 +150,13 @@ class Controller extends Controller_Contract {
 		if ( ! $event ) {
 			return $context;
 		}
-		$context['category_colors_priority_category'] = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $event );
+		
+		$category_data = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category_with_meta( $event );
+		
+		if ( $category_data ) {
+			$context['category_colors_priority_category'] = $category_data['category'];
+			$context['category_colors_meta'] = $category_data['meta'];
+		}
 
 		return $context;
 	}

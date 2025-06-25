@@ -13,6 +13,8 @@
  *
  * @var object|null $category_colors_priority_category The highest-priority category for the event, determined using the
  *                                                     `Category_Color_Priority_Category_Provider` class.
+ * @var array|null  $category_colors_meta              Array containing the category metadata (primary, secondary, text,
+ *                                                     priority, hide_from_legend).
  *
  * @see     tribe_get_event() For the format of the event object.
  */
@@ -26,7 +28,9 @@ $category = $category_colors_priority_category;
 
 <div class="tec-events-calendar-list__event-categories">
 	<div class="tec-events-calendar-list__category tribe-events-calendar__category--<?php echo sanitize_html_class( $category->slug ); ?>">
-		<span class="tec-events-calendar-list__category-icon"></span>
+		<?php if ( ! empty( $category_colors_meta['primary'] ) ) : ?>
+			<span class="tec-events-calendar-list__category-icon"></span>
+		<?php endif; ?>
 		<?php echo esc_html( $category->name ); ?>
 	</div>
 </div>
