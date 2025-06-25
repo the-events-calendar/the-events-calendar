@@ -127,18 +127,8 @@ class Controller extends Controller_Contract {
 		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
 		$categories        = $dropdown_provider->get_dropdown_categories();
 
-		/**
-		 * Filters whether the Category Colors frontend UI should be displayed.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
-		 * @param View $view             The current view instance.
-		 */
-		$show_frontend_ui = apply_filters( 'tec_events_category_colors_show_frontend_ui', true, $view );
-
 		// Early bail if frontend UI should not be displayed.
-		if ( ! $show_frontend_ui ) {
+		if ( ! $this->should_show_frontend_ui() ) {
 			return $template_vars;
 		}
 
@@ -161,6 +151,11 @@ class Controller extends Controller_Contract {
 	 * @return array<string,mixed> The modified template context with category data.
 	 */
 	public function add_category_data( $context ) {
+		// Early bail if frontend UI should not be displayed.
+		if ( ! $this->should_show_frontend_ui() ) {
+			return $context;
+		}
+
 		$event = tribe_get_event();
 		if ( ! $event ) {
 			return $context;
@@ -174,5 +169,23 @@ class Controller extends Controller_Contract {
 		}
 
 		return $context;
+	}
+
+	/**
+	 * Determines if the Category Colors frontend UI should be displayed.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the frontend UI should be displayed, false otherwise.
+	 */
+	public function should_show_frontend_ui(): bool {
+		/**
+		 * Filters whether the Category Colors frontend UI should be displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
+		 */
+		return (bool) apply_filters( 'tec_events_category_colors_show_frontend_ui', true );
 	}
 }

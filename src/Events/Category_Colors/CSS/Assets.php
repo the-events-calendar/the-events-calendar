@@ -45,17 +45,8 @@ class Assets {
 	 * @since TBD
 	 */
 	public function enqueue_frontend_scripts(): void {
-		/**
-		 * Filters whether the Category Colors frontend UI should be displayed.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
-		 */
-		$show_frontend_ui = apply_filters( 'tec_events_category_colors_show_frontend_ui', true );
-
 		// Early bail if frontend UI should not be displayed.
-		if ( ! $show_frontend_ui ) {
+		if ( ! tribe( \TEC\Events\Category_Colors\Controller::class )->should_show_frontend_ui() ) {
 			return;
 		}
 
