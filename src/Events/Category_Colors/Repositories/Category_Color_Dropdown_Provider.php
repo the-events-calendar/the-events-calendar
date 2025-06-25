@@ -29,6 +29,13 @@ class Category_Color_Dropdown_Provider {
 	use Meta_Keys_Trait;
 
 	/**
+	 * Cache key for dropdown categories.
+	 *
+	 * @since TBD
+	 */
+	const CACHE_KEY = 'tec_category_colors_dropdown_categories';
+
+	/**
 	 * List of shortcode values that should not display the category colors.
 	 * Empty shortcode values are allowed by default.
 	 *
@@ -39,6 +46,21 @@ class Category_Color_Dropdown_Provider {
 	protected array $disallowed_shortcodes = [
 		'admin-manager',
 	];
+
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		// Bust cache when terms are created, updated, or deleted.
+		add_action( 'created_' . Tribe__Events__Main::TAXONOMY, [ $this, 'bust_dropdown_categories_cache' ] );
+		add_action( 'edited_' . Tribe__Events__Main::TAXONOMY, [ $this, 'bust_dropdown_categories_cache' ] );
+		add_action( 'delete_' . Tribe__Events__Main::TAXONOMY, [ $this, 'bust_dropdown_categories_cache' ] );
+		
+		// Bust cache when CSS is regenerated.
+		add_action( 'tec_events_category_colors_css_regenerated', [ $this, 'bust_dropdown_categories_cache' ] );
+	}
 
 	/**
 	 * Determines if the category color legend should be displayed on a given view.
@@ -136,9 +158,16 @@ class Category_Color_Dropdown_Provider {
 	 * }> Array of category data with their associated colors and metadata.
 	 */
 	public function get_dropdown_categories(): array {
+		$cached_categories = tribe_cache()->get( self::CACHE_KEY );
+		if ( $cached_categories !== false ) {
+			return $cached_categories;
+		}
+
 		$categories = $this->get_categories();
 		if ( empty( $categories ) ) {
-			return [];
+			$result = [];
+			tribe_cache()->set( self::CACHE_KEY, $result, 3600 );
+			return $result;
 		}
 
 		$categories_with_meta = array_map(
@@ -161,7 +190,33 @@ class Category_Color_Dropdown_Provider {
 		 *     hidden: bool
 		 * }> $filtered_categories The final processed categories.
 		 */
-		return (array) apply_filters( 'tec_events_category_color_dropdown_categories', $this->sort_by_priority( $filtered_categories ) );
+		$result = (array) apply_filters( 'tec_events_category_color_dropdown_categories', $this->sort_by_priority( $filtered_categories ) );
+
+		// Cache the result for 1 hour (3600 seconds).
+		tribe_cache()->set( self::CACHE_KEY, $result, 3600 );
+
+		return $result;
+	}
+
+	/**
+	 * Busts the dropdown categories cache.
+	 *
+	 * @since TBD
+	 */
+	public function bust_dropdown_categories_cache(): void {
+		tribe_cache()->delete( self::CACHE_KEY );
+	}
+
+	/**
+	 * Checks if there are categories with colors available.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if there are categories with colors, false otherwise.
+	 */
+	public function has_dropdown_categories(): bool {
+		$categories = $this->get_dropdown_categories();
+		return ! empty( $categories );
 	}
 
 	/**

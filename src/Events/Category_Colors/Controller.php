@@ -43,6 +43,17 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	protected function do_register(): void {
+		/**
+		 * Filters whether the Category Colors feature is globally enabled.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $enabled Whether the Category Colors feature should be enabled.
+		 */
+		if ( ! apply_filters( 'tec_events_category_colors_enabled', true ) ) {
+			return;
+		}
+
 		$plugin_manager = $this->container->make( Plugin_Manager::class );
 
 		if ( $plugin_manager->should_show_migration_controller() ) {
@@ -98,8 +109,27 @@ class Controller extends Controller_Contract {
 	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function add_category_colors_vars( array $template_vars, View $view ): array {
-		$template_vars['category_colors_enabled']           = tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( $view );
-		$template_vars['category_colors_category_dropdown'] = tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories();
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		$categories = $dropdown_provider->get_dropdown_categories();
+
+		/**
+		 * Filters whether the Category Colors frontend UI should be displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
+		 * @param View $view The current view instance.
+		 */
+		$show_frontend_ui = apply_filters( 'tec_events_category_colors_show_frontend_ui', true, $view );
+
+		// Early bail if frontend UI should not be displayed
+		if ( ! $show_frontend_ui ) {
+			return $template_vars;
+		}
+
+		// Check if feature is enabled for view and categories have colors
+		$template_vars['category_colors_enabled'] = $dropdown_provider->should_display_on_view( $view ) && ! empty( $categories );
+		$template_vars['category_colors_category_dropdown'] = $categories;
 		$template_vars['category_colors_super_power']       = tribe_get_option( 'category-color-legend-superpowers', false );
 		$template_vars['category_colors_show_reset_button'] = tribe_get_option( 'category-color-reset-button', false );
 
