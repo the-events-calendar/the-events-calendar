@@ -53,9 +53,11 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/filter-bar' ); ?>
 
-		<div
+		<h2 class="tribe-common-a11y-visual-hide" id="tribe-events-calendar-header">
+			<?php printf( esc_html__( 'Calendar of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>
+		</h2>
+		<table
 			class="tribe-events-calendar-month"
-			role="grid"
 			aria-labelledby="tribe-events-calendar-header"
 			aria-readonly="true"
 			data-js="tribe-events-month-grid"
@@ -65,7 +67,7 @@ if ( empty( $disable_event_search ) ) {
 
 			<?php $this->template( 'month/calendar-body' ); ?>
 
-		</div>
+		</table>
 
 		<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
 
