@@ -48,21 +48,6 @@ class Category_Color_Dropdown_Provider {
 	];
 
 	/**
-	 * Constructor.
-	 *
-	 * @since TBD
-	 */
-	public function __construct() {
-		// Bust cache when terms are created, updated, or deleted.
-		add_action( 'created_' . Tribe__Events__Main::TAXONOMY, [ $this, 'bust_dropdown_categories_cache' ] );
-		add_action( 'edited_' . Tribe__Events__Main::TAXONOMY, [ $this, 'bust_dropdown_categories_cache' ] );
-		add_action( 'delete_' . Tribe__Events__Main::TAXONOMY, [ $this, 'bust_dropdown_categories_cache' ] );
-		
-		// Bust cache when CSS is regenerated.
-		add_action( 'tec_events_category_colors_css_regenerated', [ $this, 'bust_dropdown_categories_cache' ] );
-	}
-
-	/**
 	 * Determines if the category color legend should be displayed on a given view.
 	 *
 	 * @since TBD

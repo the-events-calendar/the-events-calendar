@@ -20,6 +20,7 @@ use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Pro
 use TEC\Events\Category_Colors\Settings\Settings;
 use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
 use Tribe\Events\Views\V2\View;
+use Tribe__Events__Main;
 
 /**
  * Class Controller
@@ -81,6 +82,13 @@ class Controller extends Controller_Contract {
 		foreach ( self::CATEGORY_TEMPLATE_VIEWS as $template ) {
 			add_filter( "tribe_template_context:{$template}", [ $this, 'add_category_data' ] );
 		}
+
+		// Add cache busting hooks for the dropdown provider.
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		add_action( 'created_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		add_action( 'edited_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		add_action( 'delete_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		add_action( 'tec_events_category_colors_css_regenerated', [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
 	}
 
 	/**
@@ -96,6 +104,13 @@ class Controller extends Controller_Contract {
 		/** @var Settings $settings */
 		$settings = $this->container->make( Settings::class );
 		$settings->unregister();
+
+		// Remove cache busting hooks for the dropdown provider.
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		remove_action( 'created_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		remove_action( 'edited_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		remove_action( 'delete_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		remove_action( 'tec_events_category_colors_css_regenerated', [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
 	}
 
 	/**
