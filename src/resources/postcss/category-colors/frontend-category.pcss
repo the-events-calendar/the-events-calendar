@@ -19,7 +19,7 @@
 	/* Featured event styling */
 	.tribe-events-calendar-day__event--featured {
 		.tribe-events-calendar-day__event-datetime-featured-icon-svg {
-			color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+			color: var(--tec-color-category-primary, var(--global-palette3));
 		}
 
 		.tribe-events-calendar-day__event-datetime-featured-text {
@@ -27,7 +27,7 @@
 		}
 
 		&:after {
-			background-color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+			background-color: var(--tec-color-category-primary, var(--global-palette3));
 		}
 	}
 
@@ -86,6 +86,9 @@
 				position: inherit;
 				width: inherit;
 			}
+			.tribe-events-calendar-month__calendar-event-details{
+				border-left: 3px solid var(--tec-color-category-primary, var(--global-palette3));
+			}
 		}
 
 		.tribe-events-calendar-month__calendar-event-datetime-featured-icon-svg {
@@ -97,6 +100,14 @@
 
 			.tribe-events-calendar-month__calendar-event-title-link {
 				color: var(--tec-color-category-text);
+			}
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event--featured {
+		.tribe-events-calendar-month__multiday-event-bar {
+			&:before {
+				background-color: var(--tec-color-category-primary, var(--global-palette3));
 			}
 		}
 	}
@@ -154,7 +165,7 @@
 			}
 
 			.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg {
-				color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+				color: var(--tec-color-category-primary, var(--global-palette3));
 			}
 
 			.tribe-events-calendar-month-mobile-events__mobile-title {
@@ -176,7 +187,7 @@
 	.tribe-events-calendar-list__event-row--featured {
 		.tribe-events-calendar-list__event-date-tag-datetime {
 			&:after {
-				background-color: var(--tec-color-category-primary, var(--tec-color-accent-primary) );
+				background-color: var(--tec-color-category-primary, var(--global-palette3) );
 			}
 		}
 	}
@@ -190,7 +201,7 @@
 
 	.tribe-events-calendar-list__event-datetime-wrapper {
 		.tribe-events-calendar-list__event-datetime-featured-icon-svg {
-			color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+			color: var(--tec-color-category-primary, var(--global-palette3));
 		}
 
 		.tribe-events-calendar-list__event-datetime-featured-text {
@@ -207,6 +218,7 @@
 		.tec-events-calendar-list__category {
 			align-items: center;
 			background-color: var(--tec-color-category-secondary);
+			border: solid 1px var(--tec-color-category-secondary,var(--global-palette3));
 			border-radius: var(--tec-events-border-radius-pill);
 			color: var(--tec-color-category-text);
 			display: flex;
@@ -217,7 +229,7 @@
 
 			.tec-events-calendar-list__category-icon {
 				aspect-ratio: 1;
-				background-color: var(--tec-color-category-primary);
+				background-color: var(--tec-color-category-primary, transparent);
 				border-radius: var(--tec-events-border-radius-circle);
 				display: inline-block;
 				margin-right: var(--tec-spacer-0);
@@ -232,23 +244,25 @@
  * ----------------------------------------------------------------------------- */
 .tribe-events-pro-summary {
 	.tribe-events-pro-summary__event {
-		.tribe-events-pro-summary__event-details {
-			position: relative;
+		&.tribe-events-pro-summary__event-row--featured {
+			.tribe-events-pro-summary__event-details {
+				position: relative;
 
-			&:after {
-				background-color: var(--tec-color-category-primary);
-				border-radius: var(--tec-border-radius-default);
-				content: "";
-				height: 100%;
-				left: var(--tec-spacer-1);
-				position: absolute;
-				top: 0;
-				width: 4px;
+				&:after {
+					background-color: var(--tec-color-category-primary,var(--global-palette3));
+					border-radius: var(--tec-border-radius-default);
+					content: "";
+					height: 100%;
+					left: var(--tec-spacer-1);
+					position: absolute;
+					top: 0;
+					width: 4px;
+				}
 			}
-		}
 
-		.tribe-events-pro-summary__event-title-featured-icon-svg {
-			color: var(--tec-color-category-primary);
+			.tribe-events-pro-summary__event-title-featured-icon-svg {
+				color: var(--tec-color-category-primary);
+			}
 		}
 	}
 }
@@ -259,6 +273,22 @@
 .tribe-common--breakpoint-medium {
 	.tribe-events-pro-summary {
 		.tribe-events-pro-summary__event {
+			&.tribe-events-pro-summary__event-row--featured{
+				.tribe-events-pro-summary__event-title {
+					position: relative;
+
+					&:after {
+						background-color: var(--tec-color-category-primary, var(--global-palette3));
+						border-radius: var(--tec-border-radius-default);
+						content: "";
+						height: 100%;
+						left: calc(-1 * var(--tec-spacer-1));
+						position: absolute;
+						top: 0;
+						width: 4px;
+					}
+				}
+			}
 			.tribe-events-pro-summary__event-details {
 				&:after {
 					border-radius: inherit;
@@ -267,21 +297,6 @@
 					position: inherit;
 					top: inherit;
 					width: inherit;
-				}
-			}
-
-			.tribe-events-pro-summary__event-title {
-				position: relative;
-
-				&:after {
-					background-color: var(--tec-color-category-primary);
-					border-radius: var(--tec-border-radius-default);
-					content: "";
-					height: 100%;
-					left: calc(-1 * var(--tec-spacer-1));
-					position: absolute;
-					top: 0;
-					width: 4px;
 				}
 			}
 		}
@@ -295,7 +310,7 @@
 	/* Featured event styling */
 	.tribe-events-pro-photo__event--featured {
 		.tribe-events-pro-photo__event-datetime-featured-icon-svg {
-			color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+			color: var(--tec-color-category-primary, var(--global-palette3));
 		}
 
 		.tribe-events-pro-photo__event-datetime-featured-text {
@@ -307,6 +322,7 @@
 	.tec-events-calendar-photo__category {
 		align-items: center;
 		background-color: var(--tec-color-category-secondary);
+		border: solid 1px var(--tec-color-category-secondary,var(--global-palette3));
 		border-radius: var(--tec-events-border-radius-pill);
 		color: var(--tec-color-category-text);
 		display: flex;
@@ -317,27 +333,11 @@
 
 		.tec-events-calendar-photo__category-icon {
 			aspect-ratio: 1;
-			background-color: var(--tec-color-category-primary);
+			background-color: var(--tec-color-category-primary, transparent);
 			border-radius: var(--tec-events-border-radius-circle);
 			display: inline-block;
 			margin-right: var(--tec-spacer-0);
 			width: 14px;
-		}
-	}
-
-	/* Date tag styling */
-	.tribe-events-pro-photo__event-date-tag {
-		position: relative;
-
-		&:after {
-			background-color: var(--tec-color-category-primary);
-			border-radius: var(--tec-border-radius-default);
-			content: "";
-			height: 100%;
-			position: absolute;
-			right: calc(-1 * var(--tec-spacer-0));
-			top: 0;
-			width: 4px;
 		}
 	}
 }
@@ -353,7 +353,7 @@
 			position: relative;
 
 			&:before {
-				background-color: var(--tec-color-category-primary);
+				background-color: var(--tec-color-category-primary, var(--tec-color-border-secondary) );
 				border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday);
 				content: "";
 				height: 100%;
@@ -411,16 +411,24 @@
 	/* Featured event styling */
 	.tribe-events-pro-week-grid__event--featured {
 		.tribe-events-pro-week-grid__event-datetime-featured-icon-svg {
-			color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+			color: var(--tec-color-category-primary, var( --global-palette3 ) );
 		}
 
 		.tribe-events-pro-week-grid__event-datetime-featured-text {
 			color: var(--tec-color-category-text);
 		}
+		.tribe-events-pro-week-grid__event-link {
+			&:hover {
+				.tribe-events-pro-week-grid__event-link-inner {
+					background-color: var(--tec-color-category-secondary, var(--tec-color-border-secondary) );
+				}
+			}
+		}
 
 		.tribe-events-pro-week-grid__event-link-inner {
+				background-color: var(--tec-color-category-secondary, var(--tec-color-border-secondary) );
 			&:before {
-				background-color: var(--tec-color-category-primary);
+				background-color: var(--tec-color-category-primary, var( --global-palette3 ) );
 			}
 		}
 	}
@@ -486,7 +494,7 @@
 		}
 
 		.tribe-events-pro-week-mobile-events__event-datetime-featured-icon-svg {
-			color: var(--tec-color-category-primary, var(--tec-color-accent-primary));
+			color: var(--tec-color-category-primary, var(--global-palette3));
 		}
 	}
 }

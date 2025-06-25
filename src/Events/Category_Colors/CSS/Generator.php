@@ -135,16 +135,33 @@ class Generator {
 	protected function generate_css_rule( array $category ): string {
 		$class = sanitize_html_class( $category['slug'] );
 
-		$primary    = $this->sanitize_color( $category['primary'] ) ?: 'transparent';
-		$background = $this->sanitize_color( $category['background'] ) ?: 'transparent';
-		$text       = $this->sanitize_color( $category['text'] ) ?: 'inherit';
+		$primary    = $this->sanitize_color( $category['primary'] );
+		$background = $this->sanitize_color( $category['background'] );
+		$text       = $this->sanitize_color( $category['text'] );
 
 		$taxonomy = Tribe__Events__Main::TAXONOMY;
+		$css_properties = [];
+
+		// Only add properties if they have valid values
+		if ( ! empty( $primary ) ) {
+			$css_properties[] = "    --tec-color-category-primary: {$primary};";
+		}
+
+		if ( ! empty( $background ) ) {
+			$css_properties[] = "    --tec-color-category-secondary: {$background};";
+		}
+
+		if ( ! empty( $text ) ) {
+			$css_properties[] = "    --tec-color-category-text: {$text};";
+		}
+
+		// If no properties to add, return empty string
+		if ( empty( $css_properties ) ) {
+			return '';
+		}
 
 		return ".{$taxonomy}-{$class} {\n"
-			. "    --tec-color-category-primary: {$primary};\n"
-			. "    --tec-color-category-secondary: {$background};\n"
-			. "    --tec-color-category-text: {$text};\n"
+			. implode( "\n", $css_properties ) . "\n"
 			. "}\n";
 	}
 
