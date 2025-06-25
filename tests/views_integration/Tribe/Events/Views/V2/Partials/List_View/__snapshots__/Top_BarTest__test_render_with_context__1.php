@@ -30,8 +30,7 @@
 	href="http://test.tri.be"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
-	aria-label="Click to select today&#039;s date"
-	title="Click to select today&#039;s date"
+	aria-description="Click to select today&#039;s date"
 >
 	Today</a>
 
@@ -40,8 +39,7 @@
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="Click to toggle datepicker"
-		title="Click to toggle datepicker"
+		aria-description="Click to toggle datepicker"
 	>
 		<time
 			datetime="2018-01-01"
@@ -89,6 +87,7 @@
 	</template>
 </div>
 
+	
 	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
 	</div>
 
