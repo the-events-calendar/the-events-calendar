@@ -155,7 +155,7 @@ class Controller extends Controller_Contract {
 
 		if ( $category_data ) {
 			$context['category_colors_priority_category'] = $category_data['category'];
-			$context['category_colors_meta'] = $category_data['meta'];
+			$context['category_colors_meta']              = $category_data['meta'];
 		}
 
 		return $context;
