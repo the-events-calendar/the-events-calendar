@@ -21,8 +21,7 @@
 								
 <div class="tec-events-calendar-day__event-categories">
 	<div class="tec-events-calendar-day__category tribe-events-calendar__category--green-category">
-		<span class="tec-events-calendar-day__category-icon"></span>
-		Green Category	</div>
+				Green Category	</div>
 </div>
 			</header>
 

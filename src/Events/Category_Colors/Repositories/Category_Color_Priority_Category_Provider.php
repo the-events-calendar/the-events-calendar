@@ -12,6 +12,7 @@
 namespace TEC\Events\Category_Colors\Repositories;
 
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
+use TEC\Events\Category_Colors\Event_Category_Meta;
 use WP_Post;
 
 /**
@@ -55,6 +56,36 @@ class Category_Color_Priority_Category_Provider {
 		 * @param array       $categories The sorted list of categories.
 		 */
 		return apply_filters( 'tec_events_category_color_highest_priority_category', reset( $categories ), $categories );
+	}
+
+	/**
+	 * Retrieves the highest-priority category with all its metadata for a given event.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $event The post object of the event.
+	 *
+	 * @return array|null Array containing the category object and metadata, or null if none found.
+	 */
+	public function get_highest_priority_category_with_meta( WP_Post $event ): ?array {
+		$category = $this->get_highest_priority_category( $event );
+
+		if ( ! $category ) {
+			return null;
+		}
+
+		$meta_instance = tribe( Event_Category_Meta::class )->set_term( $category->term_id );
+
+		return [
+			'category' => $category,
+			'meta'     => [
+				'primary'          => $meta_instance->get( $this->get_key( 'primary' ) ),
+				'secondary'        => $meta_instance->get( $this->get_key( 'secondary' ) ),
+				'text'             => $meta_instance->get( $this->get_key( 'text' ) ),
+				'priority'         => $meta_instance->get( $this->get_key( 'priority' ) ),
+				'hide_from_legend' => $meta_instance->get( $this->get_key( 'hide_from_legend' ) ),
+			],
+		];
 	}
 
 	/**

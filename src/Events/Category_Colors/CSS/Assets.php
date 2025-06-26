@@ -10,7 +10,9 @@
 namespace TEC\Events\Category_Colors\CSS;
 
 use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use Tribe__Events__Main;
+use TEC\Events\Category_Colors\Controller;
 
 /**
  * Class for managing CSS assets related to category colors.
@@ -44,6 +46,17 @@ class Assets {
 	 * @since TBD
 	 */
 	public function enqueue_frontend_scripts(): void {
+		// Early bail if frontend UI should not be displayed.
+		if ( ! tribe( Controller::class )->should_show_frontend_ui() ) {
+			return;
+		}
+
+		// Check if there are categories with colors.
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		if ( ! $dropdown_provider->has_dropdown_categories() ) {
+			return;
+		}
+
 		// Add main CSS file.
 		Asset::add(
 			'tec-category-colors-frontend-styles',
@@ -116,6 +129,9 @@ class Assets {
 	 * @return bool True if frontend legend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_legend(): bool {
+		// Only enqueue legend styles if custom CSS is not enabled.
+		$should_enqueue = ! tribe_get_option( 'category-color-custom-css', false );
+
 		/**
 		 * Filter whether the category colors frontend legend styles should be enqueued.
 		 *
@@ -126,7 +142,7 @@ class Assets {
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_legend',
-			! tribe_get_option( 'category-color-custom-css', false ),
+			$should_enqueue,
 			$this
 		);
 	}

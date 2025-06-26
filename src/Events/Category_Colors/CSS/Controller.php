@@ -13,6 +13,7 @@
 namespace TEC\Events\Category_Colors\CSS;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 
 /**
  * Class Controller
@@ -40,6 +41,11 @@ class Controller extends Controller_Contract {
 	 */
 	public function generate_css() {
 		$this->container->make( Generator::class )->generate_and_save_css();
+		
+		// Bust the dropdown categories cache when CSS is regenerated.
+		/** @var Category_Color_Dropdown_Provider $dropdown_provider */
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		$dropdown_provider->bust_dropdown_categories_cache();
 	}
 
 	/**

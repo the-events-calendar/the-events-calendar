@@ -20,6 +20,7 @@ use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Pro
 use TEC\Events\Category_Colors\Settings\Settings;
 use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
 use Tribe\Events\Views\V2\View;
+use Tribe__Events__Main;
 
 /**
  * Class Controller
@@ -36,6 +37,24 @@ class Controller extends Controller_Contract {
 		'events-pro/v2/map/event-cards/event-card/event/category',
 		'events-pro/v2/photo/event/category',
 	];
+
+	/**
+	 * Whether the controller is active or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the controller is active or not.
+	 */
+	public function is_active(): bool {
+		/**
+		 * Filters whether the Category Colors feature is globally enabled.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $enabled Whether the Category Colors feature should be enabled.
+		 */
+		return (bool) apply_filters( 'tec_events_category_colors_enabled', true );
+	}
 
 	/**
 	 * Register the provider.
@@ -70,6 +89,13 @@ class Controller extends Controller_Contract {
 		foreach ( self::CATEGORY_TEMPLATE_VIEWS as $template ) {
 			add_filter( "tribe_template_context:{$template}", [ $this, 'add_category_data' ] );
 		}
+
+		// Add cache busting hooks for the dropdown provider.
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		add_action( 'created_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		add_action( 'edited_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		add_action( 'delete_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		add_action( 'tec_events_category_colors_css_regenerated', [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
 	}
 
 	/**
@@ -85,6 +111,13 @@ class Controller extends Controller_Contract {
 		/** @var Settings $settings */
 		$settings = $this->container->make( Settings::class );
 		$settings->unregister();
+
+		// Remove cache busting hooks for the dropdown provider.
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		remove_action( 'created_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		remove_action( 'edited_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		remove_action( 'delete_' . Tribe__Events__Main::TAXONOMY, [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
+		remove_action( 'tec_events_category_colors_css_regenerated', [ $dropdown_provider, 'bust_dropdown_categories_cache' ] );
 	}
 
 	/**
@@ -98,8 +131,17 @@ class Controller extends Controller_Contract {
 	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function add_category_colors_vars( array $template_vars, View $view ): array {
-		$template_vars['category_colors_enabled']           = tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( $view );
-		$template_vars['category_colors_category_dropdown'] = tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories();
+		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
+		$categories        = $dropdown_provider->get_dropdown_categories();
+
+		// Early bail if frontend UI should not be displayed.
+		if ( ! $this->should_show_frontend_ui() ) {
+			return $template_vars;
+		}
+
+		// Check if feature is enabled for view and categories have colors.
+		$template_vars['category_colors_enabled']           = $dropdown_provider->should_display_on_view( $view ) && ! empty( $categories );
+		$template_vars['category_colors_category_dropdown'] = $categories;
 		$template_vars['category_colors_super_power']       = tribe_get_option( 'category-color-legend-superpowers', false );
 		$template_vars['category_colors_show_reset_button'] = tribe_get_option( 'category-color-reset-button', false );
 
@@ -116,12 +158,41 @@ class Controller extends Controller_Contract {
 	 * @return array<string,mixed> The modified template context with category data.
 	 */
 	public function add_category_data( $context ) {
+		// Early bail if frontend UI should not be displayed.
+		if ( ! $this->should_show_frontend_ui() ) {
+			return $context;
+		}
+
 		$event = tribe_get_event();
 		if ( ! $event ) {
 			return $context;
 		}
-		$context['category_colors_priority_category'] = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $event );
+
+		$category_data = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category_with_meta( $event );
+
+		if ( $category_data ) {
+			$context['category_colors_priority_category'] = $category_data['category'];
+			$context['category_colors_meta']              = $category_data['meta'];
+		}
 
 		return $context;
+	}
+
+	/**
+	 * Determines if the Category Colors frontend UI should be displayed.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the frontend UI should be displayed, false otherwise.
+	 */
+	public function should_show_frontend_ui(): bool {
+		/**
+		 * Filters whether the Category Colors frontend UI should be displayed.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
+		 */
+		return (bool) apply_filters( 'tec_events_category_colors_show_frontend_ui', true );
 	}
 }
