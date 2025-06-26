@@ -180,27 +180,26 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @param {HTMLElement} dropdown
 	 * @return {void}
 	 */
-	const adjustDropdownPosition = ( picker, dropdown ) => {
-		// Reset any previous adjustments
+	const adjustDropdownPosition = (picker, dropdown) => {
+		// Reset previous adjustments
 		dropdown.style.left = '';
-		dropdown.style.right = '';
 		dropdown.style.top = '';
 
 		const { left, right, top, bottom } = dropdown.getBoundingClientRect();
-		const viewportWidth = window.innerWidth;
-		const viewportHeight = window.innerHeight;
 		const padding = 8; // px, to avoid touching the edge.
+		const paddedViewportWidth = window.innerWidth - padding;
+		const paddedViewportHeight = window.innerHeight - padding;
 
 		// Horizontal adjustment
-		if ( right > viewportWidth - padding ) {
-			dropdown.style.left = `-${right - (viewportWidth - padding)}px`;
+		if ( right > paddedViewportWidth ) {
+			dropdown.style.left = `-${right - paddedViewportWidth}px`;
 		} else if ( left < padding ) {
 			dropdown.style.left = `${padding - left}px`;
 		}
 
 		// Vertical adjustment
-		if ( bottom > viewportHeight - padding ) {
-			dropdown.style.top = `-${bottom - (viewportHeight - padding)}px`;
+		if ( bottom > paddedViewportHeight ) {
+			dropdown.style.top = `-${bottom - paddedViewportHeight}px`;
 		} else if ( top < padding ) {
 			dropdown.style.top = `${padding - top}px`;
 		}
@@ -208,7 +207,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		// Toggle alignment class only if offscreen right (legacy CSS support)
 		picker.classList.toggle(
 			SELECTORS.pickerAlignRight,
-			right > viewportWidth - padding
+			right > paddedViewportWidth
 		);
 	};
 
