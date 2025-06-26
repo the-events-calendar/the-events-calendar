@@ -69,7 +69,6 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $
  */
 $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after, false ), $event_id );
 $cost  = tribe_get_formatted_cost( $event_id );
-
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single">
