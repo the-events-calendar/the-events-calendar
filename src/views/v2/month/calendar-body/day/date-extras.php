@@ -45,17 +45,7 @@ $events_label_plural   = tribe_get_event_label_plural_lowercase();
 	<em class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured" >
 		<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-month__mobile-events-icon-svg' ] ] ); ?>
 	</em>
-	<span class="tribe-events-calendar-month__mobile-events-icon-text tribe-common-a11y-visual-hide">
-		<?php echo esc_attr( $has_featured_events_label ); ?>
-	</span>
 <?php elseif ( ! empty( $day['found_events'] ) ) : ?>
-	<?php
-	/* translators: %s: Events (plural). */
-	$has_events_label = sprintf( __( 'Has %s', 'the-events-calendar' ), $events_label_plural );
-	?>
 	<em class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event" >
 	</em>
-	<span class="tribe-events-calendar-month__mobile-events-icon-text tribe-common-a11y-visual-hide">
-		<?php echo esc_attr( $has_events_label ); ?>
-	</span>
 <?php endif ?>
