@@ -12,7 +12,7 @@ import {
 	METADATA_EVENT_START_DATE,
 	METADATA_EVENT_TIMEZONE,
 } from '../../constants';
-import { format, getDate } from '@wordpress/date';
+import { format } from '@wordpress/date';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 import { TimeZone } from '@tec/common/classy/components';
@@ -62,26 +62,33 @@ function getNewStartEndDates(
 	let newEndDate: Date;
 	let notify = { start: false, end: false };
 
-	if ( updated === 'start' ) {
-		// The user has updated the start date.
-		newStartDate = getDate( newDate );
-		newEndDate = endDate;
+	try {
+		if ( updated === 'start' ) {
+			// The user has updated the start date.
+			newStartDate = new Date( newDate );
+			newEndDate = endDate;
 
-		if ( newStartDate.getTime() >= endDate.getTime() ) {
-			// The start date is after the current end date: set the end date to the start date.
-			newEndDate = new Date( newStartDate.getTime() );
-			notify.end = true;
+			if ( newStartDate.getTime() >= endDate.getTime() ) {
+				// The start date is after the current end date: set the end date to the start date.
+				newEndDate = new Date( newStartDate.getTime() );
+				notify.end = true;
+			}
+		} else {
+			// The user has updated the end date.
+			newStartDate = startDate;
+			newEndDate = new Date( newDate );
+
+			if ( newEndDate.getTime() <= startDate.getTime() ) {
+				// The end date is before the current start date: set the start date to the end date.
+				newStartDate = new Date( newEndDate.getTime() );
+				notify.start = true;
+			}
 		}
-	} else {
-		// The user has updated the end date.
+	} catch ( e ) {
+		// Something went wrong while processing the dates, return the values unchanged and notify no field.
 		newStartDate = startDate;
-		newEndDate = getDate( newDate );
-
-		if ( newEndDate.getTime() <= startDate.getTime() ) {
-			// The end date is before the current start date: set the start date to the end date.
-			newStartDate = new Date( newEndDate.getTime() );
-			notify.start = true;
-		}
+		newEndDate = endDate;
+		notify = { start: false, end: false };
 	}
 
 	return { newStartDate, newEndDate, notify };
@@ -212,9 +219,11 @@ export default function EventDateTime( props: FieldProps ) {
 
 				// Add the start date, end date and timezone information to the payload sent to the backend.
 				edits.meta = edits?.meta || {};
-				edits.meta[ METADATA_EVENT_START_DATE ] = edits[METADATA_EVENT_START_DATE] || format( phpDateMysqlFormat, eventStart );
-				edits.meta[ METADATA_EVENT_END_DATE ] = edits[METADATA_EVENT_END_DATE] || format( phpDateMysqlFormat, eventEnd );
-				edits.meta[ METADATA_EVENT_TIMEZONE ] = edits[METADATA_EVENT_TIMEZONE] || eventTimezone;
+				edits.meta[ METADATA_EVENT_START_DATE ] =
+					edits[ METADATA_EVENT_START_DATE ] || format( phpDateMysqlFormat, eventStart );
+				edits.meta[ METADATA_EVENT_END_DATE ] =
+					edits[ METADATA_EVENT_END_DATE ] || format( phpDateMysqlFormat, eventEnd );
+				edits.meta[ METADATA_EVENT_TIMEZONE ] = edits[ METADATA_EVENT_TIMEZONE ] || eventTimezone;
 
 				return edits;
 			};
@@ -227,14 +236,14 @@ export default function EventDateTime( props: FieldProps ) {
 
 	const [ isSelectingDate, setIsSelectingDate ] = useState< 'start' | 'end' | false >( false );
 	const [ dates, setDates ] = useState( {
-		start: getDate( eventStart ),
-		end: getDate( eventEnd ),
+		start: new Date( eventStart ),
+		end: new Date( eventEnd ),
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
 	const { start: startDate, end: endDate } = dates;
 	const [ timezoneString, setTimezoneString ] = useState( eventTimezone );
-	const [ higlightStartTime, setHighlightStartTime ] = useState( false );
+	const [ highlightStartTime, setHighlightStartTime ] = useState( false );
 	const [ highlightEndTime, setHighlightEndTime ] = useState( false );
 
 	// Store a reference to some ground values to allow the toggle of multi-day and all-day correctly.
@@ -298,7 +307,7 @@ export default function EventDateTime( props: FieldProps ) {
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
 				endDate={ endDate }
-				highightTime={ higlightStartTime }
+				highightTime={ highlightStartTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
 				isSelectingDate={ isSelectingDate }
