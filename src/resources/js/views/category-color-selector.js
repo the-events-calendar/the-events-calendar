@@ -186,45 +186,30 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		dropdown.style.right = '';
 		dropdown.style.top = '';
 
-		const rect = dropdown.getBoundingClientRect();
+		const { left, right, top, bottom } = dropdown.getBoundingClientRect();
 		const viewportWidth = window.innerWidth;
 		const viewportHeight = window.innerHeight;
 		const padding = 8; // px, to avoid touching the edge.
 
-		let adjusted = false;
-
-		// Horizontal adjustment: right overflow.
-		if ( rect.right > viewportWidth - padding ) {
-			const overflowRight = rect.right - viewportWidth + padding;
-			// Shift left by the overflow amount.
-			dropdown.style.left = `-${overflowRight}px`;
-			adjusted = true;
-		}
-		// Horizontal adjustment: left overflow.
-		if ( rect.left < padding ) {
-			const overflowLeft = padding - rect.left;
-			// Shift right by the overflow amount.
-			dropdown.style.left = `${overflowLeft}px`;
-			adjusted = true;
+		// Horizontal adjustment
+		if ( right > viewportWidth - padding ) {
+			dropdown.style.left = `-${right - (viewportWidth - padding)}px`;
+		} else if ( left < padding ) {
+			dropdown.style.left = `${padding - left}px`;
 		}
 
-		// Vertical adjustment: bottom overflow.
-		if ( rect.bottom > viewportHeight - padding ) {
-			const overflowBottom = rect.bottom - viewportHeight + padding;
-			// Shift up by the overflow amount.
-			dropdown.style.top = `-${overflowBottom}px`;
-			adjusted = true;
-		}
-		// Vertical adjustment: top overflow (rare, but possible).
-		if ( rect.top < padding ) {
-			const overflowTop = padding - rect.top;
-			// Shift down by the overflow amount.
-			dropdown.style.top = `${overflowTop}px`;
-			adjusted = true;
+		// Vertical adjustment
+		if ( bottom > viewportHeight - padding ) {
+			dropdown.style.top = `-${bottom - (viewportHeight - padding)}px`;
+		} else if ( top < padding ) {
+			dropdown.style.top = `${padding - top}px`;
 		}
 
-		// Toggle alignment class for right alignment if needed (for legacy CSS support).
-		picker.classList.toggle( SELECTORS.pickerAlignRight, rect.right > viewportWidth - padding && !adjusted );
+		// Toggle alignment class only if offscreen right (legacy CSS support)
+		picker.classList.toggle(
+			SELECTORS.pickerAlignRight,
+			right > viewportWidth - padding
+		);
 	};
 
 	// =====================
