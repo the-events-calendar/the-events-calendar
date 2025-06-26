@@ -160,9 +160,9 @@ class Generator {
 			return '';
 		}
 
-		return ".{$taxonomy}-{$class} {\n"
-			. implode( "\n", $css_properties ) . "\n"
-			. "}\n";
+		return ".{$taxonomy}-{$class} {" . PHP_EOL
+			. implode( PHP_EOL, $css_properties ) . PHP_EOL
+			. "}" . PHP_EOL;
 	}
 
 	/**

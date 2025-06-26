@@ -12,6 +12,7 @@ namespace TEC\Events\Category_Colors\CSS;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use Tribe__Events__Main;
+use TEC\Events\Category_Colors\Controller;
 
 /**
  * Class for managing CSS assets related to category colors.
@@ -46,7 +47,7 @@ class Assets {
 	 */
 	public function enqueue_frontend_scripts(): void {
 		// Early bail if frontend UI should not be displayed.
-		if ( ! tribe( \TEC\Events\Category_Colors\Controller::class )->should_show_frontend_ui() ) {
+		if ( ! tribe( Controller::class )->should_show_frontend_ui() ) {
 			return;
 		}
 

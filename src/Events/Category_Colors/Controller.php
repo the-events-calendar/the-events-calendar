@@ -39,11 +39,13 @@ class Controller extends Controller_Contract {
 	];
 
 	/**
-	 * Register the provider.
+	 * Whether the controller is active or not.
 	 *
 	 * @since TBD
+	 *
+	 * @return bool Whether the controller is active or not.
 	 */
-	protected function do_register(): void {
+	public function is_active(): bool {
 		/**
 		 * Filters whether the Category Colors feature is globally enabled.
 		 *
@@ -51,10 +53,15 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $enabled Whether the Category Colors feature should be enabled.
 		 */
-		if ( ! apply_filters( 'tec_events_category_colors_enabled', true ) ) {
-			return;
-		}
+		return (bool) apply_filters( 'tec_events_category_colors_enabled', true );
+	}
 
+	/**
+	 * Register the provider.
+	 *
+	 * @since TBD
+	 */
+	protected function do_register(): void {
 		$plugin_manager = $this->container->make( Plugin_Manager::class );
 
 		if ( $plugin_manager->should_show_migration_controller() ) {
