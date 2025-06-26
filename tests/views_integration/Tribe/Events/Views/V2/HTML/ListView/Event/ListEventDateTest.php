@@ -46,7 +46,7 @@ class ListEventDateTest extends HtmlTestCase {
 		$this->assertEquals(
 			$featured_icon->count(),
 			1,
-			'List Event date HTML needs to contain one ".tribe-events-calendar-list__event-datetime-featured-icon" element when having a featured event'
+			'List Event date HTML needs to contain one ".tribe-events-calendar-list__event-datetime-featured-icon" element when displaying a featured event'
 		);
 
 		$this->assertTrue(
