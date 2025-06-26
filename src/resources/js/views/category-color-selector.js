@@ -210,10 +210,10 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 
 			// Get the first 5 checkboxes from the dropdown
 			const labels = qsa(SELECTORS.dropdownLabel);
-			const firstFiveCheckboxes = Array.from(labels).slice(0, DEFAULT_BUBBLE_COUNT);
+			const firstFiveLabels = Array.from(labels).slice(0, DEFAULT_BUBBLE_COUNT);
 
 			// Render category bubbles from labels.
-			firstFiveCheckboxes.forEach(checkbox => {
+			firstFiveLabels.forEach(checkbox => {
 				const categorySlug = checkbox.dataset.category;
 				if (categorySlug) {
 					const span = document.createElement('span');
