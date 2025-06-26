@@ -47,7 +47,7 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 
 	let eventStart: Date;
 	if ( eventStartDateString ) {
-		eventStart = new Date(eventStartDateString);
+		eventStart = new Date( eventStartDateString );
 	} else {
 		eventStart = new Date();
 		eventStart.setHours( 8, 0, 0 );
@@ -55,7 +55,7 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 
 	let eventEnd: Date;
 	if ( eventEndDateString ) {
-		eventEnd = new Date(eventEndDateString);
+		eventEnd = new Date( eventEndDateString );
 	} else {
 		eventEnd = new Date();
 		eventEnd.setHours( 17, 0, 0 );
