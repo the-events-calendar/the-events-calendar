@@ -17,10 +17,9 @@
 		</div>
 		<ul class="tec-events-category-color-filter__dropdown-list">
 							<li class="tec-events-category-color-filter__dropdown-item" role="option">
-					<label>
+					<label data-category="test-category-1" >
 													<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
-								data-category="test-category-1"
 								aria-label="
 								Highlight events in Test Category 1">
 							<span class="tec-events-category-color-filter__label">Test Category 1</span>
@@ -29,10 +28,9 @@
 					</label>
 				</li>
 							<li class="tec-events-category-color-filter__dropdown-item" role="option">
-					<label>
+					<label data-category="test-category-2" >
 													<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
-								data-category="test-category-2"
 								aria-label="
 								Highlight events in Test Category 2">
 							<span class="tec-events-category-color-filter__label">Test Category 2</span>

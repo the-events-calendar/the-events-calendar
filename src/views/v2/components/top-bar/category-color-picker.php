@@ -47,17 +47,16 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 	</span>
 	<div class="tec-events-category-color-filter__dropdown" role="listbox" aria-label="<?php esc_attr_e( 'Category selection', 'the-events-calendar' ); ?>">
 		<div class="tec-events-category-color-filter__dropdown-header">
-			<span><?php esc_html_e( 'Highlight a category', 'the-events-calendar' ); ?></span>
+			<span><?php echo $category_colors_super_power ? esc_html__( 'Highlight a category', 'the-events-calendar' ) : esc_html__( 'Browse by category', 'the-events-calendar' ); ?></span>
 			<button class="tec-events-category-color-filter__dropdown-close" aria-label="<?php esc_attr_e( 'Close category selection', 'the-events-calendar' ); ?>">✕</button>
 		</div>
 		<ul class="tec-events-category-color-filter__dropdown-list">
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
 				<li class="tec-events-category-color-filter__dropdown-item" role="option">
-					<label>
+					<label data-category="<?php echo esc_attr( $category['slug'] ); ?>" >
 						<?php if ( $category_colors_super_power ) : ?>
 							<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
-								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
 								aria-label="
 								<?php
 								echo /* translators: %s is the category name. */

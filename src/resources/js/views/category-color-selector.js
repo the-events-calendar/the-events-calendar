@@ -23,6 +23,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const SELECTORS = {
 		picker: '.tec-events-category-color-filter',
 		dropdown: '.tec-events-category-color-filter__dropdown',
+		dropdownLabel: '.tec-events-category-color-filter__dropdown-item label',
 		checkbox: '.tec-events-category-color-filter__checkbox',
 		dropdownIcon: '.tec-events-category-color-filter__dropdown-icon',
 		dropdownVisible: 'tec-events-category-color-filter__dropdown--visible',
@@ -208,11 +209,11 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		} else {
 
 			// Get the first 5 checkboxes from the dropdown
-			const checkboxes = qsa(SELECTORS.checkbox);
-			const firstFiveCheckboxes = Array.from(checkboxes).slice(0, DEFAULT_BUBBLE_COUNT);
+			const labels = qsa(SELECTORS.dropdownLabel);
+			const firstFiveLabels = Array.from(labels).slice(0, DEFAULT_BUBBLE_COUNT);
 
-			// Render category bubbles from checkboxes
-			firstFiveCheckboxes.forEach(checkbox => {
+			// Render category bubbles from labels.
+			firstFiveLabels.forEach(checkbox => {
 				const categorySlug = checkbox.dataset.category;
 				if (categorySlug) {
 					const span = document.createElement('span');
