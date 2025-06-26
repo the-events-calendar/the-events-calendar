@@ -162,7 +162,7 @@ class Generator {
 
 		return ".{$taxonomy}-{$class} {" . PHP_EOL
 			. implode( PHP_EOL, $css_properties ) . PHP_EOL
-			. "}" . PHP_EOL;
+			. '}' . PHP_EOL;
 	}
 
 	/**
