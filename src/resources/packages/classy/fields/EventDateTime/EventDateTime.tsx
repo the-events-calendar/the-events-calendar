@@ -219,11 +219,15 @@ export default function EventDateTime( props: FieldProps ) {
 
 				// Add the start date, end date and timezone information to the payload sent to the backend.
 				edits.meta = edits?.meta || {};
-				edits.meta[ METADATA_EVENT_START_DATE ] =
-					edits[ METADATA_EVENT_START_DATE ] || format( phpDateMysqlFormat, eventStart );
-				edits.meta[ METADATA_EVENT_END_DATE ] =
-					edits[ METADATA_EVENT_END_DATE ] || format( phpDateMysqlFormat, eventEnd );
-				edits.meta[ METADATA_EVENT_TIMEZONE ] = edits[ METADATA_EVENT_TIMEZONE ] || eventTimezone;
+				if ( ! edits.meta[ METADATA_EVENT_START_DATE ] ) {
+					edits[ METADATA_EVENT_START_DATE ] = format( phpDateMysqlFormat, eventStart );
+				}
+				if ( ! edits.meta[ METADATA_EVENT_END_DATE ] ) {
+					edits[ METADATA_EVENT_END_DATE ] = format( phpDateMysqlFormat, eventEnd );
+				}
+				if ( ! edits.meta[ METADATA_EVENT_TIMEZONE ] ) {
+					edits.meta[ METADATA_EVENT_TIMEZONE ] = eventTimezone;
+				}
 
 				return edits;
 			};
