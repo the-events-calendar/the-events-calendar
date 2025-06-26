@@ -53,11 +53,10 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 		<ul class="tec-events-category-color-filter__dropdown-list">
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
 				<li class="tec-events-category-color-filter__dropdown-item" role="option">
-					<label>
+					<label data-category="<?php echo esc_attr( $category['slug'] ); ?>" >
 						<?php if ( $category_colors_super_power ) : ?>
 							<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
-								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
 								aria-label="
 								<?php
 								echo /* translators: %s is the category name. */
