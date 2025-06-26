@@ -22,10 +22,7 @@ if ( empty( $event->featured ) ) {
 	return;
 }
 ?>
-<em
-	class="tribe-events-calendar-day__event-datetime-featured-icon"
-	title="<?php esc_attr_e( 'Featured', 'the-events-calendar' ); ?>"
->
+<em class="tribe-events-calendar-day__event-datetime-featured-icon">
 	<?php $this->template( 'components/icons/featured', [ 'classes' => [ 'tribe-events-calendar-day__event-datetime-featured-icon-svg' ] ] ); ?>
 </em>
 <span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
