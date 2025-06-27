@@ -173,15 +173,42 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 
 	/**
 	 * Adjusts dropdown position to prevent overflow.
+	 * Ensures the dropdown stays within the viewport horizontally and vertically.
+	 *
 	 * @since TBD
 	 * @param {HTMLElement} picker
 	 * @param {HTMLElement} dropdown
 	 * @return {void}
 	 */
-	const adjustDropdownPosition = ( picker, dropdown ) => {
-		const rect = dropdown.getBoundingClientRect();
-		const isOffScreen = rect.right > window.innerWidth;
-		picker.classList.toggle( SELECTORS.pickerAlignRight, isOffScreen );
+	const adjustDropdownPosition = (picker, dropdown) => {
+		// Reset previous adjustments
+		dropdown.style.left = '';
+		dropdown.style.top = '';
+
+		const { left, right, top, bottom } = dropdown.getBoundingClientRect();
+		const padding = 8; // px, to avoid touching the edge.
+		const paddedViewportWidth = window.innerWidth - padding;
+		const paddedViewportHeight = window.innerHeight - padding;
+
+		// Horizontal adjustment
+		if ( right > paddedViewportWidth ) {
+			dropdown.style.left = `-${right - paddedViewportWidth}px`;
+		} else if ( left < padding ) {
+			dropdown.style.left = `${padding - left}px`;
+		}
+
+		// Vertical adjustment
+		if ( bottom > paddedViewportHeight ) {
+			dropdown.style.top = `-${bottom - paddedViewportHeight}px`;
+		} else if ( top < padding ) {
+			dropdown.style.top = `${padding - top}px`;
+		}
+
+		// Toggle alignment class only if offscreen right (legacy CSS support)
+		picker.classList.toggle(
+			SELECTORS.pickerAlignRight,
+			right > paddedViewportWidth
+		);
 	};
 
 	// =====================
