@@ -60,7 +60,7 @@ $num_events_label = sprintf(
 <button
 	aria-expanded="<?php echo esc_attr( $expanded ); ?>"
 	aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
-	<?php tribe_classes( $day_button_classes ); ?>
+	<?php tec_classes( $day_button_classes ); ?>
 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >

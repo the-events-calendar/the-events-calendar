@@ -25,7 +25,7 @@ if ( empty( $link ) ) {
 }
 ?>
 <a
-	<?php tribe_classes( $widget->get_link_class() ); ?>
+	<?php tec_classes( $widget->get_link_class() ); ?>
 	href="<?php echo esc_url( $link['link'] ); ?>"
 	target="_blank"
 	rel="noopener noreferrer"
