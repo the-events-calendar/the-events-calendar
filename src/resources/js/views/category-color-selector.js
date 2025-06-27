@@ -45,6 +45,19 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 			'.tribe-events-pro-week-mobile-events__event',
 			'.tribe-events-pro-map__event-card-wrapper',
 		],
+		eventsParent: [
+			'.tribe-events-calendar-list__event-row',
+			'.tribe-events-calendar-day__event',
+			'.tribe-events-calendar-month__calendar-event-wrapper',
+			'.tribe-events-pro-summary__event',
+			'.tribe-events-pro-photo__event',
+			'.tribe-events-pro-week-grid__event',
+			'.tribe-events-pro-week-grid__multiday-event-wrapper',
+			'.tribe-events-calendar-month__multiday-event',
+			'.tribe-events-calendar-month-mobile-events__mobile-event-row',
+			'.tribe-events-pro-week-mobile-events__event-row',
+			'.tribe-events-pro-map__event-card-row',
+		],
 		filteredHide: 'tec-category-filtered-hide',
 		colorCircle: 'tec-events-category-color-filter__color-circle',
 		colorCircleDefault: 'tec-events-category-color-filter__color-circle--default',
@@ -91,6 +104,15 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {NodeListOf<HTMLElement>}
 	 */
 	const getEventElements = () => qsa( SELECTORS.events.join( ', ' ) );
+
+	/**
+	 * Returns all event parent elements matching the selectors in eventsParent.
+	 * @since TBD
+	 * @return {NodeListOf<HTMLElement>} NodeList of parent elements.
+	 */
+	const getEventParentElements = () => {
+		return document.querySelectorAll(SELECTORS.eventsParent.join(', '));
+	};
 
 	// =====================
 	// Dropdown Handling
@@ -326,10 +348,22 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 */
 	const updateEventVisibility = () => {
 		const selectedArray = [ ...selectedCategories ];
-		getEventElements().forEach( eventEl => {
-			const hasMatch = eventHasMatchingCategory( eventEl, selectedArray );
-			eventEl.classList.toggle( SELECTORS.filteredHide, selectedArray.length > 0 && !hasMatch );
-		} );
+
+		getEventParentElements().forEach(parentEl => {
+			let catEl = parentEl;
+
+			// If the parent doesn't have a category class, check children
+			if (![...catEl.classList].some(cls => cls.startsWith('tribe_events_cat-'))) {
+				catEl = parentEl.querySelector('[class*="tribe_events_cat-"]');
+			}
+
+			const hasMatch = catEl ? eventHasMatchingCategory(catEl, selectedArray) : false;
+
+			parentEl.classList.toggle(
+				SELECTORS.filteredHide,
+				selectedArray.length > 0 && !hasMatch
+			);
+		});
 	};
 
 	/**
@@ -385,11 +419,15 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @since TBD
 	 */
 	const reapplyFilters = () => {
-		// Re-check checkboxes
-		qsa( SELECTORS.checkbox ).forEach( checkbox => {
-			const cat = checkbox.dataset.category;
-			checkbox.checked = selectedCategories.has( cat );
-		} );
+		// Re-check checkboxes to match selectedCategories
+        qsa(SELECTORS.checkbox).forEach(checkbox => {
+            const label = checkbox.closest('label');
+            const cat = label?.dataset.category;
+            if (cat) {
+                checkbox.checked = selectedCategories.has(cat);
+            }
+        });
+        
 		updateEventVisibility();
 		renderLegend();
 	};
