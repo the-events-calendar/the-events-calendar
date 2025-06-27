@@ -81,14 +81,19 @@
 		background-color: var(--tec-color-background);
 		border-radius: var(--tec-border-radius-default);
 		box-shadow: var(--tec-box-shadow-tooltip);
-		display: none;
-		left: 0;
+		inset-inline-end:0;
+		inset-inline-start: auto;
+		left: clamp(0px, 100%, calc(100vw - 300px));
+		max-inline-size: 100vw;
 		max-width: min(100vw, 300px);
 		min-width: 220px;
-		overflow: hidden;
+		opacity: 0;
+		overflow-x:auto;
+		pointer-events: none;
 		position: absolute;
 		right: auto;
 		top: 100%;
+		visibility: hidden;
 		white-space: nowrap;
 		z-index: 100;
 
@@ -107,6 +112,9 @@
 		&.tec-events-category-color-filter__dropdown--visible {
 			display: flex;
 			flex-direction: column;
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
 		}
 
 		/* Header */

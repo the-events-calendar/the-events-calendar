@@ -172,42 +172,63 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	};
 
 	/**
-	 * Adjusts dropdown position to prevent overflow.
-	 * Ensures the dropdown stays within the viewport horizontally and vertically.
+	 * Adjusts dropdown position to prevent overflow and ensures it stays within the viewport.
+	 * Handles both horizontal and vertical overflow, and retries once if not fully visible after initial adjustment.
 	 *
 	 * @since TBD
-	 * @param {HTMLElement} picker
-	 * @param {HTMLElement} dropdown
+	 * @param {HTMLElement} picker The picker element that triggers the dropdown.
+	 * @param {HTMLElement} dropdown The dropdown element to position.
+	 * @param {boolean} [retry=false] Whether this is a retry attempt (internal use).
 	 * @return {void}
 	 */
-	const adjustDropdownPosition = (picker, dropdown) => {
-		// Reset previous adjustments
-		dropdown.style.left = '';
-		dropdown.style.top = '';
+	const adjustDropdownPosition = (picker, dropdown, retry = false) => {
+		if (!dropdown.isConnected || dropdown.offsetParent === null) return;
 
-		const { left, right, top, bottom } = dropdown.getBoundingClientRect();
-		const padding = 8; // px, to avoid touching the edge.
-		const paddedViewportWidth = window.innerWidth - padding;
-		const paddedViewportHeight = window.innerHeight - padding;
+		const padding = 8;
+		dropdown.style.left = '0px';
+		dropdown.style.top = `${picker.offsetHeight}px`;
 
-		// Horizontal adjustment
-		if ( right > paddedViewportWidth ) {
-			dropdown.style.left = `-${right - paddedViewportWidth}px`;
-		} else if ( left < padding ) {
-			dropdown.style.left = `${padding - left}px`;
+		void dropdown.offsetHeight;
+
+		const rect = dropdown.getBoundingClientRect();
+		const vw = window.innerWidth - padding;
+		const vh = window.innerHeight - padding;
+
+		if (rect.right > vw) {
+			dropdown.style.left = `-${rect.right - vw}px`;
+		} else if (rect.left < padding) {
+			dropdown.style.left = `${padding - rect.left}px`;
 		}
 
-		// Vertical adjustment
-		if ( bottom > paddedViewportHeight ) {
-			dropdown.style.top = `-${bottom - paddedViewportHeight}px`;
-		} else if ( top < padding ) {
-			dropdown.style.top = `${padding - top}px`;
+		if (rect.bottom > vh) {
+			dropdown.style.top = `-${rect.bottom - vh}px`;
+		} else if (rect.top < padding) {
+			dropdown.style.top = `${padding - rect.top}px`;
 		}
 
-		// Toggle alignment class only if offscreen right (legacy CSS support)
-		picker.classList.toggle(
-			SELECTORS.pickerAlignRight,
-			right > paddedViewportWidth
+		picker.classList.toggle(SELECTORS.pickerAlignRight, rect.right > vw);
+
+		// Retry once on next frame if not yet visible
+		if (!retry && !isFullyVisible(dropdown)) {
+			requestAnimationFrame(() => adjustDropdownPosition(picker, dropdown, true));
+		}
+	};
+
+	/**
+	 * Checks if an element is fully visible within the viewport, considering padding.
+	 *
+	 * @since TBD
+	 * @param {HTMLElement} el The element to check.
+	 * @return {boolean} True if fully visible, false otherwise.
+	 */
+	const isFullyVisible = el => {
+		const rect = el.getBoundingClientRect();
+		const pad = 8;
+		return (
+			rect.top >= pad &&
+			rect.left >= pad &&
+			rect.bottom <= window.innerHeight - pad &&
+			rect.right <= window.innerWidth - pad
 		);
 	};
 
