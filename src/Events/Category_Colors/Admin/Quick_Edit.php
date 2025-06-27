@@ -103,6 +103,12 @@ class Quick_Edit extends Abstract_Admin {
 	 * @return string Either 'transparent' or the HTML for the color preview.
 	 */
 	protected function determine_color_preview_display( Event_Category_Meta $meta, int $term_id ): string {
+		// Get the term to access its slug.
+		$term = get_term( $term_id, Tribe__Events__Main::TAXONOMY );
+		if ( ! $term instanceof WP_Term ) {
+			return __( 'transparent', 'the-events-calendar' );
+		}
+
 		// Get values in a single pass.
 		$fields = [];
 		foreach ( $this->get_all_keys() as $key => $meta_key ) {
@@ -110,14 +116,8 @@ class Quick_Edit extends Abstract_Admin {
 			$fields[ $key ] = $this->sanitize_value( $key, $value );
 		}
 
-		// If no colors are set, return transparent.
-		if ( empty( $fields['primary'] ) || empty( $fields['secondary'] ) ) {
-			return __( 'transparent', 'the-events-calendar' );
-		}
-
-		// Get the term to access its slug.
-		$term = get_term( $term_id, Tribe__Events__Main::TAXONOMY );
-		if ( ! $term instanceof WP_Term ) {
+		// If both colors are empty, return transparent.
+		if ( empty( $fields['primary'] ) && empty( $fields['secondary'] ) ) {
 			return __( 'transparent', 'the-events-calendar' );
 		}
 

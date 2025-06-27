@@ -89,7 +89,7 @@ class Quick_Edit_Test extends WPTestCase {
 			],
 		];
 
-		yield 'should display dash when colors are missing' => [
+		yield 'should display template when secondary is missing' => [
 			'initial_values'   => [
 				'primary'   => '#ff0000',
 				'secondary' => '', // Missing secondary color
@@ -98,11 +98,11 @@ class Quick_Edit_Test extends WPTestCase {
 			],
 			'expected_columns' => [
 				'category_priority' => '1',
-				'category_color'    => '-',
+				'category_color'    => 'template', // Will assert snapshot
 			],
 		];
 
-		yield 'should display dash when primary color is missing' => [
+		yield 'should display template when primary is missing' => [
 			'initial_values'   => [
 				'primary'   => '', // Missing primary color
 				'secondary' => '#00ff00',
@@ -111,7 +111,7 @@ class Quick_Edit_Test extends WPTestCase {
 			],
 			'expected_columns' => [
 				'category_priority' => '1',
-				'category_color'    => '-',
+				'category_color'    => 'template', // Will assert snapshot
 			],
 		];
 
@@ -226,12 +226,10 @@ class Quick_Edit_Test extends WPTestCase {
 					sprintf( 'Failed asserting that %s column content matches expected value', $column_name )
 				);
 			} else {
-				if ( $expected_value === '-' ) {
-					$this->assertEquals(
-						'transparent',
-						$content,
-						'Failed asserting that invalid/missing colors display as dash'
-					);
+				if ( $expected_value === 'template' ) {
+					$this->assertMatchesSnapshot( $content );
+				} elseif ( $expected_value === 'transparent' ) {
+					$this->assertEquals( 'transparent', $content );
 				} else {
 					$this->assertMatchesSnapshot( $content );
 				}
@@ -543,6 +541,62 @@ class Quick_Edit_Test extends WPTestCase {
 			[$meta, $term_id2]
 		);
 		$this->assertMatchesSnapshot($output2);
+	}
+
+	/**
+	 * @dataProvider color_preview_display_scenarios
+	 */
+	public function test_determine_color_preview_display_logic($meta_values, $expected) {
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => \Tribe__Events__Main::TAXONOMY,
+			'name'     => 'Test Category',
+		]);
+		$meta = tribe(\TEC\Events\Category_Colors\Event_Category_Meta::class)->set_term($term_id);
+		foreach ($meta_values as $key => $value) {
+			$meta->set($this->get_key($key), $value);
+		}
+		$meta->save();
+
+		$output = $this->call_protected_method(
+			$this->quick_edit,
+			'determine_color_preview_display',
+			[$meta, $term_id]
+		);
+
+		if ($expected === 'transparent') {
+			$this->assertEquals('transparent', $output);
+		} else {
+			$this->assertMatchesSnapshot($output);
+		}
+	}
+
+	public function color_preview_display_scenarios() {
+		return [
+			'primary only' => [
+				'meta_values' => [
+					'primary' => '#ff0000',
+					'secondary' => '',
+					'text' => '',
+				],
+				'expected' => 'template',
+			],
+			'secondary only' => [
+				'meta_values' => [
+					'primary' => '',
+					'secondary' => '#00ff00',
+					'text' => '',
+				],
+				'expected' => 'template',
+			],
+			'text only' => [
+				'meta_values' => [
+					'primary' => '',
+					'secondary' => '',
+					'text' => '#000000',
+				],
+				'expected' => 'transparent',
+			],
+		];
 	}
 
     protected function call_protected_method($object, $method, array $args = []) {
