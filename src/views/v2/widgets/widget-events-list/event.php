@@ -26,7 +26,7 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-widget-events-list__event
 	<?php $this->template( 'widgets/widget-events-list/event/date-tag', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-widget-events-list__event-wrapper tribe-common-g-col">
-		<article <?php tec_classes( $event_classes ) ?>>
+		<article <?php tec_classes( $event_classes ); ?>>
 			<div class="tribe-events-widget-events-list__event-details">
 
 				<header class="tribe-events-widget-events-list__event-header">

@@ -26,7 +26,7 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-calendar-latest-past__eve
 	<?php $this->template( 'latest-past/event/date-tag', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
-		<article <?php tec_classes( $event_classes ) ?>>
+		<article <?php tec_classes( $event_classes ); ?>>
 			<?php $this->template( 'latest-past/event/featured-image', [ 'event' => $event ] ); ?>
 
 			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
