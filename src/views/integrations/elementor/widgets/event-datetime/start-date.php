@@ -30,7 +30,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
 ?>
 <?php if ( $show_date && $start_date ) : ?>
-	<span <?php tribe_classes( $widget->get_date_class(), $widget->get_start_date_class() ); ?>><?php echo esc_html( $start_date ); ?></span>
+	<span <?php tec_classes( $widget->get_date_class(), $widget->get_start_date_class() ); ?>><?php echo esc_html( $start_date ); ?></span>
 <?php endif; ?>
 
 <?php

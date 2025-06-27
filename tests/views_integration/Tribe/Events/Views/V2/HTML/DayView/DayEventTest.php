@@ -43,7 +43,7 @@ class DayEventTest extends HtmlTestCase {
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-day__event--featured' )->count(),
 			1,
-			'Day Event HTML needs to contain one ".tribe-events-calendar-day__event--featured" element when having a featured event'
+			'Day Event HTML needs to contain one ".tribe-events-calendar-day__event--featured" element when displaying a featured event'
 		);
 
 	}

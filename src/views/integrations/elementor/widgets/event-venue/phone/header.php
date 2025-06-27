@@ -18,6 +18,6 @@ if ( ! $show_phone_header ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $phone_header_tag ); ?> <?php tribe_classes( $widget->get_phone_base_class() . '-header' ); ?>>
+<<?php echo tag_escape( $phone_header_tag ); ?> <?php tec_classes( $widget->get_phone_base_class() . '-header' ); ?>>
 	<?php echo wp_kses_post( $phone_header_text ); ?>
 <?php echo '</' . tag_escape( $phone_header_tag ) . '>'; ?>

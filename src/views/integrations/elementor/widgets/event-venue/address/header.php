@@ -17,6 +17,6 @@ if ( ! $show_address_header ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $address_header_tag ); ?> <?php tribe_classes( $widget->get_address_base_class() . '-header' ); ?>>
+<<?php echo tag_escape( $address_header_tag ); ?> <?php tec_classes( $widget->get_address_base_class() . '-header' ); ?>>
 	<?php echo wp_kses_post( $address_header_text ); ?>
 <?php echo '</' . tag_escape( $address_header_tag ) . '>'; ?>

@@ -12,26 +12,26 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			6 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-01"
 		>
 			1		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 6 events		</span>
 	</h3>
 	
-		<em
-		class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured"
-		aria-label="Has featured events"
-		title="Has featured events"
-	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
+		<em class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured" >
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 8 10"
+	xmlns="http://www.w3.org/2000/svg"
+>
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>
 	</em>
+	<span class="tribe-events-calendar-month__mobile-events-icon-text tribe-common-a11y-visual-hide">
+		has featured events	</span>
 </button>
 	
 <div

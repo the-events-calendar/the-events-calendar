@@ -34,6 +34,6 @@ if ( ! $show_header ) {
 
 $widget = $this->get_widget();
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
+<<?php echo tag_escape( $header_tag ); ?> <?php tec_classes( $widget->get_header_class() ); ?>>
 	<?php echo esc_html( $header_text ); ?>
 <?php echo '</' . tag_escape( $header_tag ) . '>'; ?>
