@@ -181,36 +181,53 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @param {boolean} [retry=false] Whether this is a retry attempt (internal use).
 	 * @return {void}
 	 */
-	const adjustDropdownPosition = (picker, dropdown, retry = false) => {
-		if (!dropdown.isConnected || dropdown.offsetParent === null) return;
-
-		const padding = 8;
-		dropdown.style.left = '0px';
-		dropdown.style.top = `${picker.offsetHeight}px`;
-
-		void dropdown.offsetHeight;
-
-		const rect = dropdown.getBoundingClientRect();
-		const vw = window.innerWidth - padding;
-		const vh = window.innerHeight - padding;
-
-		if (rect.right > vw) {
-			dropdown.style.left = `-${rect.right - vw}px`;
-		} else if (rect.left < padding) {
-			dropdown.style.left = `${padding - rect.left}px`;
+	const adjustDropdownPosition = ( picker, dropdown, retry = false ) => {
+		if ( ! dropdown.isConnected || dropdown.offsetParent === null ) {
+			return;
 		}
 
-		if (rect.bottom > vh) {
-			dropdown.style.top = `-${rect.bottom - vh}px`;
-		} else if (rect.top < padding) {
-			dropdown.style.top = `${padding - rect.top}px`;
+
+		// Ensure parent is relatively positioned for correct anchor context
+		const computedPickerStyle = window.getComputedStyle( picker );
+		if ( computedPickerStyle.position === 'static' ) {
+			picker.style.position = 'relative';
 		}
 
-		picker.classList.toggle(SELECTORS.pickerAlignRight, rect.right > vw);
+		// Reset styles
+		dropdown.style.left = '';
+		dropdown.style.right = '';
+		dropdown.style.top = '';
+		dropdown.style.position = 'absolute';
 
-		// Retry once on next frame if not yet visible
-		if (!retry && !isFullyVisible(dropdown)) {
-			requestAnimationFrame(() => adjustDropdownPosition(picker, dropdown, true));
+		const pickerRect = picker.getBoundingClientRect();
+		const vw = window.innerWidth;
+
+		const isCloserToRight = pickerRect.left > vw / 2;
+		const verticalOffset = picker.offsetHeight;
+
+		if ( isCloserToRight ) {
+			dropdown.style.right = '0px';
+		} else {
+			dropdown.style.left = '0px';
+		}
+
+		dropdown.style.top = `${ verticalOffset }px`;
+
+		const dropdownRect = dropdown.getBoundingClientRect();
+		const bottomOverflow = dropdownRect.bottom - ( window.innerHeight - 8 );
+		if ( bottomOverflow > 0 ) {
+			const adjustedTop = verticalOffset - bottomOverflow;
+			dropdown.style.top = `${ adjustedTop }px`;
+		}
+
+		const isVisible = isFullyVisible( dropdown );
+
+		if ( ! retry && ! isVisible ) {
+			requestAnimationFrame( () => adjustDropdownPosition(
+				picker,
+				dropdown,
+				true
+			) );
 		}
 	};
 
@@ -221,7 +238,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @param {HTMLElement} el The element to check.
 	 * @return {boolean} True if fully visible, false otherwise.
 	 */
-	const isFullyVisible = el => {
+	const isFullyVisible = (el) => {
 		const rect = el.getBoundingClientRect();
 		const pad = 8;
 		return (
