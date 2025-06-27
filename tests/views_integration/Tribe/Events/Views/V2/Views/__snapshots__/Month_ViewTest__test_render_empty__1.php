@@ -60,7 +60,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -85,7 +85,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2286,7 +2286,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2318,7 +2318,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2350,7 +2350,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2382,7 +2382,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2414,7 +2414,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2446,7 +2446,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2478,7 +2478,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2510,7 +2510,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2542,7 +2542,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2574,7 +2574,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2606,7 +2606,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2638,7 +2638,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2670,7 +2670,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2702,7 +2702,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2734,7 +2734,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2766,7 +2766,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2798,7 +2798,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2830,7 +2830,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2862,7 +2862,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2894,7 +2894,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2926,7 +2926,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2958,7 +2958,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -2990,7 +2990,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3022,7 +3022,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3054,7 +3054,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3086,7 +3086,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3118,7 +3118,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3150,7 +3150,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3182,7 +3182,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3214,7 +3214,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3246,7 +3246,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3278,7 +3278,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3310,7 +3310,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3342,7 +3342,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3374,7 +3374,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
@@ -3406,7 +3406,7 @@
 	</g>
 </svg>
 <span class="tribe-common-a11y-visual-hide">
-	Notice:</span>
+	Notice</span>
 			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
 									<div
 						class="tribe-events-c-messages__message-list-item"
