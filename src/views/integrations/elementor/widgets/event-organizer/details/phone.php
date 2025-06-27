@@ -20,7 +20,7 @@ if ( ! $show_organizer_phone ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_phone_wrapper_class() ); ?>>
+<div <?php tec_classes( $widget->get_phone_wrapper_class() ); ?>>
 	<?php
 	$this->template( 'integrations/elementor/widgets/event-organizer/details/phone/header' );
 

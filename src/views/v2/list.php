@@ -32,7 +32,7 @@ if ( empty( $disable_event_search ) ) {
 
 ?>
 <div
-	<?php tribe_classes( $container_classes ); ?>
+	<?php tec_classes( $container_classes ); ?>
 	data-js="tribe-events-view"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 	data-view-rest-method="<?php echo esc_attr( $rest_method ); ?>"

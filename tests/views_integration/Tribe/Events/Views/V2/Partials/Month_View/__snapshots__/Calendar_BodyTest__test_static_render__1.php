@@ -19,14 +19,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-01"
 		>
 			1		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -69,14 +68,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-02"
 		>
 			2		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -119,14 +117,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-03"
 		>
 			3		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -169,14 +166,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-04"
 		>
 			4		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -219,14 +215,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-05"
 		>
 			5		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -269,14 +264,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-06"
 		>
 			6		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -319,14 +313,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-07"
 		>
 			7		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -375,14 +368,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-08"
 		>
 			8		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -425,14 +417,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-09"
 		>
 			9		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -475,14 +466,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-10"
 		>
 			10		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -525,14 +515,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-11"
 		>
 			11		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -575,14 +564,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-12"
 		>
 			12		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -625,14 +613,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-13"
 		>
 			13		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -675,14 +662,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-14"
 		>
 			14		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -731,14 +717,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-15"
 		>
 			15		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -781,14 +766,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-16"
 		>
 			16		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -831,14 +815,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-17"
 		>
 			17		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -881,14 +864,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-18"
 		>
 			18		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -931,14 +913,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-19"
 		>
 			19		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -981,14 +962,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-20"
 		>
 			20		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1031,14 +1011,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-21"
 		>
 			21		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1087,14 +1066,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-22"
 		>
 			22		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1137,14 +1115,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-23"
 		>
 			23		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1187,14 +1164,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-24"
 		>
 			24		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1237,14 +1213,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-25"
 		>
 			25		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1287,14 +1262,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-26"
 		>
 			26		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1337,14 +1311,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-27"
 		>
 			27		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1387,14 +1360,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-28"
 		>
 			28		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1443,14 +1415,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-29"
 		>
 			29		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1493,14 +1464,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-30"
 		>
 			30		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1543,14 +1513,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-31"
 		>
 			31		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1593,14 +1562,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-01"
 		>
 			1		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1643,14 +1611,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-02"
 		>
 			2		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1693,14 +1660,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-03"
 		>
 			3		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>
@@ -1743,14 +1709,13 @@
 	tabindex="-1"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			0 events,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-04"
 		>
 			4		</time>
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events		</span>
 	</h3>
 	
 </button>

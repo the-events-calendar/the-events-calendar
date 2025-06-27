@@ -23,7 +23,7 @@ if ( ! $show_organizer_website ) {
 }
 
 ?>
-<div <?php tribe_classes( $widget->get_website_wrapper_class() ); ?>>
+<div <?php tec_classes( $widget->get_website_wrapper_class() ); ?>>
 	<?php
 	$this->template( 'integrations/elementor/widgets/event-organizer/details/website/header' );
 

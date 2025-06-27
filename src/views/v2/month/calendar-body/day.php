@@ -47,7 +47,7 @@ $day_id = 'tribe-events-calendar-day-' . $day_date;
 ?>
 
 <div
-	<?php tribe_classes( $day_classes ); ?>
+	<?php tec_classes( $day_classes ); ?>
 	role="gridcell"
 	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
 	data-js="tribe-events-month-grid-cell"

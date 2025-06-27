@@ -31,8 +31,8 @@ if ( empty( $prev_event ) && empty( $next_event ) ) {
 }
 
 ?>
-<nav <?php tribe_classes( $widget->get_widget_class() ); ?> aria-label="<?php echo esc_attr( tribe_get_event_label_plural() ); ?>">
-	<ul <?php tribe_classes( $widget->get_list_class() ); ?>>
+<nav <?php tec_classes( $widget->get_widget_class() ); ?> aria-label="<?php echo esc_attr( tribe_get_event_label_plural() ); ?>">
+	<ul <?php tec_classes( $widget->get_list_class() ); ?>>
 		<?php $this->template( 'integrations/elementor/widgets/event-navigation/previous' ); ?>
 
 		<?php $this->template( 'integrations/elementor/widgets/event-navigation/next' ); ?>
