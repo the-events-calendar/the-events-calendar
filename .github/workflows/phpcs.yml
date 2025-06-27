@@ -1,44 +1,20 @@
 name: 'PHPCS'
 on: [pull_request]
+
 jobs:
   conditional:
-    if: "!contains(github.event.pull_request.body, '[skip-phpcs]')"
-    runs-on: ubuntu-latest
+    # MODIFIED: Using reusable php-change-detector workflow
+    uses: ./.github/workflows/reusable/php-change-detector.yml
+    with:
+      skip-flag: phpcs
     outputs:
-      has_no_php_changes: ${{ steps.skip.outputs.has_no_php_changes }}
-    steps:
-      # ------------------------------------------------------------------------------
-      # Checkout the repo
-      # ------------------------------------------------------------------------------
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1000
-          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
-          submodules: recursive
-      # ------------------------------------------------------------------------------
-      # Check if any PHP files have changed
-      # ------------------------------------------------------------------------------
-      - name: Check PHP file changes
-        id: skip
-        run: |
-          php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -E '\.php$' || true)
-          num_php_files=$(echo "$php_files" | grep -c '^' || echo 0)
+      has-php-changes: ${{ jobs.conditional.outputs.has-php-changes }}
+      should-run: ${{ jobs.conditional.outputs.should-run }}
 
-          if [[ -z "$php_files" || "$num_php_files" -eq 0 ]]; then
-            echo "has_no_php_changes=1" >> $GITHUB_OUTPUT
-            echo "## No PHP files changed" >> $GITHUB_STEP_SUMMARY
-            echo "PHPCS will not run." >> $GITHUB_STEP_SUMMARY
-          else
-            echo "has_no_php_changes=0" >> $GITHUB_OUTPUT
-            echo "## Found PHP file changes" >> $GITHUB_STEP_SUMMARY
-            echo "Total changed PHP files: $num_php_files" >> $GITHUB_STEP_SUMMARY
-            echo "$php_files" | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
-          fi
   phpcs:
     needs:
       - conditional
-    if: needs.conditional.outputs.has_no_php_changes == '0'
+    if: needs.conditional.outputs.should-run == '1'
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
     with:
       ref: ${{ github.event.inputs.ref }}

@@ -1,0 +1,33 @@
+name: Integration Tests
+on:
+  pull_request:
+    paths:
+      # Integration features
+      - 'src/Tribe/Views/V2/iCalendar/**'
+      - 'src/Tribe/Views/V2/Template/**'
+      - 'src/Tribe/Views/V2/Rest_Endpoint.php'
+      - 'src/Tribe/Views/V2/Theme_Compatibility.php'
+      - 'src/Tribe/Views/V2/Hooks.php'
+      - 'src/Tribe/Views/V2/HTML/**'
+      - 'tests/views_integration/**'
+      - '.github/workflows/views-integration.yml'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/Tribe/Views/V2/iCalendar/**'
+      - 'src/Tribe/Views/V2/Template/**'
+      - 'src/Tribe/Views/V2/Rest_Endpoint.php'
+      - 'src/Tribe/Views/V2/Theme_Compatibility.php'
+      - 'src/Tribe/Views/V2/Hooks.php'
+      - 'src/Tribe/Views/V2/HTML/**'
+      - 'tests/views_integration/**'
+
+jobs:
+  test:
+    # MODIFIED: Using reusable slic-test-runner workflow
+    uses: ./.github/workflows/reusable/slic-test-runner.yml
+    with:
+      suite: views_integration
+      skip-flag: views-integration
+    secrets:
+      gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}

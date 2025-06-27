@@ -1,0 +1,103 @@
+name: Skip Flags Parser
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+
+jobs:
+  parse-skip-flags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Parse skip flags
+        id: parse-flags
+        run: |
+          # Get the PR body
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          # Define all possible skip flags
+          declare -a skip_flags=(
+            "[skip-phpcs]"
+            "[skip-views-core]"
+            "[skip-views-integration]"
+            "[skip-views-full-suite]"
+            "[skip-tests-php]"
+            "[skip-tests-integrations]"
+            "[skip-phpstan]"
+            "[skip-lint]"
+          )
+
+          # Initialize arrays to store found flags
+          found_flags=()
+
+          # Check for each skip flag
+          for flag in "${skip_flags[@]}"; do
+            if [[ "$PR_BODY" == *"$flag"* ]]; then
+              found_flags+=("$flag")
+            fi
+          done
+
+          # Create the output
+          if [ ${#found_flags[@]} -eq 0 ]; then
+            echo "skipped_workflows=" >> $GITHUB_OUTPUT
+            echo "has_skips=false" >> $GITHUB_OUTPUT
+            echo "message=No workflows were skipped." >> $GITHUB_OUTPUT
+          else
+            # Convert array to JSON-like format for output
+            flags_json=$(printf '%s\n' "${found_flags[@]}" | jq -R . | jq -s .)
+            echo "skipped_workflows=$flags_json" >> $GITHUB_OUTPUT
+            echo "has_skips=true" >> $GITHUB_OUTPUT
+
+            # Create bulleted list for comment
+            message="## Skipped Workflows:"
+            for flag in "${found_flags[@]}"; do
+              # Convert flag to readable name
+              case "$flag" in
+                "[skip-phpcs]")
+                  message+=$'\n- PHP CodeSniffer'
+                  ;;
+                "[skip-views-core]")
+                  message+=$'\n- Core Views Tests'
+                  ;;
+                "[skip-views-integration]")
+                  message+=$'\n- Views Integration Tests'
+                  ;;
+                "[skip-views-full-suite]")
+                  message+=$'\n- Full Views Test Suite'
+                  ;;
+                "[skip-tests-php]")
+                  message+=$'\n- PHP Tests'
+                  ;;
+                "[skip-tests-integrations]")
+                  message+=$'\n- Third-Party Integration Tests'
+                  ;;
+                "[skip-phpstan]")
+                  message+=$'\n- PHPStan Static Analysis'
+                  ;;
+                "[skip-lint]")
+                  message+=$'\n- Linting'
+                  ;;
+                *)
+                  message+=$'\n- '$(echo "$flag" | sed 's/\[skip-\(.*\)\]/\1/' | tr '-' ' ' | sed 's/\b\w/\U&/g')
+                  ;;
+              esac
+            done
+            echo "message<<EOF" >> $GITHUB_OUTPUT
+            echo "$message" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR
+        if: steps.parse-flags.outputs.has_skips == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ steps.parse-flags.outputs.message }}'
+            })

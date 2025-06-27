@@ -1,0 +1,32 @@
+name: Core Views Tests
+on:
+  pull_request:
+    paths:
+      # Direct view changes
+      - 'src/Tribe/Views/V2/Views/**'
+      - 'src/views/v2/**'
+      - 'tests/views_core/**'
+      # Core V2 infrastructure
+      - 'src/Tribe/Views/V2/View.php'
+      - 'src/Tribe/Views/V2/Manager.php'
+      - 'src/Tribe/Views/V2/View_Register.php'
+      - 'src/Tribe/Views/V2/Template.php'
+      - 'src/Tribe/Views/V2/Messages.php'
+      - 'src/Tribe/Views/V2/Url.php'
+      - '.github/workflows/views-core.yml'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/Tribe/Views/V2/Views/**'
+      - 'src/views/v2/**'
+      - 'tests/views_core/**'
+
+jobs:
+  test:
+    # MODIFIED: Using reusable slic-test-runner workflow
+    uses: ./.github/workflows/reusable/slic-test-runner.yml
+    with:
+      suite: views_core
+      skip-flag: views-core
+    secrets:
+      gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}
