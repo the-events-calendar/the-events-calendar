@@ -32,31 +32,18 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		pickerAlignRight: 'tec-events-category-color-filter--align-right',
 		dropdownClose: '.tec-events-category-color-filter__dropdown-close',
 		dataBound: 'data-bound',
-		events: [
-			'.tribe-events-calendar-list__event',
-			'.tribe-events-calendar-day__event',
-			'.tribe-events-calendar-month__calendar-event',
-			'.tribe-events-pro-summary__event',
-			'.tribe-events-pro-photo__event',
-			'.tribe-events-pro-week-grid__event',
-			'.tribe-events-pro-week-grid__multiday-event',
-			'.tribe-events-calendar-month__multiday-event',
-			'.tribe-events-calendar-month-mobile-events__mobile-event',
-			'.tribe-events-pro-week-mobile-events__event',
-			'.tribe-events-pro-map__event-card-wrapper',
-		],
-		eventsParent: [
-			'.tribe-events-calendar-list__event-row',
-			'.tribe-events-calendar-day__event',
-			'.tribe-events-calendar-month__calendar-event-wrapper',
-			'.tribe-events-pro-summary__event',
-			'.tribe-events-pro-photo__event',
-			'.tribe-events-pro-week-grid__event',
-			'.tribe-events-pro-week-grid__multiday-event-wrapper',
-			'.tribe-events-calendar-month__multiday-event',
-			'.tribe-events-calendar-month-mobile-events__mobile-event-row',
-			'.tribe-events-pro-week-mobile-events__event-row',
-			'.tribe-events-pro-map__event-card-row',
+		childParentPairs: [
+			{ child: '.tribe-events-calendar-list__event', parent: '.tribe-events-calendar-list__event-row' },
+			{ child: '.tribe-events-calendar-day__event', parent: '.tribe-events-calendar-day__event' },
+			{ child: '.tribe-events-calendar-month__calendar-event', parent: '.tribe-events-calendar-month__calendar-event-wrapper' },
+			{ child: '.tribe-events-pro-summary__event', parent: '.tribe-events-pro-summary__event' },
+			{ child: '.tribe-events-pro-photo__event', parent: '.tribe-events-pro-photo__event' },
+			{ child: '.tribe-events-pro-week-grid__event', parent: '.tribe-events-pro-week-grid__event' },
+			{ child: '.tribe-events-pro-week-grid__multiday-event', parent: '.tribe-events-pro-week-grid__multiday-event-wrapper' },
+			{ child: '.tribe-events-calendar-month__multiday-event', parent: '.tribe-events-calendar-month__multiday-event' },
+			{ child: '.tribe-events-calendar-month-mobile-events__mobile-event', parent: '.tribe-events-calendar-month-mobile-events__mobile-event-row' },
+			{ child: '.tribe-events-pro-week-mobile-events__event', parent: '.tribe-events-pro-week-mobile-events__event-row' },
+			{ child: '.tribe-events-pro-map__event-card-wrapper', parent: '.tribe-events-pro-map__event-card-row' },
 		],
 		filteredHide: 'tec-category-filtered-hide',
 		colorCircle: 'tec-events-category-color-filter__color-circle',
@@ -99,20 +86,18 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const qsa = selector => document.querySelectorAll( selector );
 
 	/**
-	 * Returns all event elements.
+	 * Returns all event elements matching the child selectors in childParentPairs.
 	 * @since TBD
-	 * @return {NodeListOf<HTMLElement>}
+	 * @return {HTMLElement[]} Array of event elements.
 	 */
-	const getEventElements = () => qsa( SELECTORS.events.join( ', ' ) );
+	const getEventElements = () => SELECTORS.childParentPairs.flatMap(pair => [...document.querySelectorAll(pair.child)]);
 
 	/**
-	 * Returns all event parent elements matching the selectors in eventsParent.
+	 * Returns all event parent elements matching the parent selectors in childParentPairs.
 	 * @since TBD
-	 * @return {NodeListOf<HTMLElement>} NodeList of parent elements.
+	 * @return {HTMLElement[]} Array of parent elements.
 	 */
-	const getEventParentElements = () => {
-		return document.querySelectorAll(SELECTORS.eventsParent.join(', '));
-	};
+	const getEventParentElements = () => SELECTORS.childParentPairs.flatMap(pair => [...document.querySelectorAll(pair.parent)]);
 
 	// =====================
 	// Dropdown Handling
