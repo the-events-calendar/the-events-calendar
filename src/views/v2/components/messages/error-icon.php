@@ -18,7 +18,7 @@
  */
 
 if ( empty( $icon_description ) ) {
-	$icon_description = __( 'Error:', 'the-events-calendar' );
+	$icon_description = __( 'Error', 'the-events-calendar' );
 }
 
  $this->template( 'components/icons/error', [ 'classes' => [ 'tribe-events-c-messages__message-icon-svg' ] ] );

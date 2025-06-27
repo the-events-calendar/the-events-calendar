@@ -18,7 +18,7 @@
  */
 
 if ( empty( $icon_description ) ) {
-	$icon_description = __( 'Notice:', 'the-events-calendar' );
+	$icon_description = __( 'Notice', 'the-events-calendar' );
 }
 
  $this->template( 'components/icons/messages-not-found', [ 'classes' => [ 'tribe-events-c-messages__message-icon-svg' ] ] );
