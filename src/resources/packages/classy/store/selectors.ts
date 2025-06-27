@@ -43,20 +43,21 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 
 	const eventStartDateString = meta?._EventStartDate ?? '';
 	const eventEndDateString = meta?._EventEndDate ?? '';
+	const eventTimezone = meta?._EventTimezone || settings.timezoneString;
 
 	let eventStart: Date;
 	if ( eventStartDateString ) {
-		eventStart = getDate( eventStartDateString );
+		eventStart = new Date( eventStartDateString );
 	} else {
-		eventStart = getDate( '' );
+		eventStart = new Date();
 		eventStart.setHours( 8, 0, 0 );
 	}
 
 	let eventEnd: Date;
 	if ( eventEndDateString ) {
-		eventEnd = getDate( eventEndDateString );
+		eventEnd = new Date( eventEndDateString );
 	} else {
-		eventEnd = getDate( '' );
+		eventEnd = new Date();
 		eventEnd.setHours( 17, 0, 0 );
 	}
 	const isMultiday =
@@ -65,7 +66,6 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 		eventStart.getFullYear() !== eventEnd.getFullYear();
 	const isAllDayStringValue = meta?._EventAllDay ?? '0';
 	const isAllDay = isAllDayStringValue === '1';
-	const eventTimezone = meta?._EventTimezone || settings.timezoneString;
 
 	return {
 		eventStart: eventStart.toISOString(),
