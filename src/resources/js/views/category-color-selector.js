@@ -173,39 +173,37 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 
 	/**
 	 * Adjusts dropdown position to prevent overflow and ensures it stays within the viewport.
-	 * Handles both horizontal and vertical overflow, and retries once if not fully visible after initial adjustment.
+	 * Anchors to the left or right of the picker depending on screen position, and retries once if needed.
 	 *
 	 * @since TBD
 	 * @param {HTMLElement} picker The picker element that triggers the dropdown.
 	 * @param {HTMLElement} dropdown The dropdown element to position.
-	 * @param {boolean} [retry=false] Whether this is a retry attempt (internal use).
-	 * @return {void}
+	 * @param {boolean} [retry=false] Whether this is a retry attempt.
 	 */
 	const adjustDropdownPosition = ( picker, dropdown, retry = false ) => {
-		if ( ! dropdown.isConnected || dropdown.offsetParent === null ) {
+		if ( ! dropdown.isConnected || ! dropdown.offsetParent ) {
 			return;
 		}
 
-
-		// Ensure parent is relatively positioned for correct anchor context
-		const computedPickerStyle = window.getComputedStyle( picker );
-		if ( computedPickerStyle.position === 'static' ) {
+		// Ensure picker is positioned relative for absolute dropdown anchoring
+		if ( getComputedStyle( picker ).position === 'static' ) {
 			picker.style.position = 'relative';
 		}
 
-		// Reset styles
-		dropdown.style.left = '';
-		dropdown.style.right = '';
-		dropdown.style.top = '';
-		dropdown.style.position = 'absolute';
+		// Reset dropdown styles
+		Object.assign( dropdown.style, {
+			left: '',
+			right: '',
+			top: '',
+			position: 'absolute',
+		} );
 
-		const pickerRect = picker.getBoundingClientRect();
+		const { left } = picker.getBoundingClientRect();
 		const vw = window.innerWidth;
-
-		const isCloserToRight = pickerRect.left > vw / 2;
 		const verticalOffset = picker.offsetHeight;
 
-		if ( isCloserToRight ) {
+		// Anchor based on proximity to screen edge
+		if ( left > vw / 2 ) {
 			dropdown.style.right = '0px';
 		} else {
 			dropdown.style.left = '0px';
@@ -213,21 +211,16 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 
 		dropdown.style.top = `${ verticalOffset }px`;
 
-		const dropdownRect = dropdown.getBoundingClientRect();
-		const bottomOverflow = dropdownRect.bottom - ( window.innerHeight - 8 );
-		if ( bottomOverflow > 0 ) {
-			const adjustedTop = verticalOffset - bottomOverflow;
-			dropdown.style.top = `${ adjustedTop }px`;
+		// Prevent vertical overflow
+		const dropdownBottom = dropdown.getBoundingClientRect().bottom;
+		const maxBottom = window.innerHeight - 8;
+		if ( dropdownBottom > maxBottom ) {
+			dropdown.style.top = `${ verticalOffset - ( dropdownBottom - maxBottom ) }px`;
 		}
 
-		const isVisible = isFullyVisible( dropdown );
-
-		if ( ! retry && ! isVisible ) {
-			requestAnimationFrame( () => adjustDropdownPosition(
-				picker,
-				dropdown,
-				true
-			) );
+		// Retry once if not visible (e.g. due to transition or layout shift)
+		if ( ! retry && ! isFullyVisible( dropdown ) ) {
+			requestAnimationFrame( () => adjustDropdownPosition( picker, dropdown, true ) );
 		}
 	};
 
