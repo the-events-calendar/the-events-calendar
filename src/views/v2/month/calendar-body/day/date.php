@@ -50,7 +50,7 @@ $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-'
 
 $num_events_label = sprintf(
 	/* translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). This is for screen readers, and will be read just after the date number. */
-	_n( 'has %1$s %2$s', 'has %1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+	_n( 'has %1$s %2$s', 'has %1$s %3$s', $day['found_events'], 'the-events-calendar' ), // phpcs:ignore WordPress.WP.I18n.MismatchedPlaceholders
 	number_format_i18n( $day['found_events'] ),
 	tribe_get_event_label_singular_lowercase(),
 	tribe_get_event_label_plural_lowercase()
