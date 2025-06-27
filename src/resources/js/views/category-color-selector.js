@@ -293,13 +293,17 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const handleCheckboxChange = event => {
-		const checkbox = event.target.closest( SELECTORS.checkbox );
-		if ( !checkbox ) return;
-		const categorySlug = checkbox.dataset.category;
-		if ( checkbox.checked ) {
-			selectedCategories.add( categorySlug );
+		const checkbox = event.target.closest(SELECTORS.checkbox);
+		if (!checkbox) return;
+		const label = checkbox.closest('label');
+		if (!label) return;
+		const categorySlug = label.dataset.category;
+		if (!categorySlug) return;
+
+		if (checkbox.checked) {
+			selectedCategories.add(categorySlug);
 		} else {
-			selectedCategories.delete( categorySlug );
+			selectedCategories.delete(categorySlug);
 		}
 		updateEventVisibility();
 		renderLegend();
