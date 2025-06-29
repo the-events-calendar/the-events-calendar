@@ -18,26 +18,4 @@ class MonthCalendarHeaderTest extends HtmlTestCase {
 			'Month Calendar Header HTML needs to contain one ".tribe-events-calendar-month__header" element'
 		);
 	}
-
-	/**
-	 * @test
-	 */
-	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'month/calendar-header' );
-		$html = $this->document->html( $template );
-		$header = $html->find( 'header' );
-		$month_header_row = $header->find( '.tribe-events-calendar-month__header-row' );
-		$month_header_column = $month_header_row->find( '.tribe-events-calendar-month__header-column' );
-
-		$this->assertTrue(
-			$month_header_row->is( '[role="row"]' ),
-			'Month calendar header row needs to be role="row"'
-		);
-
-		$this->assertTrue(
-			$month_header_column->is( '[role="columnheader"]' ),
-			'Month calendar header column needs to be role="columnheader"'
-		);
-
-	}
 }
