@@ -7,10 +7,15 @@
 	<rule ref="WordPress-Docs">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
+
 	<rule ref="WordPress">
+		<!-- We don't want these. -->
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+
+		<!-- We cover these with our own tests so they're redundant. -->
+		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
 	</rule>
 
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>

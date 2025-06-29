@@ -60,6 +60,7 @@ class Latest_Past_View extends List_View {
 		'components/icons/dot',
 		'components/icons/error',
 		'components/icons/featured',
+		'components/icons/hybrid',
 		'components/icons/list',
 		'components/icons/map',
 		'components/icons/messages-not-found',

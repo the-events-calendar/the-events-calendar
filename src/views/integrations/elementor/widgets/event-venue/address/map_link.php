@@ -16,6 +16,6 @@ if ( empty( $show_address_map_link ) || empty( $venue['map_link'] ) ) {
 	return;
 }
 ?>
-<p <?php tribe_classes( $widget->get_address_base_class() . '-map-link' ); ?>>
+<p <?php tec_classes( $widget->get_address_base_class() . '-map-link' ); ?>>
 	<?php echo wp_kses_post( $venue['map_link'] ); ?>
 </p>

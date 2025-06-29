@@ -31,7 +31,7 @@ $classes         = isset( $classes ) ? array_merge( $default_classes, $classes )
 $attributes      = isset( $attributes ) ? (array) $attributes : [];
 
 ?>
-<div <?php tribe_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
+<div <?php tec_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
 		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" tabindex="0" role="alert" aria-live="assertive">
 			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>

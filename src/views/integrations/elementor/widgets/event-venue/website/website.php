@@ -12,6 +12,6 @@
  */
 
 ?>
-<p <?php tribe_classes( $widget->get_website_base_class() . '-url' ); ?>>
+<p <?php tec_classes( $widget->get_website_base_class() . '-url' ); ?>>
 	<?php echo wp_kses_post( $venue['website'] ); ?>
 </p>

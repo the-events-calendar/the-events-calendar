@@ -18,7 +18,7 @@ if ( empty( $next_event ) || empty( $next_link ) ) {
 }
 
 ?>
-<li <?php tribe_classes( $widget->get_next_class() ); ?>>
+<li <?php tec_classes( $widget->get_next_class() ); ?>>
 	<a href="<?php echo esc_url( $next_link ); ?>">
 		<?php echo esc_html( $next_event->post_title ); ?>
 		<?php
