@@ -10,8 +10,14 @@
  * @link http://evnt.is/1aiy
  *
  * @var string $today_url The URL to the today page.
+ * @var string $today_title The string used for the aria-label of the button.
+ * @var string $today_label The string used for the visible button text.
  *
- * @version 5.0.1
+ * @version TBD
+ *
+ * @since 5.0.1
+ * @since TBD Removed redundant title attribute.
+ * @since TBD Only show the aria-label if it's different from the label. Otherwise it's redundant.
  *
  */
 ?>
@@ -20,8 +26,9 @@
 		href="<?php echo esc_url( $today_url ); ?>"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="<?php echo esc_attr( $today_title ); ?>"
-		title="<?php echo esc_attr( $today_title ); ?>"
+		<?php if ( $today_label !== $today_title ) : ?>
+			aria-label="<?php echo esc_attr( $today_title ); ?>"
+		<?php endif; ?>
 	>
 		<?php echo esc_html( $today_label ); ?>
 	</a>

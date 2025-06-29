@@ -11,15 +11,16 @@
  *
  * @var string $next_url The URL to the next page, if any, or an empty string.
  *
- * @version 5.3.0
+ * @version TBD
  *
+ * @since 5.3.0
+ * @since TBD Removed redundant aria-label attribute. Title attribute is sufficient.
  */
 ?>
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<a
 		href="<?php echo esc_url( $next_url ); ?>"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="<?php esc_attr_e( 'Next day', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Next day', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
 		rel="<?php echo esc_attr( $next_rel ); ?>"

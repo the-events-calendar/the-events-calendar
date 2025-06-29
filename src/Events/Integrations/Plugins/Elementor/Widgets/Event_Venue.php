@@ -136,7 +136,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => $this->format_phone_link( $phone ),
 				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue Website</a>',
 				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
-				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" aria-label="Venue location map" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
 					</iframe>',
 			],
 		];
@@ -150,7 +150,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => $this->format_phone_link( $phone ),
 				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue 2 Website</a>',
 				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
-				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue 2" aria-label="Venue 2 location map" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue 2" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
 					</iframe>',
 			];
 		}

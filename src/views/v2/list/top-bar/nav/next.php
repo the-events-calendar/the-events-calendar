@@ -11,7 +11,10 @@
  *
  * @var string $next_url The URL to the next page, if any, or an empty string.
  *
- * @version 5.3.0
+ * @version TBD
+ *
+ * @since 5.3.0
+ * @since TBD Removed redundant aria-label attribute. Title attribute is sufficient.
  *
  */
 $label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_label_plural() );
@@ -20,7 +23,6 @@ $label = sprintf( __( 'Next %1$s', 'the-events-calendar' ), tribe_get_event_labe
 	<a
 		href="<?php echo esc_url( $next_url ); ?>"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="<?php echo esc_attr( $label ); ?>"
 		title="<?php echo esc_attr( $label ); ?>"
 		data-js="tribe-events-view-link"
 	>
