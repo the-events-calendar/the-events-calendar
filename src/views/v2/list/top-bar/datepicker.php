@@ -96,24 +96,27 @@
 	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
 		<span class="tribe-common-a11y-visual-hide">
-			<?php printf(
-				/* translators: %s: Event (plural). */
-				esc_html__( 'Previous %1$s', 'the-events-calendar' ),
-				tribe_get_event_label_plural()
-			); ?>
+			<?php
+			echo esc_html(
+				printf(
+					/* translators: %s: Event (plural). */
+					esc_html__( 'Previous %1$s', 'the-events-calendar' ),
+					tribe_get_event_label_plural()
+				)
+			);
+			?>
 		</span>
 	</template>
 	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
 		<span class="tribe-common-a11y-visual-hide">
 			<?php
-			echo wp_kses(
+			echo esc_html(
 				sprintf(
 					/* translators: %s: Event (plural). */
 					esc_html__( 'Next %1$s', 'the-events-calendar' ),
 					tribe_get_event_label_plural()
-				),
-				[ 'span' => [ 'class' => [] ] ]
+				)
 			);
 			?>
 		</span>

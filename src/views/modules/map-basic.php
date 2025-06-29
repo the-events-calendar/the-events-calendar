@@ -32,7 +32,8 @@ if ( empty( $venue ) ) {
 ?>
 
 <iframe
-	title="<?php
+	title="
+	<?php
 		echo esc_attr(
 			sprintf(
 				/* translators: %s: Venue name. */
@@ -40,7 +41,8 @@ if ( empty( $venue ) ) {
 				$venue
 			)
 		);
-	?>"
+	?>
+	"
 	width="<?php echo esc_attr( $width ); ?>"
 	height="<?php echo esc_attr( $height ); ?>"
 	frameborder="0" style="border:0"
