@@ -48,7 +48,7 @@ $website_title = tribe_events_get_venue_website_title();
 					<?php
 					printf(
 						/* Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue". */
-						esc_html_x( '%1$s address: This represents the address of the %2$s %3$s.', 'the-events-calendar' ),
+						esc_html__( '%1$s address: This represents the address of the %2$s %3$s.', 'the-events-calendar' ),
 						tribe_get_venue_label_singular(),
 						tribe_get_event_label_singular_lowercase(),
 						tribe_get_venue_label_singular_lowercase()
@@ -79,13 +79,15 @@ $website_title = tribe_events_get_venue_website_title();
 				<dt class="tribe-common-a11y-visual-hide">
 					<span>
 						<?php
-						printf(
-							/* Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue". */
-							esc_html_x( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
-							tribe_get_venue_label_singular(),
-							tribe_get_event_label_singular_lowercase(),
-							tribe_get_venue_label_singular_lowercase()
-						);
+						echo esc_html(
+							printf(
+								/* Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue". */
+								esc_html__( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
+								tribe_get_venue_label_singular(),
+								tribe_get_event_label_singular_lowercase(),
+								tribe_get_venue_label_singular_lowercase()
+							)
+							);
 						?>
 					</span>
 				</dt>

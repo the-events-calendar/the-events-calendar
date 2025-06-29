@@ -47,12 +47,14 @@ $website = tribe_get_organizer_website_link();
 			<dt class="tribe-common-a11y-visual-hide">
 				<span>
 					<?php
-					printf(
-						/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
-						esc_html__( '%1$s name: This represents the name of the %2$s %3$s.', 'the-events-calendar' ),
-						tribe_get_organizer_label_singular(),
-						tribe_get_event_label_singular_lowercase(),
-						tribe_get_organizer_label_singular_lowercase()
+					echo esc_html(
+						sprintf(
+							/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
+							__( '%1$s name: This represents the name of the %2$s %3$s.', 'the-events-calendar' ),
+							tribe_get_organizer_label_singular(),
+							tribe_get_event_label_singular_lowercase(),
+							tribe_get_organizer_label_singular_lowercase()
+						)
 					);
 					?>
 				</span>
