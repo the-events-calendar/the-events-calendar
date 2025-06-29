@@ -25,8 +25,8 @@
 </em>
 <span class="tribe-events-calendar-month__multiday-event-hidden-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
-	<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Event &#8211; +9 days</h3>
+	<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Test Event &#8211; +9 days</div>
 </a>
 </div>
 			</article>
@@ -47,8 +47,8 @@
 	data-tooltip-content="#tribe-events-tooltip-content-8"
 	aria-describedby="tribe-events-tooltip-content-8"
 >
-		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Single Event 1</h3>
+		<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Single Event 1</div>
 </a>
 </div>
 			</article>
@@ -70,8 +70,8 @@
 	data-tooltip-content="#tribe-events-tooltip-content-9"
 	aria-describedby="tribe-events-tooltip-content-9"
 >
-		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Single Event 2</h3>
+		<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Single Event 2</div>
 </a>
 </div>
 			</article>

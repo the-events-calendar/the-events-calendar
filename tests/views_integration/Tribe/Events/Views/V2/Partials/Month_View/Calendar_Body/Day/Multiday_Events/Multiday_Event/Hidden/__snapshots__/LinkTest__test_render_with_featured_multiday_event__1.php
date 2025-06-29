@@ -16,7 +16,7 @@
 </em>
 <span class="tribe-events-calendar-month__multiday-event-hidden-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
-	<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Event &#8211; +9 days</h3>
+	<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Test Event &#8211; +9 days</div>
 </a>
 ';
