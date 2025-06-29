@@ -4,8 +4,6 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-		aria-label="Previous Day"
-		title="Previous Day"
 		rel="noindex"
 	>
 		<svg
