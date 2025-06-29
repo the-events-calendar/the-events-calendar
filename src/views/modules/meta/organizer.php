@@ -81,18 +81,22 @@ $website_title = tribe_events_get_organizer_website_title();
 				<?php else: ?>
 					<dt class="tribe-common-a11y-visual-hide">
 						<span>
-							<?php echo sprintf(
-								/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
-								esc_html_x( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
-								tribe_get_organizer_label_singular(),
-								tribe_get_event_label_singular_lowercase(),
-								tribe_get_organizer_label_singular_lowercase()
-							) ; ?>
+							<?php
+							echo esc_html(
+								sprintf(
+									/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
+									esc_html__( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
+									tribe_get_organizer_label_singular(),
+									tribe_get_event_label_singular_lowercase(),
+									tribe_get_organizer_label_singular_lowercase()
+								)
+							);
+							?>
 						</span>
 					</dt>
 				<?php endif; ?>
 				<dd class="tribe-organizer-url">
-					<?php echo $website; ?>
+					<?php echo $website; // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 				</dd>
 				<?php
 			}//end if

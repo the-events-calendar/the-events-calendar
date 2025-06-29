@@ -26,7 +26,15 @@
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
 		rel="<?php echo esc_attr( $prev_rel ); ?>"
-		title="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
+		title="<?php
+			echo esc_attr(
+				sprintf(
+					/* Translators: %1$s: Event (plural). */
+					__( 'Previous month, %1$s', 'the-events-calendar' ),
+					$label
+				)
+			);
+		?>"
 	>
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<?php echo esc_html( $label ); ?>
