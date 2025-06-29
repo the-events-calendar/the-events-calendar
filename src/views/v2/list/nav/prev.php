@@ -30,7 +30,7 @@
 		<span class="tribe-events-c-nav__prev-label">
 			<?php echo wp_kses(
 				sprintf(
-					/* translators: %s: Event (plural). */
+					/* translators: %1$s: Event (plural). */
 					__( 'Previous %1$s', 'the-events-calendar' ),
 					'<span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">' . tribe_get_event_label_plural() . '</span>'
 				)

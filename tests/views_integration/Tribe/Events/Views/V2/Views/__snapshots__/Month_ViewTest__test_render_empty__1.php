@@ -46,7 +46,7 @@
 		
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -61,17 +61,14 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-						There are no upcoming events.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="0" >
+					There are no upcoming events.				</div>
+					</div>
 	</div>
 
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -86,13 +83,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-						There are no upcoming events.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="0" >
+					There are no upcoming events.				</div>
+					</div>
 	</div>
 
 	
@@ -417,118 +411,110 @@
 </header>
 
 		
-		<div
+		<h2 class="tribe-common-a11y-visual-hide" id="tribe-events-calendar-header">
+						Calendar of Events		</h2>
+		<table
 			class="tribe-events-calendar-month"
-			role="grid"
 			aria-labelledby="tribe-events-calendar-header"
 			aria-readonly="true"
 			data-js="tribe-events-month-grid"
 		>
 
-			<header class="tribe-events-calendar-month__header" role="rowgroup">
-
-	<h2 class="tribe-common-a11y-visual-hide" id="tribe-events-calendar-header">
-		Calendar of Events	</h2>
-
-	<div role="row" class="tribe-events-calendar-month__header-row">
-					<div
+			<thead class="tribe-events-calendar-month__header">
+	<tr>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Monday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						M					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Mon					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					M				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Mon				</span>
 			</div>
-					<div
+		</th>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Tuesday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						T					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Tue					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					T				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Tue				</span>
 			</div>
-					<div
+		</th>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Wednesday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						W					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Wed					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					W				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Wed				</span>
 			</div>
-					<div
+		</th>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Thursday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						T					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Thu					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					T				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Thu				</span>
 			</div>
-					<div
+		</th>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Friday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						F					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Fri					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					F				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Fri				</span>
 			</div>
-					<div
+		</th>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Saturday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						S					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Sat					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					S				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Sat				</span>
 			</div>
-					<div
+		</th>
+					<th
 				class="tribe-events-calendar-month__header-column"
-				role="columnheader"
+				scope="col"
 				aria-label="Sunday"
 			>
-				<h3 class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-					<span class="tribe-events-calendar-month__header-column-title-mobile">
-						S					</span>
-					<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-						Sun					</span>
-				</h3>
+			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
+				<span class="tribe-events-calendar-month__header-column-title-mobile">
+					S				</span>
+				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
+					Sun				</span>
 			</div>
-			</div>
-</header>
+		</th>
+			</tr>
+</thead>
 
 			
-<div class="tribe-events-calendar-month__body" role="rowgroup">
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
+<tbody class="tribe-events-calendar-month__body">
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--past tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2018-12-31"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--past tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2018-12-31"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -538,15 +524,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2018-12-31"
 		>
 			31		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -555,7 +542,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -564,20 +551,19 @@
 		datetime="2018-12-31"
 	>
 					31			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-01"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	aria-labelledby="tribe-events-calendar-day-2019-01-01"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -587,15 +573,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-01"
 		>
 			1		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -604,7 +591,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -613,20 +600,19 @@
 		datetime="2019-01-01"
 	>
 					1			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-02"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-02"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -636,15 +622,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-02"
 		>
 			2		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -653,7 +640,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -662,20 +649,19 @@
 		datetime="2019-01-02"
 	>
 					2			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-03"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-03"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -685,15 +671,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-03"
 		>
 			3		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -702,7 +689,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -711,20 +698,19 @@
 		datetime="2019-01-03"
 	>
 					3			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-04"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-04"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -734,15 +720,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-04"
 		>
 			4		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -751,7 +738,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -760,20 +747,19 @@
 		datetime="2019-01-04"
 	>
 					4			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-05"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-05"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -783,15 +769,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-05"
 		>
 			5		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -800,7 +787,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -809,20 +796,19 @@
 		datetime="2019-01-05"
 	>
 					5			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-06"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-06"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -832,15 +818,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-06"
 		>
 			6		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -849,7 +836,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -858,26 +845,21 @@
 		datetime="2019-01-06"
 	>
 					6			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-07"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-07"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -887,15 +869,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-07"
 		>
 			7		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -904,7 +887,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -913,20 +896,19 @@
 		datetime="2019-01-07"
 	>
 					7			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-08"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-08"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -936,15 +918,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-08"
 		>
 			8		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -953,7 +936,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -962,20 +945,19 @@
 		datetime="2019-01-08"
 	>
 					8			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-09"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-09"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -985,15 +967,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-09"
 		>
 			9		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1002,7 +985,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1011,20 +994,19 @@
 		datetime="2019-01-09"
 	>
 					9			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-10"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-10"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1034,15 +1016,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-10"
 		>
 			10		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1051,7 +1034,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1060,20 +1043,19 @@
 		datetime="2019-01-10"
 	>
 					10			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-11"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-11"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1083,15 +1065,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-11"
 		>
 			11		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1100,7 +1083,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1109,20 +1092,19 @@
 		datetime="2019-01-11"
 	>
 					11			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-12"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-12"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1132,15 +1114,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-12"
 		>
 			12		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1149,7 +1132,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1158,20 +1141,19 @@
 		datetime="2019-01-12"
 	>
 					12			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-13"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-13"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1181,15 +1163,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-13"
 		>
 			13		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1198,7 +1181,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1207,26 +1190,21 @@
 		datetime="2019-01-13"
 	>
 					13			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-14"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-14"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1236,15 +1214,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-14"
 		>
 			14		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1253,7 +1232,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1262,20 +1241,19 @@
 		datetime="2019-01-14"
 	>
 					14			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-15"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-15"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1285,15 +1263,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-15"
 		>
 			15		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1302,7 +1281,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1311,20 +1290,19 @@
 		datetime="2019-01-15"
 	>
 					15			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-16"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-16"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1334,15 +1312,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-16"
 		>
 			16		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1351,7 +1330,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1360,20 +1339,19 @@
 		datetime="2019-01-16"
 	>
 					16			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-17"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-17"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1383,15 +1361,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-17"
 		>
 			17		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1400,7 +1379,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1409,20 +1388,19 @@
 		datetime="2019-01-17"
 	>
 					17			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-18"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-18"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1432,15 +1410,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-18"
 		>
 			18		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1449,7 +1428,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1458,20 +1437,19 @@
 		datetime="2019-01-18"
 	>
 					18			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-19"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-19"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1481,15 +1459,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-19"
 		>
 			19		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1498,7 +1477,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1507,20 +1486,19 @@
 		datetime="2019-01-19"
 	>
 					19			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-20"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-20"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1530,15 +1508,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-20"
 		>
 			20		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1547,7 +1526,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1556,26 +1535,21 @@
 		datetime="2019-01-20"
 	>
 					20			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-21"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-21"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1585,15 +1559,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-21"
 		>
 			21		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1602,7 +1577,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1611,20 +1586,19 @@
 		datetime="2019-01-21"
 	>
 					21			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-22"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-22"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1634,15 +1608,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-22"
 		>
 			22		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1651,7 +1626,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1660,20 +1635,19 @@
 		datetime="2019-01-22"
 	>
 					22			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-23"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-23"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1683,15 +1657,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-23"
 		>
 			23		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1700,7 +1675,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1709,20 +1684,19 @@
 		datetime="2019-01-23"
 	>
 					23			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-24"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-24"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1732,15 +1706,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-24"
 		>
 			24		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1749,7 +1724,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1758,20 +1733,19 @@
 		datetime="2019-01-24"
 	>
 					24			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-25"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-25"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1781,15 +1755,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-25"
 		>
 			25		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1798,7 +1773,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1807,20 +1782,19 @@
 		datetime="2019-01-25"
 	>
 					25			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-26"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-26"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1830,15 +1804,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-26"
 		>
 			26		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1847,7 +1822,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1856,20 +1831,19 @@
 		datetime="2019-01-26"
 	>
 					26			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-27"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-27"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1879,15 +1853,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-27"
 		>
 			27		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1896,7 +1871,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1905,26 +1880,21 @@
 		datetime="2019-01-27"
 	>
 					27			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-28"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-28"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1934,15 +1904,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-28"
 		>
 			28		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1951,7 +1922,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1960,20 +1931,19 @@
 		datetime="2019-01-28"
 	>
 					28			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-29"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-29"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1983,15 +1953,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-29"
 		>
 			29		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -2000,7 +1971,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -2009,20 +1980,19 @@
 		datetime="2019-01-29"
 	>
 					29			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-30"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-30"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -2032,15 +2002,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-30"
 		>
 			30		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -2049,7 +2020,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -2058,20 +2029,19 @@
 		datetime="2019-01-30"
 	>
 					30			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-01-31"
+				<td
+	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-31"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -2081,15 +2051,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-01-31"
 		>
 			31		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -2098,7 +2069,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -2107,20 +2078,19 @@
 		datetime="2019-01-31"
 	>
 					31			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-02-01"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-02-01"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -2130,15 +2100,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-02-01"
 		>
 			1		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -2147,7 +2118,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -2156,20 +2127,19 @@
 		datetime="2019-02-01"
 	>
 					1			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-02-02"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-02-02"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -2179,15 +2149,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-02-02"
 		>
 			2		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -2196,7 +2167,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -2205,20 +2176,19 @@
 		datetime="2019-02-02"
 	>
 					2			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-02-03"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-02-03"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -2228,15 +2198,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			has 0 events,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-02-03"
 		>
 			3		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			has 0 events		</span>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -2245,7 +2216,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -2254,25 +2225,23 @@
 		datetime="2019-02-03"
 	>
 					3			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
-			
-		</div>
+					</tr>
+	</tbody>
 
-	
-</div>
-
-		</div>
+		</table>
 
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2287,13 +2256,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
-						There are no upcoming events.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="0" >
+					There are no upcoming events.				</div>
+					</div>
 	</div>
 
 		<section class="tribe-events-calendar-month-mobile-events" data-js="tribe-events-calendar-month-mobile-events">
@@ -2304,7 +2270,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2319,13 +2285,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2336,7 +2299,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2351,13 +2314,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2368,7 +2328,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2383,13 +2343,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2400,7 +2357,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2415,13 +2372,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2432,7 +2386,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2447,13 +2401,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2464,7 +2415,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2479,13 +2430,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2496,7 +2444,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2511,13 +2459,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2528,7 +2473,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2543,13 +2488,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2560,7 +2502,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2575,13 +2517,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2592,7 +2531,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2607,13 +2546,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2624,7 +2560,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2639,13 +2575,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2656,7 +2589,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2671,13 +2604,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2688,7 +2618,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2703,13 +2633,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2720,7 +2647,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2735,13 +2662,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2752,7 +2676,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2767,13 +2691,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2784,7 +2705,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2799,13 +2720,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2816,7 +2734,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2831,13 +2749,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2848,7 +2763,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2863,13 +2778,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2880,7 +2792,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2895,13 +2807,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2912,7 +2821,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2927,13 +2836,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2944,7 +2850,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2959,13 +2865,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -2976,7 +2879,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -2991,13 +2894,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3008,7 +2908,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3023,13 +2923,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3040,7 +2937,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3055,13 +2952,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3072,7 +2966,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3087,13 +2981,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3104,7 +2995,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3119,13 +3010,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3136,7 +3024,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3151,13 +3039,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3168,7 +3053,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3183,13 +3068,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3200,7 +3082,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3215,13 +3097,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3232,7 +3111,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3247,13 +3126,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3264,7 +3140,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3279,13 +3155,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3296,7 +3169,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3311,13 +3184,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3328,7 +3198,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3343,13 +3213,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3360,7 +3227,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3375,13 +3242,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>
@@ -3392,7 +3256,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -3407,13 +3271,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="no-events-in-day" 					>
-						There are no events on this day.					</div>
-							</div>
-		</div>
+							<div
+					 data-key="no-events-in-day" >
+					There are no events on this day.				</div>
+					</div>
 	</div>
 
 	</div>

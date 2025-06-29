@@ -11,7 +11,7 @@
 		<time datetime="17:04">
 			5:04 pm		</time>
 		</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
+		<div class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
@@ -22,7 +22,7 @@
 		aria-describedby="tribe-events-tooltip-content-8"
 	>
 		Single Event 1	</a>
-</h3>
+</div>
 
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-template tribe-common-a11y-hidden">
 	<div
@@ -34,7 +34,7 @@
 		<time datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20, 2019 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
 	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
@@ -42,7 +42,7 @@
 		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
 	>
 		Single Event 1	</a>
-</h3>
+</div>
 					</div>
 </div>
 

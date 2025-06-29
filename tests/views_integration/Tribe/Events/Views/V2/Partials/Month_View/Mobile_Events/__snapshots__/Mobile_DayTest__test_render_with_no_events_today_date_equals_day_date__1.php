@@ -3,7 +3,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 21 23"
@@ -18,13 +18,10 @@
 </svg>
 <span class="tribe-common-a11y-visual-hide">
 	Notice</span>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-									<div
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="raccoons" 					>
-						Too many raccoons on this day					</div>
-							</div>
-		</div>
+							<div
+					 data-key="raccoons" >
+					Too many raccoons on this day				</div>
+					</div>
 	</div>
 
 	</div>

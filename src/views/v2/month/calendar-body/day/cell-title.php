@@ -48,7 +48,7 @@ $num_events_label = sprintf(
 );
 ?>
 
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		<?php echo esc_html( $num_events_label ); ?>,
 	</span>
@@ -68,4 +68,4 @@ $num_events_label = sprintf(
 			<?php echo esc_html( $day_number ); ?>
 		<?php endif; ?>
 	</time>
-</h3>
+</div>

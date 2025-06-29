@@ -31,7 +31,7 @@
 			<?php
 				echo wp_kses(
 					sprintf(
-						/* translators: %s: Event (plural or singular). */
+						/* translators: %1$s: Event (plural or singular). */
 						__( 'Next %1$s', 'tribe-events-calendar-pro' ),
 						'<span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">' . tribe_get_event_label_plural() . '</span>'
 					),
