@@ -62,7 +62,6 @@
 		href="https://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in List View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -98,7 +97,6 @@
 		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in Month View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -118,7 +116,6 @@
 		href="https://test.tri.be/events/today/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in Day View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg

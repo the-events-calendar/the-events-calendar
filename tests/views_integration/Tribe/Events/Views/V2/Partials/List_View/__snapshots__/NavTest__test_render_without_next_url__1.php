@@ -6,8 +6,6 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-		aria-label="Previous Events"
-		title="Previous Events"
 	>
 		<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg" 	aria-hidden="true"
@@ -26,17 +24,14 @@
 		href="http://test.tri.be"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="Click to select today&#039;s date"
-		title="Click to select today&#039;s date"
-	>
+					aria-label="Click to select today&#039;s date"
+			>
 		Today	</a>
 </li>
 
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Next Events"
-		title="Next Events"
 		disabled
 	>
 		<span class="tribe-events-c-nav__next-label">

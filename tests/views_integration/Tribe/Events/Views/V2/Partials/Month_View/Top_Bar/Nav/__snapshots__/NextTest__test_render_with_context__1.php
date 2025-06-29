@@ -2,7 +2,6 @@
 	<a
 		href="http://test.tri.be"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next month"
 		title="Next month"
 		data-js="tribe-events-view-link"
 		rel="noindex"

@@ -26,7 +26,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
-		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-search__input-control-icon-svg" 	aria-hidden="true"

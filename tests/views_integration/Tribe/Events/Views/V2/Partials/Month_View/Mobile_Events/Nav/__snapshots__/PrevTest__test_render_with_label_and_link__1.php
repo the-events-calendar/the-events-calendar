@@ -4,9 +4,8 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="Previous month, May"
-		title="Previous month, May"
 		rel="noindex"
+		title="Previous month, May"
 	>
 		<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg" 	aria-hidden="true"

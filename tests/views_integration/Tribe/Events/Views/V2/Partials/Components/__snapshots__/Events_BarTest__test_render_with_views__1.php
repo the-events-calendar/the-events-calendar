@@ -55,7 +55,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
-		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-search__input-control-icon-svg" 	aria-hidden="true"
@@ -133,7 +132,6 @@
 		href="https://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in List View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -169,7 +167,6 @@
 		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in Month View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -189,7 +186,6 @@
 		href="https://test.tri.be/events/today/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in Day View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg

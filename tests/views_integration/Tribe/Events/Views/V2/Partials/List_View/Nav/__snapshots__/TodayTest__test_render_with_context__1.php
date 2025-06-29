@@ -3,9 +3,8 @@
 		href="http://test.tri.be"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="Click to select today&#039;s date"
-		title="Click to select today&#039;s date"
-	>
+					aria-label="Click to select today&#039;s date"
+			>
 		Today	</a>
 </li>
 ';

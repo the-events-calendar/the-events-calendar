@@ -108,7 +108,6 @@
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
 		placeholder="Search for events"
-		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-search__input-control-icon-svg" 	aria-hidden="true"
@@ -170,7 +169,6 @@
 		href="http://test.tri.be/events/list/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in List View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -206,7 +204,6 @@
 		href="http://test.tri.be/events/month/2019-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in Month View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -226,7 +223,6 @@
 		href="http://test.tri.be/events/2019-01-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="Display Events in Day View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
@@ -256,7 +252,6 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous day"
 		title="Previous day"
 		disabled
 	>
@@ -274,7 +269,6 @@
 	<a
 		href="http://test.tri.be/events/2019-01-02/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next day"
 		title="Next day"
 		data-js="tribe-events-view-link"
 		rel="noindex"
@@ -295,8 +289,8 @@
 	href="http://test.tri.be/events/today/"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
-	aria-description="Click to select today&#039;s date"
->
+			aria-label="Click to select today&#039;s date"
+	>
 	Today</a>
 
 	<div class="tribe-events-c-top-bar__datepicker">
@@ -304,7 +298,7 @@
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-description="Click to toggle datepicker"
+		title="Click to toggle datepicker"
 	>
 		<time
 			datetime="2019-01-01"
@@ -348,6 +342,8 @@
 >
 	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
 </svg>
+		<span class="tribe-common-a11y-visual-hide">
+			Previous day		</span>
 	</template>
 	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
 		<svg
@@ -357,6 +353,8 @@
 >
 	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
 </svg>
+		<span class="tribe-common-a11y-visual-hide">
+			Next day		</span>
 	</template>
 </div>
 
@@ -483,8 +481,6 @@
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Previous Day"
-		title="Previous Day"
 		disabled
 	>
 		<svg
@@ -503,8 +499,6 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-		aria-label="Next Day"
-		title="Next Day"
 		rel="noindex"
 	>
 		Next Day		<svg
