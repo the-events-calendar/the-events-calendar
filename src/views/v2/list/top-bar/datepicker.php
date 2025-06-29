@@ -98,7 +98,7 @@
 		<span class="tribe-common-a11y-visual-hide">
 			<?php
 			echo esc_html(
-				printf(
+				sprintf(
 					/* translators: %s: Event (plural). */
 					esc_html__( 'Previous %1$s', 'the-events-calendar' ),
 					tribe_get_event_label_plural()

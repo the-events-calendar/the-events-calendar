@@ -33,15 +33,15 @@ if ( empty( $venue ) ) {
 
 <iframe
 	title="
-	<?php
-		echo esc_attr(
-			sprintf(
-				/* translators: %s: Venue name. */
-				__( 'Google maps iframe displaying the address to %s', 'the-events-calendar' ),
-				$venue
-			)
-		);
-	?>
+		<?php
+			echo esc_attr(
+				sprintf(
+					/* translators: %s: Venue name. */
+					__( 'Google maps iframe displaying the address to %s', 'the-events-calendar' ),
+					$venue
+				)
+			);
+		?>
 	"
 	width="<?php echo esc_attr( $width ); ?>"
 	height="<?php echo esc_attr( $height ); ?>"
