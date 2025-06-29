@@ -11,14 +11,16 @@
  *
  * @var string $label The label for the previous link.
  *
- * @version 5.3.0
+ * @version TBD
+ *
+ * @since 5.3.0
+ * @since TBD Removed redundant aria-label attribute. Title attribute is sufficient.
  *
  */
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
 		class="tribe-events-c-nav__prev tribe-common-b2"
-		aria-label="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		title="<?php echo esc_attr( sprintf( __( 'Previous month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		disabled
 	>

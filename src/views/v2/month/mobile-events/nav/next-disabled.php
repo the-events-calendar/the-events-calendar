@@ -12,14 +12,16 @@
  * @var string $link The URL to the next page, if any, or an empty string.
  * @var string $label The label for the next link.
  *
- * @version 5.3.0
+ * @version TBD
+ *
+ * @since 5.3.0
+ * @since TBD Removed redundant aria-label attribute. Title attribute is sufficient.
  *
  */
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
 		class="tribe-events-c-nav__next tribe-common-b2"
-		aria-label="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		title="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 		disabled
 	>

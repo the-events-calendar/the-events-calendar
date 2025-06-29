@@ -415,6 +415,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				// Modify when it can be ignored
 				if ( $this->can_ignore( $event ) ) {
 					$actions['trash'] = sprintf(
+						// @todo The aria-label and the visible text are nearly identical and thus redundant - we should use just one.
 						'<a href="%1$s" class="submitdelete" aria-label="%2$s" title="%3$s">%4$s</a>',
 						get_delete_post_link( $event->ID ),
 						/* translators: %s: post title */
@@ -445,7 +446,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			if ( current_user_can( 'delete_post', $event->ID ) ) {
 				$actions['restore'] = sprintf(
-					'<a href="%s" aria-label="%s">%s</a>',
+					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
 					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=tribe-restore', $event->ID ) ), 'restore-post_' . $event->ID ),
 					/* translators: %s: post title */
 					esc_attr( sprintf( __( 'Restore &#8220;%s&#8221; from the Ignored', 'the-events-calendar' ), $title ) ),
