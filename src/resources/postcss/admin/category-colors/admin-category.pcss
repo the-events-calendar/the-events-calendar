@@ -1,0 +1,125 @@
+@import "../../utilities/_all.pcss";
+
+.table-view-list.tags {
+	.fixed .column-category_priority {
+		width: 75px;
+	}
+
+	.column-category_color {
+		width: 25%;
+
+		.tec-events-taxonomy-table__category-color-preview {
+			aspect-ratio: 1/1;
+			border-radius: var(--tec-border-radius-default);
+			display: inline-block;
+			width: 20px;
+			background-color: var(--tec-color-category-secondary);
+			border: 3px solid var(--tec-color-category-primary);
+		}
+	}
+}
+
+/** Quick Edit section **/
+.inline-edit-row {
+	.tec-events-category-colors__wrap {
+		line-height: var(--tec-line-height-0);
+		padding-right: var(--tec-spacer-2);
+		display: grid;
+
+		label {
+			line-height: var(--tec-line-height-0);
+			margin: 0;
+			padding: var(--tec-spacer-0) 0;
+		}
+	}
+}
+
+.tec-events-category-colors__field {
+	margin-bottom: var(--tec-spacer-5);
+}
+
+.tec-events-category-colors {
+
+	&__wrap {
+		line-height: var(--tec-line-height-0);
+
+		.tec-events-category-colors__container {
+			container-type: inline-size;
+		}
+
+		/* 1-column layout */
+
+		.tec-events-category-colors__grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: repeat(4, auto);
+			gap: var(--tec-spacer-5);
+			grid-template-areas:
+				"color-picker-1"
+				"color-picker-2"
+				"color-picker-3"
+				"preview";
+
+			.tec-events-category-colors__field {
+				margin: 0;
+			}
+		}
+
+		.tec-events-category-colors__field:nth-child(1) {
+			grid-area: color-picker-1;
+		}
+
+		.tec-events-category-colors__field:nth-child(2) {
+			grid-area: color-picker-2;
+		}
+
+		.tec-events-category-colors__field:nth-child(3) {
+			grid-area: color-picker-3;
+		}
+
+		.tec-events-category-colors__field--preview {
+			grid-area: preview;
+			width: 100%;
+		}
+
+		/* Category preview styles */
+
+		.tec-events-category-colors__preview-box {
+			display: inline-block;
+			max-width: fit-content;
+			width: 100%;
+
+			span {
+				box-sizing: border-box;
+				display: inline-block;
+				max-width: 100%;
+				padding: var(--tec-spacer-0) var(--tec-spacer-1);
+			}
+		}
+	}
+}
+
+/* Switch to a 3-column grid when the container is at least 375px wide */
+@container (min-width: 400px) {
+	.tec-events-category-colors__wrap {
+		.tec-events-category-colors__grid {
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: auto auto;
+			grid-template-areas:
+				"color-picker-1 color-picker-2 color-picker-3"
+				"preview preview preview";
+		}
+	}
+}
+
+/* Adjustments for medium viewports */
+@media (--viewport-medium) {
+	.tec-events-category-colors__wrap {
+		.wp-picker-container {
+			.wp-color-result {
+				width: 32px;
+				height: 32px;
+			}
+		}
+	}
+}

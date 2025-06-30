@@ -35,7 +35,7 @@ $view_selector_classes = [
 			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 			aria-current="true"
-			aria-label="<?php echo esc_attr__( 'Select Calendar View', 'the-events-calendar' ); ?>"
+			aria-description="<?php echo esc_attr__( 'Select Calendar View', 'the-events-calendar' ); ?>"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
 				<?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
