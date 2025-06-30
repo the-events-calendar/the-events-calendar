@@ -9,11 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @since 5.0.0
- *
- * @since TBD Updated for accessibility changes.
- *
- * @version TBD
+ * @version 5.0.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -28,7 +24,7 @@ if ( ! $event->thumbnail->exists ) {
 <div class="tribe-events-calendar-day__event-featured-image-wrapper">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
-		aria-label="<?php echo esc_attr( $event->title ); ?>"
+		title="<?php echo esc_attr( $event->title ); ?>"
 		rel="bookmark"
 		class="tribe-events-calendar-day__event-featured-image-link"
 	>
@@ -37,9 +33,12 @@ if ( ! $event->thumbnail->exists ) {
 			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
 				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
 			<?php endif; ?>
-			alt=""
-			<?php if ( ! empty( $event->title ) ) : ?>
-				title="<?php echo esc_attr( $event->title ); ?>"
+			<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
+				alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+			<?php elseif ( ! empty( $event->thumbnail->title ) ) : ?>
+				alt="<?php echo esc_attr( $event->thumbnail->title ); ?>"
+			<?php else : ?>
+				alt=""
 			<?php endif; ?>
 			class="tribe-events-calendar-day__event-featured-image"
 		/>

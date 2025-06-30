@@ -14,22 +14,17 @@
  * @var array $days An array containing the data for each day on the calendar grid, divided by day.
  *                  Shape `[ <Y-m-d> => [ ...<day_data> ] ]`.
  */
+
 ?>
 
-<div class="tribe-events-calendar-month__body" role="rowgroup">
-
+<tbody class="tribe-events-calendar-month__body">
 	<?php foreach ( array_chunk( $days, 7, true ) as $week ) : ?>
-
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
+		<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			<?php foreach ( $week as $day_date => $day ) : ?>
 
 				<?php $this->template( 'month/calendar-body/day', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 
 			<?php endforeach; ?>
-
-		</div>
-
+		</tr>
 	<?php endforeach; ?>
-
-</div>
+</tbody>

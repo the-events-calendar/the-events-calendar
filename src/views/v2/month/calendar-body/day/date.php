@@ -64,16 +64,16 @@ $num_events_label = sprintf(
 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+		<span class="tribe-common-a11y-visual-hide">
+			<?php echo esc_html( $num_events_label ); ?>,
+		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="<?php echo esc_attr( $day['date'] ); ?>"
 		>
 			<?php echo esc_html( $day_number ); ?>
 		</time>
-		<span class="tribe-common-a11y-visual-hide">
-			<?php echo esc_html( $num_events_label ); ?>
-		</span>
-	</h3>
+	</div>
 	<?php $this->template( 'month/calendar-body/day/date-extras', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 </button>
