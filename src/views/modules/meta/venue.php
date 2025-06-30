@@ -40,7 +40,7 @@ $website_title = tribe_events_get_venue_website_title();
 				?>
 			</span>
 		</dt>
-		<dd class="tribe-venue"> <?php echo esc_html( tribe_get_venue() ); ?> </dd>
+		<dd class="tribe-venue"> <?php echo wp_kses_post( tribe_get_venue() ); ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
 			<dt class="tribe-common-a11y-visual-hide">
