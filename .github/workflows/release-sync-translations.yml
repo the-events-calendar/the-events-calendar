@@ -32,12 +32,8 @@ jobs:
     name: 🔁 Sync Translations
     runs-on: ubuntu-latest
     outputs:
-      translation-summary:
-        description: "Summary of translation changes"
-        value: ${{ steps.sync-translations.outputs.translation-summary }}
-      changes-made:
-        description: "Whether any changes were made"
-        value: ${{ steps.sync-translations.outputs.changes-made }}
+      translation-summary: ${{ steps.sync-translations.outputs.translation-summary }}
+      changes-made: ${{ steps.sync-translations.outputs.changes-made }}
     steps:
       - name: Call reusable sync-translations workflow
         id: sync-translations

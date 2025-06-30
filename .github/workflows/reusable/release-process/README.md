@@ -26,6 +26,7 @@ This directory contains reusable workflow components for the release process. Th
 
 **Inputs**:
 - `compare-commit`: Commit to compare against (default: latest tag)
+- `output-format`: Output format - changelog, list, or html (default: "changelog")
 - `additional-inputs`: Additional inputs to pass through (JSON string, default: "{}")
 
 **Outputs**:
@@ -36,8 +37,11 @@ This directory contains reusable workflow components for the release process. Th
 - Detects added/removed `apply_filters()` calls
 - Detects added/removed `do_action()` calls
 - Detects changed view files
-- Creates changelog entries in `./changelog/` folder
-- Generates entries with type "tweak" and significance "patch"
+- Supports multiple output formats:
+  - `changelog`: Creates changelog entries in `./changelog/` folder with type "tweak" and significance "patch"
+  - `list`: Simple list format for easy reading
+  - `html`: HTML format for rich display
+- Only creates changelog entries when `output-format` is "changelog"
 
 ### process-changelog.yml
 **Purpose**: Processes changelog entries for a release
@@ -110,6 +114,11 @@ This sequence ensures that:
    - Individual workflows create their own PRs when run manually
    - Orchestrated workflow creates a single PR with all changes
    - No PR creation in reusable components
+
+6. **Centralized Logic**:
+   - Analysis logic is centralized in the reusable workflow
+   - Output format handling is managed in one place
+   - Changelog creation is conditional based on output format
 
 ## Architecture
 
