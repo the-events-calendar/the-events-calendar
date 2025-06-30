@@ -11,7 +11,7 @@
  *
  * @since 5.0.0
  *
- * @since TBD Updated for accessibility changes.
+ * @since TBD Removed link around featured image for accessibility update.
  *
  * @version TBD
  *
@@ -35,22 +35,15 @@ $image_alt_attr = ! empty( $event->title )
 
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<a
-		href="<?php echo esc_url( $event->permalink ); ?>"
-		aria-label="<?php echo esc_attr( $event->title ); ?>"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-featured-image-link"
-	>
-		<img
-			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
-			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
-				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
-			<?php endif; ?>
-			alt="<?php echo esc_attr( $image_alt_attr ); ?>"
-			<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
-				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
-			<?php endif; ?>
-			class="tribe-events-calendar-month__calendar-event-featured-image"
-		/>
-	</a>
+	<img
+		src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
+		<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
+			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
+		<?php endif; ?>
+		alt="<?php echo esc_attr( $image_alt_attr ); ?>"
+		<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
+			title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
+		<?php endif; ?>
+		class="tribe-events-calendar-month__calendar-event-featured-image"
+	/>
 </div>
