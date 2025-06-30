@@ -37,16 +37,13 @@ jobs:
       RELEASE_VERSION: ${{ inputs.release-version }}
       RELEASE_DATE: ${{ inputs.release-date }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
         with:
-          ref: ${{ github.ref }}
-          fetch-depth: 0
-
-      - name: Configure PHP environment
-        uses: shivammathur/setup-php@v2
-        with:
+          setup-php: true
+          setup-node: false
           php-version: 7.4
+          fetch-depth: 0
 
       - name: Set up Composer
         run: composer install --no-progress --ignore-platform-reqs
