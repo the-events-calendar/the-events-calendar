@@ -25,7 +25,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
  */
 class Ticket {
 	/**
-	 * The option key for the Event calendar links.
+	 * The option key for The Events Calendar links.
 	 *
 	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
@@ -36,7 +36,7 @@ class Ticket {
 	public static string $option_add_event_links = 'tec-tickets-emails-ticket-add-event-links';
 
 	/**
-	 * The option key for the Event calendar invite.
+	 * The option key for The Events Calendar invite.
 	 *
 	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
