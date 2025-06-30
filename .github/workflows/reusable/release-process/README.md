@@ -32,8 +32,26 @@ This directory contains reusable workflow components for the release process. Th
 - `additional-inputs`: Additional inputs to pass through (JSON string, default: "{}")
 
 **Outputs**:
-- `changelog-content`: The full changelog content that was generated
+- `changelog-content`: The new changelog entry that was generated
 - `changes-made`: Whether any changes were made
+
+### analyze-changes.yml
+**Purpose**: Analyzes git changes to detect filters, actions, and views modifications
+
+**Inputs**:
+- `compare-commit`: Commit to compare against (default: latest tag)
+- `output-format`: Output format - changelog, list, or html (default: "changelog")
+- `additional-inputs`: Additional inputs to pass through (JSON string, default: "{}")
+
+**Outputs**:
+- `analysis-summary`: Summary of analyzed changes
+- `changes-detected`: Whether any changes were detected
+
+**Features**:
+- Detects added/removed `apply_filters()` calls
+- Detects added/removed `do_action()` calls
+- Detects changed view files
+- Supports multiple output formats (changelog, list, HTML)
 
 ### replace-tbd-entries.yml
 **Purpose**: Replaces TBD entries with the current version
@@ -52,6 +70,7 @@ This directory contains reusable workflow components for the release process. Th
 Each workflow can be run individually by calling the corresponding workflow file in `.github/workflows/`:
 - `release-sync-translations.yml`
 - `release-process-changelog.yml`
+- `release-analyze-changes.yml`
 - `release-replace-tbd-entries.yml`
 
 When run individually, these workflows will:
@@ -91,6 +110,9 @@ Individual Workflow Files (.github/workflows/)
 │   └── Creates PR if run individually
 ├── release-process-changelog.yml
 │   ├── Calls reusable/process-changelog.yml
+│   └── Creates PR if run individually
+├── release-analyze-changes.yml
+│   ├── Calls reusable/analyze-changes.yml
 │   └── Creates PR if run individually
 └── release-replace-tbd-entries.yml
     ├── Calls reusable/replace-tbd-entries.yml
