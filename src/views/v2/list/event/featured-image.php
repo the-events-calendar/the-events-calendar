@@ -10,8 +10,7 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.0.0
- *
- * @since TBD Updated for accessibility changes.
+ * @since TBD Removed link around featured image for accessibility update.
  *
  * @version TBD
  *
@@ -24,26 +23,24 @@ if ( ! $event->thumbnail->exists ) {
 	return;
 }
 
+// Always show post title as image alt, if not available fallback to image alt.
+$image_alt_attr = ! empty( $event->title )
+	? $event->title
+	: ( ! empty( $event->thumbnail->alt )
+		? $event->thumbnail->alt
+		: ''
+	);
+
 ?>
 <div class="tribe-events-calendar-list__event-featured-image-wrapper tribe-common-g-col">
-	<a
-		href="<?php echo esc_url( $event->permalink ); ?>"
-		aria-label="<?php echo esc_attr( $event->title ); ?>"
-		rel="bookmark"
-		class="tribe-events-calendar-list__event-featured-image-link"
-	>
-		<img
-			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
-			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
-				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
-			<?php endif; ?>
-			alt=""
-			<?php if ( ! empty( $event->title ) ) : ?>
-				title="<?php echo esc_attr( $event->title ); ?>"
-			<?php endif; ?>
-			class="tribe-events-calendar-list__event-featured-image"
-			width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
-			height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
-		/>
-	</a>
+	<img
+		src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
+		<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
+			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
+		<?php endif; ?>
+		alt="<?php echo esc_attr( $image_alt_attr ); ?>"
+		class="tribe-events-calendar-list__event-featured-image"
+		width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+		height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
+	/>
 </div>
