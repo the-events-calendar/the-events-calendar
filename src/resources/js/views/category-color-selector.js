@@ -14,7 +14,7 @@ tribe.events.categoryColors = tribe.events.categoryColors || {};
  * @since TBD
  * @type {PlainObject}
  */
-tribe.events.categoryColors.categoryPicker = ( function () {
+tribe.events.categoryColors.categoryPicker = ( function() {
 	'use strict';
 
 	// =====================
@@ -33,15 +33,30 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 		dropdownClose: '.tec-events-category-color-filter__dropdown-close',
 		dataBound: 'data-bound',
 		childParentPairs: [
-			{ child: '.tribe-events-calendar-list__event', parent: '.tribe-events-calendar-list__event-row' },
-			{ child: '.tribe-events-calendar-day__event', parent: '.tribe-events-calendar-day__event' },
+			{
+				child: '.tribe-events-calendar-list__event',
+				parent: '.tribe-events-calendar-list__event-row'
+			},
+			{
+				child: '.tribe-events-calendar-day__event',
+				parent: '.tribe-events-calendar-day__event'
+			},
 			{
 				child: '.tribe-events-calendar-month__calendar-event',
 				parent: '.tribe-events-calendar-month__calendar-event-wrapper'
 			},
-			{ child: '.tribe-events-pro-summary__event', parent: '.tribe-events-pro-summary__event' },
-			{ child: '.tribe-events-pro-photo__event', parent: '.tribe-events-pro-photo__event' },
-			{ child: '.tribe-events-pro-week-grid__event', parent: '.tribe-events-pro-week-grid__event' },
+			{
+				child: '.tribe-events-pro-summary__event',
+				parent: '.tribe-events-pro-summary__event'
+			},
+			{
+				child: '.tribe-events-pro-photo__event',
+				parent: '.tribe-events-pro-photo__event'
+			},
+			{
+				child: '.tribe-events-pro-week-grid__event',
+				parent: '.tribe-events-pro-week-grid__event'
+			},
 			{
 				child: '.tribe-events-pro-week-grid__multiday-event',
 				parent: '.tribe-events-pro-week-grid__multiday-event-wrapper'
@@ -58,7 +73,10 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 				child: '.tribe-events-pro-week-mobile-events__event',
 				parent: '.tribe-events-pro-week-mobile-events__event-row'
 			},
-			{ child: '.tribe-events-pro-map__event-card-wrapper', parent: '.tribe-events-pro-map__event-card-row' },
+			{
+				child: '.tribe-events-pro-map__event-card-wrapper',
+				parent: '.tribe-events-pro-map__event-card-row'
+			},
 		],
 		filteredHide: 'tec-category-filtered-hide',
 		colorCircle: 'tec-events-category-color-filter__color-circle',
@@ -242,7 +260,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 		const verticalOffset = picker.offsetHeight;
 
 		// Anchor based on proximity to screen edge
-		if ( ( left > viewWidth ) / 2 ) {
+		if ( left > ( viewWidth / 2 ) ) {
 			dropdown.style.right = '0px';
 		} else {
 			dropdown.style.left = '0px';
