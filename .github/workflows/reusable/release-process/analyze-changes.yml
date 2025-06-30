@@ -109,7 +109,7 @@ jobs:
 
       - name: Create changelog entry
         id: create-changelog
-        if: steps.analyze-changes.outputs.changes-detected == 'true'
+        if: steps.analyze-changes.outputs.changes-detected == 'true' && inputs.output-format == 'changelog'
         run: |
           # Generate changelog content
           CHANGELOG_ENTRIES=()
@@ -160,22 +160,96 @@ jobs:
         id: set-summary
         run: |
           if [ "${{ steps.analyze-changes.outputs.changes-detected }}" == "true" ]; then
-            # Generate summary for display
+            # Generate summary based on output format
+            OUTPUT_FORMAT="${{ inputs.output-format }}"
             SUMMARY=""
-            if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
-              SUMMARY+="* Tweak - Added filters: \`$(IFS='`, `'; echo "${FILTERS_ADDED[*]}")\`\n"
-            fi
-            if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
-              SUMMARY+="* Tweak - Removed filters: \`$(IFS='`, `'; echo "${FILTERS_REMOVED[*]}")\`\n"
-            fi
-            if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
-              SUMMARY+="* Tweak - Added actions: \`$(IFS='`, `'; echo "${ACTIONS_ADDED[*]}")\`\n"
-            fi
-            if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
-              SUMMARY+="* Tweak - Removed actions: \`$(IFS='`, `'; echo "${ACTIONS_REMOVED[*]}")\`\n"
-            fi
-            if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
-              SUMMARY+="* Tweak - Changed views: \`$(IFS='`, `'; echo "${VIEWS_CHANGED[*]}")\`\n"
+
+            if [ "$OUTPUT_FORMAT" = "changelog" ]; then
+              # Changelog format (same as what goes into changelog files)
+              if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+                SUMMARY+="* Tweak - Added filters: \`$(IFS='`, `'; echo "${FILTERS_ADDED[*]}")\`\n"
+              fi
+              if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+                SUMMARY+="* Tweak - Removed filters: \`$(IFS='`, `'; echo "${FILTERS_REMOVED[*]}")\`\n"
+              fi
+              if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+                SUMMARY+="* Tweak - Added actions: \`$(IFS='`, `'; echo "${ACTIONS_ADDED[*]}")\`\n"
+              fi
+              if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+                SUMMARY+="* Tweak - Removed actions: \`$(IFS='`, `'; echo "${ACTIONS_REMOVED[*]}")\`\n"
+              fi
+              if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+                SUMMARY+="* Tweak - Changed views: \`$(IFS='`, `'; echo "${VIEWS_CHANGED[*]}")\`\n"
+              fi
+            elif [ "$OUTPUT_FORMAT" = "list" ]; then
+              # List format
+              if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+                SUMMARY+="Added filters:\n"
+                for filter in "${FILTERS_ADDED[@]}"; do
+                  SUMMARY+="- $filter\n"
+                done
+              fi
+              if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+                SUMMARY+="Removed filters:\n"
+                for filter in "${FILTERS_REMOVED[@]}"; do
+                  SUMMARY+="- $filter\n"
+                done
+              fi
+              if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+                SUMMARY+="Added actions:\n"
+                for action in "${ACTIONS_ADDED[@]}"; do
+                  SUMMARY+="- $action\n"
+                done
+              fi
+              if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+                SUMMARY+="Removed actions:\n"
+                for action in "${ACTIONS_REMOVED[@]}"; do
+                  SUMMARY+="- $action\n"
+                done
+              fi
+              if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+                SUMMARY+="Changed views:\n"
+                for view in "${VIEWS_CHANGED[@]}"; do
+                  SUMMARY+="- $view\n"
+                done
+              fi
+            else
+              # HTML format
+              if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+                SUMMARY+="<h4>Filters added</h4>\n<ul>\n"
+                for filter in "${FILTERS_ADDED[@]}"; do
+                  SUMMARY+="\t<li><samp>$filter</samp></li>\n"
+                done
+                SUMMARY+="</ul>\n"
+              fi
+              if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+                SUMMARY+="<h4>Filters removed</h4>\n<ul>\n"
+                for filter in "${FILTERS_REMOVED[@]}"; do
+                  SUMMARY+="\t<li><samp>$filter</samp></li>\n"
+                done
+                SUMMARY+="</ul>\n"
+              fi
+              if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+                SUMMARY+="<h4>Actions added</h4>\n<ul>\n"
+                for action in "${ACTIONS_ADDED[@]}"; do
+                  SUMMARY+="\t<li><samp>$action</samp></li>\n"
+                done
+                SUMMARY+="</ul>\n"
+              fi
+              if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+                SUMMARY+="<h4>Actions removed</h4>\n<ul>\n"
+                for action in "${ACTIONS_REMOVED[@]}"; do
+                  SUMMARY+="\t<li><samp>$action</samp></li>\n"
+                done
+                SUMMARY+="</ul>\n"
+              fi
+              if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+                SUMMARY+="<h4>Views</h4>\n<ul>\n"
+                for view in "${VIEWS_CHANGED[@]}"; do
+                  SUMMARY+="\t<li><samp>$view</samp></li>\n"
+                done
+                SUMMARY+="</ul>\n"
+              fi
             fi
 
             # Escape for GitHub Actions output
@@ -189,7 +263,7 @@ jobs:
           echo "## Change Analysis" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.analyze-changes.outputs.changes-detected }}" == "true" ]; then
             echo -e "$SUMMARY" >> $GITHUB_STEP_SUMMARY
-            if [ -n "${{ steps.create-changelog.outputs.changelog-file }}" ]; then
+            if [ "${{ inputs.output-format }}" == "changelog" ] && [ -n "${{ steps.create-changelog.outputs.changelog-file }}" ]; then
               echo "" >> $GITHUB_STEP_SUMMARY
               echo "**Changelog entry created**: \`changelog/${{ steps.create-changelog.outputs.changelog-file }}\`" >> $GITHUB_STEP_SUMMARY
             fi

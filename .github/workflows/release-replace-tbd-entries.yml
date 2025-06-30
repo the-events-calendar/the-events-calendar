@@ -24,8 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changes-made: ${{ steps.replace-tbd.outputs.changes-made }}
-      current-version: "The current version found"
-        value: ${{ steps.replace-tbd.outputs.current-version }}
+      current-version: ${{ steps.replace-tbd.outputs.current-version }}
     steps:
       - name: Call reusable replace-tbd-entries workflow
         id: replace-tbd
