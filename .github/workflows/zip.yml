@@ -78,23 +78,13 @@ jobs:
           submodules: recursive
           ref: ${{ inputs.ref }}
 
-      # ------------------------------------------------------------------------------
-      # Install and Setup NVM if .nvmrc exists.
-      # ------------------------------------------------------------------------------
-      - name: Check for .nvmrc file
-        id: check-nvmrc
-        run: |
-          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
-            echo "nvmrc_exists=true" >> $GITHUB_ENV
-          else
-            echo "nvmrc_exists=false" >> $GITHUB_ENV
-          fi
-
-      - uses: actions/setup-node@v4
-        if: ${{env.nvmrc_exists == 'true'}}
+      # MODIFIED: Using reusable basic-setup workflow for Node.js setup
+      - name: Setup Node.js environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
+          setup-php: false
+          setup-node: true
+          fetch-depth: 1000
 
       # ------------------------------------------------------------------------------
       # Install Pup

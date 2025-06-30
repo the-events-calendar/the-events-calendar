@@ -6,7 +6,19 @@ on:
       - '*.php'
       - 'src/**.php'
 jobs:
+  conditional:
+    # MODIFIED: Using reusable php-change-detector workflow
+    uses: ./.github/workflows/reusable/php-change-detector.yml
+    with:
+      skip-flag: phpstan
+    outputs:
+      has-php-changes: ${{ jobs.conditional.outputs.has-php-changes }}
+      should-run: ${{ jobs.conditional.outputs.should-run }}
+
   phpstan:
+    needs:
+      - conditional
+    if: needs.conditional.outputs.should-run == '1'
     strategy:
       matrix:
         phpVersion: [
@@ -21,33 +33,33 @@ jobs:
         ]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
+      # MODIFIED: Using reusable basic-setup workflow
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
         with:
-          fetch-depth: 1000
-          submodules: recursive
-      # ------------------------------------------------------------------------------
-      # Set up PHP and run phpstan
-      # ------------------------------------------------------------------------------
-      - name: Configure PHP environment to run phpstan
-        uses: shivammathur/setup-php@v2
-        with:
+          setup-php: true
+          setup-node: false
           php-version: ${{ matrix.phpVersion }}
+          fetch-depth: 1000
+
       # ------------------------------------------------------------------------------
       # Override composer php version
       # ------------------------------------------------------------------------------
       - name: Set php version ${{ matrix.phpVersion }} in composer
         run: composer config platform.php ${{ matrix.phpVersion }}
+
       # ------------------------------------------------------------------------------
       # Install dependencies in common - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install common dependencies
         run: cd common &&  composer i --ignore-platform-reqs && cd ../
+
       # ------------------------------------------------------------------------------
       # Install dependencies - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install dependencies
         run: composer i --ignore-platform-reqs
+
       # ------------------------------------------------------------------------------
       # Run phpstan
       # ------------------------------------------------------------------------------

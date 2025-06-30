@@ -6,35 +6,22 @@ on:
       - 'src/modules/**.js'
       - 'src/resources/js/**.js'
       - 'src/resources/postcss/**.pcss'
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.body, '[skip-lint]')"
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
+      # MODIFIED: Using reusable basic-setup workflow
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
         with:
+          setup-php: false
+          setup-node: true
           fetch-depth: 1
-          submodules: recursive
-      # ------------------------------------------------------------------------------
-      # Setup Node.
-      # ------------------------------------------------------------------------------
-      - name: Check for .nvmrc file
-        id: check-nvmrc
-        run: |
-          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
 
-      - uses: actions/setup-node@v4
-        if: steps.check-nvmrc.outputs.exists == 'true'
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-      - name: Install node modules
-        run: npm ci
+      # ------------------------------------------------------------------------------
+      # Run linting tasks
+      # ------------------------------------------------------------------------------
       - name: Run linting tasks
         run: npm run lint
