@@ -325,29 +325,32 @@ export default function EventLocation( props: FieldProps ) {
 					</div>
 				) }
 
-				{ isAdding && <span className="classy_section-separator"></span> }
+				{ isAdding && currentVenueIds.length > 0 && <span className="classy_section-separator"></span> }
 
-				<div className="classy-field__inputs-section classy-field__inputs-section--row">
-					{ ( isAdding || currentVenueIds.length === 0 ) && (
-						<Fragment>
-							<div className="classy-field__input classy-field__input-full-width">
-								<CustomSelectControl
-									__next40pxDefaultSize
-									className="classy-field__control classy-field__control--select"
-									hideLabelFromVision={ true }
-									label={ _x(
-										'Venue selection',
-										'Assistive technology label',
-										'the-events-calendar'
-									) }
-									onChange={ onVenueSelect }
-									options={ options }
-									value={ placeholderOption }
-								/>
-							</div>
+				{currentVenueIds.length < venuesLimit &&
+					<div
+						className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left"
+					>
+						{ ( isAdding || currentVenueIds.length === 0 ) && (
+							<Fragment>
+								<div className="classy-field__input classy-field__input-full-width">
+									<CustomSelectControl
+										__next40pxDefaultSize
+										className="classy-field__control classy-field__control--select"
+										hideLabelFromVision={ true }
+										label={ _x(
+											'Venue selection',
+											'Assistive technology label',
+											'the-events-calendar'
+										) }
+										onChange={ onVenueSelect }
+										options={ options }
+										value={ placeholderOption }
+									/>
+								</div>
 
-							<div className="classy-field__input" ref={ ref }>
-								<div className="classy-field__control classy-field__control--venue" ref={ ref }>
+								<div className="classy-field__input" ref={ ref }>
+									<div className="classy-field__control classy-field__control--venue" ref={ ref }>
 									<span className="classy-field__venue-label">
 										{ _x(
 											'or',
@@ -355,39 +358,40 @@ export default function EventLocation( props: FieldProps ) {
 											'the-events-calendar'
 										) }
 									</span>{ ' ' }
-									<Button
-										variant="link"
-										className="classy-field__venue-value"
-										onClick={ createNewVenue }
-									>
-										{ _x(
-											'Create new venue',
-											'Call to action to create a new venue',
-											'the-events-calendar'
-										) }
-									</Button>
+										<Button
+											variant="link"
+											className="classy-cta classy-field__venue-value"
+											onClick={ createNewVenue }
+										>
+											{ _x(
+												'Create new venue',
+												'Call to action to create a new venue',
+												'the-events-calendar'
+											) }
+										</Button>
+									</div>
 								</div>
-							</div>
-						</Fragment>
-					) }
+							</Fragment>
+						) }
 
-					{ ! isAdding && currentVenueIds.length > 0 && currentVenueIds.length < venuesLimit && (
-						<div className="classy-field__input">
-							<Button
-								variant="link"
-								className="classy-field__control classy-field__control--cta"
-								onClick={ () => setIsAdding( true ) }
-							>
-								<IconAdd />
-								{ _x(
-									'Add another venue',
-									'Call-to-action to add another venue',
-									'the-events-calendar'
-								) }
-							</Button>
-						</div>
-					) }
-				</div>
+						{ ! isAdding && currentVenueIds.length > 0 && currentVenueIds.length < venuesLimit && (
+							<div className="classy-field__input">
+								<Button
+									variant="link"
+									className="classy-field__control classy-field__control--cta"
+									onClick={ () => setIsAdding( true ) }
+								>
+									<IconAdd />
+									{ _x(
+										'Add another venue',
+										'Call-to-action to add another venue',
+										'the-events-calendar'
+									) }
+								</Button>
+							</div>
+						) }
+					</div>
+				}
 
 				{ currentVenueIds.length > 0 && isAdding && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row">
