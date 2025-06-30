@@ -48,12 +48,167 @@ jobs:
       analysis-summary: ${{ steps.analyze-changes.outputs.analysis-summary }}
       changes-detected: ${{ steps.analyze-changes.outputs.changes-detected }}
     steps:
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
+        with:
+          setup-php: false
+          setup-node: false
+          fetch-depth: 0
+
+      - name: Analyze changes with custom output format
+        id: analyze-changes
+        if: inputs.output-format != 'changelog'
+        run: |
+          # Determine compare commit
+          COMPARE_COMMIT="${{ inputs.compare-commit }}"
+          if [ -z "$COMPARE_COMMIT" ]; then
+            COMPARE_COMMIT=$(git describe --tags $(git rev-list --tags --max-count=1))
+          fi
+
+          echo "Comparing against: $COMPARE_COMMIT"
+
+          # Get the diff
+          DIFF=$(git diff -U0 "$COMPARE_COMMIT" -- src/ 2>/dev/null || git diff -U0 "$COMPARE_COMMIT" -- . 2>/dev/null)
+
+          if [ -z "$DIFF" ]; then
+            echo "No changes detected"
+            echo "changes-detected=false" >> $GITHUB_OUTPUT
+            echo "summary=No changes detected" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Initialize results
+          FILTERS_ADDED=()
+          FILTERS_REMOVED=()
+          ACTIONS_ADDED=()
+          ACTIONS_REMOVED=()
+          VIEWS_CHANGED=()
+
+          # Analyze filters
+          while IFS= read -r line; do
+            if [[ $line =~ ^\+.*apply_filters\([[:space:]]*[\'\"]([^\'\"]+)[\'\"] ]]; then
+              FILTERS_ADDED+=("${BASH_REMATCH[1]}")
+            elif [[ $line =~ ^\-.*apply_filters\([[:space:]]*[\'\"]([^\'\"]+)[\'\"] ]]; then
+              FILTERS_REMOVED+=("${BASH_REMATCH[1]}")
+            fi
+          done <<< "$DIFF"
+
+          # Analyze actions
+          while IFS= read -r line; do
+            if [[ $line =~ ^\+.*do_action\([[:space:]]*[\'\"]([^\'\"]+)[\'\"] ]]; then
+              ACTIONS_ADDED+=("${BASH_REMATCH[1]}")
+            elif [[ $line =~ ^\-.*do_action\([[:space:]]*[\'\"]([^\'\"]+)[\'\"] ]]; then
+              ACTIONS_REMOVED+=("${BASH_REMATCH[1]}")
+            fi
+          done <<< "$DIFF"
+
+          # Analyze views
+          while IFS= read -r line; do
+            if [[ $line =~ diff\ --git\ a/src/views/([^\.]*)\.php ]]; then
+              VIEWS_CHANGED+=("${BASH_REMATCH[1]}")
+            fi
+          done <<< "$DIFF"
+
+          # Remove duplicates
+          FILTERS_ADDED=($(printf "%s\n" "${FILTERS_ADDED[@]}" | sort -u))
+          FILTERS_REMOVED=($(printf "%s\n" "${FILTERS_REMOVED[@]}" | sort -u))
+          ACTIONS_ADDED=($(printf "%s\n" "${ACTIONS_ADDED[@]}" | sort -u))
+          ACTIONS_REMOVED=($(printf "%s\n" "${ACTIONS_REMOVED[@]}" | sort -u))
+          VIEWS_CHANGED=($(printf "%s\n" "${VIEWS_CHANGED[@]}" | sort -u))
+
+          # Generate output based on format
+          OUTPUT_FORMAT="${{ inputs.output-format }}"
+          SUMMARY=""
+
+          if [ "$OUTPUT_FORMAT" = "list" ]; then
+            if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+              SUMMARY+="Added filters:\n"
+              for filter in "${FILTERS_ADDED[@]}"; do
+                SUMMARY+="- $filter\n"
+              done
+            fi
+            if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+              SUMMARY+="Removed filters:\n"
+              for filter in "${FILTERS_REMOVED[@]}"; do
+                SUMMARY+="- $filter\n"
+              done
+            fi
+            if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+              SUMMARY+="Added actions:\n"
+              for action in "${ACTIONS_ADDED[@]}"; do
+                SUMMARY+="- $action\n"
+              done
+            fi
+            if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+              SUMMARY+="Removed actions:\n"
+              for action in "${ACTIONS_REMOVED[@]}"; do
+                SUMMARY+="- $action\n"
+              done
+            fi
+            if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+              SUMMARY+="Changed views:\n"
+              for view in "${VIEWS_CHANGED[@]}"; do
+                SUMMARY+="- $view\n"
+              done
+            fi
+          else
+            # HTML format
+            if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+              SUMMARY+="<h4>Filters added</h4>\n<ul>\n"
+              for filter in "${FILTERS_ADDED[@]}"; do
+                SUMMARY+="\t<li><samp>$filter</samp></li>\n"
+              done
+              SUMMARY+="</ul>\n"
+            fi
+            if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+              SUMMARY+="<h4>Filters removed</h4>\n<ul>\n"
+              for filter in "${FILTERS_REMOVED[@]}"; do
+                SUMMARY+="\t<li><samp>$filter</samp></li>\n"
+              done
+              SUMMARY+="</ul>\n"
+            fi
+            if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+              SUMMARY+="<h4>Actions added</h4>\n<ul>\n"
+              for action in "${ACTIONS_ADDED[@]}"; do
+                SUMMARY+="\t<li><samp>$action</samp></li>\n"
+              done
+              SUMMARY+="</ul>\n"
+            fi
+            if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+              SUMMARY+="<h4>Actions removed</h4>\n<ul>\n"
+              for action in "${ACTIONS_REMOVED[@]}"; do
+                SUMMARY+="\t<li><samp>$action</samp></li>\n"
+              done
+              SUMMARY+="</ul>\n"
+            fi
+            if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+              SUMMARY+="<h4>Views</h4>\n<ul>\n"
+              for view in "${VIEWS_CHANGED[@]}"; do
+                SUMMARY+="\t<li><samp>$view</samp></li>\n"
+              done
+              SUMMARY+="</ul>\n"
+            fi
+          fi
+
+          # Check if any changes were detected
+          TOTAL_CHANGES=$((${#FILTERS_ADDED[@]} + ${#FILTERS_REMOVED[@]} + ${#ACTIONS_ADDED[@]} + ${#ACTIONS_REMOVED[@]} + ${#VIEWS_CHANGED[@]}))
+
+          if [ $TOTAL_CHANGES -eq 0 ]; then
+            echo "changes-detected=false" >> $GITHUB_OUTPUT
+            echo "summary=No changes detected" >> $GITHUB_OUTPUT
+          else
+            echo "changes-detected=true" >> $GITHUB_OUTPUT
+            # Escape for GitHub Actions output
+            SUMMARY_ESCAPED=$(echo -e "$SUMMARY" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
+            echo "summary=$SUMMARY_ESCAPED" >> $GITHUB_OUTPUT
+          fi
+
       - name: Call reusable analyze-changes workflow
         id: analyze-changes
+        if: inputs.output-format == 'changelog'
         uses: ./.github/workflows/reusable/release-process/analyze-changes.yml
         with:
           compare-commit: ${{ inputs.compare-commit }}
-          output-format: ${{ inputs.output-format }}
 
       # Create PR only when run individually
       - name: Create Pull Request
