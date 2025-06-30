@@ -46,9 +46,13 @@ export default function StartSelector( props: {
 		onChange( 'start', format( 'Y-m-d H:i:s', date ) );
 	};
 
+	const wrapperClassName = isAllDay ?
+		"classy-field__input classy-field__input--start-date classy-field__input-full-width"
+		: "classy-field__input classy-field__input--start-date classy-field__input--grow"
+
 	return (
 		<Fragment>
-			<div className="classy-field__input classy-field__input--start-date classy-field__input--grow" ref={ ref }>
+			<div className={wrapperClassName} ref={ ref }>
 				<div className="classy-field__input-title">
 					<h4>{ _x( 'Date', 'Event date selection input title', 'the-events-calendar' ) }</h4>
 				</div>
