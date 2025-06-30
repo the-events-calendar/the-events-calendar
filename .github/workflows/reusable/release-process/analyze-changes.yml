@@ -27,7 +27,7 @@ jobs:
     outputs:
       analysis-summary:
         description: "Summary of analyzed changes"
-        value: ${{ steps.analyze-changes.outputs.summary }}
+        value: ${{ steps.set-summary.outputs.summary }}
       changes-detected:
         description: "Whether any changes were detected"
         value: ${{ steps.analyze-changes.outputs.changes-detected }}
@@ -55,7 +55,6 @@ jobs:
 
           if [ -z "$DIFF" ]; then
             echo "No changes detected"
-            echo "summary=No changes detected" >> $GITHUB_OUTPUT
             echo "changes-detected=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -99,11 +98,70 @@ jobs:
           ACTIONS_REMOVED=($(printf "%s\n" "${ACTIONS_REMOVED[@]}" | sort -u))
           VIEWS_CHANGED=($(printf "%s\n" "${VIEWS_CHANGED[@]}" | sort -u))
 
-          # Generate summary based on output format
-          OUTPUT_FORMAT="${{ inputs.output-format }}"
-          SUMMARY=""
+          # Check if any changes were detected
+          TOTAL_CHANGES=$((${#FILTERS_ADDED[@]} + ${#FILTERS_REMOVED[@]} + ${#ACTIONS_ADDED[@]} + ${#ACTIONS_REMOVED[@]} + ${#VIEWS_CHANGED[@]}))
 
-          if [ "$OUTPUT_FORMAT" = "changelog" ]; then
+          if [ $TOTAL_CHANGES -eq 0 ]; then
+            echo "changes-detected=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes-detected=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create changelog entry
+        id: create-changelog
+        if: steps.analyze-changes.outputs.changes-detected == 'true'
+        run: |
+          # Generate changelog content
+          CHANGELOG_ENTRIES=()
+
+          if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+            CHANGELOG_ENTRIES+=("* Tweak - Added filters: \`$(IFS='`, `'; echo "${FILTERS_ADDED[*]}")\`")
+          fi
+          if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+            CHANGELOG_ENTRIES+=("* Tweak - Removed filters: \`$(IFS='`, `'; echo "${FILTERS_REMOVED[*]}")\`")
+          fi
+          if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+            CHANGELOG_ENTRIES+=("* Tweak - Added actions: \`$(IFS='`, `'; echo "${ACTIONS_ADDED[*]}")\`")
+          fi
+          if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+            CHANGELOG_ENTRIES+=("* Tweak - Removed actions: \`$(IFS='`, `'; echo "${ACTIONS_REMOVED[*]}")\`")
+          fi
+          if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+            CHANGELOG_ENTRIES+=("* Tweak - Changed views: \`$(IFS='`, `'; echo "${VIEWS_CHANGED[*]}")\`")
+          fi
+
+          # Create changelog entry
+          if [ ${#CHANGELOG_ENTRIES[@]} -gt 0 ]; then
+            # Create changelog directory if it doesn't exist
+            mkdir -p changelog
+
+            # Generate filename
+            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+            SHA_SHORT=$(git rev-parse --short ${{ github.sha }})
+            FILENAME="task-analyze-changes-$TIMESTAMP-$SHA_SHORT"
+
+            # Create changelog file
+            {
+              echo "---"
+              echo "type: tweak"
+              echo "significance: patch"
+              echo "---"
+              echo ""
+              for entry in "${CHANGELOG_ENTRIES[@]}"; do
+                echo "$entry"
+              done
+            } > "changelog/$FILENAME.md"
+
+            echo "changelog-file=$FILENAME.md" >> $GITHUB_OUTPUT
+            echo "Created changelog entry: changelog/$FILENAME.md"
+          fi
+
+      - name: Set output for analysis summary
+        id: set-summary
+        run: |
+          if [ "${{ steps.analyze-changes.outputs.changes-detected }}" == "true" ]; then
+            # Generate summary for display
+            SUMMARY=""
             if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
               SUMMARY+="* Tweak - Added filters: \`$(IFS='`, `'; echo "${FILTERS_ADDED[*]}")\`\n"
             fi
@@ -119,90 +177,22 @@ jobs:
             if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
               SUMMARY+="* Tweak - Changed views: \`$(IFS='`, `'; echo "${VIEWS_CHANGED[*]}")\`\n"
             fi
-          elif [ "$OUTPUT_FORMAT" = "list" ]; then
-            if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
-              SUMMARY+="Added filters:\n"
-              for filter in "${FILTERS_ADDED[@]}"; do
-                SUMMARY+="- $filter\n"
-              done
-            fi
-            if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
-              SUMMARY+="Removed filters:\n"
-              for filter in "${FILTERS_REMOVED[@]}"; do
-                SUMMARY+="- $filter\n"
-              done
-            fi
-            if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
-              SUMMARY+="Added actions:\n"
-              for action in "${ACTIONS_ADDED[@]}"; do
-                SUMMARY+="- $action\n"
-              done
-            fi
-            if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
-              SUMMARY+="Removed actions:\n"
-              for action in "${ACTIONS_REMOVED[@]}"; do
-                SUMMARY+="- $action\n"
-              done
-            fi
-            if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
-              SUMMARY+="Changed views:\n"
-              for view in "${VIEWS_CHANGED[@]}"; do
-                SUMMARY+="- $view\n"
-              done
-            fi
+
+            # Escape for GitHub Actions output
+            SUMMARY_ESCAPED=$(echo -e "$SUMMARY" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
+            echo "summary=$SUMMARY_ESCAPED" >> $GITHUB_OUTPUT
           else
-            # HTML format
-            if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
-              SUMMARY+="<h4>Filters added</h4>\n<ul>\n"
-              for filter in "${FILTERS_ADDED[@]}"; do
-                SUMMARY+="\t<li><samp>$filter</samp></li>\n"
-              done
-              SUMMARY+="</ul>\n"
-            fi
-            if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
-              SUMMARY+="<h4>Filters removed</h4>\n<ul>\n"
-              for filter in "${FILTERS_REMOVED[@]}"; do
-                SUMMARY+="\t<li><samp>$filter</samp></li>\n"
-              done
-              SUMMARY+="</ul>\n"
-            fi
-            if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
-              SUMMARY+="<h4>Actions added</h4>\n<ul>\n"
-              for action in "${ACTIONS_ADDED[@]}"; do
-                SUMMARY+="\t<li><samp>$action</samp></li>\n"
-              done
-              SUMMARY+="</ul>\n"
-            fi
-            if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
-              SUMMARY+="<h4>Actions removed</h4>\n<ul>\n"
-              for action in "${ACTIONS_REMOVED[@]}"; do
-                SUMMARY+="\t<li><samp>$action</samp></li>\n"
-              done
-              SUMMARY+="</ul>\n"
-            fi
-            if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
-              SUMMARY+="<h4>Views</h4>\n<ul>\n"
-              for view in "${VIEWS_CHANGED[@]}"; do
-                SUMMARY+="\t<li><samp>$view</samp></li>\n"
-              done
-              SUMMARY+="</ul>\n"
-            fi
+            echo "summary=No changes detected" >> $GITHUB_OUTPUT
           fi
-
-          # Check if any changes were detected
-          TOTAL_CHANGES=$((${#FILTERS_ADDED[@]} + ${#FILTERS_REMOVED[@]} + ${#ACTIONS_ADDED[@]} + ${#ACTIONS_REMOVED[@]} + ${#VIEWS_CHANGED[@]}))
-
-          if [ $TOTAL_CHANGES -eq 0 ]; then
-            SUMMARY="No changes detected"
-            echo "changes-detected=false" >> $GITHUB_OUTPUT
-          else
-            echo "changes-detected=true" >> $GITHUB_OUTPUT
-          fi
-
-          # Escape for GitHub Actions output
-          SUMMARY_ESCAPED=$(echo -e "$SUMMARY" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
-          echo "summary=$SUMMARY_ESCAPED" >> $GITHUB_OUTPUT
 
           # Display in step summary
           echo "## Change Analysis" >> $GITHUB_STEP_SUMMARY
-          echo -e "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.analyze-changes.outputs.changes-detected }}" == "true" ]; then
+            echo -e "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+            if [ -n "${{ steps.create-changelog.outputs.changelog-file }}" ]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "**Changelog entry created**: \`changelog/${{ steps.create-changelog.outputs.changelog-file }}\`" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "No changes detected" >> $GITHUB_STEP_SUMMARY
+          fi

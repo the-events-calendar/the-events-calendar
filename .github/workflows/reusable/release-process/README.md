@@ -21,6 +21,24 @@ This directory contains reusable workflow components for the release process. Th
 - `translation-summary`: Summary of translation changes
 - `changes-made`: Whether any changes were made
 
+### analyze-changes.yml
+**Purpose**: Analyzes git changes to detect filters, actions, and views modifications
+
+**Inputs**:
+- `compare-commit`: Commit to compare against (default: latest tag)
+- `additional-inputs`: Additional inputs to pass through (JSON string, default: "{}")
+
+**Outputs**:
+- `analysis-summary`: Summary of analyzed changes
+- `changes-detected`: Whether any changes were detected
+
+**Features**:
+- Detects added/removed `apply_filters()` calls
+- Detects added/removed `do_action()` calls
+- Detects changed view files
+- Creates changelog entries in `./changelog/` folder
+- Generates entries with type "tweak" and significance "patch"
+
 ### process-changelog.yml
 **Purpose**: Processes changelog entries for a release
 
@@ -34,24 +52,6 @@ This directory contains reusable workflow components for the release process. Th
 **Outputs**:
 - `changelog-content`: The new changelog entry that was generated
 - `changes-made`: Whether any changes were made
-
-### analyze-changes.yml
-**Purpose**: Analyzes git changes to detect filters, actions, and views modifications
-
-**Inputs**:
-- `compare-commit`: Commit to compare against (default: latest tag)
-- `output-format`: Output format - changelog, list, or html (default: "changelog")
-- `additional-inputs`: Additional inputs to pass through (JSON string, default: "{}")
-
-**Outputs**:
-- `analysis-summary`: Summary of analyzed changes
-- `changes-detected`: Whether any changes were detected
-
-**Features**:
-- Detects added/removed `apply_filters()` calls
-- Detects added/removed `do_action()` calls
-- Detects changed view files
-- Supports multiple output formats (changelog, list, HTML)
 
 ### replace-tbd-entries.yml
 **Purpose**: Replaces TBD entries with the current version
@@ -69,8 +69,8 @@ This directory contains reusable workflow components for the release process. Th
 ### Individual Usage
 Each workflow can be run individually by calling the corresponding workflow file in `.github/workflows/`:
 - `release-sync-translations.yml`
-- `release-process-changelog.yml`
 - `release-analyze-changes.yml`
+- `release-process-changelog.yml`
 - `release-replace-tbd-entries.yml`
 
 When run individually, these workflows will:
@@ -79,6 +79,16 @@ When run individually, these workflows will:
 
 ### Orchestrated Usage
 Use the main orchestration workflow `main-release.yml` to run all steps in sequence and create a single PR with all changes.
+
+## Workflow Sequence
+
+The recommended sequence for running workflows individually:
+1. **analyze-changes** → 2. **process-changelog** → 3. **sync-translations** → 4. **replace-tbd-entries**
+
+This sequence ensures that:
+- Change analysis creates changelog entries that can be processed
+- Changelog processing includes all generated entries
+- Translation sync and TBD replacement complete the release preparation
 
 ## Design Principles
 
@@ -108,11 +118,11 @@ Individual Workflow Files (.github/workflows/)
 ├── release-sync-translations.yml
 │   ├── Calls reusable/sync-translations.yml
 │   └── Creates PR if run individually
-├── release-process-changelog.yml
-│   ├── Calls reusable/process-changelog.yml
-│   └── Creates PR if run individually
 ├── release-analyze-changes.yml
 │   ├── Calls reusable/analyze-changes.yml
+│   └── Creates PR if run individually
+├── release-process-changelog.yml
+│   ├── Calls reusable/process-changelog.yml
 │   └── Creates PR if run individually
 └── release-replace-tbd-entries.yml
     ├── Calls reusable/replace-tbd-entries.yml
