@@ -14,7 +14,7 @@ tribe.events.categoryColors = tribe.events.categoryColors || {};
  * @since TBD
  * @type {PlainObject}
  */
-tribe.events.categoryColors.categoryPicker = ( function() {
+tribe.events.categoryColors.categoryPicker = ( function () {
 	'use strict';
 
 	// =====================
@@ -35,20 +35,35 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		childParentPairs: [
 			{ child: '.tribe-events-calendar-list__event', parent: '.tribe-events-calendar-list__event-row' },
 			{ child: '.tribe-events-calendar-day__event', parent: '.tribe-events-calendar-day__event' },
-			{ child: '.tribe-events-calendar-month__calendar-event', parent: '.tribe-events-calendar-month__calendar-event-wrapper' },
+			{
+				child: '.tribe-events-calendar-month__calendar-event',
+				parent: '.tribe-events-calendar-month__calendar-event-wrapper'
+			},
 			{ child: '.tribe-events-pro-summary__event', parent: '.tribe-events-pro-summary__event' },
 			{ child: '.tribe-events-pro-photo__event', parent: '.tribe-events-pro-photo__event' },
 			{ child: '.tribe-events-pro-week-grid__event', parent: '.tribe-events-pro-week-grid__event' },
-			{ child: '.tribe-events-pro-week-grid__multiday-event', parent: '.tribe-events-pro-week-grid__multiday-event-wrapper' },
-			{ child: '.tribe-events-calendar-month__multiday-event', parent: '.tribe-events-calendar-month__multiday-event' },
-			{ child: '.tribe-events-calendar-month-mobile-events__mobile-event', parent: '.tribe-events-calendar-month-mobile-events__mobile-event-row' },
-			{ child: '.tribe-events-pro-week-mobile-events__event', parent: '.tribe-events-pro-week-mobile-events__event-row' },
+			{
+				child: '.tribe-events-pro-week-grid__multiday-event',
+				parent: '.tribe-events-pro-week-grid__multiday-event-wrapper'
+			},
+			{
+				child: '.tribe-events-calendar-month__multiday-event',
+				parent: '.tribe-events-calendar-month__multiday-event'
+			},
+			{
+				child: '.tribe-events-calendar-month-mobile-events__mobile-event',
+				parent: '.tribe-events-calendar-month-mobile-events__mobile-event-row'
+			},
+			{
+				child: '.tribe-events-pro-week-mobile-events__event',
+				parent: '.tribe-events-pro-week-mobile-events__event-row'
+			},
 			{ child: '.tribe-events-pro-map__event-card-wrapper', parent: '.tribe-events-pro-map__event-card-row' },
 		],
 		filteredHide: 'tec-category-filtered-hide',
 		colorCircle: 'tec-events-category-color-filter__color-circle',
 		colorCircleDefault: 'tec-events-category-color-filter__color-circle--default',
-		colorCircleDefaultN: n => `tec-events-category-color-filter__color-circle--default-${n}`,
+		colorCircleDefaultN: n => `tec-events-category-color-filter__color-circle--default-${ n }`,
 		pickerContainer: '.tec-events-category-color-filter',
 	};
 
@@ -90,14 +105,14 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @since TBD
 	 * @return {HTMLElement[]} Array of event elements.
 	 */
-	const getEventElements = () => SELECTORS.childParentPairs.flatMap(pair => [...document.querySelectorAll(pair.child)]);
+	const getEventElements = () => SELECTORS.childParentPairs.flatMap( pair => [ ...document.querySelectorAll( pair.child ) ] );
 
 	/**
 	 * Returns all event parent elements matching the parent selectors in childParentPairs.
 	 * @since TBD
 	 * @return {HTMLElement[]} Array of parent elements.
 	 */
-	const getEventParentElements = () => SELECTORS.childParentPairs.flatMap(pair => [...document.querySelectorAll(pair.parent)]);
+	const getEventParentElements = () => SELECTORS.childParentPairs.flatMap( pair => [ ...document.querySelectorAll( pair.parent ) ] );
 
 	// =====================
 	// Dropdown Handling
@@ -111,17 +126,25 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 */
 	const toggleDropdown = event => {
 		// Prevent toggling if the click is inside the dropdown (e.g., on a checkbox)
-		const dropdown = qs(SELECTORS.dropdown);
-		if (dropdown && dropdown.contains(event.target)) {
+		const dropdown = qs( SELECTORS.dropdown );
+		if ( dropdown && dropdown.contains( event.target ) ) {
 			return;
 		}
 		event.stopPropagation();
 		const picker = event.currentTarget;
-		if (!dropdown) return;
-		if (isDropdownOpen(dropdown)) {
-			closeDropdown(picker, dropdown);
+		if ( ! dropdown ) {
+			return;
+		}
+		if ( isDropdownOpen( dropdown ) ) {
+			closeDropdown(
+				picker,
+				dropdown
+			);
 		} else {
-			openDropdown(picker, dropdown);
+			openDropdown(
+				picker,
+				dropdown
+			);
 		}
 	};
 
@@ -135,7 +158,10 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const openDropdown = ( picker, dropdown ) => {
 		dropdown.classList.add( SELECTORS.dropdownVisible );
 		picker.classList.add( SELECTORS.pickerOpen );
-		adjustDropdownPosition( picker, dropdown );
+		adjustDropdownPosition(
+			picker,
+			dropdown
+		);
 	};
 
 	/**
@@ -165,17 +191,20 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const handleDropdownClose = event => {
-		const clickedInsideAnyPicker = event.target.closest(SELECTORS.pickerContainer);
-		if (clickedInsideAnyPicker) {
+		const clickedInsideAnyPicker = event.target.closest( SELECTORS.pickerContainer );
+		if ( clickedInsideAnyPicker ) {
 			return;
 		}
 		// Close *all* dropdowns
-		qsa(SELECTORS.picker).forEach(picker => {
-			const dropdown = picker.querySelector(SELECTORS.dropdown);
-			if (dropdown && isDropdownOpen(dropdown)) {
-				closeDropdown(picker, dropdown);
+		qsa( SELECTORS.picker ).forEach( picker => {
+			const dropdown = picker.querySelector( SELECTORS.dropdown );
+			if ( dropdown && isDropdownOpen( dropdown ) ) {
+				closeDropdown(
+					picker,
+					dropdown
+				);
 			}
-		});
+		} );
 	};
 
 	/**
@@ -198,19 +227,22 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		}
 
 		// Reset dropdown styles
-		Object.assign( dropdown.style, {
-			left: '',
-			right: '',
-			top: '',
-			position: 'absolute',
-		} );
+		Object.assign(
+			dropdown.style,
+			{
+				left: '',
+				right: '',
+				top: '',
+				position: 'absolute',
+			}
+		);
 
 		const { left } = picker.getBoundingClientRect();
-		const vw = window.innerWidth;
+		const viewWidth = window.innerWidth;
 		const verticalOffset = picker.offsetHeight;
 
 		// Anchor based on proximity to screen edge
-		if ( left > vw / 2 ) {
+		if ( ( left > viewWidth ) / 2 ) {
 			dropdown.style.right = '0px';
 		} else {
 			dropdown.style.left = '0px';
@@ -220,14 +252,21 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 
 		// Prevent vertical overflow
 		const dropdownBottom = dropdown.getBoundingClientRect().bottom;
-		const maxBottom = window.innerHeight - 8;
+		const innerPadding = -8;
+		const maxBottom = window.innerHeight - innerPadding;
 		if ( dropdownBottom > maxBottom ) {
-			dropdown.style.top = `${ verticalOffset - ( dropdownBottom - maxBottom ) }px`;
+			const adjustment = dropdownBottom - maxBottom;
+			const newTop = verticalOffset - adjustment;
+			dropdown.style.top = `${ newTop }px`;
 		}
 
 		// Retry once if not visible (e.g. due to transition or layout shift)
 		if ( ! retry && ! isFullyVisible( dropdown ) ) {
-			requestAnimationFrame( () => adjustDropdownPosition( picker, dropdown, true ) );
+			requestAnimationFrame( () => adjustDropdownPosition(
+				picker,
+				dropdown,
+				true
+			) );
 		}
 	};
 
@@ -238,7 +277,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @param {HTMLElement} el The element to check.
 	 * @return {boolean} True if fully visible, false otherwise.
 	 */
-	const isFullyVisible = (el) => {
+	const isFullyVisible = ( el ) => {
 		const rect = el.getBoundingClientRect();
 		const pad = 8;
 		return (
@@ -258,34 +297,50 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @since TBD
 	 */
 	const renderLegend = () => {
-		const legendContainer = document.getElementById('tec-category-color-legend');
-		if (!legendContainer) return;
+		const legendContainer = document.getElementById( 'tec-category-color-legend' );
+		if ( ! legendContainer ) {
+			return;
+		}
 		legendContainer.innerHTML = '';
 
 		// If categories are selected, show only those (up to 5)
-		if (selectedCategories.size > 0) {
-			const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
+		if ( selectedCategories.size > 0 ) {
+			const selected = Array.from( selectedCategories )
+				.slice(
+					0,
+					DEFAULT_BUBBLE_COUNT
+				);
 
-			selected.forEach(slug => {
-				const span = document.createElement('span');
-				span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
-				legendContainer.appendChild(span);
-			});
+			selected.forEach( slug => {
+				const span = document.createElement( 'span' );
+				span.classList.add(
+					SELECTORS.colorCircle,
+					`tribe_events_cat-${ slug }`
+				);
+				legendContainer.appendChild( span );
+			} );
 		} else {
 
 			// Get the first 5 checkboxes from the dropdown
-			const labels = qsa(SELECTORS.dropdownLabel);
-			const firstFiveLabels = Array.from(labels).slice(0, DEFAULT_BUBBLE_COUNT);
+			const labels = qsa( SELECTORS.dropdownLabel );
+			const firstFiveLabels = Array.from( labels )
+				.slice(
+					0,
+					DEFAULT_BUBBLE_COUNT
+				);
 
 			// Render category bubbles from labels.
-			firstFiveLabels.forEach(checkbox => {
+			firstFiveLabels.forEach( checkbox => {
 				const categorySlug = checkbox.dataset.category;
-				if (categorySlug) {
-					const span = document.createElement('span');
-					span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${categorySlug}`);
-					legendContainer.appendChild(span);
+				if ( categorySlug ) {
+					const span = document.createElement( 'span' );
+					span.classList.add(
+						SELECTORS.colorCircle,
+						`tribe_events_cat-${ categorySlug }`
+					);
+					legendContainer.appendChild( span );
 				}
-			});
+			} );
 		}
 	};
 
@@ -310,17 +365,23 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const handleCheckboxChange = event => {
-		const checkbox = event.target.closest(SELECTORS.checkbox);
-		if (!checkbox) return;
-		const label = checkbox.closest('label');
-		if (!label) return;
+		const checkbox = event.target.closest( SELECTORS.checkbox );
+		if ( ! checkbox ) {
+			return;
+		}
+		const label = checkbox.closest( 'label' );
+		if ( ! label ) {
+			return;
+		}
 		const categorySlug = label.dataset.category;
-		if (!categorySlug) return;
+		if ( ! categorySlug ) {
+			return;
+		}
 
-		if (checkbox.checked) {
-			selectedCategories.add(categorySlug);
+		if ( checkbox.checked ) {
+			selectedCategories.add( categorySlug );
 		} else {
-			selectedCategories.delete(categorySlug);
+			selectedCategories.delete( categorySlug );
 		}
 		updateEventVisibility();
 		renderLegend();
@@ -334,21 +395,24 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const updateEventVisibility = () => {
 		const selectedArray = [ ...selectedCategories ];
 
-		getEventParentElements().forEach(parentEl => {
-			let catEl = parentEl;
+		getEventParentElements().forEach( eventContainer => {
+			let categoryElement = eventContainer;
 
 			// If the parent doesn't have a category class, check children
-			if (![...catEl.classList].some(cls => cls.startsWith('tribe_events_cat-'))) {
-				catEl = parentEl.querySelector('[class*="tribe_events_cat-"]');
+			if ( ! [ ...categoryElement.classList ].some( cls => cls.startsWith( 'tribe_events_cat-' ) ) ) {
+				categoryElement = eventContainer.querySelector( '[class*="tribe_events_cat-"]' );
 			}
 
-			const hasMatch = catEl ? eventHasMatchingCategory(catEl, selectedArray) : false;
+			const hasMatch = categoryElement ? eventHasMatchingCategory(
+				categoryElement,
+				selectedArray
+			) : false;
 
-			parentEl.classList.toggle(
+			eventContainer.classList.toggle(
 				SELECTORS.filteredHide,
-				selectedArray.length > 0 && !hasMatch
+				selectedArray.length > 0 && ! hasMatch
 			);
-		});
+		} );
 	};
 
 	/**
@@ -374,28 +438,39 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const monitorTECAjax = () => {
-		if ( ajaxHooked ) return;
+		if ( ajaxHooked ) {
+			return;
+		}
 		ajaxHooked = true;
 		const originalOpen = XMLHttpRequest.prototype.open;
-		XMLHttpRequest.prototype.open = function( method, url, ...args ) {
+		XMLHttpRequest.prototype.open = function ( method, url, ...args ) {
 			if ( url.includes( '/wp-json/tribe/views/v2/html' ) ) {
-				this.addEventListener( 'load', function() {
-					if ( this.readyState === 4 && this.status === 200 ) {
-						try {
-							// Ensure DOM is ready before re-applying filters
-							setTimeout( () => {
+				this.addEventListener(
+					'load',
+					function () {
+						if ( this.readyState === 4 && this.status === 200 ) {
+							try {
+								// Ensure DOM is ready before re-applying filters
+								setTimeout(
+									() => {
+										ensureBindings();
+										reapplyFilters();
+										renderLegend();
+									},
+									50
+								);
+							} catch ( error ) {
+								// Attempt recovery
 								ensureBindings();
-								reapplyFilters();
-								renderLegend();
-							}, 50 );
-						} catch ( error ) {
-							// Attempt recovery
-							ensureBindings();
+							}
 						}
 					}
-				} );
+				);
 			}
-			return originalOpen.apply( this, [ method, url, ...args ] );
+			return originalOpen.apply(
+				this,
+				[ method, url, ...args ]
+			);
 		};
 	};
 
@@ -405,14 +480,14 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 */
 	const reapplyFilters = () => {
 		// Re-check checkboxes to match selectedCategories
-        qsa(SELECTORS.checkbox).forEach(checkbox => {
-            const label = checkbox.closest('label');
-            const cat = label?.dataset.category;
-            if (cat) {
-                checkbox.checked = selectedCategories.has(cat);
-            }
-        });
-        
+		qsa( SELECTORS.checkbox ).forEach( checkbox => {
+			const label = checkbox.closest( 'label' );
+			const cat = label?.dataset.category;
+			if ( cat ) {
+				checkbox.checked = selectedCategories.has( cat );
+			}
+		} );
+
 		updateEventVisibility();
 		renderLegend();
 	};
@@ -428,17 +503,25 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const ensureBindings = ( retryCount = 0 ) => {
-		if ( retryCount > 5 ) return;
+		if ( retryCount > 5 ) {
+			return;
+		}
 		requestAnimationFrame( () => {
 			const picker = qs( SELECTORS.picker );
-			if ( !picker ) {
-				setTimeout( () => ensureBindings( retryCount + 1 ), 50 );
+			if ( ! picker ) {
+				setTimeout(
+					() => ensureBindings( retryCount + 1 ),
+					50
+				);
 				return;
 			}
 			cleanupBindings();
-			if ( !isBound( picker ) ) {
+			if ( ! isBound( picker ) ) {
 				bindEvents();
-				picker.setAttribute( SELECTORS.dataBound, 'true' );
+				picker.setAttribute(
+					SELECTORS.dataBound,
+					'true'
+				);
 			}
 		} );
 	};
@@ -450,7 +533,9 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 */
 	const cleanupBindings = () => {
 		const picker = qs( SELECTORS.picker );
-		if ( !picker || !isBound( picker ) ) return;
+		if ( ! picker || ! isBound( picker ) ) {
+			return;
+		}
 		picker.removeAttribute( SELECTORS.dataBound );
 	};
 
@@ -468,35 +553,61 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const bindEvents = () => {
-		const picker = qs(SELECTORS.picker);
-		const closeButton = qs(SELECTORS.dropdownClose);
-		const resetButton = qs(SELECTORS.resetButton);
-		if (picker) {
-			picker.addEventListener('click', toggleDropdown);
+		const picker = qs( SELECTORS.picker );
+		const closeButton = qs( SELECTORS.dropdownClose );
+		const resetButton = qs( SELECTORS.resetButton );
+		if ( picker ) {
+			picker.addEventListener(
+				'click',
+				toggleDropdown
+			);
 		}
-		document.addEventListener('click', handleDropdownClose);
+		document.addEventListener(
+			'click',
+			handleDropdownClose
+		);
 		// Event delegation for checkboxes
-		const grid = qs(SELECTORS.dropdown);
-		if (grid) {
-			grid.addEventListener('change', handleCheckboxChange);
+		const grid = qs( SELECTORS.dropdown );
+		if ( grid ) {
+			grid.addEventListener(
+				'change',
+				handleCheckboxChange
+			);
 		}
-		if (closeButton) {
-			closeButton.addEventListener('click', event => {
-				event.stopPropagation();
-				const picker = qs(SELECTORS.picker);
-				const dropdown = qs(SELECTORS.dropdown);
-				if (picker && dropdown) closeDropdown(picker, dropdown);
-			});
+		if ( closeButton ) {
+			closeButton.addEventListener(
+				'click',
+				event => {
+					event.stopPropagation();
+					const picker = qs( SELECTORS.picker );
+					const dropdown = qs( SELECTORS.dropdown );
+					if ( picker && dropdown ) {
+						closeDropdown(
+							picker,
+							dropdown
+						);
+					}
+				}
+			);
 		}
-		if (resetButton) {
-			resetButton.addEventListener('click', resetSelection);
+		if ( resetButton ) {
+			resetButton.addEventListener(
+				'click',
+				resetSelection
+			);
 		}
 		// MutationObserver to clean up bindings if DOM changes
-		if (!observer) {
-			observer = new MutationObserver(cleanupBindings);
-			observer.observe(document.body, { childList: true, subtree: true });
+		if ( ! observer ) {
+			observer = new MutationObserver( cleanupBindings );
+			observer.observe(
+				document.body,
+				{ childList: true, subtree: true }
+			);
 		}
-		window.addEventListener('beforeunload', cleanupBindings);
+		window.addEventListener(
+			'beforeunload',
+			cleanupBindings
+		);
 	};
 
 	// =====================
@@ -514,7 +625,10 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		renderLegend();
 	};
 
-	document.addEventListener( 'DOMContentLoaded', init );
+	document.addEventListener(
+		'DOMContentLoaded',
+		init
+	);
 
 	// =============
 	// Export (public API only)
