@@ -312,6 +312,8 @@ export default function EventLocation( props: FieldProps ) {
 		.map( ( id ) => fetched.current.find( ( venue ) => venue.id === id ) )
 		.filter( ( venue ) => venue !== undefined );
 
+	const hasVenues = currentVenueIds.length > 0;
+
 	return (
 		<div className="classy-field classy-field--event-location">
 			<div className="classy-field__title">
@@ -319,13 +321,13 @@ export default function EventLocation( props: FieldProps ) {
 			</div>
 
 			<div className="classy-field__inputs classy-field__inputs--boxed">
-				{ currentVenueIds.length > 0 && (
+				{ hasVenues && (
 					<div className="classy-field__inputs-section">
 						<VenueCards venues={ orderedVenues } onEdit={ onVenueEdit } onRemove={ onVenueRemove } />
 					</div>
 				) }
 
-				{ isAdding && currentVenueIds.length > 0 && <span className="classy_section-separator"></span> }
+				{ isAdding && hasVenues && <span className="classy_section-separator"></span> }
 
 				{ currentVenueIds.length < venuesLimit && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
@@ -372,7 +374,7 @@ export default function EventLocation( props: FieldProps ) {
 							</Fragment>
 						) }
 
-						{ ! isAdding && currentVenueIds.length > 0 && currentVenueIds.length < venuesLimit && (
+						{ ! isAdding && hasVenues && currentVenueIds.length < venuesLimit && (
 							<div className="classy-field__input">
 								<Button
 									variant="link"
@@ -391,7 +393,7 @@ export default function EventLocation( props: FieldProps ) {
 					</div>
 				) }
 
-				{ currentVenueIds.length > 0 && isAdding && (
+				{ hasVenues && isAdding && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row">
 						<Button
 							variant="link"
