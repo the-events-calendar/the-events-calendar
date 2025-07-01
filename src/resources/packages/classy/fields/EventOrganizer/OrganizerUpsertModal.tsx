@@ -12,8 +12,6 @@ export default function OrganizerUpsertModal( props: {
 } ) {
 	const { isUpdate, onCancel, onClose, onSave, values } = props;
 
-	console.log( 'isUpdate', isUpdate );
-
 	return (
 		<Modal
 			__experimentalHideHeader={ true }

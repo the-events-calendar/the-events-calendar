@@ -4,17 +4,16 @@ import { CustomSelectOption } from '@wordpress/components/build-types/custom-sel
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useState } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
-import { addQueryArgs } from '@wordpress/url';
 import { Fragment, MouseEventHandler, useRef } from 'react';
 import { IconAdd } from '@tec/common/classy/components';
 import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
-import apiFetch from '@wordpress/api-fetch';
 import { FetchedOrganizer } from '../../types/FetchedOrganizer';
 import { METADATA_EVENT_ORGANIZER_ID } from '../../constants';
 import { OrganizerData } from '../../types/OrganizerData';
+import { fetchOrganizers, upsertOrganizer } from '../../api/organizers';
 
 function buildOptionFromFetchedOrganizer( organizer: FetchedOrganizer ): CustomSelectOption {
 	return {
@@ -95,62 +94,40 @@ export default function EventOrganizer( props: FieldProps ) {
 	const fetched = useRef( [] as FetchedOrganizer[] );
 
 	useEffect( () => {
-		apiFetch( {
-			path: addQueryArgs( '/tribe/events/v1/organizers', {
-				page: pageToFetch,
-			} ),
-		} )
-			.then( ( results ) => {
-				// The return value should be an object, else log a console error.
-				if ( ! ( results && typeof results === 'object' ) ) {
-					console.error( 'Organizers fetch request did not return an object.' );
-					return;
-				}
-
-				// Check that the object has an `organizers` property, else log a console error.
-				if ( ! ( results.hasOwnProperty( 'organizers' ) && results.hasOwnProperty( 'total' ) ) ) {
-					console.error(
-						'Organizers fetch request did not return an object with organizers and total properties.'
-					);
-					return;
-				}
-
-				// Check that the `organizers` property is an array, else log a console error.
-				if ( ! Array.isArray( ( results as { organizers: any } ).organizers ) ) {
-					console.error( 'Organizer fetch request did not return an array.' );
-					return;
-				}
+		const fetchOrganizersData = async () => {
+			try {
+				const result = await fetchOrganizers( pageToFetch );
 
 				// Check that the organizers array is not empty, else return.
-				if ( ( results as { organizers: any[] } ).organizers.length === 0 ) {
+				if ( result.organizers.length === 0 ) {
 					return;
 				}
 
-				const safeResults = results as {
-					organizers: FetchedOrganizer[];
-					total: number;
-				};
-
 				// Update the number of pages to fetch if the total is more than the number of fetched options.
-				if ( safeResults.total > fetched.current.length + safeResults.organizers.length ) {
+				if ( result.total > fetched.current.length + result.organizers.length ) {
 					setPageToFetch( pageToFetch + 1 );
 				}
 
 				// Update the fetched set of organizers by making sure a new version of organizers will override the already fetched version.
-				const safeResultIds = new Set( safeResults.organizers.map( ( org ) => org.id ) );
+				const safeResultIds = new Set( result.organizers.map( ( org ) => org.id ) );
 				fetched.current = [
 					...fetched.current.filter( ( org ) => ! safeResultIds.has( org.id ) ),
-					...safeResults.organizers,
+					...result.organizers,
 				];
 
 				// Update the options to all the so-far fetched options minus the current organizers ids.
 				// Why not just add to the options? They might have been modified by a user removal or selection in the meanwhile.
 				// Since we're recalculating them anyway, just make sure they are up to date.
 				setOptions( getUpdatedOptions( fetched.current, currentOrganizerIds ) );
-			} )
-			.catch( ( e ) => {
+			} catch ( e ) {
 				console.error( `Organizer fetch request failed for page ${ pageToFetch }: ` + e.message );
-			} );
+				// Set fetched organizers to an empty array if an error occurs
+				fetched.current = [];
+				setOptions( getUpdatedOptions( fetched.current, currentOrganizerIds ) );
+			}
+		};
+
+		fetchOrganizersData();
 	}, [ pageToFetch ] );
 
 	const ref = useRef( null );
@@ -213,71 +190,54 @@ export default function EventOrganizer( props: FieldProps ) {
 	 *
 	 * @return {Promise<void>} A promise that resolves when the REST API replies.
 	 */
-	const upsertOrganizer = useCallback( ( organizerData: OrganizerData ) => {
-		let fetchPromise: Promise< FetchedOrganizer >;
+	const handleOrganizerUpsert = useCallback( async ( organizerData: OrganizerData ) => {
+		try {
+			// Call the extracted upsertOrganizer function
+			const organizerId = await upsertOrganizer( organizerData );
 
-		if ( organizerData.id ) {
-			// Updating an existing organizer.
-			fetchPromise = apiFetch( {
-				path: `/tribe/events/v1/organizers/${ organizerData.id }`,
-				method: 'PUT',
-				data: {
-					organizer: organizerData.name,
-					phone: organizerData.phone,
-					email: organizerData.email,
-					website: organizerData.website,
-				},
-			} );
-		} else {
-			// Creating a new organizer.
-			fetchPromise = apiFetch( {
-				path: '/tribe/events/v1/organizers',
-				method: 'POST',
-				data: {
-					organizer: organizerData.name,
-					phone: organizerData.phone,
-					email: organizerData.email,
-					website: organizerData.website,
-				},
-			} );
+			// Get the organizer data from the API response
+			const data: FetchedOrganizer = {
+				id: organizerId,
+				organizer: organizerData.name,
+				phone: organizerData.phone,
+				email: organizerData.email,
+				website: organizerData.website,
+				url: '', // This field is required by the FetchedOrganizer type but not used in the component
+			};
+
+			setIsUpserting( false );
+
+			const index: number = fetched.current.findIndex( ( organizer ) => organizer.id === data.id );
+
+			if ( index === -1 ) {
+				// A new organizer has been created: add it to the fetched set of organizers.
+				fetched.current.push( data );
+
+				// Add the organizer ID to the list of current organizer IDs: we assume the user created the Organizer to add it.
+				const newCurrentOrganizerIds = [ ...currentOrganizerIds, data.id ];
+				setCurrentOrganizerIds( newCurrentOrganizerIds );
+
+				// Update the post meta to track the new organizer IDs.
+				editPost( {
+					meta: {
+						[ METADATA_EVENT_ORGANIZER_ID ]: newCurrentOrganizerIds,
+					},
+				} );
+
+				// Update the options to the new set of organizers; this will trigger a re-render.
+				setOptions( getUpdatedOptions( fetched.current, newCurrentOrganizerIds ) );
+			} else {
+				// An organizer has been updated: update it in the set of fetched organizers.
+				fetched.current[ index ] = data;
+				// Update the options to the new set; this will trigger a re-render.
+				setOptions( getUpdatedOptions( fetched.current, currentOrganizerIds ) );
+			}
+		} catch ( error ) {
+			setIsUpserting( false );
+			// Set the page to fetch to 0 to make sure all the Organizers will be re-fetched.
+			setPageToFetch( 0 );
+			console.error( 'Organizer upsert request failed: ' + error.message );
 		}
-
-		fetchPromise
-			.then( ( data: FetchedOrganizer ) => {
-				setIsUpserting( false );
-
-				const index: number = fetched.current.findIndex( ( organizer ) => organizer.id === data.id );
-
-				if ( index === -1 ) {
-					// A new organizer has been created: add it to the fetched set of organizers.
-					fetched.current.push( data );
-
-					// Add the organizer ID to the list of current organizer IDs: we assume the user created the Organizer to add it.
-					const newCurrentOrganizerIds = [ ...currentOrganizerIds, data.id ];
-					setCurrentOrganizerIds( newCurrentOrganizerIds );
-
-					// Update the post meta to track the new organizer IDs.
-					editPost( {
-						meta: {
-							[ METADATA_EVENT_ORGANIZER_ID ]: newCurrentOrganizerIds,
-						},
-					} );
-
-					// Update the options to the new set of organizers; this will trigger a re-render.
-					setOptions( getUpdatedOptions( fetched.current, newCurrentOrganizerIds ) );
-				} else {
-					// An organizer has been updated: update it in the set of fetched organizers.
-					fetched.current[ index ] = data;
-					// Update the options to the new set; this will trigger a re-render.
-					setOptions( getUpdatedOptions( fetched.current, currentOrganizerIds ) );
-				}
-			} )
-			.catch( ( error ) => {
-				setIsUpserting( false );
-				// Set the page to fetch to 0 to make sure all the Organizers will be re-fetched.
-				setPageToFetch( 0 );
-				console.error( 'Organizer upsert request failed: ' + error.message );
-			} );
 	}, [] );
 
 	return (
@@ -377,7 +337,7 @@ export default function EventOrganizer( props: FieldProps ) {
 					<OrganizerUpsertModal
 						isUpdate={ isUpserting > 0 }
 						onCancel={ () => setIsUpserting( false ) }
-						onSave={ upsertOrganizer }
+						onSave={ handleOrganizerUpsert }
 						onClose={ () => setIsUpserting( false ) }
 						values={ getOrganizerData() }
 					/>
