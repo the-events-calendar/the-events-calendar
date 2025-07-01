@@ -33,6 +33,7 @@ if ( ! empty( $event->featured ) ) {
 				<?php $this->template( 'day/event/date', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/event/title', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/event/venue', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'day/event/category', [ 'event' => $event ] ); ?>
 			</header>
 
 			<?php $this->template( 'day/event/description', [ 'event' => $event ] ); ?>
