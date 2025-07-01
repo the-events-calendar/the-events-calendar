@@ -369,9 +369,9 @@
 						Calendar of Events		</h2>
 		<table
 			class="tribe-events-calendar-month"
-			aria-labelledby="tribe-events-calendar-header"
-			aria-readonly="true"
 			data-js="tribe-events-month-grid"
+			aria-readonly="true"
+			role="presentation"
 		>
 
 			
