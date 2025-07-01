@@ -10,7 +10,6 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.0.0
- *
  * @since TBD Removed link around featured image for accessibility update.
  *
  * @version TBD
@@ -41,9 +40,6 @@ $image_alt_attr = ! empty( $event->title )
 			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
 		<?php endif; ?>
 		alt="<?php echo esc_attr( $image_alt_attr ); ?>"
-		<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
-			title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
-		<?php endif; ?>
 		class="tribe-events-calendar-month__calendar-event-featured-image"
 	/>
 </div>

@@ -38,9 +38,6 @@ $image_alt_attr = ! empty( $event->title )
 			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
 		<?php endif; ?>
 		alt="<?php echo esc_attr( $image_alt_attr ); ?>"
-		<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
-			title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
-		<?php endif; ?>
 		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image"
 	/>
 </div>
