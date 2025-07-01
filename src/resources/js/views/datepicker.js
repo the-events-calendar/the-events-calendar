@@ -90,6 +90,12 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.keyCode = {
 		ENTER: 13,
+		ESCAPE: 27,
+		SPACE: 32,
+		LEFT: 37,
+		UP: 38,
+		RIGHT: 39,
+		DOWN: 40,
 	};
 
 	/**
@@ -649,6 +655,12 @@ tribe.events.views.datepicker = {};
 			.bootstrapDatepicker( obj.options )
 			.on( changeEvent, { container: $container }, changeHandler )
 			.on( 'show', { datepickerButton: $datepickerButton }, obj.handleShow )
+			.on( 'show', function() {
+				// Enhance accessibility when datepicker is shown
+				setTimeout(function() {
+					enhanceDatepickerA11yForAll();
+				}, 100);
+			})
 			.on(
 				'hide',
 				{ datepickerButton: $datepickerButton, input: $input, observer: obj.observer },
@@ -666,6 +678,20 @@ tribe.events.views.datepicker = {};
 
 		// deinit datepicker and event handlers before success
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container, viewSlug }, obj.deinit );
+
+		// Hook into month change events to re-apply accessibility enhancements
+		$container.on('handleMutationMonthChange.tribeEvents', function() {
+			setTimeout(function() {
+				enhanceDatepickerA11yForAll();
+			}, 50);
+		});
+
+		// Also hook into datepicker's own changeMonth event as backup
+		$input.on('changeMonth', function() {
+			setTimeout(function() {
+				enhanceDatepickerA11yForAll();
+			}, 50);
+		});
 
 		$container.trigger( 'afterDatepickerInit.tribeEvents', [ index, $container, data ] );
 	};
@@ -722,48 +748,363 @@ tribe.events.views.datepicker = {};
 	$( obj.ready );
 
 	/**
-	 * Enhance datepicker navigation controls for accessibility.
-	 * Adds role, tabindex, aria-label, and keyboard handlers to prev, next, and month switch buttons.
+	 * Enhances datepicker accessibility for keyboard navigation and screen readers.
+	 *
+	 * This function adds comprehensive accessibility support to Bootstrap datepicker components by:
+	 * - Adding proper ARIA roles, labels, and keyboard handlers to navigation controls
+	 * - Implementing roving tabindex pattern for grid-based navigation
+	 * - Supporting all datepicker views (days, months, years, decades)
+	 * - Managing focus tracking and auto-close behavior
+	 * - Providing Escape key support for closing datepicker
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
 	 */
 	function enhanceDatepickerA11yForAll() {
-		$('.datepicker:visible').each(function() {
-			var $datepicker = $(this);
+		// Target all currently visible datepicker views (days, months, years, decades)
+		var $datepickers = $('.datepicker:visible').find('.datepicker-days:visible, .datepicker-months:visible, .datepicker-years:visible, .datepicker-decades:visible');
 
-			$datepicker.find('th.prev')
-				.attr('role', 'button')
-				.attr('tabindex', '0')
-				.attr('aria-label', 'Previous month')
-				.off('keydown.a11y')
-				.on('keydown.a11y', function(e) {
-					if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
-						$(this).trigger('click');
+		// Clean up any existing accessibility event handlers first
+		$datepickers.find('th.prev, th.next, th.datepicker-switch, td.day, span.month, span.year, span.decade').off('.a11y');
+		$datepickers.closest('.datepicker').off('.a11y');
+		$datepickers.off('.a11y');
+
+		$datepickers.each(function() {
+			var $datepickerView = $(this);
+			var $datepickerContainer = $datepickerView.closest('.datepicker');
+
+			// Track if we're in the middle of a month change for this datepicker
+			var isChangingMonth = false;
+
+			/**
+			 * Header Controls Accessibility Enhancement
+			 */
+			// Enhanced keyboard navigation for header controls
+			var $headerControls = $datepickerView.find('th.prev, th.next, th.datepicker-switch');
+
+			$headerControls.each(function() {
+				var $control = $(this);
+				var isNext = $control.hasClass('next');
+				var isPrev = $control.hasClass('prev');
+				var isSwitch = $control.hasClass('datepicker-switch');
+				$control
+					.attr('role', 'button')
+					.attr('tabindex', '0')
+					.off('keydown.a11y focus.a11y click.a11y')
+					.on('focus.a11y', function() {
+						// Header control received focus
+					})
+					.on('click.a11y', function() {
+						if (isPrev || isNext) {
+							setTimeout(function() {
+								enhanceDatepickerA11yForAll();
+							}, 100);
+						}
+					})
+					.on('keydown.a11y', function(e) {
+						var key = e.key || (e.keyCode === obj.keyCode.LEFT ? 'ArrowLeft' : e.keyCode === obj.keyCode.RIGHT ? 'ArrowRight' : e.keyCode === obj.keyCode.DOWN ? 'ArrowDown' : e.keyCode === obj.keyCode.UP ? 'ArrowUp' : null);
+
+						// Handle activation keys
+						if (e.key === 'Enter' || e.key === ' ' || e.keyCode === obj.keyCode.ENTER || e.keyCode === obj.keyCode.SPACE) {
+							e.preventDefault();
+							e.stopPropagation();
+							$(this).trigger('click');
+
+							// If this was a navigation or view change, schedule accessibility re-application
+							if (isPrev || isNext || isSwitch) {
+								// Set the month changing flag to prevent focus tracking from closing datepicker
+								isChangingMonth = true;
+								setTimeout(function() {
+									isChangingMonth = false;
+								}, 300);
+
+								setTimeout(function() {
+									enhanceDatepickerA11yForAll();
+								}, 100);
+							}
+							return false;
+						}
+
+						// Handle arrow key navigation within header
+						if (key === 'ArrowLeft' && !isPrev) {
+							e.preventDefault();
+							e.stopPropagation();
+							if (isNext) {
+								$datepickerView.find('th.datepicker-switch').focus();
+							} else if (isSwitch) {
+								$datepickerView.find('th.prev').focus();
+							}
+							return false;
+						} else if (key === 'ArrowRight' && !isNext) {
+							e.preventDefault();
+							e.stopPropagation();
+							if (isPrev) {
+								$datepickerView.find('th.datepicker-switch').focus();
+							} else if (isSwitch) {
+								$datepickerView.find('th.next').focus();
+							}
+							return false;
+						} else if (key === 'ArrowDown') {
+							e.preventDefault();
+							e.stopPropagation();
+							// Move focus from header to first selectable cell based on view type
+							var $firstCell;
+							if ($datepickerView.hasClass('datepicker-days')) {
+								$firstCell = $datepickerView.find('td.day').first();
+							} else if ($datepickerView.hasClass('datepicker-months')) {
+								$firstCell = $datepickerView.find('span.month').first();
+							} else if ($datepickerView.hasClass('datepicker-years')) {
+								$firstCell = $datepickerView.find('span.year').first();
+							} else if ($datepickerView.hasClass('datepicker-decades')) {
+								$firstCell = $datepickerView.find('span.decade').first();
+							}
+
+							if ($firstCell && $firstCell.length) {
+								$firstCell.focus();
+							}
+							return false;
+						}
+					});
+
+				// Set appropriate aria-labels
+				if (isPrev) {
+					$control.attr('aria-label', 'Previous month');
+				} else if (isNext) {
+					$control.attr('aria-label', 'Next month');
+				} else if (isSwitch) {
+					$control.attr('aria-label', 'Select month and year');
+				}
+			});
+
+			/**
+			 * Cell Navigation Accessibility Enhancement
+			 */
+			// Enhance selectable cells for better keyboard navigation
+			// Different views have different selectable elements
+			var $selectableCells;
+			var cellType = '';
+
+			if ($datepickerView.hasClass('datepicker-days')) {
+				$selectableCells = $datepickerView.find('td.day');
+				cellType = 'day';
+			} else if ($datepickerView.hasClass('datepicker-months')) {
+				$selectableCells = $datepickerView.find('span.month');
+				cellType = 'month';
+			} else if ($datepickerView.hasClass('datepicker-years')) {
+				$selectableCells = $datepickerView.find('span.year');
+				cellType = 'year';
+			} else if ($datepickerView.hasClass('datepicker-decades')) {
+				$selectableCells = $datepickerView.find('span.decade');
+				cellType = 'decade';
+			} else {
+				$selectableCells = $();
+				cellType = 'unknown';
+			}
+
+
+			$selectableCells.each(function(index) {
+				var $cell = $(this);
+
+				// Make sure cells are focusable
+				// Set tabindex to 0 only for the first cell, -1 for others (roving tabindex pattern)
+				$cell.attr('tabindex', index === 0 ? '0' : '-1');
+
+				$cell.off('keydown.a11y focus.a11y keyup.a11y click.a11y').on('focus.a11y', function() {
+					// Implement roving tabindex
+					$selectableCells.attr('tabindex', '-1');
+					$(this).attr('tabindex', '0');
+				}).on('keydown.a11y', function(e) {
+					var key = e.key || (e.keyCode === obj.keyCode.LEFT ? 'ArrowLeft' : e.keyCode === obj.keyCode.RIGHT ? 'ArrowRight' : e.keyCode === obj.keyCode.DOWN ? 'ArrowDown' : e.keyCode === obj.keyCode.UP ? 'ArrowUp' : null);
+
+					var $currentCell = $(this);
+					var currentIndex = $selectableCells.index($currentCell);
+
+					// Navigation depends on the type of view
+					if (cellType === 'day') {
+						// Days are arranged in a 7-column grid
+						if (key === 'ArrowLeft') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $prevCell = $selectableCells.eq(currentIndex - 1);
+							if ($prevCell.length) {
+								$prevCell.focus();
+							}
+							return false;
+						} else if (key === 'ArrowRight') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $nextCell = $selectableCells.eq(currentIndex + 1);
+							if ($nextCell.length) {
+								$nextCell.focus();
+							}
+							return false;
+						} else if (key === 'ArrowUp') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $upCell = $selectableCells.eq(currentIndex - 7);
+							if ($upCell.length) {
+								$upCell.focus();
+							} else {
+								// If no day above, go to header
+								$datepickerView.find('th.datepicker-switch').focus();
+							}
+							return false;
+						} else if (key === 'ArrowDown') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $downCell = $selectableCells.eq(currentIndex + 7);
+							if ($downCell.length) {
+								$downCell.focus();
+							}
+							return false;
+						}
+					} else {
+						// Months, years, decades are arranged in 4 items per row
+						var itemsPerRow = 4;
+
+						if (key === 'ArrowLeft') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $prevCell = $selectableCells.eq(currentIndex - 1);
+							if ($prevCell.length) {
+								$prevCell.focus();
+							}
+							return false;
+						} else if (key === 'ArrowRight') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $nextCell = $selectableCells.eq(currentIndex + 1);
+							if ($nextCell.length) {
+								$nextCell.focus();
+							}
+							return false;
+						} else if (key === 'ArrowUp') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $upCell = $selectableCells.eq(currentIndex - itemsPerRow);
+							if ($upCell.length) {
+								$upCell.focus();
+							} else {
+								// If no item above, go to header
+								$datepickerView.find('th.datepicker-switch').focus();
+							}
+							return false;
+						} else if (key === 'ArrowDown') {
+							e.preventDefault();
+							e.stopPropagation();
+							var $downCell = $selectableCells.eq(currentIndex + itemsPerRow);
+							if ($downCell.length) {
+								$downCell.focus();
+							}
+							return false;
+						}
+					}
+
+					// Enter/Space activation works for all views
+					if (key === 'Enter' || key === ' ' || e.keyCode === obj.keyCode.ENTER || e.keyCode === obj.keyCode.SPACE) {
 						e.preventDefault();
+						e.stopPropagation();
+
+						// Set changing flag for view changes (months/years/decades can change views)
+						if (cellType !== 'day') {
+							isChangingMonth = true;
+							setTimeout(function() {
+								isChangingMonth = false;
+							}, 300);
+						}
+
+						$currentCell.trigger('click');
+						return false;
+					}
+				}).on('click.a11y', function() {
+					// Handle direct clicks on cells that might change views
+					if (cellType !== 'day') {
+						isChangingMonth = true;
+						setTimeout(function() {
+							isChangingMonth = false;
+						}, 300);
 					}
 				});
+			});
 
-			$datepicker.find('th.next')
-				.attr('role', 'button')
-				.attr('tabindex', '0')
-				.attr('aria-label', 'Next month')
-				.off('keydown.a11y')
-				.on('keydown.a11y', function(e) {
-					if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
-						$(this).trigger('click');
-						e.preventDefault();
-					}
-				});
 
-			$datepicker.find('th.datepicker-switch')
-				.attr('role', 'button')
-				.attr('tabindex', '0')
-				.attr('aria-label', 'Select month')
-				.off('keydown.a11y')
-				.on('keydown.a11y', function(e) {
-					if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
-						$(this).trigger('click');
-						e.preventDefault();
+			/**
+			 * Escape Key and Focus Management
+			 */
+			// Also add Escape handler to the entire datepicker container
+			$datepickerContainer.on('keydown.a11y', function(e) {
+				if (e.keyCode === obj.keyCode.ESCAPE) { // Escape key
+
+					// Find the wrapper that contains both the input and this container
+					var $datepickerWrapper = $(this).closest('.tribe-events-c-top-bar__datepicker');
+					var $input = $datepickerWrapper.find('[data-js="tribe-events-top-bar-date"]');
+					var $button = $datepickerWrapper.find('[data-js="tribe-events-top-bar-datepicker-button"]');
+
+
+					if ($input && $input.length) {
+						$input.bootstrapDatepicker('hide');
+						if ($button.length) {
+							setTimeout(function() {
+								$button.focus();
+							}, 50);
+						}
 					}
-				});
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			});
+
+			// Add focus tracking to detect when focus leaves the datepicker
+			// Mark when month change starts via click
+			$datepickerContainer.find('th.prev, th.next').on('click.a11y', function() {
+				isChangingMonth = true;
+				setTimeout(function() {
+					isChangingMonth = false;
+				}, 300); // Give time for DOM to rebuild
+			});
+
+			// Also mark when view changes (clicking on month/year header to go to higher view)
+			$datepickerContainer.find('th.datepicker-switch').on('click.a11y', function() {
+				isChangingMonth = true;
+				setTimeout(function() {
+					isChangingMonth = false;
+				}, 300); // Give time for DOM to rebuild
+			});
+
+			// Also try on individual focusable elements (including all cell types)
+			$datepickerContainer.find('th.prev, th.next, th.datepicker-switch, td.day, span.month, span.year, span.decade').on('focusout.a11y blur.a11y', function() {
+
+				// Use setTimeout to check if focus moved outside datepicker
+				setTimeout(function() {
+					var $focusedElement = $(document.activeElement);
+					var isWithinDatepicker = $focusedElement.closest('.datepicker').length > 0;
+
+					// Don't close if we're in the middle of changing months
+					if (!isWithinDatepicker && $datepickerContainer.is(':visible') && !isChangingMonth) {
+
+						// Find the wrapper that contains the input
+						var $datepickerWrapper = $datepickerContainer.closest('.tribe-events-c-top-bar__datepicker');
+						var $input = $datepickerWrapper.find('[data-js="tribe-events-top-bar-date"]');
+
+
+						if ($input && $input.length) {
+							$input.bootstrapDatepicker('hide');
+						}
+					}
+				}, 150);
+			});
+
+			// Auto-focus the first header control when this view is processed
+			// This helps ensure keyboard users can immediately navigate the header
+			setTimeout(function() {
+				if ($datepickerView.is(':visible')) {
+					var $firstHeaderControl = $datepickerView.find('th.prev').first();
+					if ($firstHeaderControl.length) {
+						$firstHeaderControl.focus();
+					}
+				}
+			}, 200);
 		});
 	}
 
@@ -777,6 +1118,13 @@ tribe.events.views.datepicker = {};
 						enhanceDatepickerA11yForAll();
 					}
 				});
+
+				// Also check if any changes happened within an existing datepicker
+				if ($(mutation.target).closest('.datepicker').length && mutation.addedNodes.length) {
+					setTimeout(function() {
+						enhanceDatepickerA11yForAll();
+					}, 50);
+				}
 			}
 			// Also check for attribute changes in case the datepicker is updated in place
 			if (mutation.type === 'attributes' && $(mutation.target).hasClass('datepicker')) {
