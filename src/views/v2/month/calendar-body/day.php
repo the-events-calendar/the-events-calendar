@@ -9,10 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.9.0
- *
- * @since 5.9.0 Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
  * @since 5.3.0 Introduced.
+ * @since 5.9.0 Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
+ * @since TBD Improved accessibility for calendar view [TEC-5212].
+ *
+ * @version TBD
  *
  * @var string       $today_date   Today's date in the `Y-m-d` format.
  * @var string       $day_date     The current day date, in the `Y-m-d` format.
@@ -48,7 +49,6 @@ $day_id      = 'tribe-events-calendar-day-' . $day_date;
 ?>
 <td
 	<?php tec_classes( $day_classes ); ?>
-	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
 	data-js="tribe-events-month-grid-cell"
 >
 	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
