@@ -772,10 +772,7 @@ tribe.events.views.datepicker = {};
 			$control
 				.attr( 'role', 'button' )
 				.attr( 'tabindex', '0' )
-				.off( 'keydown.a11y focus.a11y click.a11y' )
-				.on( 'focus.a11y', function() {
-					// Header control received focus
-				} )
+				.off( 'keydown.a11y click.a11y' )
 				.on( 'click.a11y', function() {
 					if ( isPrev || isNext ) {
 						setTimeout( () => {
@@ -857,16 +854,15 @@ tribe.events.views.datepicker = {};
 			e.preventDefault();
 			e.stopPropagation();
 			// Move focus from header to first selectable cell based on view type
-			var $firstCell;
-			if ( $datepickerView.hasClass( 'datepicker-days' ) ) {
-				$firstCell = $datepickerView.find( 'td.day' ).first();
-			} else if ( $datepickerView.hasClass( 'datepicker-months' ) ) {
-				$firstCell = $datepickerView.find( 'span.month' ).first();
-			} else if ( $datepickerView.hasClass( 'datepicker-years' ) ) {
-				$firstCell = $datepickerView.find( 'span.year' ).first();
-			} else if ( $datepickerView.hasClass( 'datepicker-decades' ) ) {
-				$firstCell = $datepickerView.find( 'span.decade' ).first();
-			}
+			const viewTypeMap = {
+				'datepicker-days': 'td.day',
+				'datepicker-months': 'span.month',
+				'datepicker-years': 'span.year',
+				'datepicker-decades': 'span.decade'
+			};
+			
+			const matchedClass = Array.from( $datepickerView[0].classList ).find( cls => viewTypeMap[cls] );
+			const $firstCell = matchedClass ? $datepickerView.find( viewTypeMap[matchedClass] ).first() : null;
 
 			if ( $firstCell && $firstCell.length ) {
 				$firstCell.focus();
@@ -885,25 +881,18 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	function enhanceCellNavigation( $datepickerView ) {
-		var $selectableCells;
-		var cellType = '';
+		const viewTypeConfig = {
+			'datepicker-days': { selector: 'td.day', type: 'day' },
+			'datepicker-months': { selector: 'span.month', type: 'month' },
+			'datepicker-years': { selector: 'span.year', type: 'year' },
+			'datepicker-decades': { selector: 'span.decade', type: 'decade' }
+		};
 
-		if ( $datepickerView.hasClass( 'datepicker-days' ) ) {
-			$selectableCells = $datepickerView.find( 'td.day' );
-			cellType = 'day';
-		} else if ( $datepickerView.hasClass( 'datepicker-months' ) ) {
-			$selectableCells = $datepickerView.find( 'span.month' );
-			cellType = 'month';
-		} else if ( $datepickerView.hasClass( 'datepicker-years' ) ) {
-			$selectableCells = $datepickerView.find( 'span.year' );
-			cellType = 'year';
-		} else if ( $datepickerView.hasClass( 'datepicker-decades' ) ) {
-			$selectableCells = $datepickerView.find( 'span.decade' );
-			cellType = 'decade';
-		} else {
-			$selectableCells = $();
-			cellType = 'unknown';
-		}
+		const matchedClass = Array.from( $datepickerView[0].classList ).find( cls => viewTypeConfig[cls] );
+		const config = matchedClass ? viewTypeConfig[matchedClass] : { selector: '', type: 'unknown' };
+		
+		const $selectableCells = config.selector ? $datepickerView.find( config.selector ) : $();
+		const cellType = config.type;
 
 		$selectableCells.each( function( index ) {
 			var $cell = $( this );
