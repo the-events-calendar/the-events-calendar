@@ -43,7 +43,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 			},
 			{
 				child: '.tribe-events-calendar-month__calendar-event',
-				parent: '.tribe-events-calendar-month__calendar-event-wrapper',
+				parent: '.tribe-events-calendar-month__calendar-event',
 			},
 			{
 				child: '.tribe-events-pro-summary__event',
