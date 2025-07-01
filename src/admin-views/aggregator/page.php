@@ -9,10 +9,8 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
  * Trigger the conditional content header notice.
  *
  * @since TBD
- *
- * @param \Tribe__Admin__View $this The current view object.
  */
-do_action( 'tec_conditional_content_header_notice', $this );
+do_action( 'tec_conditional_content_header_notice' );
 ?>
 <div class="tribe-ea wrap <?php echo esc_attr( $state_class ); ?>" data-datepicker_format="<?php echo esc_attr( $datepicker_format ); ?>">
 	<?php $this->template( 'header' ); ?>
