@@ -1,5 +1,6 @@
 <?php return '<td
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	aria-labelledby="tribe-events-calendar-day-2019-07-01"
+	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
