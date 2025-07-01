@@ -27,7 +27,7 @@ function buildOptionFromFetchedOrganizer( organizer: FetchedOrganizer ): CustomS
 
 const placeholderOption: CustomSelectOption = {
 	key: '0',
-	name: _x( 'Select organizer', 'Organizer selection placecholder option', 'the-events-calendar' ),
+	name: _x( 'Select organizer', 'Organizer selection placeholder option', 'the-events-calendar' ),
 	value: '0',
 };
 
@@ -101,7 +101,7 @@ export default function EventOrganizer( props: FieldProps ) {
 			} ),
 		} )
 			.then( ( results ) => {
-				// Check that results is an object, else log a console error.
+				// The return value should be an object, else log a console error.
 				if ( ! ( results && typeof results === 'object' ) ) {
 					console.error( 'Organizers fetch request did not return an object.' );
 					return;
@@ -297,9 +297,9 @@ export default function EventOrganizer( props: FieldProps ) {
 					</div>
 				) }
 
-				{ isAdding && <span className="classy_section-separator"></span> }
+				{ isAdding && currentOrganizerIds.length > 0 && <span className="classy_section-separator"></span> }
 
-				<div className="classy-field__inputs-section classy-field__inputs-section--row">
+				<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
 					{ ( isAdding || currentOrganizerIds.length === 0 ) && (
 						<Fragment>
 							<div className="classy-field__input classy-field__input-full-width">
@@ -329,7 +329,7 @@ export default function EventOrganizer( props: FieldProps ) {
 									</span>{ ' ' }
 									<Button
 										variant="link"
-										className="classy-field__organizer-value"
+										className="classy-cta classy-field__organizer-value"
 										onClick={ createNewOrganizer }
 									>
 										{ _x(

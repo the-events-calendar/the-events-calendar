@@ -19,11 +19,17 @@ export default function OrganizerCard(
 			data-object-id={ objectId }
 		>
 			<h4 className="classy-linked-post-card__title">{ decodeEntities( name ) }</h4>
-			<span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span>
-			<span className="classy-linked-post-card__detail">{ decodeEntities( email ) }</span>
-			<Button variant="link" className="classy-linked-post-card__detail" target="_blank">
-				{ decodeEntities( website ) }
-			</Button>
+
+			{ phone && <span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span> }
+
+			{ email && <span className="classy-linked-post-card__detail">{ decodeEntities( email ) }</span> }
+
+			{ website && (
+				<Button variant="link" className="classy-linked-post-card__detail" target="_blank">
+					{ ' ' }
+					{ decodeEntities( website ) }{ ' ' }
+				</Button>
+			) }
 
 			<div className="classy-linked-post-card__actions">
 				<Button

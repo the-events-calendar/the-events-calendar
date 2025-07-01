@@ -53,28 +53,34 @@ export default function VenueCard(
 	const { id: venueId, venue: name, phone, website, addressSeparator } = props;
 
 	const [ addressLine1, addressLine2, addressLine3 ] = buildFullAddress( props, addressSeparator );
-	const fullAddress = (
-		<Fragment>
-			{ addressLine1 && (
-				<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine1 ) }</div>
-			) }
-			{ addressLine2 && (
-				<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine2 ) }</div>
-			) }
-			{ addressLine3 && (
-				<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine3 ) }</div>
-			) }
-		</Fragment>
-	);
+	const fullAddress =
+		addressLine1 || addressLine2 || addressLine3 ? (
+			<Fragment>
+				{ addressLine1 && (
+					<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine1 ) }</div>
+				) }
+				{ addressLine2 && (
+					<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine2 ) }</div>
+				) }
+				{ addressLine3 && (
+					<div className="classy-linked-post-card__detail-line">{ decodeEntities( addressLine3 ) }</div>
+				) }
+			</Fragment>
+		) : null;
 
 	return (
 		<div className="classy__linked-post-card classy__linked-post-card--venue" data-object-id={ venueId }>
 			<h4 className="classy-linked-post-card__title">{ decodeEntities( name ) }</h4>
-			<span className="classy-linked-post-card__detail">{ fullAddress }</span>
-			<span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span>
-			<Button variant="link" className="classy-linked-post-card__detail" href={ website } target="_blank">
-				{ decodeEntities( website ) }
-			</Button>
+
+			{ fullAddress && <span className="classy-linked-post-card__detail">{ fullAddress }</span> }
+
+			{ phone && <span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span> }
+
+			{ website && (
+				<Button variant="link" className="classy-linked-post-card__detail" href={ website } target="_blank">
+					{ decodeEntities( website ) }
+				</Button>
+			) }
 
 			<div className="classy-linked-post-card__actions">
 				<Button
