@@ -374,21 +374,16 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	 */
 	const updateEventVisibility = () => {
 		const selectedArray = [ ...selectedCategories ];
-		console.log("Selected ARray",selectedArray);
 
 		getEventParentElements().forEach( ( eventContainer ) => {
 			let categoryElement = eventContainer;
-			console.log("Category Element",categoryElement);
 
 			// If the parent doesn't have a category class, check children
 			if ( ! [ ...categoryElement.classList ].some( ( cls ) => cls.startsWith( 'tribe_events_cat-' ) ) ) {
 				categoryElement = eventContainer.querySelector( '[class*="tribe_events_cat-"]' );
 			}
 
-			console.log("Category Element",categoryElement);
-
 			const hasMatch = categoryElement ? eventHasMatchingCategory( categoryElement, selectedArray ) : false;
-			console.log("Has MAtch",hasMatch);
 
 			eventContainer.classList.toggle( SELECTORS.filteredHide, selectedArray.length > 0 && ! hasMatch );
 		} );
