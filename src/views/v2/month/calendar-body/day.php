@@ -49,6 +49,7 @@ $day_id      = 'tribe-events-calendar-day-' . $day_date;
 ?>
 <td
 	<?php tec_classes( $day_classes ); ?>
+	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
 	data-js="tribe-events-month-grid-cell"
 >
 	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
