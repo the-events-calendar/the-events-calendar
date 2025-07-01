@@ -1,0 +1,241 @@
+/* -----------------------------------------------------------------------------
+ * Category Legend
+ * ----------------------------------------------------------------------------- */
+.tec-events-category-color-filter {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	gap: var(--tec-spacer-1);
+	position: relative;
+
+	&.tec-events-category-color-filter--align-right {
+		.tec-events-category-color-filter__dropdown {
+			left: auto;
+			right: 0;
+		}
+	}
+
+	.tec-events-category-color-filter__colors {
+		align-items: center;
+		display: flex;
+
+		.tec-events-category-color-filter__color-circle {
+			aspect-ratio: 1;
+			border: 2px solid var(--tec-color-background);
+			border-radius: var(--tec-events-border-radius-circle);
+			margin-left: calc(-1 * var(--tec-spacer-2));
+			position: relative;
+			width: 20px;
+
+			/* Apply custom colors if they exist */
+			&[class*="tribe_events_cat-"] {
+				background-color: var(--tec-color-category-primary, transparent);
+			}
+
+			/* Default colors for circles without a primary color */
+			&--default {
+				&:nth-child(1) {
+					background-color: var(--tec-color-category-legend-default-1);
+				}
+
+				&:nth-child(2) {
+					background-color: var(--tec-color-category-legend-default-2);
+				}
+
+				&:nth-child(3) {
+					background-color: var(--tec-color-category-legend-default-3);
+				}
+
+				&:nth-child(4) {
+					background-color: var(--tec-color-category-legend-default-4);
+				}
+
+				&:nth-child(5) {
+					background-color: var(--tec-color-category-legend-default-5);
+				}
+			}
+		}
+
+		/* Ensure the first circle doesn't shift */
+		.tec-events-category-color-filter__color-circle:first-child {
+			margin-left: 0;
+		}
+	}
+
+	/* Dropdown icon alignment */
+	&.tec-events-category-color-filter--open {
+		.tec-events-category-color-filter__dropdown-icon {
+			.tec-events-category-color-filter__dropdown-icon-svg {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	.tec-events-category-color-filter__dropdown-icon {
+		aspect-ratio: 1;
+		width: 12px;
+	}
+
+	/* Dropdown */
+	.tec-events-category-color-filter__dropdown {
+		background-color: var(--tec-color-background);
+		border-radius: var(--tec-border-radius-default);
+		box-shadow: var(--tec-box-shadow-tooltip);
+		inset-inline-end: 0;
+		inset-inline-start: auto;
+		left: auto;
+		max-inline-size: 100vw;
+		max-width: min(100vw, 300px);
+		min-width: 250px;
+		opacity: 0;
+		overflow-x: auto;
+		pointer-events: none;
+		position: absolute;
+		right: 0;
+		top: 100%;
+		visibility: hidden;
+		white-space: nowrap;
+		z-index: 100;
+
+		&:after {
+			content: "";
+			height: 100%;
+			left: 0;
+			max-width: 100%;
+			overflow: hidden;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100vw;
+		}
+
+		&.tec-events-category-color-filter__dropdown--visible {
+			display: flex;
+			flex-direction: column;
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+		}
+
+		/* Header */
+		.tec-events-category-color-filter__dropdown-header {
+			align-items: center;
+			background-color: var(--tec-color-background);
+			cursor: default;
+			display: flex;
+			flex-shrink: 0;
+			justify-content: space-between;
+			margin-bottom: var(--tec-spacer-1);
+			padding: var(--tec-spacer-1);
+
+			.tec-events-category-color-filter__dropdown-close {
+				background-color: transparent;
+				border: 0;
+				cursor: pointer;
+				font-size: var(--tec-font-size-5);
+			}
+		}
+
+		/* Reset Button */
+		.tec-events-category-color-filter__reset-wrapper {
+			background-color: var(--tec-color-background);
+			border-top: var(--tec-border-width-1) solid var(--tec-color-background-view-selector-list-item-hover);
+			display: flex;
+			flex-shrink: 0;
+			justify-content: center;
+			padding: var(--tec-spacer-1);
+		}
+
+		/* List */
+		.tec-events-category-color-filter__dropdown-list {
+			display: flex;
+			flex-direction: column;
+			gap: var(--tec-spacer-1);
+			list-style: none;
+			margin: 0;
+			max-height: 250px;
+			overflow-y: auto;
+			padding: var(--tec-spacer-1);
+		}
+
+		/* List Item */
+		.tec-events-category-color-filter__dropdown-item {
+			align-items: center;
+			border-radius: var(--tec-border-radius-default);
+			display: flex;
+			justify-content: space-between;
+			transition: var(--tec-transition-background-color);
+
+			/* When not in super power mode, make the label fill the space */
+			label:not(:has(input)) {
+				width: 100%;
+				padding: 0;
+				margin: 0;
+			}
+
+			label {
+				align-items: center;
+				cursor: pointer;
+				display: flex;
+				gap: var(--tec-spacer-1);
+				padding: var(--tec-spacer-1);
+				width: 100%;
+
+				&:hover {
+					background-color: var(--tec-color-background-secondary);
+				}
+			}
+		}
+
+		/* Checkbox */
+		.tec-events-category-color-filter__checkbox {
+			cursor: pointer;
+		}
+
+		/* Category Label */
+		.tec-events-category-color-filter__label {
+			flex-grow: 1;
+			font-size: var(--tec-font-size-2);
+			display: flex;
+			align-items: center;
+			width: 100%;
+			text-decoration: none;
+			color: inherit;
+			padding: var(--tec-spacer-0) 0;
+
+			&:hover {
+				background-color: var(--tec-color-background-secondary);
+			}
+		}
+
+		/* Color Dot */
+		.tec-events-category-color-filter__color-dot {
+			aspect-ratio: 1;
+			border-radius: var(--tec-events-border-radius-circle);
+			display: inline-block;
+			width: 12px;
+			background-color: var(--tec-color-category-primary);
+			margin-left: auto;
+		}
+	}
+
+	/* Show dropdown when open */
+	&.tec-events-category-color-filter--open {
+		.tec-events-category-color-filter__dropdown {
+			display: flex;
+		}
+	}
+}
+
+.tribe-events {
+	/* -----------------------------------------------------------------------------
+	 * Top Bar - Alignment
+	 * ----------------------------------------------------------------------------- */
+
+	&.tribe-common--breakpoint-medium {
+		.tec-events-category-color-filter {
+			margin-left: var(--tec-spacer-1);
+			padding-left: var(--tec-spacer-1);
+		}
+	}
+}

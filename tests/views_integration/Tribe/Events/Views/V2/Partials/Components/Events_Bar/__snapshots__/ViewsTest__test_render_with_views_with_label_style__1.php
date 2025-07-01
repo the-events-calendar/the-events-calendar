@@ -6,7 +6,7 @@
 			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 			aria-current="true"
-			aria-label="Select Calendar View"
+			aria-description="Select Calendar View"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
 				<svg
