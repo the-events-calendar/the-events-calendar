@@ -75,7 +75,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 			},
 			{
 				child: '.tribe-events-pro-map__event-card-wrapper',
-				parent: '.tribe-events-pro-map__event-card-row',
+				parent: '.tribe-events-pro-map__event-card-wrapper',
 			},
 		],
 		filteredHide: 'tec-category-filtered-hide',
