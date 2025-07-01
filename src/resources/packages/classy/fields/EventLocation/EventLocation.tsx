@@ -327,10 +327,8 @@ export default function EventLocation( props: FieldProps ) {
 
 				{ isAdding && currentVenueIds.length > 0 && <span className="classy_section-separator"></span> }
 
-				{currentVenueIds.length < venuesLimit &&
-					<div
-						className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left"
-					>
+				{ currentVenueIds.length < venuesLimit && (
+					<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
 						{ ( isAdding || currentVenueIds.length === 0 ) && (
 							<Fragment>
 								<div className="classy-field__input classy-field__input-full-width">
@@ -351,13 +349,13 @@ export default function EventLocation( props: FieldProps ) {
 
 								<div className="classy-field__input" ref={ ref }>
 									<div className="classy-field__control classy-field__control--venue" ref={ ref }>
-									<span className="classy-field__venue-label">
-										{ _x(
-											'or',
-											'prefix to the Venue create popover link ',
-											'the-events-calendar'
-										) }
-									</span>{ ' ' }
+										<span className="classy-field__venue-label">
+											{ _x(
+												'or',
+												'prefix to the Venue create popover link ',
+												'the-events-calendar'
+											) }
+										</span>{ ' ' }
 										<Button
 											variant="link"
 											className="classy-cta classy-field__venue-value"
@@ -391,7 +389,7 @@ export default function EventLocation( props: FieldProps ) {
 							</div>
 						) }
 					</div>
-				}
+				) }
 
 				{ currentVenueIds.length > 0 && isAdding && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row">

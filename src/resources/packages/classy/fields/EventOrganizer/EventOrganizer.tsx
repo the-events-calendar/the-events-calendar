@@ -299,9 +299,7 @@ export default function EventOrganizer( props: FieldProps ) {
 
 				{ isAdding && currentOrganizerIds.length > 0 && <span className="classy_section-separator"></span> }
 
-				<div
-					className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left"
-				>
+				<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
 					{ ( isAdding || currentOrganizerIds.length === 0 ) && (
 						<Fragment>
 							<div className="classy-field__input classy-field__input-full-width">

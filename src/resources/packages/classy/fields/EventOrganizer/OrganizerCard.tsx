@@ -20,11 +20,16 @@ export default function OrganizerCard(
 		>
 			<h4 className="classy-linked-post-card__title">{ decodeEntities( name ) }</h4>
 
-			{phone && <span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span> }
+			{ phone && <span className="classy-linked-post-card__detail">{ decodeEntities( phone ) }</span> }
 
-			{email && <span className="classy-linked-post-card__detail">{ decodeEntities( email ) }</span> }
+			{ email && <span className="classy-linked-post-card__detail">{ decodeEntities( email ) }</span> }
 
-			{website && <Button variant="link" className="classy-linked-post-card__detail" target="_blank"> {decodeEntities(website)} </Button>}
+			{ website && (
+				<Button variant="link" className="classy-linked-post-card__detail" target="_blank">
+					{ ' ' }
+					{ decodeEntities( website ) }{ ' ' }
+				</Button>
+			) }
 
 			<div className="classy-linked-post-card__actions">
 				<Button
