@@ -385,7 +385,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Monday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -397,7 +396,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Tuesday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -409,7 +407,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Wednesday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -421,7 +418,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Thursday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -433,7 +429,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Friday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -445,7 +440,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Saturday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -457,7 +451,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Sunday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -474,8 +467,7 @@
 			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
 				<td
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--past tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2018-12-31"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--past tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -523,8 +515,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	aria-labelledby="tribe-events-calendar-day-2019-01-01"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -565,6 +556,7 @@
 				href="http://test.tri.be/events/category/cat-1/day/2019-01-01/"
 				class="tribe-events-calendar-month__day-date-link"
 				data-js="tribe-events-view-link"
+				aria-label="1st January"
 			>
 				1			</a>
 			</time>
@@ -740,8 +732,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-02"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -789,8 +780,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-03"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -838,8 +828,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-04"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -887,8 +876,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-05"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -936,8 +924,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-06"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -987,8 +974,7 @@
 			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-07"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1036,8 +1022,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-08"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1085,8 +1070,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-09"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1134,8 +1118,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-10"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1183,8 +1166,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-11"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1232,8 +1214,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-12"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1281,8 +1262,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-13"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1332,8 +1312,7 @@
 			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-14"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1381,8 +1360,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-15"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1430,8 +1408,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-16"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1479,8 +1456,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-17"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1528,8 +1504,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-18"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1577,8 +1552,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-19"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1626,8 +1600,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-20"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1677,8 +1650,7 @@
 			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-21"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1726,8 +1698,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-22"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1775,8 +1746,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-23"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1824,8 +1794,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-24"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1873,8 +1842,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-25"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1922,8 +1890,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-26"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -1971,8 +1938,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-27"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2022,8 +1988,7 @@
 			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-28"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2071,8 +2036,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-29"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2120,8 +2084,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-30"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2169,8 +2132,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day" 	aria-labelledby="tribe-events-calendar-day-2019-01-31"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2218,8 +2180,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-02-01"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2267,8 +2228,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-02-02"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
@@ -2316,8 +2276,7 @@
 
 			
 				<td
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-02-03"
-	data-js="tribe-events-month-grid-cell"
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	data-js="tribe-events-month-grid-cell"
 >
 	
 <button
