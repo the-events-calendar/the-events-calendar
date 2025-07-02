@@ -9,11 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @since 5.3.0 Introduced.
- * @since 5.9.0 Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
- * @since TBD Improved accessibility for calendar view [TEC-5212].
+ * @version 5.9.0
  *
- * @version TBD
+ * @since 5.9.0 Divided the day template into two sub-templates, for date and cell, since it allows for better customization.
+ * @since 5.3.0 Introduced.
  *
  * @var string       $today_date   Today's date in the `Y-m-d` format.
  * @var string       $day_date     The current day date, in the `Y-m-d` format.
