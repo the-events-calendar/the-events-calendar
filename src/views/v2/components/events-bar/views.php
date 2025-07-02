@@ -30,7 +30,7 @@ $view_selector_classes = [
 	<h3 class="tribe-common-a11y-visual-hide">
 		<?php printf( esc_html__( '%s Views Navigation', 'the-events-calendar' ), tribe_get_event_label_singular() ); ?>
 	</h3>
-	<div <?php tribe_classes( $view_selector_classes ); ?> data-js="tribe-events-view-selector">
+	<div <?php tec_classes( $view_selector_classes ); ?> data-js="tribe-events-view-selector">
 		<button
 			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"

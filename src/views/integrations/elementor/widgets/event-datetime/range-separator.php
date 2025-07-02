@@ -32,7 +32,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
 $symbol = tribe_get_option( 'timeRangeSeparator', '-' );
 ?>
-<span <?php tribe_classes( $widget->get_separator_class() ); ?>>
+<span <?php tec_classes( $widget->get_separator_class() ); ?>>
 	<?php
 	printf(
 		/* translators: Separator between the date and time. */

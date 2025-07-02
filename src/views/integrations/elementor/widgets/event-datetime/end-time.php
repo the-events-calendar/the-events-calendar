@@ -40,6 +40,6 @@ if ( ! $show_time || ! $end_time || $is_all_day ) {
 	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/range-separator' ); ?>
 <?php endif; ?>
 
-<span <?php tribe_classes( $widget->get_time_class(), $widget->get_end_time_class() ); ?>><?php echo esc_html( $end_time ); ?></span>
+<span <?php tec_classes( $widget->get_time_class(), $widget->get_end_time_class() ); ?>><?php echo esc_html( $end_time ); ?></span>
 
 <?php $this->template( 'views/integrations/elementor/widgets/event-datetime/timezone' ); ?>

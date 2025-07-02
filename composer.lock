@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27ee64257808e35c0423c4478f5759a6",
+    "content-hash": "77859a16ec599404820631ac421b3057",
     "packages": [],
     "packages-dev": [
         {
@@ -6794,12 +6794,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "fa3c0b7387072d8fde885e386986e66ee2869f4b"
+                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/fa3c0b7387072d8fde885e386986e66ee2869f4b",
-                "reference": "fa3c0b7387072d8fde885e386986e66ee2869f4b",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bb7ea48c2c824553a2c173410307e8cdb9171789",
+                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789",
                 "shasum": ""
             },
             "require": {
@@ -6830,6 +6830,10 @@
                 {
                     "name": "Matthew Batchelder",
                     "email": "borkweb@gmail.com"
+                },
+                {
+                    "name": "Gustavo Bordoni",
+                    "email": "bordoni.dev@gmail.com"
                 }
             ],
             "description": "Code sniffing rules for StellarWP",
@@ -6841,7 +6845,7 @@
             "support": {
                 "source": "https://github.com/stellarwp/coding-standards/tree/main"
             },
-            "time": "2024-02-04T03:55:54+00:00"
+            "time": "2025-05-16T22:33:56+00:00"
         },
         {
             "name": "symfony/browser-kit",
