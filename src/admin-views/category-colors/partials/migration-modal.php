@@ -2,7 +2,7 @@
 /**
  * Category Colors Migration Modal (Thickbox)
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */

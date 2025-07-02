@@ -10,8 +10,8 @@
  * @link http://evnt.is/1aiy
  *
  * @version TBD
- * @since   5.3.0
- * @since   TBD Changed aria-label to aria-description for WCAG compliance.
+ * @since 5.3.0
+ * @since TBD Changed aria-label to aria-description for WCAG compliance.
  *
  * @var string    $now                        The current date and time in the `Y-m-d H:i:s` format.
  * @var string    $grid_date                  The current calendar grid date in the `Y-m-d` format.

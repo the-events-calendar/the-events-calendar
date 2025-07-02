@@ -14,8 +14,8 @@
  * @var string $today_label The string used for the visible button text.
  *
  * @version TBD
- * @since   5.2.0
- * @since   TBD Changed aria-label to aria-description for WCAG compliance.
+ * @since 5.2.0
+ * @since TBD Changed aria-label to aria-description for WCAG compliance.
  */
 ?>
 <a
