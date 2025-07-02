@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe__Events__Main' ) ) {
-
 	/**
 	 * The Events Calendar Class
 	 *
