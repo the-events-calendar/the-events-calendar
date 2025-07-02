@@ -9,10 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @since 5.9.0
- * @since TBD Improved accessibility for calendar view [TEC-5212].
- *
- * @version TBD
+ * @version 5.9.0
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -49,8 +46,6 @@ $num_events_label = sprintf(
 	$events_label_singular,
 	$events_label_plural
 );
-
-$date_ordinal = date_i18n( 'jS F', strtotime( $day['date'] ) );
 ?>
 
 <div class="tribe-events-calendar-month__day-date tribe-common-h4">
@@ -66,7 +61,6 @@ $date_ordinal = date_i18n( 'jS F', strtotime( $day['date'] ) );
 				href="<?php echo esc_url( $day['day_url'] ); ?>"
 				class="tribe-events-calendar-month__day-date-link"
 				data-js="tribe-events-view-link"
-				aria-label="<?php echo esc_attr( $date_ordinal ); ?>"
 			>
 				<?php echo esc_html( $day_number ); ?>
 			</a>
