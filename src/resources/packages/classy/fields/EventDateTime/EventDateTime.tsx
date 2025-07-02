@@ -13,9 +13,7 @@ import {
 	METADATA_EVENT_TIMEZONE,
 } from '../../constants';
 import { format } from '@wordpress/date';
-import StartSelector from './StartSelector';
-import EndSelector from './EndSelector';
-import { TimeZone } from '@tec/common/classy/components';
+import { TimeZone, StartSelector, EndSelector } from '@tec/common/classy/components';
 import { EventDateTimeDetails } from '../../types/EventDateTimeDetails';
 import { addFilter, removeFilter } from '@wordpress/hooks';
 import { useEffect } from 'react';
@@ -106,7 +104,7 @@ function getNewStartEndDates(
  */
 function getMultiDayEndDate( refs: RefObject< DateTimeRefs >, newValue: boolean, startDate: Date ) {
 	const { singleDayDuration, multiDayDuration } = refs.current as DateTimeRefs;
-	let duration;
+	let duration: number = 0;
 
 	if ( newValue ) {
 		// Move the end date forward by 24 hours plus the single day ouration.
