@@ -18,7 +18,7 @@ if ( empty( $image ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_element_classes() ); ?>>
+<div <?php tec_classes( $widget->get_element_classes() ); ?>>
 	<?php
 	// Escape, allowing for expected image attributes.
 	echo wp_kses(

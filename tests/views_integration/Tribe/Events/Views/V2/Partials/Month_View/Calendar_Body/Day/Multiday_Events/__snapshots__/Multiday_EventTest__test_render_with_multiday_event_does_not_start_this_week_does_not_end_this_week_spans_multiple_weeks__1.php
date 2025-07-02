@@ -13,14 +13,14 @@
 	data-tooltip-content="#tribe-events-tooltip-content-8"
 	aria-describedby="tribe-events-tooltip-content-8"
 >
-		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Single Event 1</h3>
+		<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Single Event 1</div>
 </a>
 </div>
 		<div class="tribe-events-calendar-month__multiday-event-bar">
 	<div class="tribe-events-calendar-month__multiday-event-bar-inner">
-				<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
-	Single Event 1</h3>
+				<div class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">
+	Single Event 1</div>
 	</div>
 </div>
 	</article>

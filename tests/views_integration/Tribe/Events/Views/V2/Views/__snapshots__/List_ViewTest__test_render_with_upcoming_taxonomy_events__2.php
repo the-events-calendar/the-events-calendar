@@ -14,9 +14,27 @@
 	<span class="tribe-events-view-loader__text tribe-common-a11y-visual-hide">
 		3 events found.	</span>
 	<div class="tribe-events-view-loader__dots tribe-common-c-loader">
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--dot tribe-common-c-loader__dot tribe-common-c-loader__dot--first"  viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5"/></svg>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--dot tribe-common-c-loader__dot tribe-common-c-loader__dot--second"  viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5"/></svg>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--dot tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><circle cx="7.5" cy="7.5" r="7.5"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--dot tribe-common-c-loader__dot tribe-common-c-loader__dot--first" 	aria-hidden="true"
+	viewBox="0 0 15 15"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<circle cx="7.5" cy="7.5" r="7.5"/>
+</svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--dot tribe-common-c-loader__dot tribe-common-c-loader__dot--second" 	aria-hidden="true"
+	viewBox="0 0 15 15"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<circle cx="7.5" cy="7.5" r="7.5"/>
+</svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--dot tribe-common-c-loader__dot tribe-common-c-loader__dot--third" 	aria-hidden="true"
+	viewBox="0 0 15 15"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<circle cx="7.5" cy="7.5" r="7.5"/>
+</svg>
 	</div>
 </div>
 
@@ -48,14 +66,26 @@
 		data-js="tribe-events-view-link"
 	>
 		Events	</a>
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 </li>
 			
 		
 							<li class="tribe-events-c-breadcrumbs__list-item">
 	<span class="tribe-events-c-breadcrumbs__list-item-text">
 		tag-1	</span>
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 </li>
 			
 			</ol>
@@ -74,7 +104,13 @@
 	aria-expanded="false"
 	data-js="tribe-events-search-button"
 >
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-events-bar__search-button-icon-svg"  viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"  aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.164 10.133L16 14.97 14.969 16l-4.836-4.836a6.225 6.225 0 01-3.875 1.352 6.24 6.24 0 01-4.427-1.832A6.272 6.272 0 010 6.258 6.24 6.24 0 011.831 1.83 6.272 6.272 0 016.258 0c1.67 0 3.235.658 4.426 1.831a6.272 6.272 0 011.832 4.427c0 1.422-.48 2.773-1.352 3.875zM6.258 1.458c-1.28 0-2.49.498-3.396 1.404-1.866 1.867-1.866 4.925 0 6.791a4.774 4.774 0 003.396 1.405c1.28 0 2.489-.498 3.395-1.405 1.867-1.866 1.867-4.924 0-6.79a4.774 4.774 0 00-3.395-1.405z"/></svg>
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-events-bar__search-button-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 16 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M11.164 10.133L16 14.97 14.969 16l-4.836-4.836a6.225 6.225 0 01-3.875 1.352 6.24 6.24 0 01-4.427-1.832A6.272 6.272 0 010 6.258 6.24 6.24 0 011.831 1.83 6.272 6.272 0 016.258 0c1.67 0 3.235.658 4.426 1.831a6.272 6.272 0 011.832 4.427c0 1.422-.48 2.773-1.352 3.875zM6.258 1.458c-1.28 0-2.49.498-3.396 1.404-1.866 1.867-1.866 4.925 0 6.791a4.774 4.774 0 003.396 1.405c1.28 0 2.489-.498 3.395-1.405 1.867-1.866 1.867-4.924 0-6.79a4.774 4.774 0 00-3.395-1.405z"/>
+</svg>
 	<span class="tribe-events-c-events-bar__search-button-text tribe-common-a11y-visual-hide">
 		Search	</span>
 </button>
@@ -114,7 +150,13 @@
 		placeholder="Search for events"
 		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-search__input-control-icon-svg"  viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"  aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.164 10.133L16 14.97 14.969 16l-4.836-4.836a6.225 6.225 0 01-3.875 1.352 6.24 6.24 0 01-4.427-1.832A6.272 6.272 0 010 6.258 6.24 6.24 0 011.831 1.83 6.272 6.272 0 016.258 0c1.67 0 3.235.658 4.426 1.831a6.272 6.272 0 011.832 4.427c0 1.422-.48 2.773-1.352 3.875zM6.258 1.458c-1.28 0-2.49.498-3.396 1.404-1.866 1.867-1.866 4.925 0 6.791a4.774 4.774 0 003.396 1.405c1.28 0 2.489-.498 3.395-1.405 1.867-1.866 1.867-4.924 0-6.79a4.774 4.774 0 00-3.395-1.405z"/></svg>
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-search__input-control-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 16 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M11.164 10.133L16 14.97 14.969 16l-4.836-4.836a6.225 6.225 0 01-3.875 1.352 6.24 6.24 0 01-4.427-1.832A6.272 6.272 0 010 6.258 6.24 6.24 0 011.831 1.83 6.272 6.272 0 016.258 0c1.67 0 3.235.658 4.426 1.831a6.272 6.272 0 011.832 4.427c0 1.422-.48 2.773-1.352 3.875zM6.258 1.458c-1.28 0-2.49.498-3.396 1.404-1.866 1.867-1.866 4.925 0 6.791a4.774 4.774 0 003.396 1.405c1.28 0 2.489-.498 3.395-1.405 1.867-1.866 1.867-4.924 0-6.79a4.774 4.774 0 00-3.395-1.405z"/>
+</svg>
 </div>
 		</div>
 
@@ -139,11 +181,39 @@
 			aria-description="Select Calendar View"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
-				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__button-icon-svg"  viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.451.432V17.6c0 .238.163.432.364.432H18.12c.2 0 .364-.194.364-.432V.432c0-.239-.163-.432-.364-.432H.815c-.2 0-.364.193-.364.432zm.993.81h16.024V3.56H1.444V1.24zM17.468 3.56H1.444v13.227h16.024V3.56z" class="tribe-common-c-svgicon__svg-fill"/><g clip-path="url(#tribe-events-c-view-selector__button-icon-svg-0)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 4.912v1.825c0 .504.409.913.913.913h1.825a.913.913 0 00.912-.913V4.912A.913.913 0 0014.57 4h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 7.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 5.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><g clip-path="url(#tribe-events-c-view-selector__button-icon-svg-1)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 10.912v1.825c0 .505.409.913.913.913h1.825a.913.913 0 00.912-.912v-1.825A.913.913 0 0014.57 10h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 13.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 11.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><defs><clipPath id="tribe-events-c-view-selector__button-icon-svg-0"><path transform="translate(3.451 4)" d="M0 0h13v4H0z"/></clipPath><clipPath id="tribe-events-c-view-selector__button-icon-svg-1"><path transform="translate(3.451 10)" d="M0 0h13v4H0z"/></clipPath></defs></svg>
+				<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__button-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 19 19"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M.451.432V17.6c0 .238.163.432.364.432H18.12c.2 0 .364-.194.364-.432V.432c0-.239-.163-.432-.364-.432H.815c-.2 0-.364.193-.364.432zm.993.81h16.024V3.56H1.444V1.24zM17.468 3.56H1.444v13.227h16.024V3.56z" class="tribe-common-c-svgicon__svg-fill"/>
+	<g clip-path="url(#tribe-events-c-view-selector__button-icon-svg-0)" class="tribe-common-c-svgicon__svg-fill">
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 4.912v1.825c0 .504.409.913.913.913h1.825a.913.913 0 00.912-.913V4.912A.913.913 0 0014.57 4h-1.825a.912.912 0 00-.913.912z"/>
+		<path d="M8.028 7.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 5.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/>
+	</g>
+	<g clip-path="url(#tribe-events-c-view-selector__button-icon-svg-1)" class="tribe-common-c-svgicon__svg-fill">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 10.912v1.825c0 .505.409.913.913.913h1.825a.913.913 0 00.912-.912v-1.825A.913.913 0 0014.57 10h-1.825a.912.912 0 00-.913.912z"/>
+		<path d="M8.028 13.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 11.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/>
+	</g>
+	<defs>
+		<clipPath id="tribe-events-c-view-selector__button-icon-svg-0">
+			<path transform="translate(3.451 4)" d="M0 0h13v4H0z"/>
+		</clipPath>
+		<clipPath id="tribe-events-c-view-selector__button-icon-svg-1">
+			<path transform="translate(3.451 10)" d="M0 0h13v4H0z"/>
+		</clipPath>
+	</defs>
+</svg>
 			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				List			</span>
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-caret-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-caret-svg" 	aria-hidden="true"
+	viewBox="0 0 10 7"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
 		</button>
 		<div
 	class="tribe-events-c-view-selector__content"
@@ -159,7 +229,29 @@
 		aria-label="Display Events in List View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__list-item-icon-svg"  viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.451.432V17.6c0 .238.163.432.364.432H18.12c.2 0 .364-.194.364-.432V.432c0-.239-.163-.432-.364-.432H.815c-.2 0-.364.193-.364.432zm.993.81h16.024V3.56H1.444V1.24zM17.468 3.56H1.444v13.227h16.024V3.56z" class="tribe-common-c-svgicon__svg-fill"/><g clip-path="url(#tribe-events-c-view-selector__list-item-icon-svg-0)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 4.912v1.825c0 .504.409.913.913.913h1.825a.913.913 0 00.912-.913V4.912A.913.913 0 0014.57 4h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 7.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 5.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><g clip-path="url(#tribe-events-c-view-selector__list-item-icon-svg-1)" class="tribe-common-c-svgicon__svg-fill"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 10.912v1.825c0 .505.409.913.913.913h1.825a.913.913 0 00.912-.912v-1.825A.913.913 0 0014.57 10h-1.825a.912.912 0 00-.913.912z"/><path d="M8.028 13.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 11.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/></g><defs><clipPath id="tribe-events-c-view-selector__list-item-icon-svg-0"><path transform="translate(3.451 4)" d="M0 0h13v4H0z"/></clipPath><clipPath id="tribe-events-c-view-selector__list-item-icon-svg-1"><path transform="translate(3.451 10)" d="M0 0h13v4H0z"/></clipPath></defs></svg>
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 19 19"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M.451.432V17.6c0 .238.163.432.364.432H18.12c.2 0 .364-.194.364-.432V.432c0-.239-.163-.432-.364-.432H.815c-.2 0-.364.193-.364.432zm.993.81h16.024V3.56H1.444V1.24zM17.468 3.56H1.444v13.227h16.024V3.56z" class="tribe-common-c-svgicon__svg-fill"/>
+	<g clip-path="url(#tribe-events-c-view-selector__list-item-icon-svg-0)" class="tribe-common-c-svgicon__svg-fill">
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 4.912v1.825c0 .504.409.913.913.913h1.825a.913.913 0 00.912-.913V4.912A.913.913 0 0014.57 4h-1.825a.912.912 0 00-.913.912z"/>
+		<path d="M8.028 7.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 5.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/>
+	</g>
+	<g clip-path="url(#tribe-events-c-view-selector__list-item-icon-svg-1)" class="tribe-common-c-svgicon__svg-fill">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M11.831 10.912v1.825c0 .505.409.913.913.913h1.825a.913.913 0 00.912-.912v-1.825A.913.913 0 0014.57 10h-1.825a.912.912 0 00-.913.912z"/>
+		<path d="M8.028 13.66a.449.449 0 00.446-.448v-.364c0-.246-.2-.448-.446-.448h-4.13a.449.449 0 00-.447.448v.364c0 .246.201.448.447.448h4.13zM9.797 11.26a.449.449 0 00.447-.448v-.364c0-.246-.201-.448-.447-.448h-5.9a.449.449 0 00-.446.448v.364c0 .246.201.448.447.448h5.9z"/>
+	</g>
+	<defs>
+		<clipPath id="tribe-events-c-view-selector__list-item-icon-svg-0">
+			<path transform="translate(3.451 4)" d="M0 0h13v4H0z"/>
+		</clipPath>
+		<clipPath id="tribe-events-c-view-selector__list-item-icon-svg-1">
+			<path transform="translate(3.451 10)" d="M0 0h13v4H0z"/>
+		</clipPath>
+	</defs>
+</svg>
 		</span>
 		<span class="tribe-events-c-view-selector__list-item-text">
 			List		</span>
@@ -173,7 +265,14 @@
 		aria-label="Display Events in Month View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg"  viewBox="0 0 18 19" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 .991v17.04c0 .236.162.428.361.428h17.175c.2 0 .361-.192.361-.429V.991c0-.237-.162-.428-.361-.428H.36C.161.563 0 .754 0 .99zm.985.803H16.89v2.301H.985v-2.3zM16.89 5.223H.985v12H16.89v-12zM6.31 7.366v.857c0 .237.192.429.429.429h.857a.429.429 0 00.428-.429v-.857a.429.429 0 00-.428-.429H6.74a.429.429 0 00-.429.429zm3.429.857v-.857c0-.237.191-.429.428-.429h.857c.237 0 .429.192.429.429v.857a.429.429 0 01-.429.429h-.857a.429.429 0 01-.428-.429zm3.428-.857v.857c0 .237.192.429.429.429h.857a.429.429 0 00.428-.429v-.857a.429.429 0 00-.428-.429h-.857a.429.429 0 00-.429.429zm-6.857 4.286v-.858c0-.236.192-.428.429-.428h.857c.236 0 .428.192.428.428v.858a.429.429 0 01-.428.428H6.74a.429.429 0 01-.429-.428zm3.429-.858v.858c0 .236.191.428.428.428h.857a.429.429 0 00.429-.428v-.858a.429.429 0 00-.429-.428h-.857a.428.428 0 00-.428.428zm3.428.858v-.858c0-.236.192-.428.429-.428h.857c.236 0 .428.192.428.428v.858a.429.429 0 01-.428.428h-.857a.429.429 0 01-.429-.428zm-10.286-.858v.858c0 .236.192.428.429.428h.857a.429.429 0 00.429-.428v-.858a.429.429 0 00-.429-.428h-.857a.429.429 0 00-.429.428zm0 4.286v-.857c0-.237.192-.429.429-.429h.857c.237 0 .429.192.429.429v.857a.429.429 0 01-.429.429h-.857a.429.429 0 01-.429-.429zm3.429-.857v.857c0 .237.192.429.429.429h.857a.429.429 0 00.428-.429v-.857a.429.429 0 00-.428-.429H6.74a.429.429 0 00-.429.429zm3.429.857v-.857c0-.237.191-.429.428-.429h.857c.237 0 .429.192.429.429v.857a.429.429 0 01-.429.429h-.857a.429.429 0 01-.428-.429z" class="tribe-common-c-svgicon__svg-fill"/></svg>		</span>
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 18 19"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 .991v17.04c0 .236.162.428.361.428h17.175c.2 0 .361-.192.361-.429V.991c0-.237-.162-.428-.361-.428H.36C.161.563 0 .754 0 .99zm.985.803H16.89v2.301H.985v-2.3zM16.89 5.223H.985v12H16.89v-12zM6.31 7.366v.857c0 .237.192.429.429.429h.857a.429.429 0 00.428-.429v-.857a.429.429 0 00-.428-.429H6.74a.429.429 0 00-.429.429zm3.429.857v-.857c0-.237.191-.429.428-.429h.857c.237 0 .429.192.429.429v.857a.429.429 0 01-.429.429h-.857a.429.429 0 01-.428-.429zm3.428-.857v.857c0 .237.192.429.429.429h.857a.429.429 0 00.428-.429v-.857a.429.429 0 00-.428-.429h-.857a.429.429 0 00-.429.429zm-6.857 4.286v-.858c0-.236.192-.428.429-.428h.857c.236 0 .428.192.428.428v.858a.429.429 0 01-.428.428H6.74a.429.429 0 01-.429-.428zm3.429-.858v.858c0 .236.191.428.428.428h.857a.429.429 0 00.429-.428v-.858a.429.429 0 00-.429-.428h-.857a.428.428 0 00-.428.428zm3.428.858v-.858c0-.236.192-.428.429-.428h.857c.236 0 .428.192.428.428v.858a.429.429 0 01-.428.428h-.857a.429.429 0 01-.429-.428zm-10.286-.858v.858c0 .236.192.428.429.428h.857a.429.429 0 00.429-.428v-.858a.429.429 0 00-.429-.428h-.857a.429.429 0 00-.429.428zm0 4.286v-.857c0-.237.192-.429.429-.429h.857c.237 0 .429.192.429.429v.857a.429.429 0 01-.429.429h-.857a.429.429 0 01-.429-.429zm3.429-.857v.857c0 .237.192.429.429.429h.857a.429.429 0 00.428-.429v-.857a.429.429 0 00-.428-.429H6.74a.429.429 0 00-.429.429zm3.429.857v-.857c0-.237.191-.429.428-.429h.857c.237 0 .429.192.429.429v.857a.429.429 0 01-.429.429h-.857a.429.429 0 01-.428-.429z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
+		</span>
 		<span class="tribe-events-c-view-selector__list-item-text">
 			Month		</span>
 	</a>
@@ -186,7 +285,14 @@
 		aria-label="Display Events in Day View"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--day tribe-events-c-view-selector__list-item-icon-svg"  viewBox="0 0 19 18" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M.363 17.569V.43C.363.193.526 0 .726 0H18c.201 0 .364.193.364.431V17.57c0 .238-.163.431-.364.431H.726c-.2 0-.363-.193-.363-.431zm16.985-16.33H1.354v2.314h15.994V1.24zM1.354 4.688h15.994v12.07H1.354V4.687zm11.164 9.265v-1.498c0-.413.335-.748.748-.748h1.498c.413 0 .748.335.748.748v1.498a.749.749 0 01-.748.748h-1.498a.749.749 0 01-.748-.748z" class="tribe-common-c-svgicon__svg-fill"/></svg>		</span>
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--day tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 19 18"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M.363 17.569V.43C.363.193.526 0 .726 0H18c.201 0 .364.193.364.431V17.57c0 .238-.163.431-.364.431H.726c-.2 0-.363-.193-.363-.431zm16.985-16.33H1.354v2.314h15.994V1.24zM1.354 4.688h15.994v12.07H1.354V4.687zm11.164 9.265v-1.498c0-.413.335-.748.748-.748h1.498c.413 0 .748.335.748.748v1.498a.749.749 0 01-.748.748h-1.498a.749.749 0 01-.748-.748z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
+		</span>
 		<span class="tribe-events-c-view-selector__list-item-text">
 			Day		</span>
 	</a>
@@ -210,7 +316,13 @@
 		title="Previous Events"
 		disabled
 	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
 	</button>
 </li>
 
@@ -221,7 +333,13 @@
 		title="Next Events"
 		disabled
 	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 	</button>
 </li>
 	</ul>
@@ -251,7 +369,13 @@
 				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
 					Upcoming				</span>
 					</time>
-				<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-top-bar__datepicker-button-icon-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+				<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-top-bar__datepicker-button-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 7"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -271,10 +395,22 @@
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-top-bar__datepicker-nav-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-top-bar__datepicker-nav-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
 	</template>
 	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-top-bar__datepicker-nav-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-top-bar__datepicker-nav-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 	</template>
 </div>
 
@@ -319,12 +455,12 @@
 
 				<header class="tribe-events-calendar-list__event-header">
 					<div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
-	<em
-	class="tribe-events-calendar-list__event-datetime-featured-icon"
-	title="Featured"
+	<em class="tribe-events-calendar-list__event-datetime-featured-icon">
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-list__event-datetime-featured-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 8 10"
+	xmlns="http://www.w3.org/2000/svg"
 >
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-list__event-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>
 </em>
@@ -445,7 +581,13 @@
 		title="Previous Events"
 		disabled
 	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
 		<span class="tribe-events-c-nav__prev-label">
 			Previous <span class="tribe-events-c-nav__prev-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
 	</button>
@@ -471,7 +613,13 @@
 	>
 		<span class="tribe-events-c-nav__next-label">
 			Next <span class="tribe-events-c-nav__next-label-plural tribe-common-a11y-visual-hide">Events</span>		</span>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 	</button>
 </li>
 	</ul>
@@ -487,7 +635,13 @@
 				aria-label=""
 			>
 				Subscribe to calendar			</button>
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-subscribe-dropdown__button-icon"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-subscribe-dropdown__button-icon" 	aria-hidden="true"
+	viewBox="0 0 10 7"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
 		</div>
 		<div id="tribe-events-c-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 			<ul class="tribe-events-c-subscribe-dropdown__list">
