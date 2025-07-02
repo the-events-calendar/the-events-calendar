@@ -14,15 +14,15 @@
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 
-		<!-- Tweak this one - we always want them lined up. 1000 is the default, WP overrides that. -->
-		<rule ref="WordPress.Arrays.MultipleStatementAlignment">
-			<properties>
-				<property name="maxColumn" value="1000"/>
-			</properties>
-		</rule>
-
 		<!-- We cover these with our own tests so they're redundant. -->
 		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
+	</rule>
+
+	<!-- Tweak this one - we always want them lined up. 1000 is the default, WP overrides that. -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="1000"/>
+		</properties>
 	</rule>
 
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
