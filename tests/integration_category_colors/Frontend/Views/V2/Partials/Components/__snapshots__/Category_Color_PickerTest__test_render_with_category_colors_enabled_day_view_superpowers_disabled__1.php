@@ -8,7 +8,13 @@
 	<div class="tec-events-category-color-filter__colors" id="tec-category-color-legend"></div>
 
 	<span class="tec-events-category-color-filter__dropdown-icon">
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tec-events-category-color-filter__dropdown-icon-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tec-events-category-color-filter__dropdown-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 7"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
 	</span>
 	<div class="tec-events-category-color-filter__dropdown" role="listbox" aria-label="Category selection">
 		<div class="tec-events-category-color-filter__dropdown-header">
