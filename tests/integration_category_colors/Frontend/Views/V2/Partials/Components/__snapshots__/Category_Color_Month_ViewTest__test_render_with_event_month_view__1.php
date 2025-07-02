@@ -1,14 +1,9 @@
 <?php return '
-<div class="tribe-events-calendar-month__body" role="rowgroup">
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
+<tbody class="tribe-events-calendar-month__body">
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-01"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-01"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -18,16 +13,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-01"
 		>
 			1		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -36,7 +31,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -45,20 +40,19 @@
 		datetime="2019-07-01"
 	>
 					1			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-02"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-02"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -68,16 +62,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-02"
 		>
 			2		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -86,7 +80,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -95,20 +89,19 @@
 		datetime="2019-07-02"
 	>
 					2			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-03"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-03"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -118,16 +111,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-03"
 		>
 			3		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -136,7 +129,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -145,20 +138,19 @@
 		datetime="2019-07-03"
 	>
 					3			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-04"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-04"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -168,16 +160,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-04"
 		>
 			4		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -186,7 +178,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -195,20 +187,19 @@
 		datetime="2019-07-04"
 	>
 					4			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-05"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-05"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -218,16 +209,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-05"
 		>
 			5		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -236,7 +227,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -245,20 +236,19 @@
 		datetime="2019-07-05"
 	>
 					5			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-06"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-06"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -268,16 +258,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-06"
 		>
 			6		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -286,7 +276,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -295,20 +285,19 @@
 		datetime="2019-07-06"
 	>
 					6			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-07"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-07"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -318,16 +307,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-07"
 		>
 			7		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -336,7 +325,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -345,26 +334,21 @@
 		datetime="2019-07-07"
 	>
 					7			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-08"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-08"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -374,16 +358,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-08"
 		>
 			8		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -392,7 +376,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -401,20 +385,19 @@
 		datetime="2019-07-08"
 	>
 					8			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-09"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-09"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -424,16 +407,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-09"
 		>
 			9		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -442,7 +425,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -451,20 +434,19 @@
 		datetime="2019-07-09"
 	>
 					9			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-10"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-10"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -474,16 +456,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-10"
 		>
 			10		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -492,7 +474,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -501,20 +483,19 @@
 		datetime="2019-07-10"
 	>
 					10			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-11"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-11"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -524,16 +505,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-11"
 		>
 			11		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -542,7 +523,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -551,20 +532,19 @@
 		datetime="2019-07-11"
 	>
 					11			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-12"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-12"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -574,16 +554,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-12"
 		>
 			12		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -592,7 +572,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -601,20 +581,19 @@
 		datetime="2019-07-12"
 	>
 					12			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-13"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-13"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -624,16 +603,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-13"
 		>
 			13		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -642,7 +621,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -651,20 +630,19 @@
 		datetime="2019-07-13"
 	>
 					13			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-14"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-14"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -674,16 +652,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-14"
 		>
 			14		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -692,7 +670,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -701,26 +679,21 @@
 		datetime="2019-07-14"
 	>
 					14			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-15"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-15"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -730,16 +703,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-15"
 		>
 			15		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -748,7 +721,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -757,20 +730,19 @@
 		datetime="2019-07-15"
 	>
 					15			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-16"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-16"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -780,16 +752,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-16"
 		>
 			16		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -798,7 +770,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -807,20 +779,19 @@
 		datetime="2019-07-16"
 	>
 					16			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-17"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-17"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -830,16 +801,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-17"
 		>
 			17		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -848,7 +819,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -857,20 +828,19 @@
 		datetime="2019-07-17"
 	>
 					17			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-18"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-18"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -880,16 +850,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-18"
 		>
 			18		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -898,7 +868,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -907,20 +877,19 @@
 		datetime="2019-07-18"
 	>
 					18			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-19"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-19"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -930,16 +899,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-19"
 		>
 			19		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -948,7 +917,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -957,20 +926,19 @@
 		datetime="2019-07-19"
 	>
 					19			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-20"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-20"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -980,16 +948,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-20"
 		>
 			20		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -998,7 +966,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1007,20 +975,19 @@
 		datetime="2019-07-20"
 	>
 					20			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-21"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-21"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1030,16 +997,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-21"
 		>
 			21		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1048,7 +1015,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1057,26 +1024,21 @@
 		datetime="2019-07-21"
 	>
 					21			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-22"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-22"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1086,16 +1048,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-22"
 		>
 			22		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1104,7 +1066,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1113,20 +1075,19 @@
 		datetime="2019-07-22"
 	>
 					22			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-23"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-23"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1136,16 +1097,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-23"
 		>
 			23		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1154,7 +1115,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1163,20 +1124,19 @@
 		datetime="2019-07-23"
 	>
 					23			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-24"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-24"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1186,16 +1146,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-24"
 		>
 			24		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1204,7 +1164,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1213,20 +1173,19 @@
 		datetime="2019-07-24"
 	>
 					24			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-25"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-25"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1236,16 +1195,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-25"
 		>
 			25		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1254,7 +1213,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1263,20 +1222,19 @@
 		datetime="2019-07-25"
 	>
 					25			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-26"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-26"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1286,16 +1244,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-26"
 		>
 			26		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1304,7 +1262,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1313,20 +1271,19 @@
 		datetime="2019-07-26"
 	>
 					26			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-27"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-27"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1336,16 +1293,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-27"
 		>
 			27		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1354,7 +1311,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1363,20 +1320,19 @@
 		datetime="2019-07-27"
 	>
 					27			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-28"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-28"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1386,16 +1342,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-28"
 		>
 			28		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1404,7 +1360,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1413,26 +1369,21 @@
 		datetime="2019-07-28"
 	>
 					28			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
+					</tr>
+			<tr class="tribe-events-calendar-month__week" data-js="tribe-events-month-grid-row">
 			
-		</div>
-
-	
-		<div class="tribe-events-calendar-month__week" role="row" data-js="tribe-events-month-grid-row">
-
-			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-29"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-29"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1442,16 +1393,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-29"
 		>
 			29		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1460,7 +1411,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1469,20 +1420,19 @@
 		datetime="2019-07-29"
 	>
 					29			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-30"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-30"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1492,16 +1442,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-30"
 		>
 			30		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1510,7 +1460,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1519,20 +1469,19 @@
 		datetime="2019-07-30"
 	>
 					30			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-07-31"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-07-31"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1542,16 +1491,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-31"
 		>
 			31		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1560,7 +1509,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1569,20 +1518,19 @@
 		datetime="2019-07-31"
 	>
 					31			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-08-01"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-08-01"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1592,16 +1540,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-01"
 		>
 			1		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1610,7 +1558,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1619,20 +1567,19 @@
 		datetime="2019-08-01"
 	>
 					1			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-08-02"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-08-02"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1642,16 +1589,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-02"
 		>
 			2		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1660,7 +1607,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1669,20 +1616,19 @@
 		datetime="2019-08-02"
 	>
 					2			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-08-03"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-08-03"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1692,16 +1638,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-03"
 		>
 			3		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1710,7 +1656,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1719,20 +1665,19 @@
 		datetime="2019-08-03"
 	>
 					3			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
 			
-				
-<div
-	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	role="gridcell"
-	aria-labelledby="tribe-events-calendar-day-2019-08-04"
+				<td
+	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--other-month tribe-events-calendar-month__day--next-month" 	aria-labelledby="tribe-events-calendar-day-2019-08-04"
 	data-js="tribe-events-month-grid-cell"
 >
 	
@@ -1742,16 +1687,16 @@
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			0 events,
+			has 0 events,
 		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-08-04"
 		>
 			4		</time>
-	</h3>
+	</div>
 	
 </button>
 	
@@ -1760,7 +1705,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
+<div class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		0 events,
 	</span>
@@ -1769,18 +1714,16 @@
 		datetime="2019-08-04"
 	>
 					4			</time>
-</h3>
+</div>
+
 	<div class="tribe-events-calendar-month__events">
 		
 			</div>
 
 	
 </div>
-</div>
+</td>
 
-			
-		</div>
-
-	
-</div>
+					</tr>
+	</tbody>
 ';
