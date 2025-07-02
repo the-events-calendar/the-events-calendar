@@ -2,7 +2,7 @@
 /**
  * Abstract base class for category color admin functionality.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Admin
  */

@@ -6,7 +6,7 @@
  * used during the migration process. It ensures consistency and reduces
  * hardcoded values across multiple migration steps.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -20,7 +20,7 @@ namespace TEC\Events\Category_Colors\Migration;
  * This includes option names for storing migration data, meta key mappings, and
  * settings migration rules.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */

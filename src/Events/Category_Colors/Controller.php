@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -25,7 +25,7 @@ use Tribe__Events__Main;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors
  */

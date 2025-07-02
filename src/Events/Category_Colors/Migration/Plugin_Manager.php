@@ -2,7 +2,7 @@
 /**
  * Manages the legacy Category Colors plugin and its migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */

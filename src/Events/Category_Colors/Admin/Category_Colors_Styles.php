@@ -2,7 +2,7 @@
 /**
  * Handles all style-related functionality for category colors.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Admin
  */

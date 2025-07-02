@@ -5,7 +5,7 @@
  * This class retrieves and processes event categories with associated color metadata
  * to be used in the frontend dropdown selection.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Events\Category_Colors\Repositories
  */
 

@@ -5,7 +5,7 @@
  * This trait provides access to the meta keys used for storing category color data.
  * It provides utility methods for retrieving meta keys and a list of all available keys.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Events\Category_Colors
  */
 

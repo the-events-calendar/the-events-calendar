@@ -2,7 +2,7 @@
 /**
  * Handles the editing of category colors in the WordPress admin.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Admin
  */
