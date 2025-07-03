@@ -1,4 +1,0 @@
-Significance: patch
-Type: accessibility
-
-Updated featured icons in all calendar views to include accessible labels. Reorganized the Month view Feature icons to be more understandable when read by a screen reader. Reworked several icon applications to make them more accessible. [TEC-5190, TEC-5201]

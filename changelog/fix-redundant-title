@@ -1,4 +1,0 @@
-Significance: patch
-Type: accessibility
-
-Remove redundant title attributes on some images and links. [TEC-5194, TEC-5195]

@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Update Month view templates to use a more semantically appropriate table structure. Developers are advised to carefully review any customizations for compatibility before updating. [TEC-5185]
