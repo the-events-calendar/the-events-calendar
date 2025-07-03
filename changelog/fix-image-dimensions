@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Add width and height attributes on images displayed in our Events pages [TEC-4715]
