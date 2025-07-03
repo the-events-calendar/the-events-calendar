@@ -174,7 +174,8 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		$wp_query->is_main_query = true;
 
 		tribe_context()->alter( [
-			'event_display' => $view_slug
+			'event_display' => $view_slug,
+			'event_post_type' => true,
 		] )->dangerously_set_global_context();
 
 		// Set up redirect capture
@@ -189,9 +190,8 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		}, true );
 
 		// Mock tribe_exit to prevent actual exit and allow test to continue
-		$this->set_fn_return( 'tribe_exit', function() {
-			return true;
-		}, true );
+		$this->set_fn_return( 'tribe_exit', true );
+		$this->set_fn_return( 'is_archive', true );
 
 		// Run the method
 		$hooks = new Hooks( tribe() );
@@ -199,7 +199,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 
 		// Verify redirect was attempted
 		$this->assertCount( 1, $store, 'Should have attempted one redirect' );
-		$this->assertEquals( 301, $store[0]['status'], 'Should have attempted a 301 redirect' );
+		$this->assertEquals( 302, $store[0]['status'], 'Should have attempted a 302 redirect' );
 		$this->assertStringContainsString( '/events/', $store[0]['url'], 'Should redirect to default view' );
 		$this->assertStringContainsString( 'tribe_redirected=1', $store[0]['url'], 'Should include tribe_redirected flag' );
 

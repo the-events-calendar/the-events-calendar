@@ -322,6 +322,10 @@ class Hooks extends Service_Provider {
 	public function disabled_views_redirect() {
 		$context = tribe_context();
 
+		if ( ! ( $context->get( 'event_post_type' ) && is_archive( TEC::POSTTYPE ) ) ) {
+			return;
+		}
+
 		$view_slug = $context->get( 'event_display' );
 		if ( ! empty( $view_slug ) && 'default' !== $view_slug ) {
 			$public_views = $this->container->make( Manager::class )->get_publicly_visible_views();
@@ -337,7 +341,7 @@ class Hooks extends Service_Provider {
 				add_filter( 'tribe_events_views_v2_redirected', '__return_true' );
 
 				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect, StellarWP.CodeAnalysis.RedirectAndDie
-				wp_safe_redirect( $default, 301 );
+				wp_safe_redirect( $default );
 				tribe_exit();
 			}
 		}
