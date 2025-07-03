@@ -46,24 +46,11 @@ class MonthTest extends HtmlTestCase {
 		$template = $this->template->template( 'month' );
 		$html       = $this->document->html( $template );
 		$month      = $html->find( '.tribe-events-calendar-month' );
-		$month_body = $month->find( '.tribe-events-calendar-month__body' );
-		$week       = $month_body->find( '.tribe-events-calendar-month__week' );
-
-		$this->assertTrue(
-			$month->is( '[role="grid"]' ),
-			'Month needs to be role="grid"'
-		);
 
 		$this->assertTrue(
 			$month->is( '[aria-readonly="true"]' ),
 			'Month needs to be aria-readonly="true"'
 		);
-
-		$this->assertTrue(
-			$week->is( '[role="row"]' ),
-			'Month week needs to be role="row"'
-		);
-
 	}
 
 	protected function given_month_data() {

@@ -12,6 +12,6 @@
  */
 
 ?>
-<div <?php tribe_classes( $link_class ); ?>>
+<div <?php tec_classes( $link_class ); ?>>
 	<?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 </div>

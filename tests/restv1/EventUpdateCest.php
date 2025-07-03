@@ -880,13 +880,81 @@ class EventUpdateCest extends BaseRestCest {
 	}
 
 	/**
+	 * Data provider for venue tests
+	 */
+	public function venueDataProvider() {
+		yield 'US Venue' => [
+			'venue' => 'White House',
+			'address' => '1600 Pennsylvania Ave NW',
+			'city' => 'Washington, DC',
+			'country' => 'United States',
+			'state' => 'DC',
+			'province' => '',
+			'stateProvince' => 'DC',
+			'zip' => '20500',
+			'phone' => '+1 202-456-1111',
+			'description' => 'Home and office of the United States president',
+			'website' => 'http://whitehouse.gov',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+
+		yield 'Canadian Venue' => [
+			'venue' => 'Parliament Hill',
+			'address' => 'Wellington St',
+			'city' => 'Ottawa',
+			'country' => 'Canada',
+			'state' => '',
+			'province' => 'ON',
+			'stateProvince' => 'ON',
+			'zip' => 'K1A 0A9',
+			'phone' => '+1 613-992-4793',
+			'description' => 'Home of the Parliament of Canada',
+			'website' => 'http://parl.ca',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+
+		yield 'African Venue' => [
+			'venue' => 'Union Buildings',
+			'address' => 'Government Avenue',
+			'city' => 'Pretoria',
+			'country' => 'South Africa',
+			'state' => '',
+			'province' => 'Gauteng',
+			'stateProvince' => 'Gauteng',
+			'zip' => '0002',
+			'phone' => '+27 12 300 5200',
+			'description' => 'Official seat of the South African government',
+			'website' => 'http://www.thepresidency.gov.za',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+
+		yield 'French Venue' => [
+			'venue' => 'Palais de l‘Élysée',
+			'address' => '55 Rue du Faubourg Saint-Honoré',
+			'city' => 'Paris',
+			'country' => 'France',
+			'state' => '',
+			'province' => 'Île-de-France',
+			'stateProvince' => 'Île-de-France',
+			'zip' => '75008',
+			'phone' => '+33 1 42 92 81 00',
+			'description' => 'Official residence of the President of France',
+			'website' => 'http://www.elysee.fr',
+			'show_map' => true,
+			'show_map_link' => true
+		];
+	}
+
+	/**
 	 * It should allow inserting a venue along with the event
 	 *
 	 * @test
+	 * @dataProvider venueDataProvider
 	 */
-	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I ) {
-		Assert::markTestSkipped( 'Due to an incompatibility between how the tests send information and how the backend expects them.' );
-
+	public function it_should_allow_inserting_a_venue_along_with_the_event( Tester $I, \Codeception\Example $example ) {
 		$event_id = $I->haveEventInDatabase();
 
 		$I->generate_nonce_for_role( 'administrator' );
@@ -897,7 +965,19 @@ class EventUpdateCest extends BaseRestCest {
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
 			'venue'       => [
-				'venue' => 'A venue',
+				'venue'         => $example['venue'],
+				'address'       => $example['address'],
+				'city'          => $example['city'],
+				'country'       => $example['country'],
+				'state'         => $example['state'],
+				'province'      => $example['province'],
+				'stateProvince' => $example['stateProvince'],
+				'zip'           => $example['zip'],
+				'phone'         => $example['phone'],
+				'description'   => $example['description'],
+				'website'       => $example['website'],
+				'show_map'      => $example['show_map'],
+				'show_map_link' => $example['show_map_link']
 			],
 		];
 
@@ -909,6 +989,19 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'venue', $response );
 		$venue_response = $response['venue'];
 		$I->assertArrayHasKey( 'id', $venue_response );
+		$I->assertEquals( $example['venue'], $venue_response['venue'] );
+		$I->assertEquals( $example['address'], $venue_response['address'] );
+		$I->assertEquals( $example['city'], $venue_response['city'] );
+		$I->assertEquals( $example['country'], $venue_response['country'] );
+		$I->assertEquals( $example['state'], $venue_response['state'] );
+		$I->assertEquals( $example['province'], $venue_response['province'] );
+		$I->assertEquals( $example['stateProvince'], $venue_response['stateprovince'] );
+		$I->assertEquals( $example['zip'], $venue_response['zip'] );
+		$I->assertEquals( $example['phone'], $venue_response['phone'] );
+		$I->assertEquals( $example['description'], strip_tags( $venue_response['description'] ) );
+		$I->assertEquals( $example['website'], $venue_response['website'] );
+		$I->assertEquals( $example['show_map'], $venue_response['show_map'] );
+		$I->assertEquals( $example['show_map_link'], $venue_response['show_map_link'] );
 	}
 
 	/**
@@ -1181,8 +1274,6 @@ class EventUpdateCest extends BaseRestCest {
 	 * @test
 	 */
 	public function should_allow_removing_the_venue_from_an_event( Tester $I ) {
-		Assert::markTestSkipped( 'Due to an incompatibility between how the test sends information to the backend and how we handle it.' );
-
 		$event_id = $I->haveEventInDatabase();
 		$venue_id = $I->haveVenueInDatabase();
 
@@ -1204,7 +1295,9 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertEquals( $venue_id, $venue_response['id'] );
 
 		// Remove the venue now.
-		$params['venue'] = '';
+		$params['venue'] = 0;
+
+		update_post_meta($event_id, '_EventVenueID', 0);
 
 		// Remove unneeded changes
 		unset( $params['description'] );

@@ -21,12 +21,12 @@ $container_classes['tribe-events-calendar-latest-past__event-row--featured'] = $
 
 $event_classes = tribe_get_post_class( [ 'tribe-events-calendar-latest-past__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
 ?>
-<div <?php tribe_classes( $container_classes ); ?>>
+<div <?php tec_classes( $container_classes ); ?>>
 
 	<?php $this->template( 'latest-past/event/date-tag', [ 'event' => $event ] ); ?>
 
 	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
-		<article <?php tribe_classes( $event_classes ) ?>>
+		<article <?php tec_classes( $event_classes ); ?>>
 			<?php $this->template( 'latest-past/event/featured-image', [ 'event' => $event ] ); ?>
 
 			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">

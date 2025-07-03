@@ -44,7 +44,7 @@ if ( empty( $venue ) ) {
 }
 
 ?>
-<div <?php tribe_classes( $widget->get_widget_class() . '-details' ); ?>>
+<div <?php tec_classes( $widget->get_widget_class() . '-details' ); ?>>
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-venue/name' );
 

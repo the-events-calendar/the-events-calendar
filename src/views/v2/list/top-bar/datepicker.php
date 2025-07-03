@@ -9,7 +9,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @version 6.14.0
+ * @since 5.3.0
+ * @since 6.14.0 Changed aria-label to aria-description for WCAG compliance.
  *
  * @var bool   $is_now                     Whether the date selected in the datepicker is "now" or not.
  * @var bool   $show_now                   Whether to show the "Now" label as range start or not.
@@ -25,14 +27,15 @@
  * @var string $datepicker_date            The datepicker selected date, in the `Y-m-d` format.
  */
 
+
+
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
+		aria-description="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
 			datetime="<?php echo esc_attr( $selected_start_datetime ); ?>"

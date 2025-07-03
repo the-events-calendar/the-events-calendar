@@ -84,7 +84,7 @@ $cost  = tribe_get_formatted_cost( $event_id );
 	<?php echo $title; ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
-		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
+		<?php echo tribe_events_event_schedule_details( $event_id, '<div>', '</div>' ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 		<?php if ( ! empty( $cost ) ) : ?>
 			<span class="tribe-events-cost"><?php echo esc_html( $cost ) ?></span>
 		<?php endif; ?>
