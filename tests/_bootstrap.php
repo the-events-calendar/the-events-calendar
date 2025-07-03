@@ -1,13 +1,14 @@
 <?php
+
 use Codeception\Util\Autoload;
 
-Autoload::addNamespace( 'Tribe\Tests', dirname(__DIR__) . '/common/tests/_support' );
+// This is global bootstrap for autoloading
+$common_support_dir = dirname( __DIR__ ) . '/common/tests/_support';
+Autoload::addNamespace( 'Tribe\Tests', $common_support_dir );
 Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support' );
 Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support/classes' );
 Autoload::addNamespace( 'Tribe\Events\Test\Acceptance\Steps', __DIR__ . '/acceptance/_steps' );
-
-$common_support_dir = __DIR__ . '/../common/tests/_support';
-Autoload::addNamespace( '\\TEC\\Common\\Tests', $common_support_dir );
+Autoload::addNamespace( 'TEC\Common\Tests', $common_support_dir );
 
 /**
  * Codeception will regenerate snapshots on `--debug`, while the `spatie/snapshot-assertions`
