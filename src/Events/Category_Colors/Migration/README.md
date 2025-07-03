@@ -120,7 +120,7 @@ The Notice system provides user interaction and feedback:
 If the migration fails:
 1. The notice will show an error message
 2. Click "Restart Migration" to try again
-3. Check the debug log for specific error details 
+3. Check the debug log for specific error details
 
 ## Available Filters
 
@@ -129,7 +129,7 @@ If the migration fails:
 /**
  * Force the migration notice to appear.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param bool $force_show Whether to force show the notice.
  * @return bool Modified value.
@@ -142,7 +142,7 @@ add_filter( 'tec_events_category_colors_force_migration_notice', '__return_true'
 /**
  * Modify the number of categories processed in each batch.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param int $batch_size The number of categories to process per batch.
  * @return int Modified batch size.
@@ -157,7 +157,7 @@ add_filter( 'tec_events_category_colors_migration_batch_size', function() {
 /**
  * Modify the validation sample size for settings.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param int $sample_size The number of settings to validate.
  * @return int Modified sample size.
@@ -172,7 +172,7 @@ add_filter( 'tec_events_category_colors_migration_validation_sample_size', funct
 /**
  * Prevent or allow scheduling of a migration action.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param bool|WP_Error $can_schedule Whether the action can be scheduled.
  * @param Abstract_Action $action The action being scheduled.
@@ -192,7 +192,7 @@ add_filter( 'tec_events_category_colors_migration_pre_schedule_action', function
 /**
  * Modify migration status updates.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param string $status The new migration status.
  */
@@ -207,7 +207,7 @@ add_action( 'tec_events_category_colors_migration_status_updated', function( $st
 /**
  * Modify log messages before they are recorded.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param string $message The log message.
  * @param array $context Additional context data.
@@ -217,4 +217,4 @@ add_filter( 'tec_events_category_colors_migration_log_message', function( $messa
     // Example: Add custom prefix to log messages
     return "[Custom Prefix] {$message}";
 }, 10, 2 );
-``` 
+```
