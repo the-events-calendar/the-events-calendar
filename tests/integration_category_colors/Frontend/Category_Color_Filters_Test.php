@@ -2,7 +2,7 @@
 /**
  * Test the Category Color filter functionality.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -55,14 +55,14 @@ class Category_Color_Filters_Test extends WPTestCase {
 	 */
 	public function tear_down(): void {
 		parent::tearDown();
-		
+
 		// Clean up any filters we added
 		remove_all_filters( 'tec_events_category_colors_enabled' );
 		remove_all_filters( 'tec_events_category_colors_show_frontend_ui' );
 		remove_all_filters( 'tec_events_category_colors_should_enqueue_frontend_styles' );
 		remove_all_filters( 'tec_events_category_colors_should_enqueue_frontend_legend' );
 		remove_all_filters( 'tec_events_category_colors_enabled_views' );
-		
+
 		// Bust cache to ensure clean state
 		$this->dropdown_provider->bust_dropdown_categories_cache();
 	}
@@ -81,7 +81,7 @@ class Category_Color_Filters_Test extends WPTestCase {
 	 */
 	public function should_respect_global_enabled_filter_disabled() {
 		add_filter( 'tec_events_category_colors_enabled', '__return_false' );
-		
+
 		$enabled = apply_filters( 'tec_events_category_colors_enabled', true );
 		$this->assertFalse( $enabled );
 	}
@@ -91,7 +91,7 @@ class Category_Color_Filters_Test extends WPTestCase {
 	 */
 	public function should_respect_global_enabled_filter_enabled() {
 		add_filter( 'tec_events_category_colors_enabled', '__return_true' );
-		
+
 		$enabled = apply_filters( 'tec_events_category_colors_enabled', false );
 		$this->assertTrue( $enabled );
 	}
@@ -144,7 +144,7 @@ class Category_Color_Filters_Test extends WPTestCase {
 			->save();
 
 		add_filter( 'tec_events_category_colors_show_frontend_ui', '__return_false' );
-		
+
 		$show_ui = apply_filters( 'tec_events_category_colors_show_frontend_ui', $this->dropdown_provider->has_dropdown_categories() );
 		$this->assertFalse( $show_ui );
 	}
@@ -197,7 +197,7 @@ class Category_Color_Filters_Test extends WPTestCase {
 			->save();
 
 		add_filter( 'tec_events_category_colors_should_enqueue_frontend_styles', '__return_false' );
-		
+
 		$should_enqueue = apply_filters( 'tec_events_category_colors_should_enqueue_frontend_styles', $this->dropdown_provider->has_dropdown_categories() );
 		$this->assertFalse( $should_enqueue );
 	}
@@ -216,7 +216,7 @@ class Category_Color_Filters_Test extends WPTestCase {
 	 */
 	public function should_respect_frontend_legend_filter_disabled() {
 		add_filter( 'tec_events_category_colors_should_enqueue_frontend_legend', '__return_false' );
-		
+
 		$should_enqueue = apply_filters( 'tec_events_category_colors_should_enqueue_frontend_legend', true );
 		$this->assertFalse( $should_enqueue );
 	}
@@ -301,13 +301,13 @@ class Category_Color_Filters_Test extends WPTestCase {
 
 		// Add filter
 		add_filter( 'tec_events_category_colors_show_frontend_ui', '__return_false' );
-		
+
 		$show_ui_with_filter = apply_filters( 'tec_events_category_colors_show_frontend_ui', $this->dropdown_provider->has_dropdown_categories() );
 		$this->assertFalse( $show_ui_with_filter );
 
 		// Remove filter
 		remove_filter( 'tec_events_category_colors_show_frontend_ui', '__return_false' );
-		
+
 		$show_ui_without_filter = apply_filters( 'tec_events_category_colors_show_frontend_ui', $this->dropdown_provider->has_dropdown_categories() );
 		$this->assertTrue( $show_ui_without_filter );
 	}
@@ -356,4 +356,4 @@ class Category_Color_Filters_Test extends WPTestCase {
 		$show_ui_after_removal = apply_filters( 'tec_events_category_colors_show_frontend_ui', $this->dropdown_provider->has_dropdown_categories() );
 		$this->assertFalse( $show_ui_after_removal );
 	}
-} 
+}

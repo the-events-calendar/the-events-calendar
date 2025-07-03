@@ -6,7 +6,7 @@
  * used during the migration process. It ensures consistency and reduces
  * hardcoded values across multiple migration steps.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -20,7 +20,7 @@ namespace TEC\Events\Category_Colors\Migration;
  * This includes option names for storing migration data, meta key mappings, and
  * settings migration rules.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -29,7 +29,7 @@ class Config {
 	/**
 	 * Option name for storing original settings.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const ORIGINAL_SETTINGS_OPTION = 'teccc_options';
@@ -37,7 +37,7 @@ class Config {
 	/**
 	 * Option name for storing migration data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const MIGRATION_DATA_OPTION = 'tec_category_colors_migration_data';
@@ -46,7 +46,7 @@ class Config {
 	 * Option name for storing migration processing data.
 	 * This is a working copy of the migration data that gets modified as items are processed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const MIGRATION_PROCESSING_OPTION = 'tec_category_colors_migration_processing';
@@ -54,7 +54,7 @@ class Config {
 	/**
 	 * Option name for tracking the migration status.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const MIGRATION_STATUS_OPTION = 'tec_events_category_colors_migration_status';
@@ -62,7 +62,7 @@ class Config {
 	/**
 	 * Expected structure for the migration data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string, mixed>
 	 */
 	public const EXPECTED_STRUCTURE = [
@@ -74,7 +74,7 @@ class Config {
 	/**
 	 * Mapping of old settings keys to new migrated keys, along with validation rules.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string, array<string, string>>
 	 */
 	public const SETTINGS_MAPPING = [
@@ -118,7 +118,7 @@ class Config {
 	/**
 	 * Prefix for storing category meta values.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const META_KEY_PREFIX = 'tec-events-cat-colors-';
@@ -128,7 +128,7 @@ class Config {
 	 * Keys represent the old names, and values represent the new names.
 	 * Any key not in this list will be ignored.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string, string>
 	 */
 	public const META_KEY_MAP = [
@@ -141,7 +141,7 @@ class Config {
 	/**
 	 * The action group name for migration actions.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const MIGRATION_ACTION_GROUP = 'tec_events_category_colors_migration';
@@ -149,7 +149,7 @@ class Config {
 	/**
 	 * Option name for tracking the current migration batch.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public const MIGRATION_BATCH_OPTION = 'tec_events_category_colors_migration_batch';

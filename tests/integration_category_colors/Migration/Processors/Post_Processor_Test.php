@@ -2,7 +2,7 @@
 /**
  * Tests for the Post_Processor class.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -18,7 +18,7 @@ use Closure;
 /**
  * Class Post_Processor_Test
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -57,7 +57,7 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Creates test categories for testing.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function create_test_categories(): void {
 		$term1 = wp_insert_term( 'Test Category 1', 'tribe_events_cat' );
@@ -81,7 +81,7 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Deletes test categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function delete_test_categories(): void {
 		foreach ( self::$test_categories as $category_id ) {
@@ -93,7 +93,7 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Data provider for test cases.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<string, array{0: Closure, 1: bool, 2: string}>
 	 */
@@ -302,8 +302,8 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 	 * Test that the CSS stylesheet is regenerated after successful migration.
 	 *
      * @test
-     * 
-	 * @since TBD
+     *
+	 * @since 6.14.0
 	 */
 	public function should_regenerate_css_after_successful_migration(): void {
 		// Set up test data

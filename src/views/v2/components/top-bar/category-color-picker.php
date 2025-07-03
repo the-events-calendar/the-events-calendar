@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var string  $category_colors_enabled           Whether the category colors view should display.
  * @var array[] $category_colors_category_dropdown Array of categories with metadata.

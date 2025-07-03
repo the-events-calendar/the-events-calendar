@@ -2,7 +2,7 @@
 /**
  * Template for adding category colors in the "Add Category" form.
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var array  $category_colors An associative array of meta keys and their values.
  * @var object $taxonomy        The taxonomy object.

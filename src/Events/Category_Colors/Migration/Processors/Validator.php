@@ -4,7 +4,7 @@
  * This class ensures that the processed migration data is correctly formatted,
  * contains required fields, and aligns with expected data structures.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -21,7 +21,7 @@ use Tribe__Events__Main;
  * Validates the migration data before execution to prevent incorrect or incomplete imports.
  * Checks data structure, required fields, existing categories, and unexpected meta keys.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -30,7 +30,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Number of random keys to validate.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var int
 	 */
 	protected const VALIDATION_SAMPLE_SIZE = 200;
@@ -41,7 +41,7 @@ class Validator extends Abstract_Migration_Step {
 	 * This method checks the current migration status and ensures the step
 	 * should only execute if the migration has not already started.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
@@ -55,7 +55,7 @@ class Validator extends Abstract_Migration_Step {
 	 * If validation fails, the end hook passes `false`.
 	 * If validation passes, the end hook passes `true`.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return bool True if validation passes, false otherwise.
 	 */
 	public function process(): bool {
@@ -65,7 +65,7 @@ class Validator extends Abstract_Migration_Step {
 		/**
 		 * Fires before the validation process begins.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 */
 		do_action( 'tec_events_category_colors_migration_validator_start' );
 
@@ -97,7 +97,7 @@ class Validator extends Abstract_Migration_Step {
 		/**
 		 * Fires after the validation process completes.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool $success True if validation passed, false otherwise.
 		 */
@@ -110,7 +110,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Runs a validation step and stops further execution if an error occurs.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param callable $validation_step A function representing a validation step.
 	 * @param string   $step_name       (Optional) The name of the validation step.
@@ -132,7 +132,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Validates that the migration data structure matches expectations.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
@@ -155,7 +155,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Validates that all categories in migration data exist.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<int, array<string, mixed>> $categories List of categories from migration data.
 	 *
@@ -189,7 +189,7 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * If there are no migrated settings, the validation passes automatically.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_random_keys() {
@@ -236,7 +236,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Validates that meta keys in category data match the expected mapping.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<int, array<string, mixed>> $categories The categories array.
 	 *
@@ -274,7 +274,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Detects unrecognized keys that should not be in migration data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
@@ -298,7 +298,7 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * Logs a warning if any expected setting is missing, but does not fail validation.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
@@ -330,7 +330,7 @@ class Validator extends Abstract_Migration_Step {
 	/**
 	 * Validates that settings values match their expected types and formats.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $settings The settings to validate.
 	 *

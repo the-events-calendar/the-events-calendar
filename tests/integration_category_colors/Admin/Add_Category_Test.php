@@ -2,7 +2,7 @@
 /**
  * Test the Add Category functionality for Category Colors.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Tests\Integration\Category_Colors
  */

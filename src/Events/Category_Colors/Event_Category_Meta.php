@@ -3,7 +3,7 @@
  * Event_Category_Meta class for taxonomy meta.
  * Handles metadata for terms within the `tribe_events_cat` taxonomy.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -22,7 +22,7 @@ use WP_Term;
  * associated with event categories. It ensures that only valid terms within
  * the `tribe_events_cat` taxonomy can have metadata operations performed on them.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -31,7 +31,7 @@ class Event_Category_Meta {
 	/**
 	 * The taxonomy associated with event categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ class Event_Category_Meta {
 	/**
 	 * The ID of the term this instance operates on.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var int
 	 */
@@ -49,7 +49,7 @@ class Event_Category_Meta {
 	/**
 	 * Stores pending metadata deletions before saving.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var array
 	 */
@@ -58,7 +58,7 @@ class Event_Category_Meta {
 	/**
 	 * Stores pending metadata updates before saving.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var array
 	 */
@@ -67,7 +67,7 @@ class Event_Category_Meta {
 	/**
 	 * Sets the term ID for the instance, ensuring it exists within the taxonomy.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the term ID is invalid or does not exist in the taxonomy.
 	 *
@@ -97,7 +97,7 @@ class Event_Category_Meta {
 	/**
 	 * Sanitizes and validates a meta key.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the key is invalid.
 	 *
@@ -115,7 +115,7 @@ class Event_Category_Meta {
 		/**
 		 * Filter the validated meta key before it is used.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param string $key     The sanitized meta key.
 		 * @param int    $term_id The term ID the meta key belongs to.
@@ -128,7 +128,7 @@ class Event_Category_Meta {
 	/**
 	 * Retrieves metadata for the term.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the key is invalid.
 	 *
@@ -158,7 +158,7 @@ class Event_Category_Meta {
 	/**
 	 * Sets metadata for the term.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the key or value is invalid.
 	 *
@@ -188,7 +188,7 @@ class Event_Category_Meta {
 	/**
 	 * Marks metadata for deletion but does not delete immediately.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the key is invalid.
 	 *
@@ -211,7 +211,7 @@ class Event_Category_Meta {
 	/**
 	 * Save all queued meta updates and deletions.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return $this
 	 */
@@ -241,7 +241,7 @@ class Event_Category_Meta {
 	 * For example, inserting an integer `0` returns the string `'0'`, and inserting `false` returns an empty string `''`.
 	 * This method normalizes only booleans and integers, leaving all other data types unchanged.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param mixed $value The raw value retrieved from get_term_meta().
 	 *
@@ -262,7 +262,7 @@ class Event_Category_Meta {
 	/**
 	 * Validates a meta value.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the value is invalid.
 	 *
@@ -276,7 +276,7 @@ class Event_Category_Meta {
 		 *
 		 * Developers can throw an InvalidArgumentException to indicate validation failure.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @throws InvalidArgumentException If the value is invalid.
 		 *
@@ -291,7 +291,7 @@ class Event_Category_Meta {
 	/**
 	 * Ensures that a term ID is set before performing operations.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If `set_term()` has not been called before using methods that require it.
 	 */

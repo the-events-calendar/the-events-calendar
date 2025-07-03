@@ -10,9 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.3.0
- * @since TBD Added $icon_description parameter and updated the template to use it for the accessible label.
+ * @since 6.14.0 Added $icon_description parameter and updated the template to use it for the accessible label.
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var string $icon_description The description of the icon. Used for the accessible label. (optional)
  */

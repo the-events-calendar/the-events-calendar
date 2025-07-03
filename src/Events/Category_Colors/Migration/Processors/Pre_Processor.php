@@ -4,7 +4,7 @@
  * This class extracts, formats, and stores category-related settings
  * before they are validated and executed in the migration process.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -19,7 +19,7 @@ use TEC\Events\Category_Colors\Migration\Status;
  * Prepares the migration data by extracting and formatting category settings.
  * This class ensures the settings are structured correctly before validation.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -31,7 +31,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 * This method checks the current migration status and ensures the step
 	 * should only execute if the migration has not already started.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
@@ -42,7 +42,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	/**
 	 * A working copy of the settings, which gets modified during processing.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string, mixed>
 	 */
 	protected array $processed_settings = [];
@@ -53,7 +53,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 * If the process completes successfully, the end hook passes `true`.
 	 * If processing is skipped due to empty settings, the end hook passes `false`.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return bool
 	 */
 	public function process(): bool {
@@ -64,7 +64,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		 * Fires before the preprocessor starts processing category color data.
 		 * Allows logging or hooking into the process before any changes are made.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 */
 		do_action( 'tec_events_category_colors_migration_preprocessor_start' );
 
@@ -78,7 +78,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 			/**
 			 * Fires after the preprocessor completes.
 			 *
-			 * @since TBD
+			 * @since 6.14.0
 			 *
 			 * @param array<string, mixed> $migration_data The processed migration data.
 			 * @param bool                 $success        Whether processing was successful.
@@ -117,7 +117,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		/**
 		 * Fires after the preprocessor completes.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<string, mixed> $migration_data The processed migration data.
 		 * @param bool                 $success        Whether processing was successful.
@@ -134,7 +134,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	/**
 	 * Validates the structure of terms data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return bool True if the terms data structure is valid, false otherwise.
 	 */
 	protected function validate_terms_structure(): bool {
@@ -179,7 +179,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	/**
 	 * Extracts category-related values from processed settings and removes them.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return array<int, array<string, mixed>> Processed category data structured by category ID.
 	 */
 	protected function get_category_values(): array {
@@ -223,7 +223,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	/**
 	 * Extracts and maps settings while applying validation rules.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return array<string, mixed> Processed settings with proper validation.
 	 */
 	protected function get_settings_values(): array {
@@ -275,7 +275,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	/**
 	 * Processes ignored terms data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return array<string, mixed> Processed ignored terms.
 	 */
 	protected function process_ignored_terms(): array {

@@ -2,7 +2,7 @@
 /**
  * Handles quick edit functionality for category colors in the WordPress admin.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Admin
  */
@@ -21,7 +21,7 @@ use WP_Term;
  * Provides functionality for editing category color settings via Quick Edit in the WordPress admin.
  * Handles displaying and saving color fields in the Quick Edit interface of the category list table.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Quick_Edit extends Abstract_Admin {
 	use Meta_Keys_Trait;
@@ -29,7 +29,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Adds custom columns to the Category Table.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string,string> $columns Existing columns in the category table.
 	 *
@@ -45,7 +45,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Populates the custom column data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $content     Current column content.
 	 * @param string $column_name Column being processed.
@@ -74,7 +74,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Retrieves the category priority.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Event_Category_Meta $meta The metadata handler.
 	 *
@@ -95,7 +95,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Determines what to display in the color preview column.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Event_Category_Meta $meta    The metadata handler.
 	 * @param int                 $term_id The category term ID.
@@ -130,7 +130,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Generates the category color preview for the taxonomy table.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Event_Category_Meta $meta    The metadata handler.
 	 * @param int                 $term_id The category term ID.
@@ -144,7 +144,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Adds custom fields to the Quick Edit box.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $column_name Column name being processed.
 	 * @param string $screen      Current screen type.
@@ -166,7 +166,7 @@ class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Generates the Quick Edit fields for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string
 	 */

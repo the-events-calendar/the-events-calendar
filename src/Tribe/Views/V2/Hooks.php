@@ -315,7 +315,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Redirects to the default view if the current view is not enabled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */

@@ -2,7 +2,7 @@
 /**
  * Handles the migration process initialization and flow control.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -21,7 +21,7 @@ use WP_Error;
 /**
  * Class Migration_Flow
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -29,7 +29,7 @@ class Migration_Flow {
 	/**
 	 * Initialize the migration process.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -59,7 +59,7 @@ class Migration_Flow {
 	/**
 	 * Get the current migration progress.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array{
 	 *     total_categories: int,
@@ -87,7 +87,7 @@ class Migration_Flow {
 	/**
 	 * Cancel the migration process.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -121,7 +121,7 @@ class Migration_Flow {
 	/**
 	 * Check if migration should be shown.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool Whether the migration notice should be shown.
 	 */
@@ -151,7 +151,7 @@ class Migration_Flow {
 	/**
 	 * Handle migration errors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $message The error message.
 	 *

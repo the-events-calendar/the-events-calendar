@@ -3,7 +3,7 @@
  * Abstract base class for all migration scheduler actions.
  * Provides common functionality and interfaces for all migration steps.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -17,7 +17,7 @@ use Exception;
 /**
  * Abstract base class for all migration scheduler actions.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -26,7 +26,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * The Action Scheduler action ID.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var int|null
 	 */
 	protected ?int $action_id = null;
@@ -34,7 +34,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * The hook name for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	abstract public function get_hook(): string;
@@ -42,7 +42,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * The status to set when this action is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	abstract public function get_scheduled_status(): string;
@@ -50,7 +50,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * The status to set when this action is running.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	abstract public function get_in_progress_status(): string;
@@ -58,7 +58,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * The status to set when this action completes successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	abstract public function get_completed_status(): string;
@@ -66,7 +66,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * The status to set when this action fails.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	abstract public function get_failed_status(): string;
@@ -74,7 +74,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Whether this action can be scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action can be scheduled.
 	 */
@@ -83,7 +83,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Register the action hook.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function hook(): void {
 		add_action( $this->get_hook(), [ $this, 'execute' ] );
@@ -92,7 +92,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Schedule this action to run.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|WP_Error|false The action ID on success, WP_Error on failure, false if prevented.
 	 */
@@ -107,7 +107,7 @@ abstract class Abstract_Action implements Action_Interface {
 		/**
 		 * Fires before scheduling a migration action.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool            $pre_schedule Whether to allow scheduling.
 		 * @param Abstract_Action $action         The action being scheduled.
@@ -140,7 +140,7 @@ abstract class Abstract_Action implements Action_Interface {
 		/**
 		 * Fires after scheduling a migration action.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param Abstract_Action $action    The action that was scheduled.
 		 * @param int             $action_id The ID of the scheduled action.
@@ -153,7 +153,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Execute the action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws Exception If execution fails.
 	 */
@@ -182,7 +182,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Cancel this action if it's scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action was cancelled, false otherwise.
 	 */
@@ -194,7 +194,7 @@ abstract class Abstract_Action implements Action_Interface {
 		/**
 		 * Fires before cancelling a migration action.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool $pre_cancel Whether the action should be canceled or not. Defaults to true,
 		 *                         meaning cancellation is allowed unless explicitly prevented.
@@ -213,7 +213,7 @@ abstract class Abstract_Action implements Action_Interface {
 		/**
 		 * Fires after cancelling a migration action.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param Abstract_Action $action    The action that was cancelled.
 		 * @param bool            $cancelled Whether the action was successfully cancelled.
@@ -226,7 +226,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Get the current action ID.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|null The action ID if scheduled, null otherwise.
 	 */
@@ -237,7 +237,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Check if this action is currently scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action is scheduled.
 	 */
@@ -248,7 +248,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Get the next scheduled time for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|false The timestamp of the next scheduled run, or false if not scheduled.
 	 */
@@ -259,7 +259,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Updates the migration status and triggers an action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $status The new migration status.
 	 *
@@ -279,7 +279,7 @@ abstract class Abstract_Action implements Action_Interface {
 		/**
 		 * Fires when the migration status is updated.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param string $status The new migration status.
 		 */
@@ -289,7 +289,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Whether this action uses batching.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|false Number of batches if batching is used, false otherwise.
 	 */
@@ -304,7 +304,7 @@ abstract class Abstract_Action implements Action_Interface {
 	 * and allowing an optional type prefix (e.g., `[Migration]`).
 	 * If the log level is 'error' or higher, it returns a `WP_Error` to indicate failure.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string      $level   The log level (e.g., 'debug', 'info', 'warning', 'error').
 	 * @param string      $message The log message.
@@ -342,7 +342,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Process a step.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -351,7 +351,7 @@ abstract class Abstract_Action implements Action_Interface {
 	/**
 	 * Schedule the next action, if needed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */

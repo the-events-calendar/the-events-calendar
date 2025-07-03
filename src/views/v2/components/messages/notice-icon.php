@@ -10,9 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.3.0
- * @since TBD
+ * @since 6.14.0
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var string $icon_description The description of the icon. Used for the accessible label. (optional)
  */

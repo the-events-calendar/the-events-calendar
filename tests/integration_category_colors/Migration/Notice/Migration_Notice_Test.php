@@ -2,7 +2,7 @@
 /**
  * Tests for the Migration_Notice class.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Notice
  */
@@ -21,7 +21,7 @@ use Codeception\TestCase\WPTestCase;
 /**
  * Class Migration_Notice_Test
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Notice
  */

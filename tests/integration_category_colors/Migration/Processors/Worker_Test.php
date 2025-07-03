@@ -2,7 +2,7 @@
 /**
  * Tests for the Worker class.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -22,7 +22,7 @@ use Tribe__Events__Main;
 /**
  * Class Worker_Test
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -64,7 +64,7 @@ class Worker_Test extends WPTestCase {
 	/**
 	 * Create test categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function create_test_categories(): void {
 		$categories = [
@@ -89,7 +89,7 @@ class Worker_Test extends WPTestCase {
 	/**
 	 * Delete test categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function delete_test_categories(): void {
 		$categories = [
@@ -108,7 +108,7 @@ class Worker_Test extends WPTestCase {
 	/**
 	 * Data provider for test cases.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return Generator
 	 */

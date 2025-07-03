@@ -5,7 +5,7 @@
  * This class retrieves and processes event categories to determine the highest-priority category
  * based on predefined category metadata.
  *
- * @since TBD
+ * @since 6.14.0
  * @package TEC\Events\Category_Colors\Repositories
  */
 
@@ -21,7 +21,7 @@ use WP_Post;
  * This class fetches event categories, retrieves their priority metadata, and returns
  * the most relevant category for display.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Category_Color_Priority_Category_Provider {
 	use Meta_Keys_Trait;
@@ -29,7 +29,7 @@ class Category_Color_Priority_Category_Provider {
 	/**
 	 * Retrieves the highest-priority category for a given event.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param WP_Post $event The post object of the event.
 	 *
@@ -50,7 +50,7 @@ class Category_Color_Priority_Category_Provider {
 		/**
 		 * Filters the highest-priority category after sorting.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param object|null $category   The highest-priority category.
 		 * @param array       $categories The sorted list of categories.
@@ -61,7 +61,7 @@ class Category_Color_Priority_Category_Provider {
 	/**
 	 * Retrieves the highest-priority category with all its metadata for a given event.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param WP_Post $event The post object of the event.
 	 *
@@ -91,7 +91,7 @@ class Category_Color_Priority_Category_Provider {
 	/**
 	 * Retrieves the categories associated with an event.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param int $event_id The event ID.
 	 *
@@ -104,7 +104,7 @@ class Category_Color_Priority_Category_Provider {
 		/**
 		 * Filters the raw list of event categories before processing.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array $categories The retrieved categories.
 		 * @param int   $event_id   The event ID.
@@ -115,7 +115,7 @@ class Category_Color_Priority_Category_Provider {
 	/**
 	 * Retrieves category priority values.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array $categories The list of category term objects.
 	 *
@@ -132,7 +132,7 @@ class Category_Color_Priority_Category_Provider {
 		/**
 		 * Filters the priority values for event categories.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array $priorities Associative array of category term ID => priority.
 		 * @param array $categories The list of categories being processed.

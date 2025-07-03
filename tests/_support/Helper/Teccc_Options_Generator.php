@@ -2,7 +2,7 @@
 /**
  * Helper class to generate teccc_options data structure for Category Colors Migration tests
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Tests\Helper
  */
@@ -14,7 +14,7 @@ use Tribe__Events__Main;
 /**
  * Class Teccc_Options_Generator
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Tests\Helper
  */
@@ -22,7 +22,7 @@ class Teccc_Options_Generator {
 	/**
 	 * Default options structure for teccc_options
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string, mixed>
 	 */
 	protected static array $default_options = [
@@ -44,7 +44,7 @@ class Teccc_Options_Generator {
 	/**
 	 * Generate teccc_options data structure with specified number of categories
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param int                  $number_of_categories Number of categories to generate (default: 7).
 	 * @param array<string, mixed> $args {
@@ -91,7 +91,7 @@ class Teccc_Options_Generator {
 	/**
 	 * Get terms from the database in the correct format
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param int $number_of_categories Number of categories to retrieve.
 	 * @return array<int, array<string, mixed>> Array of term data.

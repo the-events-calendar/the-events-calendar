@@ -2,7 +2,7 @@
 /**
  * Handles the editing of category colors in the WordPress admin.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Admin
  */
@@ -17,13 +17,13 @@ use WP_Term;
  * Provides functionality for editing category color settings in the WordPress admin.
  * Handles displaying and saving color fields when editing existing event categories.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Edit_Category extends Abstract_Admin {
 	/**
 	 * Displays custom fields in the "Edit Category" form.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param WP_Term $tag      The term object.
 	 * @param string  $taxonomy The taxonomy slug.

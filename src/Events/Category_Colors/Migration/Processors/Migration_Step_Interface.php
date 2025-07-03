@@ -5,7 +5,7 @@
  * This interface ensures that all migration steps follow a standardized structure,
  * allowing them to be executed consistently within the migration workflow.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -19,7 +19,7 @@ use WP_Error;
  *
  * Represents a single step in the category color migration process.
  *
- * @since TBD
+ * @since 6.14.0
  */
 interface Migration_Step_Interface {
 
@@ -28,7 +28,7 @@ interface Migration_Step_Interface {
 	 *
 	 * Each step should return `true` if it completes successfully, or `false` if it encounters an issue.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -40,7 +40,7 @@ interface Migration_Step_Interface {
 	 * This method checks if the step is in a valid state to execute,
 	 * ensuring that prerequisite conditions are met.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the step is ready to run, false otherwise.
 	 */

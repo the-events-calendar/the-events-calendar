@@ -5,7 +5,7 @@
  * This class retrieves category color settings, generates CSS rules, minifies the output,
  * and saves the final CSS in the WordPress options table.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\CSS_Generator
  */
@@ -20,7 +20,7 @@ use TEC\Events\Category_Colors\Meta_Keys_Trait;
 /**
  * Class for generating, minifying, and storing category colors CSS.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\CSS_Generator
  */
@@ -30,7 +30,7 @@ class Generator {
 	/**
 	 * Option key for storing generated CSS in wp_options.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ class Generator {
 	/**
 	 * Get the option key for storing generated CSS.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The option key.
 	 */
@@ -50,7 +50,7 @@ class Generator {
 	/**
 	 * Stores the generated CSS before saving.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -59,7 +59,7 @@ class Generator {
 	/**
 	 * Generate, minify, and save category colors CSS.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The generated CSS.
 	 */
@@ -74,7 +74,7 @@ class Generator {
 	/**
 	 * Generate category colors CSS and store it in the class property.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The generated CSS.
 	 */
@@ -92,7 +92,7 @@ class Generator {
 		/**
 		 * Filter the final generated CSS before saving.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param string $css The generated CSS string.
 		 *
@@ -106,7 +106,7 @@ class Generator {
 	/**
 	 * Save the generated CSS to wp_options.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function save_css(): void {
 		update_option( $this->option_key, trim( $this->generated_css ), true );
@@ -115,7 +115,7 @@ class Generator {
 	/**
 	 * Retrieve the stored CSS from wp_options.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The stored CSS.
 	 */
@@ -126,7 +126,7 @@ class Generator {
 	/**
 	 * Generate a CSS rule for a category using CSS variables.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array $category The category data.
 	 *
@@ -169,7 +169,7 @@ class Generator {
 	 * Fetch category meta for the `tribe_events_cat` taxonomy.
 	 * Retrieves metadata from the database in batches and organizes it by term ID.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array Structured category data.
 	 */
@@ -237,7 +237,7 @@ class Generator {
 	/**
 	 * Minify the generated CSS by removing spaces, newlines, and comments.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function minify_css(): void {
 		$comments = <<<'EOS'
@@ -293,7 +293,7 @@ EOS;
 	 *
 	 *  If `$validate` is true, the resulting HEX value is checked for proper format before returning.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string|null $color    The color input.
 	 * @param bool        $validate Whether to validate the color before converting.
@@ -318,7 +318,7 @@ EOS;
 	/**
 	 * Validate if a string is a proper hex color.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string|null $color The color string.
 	 *

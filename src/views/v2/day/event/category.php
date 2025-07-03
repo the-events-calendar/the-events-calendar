@@ -12,7 +12,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var object|null $category_colors_priority_category The highest-priority category for the event, determined using the
  *                                                     `Category_Color_Priority_Category_Provider` class.

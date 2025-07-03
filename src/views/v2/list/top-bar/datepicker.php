@@ -9,9 +9,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.14.0
  * @since 5.3.0
- * @since TBD Changed aria-label to aria-description for WCAG compliance.
+ * @since 6.14.0 Changed aria-label to aria-description for WCAG compliance.
  *
  * @var bool   $is_now                     Whether the date selected in the datepicker is "now" or not.
  * @var bool   $show_now                   Whether to show the "Now" label as range start or not.

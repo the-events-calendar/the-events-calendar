@@ -1323,7 +1323,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	} 
+	}
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
@@ -1607,7 +1607,7 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.4
 	 * @since 5.2.1 Add the `rest_method` to the template variables.
-	 * @since TBD Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
+	 * @since 6.14.0 Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1774,7 +1774,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the template variables for the view.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<string,mixed> $template_vars The template variables.
 		 * @param View               $view          The current view instance.

@@ -2,7 +2,7 @@
 /**
  * Test the Quick Edit functionality for Category Colors.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Tests\Integration\Category_Colors
  */
@@ -477,7 +477,7 @@ class Quick_Edit_Test extends WPTestCase {
 	/**
 	 * Test that the color preview returns 'transparent' when no color is assigned.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function should_return_transparent_when_no_color_assigned() {
 		// Create a category without any color meta.
@@ -503,7 +503,7 @@ class Quick_Edit_Test extends WPTestCase {
 	 * Ensures the column outputs 'transparent' (no <span>) when no color is set.
 	 *
      * @test
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function category_color_column_outputs_transparent_snapshot() {
 		$term_id = $this->factory()->term->create([
@@ -523,8 +523,8 @@ class Quick_Edit_Test extends WPTestCase {
 	 * Ensures the column outputs a <span> when a color is set.
 	 *
      * @test
-     * 
-	 * @since TBD
+     *
+	 * @since 6.14.0
 	 */
 	public function category_color_column_outputs_span_snapshot() {
 		$term_id2 = $this->factory()->term->create([

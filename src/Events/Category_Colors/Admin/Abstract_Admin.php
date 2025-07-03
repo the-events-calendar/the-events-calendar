@@ -2,7 +2,7 @@
 /**
  * Abstract base class for category color admin functionality.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Admin
  */
@@ -21,7 +21,7 @@ use Tribe__Template;
  * Abstract base class that provides shared functionality for handling category colors
  * in the WordPress admin. Includes methods for template rendering and default values.
  *
- * @since TBD
+ * @since 6.14.0
  */
 abstract class Abstract_Admin {
 	use Meta_Keys_Trait;
@@ -29,7 +29,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Stores the instance of the template engine used for rendering.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var Tribe__Template
 	 */
@@ -38,7 +38,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Constructor for the Abstract_Admin class.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Tribe__Template|null $template The template instance to use for rendering.
 	 */
@@ -57,7 +57,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Gets the template instance used for rendering HTML.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return Tribe__Template
 	 */
@@ -68,7 +68,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Gets the default values for category fields.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<string, mixed>
 	 */
@@ -85,7 +85,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Gets the category colors for a term.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param int $term_id The term ID to get colors for.
 	 *
@@ -116,7 +116,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Sanitizes a value based on its key.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $key   The key identifying the type of value.
 	 * @param mixed  $value The value to sanitize.
@@ -136,7 +136,7 @@ abstract class Abstract_Admin {
 	/**
 	 * Saves category fields to term meta.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param int $term_id The term ID to save fields for.
 	 *
@@ -181,7 +181,7 @@ abstract class Abstract_Admin {
 		/**
 		 * Fires after category colors have been saved.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param int $term_id The term ID that was updated.
 		 */

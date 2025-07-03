@@ -2,7 +2,7 @@
 /**
  * Handles the addition of category colors in the WordPress admin.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Admin
  */
@@ -17,7 +17,7 @@ use TEC\Events\Category_Colors\Meta_Keys_Trait;
  * Provides functionality for adding category color settings in the WordPress admin.
  * Handles displaying and saving color fields when creating new event categories.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Add_Category extends Abstract_Admin {
 	use Meta_Keys_Trait;
@@ -25,7 +25,7 @@ class Add_Category extends Abstract_Admin {
 	/**
 	 * Displays custom fields in the "Add New Category" form.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $taxonomy The taxonomy slug.
 	 *

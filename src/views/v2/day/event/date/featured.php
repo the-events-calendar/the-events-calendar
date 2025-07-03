@@ -10,9 +10,9 @@
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
  * @since 5.1.1
- * @since TBD Added $icon_description parameter and updated the template to use it for the accessible label.
+ * @since 6.14.0 Added $icon_description parameter and updated the template to use it for the accessible label.
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var WP_Post $event            The event post object with properties added by the `tribe_get_event` function.
  * @var string  $icon_description The description of the icon. Used for the accessible label. (optional)

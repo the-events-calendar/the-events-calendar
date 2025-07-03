@@ -3,7 +3,7 @@
  * Executes the full category color migration process.
  * Orchestrates preprocessing, validation, execution, and post-processing steps.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -22,7 +22,7 @@ use WP_Error;
  * Runs preprocessing, validation, execution, and post-processing in sequence.
  * Ensures data integrity and logs potential issues during migration.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -31,7 +31,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Default batch size for processing categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var int
 	 */
 	const BATCH_SIZE = 50;
@@ -39,7 +39,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * List of meta keys that should be skipped (not inserted as term meta).
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string>
 	 */
 	protected const SKIP_META_KEYS = [
@@ -49,7 +49,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Determines if the migration step should run.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the step is ready to run, false otherwise.
 	 */
@@ -62,7 +62,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Process the execution step.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -121,7 +121,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Validates the current execution state.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if valid, false otherwise.
 	 */
@@ -146,7 +146,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Validates the processing data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $processing_data The processing data to validate.
 	 *
@@ -166,7 +166,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Processes categories in batches.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $processing_data The processing data.
 	 *
@@ -205,7 +205,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Process a batch of categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<int, array<string, mixed>> $categories The categories to process.
 	 *
@@ -304,7 +304,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Processes settings.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $settings The settings to process.
 	 *
@@ -369,7 +369,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Get the processing data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<string, mixed> The processing data.
 	 */
@@ -380,7 +380,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Logs dry-run statistics and existing meta data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $dry_run_summary The dry run summary data.
 	 *
@@ -409,7 +409,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Get the batch size for processing categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int The number of categories to process in each batch.
 	 */
@@ -417,7 +417,7 @@ class Worker extends Abstract_Migration_Step {
 		/**
 		 * Determines the number of categories to process in each batch.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param int $batch_size The number of categories to process at once.
 		 *
@@ -429,7 +429,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Get the total number of categories to process.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int The total number of categories.
 	 */
@@ -442,7 +442,7 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Get the number of remaining categories to process.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int The number of remaining categories.
 	 */

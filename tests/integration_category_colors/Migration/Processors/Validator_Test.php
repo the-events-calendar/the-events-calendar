@@ -2,7 +2,7 @@
 /**
  * Tests for the Validator class.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -22,7 +22,7 @@ use Tribe__Events__Main;
 /**
  * Class Validator_Test
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -63,7 +63,7 @@ class Validator_Test extends WPTestCase {
 	/**
 	 * Data provider for test cases.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return Generator
 	 */

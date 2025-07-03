@@ -168,7 +168,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 5.14.2
 	 * @since 6.2.7 Added support for single event templates.
-	 * @since TBD Passing $query_result to get_filtered_block_templates().
+	 * @since 6.14.0 Passing $query_result to get_filtered_block_templates().
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array               $query        {
@@ -233,7 +233,7 @@ class Controller extends Controller_Contract {
 	 * WP_Block_Template instances.
 	 *
 	 * @since 6.2.7
-	 * @since TBD Added $query_result parameter.
+	 * @since 6.14.0 Added $query_result parameter.
 	 *
 	 * @param string              $template_type The type of templates we are fetching.
 	 * @param WP_Block_Template[] $query_result  The query result.

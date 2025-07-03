@@ -2,7 +2,7 @@
 /**
  * Status constants for the category colors migration process.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Category_Colors\Migration;
 /**
  * Class Status
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -20,7 +20,7 @@ class Status {
 	/**
 	 * Status when migration has not started.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -29,7 +29,7 @@ class Status {
 	/**
 	 * Status when preprocessing is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ class Status {
 	/**
 	 * Status when validation is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -47,7 +47,7 @@ class Status {
 	/**
 	 * Status when execution is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -56,7 +56,7 @@ class Status {
 	/**
 	 * Status when postprocessing is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -65,7 +65,7 @@ class Status {
 	/**
 	 * Generic in-progress state for the overall migration.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -74,7 +74,7 @@ class Status {
 	/**
 	 * Status when preprocessing is skipped.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -83,7 +83,7 @@ class Status {
 	/**
 	 * Status when preprocessing is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -92,7 +92,7 @@ class Status {
 	/**
 	 * Status when preprocessing has completed successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -101,7 +101,7 @@ class Status {
 	/**
 	 * Status when preprocessing has failed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -110,7 +110,7 @@ class Status {
 	/**
 	 * Status when validation is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -119,7 +119,7 @@ class Status {
 	/**
 	 * Status when validation has completed successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -128,7 +128,7 @@ class Status {
 	/**
 	 * Status when validation has failed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -137,7 +137,7 @@ class Status {
 	/**
 	 * Status when execution is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -146,7 +146,7 @@ class Status {
 	/**
 	 * Status when execution has completed successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -155,7 +155,7 @@ class Status {
 	/**
 	 * Status when execution has failed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -164,7 +164,7 @@ class Status {
 	/**
 	 * Status when execution is skipped due to no data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -173,7 +173,7 @@ class Status {
 	/**
 	 * Status when postprocessing is in progress.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -182,7 +182,7 @@ class Status {
 	/**
 	 * Status when postprocessing has completed successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -191,7 +191,7 @@ class Status {
 	/**
 	 * Status when postprocessing has failed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -200,7 +200,7 @@ class Status {
 	/**
 	 * Get the current migration status.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<string, mixed> The current migration status.
 	 */
@@ -220,7 +220,7 @@ class Status {
 	/**
 	 * Update the migration status.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $status    The new status.
 	 * @param string $error     Optional. Error message if any.
@@ -245,7 +245,7 @@ class Status {
 	/**
 	 * Reset the migration status.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool Whether the status was reset successfully.
 	 */

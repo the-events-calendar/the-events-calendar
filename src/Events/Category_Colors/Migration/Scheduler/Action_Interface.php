@@ -3,7 +3,7 @@
  * Interface for all migration scheduler actions.
  * Defines the contract that all scheduler actions must follow.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -15,7 +15,7 @@ use WP_Error;
 /**
  * Interface for all migration scheduler actions.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -24,7 +24,7 @@ interface Action_Interface {
 	/**
 	 * Get the hook name for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The hook name.
 	 */
@@ -33,7 +33,7 @@ interface Action_Interface {
 	/**
 	 * Get the status to set when this action is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The scheduled status.
 	 */
@@ -42,7 +42,7 @@ interface Action_Interface {
 	/**
 	 * Get the status to set when this action is running.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The in-progress status.
 	 */
@@ -51,7 +51,7 @@ interface Action_Interface {
 	/**
 	 * Get the status to set when this action completes successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The completed status.
 	 */
@@ -60,7 +60,7 @@ interface Action_Interface {
 	/**
 	 * Get the status to set when this action fails.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The failed status.
 	 */
@@ -69,7 +69,7 @@ interface Action_Interface {
 	/**
 	 * Whether this action can be scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action can be scheduled.
 	 */
@@ -78,7 +78,7 @@ interface Action_Interface {
 	/**
 	 * Schedule this action to run.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|WP_Error The action ID on success, WP_Error on failure.
 	 */
@@ -87,7 +87,7 @@ interface Action_Interface {
 	/**
 	 * Execute the action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -96,7 +96,7 @@ interface Action_Interface {
 	/**
 	 * Cancel this action if it's scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action was cancelled, false otherwise.
 	 */
@@ -105,7 +105,7 @@ interface Action_Interface {
 	/**
 	 * Get the current action ID.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|null The action ID if scheduled, null otherwise.
 	 */
@@ -114,7 +114,7 @@ interface Action_Interface {
 	/**
 	 * Check if this action is currently scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action is scheduled.
 	 */
@@ -123,7 +123,7 @@ interface Action_Interface {
 	/**
 	 * Get the next scheduled time for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int|false The timestamp of the next scheduled run, or false if not scheduled.
 	 */

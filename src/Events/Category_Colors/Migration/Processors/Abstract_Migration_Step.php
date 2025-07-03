@@ -5,7 +5,7 @@
  * This abstract class implements the `Migration_Step_Interface` and provides shared functionality
  * for all migration steps, ensuring consistency across the migration workflow.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -25,7 +25,7 @@ use TEC\Events\Category_Colors\Migration\Config;
  *
  * Subclasses should implement the `process()` and `is_runnable()` methods according to their specific requirements.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -41,7 +41,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Retrieves the original settings from the database.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return array<string, mixed> The original settings.
 	 */
 	public function get_original_settings(): array {
@@ -51,7 +51,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Retrieves the migration data from the database.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return array<string, mixed> The migration data.
 	 */
 	public function get_migration_data(): array {
@@ -61,7 +61,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Stores the migration data in the database.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, mixed> $data The processed migration data to store.
 	 *
@@ -74,7 +74,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Retrieves the mapped meta key, or null if it is not recognized.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $key The original meta key.
 	 *
@@ -87,7 +87,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Updates the migration status and triggers an action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $status The new migration status.
 	 *
@@ -107,7 +107,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 		/**
 		 * Fires when the migration status is updated.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param string $status The new migration status.
 		 */
@@ -117,7 +117,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Resets the migration process, clearing stored migration data and resetting the status.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return void
 	 */
 	public function reset_migration(): void {
@@ -130,7 +130,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 		/**
 		 * Fires when the migration is reset.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 */
 		do_action( 'tec_events_category_colors_migration_reset' );
 	}
@@ -138,7 +138,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Logs the elapsed time for a migration step.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $step       The name of the step (e.g., "Preprocessing", "Validation").
 	 * @param float  $start_time The timestamp when the step started.
@@ -155,7 +155,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * and allowing an optional type prefix (e.g., `[Migration]`).
 	 * If the log level is 'error' or higher, it returns a `WP_Error` to indicate failure.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string      $level   The log level (e.g., 'debug', 'info', 'warning', 'error').
 	 * @param string      $message The log message.

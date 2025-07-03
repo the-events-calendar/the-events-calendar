@@ -8,7 +8,7 @@
  * - Quick edit integration.
  * - Color picker visibility control.
  *
- * @since TBD
+ * @since 6.14.0
  */
 tribe.events = tribe.events || {};
 tribe.events.admin = tribe.events.admin || {};
@@ -17,7 +17,7 @@ tribe.events.admin.categoryColors = {};
 /**
  * Initializes the script.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @param {jQuery} $   jQuery instance.
  * @param {Object} obj The category colors object.
@@ -55,7 +55,7 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	// === Helper Functions ===
-	
+
 	/**
 	 * Checks if a color picker is already initialized.
 	 *

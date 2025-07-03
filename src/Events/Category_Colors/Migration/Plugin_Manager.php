@@ -2,7 +2,7 @@
 /**
  * Manages the legacy Category Colors plugin and its migration.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -20,13 +20,13 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Plugin_Manager
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Plugin_Manager {
 	/**
 	 * The legacy plugin's main file path.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Plugin_Manager {
 	/**
 	 * Register hooks that should run when the legacy plugin is active.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -63,7 +63,7 @@ class Plugin_Manager {
 	/**
 	 * Render the Category Colors migration notice.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -104,7 +104,7 @@ class Plugin_Manager {
 	/**
 	 * Renders the thickbox content for the migration modal.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -121,7 +121,7 @@ class Plugin_Manager {
 	/**
 	 * Checks if the old Category Colors plugin is active.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool
 	 */
@@ -132,7 +132,7 @@ class Plugin_Manager {
 	/**
 	 * Checks if the old Category Colors plugin is installed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool
 	 */
@@ -149,7 +149,7 @@ class Plugin_Manager {
 	/**
 	 * Checks if migration has not started.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool
 	 */
@@ -165,7 +165,7 @@ class Plugin_Manager {
 	/**
 	 * Checks if the plugin has any category meta values.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool
 	 */
@@ -189,7 +189,7 @@ class Plugin_Manager {
 	/**
 	 * Checks if the plugin has original settings.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool
 	 */
@@ -200,7 +200,7 @@ class Plugin_Manager {
 	/**
 	 * Deactivates the legacy plugin.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -211,7 +211,7 @@ class Plugin_Manager {
 	/**
 	 * Handles the migration process when the user clicks the migration button.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function handle_migration(): void {
 		check_admin_referer( 'tec_start_category_colors_migration' );
@@ -250,7 +250,7 @@ class Plugin_Manager {
 	/**
 	 * Disables the save button for the Category Colors settings tab.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string> $no_save_tabs The tabs that should not save.
 	 *
@@ -265,7 +265,7 @@ class Plugin_Manager {
 	/**
 	 * Prevents the legacy plugin from being reactivated.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string, string> $actions The list of action links.
 	 *
@@ -285,7 +285,7 @@ class Plugin_Manager {
 	 * - The migration status is either not set or not in the list of statuses
 	 *   that indicate the migration has already been skipped or completed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool Whether the migration controller should be initialized.
 	 */
@@ -309,7 +309,7 @@ class Plugin_Manager {
 	/**
 	 * Checks if the current page is a TEC or Event Tickets admin page.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if on a TEC/Event Tickets admin page, false otherwise.
 	 */
@@ -325,7 +325,7 @@ class Plugin_Manager {
 		 * Filter to determine if we are on a TEC admin page.
 		 * Allows other classes to hook in and modify the return value.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool $is_tec_admin_page Whether we are on a TEC admin page.
 		 */
