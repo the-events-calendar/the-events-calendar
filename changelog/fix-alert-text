@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Correct an issue where alert text was not announced by screen readers. [TEC-5184]

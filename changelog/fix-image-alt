@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Correct some images where the alt text conflicted with the linked title. [TEC-5183]
