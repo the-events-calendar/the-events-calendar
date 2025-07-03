@@ -7,7 +7,6 @@ on:
       - 'src/**.php'
 jobs:
   conditional:
-    # MODIFIED: Using reusable php-change-detector workflow
     uses: ./.github/workflows/reusable/php-change-detector.yml
     with:
       skip-flag: phpstan
@@ -33,7 +32,6 @@ jobs:
         ]
     runs-on: ubuntu-latest
     steps:
-      # MODIFIED: Using reusable basic-setup workflow
       - name: Setup environment
         uses: ./.github/workflows/reusable/basic-setup.yml
         with:

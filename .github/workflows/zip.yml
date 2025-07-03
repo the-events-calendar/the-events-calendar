@@ -78,7 +78,6 @@ jobs:
           submodules: recursive
           ref: ${{ inputs.ref }}
 
-      # MODIFIED: Using reusable basic-setup workflow for Node.js setup
       - name: Setup Node.js environment
         uses: ./.github/workflows/reusable/basic-setup.yml
         with:
