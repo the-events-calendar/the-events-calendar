@@ -142,7 +142,7 @@ class Event_Category_Meta {
 			$all_meta = get_term_meta( $this->term_id );
 
 			foreach ( $all_meta as $meta_key => &$value ) {
-				$value = $this->normalize_meta( $meta_key, $value );
+				$value = $this->normalize_meta( $value );
 			}
 
 			return $all_meta;
@@ -151,7 +151,7 @@ class Event_Category_Meta {
 		$key = $this->sanitize_and_validate_key( $key );
 
 		return metadata_exists( 'term', $this->term_id, $key )
-			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, true ) )
+			? $this->normalize_meta( get_term_meta( $this->term_id, $key, true ) )
 			: '';
 	}
 
@@ -243,12 +243,11 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key   The meta key.
-	 * @param mixed  $value The raw value retrieved from get_term_meta().
+	 * @param mixed $value The raw value retrieved from get_term_meta().
 	 *
 	 * @return mixed The normalized meta value.
 	 */
-	protected function normalize_meta( string $key, $value ) {
+	protected function normalize_meta( $value ) {
 		if ( null === $value ) {
 			return '';
 		}
