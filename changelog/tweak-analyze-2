@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Added actions: `tec_events_category_colors_saved`, `tec_events_category_colors_migration_status_updated`, `tec_events_category_colors_migration_reset`, `tribe_log`, `tec_events_category_colors_migration_preprocessor_start`, `tec_events_category_colors_migration_preprocessor_end`, `tec_events_category_colors_migration_validator_start`, `tec_events_category_colors_migration_validator_end`, `tec_events_category_colors_migration_runner_start`, `tec_events_category_colors_migration_runner_end`, `tec_events_category_colors_migration_post_schedule_action`, `tec_events_category_colors_migration_post_cancel_action`, `tec_events_settings_tab_display_category_colors`, `tec_conditional_content_header_notice`
