@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Remove redundant aria-label attributes where they duplicate existing visible text. [TEC-5197]
