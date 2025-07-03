@@ -19,6 +19,7 @@ use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
 use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
+use TEC\Events\Category_Colors\CSS\Generator;
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main;
 
@@ -193,6 +194,17 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
 		 */
-		return (bool) apply_filters( 'tec_events_category_colors_show_frontend_ui', true );
+		return (bool) apply_filters( 'tec_events_category_colors_show_frontend_ui', $this->is_in_use() );
+	}
+
+	/**
+	 * Checks if the Category Colors feature is in use.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the Category Colors feature is in use, false otherwise.
+	 */
+	public function is_in_use(): bool {
+		return (bool) get_option( $this->container->get( Generator::class )->get_option_key(), '' );
 	}
 }
