@@ -3,7 +3,6 @@ on: [pull_request]
 
 jobs:
   conditional:
-    # MODIFIED: Using reusable php-change-detector workflow
     uses: ./.github/workflows/reusable/php-change-detector.yml
     with:
       skip-flag: phpcs

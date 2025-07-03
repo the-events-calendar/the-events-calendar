@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.body, '[skip-lint]')"
     steps:
-      # MODIFIED: Using reusable basic-setup workflow
       - name: Setup environment
         uses: ./.github/workflows/reusable/basic-setup.yml
         with:

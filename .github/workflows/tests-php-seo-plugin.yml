@@ -3,7 +3,6 @@ on:
   pull_request:
 jobs:
   test:
-    # MODIFIED: Using reusable slic-test-runner workflow
     uses: ./.github/workflows/reusable/slic-test-runner.yml
     strategy:
       matrix:
