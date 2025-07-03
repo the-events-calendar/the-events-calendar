@@ -1,4 +1,4 @@
 Significance: minor
 Type: accessibility
 
-Changed aria-labels to aria-desciptions for WCAG compliance. [TEC-5524]
+Changed aria-labels to aria-descriptions for WCAG compliance. [TEC-5524]
