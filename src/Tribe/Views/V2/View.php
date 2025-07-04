@@ -1284,7 +1284,7 @@ class View implements View_Interface {
 		 *
 		 * Filters to control the data are available in the `Tribe__JSON_LD__Abstract` object and its extending classes.
 		 */
-		// $template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
+		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
 		$this->setup_additional_views( (array) $events, $template_vars );
 
 		/**
