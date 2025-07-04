@@ -1284,7 +1284,7 @@ class View implements View_Interface {
 		 *
 		 * Filters to control the data are available in the `Tribe__JSON_LD__Abstract` object and its extending classes.
 		 */
-		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
+		// $template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
 		$this->setup_additional_views( (array) $events, $template_vars );
 
 		/**
@@ -1314,7 +1314,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	} 
+	}
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
