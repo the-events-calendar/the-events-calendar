@@ -61,6 +61,16 @@ $num_events_label = sprintf(
 				href="<?php echo esc_url( $day['day_url'] ); ?>"
 				class="tribe-events-calendar-month__day-date-link"
 				data-js="tribe-events-view-link"
+				aria-label="
+				<?php
+				printf(
+					/* translators: %1$s: plural events label, %2$s: day date in the format YYYY-MM-DD. */
+					esc_attr__( 'View all %1$s for %2$s', 'the-events-calendar' ),
+					tribe_get_event_label_plural_lowercase(),
+					esc_attr( $day['date'] )
+				);
+				?>
+				"
 			>
 				<?php echo esc_html( $day_number ); ?>
 			</a>
