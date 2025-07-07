@@ -19,11 +19,15 @@
  */
 
 $list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$public_view_slug" ];
-if ( $view_slug === $public_view_slug ) {
+$current_view = $view_slug === $public_view_slug;
+if ( $current_view ) {
 	$list_item_classes[] = 'tribe-events-c-view-selector__list-item--active';
 }
 ?>
-<li class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>">
+<li
+	class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>"
+	<?php echo $current_view ? 'aria-current="true"' : ''; ?>
+>
 	<a
 		href="<?php echo esc_url( $public_view_data->view_url ); ?>"
 		class="tribe-events-c-view-selector__list-item-link"

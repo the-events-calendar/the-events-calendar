@@ -175,7 +175,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 						</span>
 					</a>
 				</li>
-				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active">
+				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active" aria-current="true">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
 						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
@@ -222,7 +222,7 @@ tribe_asset_enqueue( 'tribe-common-style' );
 						</span>
 					</a>
 				</li>
-				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active">
+				<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--active" aria-current="true">
 					<a href="#" class="tribe-events-c-view-selector__list-item-link">
 						<span class="tribe-events-c-view-selector__list-item-icon tribe-common-svgicon tribe-common-svgicon--list"></span>
 						<span class="tribe-events-c-view-selector__list-item-text">
