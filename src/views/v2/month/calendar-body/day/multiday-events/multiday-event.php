@@ -31,7 +31,7 @@ $start_display_date = $event->dates->start_display->format( 'Y-m-d' );
 
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
-	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
+	<article <?php tec_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
 		<?php $this->template( 'month/calendar-body/day/multiday-events/multiday-event/hidden', [ 'event' => $event ] ); ?>
 		<?php
 		$this->template(

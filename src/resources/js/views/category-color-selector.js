@@ -1,7 +1,7 @@
 /**
  * Category Color Picker UI logic for The Events Calendar.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @type {Object}
  */
@@ -11,7 +11,7 @@ tribe.events.categoryColors = tribe.events.categoryColors || {};
 /**
  * Category Color Picker module.
  *
- * @since TBD
+ * @since 6.14.0
  * @type {Object}
  */
 tribe.events.categoryColors.categoryPicker = ( function () {
@@ -104,7 +104,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Returns the first element matching the selector.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {string} selector The CSS selector to query.
 	 * @return {HTMLElement|null} The first matching element or null.
 	 */
@@ -112,7 +112,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Returns all elements matching the selector.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {string} selector The CSS selector to query.
 	 * @return {NodeList} All matching elements.
 	 */
@@ -120,7 +120,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Returns all event parent elements matching the parent selectors in childParentPairs.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {HTMLElement[]} Array of parent elements.
 	 */
 	const getEventParentElements = () =>
@@ -132,7 +132,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Toggles the dropdown visibility. If open, close it; if closed, open and adjust position.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {Event} event The click event.
 	 * @return {void}
 	 */
@@ -156,7 +156,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Opens the dropdown and adjusts its position.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} picker   The picker element.
 	 * @param {HTMLElement} dropdown The dropdown element.
 	 * @return {void}
@@ -169,7 +169,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Closes the dropdown.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} picker   The picker element.
 	 * @param {HTMLElement} dropdown The dropdown element.
 	 * @return {void}
@@ -181,7 +181,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Checks if the dropdown is open.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} dropdown The dropdown element to check.
 	 * @return {boolean} True if dropdown is open, false otherwise.
 	 */
@@ -189,7 +189,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Handles closing the dropdown only if the click is outside the picker container.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {Event} event The click event.
 	 * @return {void}
 	 */
@@ -211,7 +211,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	 * Adjusts dropdown position to prevent overflow and ensures it stays within the viewport.
 	 * Anchors to the left or right of the picker depending on screen position, and retries once if needed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} picker        The picker element that triggers the dropdown.
 	 * @param {HTMLElement} dropdown      The dropdown element to position.
 	 * @param {boolean}     [retry=false] Whether this is a retry attempt.
@@ -267,7 +267,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	/**
 	 * Checks if an element is fully visible within the viewport, considering padding.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} el The element to check.
 	 * @return {boolean} True if fully visible, false otherwise.
 	 */
@@ -288,7 +288,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Renders the selected category color legend bubbles.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const renderLegend = () => {
@@ -326,7 +326,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Resets all checkboxes and clears selected categories.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const resetSelection = () => {
@@ -340,7 +340,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Handles checkbox value changes and updates event visibility.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {Event} event The change event.
 	 * @return {void}
 	 */
@@ -369,7 +369,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Updates event visibility based on selected categories.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const updateEventVisibility = () => {
@@ -391,7 +391,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Checks if an event matches any selected categories.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} eventEl               The event element to check.
 	 * @param {Array}       selectedCategoriesArr Array of selected category slugs.
 	 * @return {boolean} True if event matches any selected category, false otherwise.
@@ -408,7 +408,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	/**
 	 * Hooks into XMLHttpRequest to detect AJAX completion.
 	 * Ensures category selections persist across AJAX navigation.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const monitorTECAjax = () => {
@@ -441,7 +441,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Re-check checkboxes and reapply filter classes after AJAX or DOM update.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const reapplyFilters = () => {
@@ -464,7 +464,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Ensures event bindings persist after AJAX updates.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {number} retryCount The number of retry attempts.
 	 * @return {void}
 	 */
@@ -488,7 +488,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Removes old event bindings to prevent duplicate listeners.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const cleanupBindings = () => {
@@ -501,7 +501,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Checks if the picker has already been bound.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param {HTMLElement} element The element to check.
 	 * @return {boolean} True if bound, false otherwise.
 	 */
@@ -509,7 +509,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Binds events for the category color picker.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const bindEvents = () => {
@@ -552,7 +552,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Initializes the category color picker.
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return {void}
 	 */
 	const init = () => {

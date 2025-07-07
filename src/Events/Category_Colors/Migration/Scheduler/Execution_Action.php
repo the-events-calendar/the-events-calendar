@@ -3,7 +3,7 @@
  * Handles the execution phase of the migration.
  * Processes categories in batches of 100.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -19,7 +19,7 @@ use WP_Error;
  * Handles the execution phase of the migration process.
  * Schedules and manages the processing of categories in batches.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -28,7 +28,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * The Worker instance.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var Worker
 	 */
 	protected Worker $worker;
@@ -36,7 +36,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * The hook name for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	protected const HOOK = 'tec_events_category_colors_migration_execution';
@@ -44,7 +44,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function __construct() {
 		$this->worker = tribe( Worker::class );
@@ -53,7 +53,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Get the hook name for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The hook name.
 	 */
@@ -64,7 +64,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The scheduled status.
 	 */
@@ -75,7 +75,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action is running.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The in-progress status.
 	 */
@@ -86,7 +86,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action completes successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The completed status.
 	 */
@@ -97,7 +97,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action fails.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The failed status.
 	 */
@@ -108,7 +108,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Determines if the action is in a valid state to run.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action can run, false otherwise.
 	 */
@@ -119,7 +119,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Executes the action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -150,7 +150,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Schedules the next batch to be processed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -176,7 +176,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Whether this action can be scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action can be scheduled.
 	 */
@@ -187,7 +187,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Process a step. This method does nothing for the Execution_action class.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -198,7 +198,7 @@ class Execution_Action extends Abstract_Action {
 	/**
 	 * Schedule the next action, this method does nothing for the Execution_action class.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */

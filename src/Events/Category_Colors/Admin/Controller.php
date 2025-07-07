@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -21,7 +21,7 @@ use TEC\Common\StellarWP\Assets\Config;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -30,7 +30,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function do_register(): void {
 		Config::add_group_path( 'tec-events-category-colors', tribe( 'tec.main' )->plugin_path . 'build/', 'category-colors' );
@@ -41,7 +41,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds the filters required.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function add_filters() {
 		$taxonomy = Tribe__Events__Main::TAXONOMY;
@@ -63,7 +63,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function unregister(): void {
 		$taxonomy = Tribe__Events__Main::TAXONOMY;
@@ -86,7 +86,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Enqueues assets required for category colors functionality.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function enqueue_assets() {
 		/** @var Category_Colors_Styles $instance */
@@ -97,7 +97,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Displays the category color fields when adding a new category.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $taxonomy The taxonomy slug.
 	 */
@@ -110,7 +110,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Displays the category color fields when editing an existing category.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param WP_Term $tag      The term object.
 	 * @param string  $taxonomy The taxonomy slug.
@@ -124,7 +124,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Saves the category color fields when adding a new category.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $taxonomy The taxonomy slug.
 	 */
@@ -138,7 +138,7 @@ class Controller extends Controller_Contract {
 	 * Saves the category color fields when editing an existing category.
 	 * This method runs for both Edit and Quick Edit.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $taxonomy The taxonomy slug.
 	 */
@@ -151,7 +151,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds custom columns to the category table.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array $columns The existing columns.
 	 * @return array Modified columns array.
@@ -165,7 +165,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds custom column data to the category table.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $content     The column content.
 	 * @param string $column_name The name of the column.
@@ -181,7 +181,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds custom fields to the Quick Edit interface.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string        $column_name The name of the column.
 	 * @param string|object $screen      The current screen.
@@ -195,7 +195,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Maybe adds inline styles for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -208,7 +208,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Regenerates the category colors CSS stylesheet.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param int    $term_id     The term ID.
 	 * @param int    $tt_id       The term taxonomy ID.

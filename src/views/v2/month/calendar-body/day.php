@@ -37,21 +37,20 @@
  *                                             multi-day stack for the day
  *      }
  */
+
 // Some static implementations might not have a $request_date - use $today_date.
 if ( empty( $request_date ) ) {
 	$request_date = Tribe__Date_Utils::build_date_object( $today_date );
 }
 
 $day_classes = \Tribe\Events\Views\V2\month_day_classes( $day, $day_date, $request_date, $today_date );
-$day_id = 'tribe-events-calendar-day-' . $day_date;
+$day_id      = 'tribe-events-calendar-day-' . $day_date;
 ?>
-
-<div
-	<?php tribe_classes( $day_classes ); ?>
-	role="gridcell"
+<td
+	<?php tec_classes( $day_classes ); ?>
 	aria-labelledby="<?php echo esc_attr( $day_id ); ?>"
 	data-js="tribe-events-month-grid-cell"
 >
 	<?php $this->template( 'month/calendar-body/day/date', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 	<?php $this->template( 'month/calendar-body/day/cell', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
-</div>
+</td>

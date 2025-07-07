@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -18,7 +18,7 @@ use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -27,7 +27,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function do_register(): void {
 		add_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );
@@ -37,11 +37,11 @@ class Controller extends Controller_Contract {
 	/**
 	 * Generates and saves the category color CSS.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function generate_css() {
 		$this->container->make( Generator::class )->generate_and_save_css();
-		
+
 		// Bust the dropdown categories cache when CSS is regenerated.
 		/** @var Category_Color_Dropdown_Provider $dropdown_provider */
 		$dropdown_provider = tribe( Category_Color_Dropdown_Provider::class );
@@ -51,7 +51,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Enqueues the frontend styles for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function enqueue_frontend_scripts() {
 		$this->container->make( Assets::class )->enqueue_frontend_scripts();
@@ -60,7 +60,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function unregister(): void {
 		remove_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );

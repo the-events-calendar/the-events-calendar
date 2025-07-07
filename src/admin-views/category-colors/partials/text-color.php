@@ -4,7 +4,7 @@
  *
  * Expects $value to be set in the parent template.
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var string $value The value.
  */

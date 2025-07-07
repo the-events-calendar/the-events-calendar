@@ -5,7 +5,7 @@
  * This trait provides access to the meta keys used for storing category color data.
  * It provides utility methods for retrieving meta keys and a list of all available keys.
  *
- * @since   TBD
+ * @since 6.14.0
  * @package TEC\Events\Category_Colors
  */
 
@@ -21,7 +21,7 @@ trait Meta_Keys_Trait {
 	/**
 	 * List of valid meta keys with their full prefixed values.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string, string>
 	 */
 	protected array $keys = [
@@ -35,7 +35,7 @@ trait Meta_Keys_Trait {
 	/**
 	 * Returns the full meta key.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @throws InvalidArgumentException If the key is not recognized.
 	 *
@@ -60,7 +60,7 @@ trait Meta_Keys_Trait {
 	/**
 	 * Returns all available meta keys.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<string, string> List of all meta keys with their full values.
 	 */

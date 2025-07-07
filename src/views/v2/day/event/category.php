@@ -10,16 +10,16 @@
  *
  * See more documentation about our views templating system.
  *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var object|null $category_colors_priority_category The highest-priority category for the event, determined using the
  *                                                     `Category_Color_Priority_Category_Provider` class.
  * @var array|null  $category_colors_meta              Array containing the category metadata (primary, secondary, text,
  *                                                     priority, hide_from_legend).
  *
- * @see     tribe_get_event() For the format of the event object.
+ * @see tribe_get_event() For the format of the event object.
  */
 
 if ( empty( $category_colors_priority_category ) ) {

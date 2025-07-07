@@ -5,7 +5,7 @@
  * This class retrieves and processes event categories with associated color metadata
  * to be used in the frontend dropdown selection.
  *
- * @since   TBD
+ * @since 6.14.0
  * @package TEC\Events\Category_Colors\Repositories
  */
 
@@ -23,7 +23,7 @@ use WP_Term;
  * This class fetches event categories, retrieves their metadata (color, priority, visibility),
  * and processes them for frontend use.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Category_Color_Dropdown_Provider {
 	use Meta_Keys_Trait;
@@ -31,7 +31,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Cache key for dropdown categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	const CACHE_KEY = 'tec_category_colors_dropdown_categories';
 
@@ -39,7 +39,7 @@ class Category_Color_Dropdown_Provider {
 	 * List of shortcode values that should not display the category colors.
 	 * Empty shortcode values are allowed by default.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var array<string> Array of shortcode identifiers that should not display category colors.
 	 */
@@ -50,7 +50,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Determines if the category color legend should be displayed on a given view.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param View $view The View object.
 	 *
@@ -67,7 +67,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters the enabled views where the category color legend should be displayed.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<string> $enabled_views List of enabled view slugs.
 		 * @param View          $view          The View object.
@@ -85,7 +85,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Checks if the current shortcode context is valid for displaying category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param View $view The view object.
 	 *
@@ -111,7 +111,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters the list of blacklisted shortcodes.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<string> $disallowed_shortcodes List of shortcode values that should not display category colors.
 		 * @param View          $view                   The current view object.
@@ -132,7 +132,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Retrieves categories and their colors for the dropdown.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<array{
 	 *     slug: string,
@@ -165,7 +165,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters the final list of categories shown in the dropdown.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<array{
 		 *     slug: string,
@@ -186,7 +186,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Busts the dropdown categories cache.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function bust_dropdown_categories_cache(): void {
 		tribe_cache()->delete( self::CACHE_KEY );
@@ -195,7 +195,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Checks if there are categories with colors available.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if there are categories with colors, false otherwise.
 	 */
@@ -207,7 +207,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Fetches all event categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array<WP_Term> Array of WordPress term objects representing event categories.
 	 */
@@ -227,7 +227,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters the raw list of event categories before processing.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<WP_Term> $categories The retrieved categories.
 		 */
@@ -237,7 +237,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Retrieves category metadata (color, priority, hidden status).
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param WP_Term $category The category term object.
 	 *
@@ -264,7 +264,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters metadata of a single category.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array{
 		 *     slug: string,
@@ -281,7 +281,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Filters categories based on their primary color and visibility settings.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array $categories {
 	 *     slug: string,
@@ -319,7 +319,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters the categories after visibility filtering.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<array{
 		 *     slug: string,
@@ -335,7 +335,7 @@ class Category_Color_Dropdown_Provider {
 	/**
 	 * Sorts categories by priority (highest first).
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array $categories {
 	 *     slug: string,
@@ -372,7 +372,7 @@ class Category_Color_Dropdown_Provider {
 		/**
 		 * Filters the sorted list of categories.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param array<array{
 		 *     slug: string,

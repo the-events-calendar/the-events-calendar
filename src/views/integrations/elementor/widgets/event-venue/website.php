@@ -20,7 +20,7 @@ if ( empty( $show_website ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_website_base_class() ); ?> >
+<div <?php tec_classes( $widget->get_website_base_class() ); ?> >
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-venue/website/header' );
 

@@ -3,7 +3,7 @@
  * Handles the preprocessing phase of the migration.
  * Prepares and formats data for migration.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -17,7 +17,7 @@ use WP_Error;
 /**
  * Handles the preprocessing phase of the migration.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -26,7 +26,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * The hook name for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	protected const HOOK = 'tec_events_category_colors_migration_preprocess';
@@ -34,7 +34,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Get the hook name for this action.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The hook name.
 	 */
@@ -45,7 +45,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action is scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The scheduled status.
 	 */
@@ -56,7 +56,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action is running.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The in-progress status.
 	 */
@@ -67,7 +67,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action completes successfully.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The completed status.
 	 */
@@ -78,7 +78,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Get the status to set when this action fails.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The failed status.
 	 */
@@ -89,7 +89,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Whether this action can be scheduled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action can be scheduled.
 	 */
@@ -103,7 +103,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Process the preprocessing step.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
@@ -138,7 +138,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Schedule the next action in the sequence.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -150,7 +150,7 @@ class Preprocessing_Action extends Abstract_Action {
 	/**
 	 * Whether this action is in a valid state to run.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the action can run, false otherwise.
 	 */

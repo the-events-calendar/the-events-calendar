@@ -28,7 +28,7 @@ $default_classes = [ 'tribe-block', 'tribe-block__organizer__details', 'tribe-cl
 // Add the custom classes from the block attributes.
 $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div <?php tribe_classes( $classes ); ?>>
+<div <?php tec_classes( $classes ); ?>>
 	<div class="tribe-block__organizer__title">
 		<h3><?php echo tribe_get_organizer_link( $organizer ); ?></h3>
 	</div>

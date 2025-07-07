@@ -32,7 +32,12 @@ $events_mobile_friendly_label = sprintf( __( 'Previous %1$s', 'the-events-calend
 	>
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<span class="tribe-events-c-nav__prev-label">
-			<?php echo wp_kses( $events_mobile_friendly_label, [ 'span' => [ 'class' => [] ] ] ); ?>
+			<?php
+			echo wp_kses(
+				$events_mobile_friendly_label,
+				[ 'span' => [ 'class' => [] ] ]
+			);
+			?>
 		</span>
 	</a>
 </li>

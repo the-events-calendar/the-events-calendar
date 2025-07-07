@@ -17,7 +17,7 @@ if ( empty( $prev_event ) || empty( $prev_link ) ) {
 	return;
 }
 ?>
-<li <?php tribe_classes( $widget->get_prev_class() ); ?>>
+<li <?php tec_classes( $widget->get_prev_class() ); ?>>
 <a href="<?php echo esc_url( $prev_link ); ?>">
 		<?php
 		echo wp_kses(

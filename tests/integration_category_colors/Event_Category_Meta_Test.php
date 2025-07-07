@@ -2,7 +2,7 @@
 /**
  * Test the Event Category Meta functionality.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */

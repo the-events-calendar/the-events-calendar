@@ -2,7 +2,7 @@
 /**
  * Tests for the complete migration flow.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -21,7 +21,7 @@ use Helper\Teccc_Options_Generator;
  * Tests the complete migration flow from start to finish, ensuring all processors
  * work together correctly.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -80,7 +80,7 @@ class Migration_Flow_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Creates test categories for testing.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function create_test_categories(): void {
 		$term1 = wp_insert_term( 'Test Category 1', 'tribe_events_cat' );
@@ -104,7 +104,7 @@ class Migration_Flow_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Deletes test categories.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function delete_test_categories(): void {
 		foreach ( self::$test_categories as $category_id ) {

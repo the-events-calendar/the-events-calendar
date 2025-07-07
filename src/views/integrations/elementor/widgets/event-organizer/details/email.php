@@ -20,7 +20,7 @@ if ( ! $show_organizer_email ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_email_wrapper_class() ); ?>>
+<div <?php tec_classes( $widget->get_email_wrapper_class() ); ?>>
 	<?php
 	$this->template( 'integrations/elementor/widgets/event-organizer/details/email/header' );
 

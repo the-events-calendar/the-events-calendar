@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since   TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -25,7 +25,7 @@ use TEC\Events\Category_Colors\Migration\Notice\Migration_Notice;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -33,7 +33,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The migration notice instance.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var Migration_Notice
 	 */
@@ -42,7 +42,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The plugin manager instance.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var Plugin_Manager
 	 */
@@ -51,7 +51,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Constructor for the Controller class.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Container      $container      The container instance.
 	 * @param Plugin_Manager $plugin_manager The plugin manager instance.
@@ -64,7 +64,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function do_register(): void {
 		$this->plugin_manager->register_legacy_hooks();
@@ -100,7 +100,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the action hooks for the migration process.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function register_action_hooks(): void {
 		$actions = [
@@ -119,7 +119,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Disables the Category Colors plugin and prevents it from being reactivated.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -170,7 +170,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function unregister(): void {
 		remove_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
@@ -181,7 +181,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Sets up the admin UI hooks.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function hook(): void {
 		add_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );

@@ -5,7 +5,7 @@
  * This file manages the settings for Category Colors, including registering a settings tab
  * and rendering the necessary fields within the admin interface.
  *
- * @since   TBD
+ * @since 6.14.0
  * @package TEC\Events\Category_Colors\Settings
  */
 
@@ -26,7 +26,7 @@ use Tribe\Events\Views\V2\Manager;
  * Handles the settings for Category Colors, including registering the settings tab
  * and rendering the associated fields.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Settings {
 
@@ -35,7 +35,7 @@ class Settings {
 	 *
 	 * Used to register and identify the settings tab for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var string
 	 */
 	public static string $tab_slug = 'display-category-colors-settings';
@@ -46,7 +46,7 @@ class Settings {
 	 * This method adds an action to register a custom settings tab and a filter
 	 * to modify the legend label for the "Legend Superpowers" checkbox field.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -61,7 +61,7 @@ class Settings {
 	 * This method removes the previously registered action and filter
 	 * to ensure they do not persist when the functionality is disabled.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -76,7 +76,7 @@ class Settings {
 	 * This method modifies the field structure by injecting a description paragraph
 	 * after the `<legend>` tag for better clarity.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string $field_start The starting HTML for the field.
 	 * @param string $field_id    The ID of the field.
@@ -99,7 +99,7 @@ class Settings {
 	/**
 	 * Registers the Category Colors tab to the settings page.
 	 *
-	 * @since  TBD
+	 * @since 6.14.0
 	 *
 	 * @param Tribe__Settings_Tab $display_tab The display settings tab.
 	 *
@@ -127,7 +127,7 @@ class Settings {
 		/**
 		 * Fires after the display category colors settings tab has been created.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param Tribe__Settings_Tab $display_category_colors_tab The display category colors settings tab.
 		 */
@@ -139,7 +139,7 @@ class Settings {
 	/**
 	 * Generates the settings for the Category Colors feature.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return array The structured settings array for Category Colors.
 	 */

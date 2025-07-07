@@ -22,7 +22,7 @@ if ( empty( $venue ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_map_base_class() ); ?>>
+<div <?php tec_classes( $widget->get_map_base_class() ); ?>>
 	<?php
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- cannot escape Google map HTML
 	echo $venue['map'];

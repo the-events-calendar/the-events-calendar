@@ -2,7 +2,7 @@
 /**
  * Tests for the Validation_Action class.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -17,7 +17,7 @@ use Codeception\TestCase\WPTestCase;
 /**
  * Class Validation_Action_Test
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */

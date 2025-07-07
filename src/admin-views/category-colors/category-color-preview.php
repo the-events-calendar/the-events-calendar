@@ -2,7 +2,7 @@
 /**
  * Template for displaying a category color preview in the admin table.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @var string $primary          The primary color hex value (border).
  * @var string $secondary        The secondary color hex value (background).

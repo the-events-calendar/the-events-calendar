@@ -2,7 +2,7 @@
 /**
  * Handles the migration notice UI and user interaction for the Category Colors migration.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -17,13 +17,13 @@ use Tribe__Template;
 /**
  * Class Migration_Notice
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration
  */
 class Migration_Notice {
 	/**
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var Migration_Flow
 	 */
@@ -37,7 +37,7 @@ class Migration_Notice {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Migration_Flow       $flow     The migration flow controller.
 	 * @param Tribe__Template|null $template The template object.
@@ -57,7 +57,7 @@ class Migration_Notice {
 	/**
 	 * The notice ID for the migration prompt.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -66,7 +66,7 @@ class Migration_Notice {
 	/**
 	 * The notice ID for the migration error.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var string
 	 */
@@ -75,7 +75,7 @@ class Migration_Notice {
 	/**
 	 * Shows the migration notice if needed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function maybe_show_migration_notice(): void {
 		$status         = Status::get_migration_status();
@@ -123,7 +123,7 @@ class Migration_Notice {
 	/**
 	 * Gets the appropriate notice message based on migration status.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The formatted message.
 	 */
@@ -152,7 +152,7 @@ class Migration_Notice {
 	/**
 	 * Gets the template instance.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return Tribe__Template The template instance.
 	 */
@@ -163,7 +163,7 @@ class Migration_Notice {
 	/**
 	 * Renders the thickbox content for the migration modal.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -175,7 +175,7 @@ class Migration_Notice {
 	/**
 	 * Handles the migration process when the user clicks the migration button.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function handle_migration(): void {
 		check_admin_referer( 'tec_start_category_colors_migration' );
@@ -213,7 +213,7 @@ class Migration_Notice {
 	/**
 	 * Gets a migration action button.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param string|null $text  Optional. Button text override.
 	 * @param string      $style_class Optional. Button class.
@@ -239,7 +239,7 @@ class Migration_Notice {
 	/**
 	 * Gets the learn more button.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The Learn More button HTML.
 	 */
@@ -254,7 +254,7 @@ class Migration_Notice {
 	/**
 	 * Gets the success message.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The success message.
 	 */

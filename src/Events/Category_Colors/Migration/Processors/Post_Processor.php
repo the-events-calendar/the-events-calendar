@@ -4,7 +4,7 @@
  * Ensures that all expected meta values exist and logs any inconsistencies.
  * This step is crucial to verify the success of the migration process.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -22,7 +22,7 @@ use TEC\Events\Category_Colors\CSS\Generator;
  * Validates migration execution results by checking if expected metadata
  * was correctly stored in the database. Logs missing or mismatched data.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -31,7 +31,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	/**
 	 * List of meta keys that should be skipped (not inserted as term meta).
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @var array<string>
 	 */
 	protected const SKIP_META_KEYS = [
@@ -44,7 +44,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	 * This method checks the current migration status and ensures the step
 	 * should only execute if the migration has not already started.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
@@ -107,7 +107,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	/**
 	 * Runs validation checks on migrated category meta data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @return bool
 	 */
 	public function process(): bool {
@@ -157,7 +157,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	/**
 	 * Validates all categories against their expected meta data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param array<int, array<string, mixed>> $categories The categories to validate.
 	 * @return bool True if all validations pass, false otherwise.
 	 */
@@ -175,7 +175,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	/**
 	 * Validates a single category's meta data.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param int   $category_id The category ID to validate.
 	 * @param array $meta_data   The expected meta data for the category.
 	 * @return bool True if validation passes, false otherwise.
@@ -212,7 +212,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	/**
 	 * Logs information about mismatched meta values.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 * @param int    $category_id    The category ID.
 	 * @param string $meta_key       The meta key that has mismatched values.
 	 * @param mixed  $expected_value The expected value.

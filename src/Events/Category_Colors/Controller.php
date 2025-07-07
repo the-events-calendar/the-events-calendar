@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since   TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -19,13 +19,14 @@ use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
 use TEC\Events\Category_Colors\Migration\Controller as Migration_Controller;
+use TEC\Events\Category_Colors\CSS\Generator;
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main;
 
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -41,7 +42,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Whether the controller is active or not.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool Whether the controller is active or not.
 	 */
@@ -49,7 +50,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters whether the Category Colors feature is globally enabled.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool $enabled Whether the Category Colors feature should be enabled.
 		 */
@@ -59,7 +60,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	protected function do_register(): void {
 		$plugin_manager = $this->container->make( Plugin_Manager::class );
@@ -101,7 +102,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function unregister(): void {
 		/** @var Admin\Controller $admin_controller */
@@ -123,7 +124,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds category color variables to the view template.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string,mixed> $template_vars The template variables.
 	 * @param View                $view          The current view instance.
@@ -151,7 +152,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds category data to the template context.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param array<string,mixed> $context The template context.
 	 *
@@ -181,7 +182,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Determines if the Category Colors frontend UI should be displayed.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if the frontend UI should be displayed, false otherwise.
 	 */
@@ -189,10 +190,21 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters whether the Category Colors frontend UI should be displayed.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool $show_frontend_ui Whether the frontend UI should be displayed.
 		 */
-		return (bool) apply_filters( 'tec_events_category_colors_show_frontend_ui', true );
+		return (bool) apply_filters( 'tec_events_category_colors_show_frontend_ui', $this->is_in_use() );
+	}
+
+	/**
+	 * Checks if the Category Colors feature is in use.
+	 *
+	 * @since 6.14.0
+	 *
+	 * @return bool True if the Category Colors feature is in use, false otherwise.
+	 */
+	public function is_in_use(): bool {
+		return (bool) get_option( $this->container->get( Generator::class )->get_option_key(), '' );
 	}
 }

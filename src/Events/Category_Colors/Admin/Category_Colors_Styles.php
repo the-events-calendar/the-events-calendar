@@ -2,7 +2,7 @@
 /**
  * Handles all style-related functionality for category colors.
  *
- * @since   TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\Admin
  */
@@ -21,13 +21,13 @@ use Tribe__Events__Main as TEC;
  * Handles all style-related functionality for category colors, including
  * enqueuing assets and adding inline styles.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Category_Colors_Styles {
 	/**
 	 * The Generator instance.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var Generator
 	 */
@@ -36,7 +36,7 @@ class Category_Colors_Styles {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Generator $generator The Generator instance.
 	 */
@@ -47,7 +47,7 @@ class Category_Colors_Styles {
 	/**
 	 * Enqueues admin assets for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -92,7 +92,7 @@ class Category_Colors_Styles {
 	/**
 	 * Maybe adds inline styles for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -113,7 +113,7 @@ class Category_Colors_Styles {
 	/**
 	 * Checks if the current page is a category management page.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool Whether the current page is a category management page.
 	 */

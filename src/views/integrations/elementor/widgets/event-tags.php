@@ -23,11 +23,11 @@ if ( empty( $tags ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_element_classes() ); ?>>
+<div <?php tec_classes( $widget->get_element_classes() ); ?>>
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-tags/header' );
 	?>
-	<div <?php tribe_classes( $widget->get_links_class() ); ?>>
+	<div <?php tec_classes( $widget->get_links_class() ); ?>>
 		<?php
 		$tag_count = count( $tags );
 		$count     = 0;

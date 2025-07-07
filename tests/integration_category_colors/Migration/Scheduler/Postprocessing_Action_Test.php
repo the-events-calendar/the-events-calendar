@@ -2,7 +2,7 @@
 /**
  * Tests for the Postprocessing_Action class.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -18,7 +18,7 @@ use Codeception\TestCase\WPTestCase;
 /**
  * Class Postprocessing_Action_Test
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -103,7 +103,7 @@ class Postprocessing_Action_Test extends WPTestCase {
 	public function should_not_schedule_when_postprocessing_in_progress(): void {
 		Status::update_migration_status( Status::$postprocessing_in_progress );
 		$this->set_class_fn_return( Postprocessing_Action::class, 'can_schedule', false );
-		
+
 		$result = $this->action->schedule();
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
@@ -196,4 +196,4 @@ class Postprocessing_Action_Test extends WPTestCase {
 		$this->assertInstanceOf( \WP_Error::class, $result );
 		$this->assertEquals( 'tec_events_category_colors_migration_cannot_schedule', $result->get_error_code() );
 	}
-} 
+}

@@ -4,7 +4,7 @@
  *
  * Displays a live preview of the selected colors and provides a link to accessibility documentation.
  *
- * @version TBD
+ * @version 6.14.0
  *
  * @var string $value The value.
  */

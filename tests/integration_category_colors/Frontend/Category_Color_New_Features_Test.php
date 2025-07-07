@@ -2,7 +2,7 @@
 /**
  * Test the new Category Color features including filters, caching, and cache busting.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -55,13 +55,13 @@ class Category_Color_New_Features_Test extends WPTestCase {
 	 */
 	public function tear_down(): void {
 		parent::tearDown();
-		
+
 		// Clean up any filters we added
 		remove_all_filters( 'tec_events_category_colors_enabled' );
 		remove_all_filters( 'tec_events_category_colors_show_frontend_ui' );
 		remove_all_filters( 'tec_events_category_colors_should_enqueue_frontend_styles' );
 		remove_all_filters( 'tec_events_category_colors_should_enqueue_frontend_legend' );
-		
+
 		// Bust cache to ensure clean state
 		$this->dropdown_provider->bust_dropdown_categories_cache();
 	}
@@ -207,10 +207,10 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Test with filter disabled
 		add_filter( 'tec_events_category_colors_enabled', '__return_false' );
-		
+
 		// The filter should prevent the controller from registering, but we can test the provider directly
 		$this->assertTrue( $this->dropdown_provider->has_dropdown_categories() );
-		
+
 		remove_filter( 'tec_events_category_colors_enabled', '__return_false' );
 	}
 
@@ -241,10 +241,10 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Test with filter disabled
 		add_filter( 'tec_events_category_colors_show_frontend_ui', '__return_false' );
-		
+
 		$should_show_disabled = apply_filters( 'tec_events_category_colors_show_frontend_ui', true );
 		$this->assertFalse( $should_show_disabled );
-		
+
 		remove_filter( 'tec_events_category_colors_show_frontend_ui', '__return_false' );
 	}
 
@@ -275,10 +275,10 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Test with filter disabled
 		add_filter( 'tec_events_category_colors_should_enqueue_frontend_styles', '__return_false' );
-		
+
 		$should_enqueue_disabled = apply_filters( 'tec_events_category_colors_should_enqueue_frontend_styles', true );
 		$this->assertFalse( $should_enqueue_disabled );
-		
+
 		remove_filter( 'tec_events_category_colors_should_enqueue_frontend_styles', '__return_false' );
 	}
 
@@ -292,10 +292,10 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Test with filter disabled
 		add_filter( 'tec_events_category_colors_should_enqueue_frontend_legend', '__return_false' );
-		
+
 		$should_enqueue_disabled = apply_filters( 'tec_events_category_colors_should_enqueue_frontend_legend', true );
 		$this->assertFalse( $should_enqueue_disabled );
-		
+
 		remove_filter( 'tec_events_category_colors_should_enqueue_frontend_legend', '__return_false' );
 	}
 
@@ -322,7 +322,7 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Test the core logic directly - check that categories exist
 		$this->assertTrue( $this->dropdown_provider->has_dropdown_categories() );
-		
+
 		// Test that we get the expected categories
 		$categories = $this->dropdown_provider->get_dropdown_categories();
 		$this->assertNotEmpty( $categories );
@@ -339,7 +339,7 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Test the core logic directly - check that no categories exist
 		$this->assertFalse( $this->dropdown_provider->has_dropdown_categories() );
-		
+
 		// Test that we get an empty array
 		$categories = $this->dropdown_provider->get_dropdown_categories();
 		$this->assertEmpty( $categories );
@@ -400,8 +400,8 @@ class Category_Color_New_Features_Test extends WPTestCase {
 
 		// Don't create any categories
 		$result = $this->dropdown_provider->get_dropdown_categories();
-		
+
 		$this->assertIsArray( $result );
 		$this->assertEmpty( $result );
 	}
-} 
+}

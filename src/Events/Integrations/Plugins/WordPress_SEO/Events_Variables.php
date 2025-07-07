@@ -2,7 +2,7 @@
 /**
  * Handles The Events Calendar custom variables for Yoast SEO.
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC_Plugin;
 /**
  * Class Events_Variables
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -23,7 +23,7 @@ class Events_Variables {
 	/**
 	 * Register the custom variables with Yoast SEO.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function register() {
 		add_action( 'wpseo_register_extra_replacements', [ $this, 'register_custom_variables' ] );
@@ -32,7 +32,7 @@ class Events_Variables {
 	/**
 	 * Register all custom variables with Yoast SEO.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function register_custom_variables() {
 		wpseo_register_var_replacement( '%%event_start_date%%', [ $this, 'get_event_start_date' ], 'advanced', 'Get the event start date' );
@@ -46,7 +46,7 @@ class Events_Variables {
 	/**
 	 * Get the event start date.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The event start date.
 	 */
@@ -62,7 +62,7 @@ class Events_Variables {
 	/**
 	 * Get the event end date.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The event end date.
 	 */
@@ -78,7 +78,7 @@ class Events_Variables {
 	/**
 	 * Get the venue title.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The venue title.
 	 */
@@ -94,7 +94,7 @@ class Events_Variables {
 	/**
 	 * Get the venue city.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The venue city.
 	 */
@@ -120,7 +120,7 @@ class Events_Variables {
 	/**
 	 * Get the venue state.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The venue state.
 	 */
@@ -146,7 +146,7 @@ class Events_Variables {
 	/**
 	 * Get the organizer title.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return string The organizer title.
 	 */

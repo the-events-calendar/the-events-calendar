@@ -84,7 +84,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Register custom variables for Yoast SEO.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -96,7 +96,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Register assets for Yoast SEO integration.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -117,7 +117,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Check if Yoast SEO assets should be enqueued.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool
 	 */

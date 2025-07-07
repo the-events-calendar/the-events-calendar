@@ -13,9 +13,9 @@
  * @var string $today_title The string used for the title and aria-label of the button.
  * @var string $today_label The string used for the visible button text.
  *
- * @version TBD
- * @since   5.2.0
- * @since   TBD Changed aria-label to aria-description for WCAG compliance.
+ * @version 6.14.0
+ * @since 5.2.0
+ * @since 6.14.0 Changed aria-label to aria-description for WCAG compliance.
  */
 ?>
 <a

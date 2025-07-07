@@ -2,7 +2,7 @@
 /**
  * Handles the enqueueing of category color CSS assets.
  *
- * @since   TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Category_Colors\CSS
  */
@@ -17,13 +17,13 @@ use TEC\Events\Category_Colors\Controller;
 /**
  * Class for managing CSS assets related to category colors.
  *
- * @since TBD
+ * @since 6.14.0
  */
 class Assets {
 	/**
 	 * The Generator instance.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @var Generator
 	 */
@@ -32,7 +32,7 @@ class Assets {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @param Generator $generator The Generator instance.
 	 */
@@ -43,7 +43,7 @@ class Assets {
 	/**
 	 * Enqueues frontend styles and inline category color CSS.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 */
 	public function enqueue_frontend_scripts(): void {
 		// Early bail if frontend UI should not be displayed.
@@ -101,7 +101,7 @@ class Assets {
 	/**
 	 * Determines whether to enqueue the frontend styles for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
@@ -109,7 +109,7 @@ class Assets {
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool   $should_enqueue Whether the styles should be enqueued.
 		 * @param Assets $assets           The Assets instance.
@@ -124,7 +124,7 @@ class Assets {
 	/**
 	 * Determines whether to enqueue the frontend legend styles for category colors.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return bool True if frontend legend styles should be enqueued, false otherwise.
 	 */
@@ -135,7 +135,7 @@ class Assets {
 		/**
 		 * Filter whether the category colors frontend legend styles should be enqueued.
 		 *
-		 * @since TBD
+		 * @since 6.14.0
 		 *
 		 * @param bool   $should_enqueue Whether the legend styles should be enqueued.
 		 * @param Assets $assets           The Assets instance.

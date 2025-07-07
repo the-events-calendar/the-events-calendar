@@ -29,7 +29,7 @@ if ( empty( $disable_event_search ) ) {
 }
 ?>
 <div
-	<?php tribe_classes( $classes ); ?>
+	<?php tec_classes( $classes ); ?>
 	data-js="tribe-events-events-bar"
 >
 

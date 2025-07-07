@@ -2,7 +2,7 @@
 /**
  * Test the Category Color cache busting functionality.
  *
- * @since   TBD
+ * @since   6.14.0
  *
  * @package TEC\Events\Category_Colors
  */
@@ -40,7 +40,7 @@ class Category_Color_Cache_Busting_Test extends WPTestCase {
 	 */
 	public function tear_down(): void {
 		parent::tearDown();
-		
+
 		// Bust cache to ensure clean state
 		$this->dropdown_provider->bust_dropdown_categories_cache();
 	}
@@ -381,4 +381,4 @@ class Category_Color_Cache_Busting_Test extends WPTestCase {
 		$cached_result_after_multiple_events = tribe_cache()->get( Category_Color_Dropdown_Provider::CACHE_KEY );
 		$this->assertFalse( $cached_result_after_multiple_events );
 	}
-} 
+}

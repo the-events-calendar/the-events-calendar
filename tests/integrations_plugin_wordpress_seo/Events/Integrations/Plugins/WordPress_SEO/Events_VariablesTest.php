@@ -7,7 +7,7 @@ use Codeception\TestCase\WPTestCase;
 /**
  * Class Events_VariablesTest
  *
- * @since TBD
+ * @since 6.14.0
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -21,7 +21,7 @@ class Events_VariablesTest extends WPTestCase {
 	/**
 	 * Set up the test case.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -37,7 +37,7 @@ class Events_VariablesTest extends WPTestCase {
 	/**
 	 * Clean up after the test case.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return void
 	 */
@@ -58,7 +58,7 @@ class Events_VariablesTest extends WPTestCase {
 	/**
 	 * Creates a test event with all needed meta/properties and sets up global postdata.
 	 *
-	 * @since TBD
+	 * @since 6.14.0
 	 *
 	 * @return int Event post ID.
 	 */
