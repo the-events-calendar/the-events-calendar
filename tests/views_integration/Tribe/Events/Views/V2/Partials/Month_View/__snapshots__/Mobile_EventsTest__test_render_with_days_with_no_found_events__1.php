@@ -67,9 +67,8 @@
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="Previous month, May"
-		title="Previous month, May"
 		rel="noindex"
+		title="Previous month, May"
 	>
 		<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg" 	aria-hidden="true"
@@ -86,9 +85,8 @@
 		href="http://test.tri.be"
 		class="tribe-events-c-nav__today tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="Click to select today&#039;s date"
-		title="Click to select today&#039;s date"
-	>
+					aria-label="Click to select today&#039;s date"
+			>
 		Today	</a>
 </li>
 
@@ -98,7 +96,6 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
-		aria-label="Next month, July"
 		title="Next month, July"
 		rel="noindex"
 	>

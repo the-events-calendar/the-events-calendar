@@ -5,7 +5,6 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous day"
 		title="Previous day"
 		disabled
 	>
@@ -22,7 +21,6 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next day"
 		title="Next day"
 		disabled
 	>
@@ -42,8 +40,8 @@
 	href="http://test.tri.be"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
-	aria-description="Click to select today&#039;s date"
->
+			aria-label="Click to select today&#039;s date"
+	>
 	Today</a>
 
 	<div class="tribe-events-c-top-bar__datepicker">
@@ -51,7 +49,7 @@
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-description="Click to toggle datepicker"
+		title="Click to toggle datepicker"
 	>
 		<time
 			datetime="2018-01-01"
@@ -95,6 +93,8 @@
 >
 	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
 </svg>
+		<span class="tribe-common-a11y-visual-hide">
+			Previous day		</span>
 	</template>
 	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
 		<svg
@@ -104,6 +104,8 @@
 >
 	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
 </svg>
+		<span class="tribe-common-a11y-visual-hide">
+			Next day		</span>
 	</template>
 </div>
 

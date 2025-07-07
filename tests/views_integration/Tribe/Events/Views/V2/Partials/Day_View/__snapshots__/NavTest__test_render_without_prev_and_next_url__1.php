@@ -3,8 +3,6 @@
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Previous Day"
-		title="Previous Day"
 		disabled
 	>
 		<svg
@@ -20,8 +18,6 @@
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Next Day"
-		title="Next Day"
 		disabled
 	>
 		Next Day		<svg

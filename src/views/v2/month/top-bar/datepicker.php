@@ -9,9 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.14.0
+ * @version TBD
+ *
  * @since 5.3.0
- * @since 6.14.0 Changed aria-label to aria-description for WCAG compliance.
+ * @since TBD Removed redundant aria-label attribute. Title attribute is sufficient.
+ * @since TBD Added hidden span for screen readers to next/prev labels.
  *
  * @var string    $now                        The current date and time in the `Y-m-d H:i:s` format.
  * @var string    $grid_date                  The current calendar grid date in the `Y-m-d` format.
@@ -34,7 +36,7 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-description="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
+		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
 			datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
@@ -70,8 +72,14 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
+		<span class="tribe-common-a11y-visual-hide">
+			<?php esc_html_e( 'Previous month', 'the-events-calendar' ); ?>
+		</span>
 	</template>
 	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
+		<span class="tribe-common-a11y-visual-hide">
+			<?php esc_html_e( 'Next month', 'the-events-calendar' ); ?>
+		</span>
 	</template>
 </div>

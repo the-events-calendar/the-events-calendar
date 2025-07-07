@@ -11,7 +11,10 @@
  *
  * @var string $prev_url The URL to the previous page, if any, or an empty string.
  *
- * @version 5.3.0
+ * @version TBD
+ *
+ * @since 5.3.0
+ * @since TBD Removed redundant aria-label attribute. Title attribute is sufficient.
  *
  */
 ?>
@@ -19,7 +22,6 @@
 	<a
 		href="<?php echo esc_url( $prev_url ); ?>"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
 		data-js="tribe-events-view-link"
 		rel="<?php echo esc_attr( $prev_rel ); ?>"

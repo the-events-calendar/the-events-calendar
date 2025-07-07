@@ -6,7 +6,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.2
+ * @version TBD
+ *
+ * @since 4.2.0
+ * @since TBD Removed redundant title attributes.
  *
  * @package TribeEventsCalendar
  *
@@ -258,7 +261,6 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				<em
 					class="tribe-events-c-search__input-control-icon"
 					aria-label="Search"
-					title="Search"
 				>
 					<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
 				</em>
@@ -282,7 +284,6 @@ tribe_asset_enqueue( 'tribe-common-style' );
 				<em
 					class="tribe-events-c-search__input-control-icon"
 					aria-label="Search"
-					title="Search"
 				>
 					<?php $this->template( 'components/icons/search', [ 'classes' => [ 'tribe-events-c-search__input-control-icon-svg' ] ] ); ?>
 				</em>

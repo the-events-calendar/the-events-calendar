@@ -11,7 +11,10 @@
  *
  * @var string $link The URL to the next page.
  *
- * @version 5.3.0
+ * @version TBD
+ *
+ * @since 5.3.0
+ * @since TBD Removed redundant aria-label and title attributes. Visible text is sufficient.
  *
  */
 ?>
@@ -21,8 +24,6 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-		aria-label="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
 		rel="<?php echo esc_attr( $next_rel ); ?>"
 	>
 		<?php esc_html_e( 'Next Day', 'the-events-calendar' ); ?>

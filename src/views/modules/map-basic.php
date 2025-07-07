@@ -9,7 +9,10 @@
  *
  *     [your-theme]/tribe-events/modules/map-basic.php
  *
- * @version 4.6.24
+ * @version TBD
+ *
+ * @since 4.6.24
+ * @since TBD Removed redundant aria-label from iframe.
  *
  * @var string $venue The venue name.
  * @var string $embed_url The full embed URL.
@@ -26,13 +29,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( empty( $venue ) ) {
 	$venue = tribe_get_venue();
 }
+
+$frame_title = sprintf(
+	/* translators: %s: Venue name. */
+	__( 'Google maps iframe displaying the address to %s', 'the-events-calendar' ),
+	$venue
+);
 ?>
 
 <iframe
-  title="<?php echo sprintf( __( "Google maps iframe displaying the address to %s", 'the-events-calendar' ), $venue ); ?>"
-  aria-label="<?php esc_attr_e( 'Venue location map', 'the-events-calendar' ); ?>"
-  width="<?php echo esc_attr( $width ); ?>"
-  height="<?php echo esc_attr( $height ); ?>"
-  frameborder="0" style="border:0"
-  src="<?php echo esc_url( $embed_url ); ?>" allowfullscreen>
+	title="<?php echo esc_attr( $frame_title ); ?>"
+	width="<?php echo esc_attr( $width ); ?>"
+	height="<?php echo esc_attr( $height ); ?>"
+	frameborder="0" style="border:0"
+	src="<?php echo esc_url( $embed_url ); ?>" allowfullscreen>
 </iframe>
