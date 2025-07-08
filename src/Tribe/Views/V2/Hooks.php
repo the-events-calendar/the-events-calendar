@@ -81,6 +81,7 @@ class Hooks extends Service_Provider {
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+		add_action( 'template_redirect', [ $this, 'disabled_views_redirect' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
 		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
@@ -312,6 +313,41 @@ class Hooks extends Service_Provider {
 	}
 
 	/**
+	 * Redirects to the default view if the current view is not enabled.
+	 *
+	 * @since 6.14.0
+	 *
+	 * @return void
+	 */
+	public function disabled_views_redirect() {
+		$context = tribe_context();
+
+		if ( ! ( $context->get( 'event_post_type' ) && is_archive( TEC::POSTTYPE ) ) ) {
+			return;
+		}
+
+		$view_slug = $context->get( 'event_display' );
+		if ( ! empty( $view_slug ) && 'default' !== $view_slug ) {
+			$public_views = $this->container->make( Manager::class )->get_publicly_visible_views();
+
+			if ( ! isset( $public_views[ $view_slug ] ) ) {
+				$default = tribe_events_get_url(
+					[
+						'eventDisplay'     => 'default',
+						'tribe_redirected' => 1,
+					]
+				);
+
+				add_filter( 'tribe_events_views_v2_redirected', '__return_true' );
+
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect, StellarWP.CodeAnalysis.RedirectAndDie
+				wp_safe_redirect( $default );
+				tribe_exit();
+			}
+		}
+	}
+
+	/**
 	 * Filters the template included file.
 	 *
 	 * @since 4.9.2
@@ -337,17 +373,17 @@ class Hooks extends Service_Provider {
 
 	/**
 	 * Include the REST endpoint so it will be cached.
-	 * 
+	 *
 	 * @since 6.11.1
-	 * 
+	 *
 	 * @param array[] $allowed_endpoints The allowed endpoints.
-	 * 
+	 *
 	 * @return array[] The allowed endpoints.
 	 */
 	public function include_rest_for_caching( $allowed_endpoints ): array {
 		return $this->container->make( Rest_Endpoint::class )->include_rest_for_caching( $allowed_endpoints );
 	}
-	
+
 	/**
 	 * Filters the posts before the query runs but after its SQL and arguments are finalized to
 	 * inject posts in it, if needed.
@@ -1419,6 +1455,7 @@ class Hooks extends Service_Provider {
 		], 10, 3 );
 		remove_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		remove_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
+		remove_action( 'template_redirect', [ $this, 'disabled_views_redirect' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
 		remove_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ] );
 	}

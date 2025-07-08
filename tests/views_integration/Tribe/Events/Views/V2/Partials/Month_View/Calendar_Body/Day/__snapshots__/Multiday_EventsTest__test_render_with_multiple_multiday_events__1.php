@@ -14,17 +14,19 @@
 	data-tooltip-content="#tribe-events-tooltip-content-7"
 	aria-describedby="tribe-events-tooltip-content-7"
 >
-	<em
-	class="tribe-events-calendar-month__multiday-event-hidden-featured-icon"
-	title="Featured"
+	<em class="tribe-events-calendar-month__multiday-event-hidden-featured-icon">
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__multiday-event-hidden-featured-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 8 10"
+	xmlns="http://www.w3.org/2000/svg"
 >
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__multiday-event-hidden-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>
 </em>
-	<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Test Event &#8211; +9 days</h3>
+<span class="tribe-events-calendar-month__multiday-event-hidden-featured-text tribe-common-a11y-visual-hide">
+	Featured</span>
+	<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Test Event &#8211; +9 days</div>
 </a>
 </div>
 			</article>
@@ -45,8 +47,8 @@
 	data-tooltip-content="#tribe-events-tooltip-content-8"
 	aria-describedby="tribe-events-tooltip-content-8"
 >
-		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Single Event 1</h3>
+		<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Single Event 1</div>
 </a>
 </div>
 			</article>
@@ -67,8 +69,8 @@
 	data-tooltip-content="#tribe-events-tooltip-content-9"
 	aria-describedby="tribe-events-tooltip-content-9"
 >
-		<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
-	Single Event 2</h3>
+		<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+	Single Event 2</div>
 </a>
 </div>
 			</article>

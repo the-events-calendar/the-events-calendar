@@ -37,7 +37,7 @@ if ( ! $show_time || ! $start_time || $is_all_day ) {
 <?php endif; ?>
 
 
-<span <?php tribe_classes( $widget->get_time_class(), $widget->get_start_time_class() ); ?>><?php echo esc_html( $start_time ); ?></span>
+<span <?php tec_classes( $widget->get_time_class(), $widget->get_start_time_class() ); ?>><?php echo esc_html( $start_time ); ?></span>
 
 <?php if ( ! $end_date || ! $is_same_day ) : ?>
 	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/timezone' ); ?>

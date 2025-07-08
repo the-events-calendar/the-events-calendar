@@ -16,9 +16,9 @@
 
 // Note: inserting a line break after the closing anchor tag will add a visual "space" between the anchor text and the separator.
 ?>
-<a <?php tribe_classes( $widget->get_link_class() ); ?> href="<?php echo esc_url( $tag_link ); ?>">
+<a <?php tec_classes( $widget->get_link_class() ); ?> href="<?php echo esc_url( $tag_link ); ?>">
 	<?php echo esc_html( $tag_name ); ?>
-</a><span class="<?php tribe_classes( $widget->get_link_class() . '-separator' ); ?>"><?php // phpcs:ignore Squiz.PHP.EmbeddedPhp.ContentBeforeOpen,Squiz.PHP.EmbeddedPhp.ContentAfterOpen
+</a><span class="<?php tec_classes( $widget->get_link_class() . '-separator' ); ?>"><?php // phpcs:ignore Squiz.PHP.EmbeddedPhp.ContentBeforeOpen,Squiz.PHP.EmbeddedPhp.ContentAfterOpen
 if ( ! $last ) {
 	$widget->print_tags_separator();
 }
