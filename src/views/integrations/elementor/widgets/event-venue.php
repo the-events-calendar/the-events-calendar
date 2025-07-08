@@ -49,12 +49,12 @@ if ( empty( $venues ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_element_classes() ); ?>>
+<div <?php tec_classes( $widget->get_element_classes() ); ?>>
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-venue/header' );
 	?>
 	<?php foreach ( $venues as $venue ) : ?>
-		<div <?php tribe_classes( $widget->get_container_classes() ); ?>>
+		<div <?php tec_classes( $widget->get_container_classes() ); ?>>
 				<?php $this->template( 'views/integrations/elementor/widgets/event-venue/single-venue', [ 'venue' => $venue ] ); ?>
 		</div>
 	<?php endforeach; ?>

@@ -13,15 +13,16 @@
  * @var string $today_title The string used for the title and aria-label of the button.
  * @var string $today_label The string used for the visible button text.
  *
- * @version 5.2.0
+ * @version 6.14.0
+ * @since 5.2.0
+ * @since 6.14.0 Changed aria-label to aria-description for WCAG compliance.
  */
 ?>
 <a
 	href="<?php echo esc_url( $today_url ); ?>"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
-	aria-label="<?php echo esc_attr( $today_title ); ?>"
-	title="<?php echo esc_attr( $today_title ); ?>"
+	aria-description="<?php echo esc_attr( $today_title ); ?>"
 >
 	<?php echo esc_html( $today_label ); ?>
 </a>

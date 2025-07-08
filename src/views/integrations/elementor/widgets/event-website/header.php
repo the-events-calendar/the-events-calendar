@@ -16,6 +16,6 @@ if ( ! $show_website_header ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $header_class ); ?>>
+<<?php echo tag_escape( $header_tag ); ?> <?php tec_classes( $header_class ); ?>>
 	<?php printf( esc_html__( 'Website:', 'the-events-calendar' ) ); ?>
 <?php echo '</' . tag_escape( $header_tag ) . '>'; ?>

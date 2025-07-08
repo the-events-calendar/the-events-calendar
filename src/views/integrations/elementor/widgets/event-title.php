@@ -20,6 +20,6 @@ if ( empty( $title ) ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
+<<?php echo tag_escape( $header_tag ); ?> <?php tec_classes( $widget->get_widget_class() ); ?>>
 	<?php echo wp_kses_post( $title ); ?>
 <?php echo '</' . tag_escape( $header_tag ) . '>'; ?>

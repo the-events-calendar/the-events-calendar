@@ -32,8 +32,10 @@ $display_date = empty( $is_past ) && ! empty( $request_date )
 $event_week_day  = $display_date->format_i18n( 'D' );
 $event_day_num   = $display_date->format_i18n( 'j' );
 $event_date_attr = $display_date->format( Dates::DBDATEFORMAT );
+$event_classes   = tribe_get_post_class( [ 'tribe-events-calendar-list__event-date-tag', 'tribe-common-g-col' ], $event->ID );
+
 ?>
-<div class="tribe-events-calendar-list__event-date-tag tribe-common-g-col">
+<div <?php tec_classes( $event_classes ); ?> >
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>" aria-hidden="true">
 		<span class="tribe-events-calendar-list__event-date-tag-weekday">
 			<?php echo esc_html( $event_week_day ); ?>
