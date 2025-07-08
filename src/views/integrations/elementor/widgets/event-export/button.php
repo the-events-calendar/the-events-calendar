@@ -15,14 +15,14 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Export;
 ?>
 
 <button
-	<?php tribe_classes( $widget->get_button_class(), 'tribe-common-c-btn-border', 'tribe-events-c-subscribe-dropdown__button' ); ?>
+	<?php tec_classes( $widget->get_button_class(), 'tribe-common-c-btn-border', 'tribe-events-c-subscribe-dropdown__button' ); ?>
 	aria-expanded="false"
 	aria-controls="<?php $widget->get_content_class(); ?>"
 	aria-label="<?php esc_attr_e( 'View links to add events to your calendar', 'the-events-calendar' ); ?>"
 >
 	<i
 		<?php
-		tribe_classes(
+		tec_classes(
 			[
 				'eicon',
 				'eicon-export-kit',
@@ -35,7 +35,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Export;
 	></i>
 	<?php esc_html_e( 'Add to calendar', 'the-events-calendar' ); ?>
 	<svg
-		<?php tribe_classes( $widget->get_dropdown_icon_class() ); ?>
+		<?php tec_classes( $widget->get_dropdown_icon_class() ); ?>
 		viewBox="0 0 12 8"
 		xmlns="http://www.w3.org/2000/svg"
 	>

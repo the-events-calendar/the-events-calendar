@@ -22,7 +22,7 @@ if ( empty( $show_address ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_address_base_class() ); ?> >
+<div <?php tec_classes( $widget->get_address_base_class() ); ?> >
 	<?php
 	// Display address header.
 	$this->template( 'views/integrations/elementor/widgets/event-venue/address/header' );

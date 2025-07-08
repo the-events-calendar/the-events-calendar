@@ -34,7 +34,7 @@ class DayEventDateTest extends HtmlTestCase {
 	/**
 	 * @test
 	 */
-	public function it_should_contain_featured_when_featured() {
+	public function it_should_have_adjacent_featured_icon_and_text_when_featured() {
 
 		$event = $this->get_mock_event( 'events/featured/1.json' );
 
@@ -47,23 +47,14 @@ class DayEventDateTest extends HtmlTestCase {
 		$this->assertEquals(
 			$featured_icon->count(),
 			1,
-			'Day Event date HTML needs to contain one ".tribe-events-calendar-day__event-datetime-featured-icon" element when having a featured event'
+			'Day Event date HTML needs to contain one ".tribe-events-calendar-day__event-datetime-featured-icon" element when displaying a featured event'
 		);
 
-		$this->assertTrue(
-			$featured_icon->is( '[title="Featured"]' ),
-			'Day calendar event featured icon needs to be title="Featured"'
-		);
+		$featured_text_element = $html->find( '.tribe-events-calendar-day__event-datetime-featured-icon + .tribe-common-a11y-visual-hide' );
 
 		$this->assertNotEmpty(
-			$featured_icon->find( 'title' ),
-			'Day calendar event featured icon needs to be contain a title element.'
-		);
-
-		$this->assertStringContainsStringIgnoringCase(
-			$featured_icon->find('title')->text(),
-			'featured',
-			'Day calendar event featured icon title element should contain "featured" by default.'
+			$featured_text_element,
+			'Day event featured icon needs to have an adjacent screen reader-only element.'
 		);
 	}
 }

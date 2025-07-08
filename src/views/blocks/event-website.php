@@ -37,7 +37,7 @@ $default_classes = [ 'tribe-block', 'tribe-block__event-website' ];
 // Add the custom classes from the block attributes.
 $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div <?php tribe_classes( $classes ); ?>>
+<div <?php tec_classes( $classes ); ?>>
 	<a
 		href="<?php echo esc_url( $href ); ?>"
 		target="<?php echo esc_attr( $target ); ?>"

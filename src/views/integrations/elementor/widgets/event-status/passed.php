@@ -18,4 +18,4 @@ if ( ! $is_passed || ! $show_passed ) {
 	return;
 }
 ?>
-<p <?php tribe_classes( $passed_label_class ); ?>><?php echo wp_kses_post( $passed_label ); ?></p>
+<p <?php tec_classes( $passed_label_class ); ?>><?php echo wp_kses_post( $passed_label ); ?></p>

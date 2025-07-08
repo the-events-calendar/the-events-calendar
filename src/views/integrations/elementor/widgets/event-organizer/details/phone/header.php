@@ -21,6 +21,6 @@ if ( ! $show_organizer_phone_header ) {
 }
 ?>
 
-<<?php echo tag_escape( $organizer_phone_header_tag ); ?> <?php tribe_classes( $widget->get_phone_header_class() ); ?>>
+<<?php echo tag_escape( $organizer_phone_header_tag ); ?> <?php tec_classes( $widget->get_phone_header_class() ); ?>>
 	<?php echo wp_kses_post( $organizer_phone_header_text ); ?>
 <?php echo '</' . tag_escape( $organizer_phone_header_tag ) . '>'; ?>

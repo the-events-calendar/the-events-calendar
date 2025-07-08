@@ -39,7 +39,7 @@ if ( $is_same_start_end ) {
 <?php endif; ?>
 
 <?php if ( $show_date && ! $is_same_day && $end_date ) : ?>
-	<span <?php tribe_classes( $widget->get_date_class(), $widget->get_end_date_class() ); ?>><?php echo esc_html( $end_date ); ?></span>
+	<span <?php tec_classes( $widget->get_date_class(), $widget->get_end_date_class() ); ?>><?php echo esc_html( $end_date ); ?></span>
 <?php endif; ?>
 
 <?php
