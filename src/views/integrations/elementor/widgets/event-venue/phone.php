@@ -21,7 +21,7 @@ if ( empty( $show_phone ) ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_phone_base_class() ); ?> >
+<div <?php tec_classes( $widget->get_phone_base_class() ); ?> >
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-venue/phone/header' );
 

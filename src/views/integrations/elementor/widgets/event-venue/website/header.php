@@ -17,6 +17,6 @@ if ( ! $show_website_header ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $website_header_tag ); ?> <?php tribe_classes( $widget->get_website_base_class() . '-header' ); ?>>
+<<?php echo tag_escape( $website_header_tag ); ?> <?php tec_classes( $widget->get_website_base_class() . '-header' ); ?>>
 	<?php echo wp_kses_post( $website_header_text ); ?>
 <?php echo '</' . tag_escape( $website_header_tag ) . '>'; ?>

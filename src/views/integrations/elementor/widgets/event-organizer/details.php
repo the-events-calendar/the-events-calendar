@@ -34,7 +34,7 @@ if ( $multiple ) {
 	return;
 }
 ?>
-<div <?php tribe_classes( $widget->get_widget_class() . '-details' ); ?>>
+<div <?php tec_classes( $widget->get_widget_class() . '-details' ); ?>>
 	<?php
 	$this->template( 'integrations/elementor/widgets/event-organizer/details/phone' );
 

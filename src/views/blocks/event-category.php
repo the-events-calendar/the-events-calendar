@@ -19,7 +19,7 @@ $default_classes = [ 'tribe-events-single-section', 'tribe-events-section-catego
 $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 
 ?>
-<div <?php tribe_classes( $classes ); ?>>
+<div <?php tec_classes( $classes ); ?>>
 	<?php
 	echo tribe_get_event_categories(
 		$this->get( 'post_id' ),

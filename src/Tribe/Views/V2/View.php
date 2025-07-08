@@ -705,6 +705,15 @@ class View implements View_Interface {
 		 */
 		do_action( 'tec_events_before_view_html_cache', $this );
 
+		// Need our nonces for AJAX requests.
+		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces() );
+
+		/*
+		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
+		 * available.
+		 */
+		$this->repository_args = $repository_args;
+
 		// If HTML_Cache is a class trait and we have content to display, display it.
 		if (
 			method_exists( $this, 'maybe_get_cached_html' )
@@ -1314,7 +1323,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	} 
+	}
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
@@ -1598,6 +1607,7 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.4
 	 * @since 5.2.1 Add the `rest_method` to the template variables.
+	 * @since 6.14.0 Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1760,6 +1770,16 @@ class View implements View_Interface {
 			'show_latest_past'     => $this->should_show_latest_past_events_view(),
 			'past'                 => $this->context->get( 'past', false ),
 		];
+
+		/**
+		 * Filters the template variables for the view.
+		 *
+		 * @since 6.14.0
+		 *
+		 * @param array<string,mixed> $template_vars The template variables.
+		 * @param View               $view          The current view instance.
+		 */
+		$template_vars = apply_filters( 'tec_events_views_v2_view_template_vars', $template_vars, $this );
 
 		if ( ! $this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' ) ) {
 			tribe_cache()->set( $memoize_key, $template_vars, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
@@ -2996,3 +3016,4 @@ class View implements View_Interface {
 		return [ static::$view_slug, translate( static::$view_slug, 'the-events-calendar' ) ];
 	}
 }
+

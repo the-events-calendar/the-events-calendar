@@ -168,10 +168,12 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 5.14.2
 	 * @since 6.2.7 Added support for single event templates.
+	 * @since 6.14.0 Passing $query_result to get_filtered_block_templates().
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array               $query        {
 	 *                                          Optional. Arguments to retrieve templates.
+	 * @param string              $template_type The type of template being requested.
 	 *
 	 * @type array                $slug__in     List of slugs to include.
 	 * @type int                  $wp_id        Post ID of customized template.
@@ -184,7 +186,7 @@ class Controller extends Controller_Contract {
 			return $query_result;
 		}
 		// Get our block template services for this query.
-		$template_services = $this->get_filtered_block_templates( $template_type );
+		$template_services = $this->get_filtered_block_templates( $template_type, $query_result );
 		foreach ( $template_services as $template ) {
 			if ( empty( $query['slug__in'] ) || in_array( $template->slug(), $query['slug__in'], true ) ) {
 				/**
@@ -231,14 +233,32 @@ class Controller extends Controller_Contract {
 	 * WP_Block_Template instances.
 	 *
 	 * @since 6.2.7
+	 * @since 6.14.0 Added $query_result parameter.
 	 *
-	 * @param string $template_type The type of templates we are fetching.
+	 * @param string              $template_type The type of templates we are fetching.
+	 * @param WP_Block_Template[] $query_result  The query result.
 	 *
 	 * @return Block_Template_Contract[] List of filtered Event Calendar templates.
 	 */
-	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
+	public function get_filtered_block_templates( $template_type = 'wp_template', $query_result = [] ): array {
 		$templates = [];
 		if ( $template_type === 'wp_template' ) {
+			$theme_has_single_event_template  = false;
+			$theme_has_archive_event_template = false;
+			foreach ( $query_result as $template ) {
+				if ( 'theme' !== $template->origin && 'theme' !== $template->source ) {
+					continue;
+				}
+
+				if ( 'single-event' === $template->slug ) {
+					$theme_has_single_event_template = true;
+				}
+
+				if ( 'archive-events' === $template->slug ) {
+					$theme_has_archive_event_template = true;
+				}
+			}
+
 			/**
 			 * Filter whether the event archive block template should be used.
 			 *
@@ -246,8 +266,7 @@ class Controller extends Controller_Contract {
 			 *
 			 * @param bool $allow_archive Whether the event archive block template should be used.
 			 */
-			$allow_archive = apply_filters( 'tec_events_allow_archive_block_template', true );
-
+			$allow_archive = apply_filters( 'tec_events_allow_archive_block_template', ! $theme_has_archive_event_template );
 			if ( $allow_archive ) {
 				$templates[] = tribe( Archive_Block_Template::class );
 			}
@@ -259,7 +278,7 @@ class Controller extends Controller_Contract {
 			 *
 			 * @param bool $allow_single Whether the single block template should be used.
 			 */
-			$allow_single = apply_filters( 'tec_events_allow_single_block_template', true );
+			$allow_single = apply_filters( 'tec_events_allow_single_block_template', ! $theme_has_single_event_template );
 			if ( $allow_single ) {
 				$templates[] = tribe( Single_Block_Template::class );
 			}

@@ -28,7 +28,7 @@ if ( empty( $website ) ) {
 }
 
 ?>
-<div <?php tribe_classes( $widget->get_element_classes() ); ?>>
+<div <?php tec_classes( $widget->get_element_classes() ); ?>>
 	<?php $this->template( 'views/integrations/elementor/widgets/event-website/header' ); ?>
 	<?php $this->template( 'views/integrations/elementor/widgets/event-website/link' ); ?>
 </div>
