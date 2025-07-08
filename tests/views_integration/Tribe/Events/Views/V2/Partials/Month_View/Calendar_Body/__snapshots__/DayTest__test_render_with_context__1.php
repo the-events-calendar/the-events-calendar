@@ -50,6 +50,7 @@
 				href="http://tribe.tests/events/2019-07-01"
 				class="tribe-events-calendar-month__day-date-link"
 				data-js="tribe-events-view-link"
+				aria-label="1st July"
 			>
 				1			</a>
 			</time>

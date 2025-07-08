@@ -3,7 +3,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Monday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -15,7 +14,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Tuesday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -27,7 +25,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Wednesday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -39,7 +36,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Thursday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -51,7 +47,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Friday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -63,7 +58,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Saturday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -75,7 +69,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Sunday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
