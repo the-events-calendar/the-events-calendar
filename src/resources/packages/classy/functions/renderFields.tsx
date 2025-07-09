@@ -50,12 +50,12 @@ export default function renderFields( fields: React.ReactNode | null ) {
 					title={ _x( 'Location', 'The title of the event location field.', 'the-events-calendar' ) }
 				/>
 
-				<EventAdmission
-					title={ _x( 'Admission', 'The title of the event admission field.', 'the-events-calendar' ) }
-				/>
-
 				<EventOrganizer
 					title={ _x( 'Event Organizer', 'The title of the event organizer field.', 'the-events-calendar' ) }
+				/>
+
+				<EventAdmission
+					title={ _x( 'Admission', 'The title of the event admission field.', 'the-events-calendar' ) }
 				/>
 			</Fill>
 		</Fragment>
