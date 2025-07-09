@@ -3,7 +3,7 @@ import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/el
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Hours } from '@tec/common/classy/types/Hours';
 import { Minutes } from '@tec/common/classy/types/Minutes';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { DateTimeUpdateType, DateUpdateType, FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { ToggleControl } from '@wordpress/components';
 import { _x } from '@wordpress/i18n';
 import {
@@ -17,6 +17,7 @@ import { TimeZone, StartSelector, EndSelector } from '@tec/common/classy/compone
 import { EventDateTimeDetails } from '../../types/EventDateTimeDetails';
 import { addFilter, removeFilter } from '@wordpress/hooks';
 import { useEffect } from 'react';
+import { areDatesOnSameDay } from '@tec/common/classy/functions';
 
 type DateTimeRefs = {
 	endTimeHours: number;
@@ -33,8 +34,10 @@ type NewDatesReturn = {
 	newStartDate: Date;
 	newEndDate: Date;
 	notify: {
-		start: boolean;
-		end: boolean;
+		startDate: boolean;
+		startTime: boolean;
+		endDate: boolean;
+		endTime: boolean;
 	};
 };
 
@@ -53,40 +56,87 @@ type NewDatesReturn = {
 function getNewStartEndDates(
 	endDate: Date,
 	startDate: Date,
-	updated: 'start' | 'end',
+	updated: DateTimeUpdateType,
 	newDate: string
 ): NewDatesReturn {
-	let newStartDate: Date;
-	let newEndDate: Date;
-	let notify = { start: false, end: false };
+	// Milliseconds.
+	const duration = endDate.getTime() - startDate.getTime();
+	const isMultiday =
+		startDate.getDate() !== endDate.getDate() ||
+		startDate.getMonth() !== endDate.getMonth() ||
+		startDate.getFullYear() !== endDate.getFullYear();
+	// By default, do not move the start date but keep it to the previous value.
+	let newStartDate = startDate;
+	// By default, do not move the end date but keep it to the previous value.
+	let newEndDate = endDate;
+	let notify = { startDate: false, startTime: false, endDate: false, endTime: false };
 
 	try {
-		if ( updated === 'start' ) {
-			// The user has updated the start date.
-			newStartDate = new Date( newDate );
-			newEndDate = endDate;
+		switch ( updated ) {
+			case 'startDate':
+			case 'startTime':
+				// The user has updated the start date.
+				newStartDate = new Date( newDate );
 
-			if ( newStartDate.getTime() >= endDate.getTime() ) {
-				// The start date is after the current end date: set the end date to the start date.
-				newEndDate = new Date( newStartDate.getTime() );
-				notify.end = true;
-			}
-		} else {
-			// The user has updated the end date.
-			newStartDate = startDate;
-			newEndDate = new Date( newDate );
+				// If the new start date is after the end date, then move the end date using the previous duration.
+				if ( newStartDate.getTime() > endDate.getTime() ) {
+					// Move the end date using the same duration.
+					newEndDate = new Date( newStartDate.getTime() + duration );
 
-			if ( newEndDate.getTime() <= startDate.getTime() ) {
-				// The end date is before the current start date: set the start date to the end date.
-				newStartDate = new Date( newEndDate.getTime() );
-				notify.start = true;
-			}
+					if (
+						! isMultiday &&
+						( newEndDate.getDate() !== newStartDate.getDate() ||
+							newEndDate.getMonth() !== newStartDate.getMonth() ||
+							newEndDate.getFullYear() !== newStartDate.getFullYear() )
+					) {
+						// If it was not multi-day and now is, just set the end date to the start date.
+						newEndDate = newStartDate;
+					}
+				}
+
+				break;
+			case 'endDate':
+			case 'endTime':
+				// The user has updated the end date.
+				newEndDate = new Date( newDate );
+
+				// If the new end date is before the start date, then move the start date using the previous duration.
+				if ( newEndDate.getTime() < startDate.getTime() ) {
+					newStartDate = new Date( newEndDate.getTime() - duration );
+				}
+
+				break;
 		}
+
+		// Highlight the start date if it actually changed as a consequence of the update.
+		notify.startDate =
+			updated !== 'startDate' &&
+			( startDate.getDate() !== newStartDate.getDate() ||
+				startDate.getMonth() !== newStartDate.getMonth() ||
+				startDate.getFullYear() !== newStartDate.getFullYear() );
+
+		// Highlight the start time if it actually changed as a consequence of the update.
+		notify.startTime =
+			updated !== 'startTime' &&
+			( startDate.getMinutes() != newStartDate.getMinutes() || startDate.getHours() != newStartDate.getHours() );
+
+		// Highlight the end date if it actually changed as a consequence of the update.
+		notify.endDate =
+			updated !== 'endDate' &&
+			( endDate.getDate() !== newEndDate.getDate() ||
+				endDate.getMonth() !== newEndDate.getMonth() ||
+				endDate.getFullYear() !== newEndDate.getFullYear() );
+
+		// Highlight the end time if it actually changed as a consequence of the update.
+		notify.endTime =
+			updated !== 'endTime' &&
+			( endDate.getMinutes() != newEndDate.getMinutes() || endDate.getHours() != newEndDate.getHours() );
 	} catch ( e ) {
 		// Something went wrong while processing the dates, return the values unchanged and notify no field.
 		newStartDate = startDate;
 		newEndDate = endDate;
-		notify = { start: false, end: false };
+		// Nothing to notify since nothing changed.
+		notify = { startDate: false, startTime: false, endDate: false, endTime: false };
 	}
 
 	return { newStartDate, newEndDate, notify };
@@ -100,20 +150,31 @@ function getNewStartEndDates(
  * @param {RefObject<DateTimeRefs>} refs A reference object containing duration information.
  * @param {boolean} newValue Indicates whether the event is now multi-day.
  * @param {Date} startDate The current start date of the event.
+ *
  * @return {Date} The new end date for the event.
  */
-function getMultiDayEndDate( refs: RefObject< DateTimeRefs >, newValue: boolean, startDate: Date ) {
+function getMultiDayEndDate( refs: RefObject< DateTimeRefs >, newValue: boolean, startDate: Date ): Date {
 	const { singleDayDuration, multiDayDuration } = refs.current as DateTimeRefs;
-	let duration: number = 0;
+	let duration: number;
 
 	if ( newValue ) {
-		// Move the end date forward by 24 hours plus the single day ouration.
+		// Move the end date forward by 24 hours plus the single-day duration.
 		duration = multiDayDuration + singleDayDuration;
-	} else {
-		duration = singleDayDuration;
+
+		return new Date( startDate.getTime() + duration );
 	}
 
-	return new Date( startDate.getTime() + duration );
+	duration = singleDayDuration;
+
+	const newEndDate = new Date( startDate.getTime() + duration );
+
+	// We're not in a multi-day context: the end date should never have a different date from the start date.
+	if ( ! areDatesOnSameDay( startDate, newEndDate ) ) {
+		// Set the end date to be the same as start date.
+		return new Date( startDate.getTime() );
+	}
+
+	return newEndDate;
 }
 
 /**
@@ -137,7 +198,7 @@ function getAllDayNewDates(
 	},
 	endDate: Date,
 	refs: RefObject< DateTimeRefs >
-) {
+): { newStartDate: Date; newEndDate: Date } {
 	if ( refs.current === null ) {
 		return { newStartDate: startDate, newEndDate: endDate };
 	}
@@ -178,9 +239,10 @@ function getAllDayNewDates(
  * @since TBD
  *
  * @param {FieldProps} props Component properties including title.
+ *
  * @return {JSX.Element} The rendered EventDateTime component.
  */
-export default function EventDateTime( props: FieldProps ) {
+export default function EventDateTime( props: FieldProps ): JSX.Element {
 	const {
 		dateWithYearFormat,
 		endOfDayCutoff,
@@ -203,7 +265,7 @@ export default function EventDateTime( props: FieldProps ) {
 	useEffect( (): void => {
 		// The `isNewEvent` flag will always be `false` on existing events.
 		// The `isNewEvent` flag will be first `undefined` (while the selector is resolved), then `true` on new events.
-		// This is done with a filter and not by dispatching a change to the edited post to avoid the
+		// This is done with a filter and not by dispatching a change to the edited post to avoid
 		// the "You have unsaved changes ..." alert for a user that changed nothing.
 		if ( isNewEvent === true ) {
 			const filterPreSavePost = ( edits: { meta?: Object } ): { meta?: Object } => {
@@ -236,7 +298,7 @@ export default function EventDateTime( props: FieldProps ) {
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const [ isSelectingDate, setIsSelectingDate ] = useState< 'start' | 'end' | false >( false );
+	const [ isSelectingDate, setIsSelectingDate ] = useState< DateUpdateType | false >( false );
 	const [ dates, setDates ] = useState( {
 		start: new Date( eventStart ),
 		end: new Date( eventEnd ),
@@ -265,7 +327,7 @@ export default function EventDateTime( props: FieldProps ) {
 	const endDateIsoString = endDate.toISOString();
 
 	const onDateChange = useCallback(
-		( updated: 'start' | 'end', newDate: string ): void => {
+		( updated: DateUpdateType, newDate: string ): void => {
 			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate );
 
 			editPost( {
@@ -286,14 +348,14 @@ export default function EventDateTime( props: FieldProps ) {
 
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsSelectingDate( false );
-			setHighlightStartTime( notify.start );
-			setHighlightEndTime( notify.end );
+			setHighlightStartTime( notify.startTime );
+			setHighlightEndTime( notify.endTime );
 		},
 		[ endDateIsoString, startDateIsoString, editPost ]
 	);
 
 	const onDateInputClick = useCallback(
-		( selecting: 'start' | 'end' ) => {
+		( selecting: DateUpdateType ) => {
 			if ( selecting === isSelectingDate ) {
 				// Do nothing.
 				return;
@@ -309,12 +371,12 @@ export default function EventDateTime( props: FieldProps ) {
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
 				endDate={ endDate }
-				highightTime={ highlightStartTime }
+				highlightTime={ highlightStartTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
 				isSelectingDate={ isSelectingDate }
 				onChange={ onDateChange }
-				onClick={ () => onDateInputClick( 'start' ) }
+				onClick={ () => onDateInputClick( 'startDate' ) }
 				onClose={ () => setIsSelectingDate( false ) }
 				startDate={ startDate }
 				startOfWeek={ startOfWeek }
@@ -342,7 +404,7 @@ export default function EventDateTime( props: FieldProps ) {
 				isMultiday={ isMultidayValue }
 				isSelectingDate={ isSelectingDate }
 				onChange={ onDateChange }
-				onClick={ () => onDateInputClick( 'end' ) }
+				onClick={ () => onDateInputClick( 'endDate' ) }
 				onClose={ () => setIsSelectingDate( false ) }
 				startDate={ startDate }
 				startOfWeek={ startOfWeek }
@@ -363,7 +425,7 @@ export default function EventDateTime( props: FieldProps ) {
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
 			let newEndDate = getMultiDayEndDate( refs, newValue, startDate );
-			onDateChange( 'end', format( phpDateMysqlFormat, newEndDate ) );
+			onDateChange( 'endDate', format( phpDateMysqlFormat, newEndDate ) );
 			setIsMultidayValue( newValue );
 		},
 		[ startDateIsoString ]
