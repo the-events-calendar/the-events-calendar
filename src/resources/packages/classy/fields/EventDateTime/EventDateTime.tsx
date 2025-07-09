@@ -212,8 +212,16 @@ function getAllDayNewDates(
 		newStartDate.setHours( endOfDayCutoff.hours );
 		newStartDate.setMinutes( endOfDayCutoff.minutes );
 		// Round the current duration to the nearest day and remove one second.
-		const days = Math.ceil( ( endDate.getTime() - startDate.getTime() ) / ( 1000 * 60 * 60 * 24 ) );
-		const duration = days * 1000 * 60 * 60 * 24 - 1; // Subtract one second to avoid the next day.
+		const dayDuration = 1000 * 60 * 60 * 24;
+		const startDay = new Date( startDate );
+		startDay.setHours( 0 );
+		startDay.setMinutes( 0 );
+		const endDay = new Date( endDate );
+		endDay.setHours( 23 );
+		endDay.setMinutes( 59 );
+		const daysBetween = Math.ceil( ( endDay.getTime() - startDay.getTime() ) / dayDuration );
+		// Subtract one second to avoid the next day.
+		const duration = daysBetween * dayDuration - 1;
 		// Move the end date to the next day's end-of-day cutoff time minus on second; e.g. 23:59:59
 		newEndDate = new Date( newStartDate.getTime() + duration );
 
