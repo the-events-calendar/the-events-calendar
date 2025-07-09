@@ -28,7 +28,7 @@ $default_classes = [ 'tribe-block', 'tribe-block__events-link' ];
 // Add the custom classes from the block attributes.
 $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-	<div <?php tribe_classes( $classes ); ?>>
+	<div <?php tec_classes( $classes ); ?>>
 		<div class="tribe-events tribe-common">
 			<div class="tribe-events-c-subscribe-dropdown__container">
 				<div class="tribe-events-c-subscribe-dropdown">

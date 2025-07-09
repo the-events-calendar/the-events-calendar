@@ -329,4 +329,67 @@ tribe.events.views.eventsBar = {};
 
 	// Configure on document ready
 	$( obj.ready );
+
+	obj.viewSelector = {
+		container: '[data-js="tribe-events-view-selector"]',
+		button: '[data-js="tribe-events-view-selector-button"]',
+		listContainer: '[data-js="tribe-events-view-selector-list-container"]',
+		activeClass: 'tribe-events-c-view-selector__button--active',
+		ariaExpanded: 'aria-expanded',
+	};
+
+	obj.closeViewSelector = function($container) {
+		const $button = $container.find(obj.viewSelector.button);
+		const $list = $container.find(obj.viewSelector.listContainer);
+		$button.removeClass(obj.viewSelector.activeClass);
+		$button.attr(obj.viewSelector.ariaExpanded, 'false');
+		$list.hide().attr('aria-hidden', 'true');
+	};
+
+	obj.openViewSelector = function($container) {
+		const $button = $container.find(obj.viewSelector.button);
+		const $list = $container.find(obj.viewSelector.listContainer);
+		$button.addClass(obj.viewSelector.activeClass);
+		$button.attr(obj.viewSelector.ariaExpanded, 'true');
+		$list.show().attr('aria-hidden', 'false');
+	};
+
+	obj.initViewSelectorA11y = function() {
+		const $viewSelector = $(obj.viewSelector.container);
+		if (!$viewSelector.length) return;
+		const $button = $viewSelector.find(obj.viewSelector.button);
+		const $list = $viewSelector.find(obj.viewSelector.listContainer);
+
+		$viewSelector.on('keydown', function(e) {
+			if (e.key === 'Escape' || e.keyCode === 27) {
+				obj.closeViewSelector($viewSelector);
+				$button.focus();
+			}
+		});
+
+		$list.on('focusout', function(e) {
+			setTimeout(function() {
+				const focused = document.activeElement;
+				if (!$list[0].contains(focused) && focused !== $button[0]) {
+					obj.closeViewSelector($viewSelector);
+				}
+			}, 10);
+		});
+
+		$list.on('keydown', function(e) {
+			if (e.key === 'Tab' || e.keyCode === 9) {
+				const $focusables = $list.find('a:visible');
+				const first = $focusables[0];
+				const last = $focusables[$focusables.length - 1];
+				if (!e.shiftKey && document.activeElement === last) {
+					obj.closeViewSelector($viewSelector);
+				}
+				if (e.shiftKey && document.activeElement === first) {
+					obj.closeViewSelector($viewSelector);
+				}
+			}
+		});
+	};
+
+	$( obj.initViewSelectorA11y );
 } )( jQuery, tribe.events.views.eventsBar );

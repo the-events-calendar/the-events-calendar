@@ -14,6 +14,7 @@ import { FetchedVenue } from '../../types/FetchedVenue';
 import { METADATA_EVENT_VENUE_ID } from '../../constants';
 import { VenueData } from '../../types/VenueData';
 import VenueUpsertModal from './VenueUpsertModal.tsx';
+import { fetchVenues, upsertVenue } from '../../api';
 
 function buildOptionFromFetchedVenue( venue: FetchedVenue ): CustomSelectOption {
 	return {
@@ -122,61 +123,41 @@ export default function EventLocation( props: FieldProps ) {
 	const fetched = useRef( [] as FetchedVenue[] );
 
 	useEffect( () => {
-		apiFetch( {
-			path: addQueryArgs( '/tribe/events/v1/venues', {
-				page: pageToFetch,
-			} ),
-		} )
-			.then( ( results ) => {
-				// Check that results is an object, else log a console error.
-				if ( ! ( results && typeof results === 'object' ) ) {
-					console.error( 'Venues fetch request did not return an object.' );
+		const fetchVenuesData = async () => {
+			try {
+				const result = await fetchVenues( pageToFetch );
+
+				// There are no venues, nothing to udpate.
+				if ( result.venues.length === 0 ) {
 					return;
 				}
-
-				// Check that the object has an `venues` property, else log a console error.
-				if ( ! ( results.hasOwnProperty( 'venues' ) && results.hasOwnProperty( 'total' ) ) ) {
-					console.error( 'Venues fetch request did not return an object with venues and total properties.' );
-					return;
-				}
-
-				// Check that the `venues` property is an array, else log a console error.
-				if ( ! Array.isArray( ( results as { venues: any } ).venues ) ) {
-					console.error( 'Venues fetch request did not return an array.' );
-					return;
-				}
-
-				// Check that the venue array is not empty, else return.
-				if ( ( results as { venues: any[] } ).venues.length === 0 ) {
-					return;
-				}
-
-				const safeResults = results as {
-					venues: FetchedVenue[];
-					total: number;
-				};
 
 				// Update the number of pages to fetch if the total is more than the number of fetched options.
-				if ( safeResults.total > fetched.current.length + safeResults.venues.length ) {
+				if ( result.total > fetched.current.length + result.venues.length ) {
 					setPageToFetch( pageToFetch + 1 );
 				}
 
 				// Update the fetched set of venues by making sure a new version of venues will override the already
 				// fetched version.
-				const safeResultIds = new Set( safeResults.venues.map( ( venue: FetchedVenue ): number => venue.id ) );
+				const safeResultIds = new Set( result.venues.map( ( venue: FetchedVenue ): number => venue.id ) );
 				fetched.current = [
 					...fetched.current.filter( ( venue ) => ! safeResultIds.has( venue.id ) ),
-					...safeResults.venues,
+					...result.venues,
 				];
 
 				// Update the options to all the so-far fetched options minus the current venue ids.
 				// Why not just add to the options? They might have been modified by a user removal or selection in the
 				// meanwhile. Since we're recalculating them anyway, make sure they are up to date.
 				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
-			} )
-			.catch( ( e ) => {
+			} catch ( e ) {
 				console.error( 'Venue fetch request failed: ' + e.message );
-			} );
+				// Set fetched venues to an empty array if an error occurs
+				fetched.current = [];
+				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
+			}
+		};
+
+		fetchVenuesData();
 	}, [ pageToFetch ] );
 
 	const ref = useRef( null );
@@ -228,89 +209,66 @@ export default function EventLocation( props: FieldProps ) {
 	 *
 	 * @return {Promise<void>} A promise that resolves when the REST API replies.
 	 */
-	const upsertVenue = useCallback( ( venueData: VenueData ) => {
-		let fetchPromise: Promise< FetchedVenue >;
-		const isCountryUs = venueData.countryCode === 'US';
+	const handleVenueUpsert = useCallback( async ( venueData: VenueData ) => {
+		try {
+			// Call the extracted upsertVenue function
+			const venueId = await upsertVenue( venueData );
 
-		if ( venueData.id ) {
-			// Updating an existing venue.
-			fetchPromise = apiFetch( {
-				path: `/tribe/events/v1/venues/${ venueData.id }`,
-				method: 'PUT',
-				data: {
-					venue: venueData.name,
-					address: venueData.address,
-					city: venueData.city,
-					country: venueData.country,
-					province: isCountryUs ? '' : venueData.stateprovince,
-					state: isCountryUs ? venueData.stateprovince : '',
-					zip: venueData.zip,
-					phone: venueData.phone,
-					website: venueData.website,
-				},
-			} );
-		} else {
-			// Creating a new venue.
-			fetchPromise = apiFetch( {
-				path: '/tribe/events/v1/venues',
-				method: 'POST',
-				data: {
-					status: 'publish',
-					venue: venueData.name,
-					address: venueData.address,
-					city: venueData.city,
-					country: venueData.country,
-					province: isCountryUs ? '' : venueData.stateprovince,
-					state: isCountryUs ? venueData.stateprovince : '',
-					zip: venueData.zip,
-					phone: venueData.phone,
-					website: venueData.website,
-				},
-			} );
+			// Get the venue data from the API response
+			const data: FetchedVenue = {
+				id: venueId,
+				venue: venueData.name,
+				address: venueData.address,
+				city: venueData.city,
+				country: venueData.country,
+				province: venueData.countryCode === 'US' ? '' : venueData.stateprovince,
+				state: venueData.countryCode === 'US' ? venueData.stateprovince : '',
+				zip: venueData.zip,
+				phone: venueData.phone,
+				website: venueData.website,
+			};
+
+			setIsUpserting( false );
+
+			const index: number = fetched.current.findIndex( ( venue ) => venue.id === data.id );
+
+			if ( index === -1 ) {
+				// A new venue has been created: add it to the fetched set of venues.
+				fetched.current.push( data );
+
+				// Add the venue ID to the list of current venue IDs: we assume the user created the Venue to add
+				// it.
+				const newCurrentVenueIds = [ ...currentVenueIds, data.id ];
+				setCurrentVenueIds( newCurrentVenueIds );
+
+				// Update the post meta to track the new venues IDs.
+				editPost( {
+					meta: {
+						[ METADATA_EVENT_VENUE_ID ]: newCurrentVenueIds,
+					},
+				} );
+
+				// Update the options to the new set of venues; this will trigger a re-render.
+				setOptions( getUpdatedOptions( fetched.current, newCurrentVenueIds ) );
+			} else {
+				// A venue has been updated: update it in the set of fetched venues.
+				fetched.current[ index ] = data;
+				// Update the options to the new set; this will trigger a re-render.
+				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
+			}
+		} catch ( error ) {
+			setIsUpserting( false );
+			// Set the page to fetch to 0 to make sure all the Venues will be re-fetched.
+			setPageToFetch( 0 );
+			console.error( 'Venue upsert request failed: ' + error.message );
 		}
-
-		fetchPromise
-			.then( ( data: FetchedVenue ) => {
-				setIsUpserting( false );
-
-				const index: number = fetched.current.findIndex( ( venue ) => venue.id === data.id );
-
-				if ( index === -1 ) {
-					// A new venue has been created: add it to the fetched set of venues.
-					fetched.current.push( data );
-
-					// Add the venue ID to the list of current venue IDs: we assume the user created the Venue to add
-					// it.
-					const newCurrentVenueIds = [ ...currentVenueIds, data.id ];
-					setCurrentVenueIds( newCurrentVenueIds );
-
-					// Update the post meta to track the new venues IDs.
-					editPost( {
-						meta: {
-							[ METADATA_EVENT_VENUE_ID ]: newCurrentVenueIds,
-						},
-					} );
-
-					// Update the options to the new set of venues; this will trigger a re-render.
-					setOptions( getUpdatedOptions( fetched.current, newCurrentVenueIds ) );
-				} else {
-					// A venue has been updated: update it in the set of fetched venues.
-					fetched.current[ index ] = data;
-					// Update the options to the new set; this will trigger a re-render.
-					setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
-				}
-			} )
-			.catch( ( error ) => {
-				setIsUpserting( false );
-				// Set the page to fetch to 0 to make sure all the Venues will be re-fetched.
-				setPageToFetch( 0 );
-				console.error( 'Venue upsert request failed: ' + error.message );
-			} );
 	}, [] );
 
 	const orderedVenues = currentVenueIds
 		.map( ( id ) => fetched.current.find( ( venue ) => venue.id === id ) )
 		.filter( ( venue ) => venue !== undefined );
+
+	const hasVenues = currentVenueIds.length > 0;
 
 	return (
 		<div className="classy-field classy-field--event-location">
@@ -319,77 +277,79 @@ export default function EventLocation( props: FieldProps ) {
 			</div>
 
 			<div className="classy-field__inputs classy-field__inputs--boxed">
-				{ currentVenueIds.length > 0 && (
+				{ hasVenues && (
 					<div className="classy-field__inputs-section">
 						<VenueCards venues={ orderedVenues } onEdit={ onVenueEdit } onRemove={ onVenueRemove } />
 					</div>
 				) }
 
-				{ isAdding && <span className="classy_section-separator"></span> }
+				{ isAdding && hasVenues && <span className="classy_section-separator"></span> }
 
-				<div className="classy-field__inputs-section classy-field__inputs-section--row">
-					{ ( isAdding || currentVenueIds.length === 0 ) && (
-						<Fragment>
-							<div className="classy-field__input classy-field__input-full-width">
-								<CustomSelectControl
-									__next40pxDefaultSize
-									className="classy-field__control classy-field__control--select"
-									hideLabelFromVision={ true }
-									label={ _x(
-										'Venue selection',
-										'Assistive technology label',
+				{ currentVenueIds.length < venuesLimit && (
+					<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
+						{ ( isAdding || currentVenueIds.length === 0 ) && (
+							<Fragment>
+								<div className="classy-field__input classy-field__input-full-width">
+									<CustomSelectControl
+										__next40pxDefaultSize
+										className="classy-field__control classy-field__control--select"
+										hideLabelFromVision={ true }
+										label={ _x(
+											'Venue selection',
+											'Assistive technology label',
+											'the-events-calendar'
+										) }
+										onChange={ onVenueSelect }
+										options={ options }
+										value={ placeholderOption }
+									/>
+								</div>
+
+								<div className="classy-field__input" ref={ ref }>
+									<div className="classy-field__control classy-field__control--venue" ref={ ref }>
+										<span className="classy-field__venue-label">
+											{ _x(
+												'or',
+												'prefix to the Venue create popover link ',
+												'the-events-calendar'
+											) }
+										</span>{ ' ' }
+										<Button
+											variant="link"
+											className="classy-cta classy-field__venue-value"
+											onClick={ createNewVenue }
+										>
+											{ _x(
+												'Create new venue',
+												'Call to action to create a new venue',
+												'the-events-calendar'
+											) }
+										</Button>
+									</div>
+								</div>
+							</Fragment>
+						) }
+
+						{ ! isAdding && hasVenues && currentVenueIds.length < venuesLimit && (
+							<div className="classy-field__input">
+								<Button
+									variant="link"
+									className="classy-field__control classy-field__control--cta"
+									onClick={ () => setIsAdding( true ) }
+								>
+									<IconAdd />
+									{ _x(
+										'Add another venue',
+										'Call-to-action to add another venue',
 										'the-events-calendar'
 									) }
-									onChange={ onVenueSelect }
-									options={ options }
-									value={ placeholderOption }
-								/>
+								</Button>
 							</div>
+						) }
+					</div>
+				) }
 
-							<div className="classy-field__input" ref={ ref }>
-								<div className="classy-field__control classy-field__control--venue" ref={ ref }>
-									<span className="classy-field__venue-label">
-										{ _x(
-											'or',
-											'prefix to the Venue create popover link ',
-											'the-events-calendar'
-										) }
-									</span>{ ' ' }
-									<Button
-										variant="link"
-										className="classy-field__venue-value"
-										onClick={ createNewVenue }
-									>
-										{ _x(
-											'Create new venue',
-											'Call to action to create a new venue',
-											'the-events-calendar'
-										) }
-									</Button>
-								</div>
-							</div>
-						</Fragment>
-					) }
-
-					{ ! isAdding && currentVenueIds.length > 0 && currentVenueIds.length < venuesLimit && (
-						<div className="classy-field__input">
-							<Button
-								variant="link"
-								className="classy-field__control classy-field__control--cta"
-								onClick={ () => setIsAdding( true ) }
-							>
-								<IconAdd />
-								{ _x(
-									'Add another venue',
-									'Call-to-action to add another venue',
-									'the-events-calendar'
-								) }
-							</Button>
-						</div>
-					) }
-				</div>
-
-				{ currentVenueIds.length > 0 && isAdding && (
+				{ hasVenues && isAdding && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row">
 						<Button
 							variant="link"
@@ -405,7 +365,7 @@ export default function EventLocation( props: FieldProps ) {
 					<VenueUpsertModal
 						isUpdate={ isUpserting > 0 }
 						onCancel={ () => setIsUpserting( false ) }
-						onSave={ upsertVenue }
+						onSave={ handleVenueUpsert }
 						onClose={ () => setIsUpserting( false ) }
 						values={ getVenueData() }
 					/>

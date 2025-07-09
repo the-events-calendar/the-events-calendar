@@ -16,10 +16,10 @@ if ( empty( $show_phone ) ) {
 	return;
 }
 ?>
-<p <?php tribe_classes( $widget->get_phone_base_class() . '-number' ); ?> >
+<p <?php tec_classes( $widget->get_phone_base_class() . '-number' ); ?> >
 	<?php if ( $link_venue_phone ) : ?>
 		<?php // For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension. ?>
-		<a <?php tribe_classes( $widget->get_phone_base_class() . '-link' ); ?>
+		<a <?php tec_classes( $widget->get_phone_base_class() . '-link' ); ?>
 			href="<?php echo esc_url( $venue['phone_link'] ); ?>"
 		>
 	<?php endif; ?>

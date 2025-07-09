@@ -32,7 +32,7 @@ class ListEventDateTest extends HtmlTestCase {
 	}
 
 	/**
-	 * @test
+	 * @testListEventDateTest
 	 */
 	public function it_should_contain_featured_when_featured() {
 
@@ -46,27 +46,15 @@ class ListEventDateTest extends HtmlTestCase {
 		$this->assertEquals(
 			$featured_icon->count(),
 			1,
-			'List Event date HTML needs to contain one ".tribe-events-calendar-list__event-datetime-featured-icon" element when having a featured event'
+			'List Event date HTML needs to contain one ".tribe-events-calendar-list__event-datetime-featured-icon" element when displaying a featured event'
 		);
 
-		$this->assertTrue(
-			$featured_icon->is( '[title="Featured"]' ),
-			'List event featured icon needs to be title="Featured"'
-		);
-
-		$featured_icon_title = $html->find( '.tribe-events-calendar-list__event-datetime-featured-icon title' );
+		$featured_text_element = $html->find( '.tribe-events-calendar-list__event-datetime-featured-icon + .tribe-common-a11y-visual-hide' );
 
 		$this->assertNotEmpty(
-			$featured_icon->find( 'title' ),
-			'List event featured icon needs to be contain a title element.'
+			$featured_text_element,
+			'List event featured icon needs to have an adjacent screen reader-only element.'
 		);
-
-		$this->assertStringContainsStringIgnoringCase(
-			$featured_icon->find('title')->text(),
-			'featured',
-			'List event featured icon title element should contain "featured" by default.'
-		);
-
 	}
 
 }

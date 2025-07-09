@@ -28,23 +28,19 @@ global $wp_version;
 
 $default_classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-common-b2' ];
 $classes         = isset( $classes ) ? array_merge( $default_classes, $classes ) : $default_classes;
-$attributes = isset( $attributes ) ? (array) $attributes : [];
+$attributes      = isset( $attributes ) ? (array) $attributes : [];
 
 ?>
-<div <?php tribe_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
+<div <?php tec_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
-		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
+		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" tabindex="0" role="alert" aria-live="assertive">
 			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-				<?php foreach ( $message_group as $key => $message ) : ?>
-					<div
-						class="tribe-events-c-messages__message-list-item"
-						<?php tribe_attributes( [ 'data-key' => esc_attr( (string) $key ) ] ); ?>
-					>
-						<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : esc_html( $message ); ?>
-					</div>
-				<?php endforeach; ?>
-			</div>
+			<?php foreach ( $message_group as $key => $message ) : ?>
+				<div
+					<?php tribe_attributes( [ 'data-key' => esc_attr( (string) $key ) ] ); ?>>
+					<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : esc_html( $message ); ?>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	<?php endforeach; ?>
 </div>

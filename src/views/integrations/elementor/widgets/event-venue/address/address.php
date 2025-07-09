@@ -15,6 +15,6 @@ if ( empty( $venue['address'] ) ) {
 	return;
 }
 ?>
-<address <?php tribe_classes( $widget->get_address_base_class() . '-address' ); ?>>
+<address <?php tec_classes( $widget->get_address_base_class() . '-address' ); ?>>
 	<?php echo wp_kses_post( $venue['address'] ); ?>
 </address>

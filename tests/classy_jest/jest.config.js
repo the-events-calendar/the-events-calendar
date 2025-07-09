@@ -1,4 +1,5 @@
 const { defaults: tsjPreset } = require( 'ts-jest/presets' );
+const path = require( 'path' );
 
 module.exports = {
 	verbose: true,
@@ -28,6 +29,8 @@ module.exports = {
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
+	// Load modules only from TEC, override default resolution that could lead Common loading from its own `node_modules`.
+	moduleDirectories: [ path.resolve( __dirname, '../../node_modules' ) ],
 	moduleNameMapper: {
 		'@tec/common/(.*)$': '<rootDir>/../../common/src/resources/packages/$1',
 		'@tec/common/classy/(.*)$': '<rootDir>/../../common/src/resources/packages/classy/$1',
