@@ -19,11 +19,19 @@
  */
 
 $list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$public_view_slug" ];
+$is_active         = false;
+
 if ( $view_slug === $public_view_slug ) {
 	$list_item_classes[] = 'tribe-events-c-view-selector__list-item--active';
+	$is_active           = true;
 }
 ?>
-<li class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>">
+<li
+	class="<?php echo esc_attr( implode( ' ', $list_item_classes ) ); ?>"
+	<?php if ( $is_active ) : ?>
+		aria-current="true"
+	<?php endif; ?>
+>
 	<a
 		href="<?php echo esc_url( $public_view_data->view_url ); ?>"
 		class="tribe-events-c-view-selector__list-item-link"
