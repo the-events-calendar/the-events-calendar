@@ -1,4 +1,7 @@
-<?php return '<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
+<?php return '<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active"
+			aria-current="true"
+	>
 	<a
 		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"

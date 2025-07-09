@@ -181,7 +181,10 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active"
+			aria-current="true"
+	>
 	<a
 		href="http://test.tri.be/events/category/cat-1/list/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -217,7 +220,9 @@
 			List		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month"
+	>
 	<a
 		href="http://test.tri.be/events/category/cat-1/2019-01/"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -237,7 +242,9 @@
 			Month		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day"
+	>
 	<a
 		href="http://test.tri.be/events/category/cat-1/day/2019-01-01/"
 		class="tribe-events-c-view-selector__list-item-link"

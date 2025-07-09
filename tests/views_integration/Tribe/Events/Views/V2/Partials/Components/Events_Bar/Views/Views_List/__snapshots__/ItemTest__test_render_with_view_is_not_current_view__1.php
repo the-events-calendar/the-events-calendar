@@ -1,4 +1,6 @@
-<?php return '<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
+<?php return '<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month"
+	>
 	<a
 		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"

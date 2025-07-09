@@ -177,7 +177,9 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list"
+	>
 	<a
 		href="http://test.tri.be/events/list/?tribe-bar-date=2020-03-01"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -213,7 +215,10 @@
 			List		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active"
+			aria-current="true"
+	>
 	<a
 		href="http://test.tri.be/events/month/2020-03/"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -233,7 +238,9 @@
 			Month		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day"
+	>
 	<a
 		href="http://test.tri.be/events/2020-03-01/"
 		class="tribe-events-c-view-selector__list-item-link"

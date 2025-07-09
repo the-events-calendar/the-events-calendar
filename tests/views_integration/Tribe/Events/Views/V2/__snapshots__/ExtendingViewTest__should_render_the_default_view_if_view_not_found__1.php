@@ -221,7 +221,10 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active"
+			aria-current="true"
+	>
 	<a
 		href="http://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
@@ -257,7 +260,9 @@
 			List		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
+					<li
+	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month"
+	>
 	<a
 		href="http://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
