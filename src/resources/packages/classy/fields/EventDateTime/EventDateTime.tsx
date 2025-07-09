@@ -207,7 +207,7 @@ function getAllDayNewDates(
 	let newEndDate: Date;
 
 	if ( newValue ) {
-		// Move the start date to the current day end-of-day cutoff time.
+		// Move the start date to the current-day end-of-day cutoff time.
 		newStartDate = new Date( startDate );
 		newStartDate.setHours( endOfDayCutoff.hours );
 		newStartDate.setMinutes( endOfDayCutoff.minutes );
@@ -223,7 +223,7 @@ function getAllDayNewDates(
 		refs.current.endTimeHours = endDate.getHours();
 		refs.current.endTimeMinutes = endDate.getMinutes();
 	} else {
-		// Restore the saved start and end times, but respect the days.
+		// Restore the saved start and end times but respect the days.
 		newStartDate = new Date( startDate );
 		newStartDate.setHours( refs.current.startTimeHours, refs.current.startTimeMinutes, 0 );
 		newEndDate = new Date( endDate );
@@ -280,10 +280,10 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				// Add the start date, end date and timezone information to the payload sent to the backend.
 				edits.meta = edits?.meta || {};
 				if ( ! edits.meta[ METADATA_EVENT_START_DATE ] ) {
-					edits[ METADATA_EVENT_START_DATE ] = format( phpDateMysqlFormat, eventStart );
+					edits.meta[ METADATA_EVENT_START_DATE ] = format( phpDateMysqlFormat, eventStart );
 				}
 				if ( ! edits.meta[ METADATA_EVENT_END_DATE ] ) {
-					edits[ METADATA_EVENT_END_DATE ] = format( phpDateMysqlFormat, eventEnd );
+					edits.meta[ METADATA_EVENT_END_DATE ] = format( phpDateMysqlFormat, eventEnd );
 				}
 				if ( ! edits.meta[ METADATA_EVENT_TIMEZONE ] ) {
 					edits.meta[ METADATA_EVENT_TIMEZONE ] = eventTimezone;
