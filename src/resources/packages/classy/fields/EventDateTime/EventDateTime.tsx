@@ -3,7 +3,7 @@ import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/el
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Hours } from '@tec/common/classy/types/Hours';
 import { Minutes } from '@tec/common/classy/types/Minutes';
-import { DateTimeUpdateType, DateUpdateType, FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { DateTimeUpdateType, DateUpdateType, FieldProps } from '@tec/common/classy/types/FieldProps';
 import { ToggleControl } from '@wordpress/components';
 import { _x } from '@wordpress/i18n';
 import {
@@ -17,7 +17,7 @@ import { TimeZone, StartSelector, EndSelector } from '@tec/common/classy/compone
 import { EventDateTimeDetails } from '../../types/EventDateTimeDetails';
 import { addFilter, removeFilter } from '@wordpress/hooks';
 import { useEffect } from 'react';
-import { areDatesOnSameDay } from '@tec/common/classy/functions';
+import { areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
 
 type DateTimeRefs = {
 	endTimeHours: number;
@@ -109,28 +109,16 @@ function getNewStartEndDates(
 		}
 
 		// Highlight the start date if it actually changed as a consequence of the update.
-		notify.startDate =
-			updated !== 'startDate' &&
-			( startDate.getDate() !== newStartDate.getDate() ||
-				startDate.getMonth() !== newStartDate.getMonth() ||
-				startDate.getFullYear() !== newStartDate.getFullYear() );
+		notify.startDate = updated !== 'startDate' && ! areDatesOnSameDay( startDate, newStartDate );
 
 		// Highlight the start time if it actually changed as a consequence of the update.
-		notify.startTime =
-			updated !== 'startTime' &&
-			( startDate.getMinutes() != newStartDate.getMinutes() || startDate.getHours() != newStartDate.getHours() );
+		notify.startTime = updated !== 'startTime' && ! areDatesOnSameTime( startDate, newStartDate );
 
 		// Highlight the end date if it actually changed as a consequence of the update.
-		notify.endDate =
-			updated !== 'endDate' &&
-			( endDate.getDate() !== newEndDate.getDate() ||
-				endDate.getMonth() !== newEndDate.getMonth() ||
-				endDate.getFullYear() !== newEndDate.getFullYear() );
+		notify.endDate = updated !== 'endDate' && ! areDatesOnSameDay( endDate, newEndDate );
 
 		// Highlight the end time if it actually changed as a consequence of the update.
-		notify.endTime =
-			updated !== 'endTime' &&
-			( endDate.getMinutes() != newEndDate.getMinutes() || endDate.getHours() != newEndDate.getHours() );
+		notify.endTime = updated !== 'endTime' && ! areDatesOnSameTime( endDate, newEndDate );
 	} catch ( e ) {
 		// Something went wrong while processing the dates, return the values unchanged and notify no field.
 		newStartDate = startDate;
