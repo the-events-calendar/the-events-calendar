@@ -3,6 +3,7 @@
     --tec-color-category-secondary: #00ff00;
     --tec-color-category-text: #ff0000;
 }
+
 .tribe_events_cat-visible-category {
     --tec-color-category-primary: #ff0000;
     --tec-color-category-secondary: #00ff00;
