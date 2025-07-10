@@ -83,12 +83,7 @@ function getNewStartEndDates(
 					// Move the end date using the same duration.
 					newEndDate = new Date( newStartDate.getTime() + duration );
 
-					if (
-						! isMultiday &&
-						( newEndDate.getDate() !== newStartDate.getDate() ||
-							newEndDate.getMonth() !== newStartDate.getMonth() ||
-							newEndDate.getFullYear() !== newStartDate.getFullYear() )
-					) {
+					if ( ! isMultiday && ! areDatesOnSameDay( newStartDate, newEndDate ) ) {
 						// If it was not multi-day and now is, just set the end date to the start date.
 						newEndDate = newStartDate;
 					}
