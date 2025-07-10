@@ -129,15 +129,14 @@
 >
 	<ul class="tribe-events-c-view-selector__list">
 					<li
-	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active"
-			aria-current="true"
-	>
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active" >
 	<a
 		href="https://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in List View"
-	>
+				aria-current="true"
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -168,14 +167,13 @@
 	</a>
 </li>
 					<li
-	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month"
-	>
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month" >
 	<a
 		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Month View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -190,14 +188,13 @@
 	</a>
 </li>
 					<li
-	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day"
-	>
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day" >
 	<a
 		href="https://test.tri.be/events/today/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Day View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--day tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"

@@ -1,13 +1,12 @@
 <?php return '<li
-	class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active"
-			aria-current="true"
-	>
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active" >
 	<a
 		href="https://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Month View"
-	>
+				aria-current="true"
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
