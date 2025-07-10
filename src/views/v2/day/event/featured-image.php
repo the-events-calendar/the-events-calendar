@@ -41,6 +41,8 @@ if ( ! $event->thumbnail->exists ) {
 				alt=""
 			<?php endif; ?>
 			class="tribe-events-calendar-day__event-featured-image"
+			width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+			height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
 		/>
 	</a>
 </div>
