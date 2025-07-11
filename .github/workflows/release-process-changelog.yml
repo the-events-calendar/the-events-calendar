@@ -73,7 +73,7 @@ jobs:
         id: versions
         if: github.event_name == 'workflow_dispatch'
         run: |
-          changeBranch="task/process-changelog/$(date +%Y-%m-%d)/${{ steps.process-changelog.outputs.changelog-content || 'unknown' }}/$(git rev-parse --short ${{ github.sha }})"
+          changeBranch="task/process-changelog/${{ steps.format_date.outputs.RELEASE_DATE }}/${{ steps.figure_out_version.outputs.RELEASE_VERSION }}/${{ steps.vars.outputs.sha_short }}"
           git checkout -b "$changeBranch"
           git push origin "$changeBranch"
 
@@ -84,7 +84,7 @@ jobs:
         with:
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
           base: ${{ inputs.target-branch || github.ref }}
-          branch: "task/process-changelog/$(date +%Y-%m-%d)/${{ steps.process-changelog.outputs.changelog-content || 'unknown' }}/$(git rev-parse --short ${{ github.sha }})"
+          branch: "task/process-changelog/${{ steps.format_date.outputs.RELEASE_DATE }}/${{ steps.figure_out_version.outputs.RELEASE_VERSION }}/${{ steps.vars.outputs.sha_short }}"
           title: "[BOT] Process changelog for '${{ inputs.target-branch || github.head_ref || github.ref_name }}'"
           body: |
             This is an automated PR created by ${{ github.actor }}.
