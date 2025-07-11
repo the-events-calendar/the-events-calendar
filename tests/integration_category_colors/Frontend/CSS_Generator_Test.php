@@ -34,6 +34,11 @@ class CSS_Generator_Test extends WPTestCase {
 	protected $category_meta;
 
 	/**
+	 * @var array<int>
+	 */
+	protected $created_term_ids;
+
+	/**
 	 * @before
 	 */
 	public function setup_test_environment(): void {
