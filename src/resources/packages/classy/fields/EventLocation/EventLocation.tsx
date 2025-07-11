@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { Fragment, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import apiFetch from '@wordpress/api-fetch';
 import { Button, CustomSelectControl, Slot } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
-import { addQueryArgs } from '@wordpress/url';
 import { IconAdd } from '@tec/common/classy/components';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import VenueCards from './VenueCards';
