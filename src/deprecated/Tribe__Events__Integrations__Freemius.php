@@ -230,8 +230,6 @@ class Tribe__Events__Integrations__Freemius {
 	 * For some reason Freemius is redirecting some customers to a page that doesnt exist. So we catch that page and
 	 * redirect them back to the actual page that we are using to setup the plugins integration.
 	 *
-	 * @link        https://moderntribe.atlassian.net/browse/TEC-3218
-	 *
 	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
