@@ -14,10 +14,10 @@
  */
 
 ?>
-<p <?php tribe_classes( $widget->get_email_base_class() ); ?>>
+<p <?php tec_classes( $widget->get_email_base_class() ); ?>>
 	<?php if ( $link_organizer_email ) : ?>
 		<?php // For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension. ?>
-		<a <?php tribe_classes( $widget->get_email_base_class() . '-link' ); ?> href="<?php echo esc_url( 'mailto:' . $organizer['email'] ); ?>">
+		<a <?php tec_classes( $widget->get_email_base_class() . '-link' ); ?> href="<?php echo esc_url( 'mailto:' . $organizer['email'] ); ?>">
 	<?php endif; ?>
 		<?php echo esc_html( $organizer['email'] ); ?>
 	<?php if ( $link_organizer_email ) : ?>

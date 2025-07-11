@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.13.2.1';
+		const VERSION             = '6.14.0';
 
 		/**
 		 * Min Pro Addon.
@@ -749,6 +749,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
 
+			// Register Category Colors.
+			tribe_register_provider( TEC\Events\Category_Colors\Controller::class );
 			// Register the Calendar Embeds feature.
 			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 

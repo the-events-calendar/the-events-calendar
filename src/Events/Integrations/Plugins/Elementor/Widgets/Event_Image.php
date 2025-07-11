@@ -137,7 +137,7 @@ class Event_Image extends Abstract_Widget {
 		};
 		var image_url = elementor.imagesManager.getImageUrl( image );
 		#>
-		<div <?php tribe_classes( $this->get_element_classes() ); ?>>
+		<div <?php tec_classes( $this->get_element_classes() ); ?>>
 			<img src="{{ image_url }}" />
 		</div>
 		<?php

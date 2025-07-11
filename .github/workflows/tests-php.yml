@@ -11,6 +11,7 @@ jobs:
           - embed_calendar_integration
           - event_status
           - integration
+          - integration_category_colors
           - muintegration
           - restv1
           - views_integration

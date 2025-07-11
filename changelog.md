@@ -1,5 +1,27 @@
 # Changelog
 
+### [6.14.0] 2025-07-03
+
+* Feature - Category Colors functionality has been merged into The Events Calendar. [TEC-5364]
+* Feature - Events Variables for Yoast SEO [TEC-5437]
+* Fix - Add width and height attributes on images displayed in our Events pages [TEC-4715]
+* Fix - Disabled Event Views should redirect to default view [TEC-5427]
+* Fix - Recognize when the theme is registering single or archive Event templates when using a Block theme, and avoid registering our own. [TEC-5525]
+* Tweak - Added actions: `tec_events_category_colors_saved`, `tec_events_category_colors_migration_status_updated`, `tec_events_category_colors_migration_reset`, `tribe_log`, `tec_events_category_colors_migration_preprocessor_start`, `tec_events_category_colors_migration_preprocessor_end`, `tec_events_category_colors_migration_validator_start`, `tec_events_category_colors_migration_validator_end`, `tec_events_category_colors_migration_runner_start`, `tec_events_category_colors_migration_runner_end`, `tec_events_category_colors_migration_post_schedule_action`, `tec_events_category_colors_migration_post_cancel_action`, `tec_events_settings_tab_display_category_colors`, `tec_conditional_content_header_notice`
+* Tweak - Added filters: `tec_events_category_color_generator_batch_size`, `tec_events_category_colors_enabled`, `tec_events_category_colors_show_frontend_ui`, `tec_events_category_validate_meta_key`, `tec_events_category_validate_meta_value`, `tec_events_category_colors_force_migration_notice`, `tec_category_colors_is_tec_admin_page`, `tec_events_category_colors_migration_batch_size`, `tec_events_category_colors_migration_pre_schedule_action`, `tec_events_category_colors_migration_pre_execute_action`, `tec_events_category_colors_migration_`, `tec_events_category_colors_migration_pre_cancel_action`, `tec_events_category_color_enabled_views`, `tec_events_category_color_dropdown_categories`, `tec_events_category_color_raw_categories`, `tec_events_category_color_category_meta`, `tec_events_category_color_filtered_categories`, `tec_events_category_color_sorted_categories`, `tec_events_category_color_highest_priority_category`, `tec_events_category_color_event_categories`, `tec_events_category_color_category_priorities`, `tec_events_views_v2_view_template_vars`
+* Tweak - Add the conditional content notice to Event Aggregator pages [TEC-5530]
+* Tweak - Changed views: `blocks/classic-event-details`, `blocks/event-category`, `blocks/event-datetime`, `blocks/event-organizer`, `blocks/event-price`, `blocks/event-tags`, `blocks/event-venue`, `blocks/event-website`, `blocks/parts/subscribe-list`, `blocks/parts/subscribe-single`, `integrations/elementor/widgets/empty`, `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-categories`, `integrations/elementor/widgets/event-categories/header`, `integrations/elementor/widgets/event-cost`, `integrations/elementor/widgets/event-cost/header`, `integrations/elementor/widgets/event-datetime`, `integrations/elementor/widgets/event-datetime/all-day`, `integrations/elementor/widgets/event-datetime/end-date`, `integrations/elementor/widgets/event-datetime/end-time`, `integrations/elementor/widgets/event-datetime/header`, `integrations/elementor/widgets/event-datetime/range-separator`, `integrations/elementor/widgets/event-datetime/start-date`, `integrations/elementor/widgets/event-datetime/start-time`, `integrations/elementor/widgets/event-datetime/time-separator`, `integrations/elementor/widgets/event-export`, `integrations/elementor/widgets/event-export/button`, `integrations/elementor/widgets/event-export/link`, `integrations/elementor/widgets/event-export/list-item`, `integrations/elementor/widgets/event-image`, `integrations/elementor/widgets/event-navigation`, `integrations/elementor/widgets/event-navigation/next`, `integrations/elementor/widgets/event-navigation/previous`, `integrations/elementor/widgets/event-organizer`, `integrations/elementor/widgets/event-organizer/details`, `integrations/elementor/widgets/event-organizer/details/email`, `integrations/elementor/widgets/event-organizer/details/email/content`, `integrations/elementor/widgets/event-organizer/details/email/header`, `integrations/elementor/widgets/event-organizer/details/phone`, `integrations/elementor/widgets/event-organizer/details/phone/content`, `integrations/elementor/widgets/event-organizer/details/phone/header`, `integrations/elementor/widgets/event-organizer/details/website`, `integrations/elementor/widgets/event-organizer/details/website/content`, `integrations/elementor/widgets/event-organizer/details/website/header`, `integrations/elementor/widgets/event-organizer/header`, `integrations/elementor/widgets/event-organizer/names`, `integrations/elementor/widgets/event-status/passed`, `integrations/elementor/widgets/event-status/status`, `integrations/elementor/widgets/event-tags`, `integrations/elementor/widgets/event-tags/content`, `integrations/elementor/widgets/event-tags/header`, `integrations/elementor/widgets/event-title`, `integrations/elementor/widgets/event-venue`, `integrations/elementor/widgets/event-venue/address`, `integrations/elementor/widgets/event-venue/address/address`, `integrations/elementor/widgets/event-venue/address/header`, `integrations/elementor/widgets/event-venue/address/map_link`, `integrations/elementor/widgets/event-venue/header`, `integrations/elementor/widgets/event-venue/map`, `integrations/elementor/widgets/event-venue/name`, `integrations/elementor/widgets/event-venue/phone`, `integrations/elementor/widgets/event-venue/phone/header`, `integrations/elementor/widgets/event-venue/phone/phone`, `integrations/elementor/widgets/event-venue/single-venue`, `integrations/elementor/widgets/event-venue/website`, `integrations/elementor/widgets/event-venue/website/header`, `integrations/elementor/widgets/event-venue/website/website`, `integrations/elementor/widgets/event-website`, `integrations/elementor/widgets/event-website/header`, `integrations/elementor/widgets/event-website/link`, `modules/meta/venue`, `single-event`, `v2/components/events-bar`, `v2/components/events-bar/views`, `v2/components/header`, `v2/components/messages`, `v2/components/messages/error-icon`, `v2/components/messages/notice-icon`, `v2/components/top-bar/category-color-picker`, `v2/components/top-bar/today`, `v2/day`, `v2/day/event`, `v2/day/event/category`, `v2/day/event/date/featured`, `v2/day/event/featured-image`, `v2/day/top-bar`, `v2/day/top-bar/datepicker`, `v2/latest-past/event`, `v2/latest-past/event/date/featured`, `v2/latest-past/event/featured-image`, `v2/list`, `v2/list/event`, `v2/list/event/category`, `v2/list/event/date-tag`, `v2/list/event/date/featured`, `v2/list/nav/next-disabled`, `v2/list/nav/next`, `v2/list/nav/prev-disabled`, `v2/list/nav/prev`, `v2/list/top-bar`, `v2/list/top-bar/datepicker`, `v2/month`, `v2/month/calendar-body`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event`, `v2/month/calendar-body/day/calendar-events/calendar-event/date/featured`, `v2/month/calendar-body/day/calendar-events/calendar-event/title`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date/featured`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date-extras`, `v2/month/calendar-body/day/date`, `v2/month/calendar-body/day/multiday-events/multiday-event`, `v2/month/calendar-body/day/multiday-events/multiday-event/bar/featured`, `v2/month/calendar-body/day/multiday-events/multiday-event/bar/title`, `v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/featured`, `v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/title`, `v2/month/calendar-header`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/mobile-event`, `v2/month/mobile-events/mobile-day/mobile-event/date/featured`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/title`, `v2/month/top-bar`, `v2/month/top-bar/datepicker`, `v2/widgets/widget-events-list`, `v2/widgets/widget-events-list/event`, `v2/widgets/widget-events-list/event/date/featured`, `v2/widgets/widget-events-qr-code`
+* Tweak - Update Month view templates to use a more semantically appropriate table structure. Developers are advised to carefully review any customizations for compatibility before updating. [TEC-5185]
+* Accessibility - Changed aria-labels to aria-descriptions for WCAG compliance. [TEC-5524]
+* Accessibility - Correct an issue where alert text was not announced by screen readers. [TEC-5184]
+* Accessibility - Correct some heading uses that were confusing and/or misapplied. [TEC-5199]
+* Accessibility - Correct some images where the alt text conflicted with the linked title. [TEC-5183]
+* Accessibility - Improve the keyboard navigation of the Views menu. [TEC-5192]
+* Accessibility - Remove redundant aria-label attributes where they duplicate existing visible text. [TEC-5197]
+* Accessibility - Remove redundant title attributes on some images and links. [TEC-5194, TEC-5195]
+* Accessibility - Updated featured icons in all calendar views to include accessible labels. Reorganized the Month view Feature icons to be more understandable when read by a screen reader. Reworked several icon applications to make them more accessible. [TEC-5190, TEC-5201]
+* Language - 59 new strings added, 132 updated, 1 fuzzied, and 1 obsoleted.
+
 ### [6.13.2.1] 2025-06-06
 
 * Fix - Fix some hardcoded asset paths. [TEC-5523]
@@ -30,7 +52,7 @@
 * Fix - Update class steps to use namespaced class names consistently to improve class reusability.
 * Fix - In the onboarding API, improve data management by merging new params instead of overwriting existing ones.
 * Fix - Standardize asset loading by using a consistent function to load assets.
-* Tweak - Alter Telemetry to allow classes to hook in and supress the modal for specific pages.
+* Tweak - Alter Telemetry to allow classes to hook in and suppress the modal for specific pages.
 * Tweak - Hide Telemetry modal on the onboarding page.
 * Tweak - Improve the onboarding wizard by properly storing current tab completion and adding filter to force redirect.
 * Tweak - Replace `tribe_asset` with `tec_asset` function for proper asset pathing.
@@ -271,7 +293,7 @@
 
 * Security - Improve handling of Date/Time Separator settings to prevent potential XSS vulnerabilities.
 * Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
-* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
+* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [ECP-1823]
 * Fix - Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
 * Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
 * Tweak - Include methods `tec_events_get_date_time_separator` and `tec_events_get_time_range_separator` and it's respective filters.
@@ -303,7 +325,7 @@
 * Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
 * Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
 * Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
-* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
+* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [ECP-1823]
 * Fix - Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
 * Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
 
@@ -670,7 +692,7 @@
 * Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
 * Fix - Build secondary Views navigation links correctly when WPML is active. [TEC-4689]
 * Fix - Build the link to the Events page from the Permalinks settings page correctly. [TEC-4689]
-* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [BTRIA-1734]
+* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [TEC-4761]
 * Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
 * Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
 * Fix - Fix issue with events post type bleeding in on custom tag queries, instead of only on tag archive page. [TEC-4694]
@@ -782,7 +804,7 @@
 
 ### [6.0.6.1] 2022-12-14
 
-* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [BTRIA-1556]
+* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [TEC-4622]
 
 ### [6.0.6] 2022-12-14
 
@@ -794,7 +816,7 @@
 * Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
 * Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
 * Fix - Ensure that when we hit a single-event ical endpoint we get a the correct single event. [TEC-4469]
-* Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [BTRIA-1545]
+* Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [TEC-4614]
 * Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
 * Tweak - Prevent unbound query for previous URL on list based views, improving performance.
 * Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
@@ -1080,7 +1102,7 @@
 * Tweak - Performance improvements around Block Asset loading and redundancy.
 * Tweak - Internal caching of values to reduce `get_option()` call count.
 * Tweak - Switch from `sanitize_title_with_dashes` to `sanitize_key` in a couple instances for performance gains.
-* Tweak - Remove the `wp.editor.InnerBlocks` gutenberg component in favor of `wp.blockEditor.InnerBlocks` which was deprecated since version 5.3. [TEC-4178]
+* Tweak - Remove the `wp.editor.InnerBlocks` Gutenberg component in favor of `wp.blockEditor.InnerBlocks` which was deprecated since version 5.3. [TEC-4178]
 * Tweak - Prevent asset loading from repeating calls to plugin URL and path, resulting in some minor performance gains.
 * Fix - Update the way we handle Classic Editor compatibility. Specifically around user choice. [TEC-4016]
 * Fix - Remove incorrect reference for moment.min.js.map [TEC-4148]
@@ -1226,7 +1248,7 @@
 
 * Fix - Ensure that the Block Editor saves cost data when submitted. [TEC-3987]
 * Fix - Ensure that when viewing a single event we load the correct template when tribe_context is "confused". [TEC-3975]
-* Tweak - Remove some CSS on the single events page that was causing a random border to appear on avada theme [TEC-3952]
+* Tweak - Remove some CSS on the single events page that was causing a random border to appear on Avada theme [TEC-3952]
 * Tweak - Add CSS class to the event tags label on the event details section on the single event page. [TEC-3951]
 * Tweak - Correct the messaging and link for the v1 deprecation notice. [TEC-3958]
 * Tweak - Include filter to allow modifications to the Grid query for By Day Views like Month and Week, `tribe_events_views_v2_by_day_view_day_repository`
@@ -1489,7 +1511,7 @@
 
 ### [5.1.2.1] 2020-06-09
 
-* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to @miha.jirov for reporting this).
 
 ### [5.1.2] 2020-05-27
 
@@ -1719,7 +1741,7 @@
 * Tweak - Add redirection of `tribe( 'logger' )->log()` calls to the Monolog logger using the `tribe_log_use_action_logger` filter [120785]
 * Fix - Conform iCalendar feed to specifications by not putting quotes around the timezone. This fixes Outlook compatibility [131791]
 * Fix - Additional fields with multiple values using pipes `|` as separators are working properly on importing again. [131510]
-* Fix - Fix default view redirection loop on mobile devices. Thanks Ricardo, cittaslow and others for flagging this! [125567]
+* Fix - Fix default view redirection loop on mobile devices. Thanks Ricardo, @cittaslow and others for flagging this! [125567]
 * Fix - Handling of featured image setting during Event Aggregator CSV imports [127132]
 * Language - 1 new strings added, 10 updated, 0 fuzzied, and 0 obsoleted
 
@@ -1742,7 +1764,7 @@
 * Fix - Location filtering for Context class moved out of construct, resolving lots of navigation problems across The Events Calendar [130754]
 * Fix - Featured event AJAX and browser navigation working as expected for all use cases. [127272]
 * Fix - Shortcode properly handling featured param on AJAX requests. [114002]
-* Fix - Remove removing wpautop for gutenberg blocks to fix spacing when content comes from classic editor. [122801]
+* Fix - Remove removing wpautop for Gutenberg blocks to fix spacing when content comes from classic editor. [122801]
 * Language - 4 new strings added, 16 updated, 0 fuzzied, and 0 obsoleted
 
 ### [4.9.4] 2019-07-03
@@ -1764,7 +1786,7 @@
 * Tweak - Make sure `UTC-0` is converted back to `UTC` instead of `UTC-01` [129240]
 * Tweak - Add new function `tribe_register_rest_route` Wrapper around `register_rest_route` to filter the arguments when a new REST endpoint is created [129517]
 * Tweak - Add new method `Tribe__Cost_Utils::parse_separators` to infer decimal and thousands separators from a value that might have been formatted in a local different from the current one [98061]
-* Fix - Save of event meta data when Classic editor plugin and gutenberg blocks for events are enabled [121267]
+* Fix - Save of event meta data when Classic editor plugin and Gutenberg blocks for events are enabled [121267]
 * Fix - Moved The Events Calendar specific code from common Context class into The Events Calendar [129241]
 * Fix - Fixed issue where multiday events were not returning correct end date in block editor [128033]
 * Fix - Resolved issue where deactivation feedback was not hooked properly [128341]
@@ -1974,9 +1996,9 @@
 
 ### [4.6.25] 2018-10-22
 
-* Fix - List only enabled views on the "Default View" option. Thanks to wescole, John Meuse and others for reporting! [114807]
+* Fix - List only enabled views on the "Default View" option. Thanks to @wescole, John Meuse and others for reporting! [114807]
 * Fix - Handle left-over Facebook scheduled imports and notices [114831]
-* Fix - Fixed event navigation when the mini calendar widget was on the event page. Props to Matt and wescole for flagging this [114359]
+* Fix - Fixed event navigation when the mini calendar widget was on the event page. Props to Matt and @wescole for flagging this [114359]
 * Fix - Ensure columns without headers are handled in CSV imports [114199]
 * Tweak - Added notice for the Events Gutenberg extension and eBook download [115543]
 * Tweak - Avoid unnecessary HTTP calls in the Settings screens [114013]
@@ -2000,8 +2022,8 @@
 * Fix - Updated the Events Gutenberg extension install check to show only when the extension is not active [114577]
 * Fix - Stop potential fatal errors from debug logging when running EA import actions from command line [114555]
 * Fix - Fixed a bug where it was often not possible to un-check the "Enable JSON-LD" option in the Events List Widget (thanks to @myrunningresource and @craigwilcox for reporting this!) [113541]
-* Fix - Ensure that the `tribe-events-bar-should-show` filter functions as aspected; if `__return_false` is passed, the Tribe Bar will be totally hidden (thanks @debranettles for reporting this!) [112260]
-* Fix - Added checks to prevent JS Type Error in mobile view. Thanks szenenight, agrilife and others for flagging this! [113524]
+* Fix - Ensure that the `tribe-events-bar-should-show` filter functions as expected; if `__return_false` is passed, the Tribe Bar will be totally hidden (thanks @debranettles for reporting this!) [112260]
+* Fix - Added checks to prevent JS Type Error in mobile view. Thanks @szenenight, @agrilife and others for flagging this! [113524]
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
 * Tweak - Accept 0 as an argument in tribe_get_events() so that `'post_parent' => 0` works, thanks Cy for the detailed report [111518]
@@ -2030,7 +2052,7 @@
 * Fix - Fixed the "Full Styles" mobile view. Thanks Matthew, Laura and others for flagging this! [112301]
 * Fix - Modify resource url function to work in mu-plugin directory, thanks to Doug for reporting it  [86104]
 * Fix - Remove references to and settings for Facebook importing in Event Aggregator [112432]
-* Fix - Ensure Event Aggregator allows for importing events from Eventbrite sites other than eventbrite.com, including but not limited to eventbrite.ca, .co.uk, and .co.nz [107821]
+* Fix - Ensure Event Aggregator allows for importing events from Eventbrite sites other than Eventbrite.com, including but not limited to Eventbrite.ca, .co.uk, and .co.nz [107821]
 * Fix - Allow venue location fields to be intentionally empty on Venue Singular REST API calls [108834]
 * Tweak - Add the WordPress Custom Fields Metabox show|hide settings from the Events Calendar Pro [109815]
 * Tweak - Allow changing Event Aggregator import process system between the asynchronous and the cron-based one; previously only available as a filter [113418, 113475]
@@ -2057,7 +2079,7 @@
   * Editing an existing event no longer loses the linked posts just because they were not part of the submission. Example of the bug in prior versions: If organizers are editable in the wp-admin event edit screen but not on the Community Events "event edit" form (via template override or other custom code), all pre-existing organizers were removed in error.
 * Fix - Handle the case where Event Aggregator import queues might get stuck when deleting import records [111856]
 * Fix - Only show admin notice when it is a top-level page with the event slug, thanks to MikeNGarrett for the code fix! [111186]
-* Fix - Change template_redirect to an action for some legacy view redirects, thanks barryceelen! [110463]
+* Fix - Change template_redirect to an action for some legacy view redirects, thanks @barryceelen! [110463]
 * Fix - Correctly import and set Organizers for iCal and ICS files Event Aggregator imports [96059]
 * Fix - Retain category title in month view and month view shortcode, thanks corthoover for the first report [108258]
 * Fix - The "Import events but preserve local changes to event fields" Event Aggregator change authority setting will now behave as expected [87443]
@@ -2065,8 +2087,8 @@
 * Fix - Prevent subsequent CSV imports from duplicating events in some instances [102745]
 * Fix - Fix the classic header option not working. Thanks @hanemac, David Luyendyk and others for flagging this! [111672]
 * Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
-* Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from sylviavanos [110464]
-* Tweak - Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
+* Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from @sylviavanos [110464]
+* Tweak - Drop the order from the query WPML linked query as it is set later in the method, thanks to @dgwatkins for the PR [110459]
 * Tweak - Display JS debug messages only if setting is set or through the `tribe_events_js_debug` filter. Thanks to Rob, @aand and others for flagging this! [82781]
 
 ### [4.6.21] 2018-08-01
@@ -2601,7 +2623,7 @@
 
 ### [4.5.2.1] 2017-05-19
 
-* Fix - Prevent fatal errors occuring in PHP 5.5 and earlier [79208]
+* Fix - Prevent fatal errors occurring in PHP 5.5 and earlier [79208]
 
 ### [4.5.2] 2017-05-17
 
@@ -3013,7 +3035,7 @@
 ### [4.0.1] 2015-12-10
 
 * Tweak - Add a warning message for major updates
-* Tweak - For SEO reasons, use an h1 for the title rather than an h2 (props to wpexplorer for this fix)
+* Tweak - For SEO reasons, use an h1 for the title rather than an h2 (props to @wpexplorer for this fix)
 * Tweak - Target the calendar view grid in JS using a simpler selector
 * Fix - Resolved WP 4.4 related fatal on the Nav Menu page that prevented the admin footer from rendering/enqueuing JS
 * Fix - Resolved bug where visiting /events/upcoming could sometimes result in an infinite redirect loop

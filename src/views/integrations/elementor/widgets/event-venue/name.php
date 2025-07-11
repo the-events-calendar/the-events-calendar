@@ -18,6 +18,6 @@ if ( empty( $show_name ) ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
+<<?php echo tag_escape( $name_tag ); ?> <?php tec_classes( $widget->get_name_base_class() ); ?>>
 	<?php echo wp_kses_post( $venue['name'] ); ?>
 <?php echo '</' . tag_escape( $name_tag ) . '>'; ?>

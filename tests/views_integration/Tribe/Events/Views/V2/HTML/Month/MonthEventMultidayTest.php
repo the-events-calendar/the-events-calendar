@@ -73,22 +73,20 @@ class MonthEventMultidayTest extends HtmlTestCase {
 		);
 		$html     = $this->document->html( $template );
 		$html     = $html->find( '.tribe-events-calendar-month__multiday-event' );
-		$featured_icon     = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
 
-		$this->assertTrue(
-			$featured_icon->is( '[title="Featured"]' ),
-			'Month multiday featured icon needs to be title="Featured"'
+		$featured_icon = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon' );
+
+		$this->assertEquals(
+			$featured_icon->count(),
+			1,
+			'Month Multiday Event HTML needs to contain one ".tribe-events-calendar-month__multiday-event-bar-featured-icon" element when displaying a featured event'
 		);
+
+		$featured_text_element = $html->find( '.tribe-events-calendar-month__multiday-event-bar-featured-icon + .tribe-common-a11y-visual-hide' );
 
 		$this->assertNotEmpty(
-			$featured_icon->find( 'title' ),
-			'Month multiday featured icon needs to be contain a title element.'
-		);
-
-		$this->assertStringContainsStringIgnoringCase(
-			$featured_icon->find( 'title' )->text(),
-			'featured',
-			'Month multiday featured icon title element should contain "featured" by default.'
+			$featured_text_element,
+			'Month multiday featured icon needs to have an adjacent screen reader-only element.'
 		);
 	}
 }

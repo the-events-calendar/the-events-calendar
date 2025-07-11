@@ -27,9 +27,9 @@
 $qr_id = 'next' === $redirection ? $series_id : $event_id;
 
 ?>
-<div <?php tribe_classes( $compatibility_classes ); ?>>
+<div <?php tec_classes( $compatibility_classes ); ?>>
 	<div
-		<?php tribe_classes( $container_classes ); ?>
+		<?php tec_classes( $container_classes ); ?>
 		data-js="tribe-events-view"
 		<?php foreach ( $container_data as $key => $value ) : ?>
 			data-view-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"

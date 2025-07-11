@@ -19,7 +19,7 @@ $classes = tribe_get_post_class( [ 'tribe-events-calendar-month-mobile-events__m
 $classes['tribe-events-calendar-month-mobile-events__mobile-event--featured'] = $event->featured;
 ?>
 
-<article <?php tribe_classes( $classes ); ?>>
+<article <?php tec_classes( $classes ); ?>>
 
 	<?php $this->template( 'month/mobile-events/mobile-day/mobile-event/featured-image', [ 'event' => $event ] ); ?>
 
