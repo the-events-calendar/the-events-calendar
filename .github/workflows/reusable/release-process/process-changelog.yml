@@ -1,0 +1,138 @@
+name: "Reusable: Process Changelogs"
+
+on:
+  workflow_call:
+    inputs:
+      release-version:
+        description: "The release version for which the action should process the changelog (e.g. 4.5.0) (default: will try to figure it out)"
+        required: true
+        type: string
+        default: 'figure-it-out'
+      release-date:
+        description: "The release date in human-readable format (default: 'today')."
+        required: false
+        default: "today"
+        type: string
+      action-type:
+        description: "Whether this is to amend or generate the changelog entries (default: 'generate')."
+        required: true
+        default: "generate"
+        type: string
+      target-branch:
+        description: "Target branch for the workflow"
+        required: false
+        type: string
+        default: "main"
+      # Allow passing through any additional inputs for future extensibility
+      additional-inputs:
+        description: "Additional inputs to pass through (JSON string)"
+        required: false
+        type: string
+        default: "{}"
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  process-changelog:
+    name: "Process the changelog"
+    runs-on: ubuntu-latest
+    outputs:
+      changelog-content:
+        description: "The new changelog entry that was generated"
+        value: ${{ steps.capture-changelog.outputs.changelog-content }}
+      changes-made:
+        description: "Whether any changes were made"
+        value: ${{ steps.process_changelog.outputs.changes-made || 'true' }}
+    env:
+      CHANGELOG_ACTION: ${{ inputs.action-type }}
+      RELEASE_VERSION: ${{ inputs.release-version }}
+      RELEASE_DATE: ${{ inputs.release-date }}
+    steps:
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
+        with:
+          setup-php: true
+          setup-node: false
+          php-version: 7.4
+          fetch-depth: 0
+
+      - name: Set up Composer
+        run: composer install --no-progress --ignore-platform-reqs
+
+      - name: Set Variables
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+
+      - name: Set up Git configuration
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+
+      - name: Check for .puprc file and paths.versions
+        id: check-puprc
+        run: |
+          if [ ! -f ".puprc" ]; then
+            echo "Error: .puprc file not found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          if ! jq -e '.paths.versions' .puprc > /dev/null; then
+            echo "Error: paths.versions not found in .puprc" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Figure out Version
+        id: figure_out_version
+        run: |
+          if [ "$RELEASE_VERSION" == "figure-it-out" ]; then
+            existing_version=""
+            while read -r version; do
+              echo "Processing version info: $version"
+              file=$(echo "$version" | jq -r '.file')
+              regex=$(echo "$version" | jq -r '.regex')
+
+              existing_version=$(grep -Po "$regex" "$file" | grep -Po '(\d+\.\d+\.\d+(\.\d+)?)')
+
+              if [ -n "$existing_version" ]; then
+                  echo "Release version: $existing_version"
+                  echo "RELEASE_VERSION=$existing_version" >> $GITHUB_OUTPUT
+                  break
+              fi
+            done < <(jq -c '.paths.versions[]' .puprc)
+          else
+            echo "Release version: $RELEASE_VERSION"
+            echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: "Format the release date"
+        id: format_date
+        run: |
+          RELEASE_DATE=$( date "+%Y-%m-%d" -d "$RELEASE_DATE" ) # Release date formatted as YYYY-MM-DD
+          echo "Release date: $RELEASE_DATE"
+          echo "RELEASE_DATE=$RELEASE_DATE" >> $GITHUB_OUTPUT
+
+      - name: "Process changelog"
+        id: process_changelog
+        uses: the-events-calendar/actions/.github/actions/process-changelog@main
+        with:
+          release-version: ${{ steps.figure_out_version.outputs.RELEASE_VERSION }}
+          release-date: ${{ steps.format_date.outputs.RELEASE_DATE }}
+          action-type: ${{ env.CHANGELOG_ACTION }}
+
+      - name: Capture changelog entry
+        id: capture-changelog
+        run: |
+          # Capture just the new changelog entry that was generated
+          # This assumes the action provides output about what was processed
+          changelog_entry="Changelog processed for version ${{ steps.figure_out_version.outputs.RELEASE_VERSION }} on ${{ steps.format_date.outputs.RELEASE_DATE }}"
+
+          # If the action provides specific output about what was processed, use that
+          if [ -n "${{ steps.process_changelog.outputs.summary }}" ]; then
+            changelog_entry="${{ steps.process_changelog.outputs.summary }}"
+          fi
+
+          # Escape newlines and quotes for GitHub Actions output
+          changelog_entry_escaped=$(echo "$changelog_entry" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
+          echo "changelog-content=$changelog_entry_escaped" >> $GITHUB_OUTPUT
