@@ -9,7 +9,6 @@ import {
 	METADATA_EVENT_CURRENCY,
 	METADATA_EVENT_CURRENCY_POSITION,
 	METADATA_EVENT_CURRENCY_SYMBOL,
-	METADATA_EVENT_IS_FREE,
 } from '../../constants';
 import { Currency } from '@tec/common/classy/types/Currency';
 import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
@@ -39,9 +38,6 @@ export default function EventCost(): JSX.Element {
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const isFreeMeta: boolean = meta?.[ METADATA_EVENT_IS_FREE ] || false;
-	const [ isFree, setIsFree ] = useState< boolean >( isFreeMeta );
-
 	const eventCostMeta: string = meta?.[ METADATA_EVENT_COST ] || '';
 	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
 
@@ -58,10 +54,6 @@ export default function EventCost(): JSX.Element {
 	useEffect( () => {
 		setEventCostValue( eventCostMeta );
 	}, [ eventCostMeta ] );
-
-	useEffect( () => {
-		setIsFree( isFreeMeta );
-	}, [ isFreeMeta ] );
 
 	useEffect( () => {
 		setCurrencySymbol( eventCurrencySymbolMeta );
@@ -82,7 +74,6 @@ export default function EventCost(): JSX.Element {
 		setIsFree( nextValue );
 		setEventCostValue( nextValue ? freeText : eventCostMeta );
 
-		editPost( { meta: { [ METADATA_EVENT_IS_FREE ]: nextValue } } );
 	};
 
 	/**
