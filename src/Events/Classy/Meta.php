@@ -351,8 +351,12 @@ class Meta extends Controller_Contract {
 				? $meta['_EventTimezone']
 				: $this->get_timezone_string( $post_id );
 
-			// Attempt to create a DateTimeZone object from the timezone string.
-			$timezone = new DateTimeZone( $timezone_string );
+			// Handle UTC offsets like "UTC+6" using the proper timezone conversion method.
+			if ( Timezones::is_utc_offset( $timezone_string ) ) {
+				$timezone_string = Timezones::timezone_from_utc_offset( $timezone_string )->getName();
+			}
+			
+			$timezone = Timezones::build_timezone_object( $timezone_string );
 			$utc      = new DateTimeZone( 'UTC' );
 		} catch ( \Exception $e ) {
 			do_action(
