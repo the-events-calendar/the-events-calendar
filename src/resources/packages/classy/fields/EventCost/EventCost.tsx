@@ -39,6 +39,7 @@ export default function EventCost(): JSX.Element {
 	const { editPost } = useDispatch( 'core/editor' );
 
 	const eventCostMeta: string = meta?.[ METADATA_EVENT_COST ] || '';
+	const [ isFree, setIsFree ] = useState< boolean >( eventCostMeta === '0' );
 	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
 
 	const eventCurrencySymbolMeta: string = meta?.[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
@@ -52,7 +53,7 @@ export default function EventCost(): JSX.Element {
 
 	// Track changes to the post content and update the state accordingly.
 	useEffect( () => {
-		setEventCostValue( eventCostMeta );
+		setEventCostValue( isFree ? freeText : eventCostMeta );
 	}, [ eventCostMeta ] );
 
 	useEffect( () => {
