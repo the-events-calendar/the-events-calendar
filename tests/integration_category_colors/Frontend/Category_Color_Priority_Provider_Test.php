@@ -127,8 +127,16 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 	public function should_handle_hidden_categories() {
 		// Create categories with different priorities
 		$categories = [
-			[ 'name' => 'Visible Category', 'priority' => 2, 'hidden' => false ],
-			[ 'name' => 'Hidden Category', 'priority' => 3, 'hidden' => true ],
+			[
+				'name'     => 'Visible Category',
+				'priority' => 20,
+				'hidden'   => false,
+			],
+			[
+				'name'     => 'Hidden Category',
+				'priority' => 30,
+				'hidden'   => true,
+			],
 		];
 
 		$term_ids = [];

@@ -221,13 +221,15 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active" >
 	<a
 		href="http://test.tri.be/events/list/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in List View"
-	>
+				aria-current="true"
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -257,13 +259,14 @@
 			List		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month" >
 	<a
 		href="http://test.tri.be/events/month/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Month View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"

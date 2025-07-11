@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensure all featured images on calendar views have dimensions set to reduce layout shifts. [TEC-4715]

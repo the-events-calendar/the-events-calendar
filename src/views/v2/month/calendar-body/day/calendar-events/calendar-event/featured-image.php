@@ -14,7 +14,6 @@
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
- *
  */
 
 if ( ! $event->featured || ! $event->thumbnail->exists ) {
@@ -43,6 +42,12 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
 			<?php endif; ?>
 			class="tribe-events-calendar-month__calendar-event-featured-image"
+			<?php if ( ! empty( $event->thumbnail->full->width ) ) : ?>
+				width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+			<?php endif; ?>
+			<?php if ( ! empty( $event->thumbnail->full->height ) ) : ?>
+				height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
+			<?php endif; ?>
 		/>
 	</a>
 </div>
