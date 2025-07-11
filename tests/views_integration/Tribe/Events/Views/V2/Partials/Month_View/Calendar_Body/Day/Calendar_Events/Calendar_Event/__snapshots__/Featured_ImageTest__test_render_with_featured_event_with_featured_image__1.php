@@ -10,7 +10,9 @@
 										alt=""
 										title="featured-image.jpg"
 						class="tribe-events-calendar-month__calendar-event-featured-image"
-		/>
+							width="400"
+										height="200"
+					/>
 	</a>
 </div>
 ';
