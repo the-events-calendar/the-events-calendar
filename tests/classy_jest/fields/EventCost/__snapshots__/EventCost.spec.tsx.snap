@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventCost Component displays "Free" when event is free 1`] = `
+<div>
+  <div
+    class="classy-field__group classy-field__event-cost"
+  >
+    <div
+      class="classy-field__input classy-field__input-full-width"
+    >
+      <div
+        class="classy-field__control classy-field__control--input"
+      >
+        <input
+          aria-label="Event cost"
+          disabled=""
+          value="Free"
+        />
+      </div>
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-100"
+    >
+      <div
+        class="classy-field__currency-selector"
+      />
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-75"
+    >
+      <label>
+        Event is free
+        <input
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <div
+    class="classy-field__input-note"
+  >
+    If multiple entry prices are available, list each price separated by commas.
+  </div>
+</div>
+`;
+
+exports[`EventCost Component formats multiple cost values correctly 1`] = `
+<div>
+  <div
+    class="classy-field__group classy-field__event-cost"
+  >
+    <div
+      class="classy-field__input classy-field__input-full-width"
+    >
+      <div
+        class="classy-field__control classy-field__control--input"
+      >
+        <input
+          aria-label="Event cost"
+          value="10.50, 20.75, 15.25"
+        />
+      </div>
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-100"
+    >
+      <div
+        class="classy-field__currency-selector"
+      />
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-75"
+    >
+      <label>
+        Event is free
+        <input
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <div
+    class="classy-field__input-note"
+  >
+    If multiple entry prices are available, list each price separated by commas.
+  </div>
+</div>
+`;
+
+exports[`EventCost Component formats single cost value correctly 1`] = `
+<div>
+  <div
+    class="classy-field__group classy-field__event-cost"
+  >
+    <div
+      class="classy-field__input classy-field__input-full-width"
+    >
+      <div
+        class="classy-field__control classy-field__control--input"
+      >
+        <input
+          aria-label="Event cost"
+          value="10.50"
+        />
+      </div>
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-100"
+    >
+      <div
+        class="classy-field__currency-selector"
+      />
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-75"
+    >
+      <label>
+        Event is free
+        <input
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <div
+    class="classy-field__input-note"
+  >
+    If multiple entry prices are available, list each price separated by commas.
+  </div>
+</div>
+`;
+
+exports[`EventCost Component handles invalid cost values gracefully 1`] = `
+<div>
+  <div
+    class="classy-field__group classy-field__event-cost"
+  >
+    <div
+      class="classy-field__input classy-field__input-full-width"
+    >
+      <div
+        class="classy-field__control classy-field__control--input"
+      >
+        <input
+          aria-label="Event cost"
+          value="invalid, 20.75"
+        />
+      </div>
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-100"
+    >
+      <div
+        class="classy-field__currency-selector"
+      />
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-75"
+    >
+      <label>
+        Event is free
+        <input
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <div
+    class="classy-field__input-note"
+  >
+    If multiple entry prices are available, list each price separated by commas.
+  </div>
+</div>
+`;
+
+exports[`EventCost Component renders correctly with default props 1`] = `
+<div>
+  <div
+    class="classy-field__group classy-field__event-cost"
+  >
+    <div
+      class="classy-field__input classy-field__input-full-width"
+    >
+      <div
+        class="classy-field__control classy-field__control--input"
+      >
+        <input
+          aria-label="Event cost"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-100"
+    >
+      <div
+        class="classy-field__currency-selector"
+      />
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-75"
+    >
+      <label>
+        Event is free
+        <input
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <div
+    class="classy-field__input-note"
+  >
+    If multiple entry prices are available, list each price separated by commas.
+  </div>
+</div>
+`;
+
+exports[`EventCost Component updates currency symbol and position correctly 1`] = `
+<div>
+  <div
+    class="classy-field__group classy-field__event-cost"
+  >
+    <div
+      class="classy-field__input classy-field__input-full-width"
+    >
+      <div
+        class="classy-field__control classy-field__control--input"
+      >
+        <input
+          aria-label="Event cost"
+          value="10.50"
+        />
+      </div>
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-100"
+    >
+      <div
+        class="classy-field__currency-selector"
+      />
+    </div>
+    <div
+      class="classy-field__input classy-field__input--height-75"
+    >
+      <label>
+        Event is free
+        <input
+          type="checkbox"
+        />
+      </label>
+    </div>
+  </div>
+  <div
+    class="classy-field__input-note"
+  >
+    If multiple entry prices are available, list each price separated by commas.
+  </div>
+</div>
+`;
