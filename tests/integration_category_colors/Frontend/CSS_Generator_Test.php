@@ -316,6 +316,7 @@ class CSS_Generator_Test extends WPTestCase {
 			->set( $this->get_key( 'primary' ), '#ff0000' )
 			->set( $this->get_key( 'secondary' ), '#00ff00' )
 			->set( $this->get_key( 'text' ), '#0000ff' )
+			->set( $this->get_key( 'priority' ), '1' )
 			->save();
 
 		// Create a hidden category
@@ -330,6 +331,7 @@ class CSS_Generator_Test extends WPTestCase {
 			->set( $this->get_key( 'primary' ), '#0000ff' )
 			->set( $this->get_key( 'secondary' ), '#00ff00' )
 			->set( $this->get_key( 'text' ), '#ff0000' )
+			->set( $this->get_key( 'priority' ), '2' )
 			->set( $this->get_key( 'hide_from_legend' ), '1' )
 			->save();
 
