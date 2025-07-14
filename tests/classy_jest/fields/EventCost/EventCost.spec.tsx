@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { RegistryProvider } from '@wordpress/data';
-import { createRegistry } from '../../../../common/src/resources/packages/classy/store';
+import { getRegistry } from '@tec/common/classy/store';
 import EventCost from '../../../../src/resources/packages/classy/fields/EventCost/EventCost';
-import { Currency } from '../../../../common/src/resources/packages/classy/types/Currency';
-import { CurrencyPosition } from '../../../../common/src/resources/packages/classy/types/CurrencyPosition';
+import { Currency } from '@tec/common/classy/types/Currency';
+import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
 
 type Selector = {
 	'core/editor': {
@@ -104,7 +104,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'renders correctly with default props', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -115,7 +115,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'displays "Free" when event is free', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -129,7 +129,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'formats single cost value correctly', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -143,7 +143,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'formats multiple cost values correctly', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -157,7 +157,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'handles invalid cost values gracefully', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -171,7 +171,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'updates currency symbol and position correctly', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
