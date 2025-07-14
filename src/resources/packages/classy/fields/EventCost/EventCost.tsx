@@ -75,9 +75,9 @@ export default function EventCost(): JSX.Element {
 	const onFreeChange = ( nextValue: boolean ): void => {
 		setIsFree( nextValue );
 
-		const newCostValue = isFree ? '0' : previousCostValue;
+		const newCostValue = nextValue ? '0' : previousCostValue;
 
-		setEventCostValue( isFree ? freeText : newCostValue );
+		setEventCostValue( nextValue ? freeText : newCostValue );
 		editPost( { meta: { [ METADATA_EVENT_COST ]: newCostValue } } );
 	};
 
