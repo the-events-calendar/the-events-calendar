@@ -41,6 +41,7 @@ export default function EventCost(): JSX.Element {
 	const eventCostMeta: string = meta?.[ METADATA_EVENT_COST ] || '';
 	const [ isFree, setIsFree ] = useState< boolean >( eventCostMeta === '0' );
 	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
+	const [ previousCostValue, setPreviousCostValue ] = useState< string >( eventCostMeta );
 
 	const eventCurrencySymbolMeta: string = meta?.[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
@@ -73,8 +74,11 @@ export default function EventCost(): JSX.Element {
 	// Handle changes to the "is free" toggle.
 	const onFreeChange = ( nextValue: boolean ): void => {
 		setIsFree( nextValue );
-		setEventCostValue( nextValue ? freeText : eventCostMeta );
 
+		const newCostValue = isFree ? '0' : previousCostValue;
+
+		setEventCostValue( isFree ? freeText : newCostValue );
+		editPost( { meta: { [ METADATA_EVENT_COST ]: newCostValue } } );
 	};
 
 	/**
