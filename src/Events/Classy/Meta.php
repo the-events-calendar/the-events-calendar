@@ -430,8 +430,12 @@ class Meta extends Controller_Contract {
 
 		$meta    = $request->get_param( 'meta' ) ?? [];
 		$post_id = $post->ID;
+		
+		if ( ! isset( $meta['EventCost'] ) ) {
+			return;
+		}
 
-		$cost = (array) ( ! empty( $meta['_EventCost'] ) ? $meta['_EventCost'] : tribe_get_cost( $post_id ) );
+		$cost = ! empty( $meta['_EventCost'] ) ? $meta['_EventCost'] : '';
 		API::update_event_cost( $post_id, $cost );
 	}
 }
