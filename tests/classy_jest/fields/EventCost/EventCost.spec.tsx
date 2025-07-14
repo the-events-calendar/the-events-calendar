@@ -138,6 +138,8 @@ describe( 'EventCost Component', () => {
 
 		const costInput = screen.getByLabelText( 'Event cost' );
 		await userEvent.type( costInput, '10.50' );
+        // click outside the input to trigger the change
+        await userEvent.click( document.body );
 
 		expect( container ).toMatchSnapshot();
 	} );
@@ -152,6 +154,8 @@ describe( 'EventCost Component', () => {
 
 		const costInput = screen.getByLabelText( 'Event cost' );
 		await userEvent.type( costInput, '10.50, 20.75, 15.25' );
+		// click outside the input to trigger the change
+		await userEvent.click( document.body );
 
 		expect( container ).toMatchSnapshot();
 	} );

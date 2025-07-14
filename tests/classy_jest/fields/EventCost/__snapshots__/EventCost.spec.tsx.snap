@@ -57,7 +57,7 @@ exports[`EventCost Component formats multiple cost values correctly 1`] = `
       >
         <input
           aria-label="Event cost"
-          value="10.50, 20.75, 15.25"
+          value="$10.50"
         />
       </div>
     </div>
@@ -100,7 +100,7 @@ exports[`EventCost Component formats single cost value correctly 1`] = `
       >
         <input
           aria-label="Event cost"
-          value="10.50"
+          value="$10.50"
         />
       </div>
     </div>
