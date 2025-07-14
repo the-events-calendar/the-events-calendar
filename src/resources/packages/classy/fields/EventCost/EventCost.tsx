@@ -100,7 +100,7 @@ export default function EventCost(): JSX.Element {
 	 * Formats the event cost value for display.
 	 *
 	 * This function formats the event cost value based on whether the input has focus or if the event is free.
-	 * It handles multiple prices separated by commas and returns a formatted string.
+	 * It handles multiple prices separated by dashes and returns a formatted string.
 	 *
 	 * @since TBD
 	 *
@@ -114,7 +114,7 @@ export default function EventCost(): JSX.Element {
 		}
 
 		const pieces = value
-			.split( ',' )
+			.split( '-' )
 			.map( ( piece ) => piece.trim() )
 			.filter( ( piece ) => piece !== '' );
 
@@ -182,7 +182,7 @@ export default function EventCost(): JSX.Element {
 
 			<div className="classy-field__input-note">
 				{ _x(
-					'If multiple entry prices are available, list each price separated by commas.',
+					'If multiple entry prices are available, list each price separated by dashes.',
 					'Event cost input note',
 					'the-events-calendar'
 				) }
