@@ -52,7 +52,16 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 		</div>
 		<ul class="tec-events-category-color-filter__dropdown-list">
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
-				<li class="tec-events-category-color-filter__dropdown-item" role="option">
+				<li
+					<?php
+					tec_classes(
+						[
+							'tribe_events_cat-' . $category['slug'],
+							'tec-events-category-color-filter__dropdown-item',
+						]
+					);
+					?>
+					role="option">
 					<label data-category="<?php echo esc_attr( $category['slug'] ); ?>" >
 						<?php if ( $category_colors_super_power ) : ?>
 							<input type="checkbox"
