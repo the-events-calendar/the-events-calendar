@@ -218,7 +218,7 @@ class Settings {
 			'category-color-reset-button'           => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Reset Button', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Only appears if Legend Superpowers are active. Helps users clear their category selections.', 'the-events-calendar' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 			],
