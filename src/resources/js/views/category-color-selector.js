@@ -67,7 +67,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 			},
 			{
 				child: '.tribe-events-calendar-month-mobile-events__mobile-event',
-				parent: '.tribe-events-calendar-month-mobile-events__mobile-event-row',
+				parent: '.tribe-events-calendar-month-mobile-events__mobile-day',
 			},
 			{
 				child: '.tribe-events-pro-week-mobile-events__event',
