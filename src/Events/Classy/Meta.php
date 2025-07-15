@@ -57,9 +57,6 @@ class Meta extends Controller_Contract {
 		],
 		'_EventEndDate'            => [],
 		'_EventEndDateUTC'         => [],
-		'_EventIsFree'             => [
-			'type' => 'boolean',
-		],
 		'_EventOrganizerID'        => [
 			'single' => false,
 			'type'   => 'integer',
