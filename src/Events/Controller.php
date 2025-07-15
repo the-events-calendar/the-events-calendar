@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace TEC\Events;
 
-use TEC\Common\Contracts\Provider\V2\Controller as Controller_Contract;
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Blocks\Controller as Blocks_Controller;
 use TEC\Events\Block_Templates\Controller as Block_Templates_Controller;
 use TEC\Events\Integrations\Provider as Integrations_Provider;
@@ -82,6 +82,50 @@ class Controller extends Controller_Contract {
 			$this->container->register_on_action( 'tribe_common_loaded', Custom_Tables_V1_Provider::class );
 		}
 
-		parent::do_register();
+		foreach ( $this->get_controllers() as $controller ) {
+			if ( ! is_array( $controller ) ) {
+				continue;
+			}
+
+			if ( isset( $controller['on_action'] ) ) {
+				$action = $controller['on_action'];
+				unset( $controller['on_action'] );
+
+				$this->container->register_on_action( $action, ...$controller );
+				continue;
+			}
+
+			$this->container->register( ...$controller );
+		}
+	}
+
+	/**
+	 * Unregisters the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void Filters and actions hooks added by the controller are be removed.
+	 */
+	public function unregister(): void {
+		foreach ( $this->get_controllers() as $controller ) {
+			if ( ! is_array( $controller ) ) {
+				continue;
+			}
+
+			unset( $controller['on_action'] );
+			$controller = array_values( $controller );
+
+			if ( ! $this->container->isBound( $controller[0] ) ) {
+				continue;
+			}
+
+			$controller = $this->container->get( $controller[0] );
+
+			if ( ! $controller instanceof Controller_Contract ) {
+				continue;
+			}
+
+			$controller->unregister();
+		}
 	}
 }
