@@ -54,11 +54,12 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 		</div>
 		<ul class="tec-events-category-color-filter__dropdown-list">
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
+				<?php $category_class = Tribe__Events__Main::TAXONOMY . '-' . $category['slug']; ?>
 				<li
 					<?php
 					tec_classes(
 						[
-							'tribe_events_cat-' . $category['slug'],
+							$category_class,
 							'tec-events-category-color-filter__dropdown-item',
 						]
 					);
@@ -86,7 +87,7 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 									[
 										'tec-events-category-color-filter__label',
 										'tec-events-category-color-filter__color-circle',
-										'tribe_events_cat-' . $category['slug'],
+										$category_class,
 									]
 								);
 								?>
@@ -99,7 +100,7 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 							tec_classes(
 								[
 									'tec-events-category-color-filter__color-dot',
-									'tribe_events_cat-' . $category['slug'],
+									$category_class,
 								]
 							);
 							?>
