@@ -22,7 +22,8 @@
 			<button class="tec-events-category-color-filter__dropdown-close" aria-label="Close category selection">✕</button>
 		</div>
 		<ul class="tec-events-category-color-filter__dropdown-list">
-							<li class="tec-events-category-color-filter__dropdown-item" role="option">
+							<li
+					 class="tribe_events_cat-test-category-1 tec-events-category-color-filter__dropdown-item" 					role="option">
 					<label data-category="test-category-1" >
 													<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
@@ -33,7 +34,8 @@
 							 class="tec-events-category-color-filter__color-dot tribe_events_cat-test-category-1" 						></span>
 					</label>
 				</li>
-							<li class="tec-events-category-color-filter__dropdown-item" role="option">
+							<li
+					 class="tribe_events_cat-test-category-2 tec-events-category-color-filter__dropdown-item" 					role="option">
 					<label data-category="test-category-2" >
 													<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
