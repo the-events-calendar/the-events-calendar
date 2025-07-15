@@ -68,6 +68,7 @@ export default function EventCost(): JSX.Element {
 	// Handle changes to the event cost input.
 	const onCostChange = ( nextValue: string | undefined ): void => {
 		setEventCostValue( nextValue ?? '' );
+        setPreviousCostValue( nextValue ?? '' );
 		editPost( { meta: { [ METADATA_EVENT_COST ]: nextValue } } );
 	};
 
