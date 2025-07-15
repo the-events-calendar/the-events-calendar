@@ -115,4 +115,41 @@ class Meta_Test extends Controller_Test_Case {
 		$this->assertEquals( 'You cannot pass!', get_post_meta( $event->ID, '_EventStartDateUTC', true ) );
 		$this->assertEquals( 'not a UTC time', get_post_meta( $event->ID, '_EventEndDateUTC', true ) );
 	}
+	
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta::add_utc_dates
+	 */
+	public function test_add_utc_dates_should_update_properly_for_named_timezones() {
+		$event_id = tribe_events()->set_args(
+			[
+				'title'      => 'Basic Event',
+				'status'     => 'publish',
+				'start_date' => '2020-01-01 00:00:00',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+			]
+		)->create()->ID;
+
+		$this->make_controller()->register();
+
+		apply_filters(
+			'rest_after_insert_' . TEC::POSTTYPE,
+			get_post( $event_id ),
+			$this->create_request(
+				[
+					'meta' => [
+						'_EventStartDate' => '2020-01-01 00:00:00',
+						'_EventTimezone'  => 'Europe/Paris',
+					],
+				]
+			)
+		);
+
+		$this->assertEquals( '2020-01-01 00:00:00', get_post_meta( $event_id, '_EventStartDate', true ) );
+		$this->assertEquals( '2020-01-01 02:00:00', get_post_meta( $event_id, '_EventEndDate', true ) );
+
+		// default timezone was UTC which now changed to Europe/Paris which is UTC+1. The new UTC dates should be behind now.
+		$this->assertEquals( '2019-12-31 23:00:00', get_post_meta( $event_id, '_EventStartDateUTC', true ) );
+		$this->assertEquals( '2020-01-01 01:00:00', get_post_meta( $event_id, '_EventEndDateUTC', true ) );
+	}
 }
