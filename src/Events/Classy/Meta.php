@@ -431,7 +431,7 @@ class Meta extends Controller_Contract {
 		$meta    = $request->get_param( 'meta' ) ?? [];
 		$post_id = $post->ID;
 		
-		if ( ! isset( $meta['EventCost'] ) ) {
+		if ( ! isset( $meta['_EventCost'] ) ) {
 			return;
 		}
 
