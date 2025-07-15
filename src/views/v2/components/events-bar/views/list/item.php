@@ -15,9 +15,9 @@
  *
  * @since 5.3.0
  * @since 6.12.0 Add aria-label to the view selector list item link.
- * @since TBD Add aria-current to active list item.
+ * @since 6.14.1 Add aria-current to active list item.
  *
- * @version TBD
+ * @version 6.14.1
  */
 
 $list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$public_view_slug" ];
