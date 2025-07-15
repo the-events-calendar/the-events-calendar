@@ -2,7 +2,7 @@
 /**
  * The main Classy feature controller for The Events Calendar.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Classy;
  */
@@ -18,7 +18,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Classy;
  */

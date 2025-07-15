@@ -18,10 +18,10 @@ jest.mock( '@wordpress/data', () => {
 			_EventCurrencyPosition: 'prefix',
 		},
 		editPost: jest.fn( ( { meta } ) => {
-            if ( meta ) {
-                mockState.meta = { ...mockState.meta, ...meta };
-            }
-        } ),
+			if ( meta ) {
+				mockState.meta = { ...mockState.meta, ...meta };
+			}
+		} ),
 	};
 
 	const mockSelect = ( storeName: string ) => {
@@ -138,7 +138,7 @@ describe( 'EventCost Component', () => {
 
 		// Initially, the input should not be disabled
 		expect( ( costInput as HTMLInputElement ).disabled ).toBe( false );
-        expect( ( costInput as HTMLInputElement ).value ).toBe( '' );
+		expect( ( costInput as HTMLInputElement ).value ).toBe( '' );
 		await userEvent.click( freeToggle );
 
 		// Wait for the state to update
@@ -165,8 +165,8 @@ describe( 'EventCost Component', () => {
 
 		const costInput = screen.getByLabelText( 'Event cost' );
 		await userEvent.type( costInput, '10.50' );
-        // click outside the input to trigger the change
-        await userEvent.click( document.body );
+		// click outside the input to trigger the change
+		await userEvent.click( document.body );
 
 		expect( container ).toMatchSnapshot();
 	} );
