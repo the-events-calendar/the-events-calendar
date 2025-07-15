@@ -3,7 +3,7 @@ import { EventMeta } from '../types/EventMeta';
 import { Settings } from '@tec/common/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
-import { StoreState } from '../types/StoreState';
+import { StoreState } from '../types/Store';
 import { TECSettings } from '../types/Settings';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 
