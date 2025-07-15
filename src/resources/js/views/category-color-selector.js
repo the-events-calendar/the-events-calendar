@@ -12,6 +12,7 @@ tribe.events.categoryColors = tribe.events.categoryColors || {};
  * Category Color Picker module.
  *
  * @since 6.14.0
+ * @since TBD Updated childParentPairs for Month and Week view on mobile.
  * @type {Object}
  */
 tribe.events.categoryColors.categoryPicker = ( function () {

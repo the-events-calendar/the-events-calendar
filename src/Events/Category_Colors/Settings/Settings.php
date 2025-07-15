@@ -140,6 +140,7 @@ class Settings {
 	 * Generates the settings for the Category Colors feature.
 	 *
 	 * @since 6.14.0
+	 * @since TBD Added the "Enabled" setting, and updated the Reset button tooltip.
 	 *
 	 * @return array The structured settings array for Category Colors.
 	 */
