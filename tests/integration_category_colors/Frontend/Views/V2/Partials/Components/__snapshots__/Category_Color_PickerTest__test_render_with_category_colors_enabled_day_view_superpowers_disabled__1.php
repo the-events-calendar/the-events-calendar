@@ -22,7 +22,7 @@
 			<button class="tec-events-category-color-filter__dropdown-close" aria-label="Close category selection">✕</button>
 		</div>
 		<ul class="tec-events-category-color-filter__dropdown-list">
-							<li
+											<li
 					 class="tribe_events_cat-test-category-1 tec-events-category-color-filter__dropdown-item" 					role="option">
 					<label data-category="test-category-1" >
 																				<a href="http://test.tri.be/events/category/test-category-1/"
@@ -32,7 +32,7 @@
 							 class="tec-events-category-color-filter__color-dot tribe_events_cat-test-category-1" 						></span>
 					</label>
 				</li>
-							<li
+											<li
 					 class="tribe_events_cat-test-category-2 tec-events-category-color-filter__dropdown-item" 					role="option">
 					<label data-category="test-category-2" >
 																				<a href="http://test.tri.be/events/category/test-category-2/"
