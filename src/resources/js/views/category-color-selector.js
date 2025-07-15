@@ -169,6 +169,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	const openDropdown = ( picker, dropdown ) => {
 		dropdown.classList.add( SELECTORS.dropdownVisible );
 		picker.classList.add( SELECTORS.pickerOpen );
+		picker.setAttribute( 'aria-expanded', 'true' );
 		adjustDropdownPosition( picker, dropdown );
 	};
 
@@ -182,6 +183,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	const closeDropdown = ( picker, dropdown ) => {
 		dropdown.classList.remove( SELECTORS.dropdownVisible );
 		picker.classList.remove( SELECTORS.pickerOpen );
+		picker.setAttribute( 'aria-expanded', 'false' );
 	};
 
 	/**
@@ -523,8 +525,27 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 		const resetButton = qs( SELECTORS.resetButton );
 		if ( picker ) {
 			picker.addEventListener( 'click', toggleDropdown );
+			// Add keyboard accessibility for Enter and Space keys
+			picker.addEventListener( 'keydown', ( event ) => {
+				const isEnterOrSpace = event.key === 'Enter' || event.key === ' ';
+				if ( isEnterOrSpace ) {
+					event.preventDefault();
+					toggleDropdown( event );
+				}
+			} );
 		}
 		document.addEventListener( 'click', handleDropdownClose );
+		// Add Escape key support for closing dropdown
+		document.addEventListener( 'keydown', ( event ) => {
+			if ( event.key === 'Escape' ) {
+				const pickerEl = qs( SELECTORS.picker );
+				const dropdownEl = qs( SELECTORS.dropdown );
+				if ( dropdownEl && isDropdownOpen( dropdownEl ) ) {
+					closeDropdown( pickerEl, dropdownEl );
+					pickerEl?.focus();
+				}
+			}
+		} );
 		// Event delegation for checkboxes
 		const grid = qs( SELECTORS.dropdown );
 		if ( grid ) {

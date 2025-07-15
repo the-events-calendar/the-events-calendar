@@ -52,7 +52,10 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 			<span><?php echo $category_colors_super_power ? esc_html__( 'Highlight a category', 'the-events-calendar' ) : esc_html__( 'Browse by category', 'the-events-calendar' ); ?></span>
 			<button class="tec-events-category-color-filter__dropdown-close" aria-label="<?php esc_attr_e( 'Close category selection', 'the-events-calendar' ); ?>">✕</button>
 		</div>
-		<ul class="tec-events-category-color-filter__dropdown-list">
+		<ul class="tec-events-category-color-filter__dropdown-list"
+			role="listbox"
+			aria-label="<?php esc_attr_e( 'Category selection', 'the-events-calendar' ); ?>"
+		>
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
 				<?php $category_class = Tribe__Events__Main::TAXONOMY . '-' . $category['slug']; ?>
 				<li
@@ -75,7 +78,7 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 								esc_attr( sprintf( __( 'Highlight events in %s', 'the-events-calendar' ), $category['name'] ) );
 								?>
 ">
-							<span class="tec-events-category-color-filter__label"><?php echo esc_html( $category['name'] ); ?></span>
+							<span class="tec-events-category-color-filter__label" aria-hidden="true"><?php echo esc_html( $category['name'] ); ?></span>
 						<?php else : ?>
 							<?php
 							// Build the category URL dynamically and escape it.
@@ -104,6 +107,7 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 								]
 							);
 							?>
+							aria-hidden="true"
 						></span>
 					</label>
 				</li>
