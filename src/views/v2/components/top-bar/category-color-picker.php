@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.14.0
+ * @version TBD
  *
  * @since TBD Added the category class to the list item to make customization easier.
  *
