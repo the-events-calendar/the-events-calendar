@@ -12,6 +12,7 @@ tribe.events.categoryColors = tribe.events.categoryColors || {};
  * Category Color Picker module.
  *
  * @since 6.14.0
+ * @since TBD Updated childParentPairs for Month and Week view on mobile.
  * @type {Object}
  */
 tribe.events.categoryColors.categoryPicker = ( function () {
@@ -67,11 +68,15 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 			},
 			{
 				child: '.tribe-events-calendar-month-mobile-events__mobile-event',
-				parent: '.tribe-events-calendar-month-mobile-events__mobile-event-row',
+				parent: '.tribe-events-calendar-month-mobile-events__mobile-day',
+			},
+			{
+				child: '.tribe-events-calendar-month__multiday-event',
+				parent: '.tribe-events-calendar-month__day',
 			},
 			{
 				child: '.tribe-events-pro-week-mobile-events__event',
-				parent: '.tribe-events-pro-week-mobile-events__event-row',
+				parent: '.tribe-events-pro-week-mobile-events__event',
 			},
 			{
 				child: '.tribe-events-pro-map__event-card-wrapper',
@@ -164,6 +169,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	const openDropdown = ( picker, dropdown ) => {
 		dropdown.classList.add( SELECTORS.dropdownVisible );
 		picker.classList.add( SELECTORS.pickerOpen );
+		picker.setAttribute( 'aria-expanded', 'true' );
 		adjustDropdownPosition( picker, dropdown );
 	};
 
@@ -177,6 +183,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	const closeDropdown = ( picker, dropdown ) => {
 		dropdown.classList.remove( SELECTORS.dropdownVisible );
 		picker.classList.remove( SELECTORS.pickerOpen );
+		picker.setAttribute( 'aria-expanded', 'false' );
 	};
 
 	/**
@@ -518,8 +525,27 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 		const resetButton = qs( SELECTORS.resetButton );
 		if ( picker ) {
 			picker.addEventListener( 'click', toggleDropdown );
+			// Add keyboard accessibility for Enter and Space keys
+			picker.addEventListener( 'keydown', ( event ) => {
+				const isEnterOrSpace = event.key === 'Enter' || event.key === ' ';
+				if ( isEnterOrSpace ) {
+					event.preventDefault();
+					toggleDropdown( event );
+				}
+			} );
 		}
 		document.addEventListener( 'click', handleDropdownClose );
+		// Add Escape key support for closing dropdown
+		document.addEventListener( 'keydown', ( event ) => {
+			if ( event.key === 'Escape' ) {
+				const pickerEl = qs( SELECTORS.picker );
+				const dropdownEl = qs( SELECTORS.dropdown );
+				if ( dropdownEl && isDropdownOpen( dropdownEl ) ) {
+					closeDropdown( pickerEl, dropdownEl );
+					pickerEl?.focus();
+				}
+			}
+		} );
 		// Event delegation for checkboxes
 		const grid = qs( SELECTORS.dropdown );
 		if ( grid ) {
