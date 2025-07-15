@@ -702,57 +702,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Database locks.
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
-			// Custom tables v1 implementation.
-			if ( class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' ) ) {
-				tribe()->register_on_action( 'tribe_common_loaded', '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
-			}
-
-			// Blocks.
-			tribe_register_provider( TEC\Events\Blocks\Controller::class );
-
-			// Site Editor.
-			tribe_register_provider( TEC\Events\Block_Templates\Controller::class );
-
-			// Load the new third-party integration system.
-			tribe_register_provider( TEC\Events\Integrations\Provider::class );
-
-			// Set up the installer.
-			tribe_register_provider( TEC\Events\Installer\Provider::class );
-
-			// Set up Site Health.
-			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
-
-			// Set up Telemetry.
-			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
-
-			// Set up IAN Client - In-App Notifications.
-			tribe_register_provider( TEC\Events\Notifications\Provider::class );
-
-			// Set up the QR Code system.
-			tribe()->register_on_action( 'tec_qr_code_loaded', TEC\Events\QR\Controller::class );
-
-			// SEO support.
-			tribe_register_provider( TEC\Events\SEO\Controller::class );
-
-			// SEO Header support.
-			tribe_register_provider( TEC\Events\SEO\Headers\Controller::class );
-
-			// Register new Admin Notice system.
-			tribe_register_provider( TEC\Events\Admin\Notice\Provider::class );
-
-			// Register new Admin Settings system.
-			tribe_register_provider( TEC\Events\Admin\Settings\Provider::class );
-
-			// Register the Onboarding Wizard.
-			tribe_register_provider( TEC\Events\Admin\Onboarding\Controller::class );
-
-			// Register the Help Hub system.
-			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
-
-			// Register Category Colors.
-			tribe_register_provider( TEC\Events\Category_Colors\Controller::class );
-			// Register the Calendar Embeds feature.
-			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
+			tribe_register_provider( TEC\Events\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
