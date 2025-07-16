@@ -102,9 +102,7 @@ class Venue_Definition implements Definition_Interface {
 					'description' => __( 'The venue slug', 'the-events-calendar' ),
 				],
 				'image'             => [
-					'type'        => 'string',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref'        => '#/components/schemas/Image',
+					'$ref' => '#/components/schemas/Image',
 				],
 				'show_map'          => [
 					'type'        => 'boolean',

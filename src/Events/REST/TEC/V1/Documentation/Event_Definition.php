@@ -105,9 +105,7 @@ class Event_Definition implements Definition_Interface {
 					'description' => __( 'The event slug', 'the-events-calendar' ),
 				],
 				'image'                  => [
-					'type'        => 'object',
-					'description' => __( 'The event featured image details if set', 'the-events-calendar' ),
-					'$ref'        => '#/components/schemas/Image',
+					'$ref' => '#/components/schemas/Image',
 				],
 				'all_day'                => [
 					'type'        => 'boolean',
@@ -201,9 +199,7 @@ class Event_Definition implements Definition_Interface {
 					'items'       => [ '$ref' => '#/components/schemas/Term' ],
 				],
 				'venue'                  => [
-					'type'        => 'object',
-					'description' => __( 'The event venue', 'the-events-calendar' ),
-					'$ref'        => '#/components/schemas/Venue',
+					'$ref' => '#/components/schemas/Venue',
 				],
 				'organizer'              => [
 					'type'        => 'array',
