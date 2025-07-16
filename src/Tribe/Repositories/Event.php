@@ -12,7 +12,6 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Tribe__Events__Repositories__Event
  *
- *
  * @since 4.9
  */
 class Tribe__Events__Repositories__Event extends Tribe__Repository {
@@ -92,12 +91,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		 */
 		if ( Timezones::is_mode( 'site' ) ) {
 			$this->normal_timezone = new DateTimeZone( 'UTC' );
-			$this->start_meta_key = '_EventStartDateUTC';
-			$this->end_meta_key = '_EventEndDateUTC';
+			$this->start_meta_key  = '_EventStartDateUTC';
+			$this->end_meta_key    = '_EventEndDateUTC';
 		} else {
 			$this->normal_timezone = Timezones::build_timezone_object();
-			$this->start_meta_key = '_EventStartDate';
-			$this->end_meta_key = '_EventEndDate';
+			$this->start_meta_key  = '_EventStartDate';
+			$this->end_meta_key    = '_EventEndDate';
 		}
 
 		$this->create_args['post_type'] = Tribe__Events__Main::POSTTYPE;
@@ -261,7 +260,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_starts_before( $datetime, $timezone = null ) {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
-		                         ->setTimezone( $this->normal_timezone );
+								->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
@@ -293,7 +292,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_ends_on_or_before( $datetime, $timezone = null ) {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
-		                         ->setTimezone( $this->normal_timezone );
+								->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
@@ -325,7 +324,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_ends_before( $datetime, $timezone = null ) {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
-		                         ->setTimezone( $this->normal_timezone );
+								->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
@@ -357,7 +356,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_starts_after( $datetime, $timezone = null ) {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
-		                         ->setTimezone( $this->normal_timezone );
+								->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
@@ -389,7 +388,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_starts_on_or_after( $datetime, $timezone = null ) {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
-		                         ->setTimezone( $this->normal_timezone );
+								->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
@@ -421,7 +420,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_ends_after( $datetime, $timezone = null ) {
 		$date = Tribe__Date_Utils::build_date_object( $datetime, $timezone )
-		                         ->setTimezone( $this->normal_timezone );
+								->setTimezone( $this->normal_timezone );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$key = $this->normal_timezone->getName() === 'UTC' ? '_EventEndDateUTC' : $this->end_meta_key;
@@ -484,20 +483,29 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		if ( $min_sec_overlap > 1 ) {
-			// If the minimum overlap requested is more than one second, then we have to use a not performant logic.
+			/*
+			 * If the minimum overlap requested is more than one second, then we have to use a not performant logic.
+			 * The interpolated variables come from the code.
+			 *
+			 * @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			 */
 			$alt_where = $wpdb->prepare(
 				"(
-				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '{$upper_string}' ) >= %d
+				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, %s ) >= %d
 				AND
-				TIMESTAMPDIFF ( SECOND, '{$lower_string}', {$join_end_key}.meta_value ) >= %d
+				TIMESTAMPDIFF ( SECOND, %s, {$join_end_key}.meta_value ) >= %d
 				)",
+				$upper_string,
 				$min_sec_overlap,
+				$lower_string,
 				$min_sec_overlap
 			);
+			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		} else {
 			// A `$min_sec_overlap` of 0 is an inclusive check; a value of 1 in an exclusive check.
 			$lt_operator = $min_sec_overlap === 0 ? '<=' : '<';
 			$gt_operator = $min_sec_overlap === 0 ? '>=' : '>';
+
 			/*
 			 * We detect the overlap by getting all events that start before the end limit and end after the start limit.
 			 *
@@ -509,16 +517,20 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * - 3 starts before the range end and ends after the range start.
 			 * - 4 starts before the range end and ends after the range start.
 			 * - 5 ends after the range start, but starts after the range end.
+			 *
+			 * The interpolated variables come from the code.
+			 * @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			 */
 			$alt_where = $wpdb->prepare(
 				"(
-				{$join_start_key}.meta_value {$lt_operator} '{$upper_string}'
+				{$join_start_key}.meta_value {$lt_operator} %s
 				AND
-				{$join_end_key}.meta_value {$gt_operator} '{$lower_string}'
+				{$join_end_key}.meta_value {$gt_operator} %s
 				)",
-				$min_sec_overlap,
-				$min_sec_overlap
+				$upper_string,
+				$lower_string
 			);
+			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		}
 
 		$this->filter_query->where( $alt_where );
@@ -605,12 +617,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	public function filter_by_multiday( $multiday = true ) {
 		global $wpdb;
 
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_start_date
+		$this->filter_query->join(
+			"LEFT JOIN {$wpdb->postmeta} multiday_start_date
 			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id
-			AND multiday_start_date.meta_key = '_EventStartDate' )" );
-		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} multiday_end_date
+			AND multiday_start_date.meta_key = '_EventStartDate' )" 
+		);
+		$this->filter_query->join(
+			"LEFT JOIN {$wpdb->postmeta} multiday_end_date
 			ON ( {$wpdb->posts}.ID = multiday_end_date.post_id
-			AND multiday_end_date.meta_key = '_EventEndDate' )" );
+			AND multiday_end_date.meta_key = '_EventEndDate' )" 
+		);
 
 		// We're interested in the time only.
 		$end_of_day_cutoff = tribe_end_of_day( 'today', 'H:i:s' );
@@ -684,11 +700,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_runs_between( $start_datetime, $end_datetime, $timezone = null ) {
 		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
-		                               ->setTimezone( $this->normal_timezone )
-		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+										->setTimezone( $this->normal_timezone )
+										->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
-		                               ->setTimezone( $this->normal_timezone )
-		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+										->setTimezone( $this->normal_timezone )
+										->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		// If this is a UTC date, use our UTC field, else whatever was specified.
 		$start_key = $this->normal_timezone->getName() === 'UTC' ? '_EventStartDateUTC' : $this->start_meta_key;
@@ -792,11 +808,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_starts_and_ends_between( $start_datetime, $end_datetime, $timezone = null ) {
 		$start_date = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )
-		                               ->setTimezone( $this->normal_timezone )
-		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+										->setTimezone( $this->normal_timezone )
+										->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$end_date   = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )
-		                               ->setTimezone( $this->normal_timezone )
-		                               ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+										->setTimezone( $this->normal_timezone )
+										->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		$interval = [ $start_date, $end_date ];
 
@@ -965,12 +981,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		if (
 			in_array(
-			     $operator,
-			     [
-				     'BETWEEN',
-				     'NOT BETWEEN',
-			     ]
-		     )
+				$operator,
+				[
+					'BETWEEN',
+					'NOT BETWEEN',
+				]
+			)
 			&& ! ( is_array( $value ) && 2 === count( $value ) )
 		) {
 			throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_an_value_of_type(
@@ -1036,12 +1052,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 *
-	 * @param      float $low    The lower value of the search interval.
-	 * @param      float $high   The high value of the search interval.
-	 * @param string     $symbol The desired currency symbol or symbols; this symbol can be a currency ISO code,
-	 *                           e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
-	 *                           In the latter case results will include any event with the matching currency symbol,
-	 *                           this might lead to ambiguous results.
+	 * @param float  $low    The lower value of the search interval.
+	 * @param float  $high   The high value of the search interval.
+	 * @param string $symbol The desired currency symbol or symbols; this symbol can be a currency ISO code,
+	 *                       e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
+	 *                       In the latter case results will include any event with the matching currency symbol,
+	 *                       this might lead to ambiguous results.
 	 *
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
@@ -1104,7 +1120,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @since 4.9
 	 *
 	 * @param array $postarr The update post array, passed entirely for context purposes.
-	 * @param  int  $post_id The ID of the event that's being updated.
+	 * @param int   $post_id The ID of the event that's being updated.
 	 *
 	 * @return array The filtered postarr array.
 	 */
@@ -1121,8 +1137,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 *
-	 * @param array $postarr
-	 * @param       $post_id
+	 * @param array   $postarr
+	 * @param $post_id
 	 *
 	 * @return array
 	 */
@@ -1152,7 +1168,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 			$timezone         = Tribe__Timezones::build_timezone_object( $input_timezone );
 			$timezone_changed = $input_timezone !== $current_event_timezone_string;
-			$utc              = new DateTimezone('UTC');
+			$utc              = new DateTimezone( 'UTC' );
 			$dates_changed    = [];
 
 			/**
@@ -1165,21 +1181,21 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$meta_value = $meta[ "_Event{$check}Date" ];
 
 					$is_object = $meta_value instanceof DateTime
-					             || ( class_exists( 'DateTimeImmutable' ) && $meta_value instanceof DateTimeImmutable );
+								|| ( class_exists( 'DateTimeImmutable' ) && $meta_value instanceof DateTimeImmutable );
 					if ( $is_object ) {
-						$meta_value                 = $meta_value->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-						$postarr[ 'meta_input' ][ "_Event{$check}Date" ] = $meta_value;
+						$meta_value                                    = $meta_value->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+						$postarr['meta_input'][ "_Event{$check}Date" ] = $meta_value;
 					}
 
 					$date = new DateTime( $meta_value, $timezone );
 
-					$postarr['meta_input']["_Event{$check}Date"] = $date->format( $datetime_format );
+					$postarr['meta_input'][ "_Event{$check}Date" ] = $date->format( $datetime_format );
 
 					$utc_date = $date->setTimezone( $utc );
 
 					// Set the localized and UTC date/time from local date/time and timezone; if provided override it.
-					$postarr[ 'meta_input' ][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
-					$dates_changed[ $check ]                        = $utc_date;
+					$postarr['meta_input'][ "_Event{$check}DateUTC" ] = $utc_date->format( $datetime_format );
+					$dates_changed[ $check ]                          = $utc_date;
 				}
 
 				/*
@@ -1190,8 +1206,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 					$utc_date = new DateTime( $meta[ "_Event{$check}DateUTC" ], $utc );
 					$the_date = clone $utc_date;
 					$the_date->setTimezone( $timezone )->format( $datetime_format );
-					$postarr[ 'meta_input' ][ "_Event{$check}Date" ]  = $the_date;
-					$dates_changed[ $check ]                     = $utc_date;
+					$postarr['meta_input'][ "_Event{$check}Date" ] = $the_date;
+					$dates_changed[ $check ]                       = $utc_date;
 				}
 			}
 
@@ -1205,16 +1221,16 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			}
 
 			// Sanity check, an event should end after its start.
-			$start = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
-			$end   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
-			$duration   = $this->get_from_postarr_or_meta( $postarr, '_EventDuration', $post_id );
+			$start    = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
+			$end      = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
+			$duration = $this->get_from_postarr_or_meta( $postarr, '_EventDuration', $post_id );
 
 			if ( isset( $start, $duration ) && empty( $end ) ) {
 				// Let's work out the End from Start and Duration if not set.
 				$duration_interval = new DateInterval( 'PT' . (int) $duration . 'S' );
-				$end      = Dates::build_date_object( $start, $timezone )
-				                 ->add( $duration_interval )
-				                 ->format( $datetime_format );
+				$end               = Dates::build_date_object( $start, $timezone )
+								->add( $duration_interval )
+								->format( $datetime_format );
 			}
 
 			$dates_make_sense = true;
@@ -1240,7 +1256,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				 * If the dates are changed then update the duration to the new one; if the duration is set
 				 * in the postarr it will be overridden.
 				 */
-				list( $start, $end ) = array_values( $dates_changed );
+				list( $start, $end )                     = array_values( $dates_changed );
 				$postarr['meta_input']['_EventDuration'] = $end->getTimestamp() - $start->getTimestamp();
 			} elseif ( isset( $meta['_EventDuration'] ) ) {
 				if ( isset( $dates_changed['Start'] ) ) {
@@ -1372,7 +1388,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$currency_symbol_positions = [ 'prefix', 'postfix' ];
 		if ( isset( $postarr['meta_input']['_EventCurrencyPosition'] )
-		     && ! in_array( $postarr['meta_input']['_EventCurrencyPosition'], $currency_symbol_positions, true )
+			&& ! in_array( $postarr['meta_input']['_EventCurrencyPosition'], $currency_symbol_positions, true )
 		) {
 			$postarr['meta_input']['_EventCurrencyPosition'] = 'prefix';
 		}
@@ -1482,10 +1498,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 *
-	 * @param      int|string|\DateTime $date     A date and time timestamp, string or object.
-	 * @param null                      $timezone The timezone that should be used to filter events, if not passed
-	 *                                            the site one will be used. This parameter will be ignored if the
-	 *                                            `$date` parameter is an object.
+	 * @param int|string|\DateTime $date     A date and time timestamp, string or object.
+	 * @param null                 $timezone The timezone that should be used to filter events, if not passed
+	 *                                       the site one will be used. This parameter will be ignored if the
+	 *                                       `$date` parameter is an object.
 	 *
 	 * @throws Exception If the date and/or timezone provided for the filtering are not valid.
 	 */
@@ -1612,7 +1628,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 						if ( ! is_array( $this->query_args['orderby'] ) ) {
 							$this->query_args['orderby'] = [
-								$this->query_args['orderby'] => $this->query_args['order']
+								$this->query_args['orderby'] => $this->query_args['order'],
 							];
 						}
 
@@ -1667,7 +1683,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		global $wpdb;
 
 		$meta_alias = 'event_date';
-		$meta_key = '_EventStartDate';
+		$meta_key   = '_EventStartDate';
 
 		/**
 		 * When the "Use site timezone everywhere" option is checked in events settings,
@@ -1719,9 +1735,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$order = $order === null
-			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
-			: $order;
+		$order ??= Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
 		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DATETIME ) AS {$meta_alias}", $filter_id, $override );
 	}
@@ -1763,9 +1777,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_organizer';
-		$order     = $order === null
-			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
-			: $order;
+		$order   ??= Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 
 		$this->filter_query->orderby( [ 'organizer' => $order ], $filter_id, $override, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS organizer", $filter_id, $override );
@@ -1784,7 +1796,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param bool   $override   Whether to override existing ORDER BY clauses with this one or not; default to
 	 *                           `true` to override existing ORDER BY clauses.
 	 */
-	protected function order_by_venue( $order = null,$after = false, $override = true ) {
+	protected function order_by_venue( $order = null, $after = false, $override = true ) {
 		global $wpdb;
 
 		$postmeta_table = 'orderby_venue_meta';
@@ -1808,9 +1820,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		);
 
 		$filter_id = 'order_by_venue';
-		$order     = $order === null
-			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
-			: $order;
+		$order   ??= Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 
 		$this->filter_query->orderby( [ 'venue' => $order ], $filter_id, $override, $after );
 		$this->filter_query->fields( "{$posts_table}.post_title AS venue", $filter_id, $override );
@@ -1842,7 +1852,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @param bool $hidden Whether the events should be hidden from event listings or not.
 	 */
 	public function filter_by_hidden_on_upcoming( $hidden ) {
-		$hidden = tribe_is_truthy( $hidden );
+		$hidden       = tribe_is_truthy( $hidden );
 		$hidden_posts = tribe( \Tribe\Events\Views\V2\Query\Hide_From_Upcoming_Controller::class )->get_hidden_post_ids();
 
 		if ( $hidden ) {
@@ -1896,9 +1906,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			true
 		);
 
-		$order = $order === null
-			? Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' )
-			: $order;
+		$order ??= Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
 		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DECIMAL ) AS {$meta_alias}", $filter_id, $override );
 	}
