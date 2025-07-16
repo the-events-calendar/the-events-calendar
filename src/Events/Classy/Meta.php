@@ -12,7 +12,6 @@ namespace TEC\Events\Classy;
 use DateTimeZone;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe__Date_Utils as Date;
-use Tribe__Events__API as API;
 use Tribe__Timezones as Timezones;
 use WP_Post as Post;
 use WP_Post_Type;
@@ -58,9 +57,6 @@ class Meta extends Controller_Contract {
 		],
 		'_EventEndDate'            => [],
 		'_EventEndDateUTC'         => [],
-		'_EventIsFree'             => [
-			'type' => 'boolean',
-		],
 		'_EventOrganizerID'        => [
 			'single' => false,
 			'type'   => 'integer',
@@ -121,7 +117,6 @@ class Meta extends Controller_Contract {
 		// Add actions for each supported post type.
 		foreach ( $this->get_supported_post_types() as $post_type ) {
 			add_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 5, 2 );
-			add_action( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
 		}
 	}
 
@@ -351,8 +346,12 @@ class Meta extends Controller_Contract {
 				? $meta['_EventTimezone']
 				: $this->get_timezone_string( $post_id );
 
-			// Attempt to create a DateTimeZone object from the timezone string.
-			$timezone = new DateTimeZone( $timezone_string );
+			// Handle UTC offsets like "UTC+6" using the proper timezone conversion method.
+			if ( Timezones::is_utc_offset( $timezone_string ) ) {
+				$timezone_string = Timezones::timezone_from_utc_offset( $timezone_string )->getName();
+			}
+			
+			$timezone = Timezones::build_timezone_object( $timezone_string );
 			$utc      = new DateTimeZone( 'UTC' );
 		} catch ( \Exception $e ) {
 			do_action(
@@ -403,31 +402,5 @@ class Meta extends Controller_Contract {
 		}
 
 		return $timezone;
-	}
-
-	/**
-	 * Updates the cost of an event.
-	 *
-	 * This method is called when the cost of an event is updated via the REST API.
-	 * It retrieves the cost from the request and updates the post meta accordingly.
-	 *
-	 * @since TBD
-	 *
-	 * @param Post    $post    The post object being updated.
-	 * @param Request $request The request object containing the new cost data.
-	 *
-	 * @return void
-	 */
-	public function update_cost( $post, $request ): void {
-		// If for some reason we don't have the correct object types, return early.
-		if ( ! $post instanceof Post || ! $request instanceof Request ) {
-			return;
-		}
-
-		$meta    = $request->get_param( 'meta' ) ?? [];
-		$post_id = $post->ID;
-
-		$cost = (array) ( ! empty( $meta['_EventCost'] ) ? $meta['_EventCost'] : tribe_get_cost( $post_id ) );
-		API::update_event_cost( $post_id, $cost );
 	}
 }

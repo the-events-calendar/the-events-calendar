@@ -9,7 +9,6 @@ import {
 	METADATA_EVENT_CURRENCY,
 	METADATA_EVENT_CURRENCY_POSITION,
 	METADATA_EVENT_CURRENCY_SYMBOL,
-	METADATA_EVENT_IS_FREE,
 } from '../../constants';
 import { Currency } from '@tec/common/classy/types/Currency';
 import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
@@ -39,11 +38,10 @@ export default function EventCost(): JSX.Element {
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const isFreeMeta: boolean = meta?.[ METADATA_EVENT_IS_FREE ] || false;
-	const [ isFree, setIsFree ] = useState< boolean >( isFreeMeta );
-
 	const eventCostMeta: string = meta?.[ METADATA_EVENT_COST ] || '';
+	const [ isFree, setIsFree ] = useState< boolean >( eventCostMeta === '0' );
 	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
+	const [ previousCostValue, setPreviousCostValue ] = useState< string >( eventCostMeta );
 
 	const eventCurrencySymbolMeta: string = meta?.[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
@@ -56,12 +54,8 @@ export default function EventCost(): JSX.Element {
 
 	// Track changes to the post content and update the state accordingly.
 	useEffect( () => {
-		setEventCostValue( eventCostMeta );
+		setEventCostValue( isFree ? freeText : eventCostMeta );
 	}, [ eventCostMeta ] );
-
-	useEffect( () => {
-		setIsFree( isFreeMeta );
-	}, [ isFreeMeta ] );
 
 	useEffect( () => {
 		setCurrencySymbol( eventCurrencySymbolMeta );
@@ -74,15 +68,18 @@ export default function EventCost(): JSX.Element {
 	// Handle changes to the event cost input.
 	const onCostChange = ( nextValue: string | undefined ): void => {
 		setEventCostValue( nextValue ?? '' );
+		setPreviousCostValue( nextValue ?? '' );
 		editPost( { meta: { [ METADATA_EVENT_COST ]: nextValue } } );
 	};
 
 	// Handle changes to the "is free" toggle.
 	const onFreeChange = ( nextValue: boolean ): void => {
 		setIsFree( nextValue );
-		setEventCostValue( nextValue ? freeText : eventCostMeta );
 
-		editPost( { meta: { [ METADATA_EVENT_IS_FREE ]: nextValue } } );
+		const newCostValue = nextValue ? '0' : previousCostValue;
+
+		setEventCostValue( nextValue ? freeText : newCostValue );
+		editPost( { meta: { [ METADATA_EVENT_COST ]: newCostValue } } );
 	};
 
 	/**
@@ -104,7 +101,7 @@ export default function EventCost(): JSX.Element {
 	 * Formats the event cost value for display.
 	 *
 	 * This function formats the event cost value based on whether the input has focus or if the event is free.
-	 * It handles multiple prices separated by commas and returns a formatted string.
+	 * It handles multiple prices separated by dashes and returns a formatted string.
 	 *
 	 * @since TBD
 	 *
@@ -118,7 +115,7 @@ export default function EventCost(): JSX.Element {
 		}
 
 		const pieces = value
-			.split( ',' )
+			.split( '-' )
 			.map( ( piece ) => piece.trim() )
 			.filter( ( piece ) => piece !== '' );
 
@@ -186,7 +183,7 @@ export default function EventCost(): JSX.Element {
 
 			<div className="classy-field__input-note">
 				{ _x(
-					'If multiple entry prices are available, list each price separated by commas.',
+					'If multiple entry prices are available, list each price separated by dashes.',
 					'Event cost input note',
 					'the-events-calendar'
 				) }
