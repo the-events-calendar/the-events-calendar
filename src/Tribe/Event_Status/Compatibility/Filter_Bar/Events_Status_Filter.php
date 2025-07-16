@@ -241,7 +241,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
                     AND tickets.post_status = 'publish'
                 	AND manage_stock_meta.meta_value = 'yes'
 					AND CAST(capacity_meta.meta_value as SIGNED) > -1
-					AND CAST(stock_status_meta.meta_value as INT) = 0
+					AND CAST(stock_status_meta.meta_value as SIGNED) = 0
             ";
 
 		// We always want to get fresh data here, adding caching can create chances that data stale.
