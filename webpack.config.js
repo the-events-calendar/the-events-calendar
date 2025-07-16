@@ -1,8 +1,7 @@
-const {dirname, basename, extname} = require('path');
-const {readdirSync, statSync, existsSync} = require('fs');
+const path = require('path');
 
 /**
- * The default configuration coming from the @wordpress/scripts package.
+ * The default @tec/common/classy/types configuration is coming from the @wordpress/scripts package.
  * Customized following the "Advanced Usage" section of the documentation:
  * See: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#advanced-usage
  */
@@ -17,6 +16,7 @@ const {
   exposeEntry,
   doNotPrefixSVGIdsClasses,
   WindowAssignPropertiesPlugin,
+	resolveExternalToGlobal
 } = require('@stellarwp/tyson');
 
 /**
@@ -101,38 +101,42 @@ doNotPrefixSVGIdsClasses(defaultConfig);
  * Finally the customizations are merged with the default WebPack configuration.
  */
 module.exports = {
-  ...defaultConfig,
-  ...{
-    entry: (buildType) => {
-      const defaultEntryPoints = defaultConfig.entry(buildType);
-      return {
-        ...defaultEntryPoints, ...customEntryPoints,
-      };
-    },
-    output: {
-      ...defaultConfig.output,
-      ...{
-        enabledLibraryTypes: ['window'],
-        publicPath: '/wp-content/plugins/the-events-calendar/build/',
-      },
-    },
-    module: {
-      ...defaultConfig.module,
-      rules: [
-        ...defaultConfig.module.rules,
-        {
-          test: /\.(png|jpg|jpeg|gif|svg)$/i,
-          include: /src\/resources\/packages/,
-          type: 'asset/resource',
-          generator: {
-            filename: 'images/[name].[contenthash][ext]'
-          }
-        }
-      ]
-    },
-    plugins: [
-      ...defaultConfig.plugins,
-      new WindowAssignPropertiesPlugin(),
-    ],
-  },
+	...defaultConfig,
+	...{
+		entry: (buildType) => {
+			const defaultEntryPoints = defaultConfig.entry(buildType);
+			return {
+				...defaultEntryPoints, ...customEntryPoints,
+			};
+		},
+		output: {
+			...defaultConfig.output,
+			...{
+				enabledLibraryTypes: ['window'],
+				publicPath: '/wp-content/plugins/the-events-calendar/build/',
+			},
+		},
+		module: {
+			...defaultConfig.module,
+			rules: [
+				...defaultConfig.module.rules,
+				{
+					test: /\.(png|jpg|jpeg|gif|svg)$/i,
+					include: /src\/resources\/packages/,
+					type: 'asset/resource',
+					generator: {
+						filename: 'images/[name].[contenthash][ext]'
+					}
+				}
+			]
+		},
+		plugins: [
+			...defaultConfig.plugins,
+			new WindowAssignPropertiesPlugin(),
+		],
+		externals: [
+			...(defaultConfig.externals || []),
+			resolveExternalToGlobal('@tec/common', 'window.tec.common')
+		]
+	},
 };

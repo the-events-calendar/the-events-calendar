@@ -30,6 +30,7 @@ jobs:
           - ct1_migration
           - rewrite_functional
           - wpunit
+          - classy_integration
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository

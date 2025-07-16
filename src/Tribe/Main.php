@@ -5,8 +5,8 @@
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe\DB_Lock;
-use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.14.0';
+		const VERSION             = '7.0.0';
 
 		/**
 		 * Min Pro Addon.
@@ -602,7 +602,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bind_implementations(  ) {
+		public function bind_implementations() {
 			tribe_singleton( 'tec.main', $this );
 
 			// Admin provider.
@@ -753,6 +753,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Category_Colors\Controller::class );
 			// Register the Calendar Embeds feature.
 			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
+
+			if ( tec_using_classy_editor() ) {
+				// Register the Classy controller if the feature is active.
+				tribe_register_provider( TEC\Events\Classy\Controller::class );
+			}
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -3409,6 +3414,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			if ( tec_using_classy_editor() ) {
+				return;
+			}
+
 			add_meta_box(
 				'tribe_events_event_options',
 				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),
