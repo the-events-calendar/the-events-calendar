@@ -239,9 +239,9 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
                 WHERE
                     tickets.post_type = 'tec_tc_ticket'
                     AND tickets.post_status = 'publish'
-                	AND manage_stock_meta.meta_value = 'yes'                   -- Only tickets with stock management enabled.
-					AND CAST(capacity_meta.meta_value as SIGNED) > -1          -- Only tickets with actual capacity set (not unlimited).
-					AND CAST(stock_status_meta.meta_value as INT) = 0          -- Only tickets with zero stock remaining.
+                	AND manage_stock_meta.meta_value = 'yes'
+					AND CAST(capacity_meta.meta_value as SIGNED) > -1
+					AND CAST(stock_status_meta.meta_value as INT) = 0
             ";
 
 		// We always want to get fresh data here, adding caching can create chances that data stale.
