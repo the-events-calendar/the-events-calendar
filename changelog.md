@@ -1,5 +1,12 @@
 # Changelog
 
+### [6.14.1] 2025-07-16
+
+* Fix - Ensure all featured images on calendar views have dimensions set to reduce layout shifts. [TEC-4715]
+* Fix - Ensure views selector links have proper aria-current attributes.
+ Tweak - Changed views: `v2/components/events-bar/views/list/item`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.14.0] 2025-07-03
 
 * Feature - Category Colors functionality has been merged into The Events Calendar. [TEC-5364]
