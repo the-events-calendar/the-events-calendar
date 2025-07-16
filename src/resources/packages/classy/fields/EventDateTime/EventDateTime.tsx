@@ -1,23 +1,23 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import {RefObject, useCallback, useMemo, useRef, useState} from '@wordpress/element';
-import {useDispatch, useSelect} from '@wordpress/data';
-import {Hours} from '@tec/common/classy/types/Hours';
-import {Minutes} from '@tec/common/classy/types/Minutes';
-import {DateTimeUpdateType, DateUpdateType, FieldProps} from '@tec/common/classy/types/FieldProps';
-import {ToggleControl} from '@wordpress/components';
-import {_x} from '@wordpress/i18n';
+import { useEffect } from 'react';
+import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/element';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { Hours } from '@tec/common/classy/types/Hours';
+import { Minutes } from '@tec/common/classy/types/Minutes';
+import { DateTimeUpdateType, DateUpdateType, FieldProps } from '@tec/common/classy/types/FieldProps';
+import { ToggleControl } from '@wordpress/components';
+import { _x } from '@wordpress/i18n';
 import {
 	METADATA_EVENT_ALLDAY,
 	METADATA_EVENT_END_DATE,
 	METADATA_EVENT_START_DATE,
 	METADATA_EVENT_TIMEZONE,
 } from '../../constants';
-import {format} from '@wordpress/date';
-import {EndSelector, StartSelector, TimeZone} from '@tec/common/classy/components';
-import {StoreSelect} from '../../types/Store';
-import {addFilter, removeFilter} from '@wordpress/hooks';
-import {areDatesOnSameDay, areDatesOnSameTime} from '@tec/common/classy/functions';
+import { format } from '@wordpress/date';
+import { EndSelector, StartSelector, TimeZone } from '@tec/common/classy/components';
+import { StoreSelect } from '../../types/Store';
+import { addFilter, removeFilter } from '@wordpress/hooks';
+import { areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
 
 type DateTimeRefs = {
 	endTimeHours: number;
