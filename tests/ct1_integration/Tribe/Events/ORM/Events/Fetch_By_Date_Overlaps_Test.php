@@ -78,9 +78,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		add_filter( 'query', $assert_timestampdiff_not_used );
 
 		// Range starts before one and ends after five.
-		//   |=================range=======================|
-		// 	      |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //   |=================range=======================|
+        // 	      |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 08:00:00', '2020-01-06 19:00:00', $timezone, 0 )
@@ -88,9 +88,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start to the start of one.
-		//   |============range=======================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //   |============range=======================|
+        //   |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 10:00:00', '2020-01-06 19:00:00', $timezone, 0 )
@@ -98,9 +98,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start to the end of one: one is included since this is an inclusive check.
-		//         |===========range==================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //         |===========range==================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 19:00:00', '2020-01-06 19:00:00', $timezone, 0 )
@@ -108,9 +108,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start between the end of one and the start of two.
-		//          |===========range=================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |===========range=================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-06 19:00:00', $timezone, 0 )
@@ -118,9 +118,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end to the end of five: five is included since this is an inclusive check.
-		//          |============range=============|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |============range=============|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 19:00:00', $timezone, 0 )
@@ -128,9 +128,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end to the start of five: five is included since this is an inclusive check.
-		//          |===========range========|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |===========range========|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 10:00:00', $timezone, 0 )
@@ -138,9 +138,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of four and the start of five.
-		//          |=========range=========|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=========range=========|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 08:00:00', $timezone, 0 )
@@ -148,9 +148,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the start of four and the end of four.
-		//          |=======range=======|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=======range=======|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 12:00:00', $timezone, 0 )
@@ -158,9 +158,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end at the start of four: four is included since this is an inclusive check.
-		//          |======range=====|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |======range=====|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 10:00:00', $timezone, 0 )
@@ -168,9 +168,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of three and the start of four.
-		//          |======range====|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |======range====|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 08:00:00', $timezone, 0 )
@@ -178,9 +178,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the start of three and the end of three.
-		//          |====range===|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |====range===|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 12:00:00', $timezone, 0 )
@@ -188,9 +188,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end at the start of three: three is included since this is an inclusive check.
-		//          |=range==|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=range==|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 10:00:00', $timezone, 0 )
@@ -198,9 +198,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of two and the start of three.
-		//          |=range=|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=range=|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 08:00:00', $timezone, 0 )
@@ -208,9 +208,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start and end to match two start and end.
-		//           |range|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //           |range|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 10:00:00', '2020-01-02 19:00:00', $timezone, 0 )
@@ -218,9 +218,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start after the start of two.
-		//            |rnge|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //            |rnge|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 12:00:00', '2020-01-02 19:00:00', $timezone, 0 )
@@ -228,9 +228,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range and before the end of two.
-		//            |rng|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //            |rng|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 12:00:00', '2020-01-02 17:00:00', $timezone, 0 )
@@ -238,9 +238,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Collapse the range to have the same start and end.
-		//              |
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //              |
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 17:00:00', '2020-01-02 17:00:00', $timezone, 0 )
@@ -264,9 +264,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		add_filter( 'query', $assert_timestampdiff_used );
 
 		// Range starts before one and ends after five.
-		//   |=================range=======================|
-		// 	      |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //   |=================range=======================|
+        // 	      |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 08:00:00', '2020-01-06 19:00:00', $timezone, 1 )
@@ -274,9 +274,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start to the start of one.
-		//   |============range=======================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //   |============range=======================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 10:00:00', '2020-01-06 19:00:00', $timezone, 1 )
@@ -284,9 +284,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start to the end of one: one is excluded since this is a non-inclusive check.
-		//         |===========range==================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //         |===========range==================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 19:00:00', '2020-01-06 19:00:00', $timezone, 1 )
@@ -294,9 +294,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start between the end of one and the start of two.
-		//          |===========range=================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |===========range=================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-06 19:00:00', $timezone, 1 )
@@ -304,9 +304,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end to the end of five.
-		//          |============range=============|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |============range=============|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 19:00:00', $timezone, 1 )
@@ -314,9 +314,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end to the start of five: five is excluded since this is a non-inclusive check.
-		//          |===========range========|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |===========range========|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 10:00:00', $timezone, 1 )
@@ -324,9 +324,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of four and the start of five.
-		//          |=========range=========|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=========range=========|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 08:00:00', $timezone, 1 )
@@ -334,9 +334,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the start of four and the end of four.
-		//          |=======range=======|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=======range=======|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 12:00:00', $timezone, 1 )
@@ -344,9 +344,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end at the start of four: four is excluded since this is a non-inclusive check.
-		//          |======range=====|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |======range=====|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 10:00:00', $timezone, 1 )
@@ -354,9 +354,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of three and the start of four.
-		//          |======range====|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |======range====|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 08:00:00', $timezone, 1 )
@@ -364,9 +364,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the start of three and the end of three.
-		//          |====range===|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |====range===|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 12:00:00', $timezone, 1 )
@@ -374,9 +374,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end at the start of three: three is excluded since this is a non-inclusive check.
-		//          |=range==|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=range==|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 10:00:00', $timezone, 1 )
@@ -384,9 +384,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of two and the start of three.
-		//          |=range=|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=range=|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 08:00:00', $timezone, 1 )
@@ -394,9 +394,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start and end to match two start and end.
-		//           |range|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //           |range|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 10:00:00', '2020-01-02 19:00:00', $timezone, 1 )
@@ -404,9 +404,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start after the start of two.
-		//            |rnge|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //            |rnge|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 12:00:00', '2020-01-02 19:00:00', $timezone, 1 )
@@ -414,9 +414,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range and before the end of two.
-		//            |rng|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //            |rng|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 12:00:00', '2020-01-02 17:00:00', $timezone, 1 )
@@ -424,9 +424,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Collapse the range to have the same start and end.
-		//              |
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //              |
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 17:00:00', '2020-01-02 17:00:00', $timezone, 1 )
@@ -456,9 +456,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		add_filter( 'query', $count_timestampdiff_uses );
 
 		// Range starts before one and ends after five.
-		//   |=================range=======================|
-		// 	      |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //   |=================range=======================|
+        // 	      |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 08:00:00', '2020-01-06 19:00:00', $timezone, 2 )
@@ -466,9 +466,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start to the start of one.
-		//   |============range=======================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //   |============range=======================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 10:00:00', '2020-01-06 19:00:00', $timezone, 2 )
@@ -476,9 +476,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start to the end of one: one is excluded since this is a non-inclusive check.
-		//         |===========range==================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //         |===========range==================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-01 19:00:00', '2020-01-06 19:00:00', $timezone, 2 )
@@ -486,9 +486,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start between the end of one and the start of two.
-		//          |===========range=================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |===========range=================|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-06 19:00:00', $timezone, 2 )
@@ -496,9 +496,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end to the end of five.
-		//          |============range=============|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |============range=============|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four, $five ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 19:00:00', $timezone, 2 )
@@ -506,9 +506,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end to the start of five: five is excluded since this is a non-inclusive check.
-		//          |===========range========|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |===========range========|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 10:00:00', $timezone, 2 )
@@ -516,9 +516,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of four and the start of five.
-		//          |=========range=========|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=========range=========|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-05 08:00:00', $timezone, 2 )
@@ -526,9 +526,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the start of four and the end of four.
-		//          |=======range=======|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=======range=======|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three, $four ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 12:00:00', $timezone, 2 )
@@ -536,9 +536,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end at the start of four: four is excluded since this is a non-inclusive check.
-		//          |======range=====|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |======range=====|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 10:00:00', $timezone, 2 )
@@ -546,9 +546,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of three and the start of four.
-		//          |======range====|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |======range====|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-04 08:00:00', $timezone, 2 )
@@ -556,9 +556,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the start of three and the end of three.
-		//          |====range===|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |====range===|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two, $three ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 12:00:00', $timezone, 2 )
@@ -566,9 +566,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end at the start of three: three is excluded since this is a non-inclusive check.
-		//          |=range==|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=range==|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 10:00:00', $timezone, 2 )
@@ -576,9 +576,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range end between the end of two and the start of three.
-		//          |=range=|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //          |=range=|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 08:00:00', '2020-01-03 08:00:00', $timezone, 2 )
@@ -586,9 +586,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start and end to match two start and end.
-		//           |range|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //           |range|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 10:00:00', '2020-01-02 19:00:00', $timezone, 2 )
@@ -596,9 +596,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range start after the start of two.
-		//            |rnge|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //            |rnge|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 12:00:00', '2020-01-02 19:00:00', $timezone, 2 )
@@ -606,9 +606,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Move the range and before the end of two.
-		//            |rng|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //            |rng|
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 12:00:00', '2020-01-02 17:00:00', $timezone, 2 )
@@ -616,9 +616,9 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 		);
 
 		// Collapse the range to have the same start and end.
-		//              |
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
-		$this->assertEquals(
+        //              |
+        // 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+        $this->assertEquals(
 			[ $two ],
 			tribe_events()
 				->where( 'date_overlaps', '2020-01-02 17:00:00', '2020-01-02 17:00:00', $timezone, 2 )

@@ -89,7 +89,7 @@ class Fetch_By_Date_Overlaps_Test extends WPTestCase {
 
 		// Move the range start to the start of one.
 		//   |============range=======================|
-		// 	 |==1==| |==2==| |==3==| |==4==| |==5==|
+		//   |==1==| |==2==| |==3==| |==4==| |==5==|
 		$this->assertEquals(
 			[ $one, $two, $three, $four, $five ],
 			tribe_events()
