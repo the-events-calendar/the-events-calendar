@@ -34,6 +34,17 @@ class Venue_Definition implements Definition_Interface {
 	}
 
 	/**
+	 * Returns the priority of the definition.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_priority(): int {
+		return 3;
+	}
+
+	/**
 	 * Returns an array in the format used by Swagger.
 	 *
 	 * @since TBD
