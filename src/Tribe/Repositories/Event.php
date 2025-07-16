@@ -444,6 +444,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 * @since 4.9.11 Add the `$min_sec_overlap` parameter.
+	 * @since TBD    Refactored the code to avoid the of performance cost of using TIMESTAMPDIFF when possible.
 	 *
 	 * @param string|DateTime|int $start_datetime  A `strtotime` parse-able string, a DateTime object or
 	 *                                             a timestamp.
@@ -459,37 +460,66 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		global $wpdb;
 		$utc = $this->normal_timezone;
 
-		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
-		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
-		$lower_string = $lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-		$upper_string = $upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
-		$start_key = $this->start_meta_key;
-		$end_key = $this->end_meta_key;
-
+		$lower          = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
+		$upper          = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
+		$lower_string   = $lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$upper_string   = $upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$start_key      = $this->start_meta_key;
+		$end_key        = $this->end_meta_key;
 		$join_start_key = 'tribe_start_date_utc';
-		$join_end_key = 'tribe_end_date_utc';
+		$join_end_key   = 'tribe_end_date_utc';
 
+		// Join on the Event start date, a string in the 'Y-m-d H:i:s' format.
 		$this->filter_query->join(
 			"LEFT JOIN {$wpdb->postmeta} {$join_start_key}
 			ON ( {$wpdb->posts}.ID = {$join_start_key}.post_id
 			AND {$join_start_key}.meta_key = '{$start_key}' )"
 		);
 
+		// Join on the Event end date, a string in the 'Y-m-d H:i:s' format.
 		$this->filter_query->join(
 			"LEFT JOIN {$wpdb->postmeta} {$join_end_key}
 			ON ( {$wpdb->posts}.ID = {$join_end_key}.post_id
 			AND {$join_end_key}.meta_key = '{$end_key}' )"
 		);
 
-		$alt_where = $wpdb->prepare(
-			"(
+		if ( $min_sec_overlap > 1 ) {
+			// If the minimum overlap requested is more than one second, then we have to use a not performant logic.
+			$alt_where = $wpdb->prepare(
+				"(
 				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '{$upper_string}' ) >= %d
 				AND
 				TIMESTAMPDIFF ( SECOND, '{$lower_string}', {$join_end_key}.meta_value ) >= %d
-			)",
-			$min_sec_overlap,
-			$min_sec_overlap
-		);
+				)",
+				$min_sec_overlap,
+				$min_sec_overlap
+			);
+		} else {
+			// A `$min_sec_overlap` of 0 is an inclusive check; a value of 1 in an exclusive check.
+			$lt_operator = $min_sec_overlap === 0 ? '<=' : '<';
+			$gt_operator = $min_sec_overlap === 0 ? '>=' : '>';
+			/*
+			 * We detect the overlap by getting all events that start before the end limit and end after the start limit.
+			 *
+			 *           |=====range=====|
+			 * |==1==| |==2==| |==3==| |==4==| |==5==|
+			 *
+			 * - 1 starts before the range end, but ends before the range start.
+			 * - 2 starts before the range end and ends after the range start.
+			 * - 3 starts before the range end and ends after the range start.
+			 * - 4 starts before the range end and ends after the range start.
+			 * - 5 ends after the range start, but starts after the range end.
+			 */
+			$alt_where = $wpdb->prepare(
+				"(
+				{$join_start_key}.meta_value {$lt_operator} '{$upper_string}'
+				AND
+				{$join_end_key}.meta_value {$gt_operator} '{$lower_string}'
+				)",
+				$min_sec_overlap,
+				$min_sec_overlap
+			);
+		}
 
 		$this->filter_query->where( $alt_where );
 	}
