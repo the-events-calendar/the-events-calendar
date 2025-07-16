@@ -16,6 +16,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Venue_Definition;
+use TEC\Events\REST\TEC\V1\Endpoints\Events;
 use TEC\Common\REST\TEC\V1\Abstracts\Endpoints_Controller;
 
 /**
@@ -34,7 +35,9 @@ class Endpoints extends Endpoints_Controller {
 	 * @return Endpoint_Interface[]
 	 */
 	public function get_endpoints(): array {
-		return [];
+		return [
+			Events::class,
+		];
 	}
 
 	/**
