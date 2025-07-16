@@ -177,13 +177,14 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list" >
 	<a
 		href="http://test.tri.be/events/list/?tribe-bar-date=2020-03-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in List View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -213,13 +214,15 @@
 			List		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active" >
 	<a
 		href="http://test.tri.be/events/month/2020-03/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Month View"
-	>
+				aria-current="true"
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -233,13 +236,14 @@
 			Month		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day" >
 	<a
 		href="http://test.tri.be/events/2020-03-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Day View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--day tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
