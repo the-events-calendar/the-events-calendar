@@ -245,7 +245,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 			/*
 			 * PERFORMER
 			 * Unset the performer, as it is currently unused.
-			 * @see: https://github.com/moderntribe/the-events-calendar/blob/5e737eb820c59bb9639d9ee9f4b88931a51c8554/src/Tribe/JSON_LD/Event.php#L151
+			 * @see: https://github.com/the-events-calendar/the-events-calendar/blob/5e737eb820c59bb9639d9ee9f4b88931a51c8554/src/Tribe/JSON_LD/Event.php#L151
 			 */
 			unset( $d->performer );
 
