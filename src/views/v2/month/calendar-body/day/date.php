@@ -48,26 +48,23 @@ if ( $today_date === $day_date ) {
 // Only add id if events exist on the day.
 $mobile_day_id = 'tribe-events-calendar-mobile-day-' . $day['year_number'] . '-' . $day['month_number'] . '-' . $day['day_number'];
 
-$events_label_singular = tribe_get_event_label_singular_lowercase();
-$events_label_plural   = tribe_get_event_label_plural_lowercase();
-
 $num_events_label = sprintf(
-	/* translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). */
-	_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+	/* translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). This is for screen readers, and will be read just after the date number. */
+	_n( 'has %1$s %2$s', 'has %1$s %3$s', $day['found_events'], 'the-events-calendar' ), // phpcs:ignore WordPress.WP.I18n.MismatchedPlaceholders
 	number_format_i18n( $day['found_events'] ),
-	$events_label_singular,
-	$events_label_plural
+	tribe_get_event_label_singular_lowercase(),
+	tribe_get_event_label_plural_lowercase()
 );
 ?>
 
 <button
 	aria-expanded="<?php echo esc_attr( $expanded ); ?>"
 	aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
-	<?php tribe_classes( $day_button_classes ); ?>
+	<?php tec_classes( $day_button_classes ); ?>
 	data-js="tribe-events-calendar-month-day-cell-mobile"
 	tabindex="-1"
 >
-	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
 			<?php echo esc_html( $num_events_label ); ?>,
 		</span>
@@ -77,6 +74,6 @@ $num_events_label = sprintf(
 		>
 			<?php echo esc_html( $day_number ); ?>
 		</time>
-	</h3>
+	</div>
 	<?php $this->template( 'month/calendar-body/day/date-extras', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 </button>

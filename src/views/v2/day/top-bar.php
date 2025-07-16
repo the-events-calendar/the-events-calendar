@@ -21,6 +21,8 @@
 
 	<?php $this->template( 'day/top-bar/datepicker' ); ?>
 
+	<?php $this->template( 'components/top-bar/category-color-picker' ); ?>
+
 	<?php $this->template( 'components/top-bar/actions' ); ?>
 
 </div>

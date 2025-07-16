@@ -22,7 +22,7 @@ $classes['tribe-events-calendar-month__calendar-event--featured'] = ! empty( $ev
 $classes['tribe-events-calendar-month__calendar-event--sticky']   = ( -1 === $event->menu_order );
 ?>
 
-<article <?php tribe_classes( $classes ) ?>>
+<article <?php tec_classes( $classes ); ?>>
 
 	<?php $this->template( 'month/calendar-body/day/calendar-events/calendar-event/featured-image', [ 'event' => $event ] ); ?>
 

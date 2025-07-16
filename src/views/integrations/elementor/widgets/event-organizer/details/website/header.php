@@ -21,6 +21,6 @@ if ( ! $show_organizer_website_header ) {
 }
 ?>
 
-<<?php echo tag_escape( $organizer_website_header_tag ); ?> <?php tribe_classes( $widget->get_website_header_class() ); ?>>
+<<?php echo tag_escape( $organizer_website_header_tag ); ?> <?php tec_classes( $widget->get_website_header_class() ); ?>>
 	<?php echo wp_kses_post( $organizer_website_header_text ); ?>
 <?php echo '</' . tag_escape( $organizer_website_header_tag ) . '>'; ?>
