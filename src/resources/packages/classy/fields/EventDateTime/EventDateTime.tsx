@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Hours } from '@tec/common/classy/types/Hours';
@@ -13,10 +14,9 @@ import {
 	METADATA_EVENT_TIMEZONE,
 } from '../../constants';
 import { format } from '@wordpress/date';
-import { TimeZone, StartSelector, EndSelector } from '@tec/common/classy/components';
-import { EventDateTimeDetails } from '../../types/EventDateTimeDetails';
+import { EndSelector, StartSelector, TimeZone } from '@tec/common/classy/components';
+import { StoreSelect } from '../../types/Store';
 import { addFilter, removeFilter } from '@wordpress/hooks';
-import { useEffect } from 'react';
 import { areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
 
 type DateTimeRefs = {
@@ -246,11 +246,9 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startOfWeek,
 		timeFormat,
 	} = useSelect( ( select ) => {
-		const { getEventDateTimeDetails }: { getEventDateTimeDetails: () => EventDateTimeDetails } =
-			select( 'tec/classy/events' );
-		const { isNewEvent }: { isNewEvent: () => boolean } = select( 'tec/classy/events' );
+		const tecStore: StoreSelect = select( 'tec/classy/events' );
 
-		return { ...getEventDateTimeDetails(), isNewEvent: isNewEvent() };
+		return { ...tecStore.getEventDateTimeDetails(), isNewEvent: tecStore.isNewEvent() };
 	}, [] );
 
 	useEffect( (): void => {
