@@ -620,12 +620,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$this->filter_query->join(
 			"LEFT JOIN {$wpdb->postmeta} multiday_start_date
 			ON ( {$wpdb->posts}.ID = multiday_start_date.post_id
-			AND multiday_start_date.meta_key = '_EventStartDate' )" 
+			AND multiday_start_date.meta_key = '_EventStartDate' )"
 		);
 		$this->filter_query->join(
 			"LEFT JOIN {$wpdb->postmeta} multiday_end_date
 			ON ( {$wpdb->posts}.ID = multiday_end_date.post_id
-			AND multiday_end_date.meta_key = '_EventEndDate' )" 
+			AND multiday_end_date.meta_key = '_EventEndDate' )"
 		);
 
 		// We're interested in the time only.
@@ -1133,14 +1133,14 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 
 	/**
-	 *
+	 * Updates the date-related meta for an Event post.
 	 *
 	 * @since 4.9
 	 *
-	 * @param array   $postarr
-	 * @param $post_id
+	 * @param array<string,mixed> $postarr The post data in array format.
+	 * @param int                 $post_id The post ID.
 	 *
-	 * @return array
+	 * @return array<string,mixed> The updated post data.
 	 */
 	protected function update_date_meta( array $postarr, $post_id = null ) {
 		set_error_handler( [ $this, 'cast_error_to_exception' ] );
