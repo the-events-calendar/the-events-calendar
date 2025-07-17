@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Ensure views selector links have proper aria-current attributes.
