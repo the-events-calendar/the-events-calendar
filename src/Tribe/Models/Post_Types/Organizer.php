@@ -54,4 +54,32 @@ class Organizer extends Base {
 
 		return $properties;
 	}
+
+	/**
+	 * Returns the properties to add to the event.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,bool>
+	 */
+	public static function get_properties_to_add(): array {
+		/**
+		 * Filters the properties to add to the event.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,bool> $properties The properties to add to the event.
+		 *
+		 * @return array<string,bool>
+		 */
+		return (array) apply_filters(
+			'tec_rest_organizer_properties_to_add',
+			[
+				'email'     => true,
+				'phone'     => true,
+				'website'   => true,
+				'permalink' => true,
+			]
+		);
+	}
 }

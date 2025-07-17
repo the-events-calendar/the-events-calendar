@@ -52,79 +52,29 @@ class Organizer_Definition implements Definition_Interface {
 	 */
 	public function get_documentation(): array {
 		$documentation = [
-			'type'       => 'object',
-			'properties' => [
-				'id'                => [
-					'type'        => 'integer',
-					'description' => __( 'The organizer WordPress post ID', 'the-events-calendar' ),
+			'allOf' => [
+				[
+					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
-				'global_id'         => [
-					'type'        => 'string',
-					'description' => __( 'The organizer ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
-				],
-				'global_id_lineage' => [
-					'type'        => 'array',
-					'items'       => [ 'type' => 'string' ],
-					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
-				],
-				'author'            => [
-					'type'        => 'integer',
-					'description' => __( 'The organizer author WordPress post ID', 'the-events-calendar' ),
-				],
-				'date'              => [
-					'type'        => 'string',
-					'description' => __( 'The organizer creation date in the site time zone', 'the-events-calendar' ),
-				],
-				'date_utc'          => [
-					'type'        => 'string',
-					'description' => __( 'The organizer creation date in UTC time', 'the-events-calendar' ),
-				],
-				'modified'          => [
-					'type'        => 'string',
-					'description' => __( 'The organizer last modification date in the site time zone', 'the-events-calendar' ),
-				],
-				'modified_utc'      => [
-					'type'        => 'string',
-					'description' => __( 'The organizer last modification date in UTC time', 'the-events-calendar' ),
-				],
-				'status'            => [
-					'type'        => 'string',
-					'description' => __( 'The organizer status', 'the-events-calendar' ),
-				],
-				'url'               => [
-					'type'        => 'string',
-					'description' => __( 'The URL to the organizer page', 'the-events-calendar' ),
-				],
-				'organizer'         => [
-					'type'        => 'string',
-					'description' => __( 'The organizer name', 'the-events-calendar' ),
-				],
-				'description'       => [
-					'type'        => 'string',
-					'description' => __( 'The organizer long description', 'the-events-calendar' ),
-				],
-				'excerpt'           => [
-					'type'        => 'string',
-					'description' => __( 'The organizer short description', 'the-events-calendar' ),
-				],
-				'slug'              => [
-					'type'        => 'string',
-					'description' => __( 'The organizer slug', 'the-events-calendar' ),
-				],
-				'image'             => [
-					'$ref' => '#/components/schemas/Image',
-				],
-				'phone'             => [
-					'type'        => 'string',
-					'description' => __( 'The organizer phone number', 'the-events-calendar' ),
-				],
-				'website'           => [
-					'type'        => 'string',
-					'description' => __( 'The organizer website', 'the-events-calendar' ),
-				],
-				'email'             => [
-					'type'        => 'string',
-					'description' => __( 'The organizer email address', 'the-events-calendar' ),
+				[
+					'type'       => 'object',
+					'properties' => [
+						'phone'   => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s phone number', 'the-events-calendar' ),
+							'format'      => 'tel',
+						],
+						'website' => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s website', 'the-events-calendar' ),
+							'format'      => 'uri',
+						],
+						'email'   => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s email address', 'the-events-calendar' ),
+							'format'      => 'email',
+						],
+					],
 				],
 			],
 		];
