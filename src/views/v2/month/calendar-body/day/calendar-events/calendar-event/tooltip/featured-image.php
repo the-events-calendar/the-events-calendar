@@ -22,22 +22,18 @@
 if ( ! $event->thumbnail->exists ) {
 	return;
 }
-
-// Always show post title as image alt, if not available fallback to image alt.
-$image_alt_attr = ! empty( $event->title )
-	? $event->title
-	: ( ! empty( $event->thumbnail->alt )
-		? $event->thumbnail->alt
-		: ''
-	);
 ?>
 <div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
 	<img
+		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image"
 		src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
 		<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
 			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
 		<?php endif; ?>
-		alt="<?php echo esc_attr( $image_alt_attr ); ?>"
-		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image"
+		<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
+			alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+		<?php else : ?>
+			alt=""
+		<?php endif; ?>
 	/>
 </div>

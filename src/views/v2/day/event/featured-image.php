@@ -22,15 +22,6 @@
 if ( ! $event->thumbnail->exists ) {
 	return;
 }
-
-// Always show post title as image alt, if not available fallback to image alt.
-$image_alt_attr = ! empty( $event->title )
-	? $event->title
-	: ( ! empty( $event->thumbnail->alt )
-		? $event->thumbnail->alt
-		: ''
-	);
-
 ?>
 <div class="tribe-events-calendar-day__event-featured-image-wrapper">
 	<img
