@@ -57,8 +57,10 @@ class Organizer_Definition implements Definition_Interface {
 					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
 				[
-					'type'       => 'object',
-					'properties' => [
+					'type'        => 'object',
+					'description' => __( 'An organizer', 'the-events-calendar' ),
+					'title'       => 'Organizer',
+					'properties'  => [
 						'phone'   => [
 							'type'        => 'string',
 							'description' => __( 'The organizer\'s phone number', 'the-events-calendar' ),

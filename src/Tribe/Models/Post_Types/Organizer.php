@@ -56,7 +56,7 @@ class Organizer extends Base {
 	}
 
 	/**
-	 * Returns the properties to add to the event.
+	 * Returns the properties to add to the organizer.
 	 *
 	 * @since TBD
 	 *
@@ -64,11 +64,11 @@ class Organizer extends Base {
 	 */
 	public static function get_properties_to_add(): array {
 		/**
-		 * Filters the properties to add to the event.
+		 * Filters the properties to add to the organizer.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string,bool> $properties The properties to add to the event.
+		 * @param array<string,bool> $properties The properties to add to the organizer.
 		 *
 		 * @return array<string,bool>
 		 */

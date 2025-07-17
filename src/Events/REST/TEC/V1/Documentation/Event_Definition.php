@@ -57,8 +57,10 @@ class Event_Definition implements Definition_Interface {
 					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
 				[
-					'type'       => 'object',
-					'properties' => [
+					'type'        => 'object',
+					'description' => __( 'An event', 'the-events-calendar' ),
+					'title'       => 'Event',
+					'properties'  => [
 						'tribe_events_cat'       => [
 							'type'        => 'array',
 							'description' => __( 'The terms assigned to the entity in the tribe_events_cat taxonomy', 'the-events-calendar' ),

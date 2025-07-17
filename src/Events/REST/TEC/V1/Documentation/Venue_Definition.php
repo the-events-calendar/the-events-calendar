@@ -53,121 +53,58 @@ class Venue_Definition implements Definition_Interface {
 	 */
 	public function get_documentation(): array {
 		$documentation = [
-			'type'       => 'object',
-			'properties' => [
-				'id'                => [
-					'type'        => 'integer',
-					'description' => __( 'The venue WordPress post ID', 'the-events-calendar' ),
+			'allOf' => [
+				[
+					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
-				'global_id'         => [
-					'type'        => 'string',
-					'description' => __( 'The venue ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
-				],
-				'global_id_lineage' => [
-					'type'        => 'array',
-					'items'       => [ 'type' => 'string' ],
-					'description' => __( 'An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created.', 'the-events-calendar' ),
-				],
-				'author'            => [
-					'type'        => 'integer',
-					'description' => __( 'The venue author WordPress post ID', 'the-events-calendar' ),
-				],
-				'date'              => [
-					'type'        => 'string',
-					'description' => __( 'The venue creation date in the site time zone', 'the-events-calendar' ),
-				],
-				'date_utc'          => [
-					'type'        => 'string',
-					'description' => __( 'The venue creation date in UTC time', 'the-events-calendar' ),
-				],
-				'modified'          => [
-					'type'        => 'string',
-					'description' => __( 'The venue last modification date in the site time zone', 'the-events-calendar' ),
-				],
-				'modified_utc'      => [
-					'type'        => 'string',
-					'description' => __( 'The venue last modification date in UTC time', 'the-events-calendar' ),
-				],
-				'status'            => [
-					'type'        => 'string',
-					'description' => __( 'The venue status', 'the-events-calendar' ),
-				],
-				'url'               => [
-					'type'        => 'string',
-					'description' => __( 'The URL to the venue page', 'the-events-calendar' ),
-				],
-				'venue'             => [
-					'type'        => 'string',
-					'description' => __( 'The venue name', 'the-events-calendar' ),
-				],
-				'description'       => [
-					'type'        => 'string',
-					'description' => __( 'The venue long description', 'the-events-calendar' ),
-				],
-				'excerpt'           => [
-					'type'        => 'string',
-					'description' => __( 'The venue short description', 'the-events-calendar' ),
-				],
-				'slug'              => [
-					'type'        => 'string',
-					'description' => __( 'The venue slug', 'the-events-calendar' ),
-				],
-				'image'             => [
-					'$ref' => '#/components/schemas/Image',
-				],
-				'show_map'          => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether the map should be shown for the venue or not', 'the-events-calendar' ),
-				],
-				'show_map_link'     => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether the map link should be shown for the venue or not', 'the-events-calendar' ),
-				],
-				'address'           => [
-					'type'        => 'string',
-					'description' => __( 'The venue address', 'the-events-calendar' ),
-				],
-				'city'              => [
-					'type'        => 'string',
-					'description' => __( 'The venue city', 'the-events-calendar' ),
-				],
-				'country'           => [
-					'type'        => 'string',
-					'description' => __( 'The venue country', 'the-events-calendar' ),
-				],
-				'province'          => [
-					'type'        => 'string',
-					'description' => __( 'The venue province', 'the-events-calendar' ),
-				],
-				'state'             => [
-					'type'        => 'string',
-					'description' => __( 'The venue state', 'the-events-calendar' ),
-				],
-				'zip'               => [
-					'type'        => 'string',
-					'description' => __( 'The venue ZIP code', 'the-events-calendar' ),
-				],
-				'phone'             => [
-					'type'        => 'string',
-					'description' => __( 'The venue phone number', 'the-events-calendar' ),
-				],
-				'website'           => [
-					'type'        => 'string',
-					'description' => __( 'The venue website URL', 'the-events-calendar' ),
-				],
-				'stateprovince'     => [
-					'type'        => 'string',
-					'description' => __( 'The venue state or province', 'the-events-calendar' ),
-				],
-				'geo_lat'           => [
-					'type'        => 'number',
-					'format'      => 'double',
-					'description' => __( 'The venue geo latitude', 'the-events-calendar' ),
-				],
-				'geo_lng'           => [
-					'type'        => 'number',
-					'format'      => 'double',
-					'description' => __( 'The venue geo longitude', 'the-events-calendar' ),
+				[
+					'type'        => 'object',
+					'description' => __( 'A venue', 'the-events-calendar' ),
+					'title'       => 'Venue',
+					'properties'  => [
+						'address'         => [
+							'type'        => 'string',
+							'description' => __( 'The venue address', 'the-events-calendar' ),
+						],
+						'country'         => [
+							'type'        => 'string',
+							'description' => __( 'The venue country', 'the-events-calendar' ),
+						],
+						'city'            => [
+							'type'        => 'string',
+							'description' => __( 'The venue city', 'the-events-calendar' ),
+						],
+						'state_province'  => [
+							'type'        => 'string',
+							'description' => __( 'The venue state/province', 'the-events-calendar' ),
+						],
+						'state'           => [
+							'type'        => 'string',
+							'description' => __( 'The venue state', 'the-events-calendar' ),
+						],
+						'province'        => [
+							'type'        => 'string',
+							'description' => __( 'The venue province', 'the-events-calendar' ),
+						],
+						'zip'             => [
+							'type'        => 'string',
+							'description' => __( 'The venue zip code', 'the-events-calendar' ),
+						],
+						'phone'           => [
+							'type'        => 'string',
+							'description' => __( 'The venue phone number', 'the-events-calendar' ),
+						],
+						'directions_link' => [
+							'type'        => 'string',
+							'description' => __( 'The venue directions link', 'the-events-calendar' ),
+							'format'      => 'uri',
+						],
+						'website'         => [
+							'type'        => 'string',
+							'description' => __( 'The venue website', 'the-events-calendar' ),
+							'format'      => 'uri',
+						],
+					],
 				],
 			],
 		];
