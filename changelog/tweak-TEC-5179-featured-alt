@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Updated day views with proper aria label and titles for event linked featured images. [TEC-5179]

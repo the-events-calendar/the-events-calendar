@@ -9,7 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @since 5.0.0
+ * @since TBD Removed link around featured image for accessibility update.
+ *
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -20,34 +23,36 @@ if ( ! $event->featured || ! $event->thumbnail->exists ) {
 	return;
 }
 
+// Always show post title as image alt, if not available fallback to image alt.
+$image_alt_attr = ! empty( $event->title )
+	? $event->title
+	: ( ! empty( $event->thumbnail->alt )
+		? $event->thumbnail->alt
+		: ''
+	);
+
 ?>
 <div class="tribe-events-calendar-month__calendar-event-featured-image-wrapper">
-	<a
-		href="<?php echo esc_url( $event->permalink ); ?>"
-		title="<?php echo esc_attr( $event->title ); ?>"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-featured-image-link"
-	>
-		<img
-			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
-			<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
-				srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
-			<?php endif; ?>
-			<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
-				alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
-			<?php else : // We need to ensure we have an empty alt tag for accessibility reasons if the user doesn't set one for the featured image ?>
-				alt=""
-			<?php endif; ?>
-			<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
-				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
-			<?php endif; ?>
-			class="tribe-events-calendar-month__calendar-event-featured-image"
-			<?php if ( ! empty( $event->thumbnail->full->width ) ) : ?>
-				width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
-			<?php endif; ?>
-			<?php if ( ! empty( $event->thumbnail->full->height ) ) : ?>
-				height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
-			<?php endif; ?>
-		/>
-	</a>
+	<img
+		class="tribe-events-calendar-month__calendar-event-featured-image"
+		src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
+		<?php if ( ! empty( $event->thumbnail->srcset ) ) : ?>
+			srcset="<?php echo esc_attr( $event->thumbnail->srcset ); ?>"
+		<?php endif; ?>
+		<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
+			alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
+		<?php else : ?>
+			alt=""
+		<?php endif; ?>
+		<?php if ( ! empty( $event->thumbnail->title ) ) : ?>
+			title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
+		<?php endif; ?>
+		class="tribe-events-calendar-month__calendar-event-featured-image"
+		<?php if ( ! empty( $event->thumbnail->full->width ) ) : ?>
+			width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+		<?php endif; ?>
+		<?php if ( ! empty( $event->thumbnail->full->height ) ) : ?>
+			height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
+		<?php endif; ?>
+	/>
 </div>
