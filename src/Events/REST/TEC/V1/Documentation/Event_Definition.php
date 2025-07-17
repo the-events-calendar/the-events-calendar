@@ -52,170 +52,164 @@ class Event_Definition implements Definition_Interface {
 	 */
 	public function get_documentation(): array {
 		$documentation = [
-			'type'       => 'object',
-			'properties' => [
-				'id'                     => [
-					'type'        => 'integer',
-					'description' => __( 'The event WordPress post ID', 'the-events-calendar' ),
+			'allOf' => [
+				[
+					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
-				'global_id'              => [
-					'type'        => 'string',
-					'description' => __( 'The event ID used to globally identify in Event Aggregator', 'the-events-calendar' ),
-				],
-				'global_id_lineage'      => [
-					'type'        => 'array',
-					'items'       => [ 'type' => 'string' ],
-					'description' => __( 'An Array containing the lineage of where this event comes from, this should not change after the event is created.', 'the-events-calendar' ),
-				],
-				'author'                 => [
-					'type'        => 'integer',
-					'description' => __( 'The event author WordPress post ID', 'the-events-calendar' ),
-				],
-				'date'                   => [
-					'type'        => 'string',
-					'description' => __( 'The event creation date in the site time zone', 'the-events-calendar' ),
-				],
-				'date_utc'               => [
-					'type'        => 'string',
-					'description' => __( 'The event creation date in UTC time', 'the-events-calendar' ),
-				],
-				'modified'               => [
-					'type'        => 'string',
-					'description' => __( 'The event last modification date in the site time zone', 'the-events-calendar' ),
-				],
-				'modified_utc'           => [
-					'type'        => 'string',
-					'description' => __( 'The event last modification date in UTC time', 'the-events-calendar' ),
-				],
-				'status'                 => [
-					'type'        => 'string',
-					'description' => __( 'The event status', 'the-events-calendar' ),
-				],
-				'url'                    => [
-					'type'        => 'string',
-					'description' => __( 'The URL to the event page', 'the-events-calendar' ),
-				],
-				'rest_url'               => [
-					'type'        => 'string',
-					'description' => __( 'The TEC REST API link to fetch this event', 'the-events-calendar' ),
-				],
-				'title'                  => [
-					'type'        => 'string',
-					'description' => __( 'The event name', 'the-events-calendar' ),
-				],
-				'description'            => [
-					'type'        => 'string',
-					'description' => __( 'The event long description', 'the-events-calendar' ),
-				],
-				'excerpt'                => [
-					'type'        => 'string',
-					'description' => __( 'The event short description', 'the-events-calendar' ),
-				],
-				'slug'                   => [
-					'type'        => 'string',
-					'description' => __( 'The event slug', 'the-events-calendar' ),
-				],
-				'image'                  => [
-					'$ref' => '#/components/schemas/Image',
-				],
-				'all_day'                => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether or not this event is an all day Event', 'the-events-calendar' ),
-				],
-				'start_date'             => [
-					'type'        => 'string',
-					'description' => __( 'The event start date in the event or site time zone', 'the-events-calendar' ),
-				],
-				'start_date_details'     => [
-					'type'        => 'array',
-					'description' => __( 'An array of each component of the event start date', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
-				],
-				'end_date'               => [
-					'type'        => 'string',
-					'description' => __( 'The event end date in the event or site time zone', 'the-events-calendar' ),
-				],
-				'end_date_details'       => [
-					'type'        => 'array',
-					'description' => __( 'An array of each component of the event end date', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
-				],
-				'utc_start_date'         => [
-					'type'        => 'string',
-					'description' => __( 'The event start date in UTC time', 'the-events-calendar' ),
-				],
-				'utc_start_date_details' => [
-					'type'        => 'array',
-					'description' => __( 'An array of each component of the event start date in UTC time', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
-				],
-				'utc_end_date'           => [
-					'type'        => 'string',
-					'description' => __( 'The event end date in UTC time', 'the-events-calendar' ),
-				],
-				'utc_end_date_details'   => [
-					'type'        => 'array',
-					'description' => __( 'An array of each component of the event end date in UTC time', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/DateDetails' ],
-				],
-				'timezone'               => [
-					'type'        => 'string',
-					'description' => __( 'The event time zone string', 'the-events-calendar' ),
-				],
-				'timezone_abbr'          => [
-					'type'        => 'string',
-					'description' => __( 'The abbreviated event time zone string', 'the-events-calendar' ),
-				],
-				'cost'                   => [
-					'type'        => 'string',
-					'description' => __( 'The event cost including the currency symbol', 'the-events-calendar' ),
-				],
-				'cost_details'           => [
-					'type'        => 'array',
-					'description' => __( 'The event cost details', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/CostDetails' ],
-				],
-				'website'                => [
-					'type'        => 'string',
-					'description' => __( 'The event website URL', 'the-events-calendar' ),
-				],
-				'show_map'               => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether the map should be shown for the event or not', 'the-events-calendar' ),
-				],
-				'show_map_link'          => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether the map link should be shown for the event or not', 'the-events-calendar' ),
-				],
-				'hide_from_listings'     => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether an event should be hidden from the calendar view or not', 'the-events-calendar' ),
-				],
-				'sticky'                 => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether an event is sticky in the calendar view or not', 'the-events-calendar' ),
-				],
-				'featured'               => [
-					'type'        => 'boolean',
-					'description' => __( 'Whether the event is featured in the calendar or not', 'the-events-calendar' ),
-				],
-				'categories'             => [
-					'type'        => 'array',
-					'description' => __( 'The event categories', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/Term' ],
-				],
-				'tags'                   => [
-					'type'        => 'array',
-					'description' => __( 'The event tags', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/Term' ],
-				],
-				'venue'                  => [
-					'$ref' => '#/components/schemas/Venue',
-				],
-				'organizer'              => [
-					'type'        => 'array',
-					'description' => __( 'The event organizers', 'the-events-calendar' ),
-					'items'       => [ '$ref' => '#/components/schemas/Organizer' ],
+				[
+					'type'       => 'object',
+					'properties' => [
+						'tribe_events_cat'       => [
+							'type'        => 'array',
+							'description' => __( 'The terms assigned to the entity in the tribe_events_cat taxonomy', 'the-events-calendar' ),
+							'items'       => [
+								'type' => 'integer',
+							],
+							'example'     => [ 1, 5, 12 ],
+						],
+						'start_date'             => [
+							'type'        => 'string',
+							'description' => __( 'The start date of the event', 'the-events-calendar' ),
+							'format'      => 'date-time',
+							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
+							'example'     => '2021-01-01 00:00:00',
+						],
+						'start_date_utc'         => [
+							'type'        => 'string',
+							'description' => __( 'The start date of the event in UTC', 'the-events-calendar' ),
+							'format'      => 'date-time',
+							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
+							'example'     => '2021-01-01 00:00:00',
+						],
+						'end_date'               => [
+							'type'        => 'string',
+							'description' => __( 'The end date of the event', 'the-events-calendar' ),
+							'format'      => 'date-time',
+							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
+							'example'     => '2021-01-01 00:00:00',
+						],
+						'end_date_utc'           => [
+							'type'        => 'string',
+							'description' => __( 'The end date of the event in UTC', 'the-events-calendar' ),
+							'format'      => 'date-time',
+							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
+							'example'     => '2021-01-01 00:00:00',
+						],
+						'dates'                  => [
+							'$ref' => '#/components/schemas/DateDetails',
+						],
+						'timezone'               => [
+							'type'        => 'string',
+							'description' => __( 'The timezone of the event', 'the-events-calendar' ),
+							'example'     => 'Europe/Athens',
+						],
+						'duration'               => [
+							'type'        => 'integer',
+							'description' => __( 'The duration of the event in seconds', 'the-events-calendar' ),
+							'example'     => 3600,
+						],
+						'multiday'               => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether the event is multiday', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'is_past'                => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether the event is in the past', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'is_now'                 => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether the event is happening now', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'all_day'                => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether the event is all day', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'starts_this_week'       => [
+							'type'        => 'boolean',
+							'nullable'    => true,
+							'description' => __( 'Whether the event starts this week', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'ends_this_week'         => [
+							'type'        => 'boolean',
+							'nullable'    => true,
+							'description' => __( 'Whether the event ends this week', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'happens_this_week'      => [
+							'type'        => 'boolean',
+							'nullable'    => true,
+							'description' => __( 'Whether the event happens this week', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'this_week_duration'     => [
+							'type'        => 'integer',
+							'nullable'    => true,
+							'description' => __( 'The duration of the event in the current week', 'the-events-calendar' ),
+							'example'     => 3600,
+						],
+						'displays_on'            => [
+							'type'        => 'array',
+							'description' => __( 'The days of the week that the event displays on', 'the-events-calendar' ),
+							'items'       => [
+								'type'    => 'string',
+								'format'  => 'date',
+								'pattern' => '^[0-9]{4}-[0-9]{2}-[0-9]{2}$',
+								'example' => '2021-01-01',
+							],
+						],
+						'featured'               => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether the event is featured', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'sticky'                 => [
+							'type'        => 'boolean',
+							'description' => __( 'Whether the event is sticky', 'the-events-calendar' ),
+							'example'     => false,
+						],
+						'cost'                   => [
+							'type'        => 'string',
+							'description' => __( 'The cost of the event', 'the-events-calendar' ),
+							'example'     => '$10',
+						],
+						'organizer_names'        => [
+							'type'        => 'array',
+							'description' => __( 'The names of the organizers of the event', 'the-events-calendar' ),
+							'items'       => [
+								'type' => 'string',
+							],
+							'example'     => [ 'John Doe', 'Jane Doe' ],
+						],
+						'organizers'             => [
+							'type'        => 'array',
+							'description' => __( 'The organizers of the event', 'the-events-calendar' ),
+							'items'       => [
+								'$ref' => '#/components/schemas/Organizer',
+							],
+						],
+						'venues'                 => [
+							'type'        => 'array',
+							'description' => __( 'The venues of the event', 'the-events-calendar' ),
+							'items'       => [
+								'$ref' => '#/components/schemas/Venue',
+							],
+						],
+						'schedule_details'       => [
+							'type'        => 'string',
+							'description' => __( 'The schedule details of the event', 'the-events-calendar' ),
+							'example'     => '10:00 - 12:00',
+						],
+						'short_schedule_details' => [
+							'type'        => 'string',
+							'description' => __( 'The schedule details of the event in HTML', 'the-events-calendar' ),
+							'example'     => '<p>10:00 - 12:00</p>',
+						],
+					],
 				],
 			],
 		];

@@ -18,6 +18,7 @@ use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Venue_Definition;
 use TEC\Events\REST\TEC\V1\Endpoints\Events;
 use TEC\Common\REST\TEC\V1\Abstracts\Endpoints_Controller;
+use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 
 /**
  * Endpoints Controller class.
@@ -37,6 +38,19 @@ class Endpoints extends Endpoints_Controller {
 	public function get_endpoints(): array {
 		return [
 			Events::class,
+		];
+	}
+
+	/**
+	 * Returns the tags to register.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag_Interface[]
+	 */
+	public function get_tags(): array {
+		return [
+			TEC_Tag::class,
 		];
 	}
 

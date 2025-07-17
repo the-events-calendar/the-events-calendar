@@ -11,13 +11,16 @@ declare( strict_types=1 );
 
 namespace TEC\Events\REST\TEC\V1\Endpoints;
 
-use TEC\Common\REST\TEC\V1\Abstracts\Endpoint;
+use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
+use WP_Post;
+use Tribe\Events\Models\Post_Types\Event as Event_Model;
+use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -26,16 +29,7 @@ use WP_Error;
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
-class Events extends Endpoint implements Readable_Endpoint {
-	/**
-	 * The allowed statuses.
-	 *
-	 * @since TBD
-	 *
-	 * @var string[]
-	 */
-	public const ALLOWED_STATUS = [ 'publish', 'pending', 'draft', 'future', 'private', 'trash' ];
-
+class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 	/**
 	 * The event validator.
 	 *
@@ -44,6 +38,28 @@ class Events extends Endpoint implements Readable_Endpoint {
 	 * @var Event_Validator
 	 */
 	protected Event_Validator $validator;
+
+	/**
+	 * Returns whether the guest can read the object.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function guest_can_read(): bool {
+		return true;
+	}
+
+	/**
+	 * Returns the post type of the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_post_type(): string {
+		return Events_Main::POSTTYPE;
+	}
 
 	/**
 	 * Archive_Events constructor.
@@ -76,41 +92,11 @@ class Events extends Endpoint implements Readable_Endpoint {
 	 */
 	public function get_schema(): array {
 		return [
-			'$schema'    => 'http://json-schema.org/draft-04/schema#',
-			'title'      => 'events',
-			'type'       => 'object',
-			'properties' => [
-				'events'       => [
-					'type'  => 'array',
-					'items' => [
-						'type'       => 'object',
-						'properties' => [
-							'id' => [
-								'type' => 'integer',
-							],
-						],
-					],
-				],
-				'total'        => [
-					'type'        => 'integer',
-					'description' => __( 'The total number of events matching the request.', 'the-events-calendar' ),
-				],
-				'total_pages'  => [
-					'type'        => 'integer',
-					'description' => __( 'The total number of pages for the request.', 'the-events-calendar' ),
-				],
-				'next_url'     => [
-					'type'        => 'string',
-					'format'      => 'uri',
-					'nullable'    => true,
-					'description' => __( 'The REST URL for the next page of results.', 'the-events-calendar' ),
-				],
-				'previous_url' => [
-					'type'        => 'string',
-					'format'      => 'uri',
-					'nullable'    => true,
-					'description' => __( 'The REST URL for the previous page of results.', 'the-events-calendar' ),
-				],
+			'$schema' => 'http://json-schema.org/draft-04/schema#',
+			'title'   => 'events',
+			'type'    => 'array',
+			'items'   => [
+				'$ref' => '#/components/schemas/Event',
 			],
 		];
 	}
@@ -134,8 +120,7 @@ class Events extends Endpoint implements Readable_Endpoint {
 		// Set pagination.
 		$events_query->page( $page )->per_page( $per_page );
 
-		// Get the events.
-		$events = $events_query->all();
+		$events = $this->format_post_entity_collection( $events_query->all() );
 		$total  = $events_query->found();
 
 		// Return 404 if no events found and page > 1.
@@ -149,29 +134,6 @@ class Events extends Endpoint implements Readable_Endpoint {
 			);
 		}
 
-		// Calculate total pages.
-		$total_pages = $per_page > 0 ? (int) ceil( $total / $per_page ) : 1;
-
-		$current_url = $this->get_current_rest_url( $request );
-
-		// Build the response data.
-		$data = [
-			'events'       => $events,
-			'total'        => $total,
-			'total_pages'  => $total_pages,
-			'next_url'     => null,
-			'previous_url' => null,
-		];
-
-		// Add pagination URLs.
-		if ( $page < $total_pages ) {
-			$data['next_url'] = add_query_arg( 'page', $page + 1, $current_url );
-		}
-
-		if ( $page > 1 ) {
-			$data['previous_url'] = add_query_arg( 'page', $page - 1, $current_url );
-		}
-
 		/**
 		 * Filters the data that will be returned for an events archive request.
 		 *
@@ -180,9 +142,25 @@ class Events extends Endpoint implements Readable_Endpoint {
 		 * @param array           $data    The retrieved data.
 		 * @param WP_REST_Request $request The original request.
 		 */
-		$data = apply_filters( 'tec_rest_events_archive_data', $data, $request );
+		$events = apply_filters( 'tec_rest_events_archive_events', $events, $request );
 
-		return new WP_REST_Response( $data );
+		$total_pages = $per_page > 0 ? (int) ceil( $total / $per_page ) : 1;
+		$current_url = $this->get_current_rest_url( $request );
+
+		$response = new WP_REST_Response( $events );
+
+		$response->header( 'X-WP-Total', (int) $total );
+		$response->header( 'X-WP-TotalPages', (int) $total_pages );
+
+		if ( $page < $total_pages ) {
+			$response->link_header( 'next', add_query_arg( 'page', $page + 1, $current_url ) );
+		}
+
+		if ( $page > 1 ) {
+			$response->link_header( 'prev', add_query_arg( 'page', $page - 1, $current_url ) );
+		}
+
+		return $response;
 	}
 
 	/**
@@ -198,7 +176,7 @@ class Events extends Endpoint implements Readable_Endpoint {
 		$events_query = tribe_events();
 
 		// Set default post status based on user capabilities.
-		$cap = get_post_type_object( Events_Main::POSTTYPE )->cap->edit_posts;
+		$cap = $this->get_post_type_object()->cap->edit_posts;
 		if ( ! current_user_can( $cap ) ) {
 			$events_query->where( 'post_status', 'publish' );
 		}
@@ -217,46 +195,34 @@ class Events extends Endpoint implements Readable_Endpoint {
 			$events_query->where( 'ends_before', tribe_end_of_day( $request['end_date'] ) );
 		}
 
-		// Status parameter.
 		if ( ! empty( $request['status'] ) ) {
 			$events_query->where( 'post_status', $request['status'] );
 		}
 
-		// Include/Exclude parameters.
 		if ( ! empty( $request['include'] ) ) {
 			$events_query->where( 'post__in', array_map( 'absint', $request['include'] ) );
 		}
 
-		if ( ! empty( $request['exclude'] ) ) {
-			$events_query->where( 'post__not_in', array_map( 'absint', $request['exclude'] ) );
-		}
-
-		// Venue parameter.
 		if ( ! empty( $request['venue'] ) ) {
 			$events_query->where( 'venue', array_map( 'absint', $request['venue'] ) );
 		}
 
-		// Organizer parameter.
 		if ( ! empty( $request['organizer'] ) ) {
 			$events_query->where( 'organizer', array_map( 'absint', $request['organizer'] ) );
 		}
 
-		// Featured parameter.
 		if ( isset( $request['featured'] ) ) {
 			$events_query->where( 'featured', $request['featured'] );
 		}
 
-		// Categories parameter.
 		if ( ! empty( $request['categories'] ) ) {
 			$events_query->where( 'category', array_map( 'absint', $request['categories'] ) );
 		}
 
-		// Tags parameter.
 		if ( ! empty( $request['tags'] ) ) {
 			$events_query->where( 'tag', array_map( 'absint', $request['tags'] ) );
 		}
 
-		// Order parameters.
 		if ( ! empty( $request['orderby'] ) ) {
 			$orderby = $request['orderby'] === 'event_date' ? 'event_date' : $request['orderby'];
 			$order   = ! empty( $request['order'] ) ? $request['order'] : 'ASC';
@@ -332,6 +298,37 @@ class Events extends Endpoint implements Readable_Endpoint {
 	}
 
 	/**
+	 * Adds properties to the events.
+	 *
+	 * @since TBD
+	 *
+	 * @param array   $formatted_post The formatted post.
+	 * @param WP_Post $original_post  The original post.
+	 *
+	 * @return array The response with the properties added.
+	 */
+	protected function add_properties_to_model( array $formatted_post, WP_Post $original_post ): array {
+		$properties_to_add = Event_Model::get_properties_to_add();
+
+		$data = array_merge( (array) $formatted_post, array_intersect_key( (array) $original_post, $properties_to_add ) );
+
+		$data['link'] = $data['permalink'];
+		unset(
+			$data['permalink'],
+			$data['meta'],
+		);
+
+		// Reorder the links.
+		$links = $data['_links'] ?? [];
+		if ( ! empty( $links ) ) {
+			unset( $data['_links'] );
+			$data['_links'] = $links;
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Validates the status parameter.
 	 *
 	 * @since TBD
@@ -367,37 +364,49 @@ class Events extends Endpoint implements Readable_Endpoint {
 			'get' => [
 				'summary'     => __( 'Get events', 'the-events-calendar' ),
 				'description' => __( 'Returns a list of events', 'the-events-calendar' ),
+				'operationId' => 'getEvents',
+				'tags'        => [ tribe( TEC_Tag::class )->get_name() ],
 				'parameters'  => $this->get_documentation_params(),
 				'responses'   => [
 					'200' => [
 						'description' => __( 'Returns the list of events', 'the-events-calendar' ),
+						'headers'     => [
+							'X-WP-Total'      => [
+								'description' => __( 'The total number of events matching the request.', 'the-events-calendar' ),
+								'schema'      => [
+									'type' => 'integer',
+								],
+							],
+							'X-WP-TotalPages' => [
+								'description' => __( 'The total number of pages for the request.', 'the-events-calendar' ),
+								'schema'      => [
+									'type' => 'integer',
+								],
+							],
+							'Link'            => [
+								'description' => __(
+									'RFC 5988 Link header for pagination. Contains navigation links with relationships:
+									`rel="next"` for the next page (if not on last page),
+									`rel="prev"` for the previous page (if not on first page).
+									Header is omitted entirely if there\'s only one page',
+									'the-events-calendar'
+								),
+								'schema'      => [
+									'type'  => 'array',
+									'items' => [
+										'type'   => 'string',
+										'format' => 'uri',
+									],
+								],
+								'required'    => false,
+							],
+						],
 						'content'     => [
 							'application/json' => [
 								'schema' => [
-									'type'       => 'object',
-									'properties' => [
-										'events'       => [
-											'type'  => 'array',
-											'items' => [
-												'$ref' => '#/components/schemas/Event',
-											],
-										],
-										'total'       => [
-											'type' => 'integer',
-										],
-										'total_pages' => [
-											'type' => 'integer',
-										],
-										'next_url'     => [
-											'type'     => 'string',
-											'format'   => 'uri',
-											'nullable' => true,
-										],
-										'previous_url' => [
-											'type'     => 'string',
-											'format'   => 'uri',
-											'nullable' => true,
-										],
+									'type'  => 'array',
+									'items' => [
+										'$ref' => '#/components/schemas/Event',
 									],
 								],
 							],
@@ -505,8 +514,7 @@ class Events extends Endpoint implements Readable_Endpoint {
 				],
 				'default'           => [ 'publish' ],
 				'validate_callback' => [ $this, 'validate_status' ],
-				'style'             => 'simple',
-				'explode'           => true,
+				'explode'           => false,
 			],
 			'include'    => [
 				'description'       => __( 'Limit result set to specific IDs.', 'the-events-calendar' ),
