@@ -32,7 +32,7 @@ export default function EventAdmission( props: FieldProps ) {
 						<ButtonGroup className="components-button-group--classy">
 							<Button
 								className="classy-button"
-								__next40pxDefaultSize={ true }
+								__next40pxDefaultSize
 								variant="primary"
 								onClick={ (): void => setIsUsingTickets( true ) }
 							>
@@ -42,7 +42,7 @@ export default function EventAdmission( props: FieldProps ) {
 
 							<Button
 								className="classy-button"
-								__next40pxDefaultSize={ true }
+								__next40pxDefaultSize
 								variant="secondary"
 								onClick={ (): void => setIsUsingTickets( false ) }
 							>

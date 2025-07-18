@@ -76,6 +76,7 @@ export default function OrganizerUpsert( props: {
 							} );
 						} }
 						required
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -88,6 +89,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
 						type="tel"
 						placeholder=""
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -100,6 +102,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
 						type="url"
 						placeholder=""
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -112,6 +115,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
 						type="email"
 						placeholder=""
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 			</section>

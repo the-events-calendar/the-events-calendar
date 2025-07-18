@@ -159,6 +159,7 @@ export default function EventCost(): JSX.Element {
 							disabled={ isFree }
 							onFocus={ () => setCostHasFocus( true ) }
 							onBlur={ () => setCostHasFocus( false ) }
+							__next40pxDefaultSize
 						/>
 					</div>
 				</div>
@@ -183,7 +184,7 @@ export default function EventCost(): JSX.Element {
 
 			<div className="classy-field__input-note">
 				{ _x(
-					'If multiple entry prices are available, list each price separated by dashes.',
+					'Enter a single price or a price range (e.g. 10-20)',
 					'Event cost input note',
 					'the-events-calendar'
 				) }
