@@ -31,6 +31,36 @@ jobs:
       changes-detected:
         description: "Whether any changes were detected"
         value: ${{ steps.analyze-changes.outputs.changes-detected }}
+      filters-added:
+        description: "List of added filters"
+        value: ${{ steps.analyze-changes.outputs.filters-added }}
+      has-filters-added:
+        description: "Whether filters were added"
+        value: ${{ steps.analyze-changes.outputs.has-filters-added }}
+      filters-removed:
+        description: "List of removed filters"
+        value: ${{ steps.analyze-changes.outputs.filters-removed }}
+      has-filters-removed:
+        description: "Whether filters were removed"
+        value: ${{ steps.analyze-changes.outputs.has-filters-removed }}
+      actions-added:
+        description: "List of added actions"
+        value: ${{ steps.analyze-changes.outputs.actions-added }}
+      has-actions-added:
+        description: "Whether actions were added"
+        value: ${{ steps.analyze-changes.outputs.has-actions-added }}
+      actions-removed:
+        description: "List of removed actions"
+        value: ${{ steps.analyze-changes.outputs.actions-removed }}
+      has-actions-removed:
+        description: "Whether actions were removed"
+        value: ${{ steps.analyze-changes.outputs.has-actions-removed }}
+      views-changed:
+        description: "List of changed views"
+        value: ${{ steps.analyze-changes.outputs.views-changed }}
+      has-views-changed:
+        description: "Whether views were changed"
+        value: ${{ steps.analyze-changes.outputs.has-views-changed }}
     steps:
       - name: Setup environment
         uses: ./.github/workflows/reusable/basic-setup.yml
@@ -98,63 +128,105 @@ jobs:
           ACTIONS_REMOVED=($(printf "%s\n" "${ACTIONS_REMOVED[@]}" | sort -u))
           VIEWS_CHANGED=($(printf "%s\n" "${VIEWS_CHANGED[@]}" | sort -u))
 
-          # Check if any changes were detected
+          # Check if any changes were detected and store results
           TOTAL_CHANGES=$((${#FILTERS_ADDED[@]} + ${#FILTERS_REMOVED[@]} + ${#ACTIONS_ADDED[@]} + ${#ACTIONS_REMOVED[@]} + ${#VIEWS_CHANGED[@]}))
 
           if [ $TOTAL_CHANGES -eq 0 ]; then
             echo "changes-detected=false" >> $GITHUB_OUTPUT
           else
             echo "changes-detected=true" >> $GITHUB_OUTPUT
+
+            # Store arrays as outputs for reuse
+            if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
+              FILTERS_ADDED_STR=$(IFS='`, `'; echo "${FILTERS_ADDED[*]}")
+              echo "filters-added=$FILTERS_ADDED_STR" >> $GITHUB_OUTPUT
+              echo "has-filters-added=true" >> $GITHUB_OUTPUT
+            else
+              echo "has-filters-added=false" >> $GITHUB_OUTPUT
+            fi
+
+            if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
+              FILTERS_REMOVED_STR=$(IFS='`, `'; echo "${FILTERS_REMOVED[*]}")
+              echo "filters-removed=$FILTERS_REMOVED_STR" >> $GITHUB_OUTPUT
+              echo "has-filters-removed=true" >> $GITHUB_OUTPUT
+            else
+              echo "has-filters-removed=false" >> $GITHUB_OUTPUT
+            fi
+
+            if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
+              ACTIONS_ADDED_STR=$(IFS='`, `'; echo "${ACTIONS_ADDED[*]}")
+              echo "actions-added=$ACTIONS_ADDED_STR" >> $GITHUB_OUTPUT
+              echo "has-actions-added=true" >> $GITHUB_OUTPUT
+            else
+              echo "has-actions-added=false" >> $GITHUB_OUTPUT
+            fi
+
+            if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
+              ACTIONS_REMOVED_STR=$(IFS='`, `'; echo "${ACTIONS_REMOVED[*]}")
+              echo "actions-removed=$ACTIONS_REMOVED_STR" >> $GITHUB_OUTPUT
+              echo "has-actions-removed=true" >> $GITHUB_OUTPUT
+            else
+              echo "has-actions-removed=false" >> $GITHUB_OUTPUT
+            fi
+
+            if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
+              VIEWS_CHANGED_STR=$(IFS='`, `'; echo "${VIEWS_CHANGED[*]}")
+              echo "views-changed=$VIEWS_CHANGED_STR" >> $GITHUB_OUTPUT
+              echo "has-views-changed=true" >> $GITHUB_OUTPUT
+            else
+              echo "has-views-changed=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
-      - name: Create changelog entry
-        id: create-changelog
-        if: steps.analyze-changes.outputs.changes-detected == 'true' && inputs.output-format == 'changelog'
-        run: |
-          # Generate changelog content
-          CHANGELOG_ENTRIES=()
+            - name: Create changelog entry for added filters
+        id: create-changelog-filters-added
+        if: steps.analyze-changes.outputs.has-filters-added == 'true' && inputs.output-format == 'changelog'
+        uses: the-events-calendar/actions/.github/actions/add-changelog@main
+        with:
+          file: "task-analyze-changes-filters-added-${{ github.sha }}"
+          significance: patch
+          type: tweak
+          entry: "Added filters: `${{ steps.analyze-changes.outputs.filters-added }}`"
 
-          if [ ${#FILTERS_ADDED[@]} -gt 0 ]; then
-            CHANGELOG_ENTRIES+=("* Tweak - Added filters: \`$(IFS='`, `'; echo "${FILTERS_ADDED[*]}")\`")
-          fi
-          if [ ${#FILTERS_REMOVED[@]} -gt 0 ]; then
-            CHANGELOG_ENTRIES+=("* Tweak - Removed filters: \`$(IFS='`, `'; echo "${FILTERS_REMOVED[*]}")\`")
-          fi
-          if [ ${#ACTIONS_ADDED[@]} -gt 0 ]; then
-            CHANGELOG_ENTRIES+=("* Tweak - Added actions: \`$(IFS='`, `'; echo "${ACTIONS_ADDED[*]}")\`")
-          fi
-          if [ ${#ACTIONS_REMOVED[@]} -gt 0 ]; then
-            CHANGELOG_ENTRIES+=("* Tweak - Removed actions: \`$(IFS='`, `'; echo "${ACTIONS_REMOVED[*]}")\`")
-          fi
-          if [ ${#VIEWS_CHANGED[@]} -gt 0 ]; then
-            CHANGELOG_ENTRIES+=("* Tweak - Changed views: \`$(IFS='`, `'; echo "${VIEWS_CHANGED[*]}")\`")
-          fi
+      - name: Create changelog entry for removed filters
+        id: create-changelog-filters-removed
+        if: steps.analyze-changes.outputs.has-filters-removed == 'true' && inputs.output-format == 'changelog'
+        uses: the-events-calendar/actions/.github/actions/add-changelog@main
+        with:
+          file: "task-analyze-changes-filters-removed-${{ github.sha }}"
+          significance: patch
+          type: tweak
+          entry: "Removed filters: `${{ steps.analyze-changes.outputs.filters-removed }}`"
 
-          # Create changelog entry
-          if [ ${#CHANGELOG_ENTRIES[@]} -gt 0 ]; then
-            # Create changelog directory if it doesn't exist
-            mkdir -p changelog
+      - name: Create changelog entry for added actions
+        id: create-changelog-actions-added
+        if: steps.analyze-changes.outputs.has-actions-added == 'true' && inputs.output-format == 'changelog'
+        uses: the-events-calendar/actions/.github/actions/add-changelog@main
+        with:
+          file: "task-analyze-changes-actions-added-${{ github.sha }}"
+          significance: patch
+          type: tweak
+          entry: "Added actions: `${{ steps.analyze-changes.outputs.actions-added }}`"
 
-            # Generate filename
-            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-            SHA_SHORT=$(git rev-parse --short ${{ github.sha }})
-            FILENAME="task-analyze-changes-$TIMESTAMP-$SHA_SHORT"
+      - name: Create changelog entry for removed actions
+        id: create-changelog-actions-removed
+        if: steps.analyze-changes.outputs.has-actions-removed == 'true' && inputs.output-format == 'changelog'
+        uses: the-events-calendar/actions/.github/actions/add-changelog@main
+        with:
+          file: "task-analyze-changes-actions-removed-${{ github.sha }}"
+          significance: patch
+          type: tweak
+          entry: "Removed actions: `${{ steps.analyze-changes.outputs.actions-removed }}`"
 
-            # Create changelog file
-            {
-              echo "---"
-              echo "type: tweak"
-              echo "significance: patch"
-              echo "---"
-              echo ""
-              for entry in "${CHANGELOG_ENTRIES[@]}"; do
-                echo "$entry"
-              done
-            } > "changelog/$FILENAME.md"
-
-            echo "changelog-file=$FILENAME.md" >> $GITHUB_OUTPUT
-            echo "Created changelog entry: changelog/$FILENAME.md"
-          fi
+      - name: Create changelog entry for changed views
+        id: create-changelog-views-changed
+        if: steps.analyze-changes.outputs.has-views-changed == 'true' && inputs.output-format == 'changelog'
+        uses: the-events-calendar/actions/.github/actions/add-changelog@main
+        with:
+          file: "task-analyze-changes-views-changed-${{ github.sha }}"
+          significance: patch
+          type: tweak
+          entry: "Changed views: `${{ steps.analyze-changes.outputs.views-changed }}`"
 
       - name: Set output for analysis summary
         id: set-summary
@@ -263,9 +335,35 @@ jobs:
           echo "## Change Analysis" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.analyze-changes.outputs.changes-detected }}" == "true" ]; then
             echo -e "$SUMMARY" >> $GITHUB_STEP_SUMMARY
-            if [ "${{ inputs.output-format }}" == "changelog" ] && [ -n "${{ steps.create-changelog.outputs.changelog-file }}" ]; then
+            if [ "${{ inputs.output-format }}" == "changelog" ] && [ "${{ steps.analyze-changes.outputs.changes-detected }}" == "true" ]; then
               echo "" >> $GITHUB_STEP_SUMMARY
-              echo "**Changelog entry created**: \`changelog/${{ steps.create-changelog.outputs.changelog-file }}\`" >> $GITHUB_STEP_SUMMARY
+              echo "**Individual changelog entries created for each change type using add-changelog action**" >> $GITHUB_STEP_SUMMARY
+
+              # List which entries were created
+              CREATED_ENTRIES=()
+              if [ "${{ steps.analyze-changes.outputs.has-filters-added }}" == "true" ]; then
+                CREATED_ENTRIES+=("- Added filters")
+              fi
+              if [ "${{ steps.analyze-changes.outputs.has-filters-removed }}" == "true" ]; then
+                CREATED_ENTRIES+=("- Removed filters")
+              fi
+              if [ "${{ steps.analyze-changes.outputs.has-actions-added }}" == "true" ]; then
+                CREATED_ENTRIES+=("- Added actions")
+              fi
+              if [ "${{ steps.analyze-changes.outputs.has-actions-removed }}" == "true" ]; then
+                CREATED_ENTRIES+=("- Removed actions")
+              fi
+              if [ "${{ steps.analyze-changes.outputs.has-views-changed }}" == "true" ]; then
+                CREATED_ENTRIES+=("- Changed views")
+              fi
+
+              if [ ${#CREATED_ENTRIES[@]} -gt 0 ]; then
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "**Created changelog entries for:**" >> $GITHUB_STEP_SUMMARY
+                for entry in "${CREATED_ENTRIES[@]}"; do
+                  echo "$entry" >> $GITHUB_STEP_SUMMARY
+                done
+              fi
             fi
           else
             echo "No changes detected" >> $GITHUB_STEP_SUMMARY

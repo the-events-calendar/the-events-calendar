@@ -17,7 +17,6 @@ jobs:
         with:
           setup-php: false
           setup-node: true
-          fetch-depth: 1
 
       # ------------------------------------------------------------------------------
       # Run linting tasks

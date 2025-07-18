@@ -16,26 +16,31 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
     steps:
-      # clone the repository
-      - uses: actions/checkout@v4
+      # Setup environment using reusable workflow
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
         with:
+          setup-php: true
+          setup-node: false
+          php-version: 7.4
           fetch-depth: 1000
-          submodules: recursive
-      # enable dependencies caching
-      - name: Add composer to cache
+
+      # Enable composer caching
+      - name: Get Composer Cache Directory
+        id: composer-cache-dir
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.cache/composer/
-          key:  ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-      # setup PHP
-      - name: Configure PHP environment
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          tools: composer
-          coverage: none
-      # Install composer packages.
-      - run: composer self-update && composer install --no-progress --ignore-platform-reqs
+          path: ${{ steps.composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Install composer packages
+      - name: Install composer dependencies
+        run: composer self-update && composer install --no-progress --ignore-platform-reqs
       # Fetch the target branch before running the check.
       - name: Fetch the target origin branch
         run: git fetch origin $GITHUB_BASE_REF

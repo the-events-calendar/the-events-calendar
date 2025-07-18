@@ -6,7 +6,7 @@ on:
         description: 'Git fetch depth'
         required: false
         type: number
-        default: 1000
+        default: 1
       php-version:
         description: 'PHP version to use'
         required: false
@@ -54,7 +54,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ inputs.php-version }}
-          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, sqlite3, gd, exif, iconv
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, sqlite3, gd, exif, iconv, uopz
           coverage: none
 
       # ------------------------------------------------------------------------------

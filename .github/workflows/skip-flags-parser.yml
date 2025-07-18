@@ -12,7 +12,6 @@ jobs:
         with:
           setup-php: false
           setup-node: false
-          fetch-depth: 1
 
       - name: Parse skip flags
         id: parse-flags

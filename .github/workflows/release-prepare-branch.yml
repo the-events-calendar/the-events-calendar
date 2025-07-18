@@ -28,10 +28,13 @@ jobs:
           echo "- version-bump-type: \`${{ github.event.inputs['version-bump-type'] }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- new-branch: \`${{ github.event.inputs['new-branch'] }}\`" >> $GITHUB_STEP_SUMMARY
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/workflows/reusable/basic-setup.yml
         with:
-          ref: ${{ github.ref }}
+          setup-php: true
+          setup-node: false
+          php-version: 7.4
+          fetch-depth: 1
 
       - name: Set Variables
         id: vars

@@ -41,6 +41,22 @@ jobs:
           fetch-depth: 1000
 
       # ------------------------------------------------------------------------------
+      # Enable composer caching
+      # ------------------------------------------------------------------------------
+      - name: Get Composer Cache Directory
+        id: composer-cache-dir
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ matrix.phpVersion }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-${{ matrix.phpVersion }}-
+            ${{ runner.os }}-composer-
+
+      # ------------------------------------------------------------------------------
       # Override composer php version
       # ------------------------------------------------------------------------------
       - name: Set php version ${{ matrix.phpVersion }} in composer

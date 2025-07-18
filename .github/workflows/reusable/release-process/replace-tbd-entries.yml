@@ -98,17 +98,22 @@ jobs:
             "*.ts"
             "*.tsx"
             "*.css"
-            "*.scss"
+            "*.pcss"
             "*.md"
             "*.txt"
           )
 
           # Define directories to exclude
           EXCLUDE_DIRS=(
-            "*/vendor/*"
-            "*/node_modules/*"
             "*/.git/*"
+            "*/.github/*"
+            "*/changelog/*"
+            "*/common/*"
+            "*/lang/*"
+            "*/dev/*"
+            "*/src/resources/postcss/utilities/*"
             "*/tests/*"
+            "*/vendor/*"
           )
 
           # Build the find command
