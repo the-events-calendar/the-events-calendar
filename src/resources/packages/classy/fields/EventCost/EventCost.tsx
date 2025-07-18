@@ -159,7 +159,7 @@ export default function EventCost(): JSX.Element {
 							disabled={ isFree }
 							onFocus={ () => setCostHasFocus( true ) }
 							onBlur={ () => setCostHasFocus( false ) }
-							__next40pxDefaultSize={ true }
+							__next40pxDefaultSize
 						/>
 					</div>
 				</div>

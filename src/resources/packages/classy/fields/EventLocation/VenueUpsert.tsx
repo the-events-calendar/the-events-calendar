@@ -152,7 +152,7 @@ export default function VenueUpsert( props: {
 							} );
 						} }
 						required
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -163,7 +163,7 @@ export default function VenueUpsert( props: {
 						hideLabelFromVision={ true }
 						value={ decodeEntities( currentValues.address ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, address: value || '' } ) }
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -174,7 +174,7 @@ export default function VenueUpsert( props: {
 						hideLabelFromVision={ true }
 						value={ decodeEntities( currentValues.city ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, city: value || '' } ) }
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -221,7 +221,7 @@ export default function VenueUpsert( props: {
 							onChange={ ( newValue ) => {
 								setCurrentValues( { ...currentValues, stateprovince: newValue } );
 							} }
-							__next40pxDefaultSize={ true }
+							__next40pxDefaultSize
 						/>
 					</LabeledInput>
 				) }
@@ -233,7 +233,7 @@ export default function VenueUpsert( props: {
 						hideLabelFromVision={ true }
 						value={ decodeEntities( currentValues.zip ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, zip: value || '' } ) }
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -245,7 +245,7 @@ export default function VenueUpsert( props: {
 						value={ decodeEntities( currentValues.phone ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, phone: value || '' } ) }
 						type="tel"
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -257,7 +257,7 @@ export default function VenueUpsert( props: {
 						value={ decodeEntities( currentValues.website ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, website: value || '' } ) }
 						type="url"
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 			</section>

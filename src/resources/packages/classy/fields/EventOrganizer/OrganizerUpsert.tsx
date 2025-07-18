@@ -102,7 +102,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
 						type="url"
 						placeholder=""
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -115,7 +115,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
 						type="email"
 						placeholder=""
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 			</section>
