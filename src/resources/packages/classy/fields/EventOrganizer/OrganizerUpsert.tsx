@@ -76,7 +76,7 @@ export default function OrganizerUpsert( props: {
 							} );
 						} }
 						required
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -89,7 +89,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
 						type="tel"
 						placeholder=""
-						__next40pxDefaultSize={ true }
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
