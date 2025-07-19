@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.14.1
+Stable tag: 6.14.2
 Requires at least: 6.6
 Tested up to: 6.8.1
 Requires PHP: 7.4
@@ -231,6 +231,13 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.14.1] 2025-07-16 =
+
+* Fix - Ensure all featured images on calendar views have dimensions set to reduce layout shifts. [TEC-4715]
+* Fix - Ensure views selector links have proper aria-current attributes.
+ Tweak - Changed views: `v2/components/events-bar/views/list/item`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.14.0] 2025-07-03 =
 
