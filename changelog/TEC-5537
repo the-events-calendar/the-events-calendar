@@ -1,0 +1,4 @@
+Significance: patch
+Type: performance
+
+Avoid use of TIMESTAMPDIFF when fetching overlapping events. [TEC-5537]

@@ -224,7 +224,7 @@ abstract class By_Day_View extends View {
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
-				->where( 'date_overlaps', $start, $end, null, 2 )
+				->where( 'date_overlaps', $start, $end, null, 1 )
 				->per_page( - 1 )
 				->order_by( $order_by, $order );
 
