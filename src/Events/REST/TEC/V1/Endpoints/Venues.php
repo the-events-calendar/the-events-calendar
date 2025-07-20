@@ -24,6 +24,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 
 /**
  * Archive venues endpoint for the TEC REST API V1.
@@ -112,7 +113,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint {
 			'title'   => 'venues',
 			'type'    => 'array',
 			'items'   => [
-				'$ref' => '#/components/schemas/Venue',
+				'$ref' => tribe( OpenApiDocs::class )->get_url() . '#/components/schemas/Venue',
 			],
 		];
 	}

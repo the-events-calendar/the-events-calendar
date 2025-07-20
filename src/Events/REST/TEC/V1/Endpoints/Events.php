@@ -27,6 +27,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -115,7 +116,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 			'title'   => 'events',
 			'type'    => 'array',
 			'items'   => [
-				'$ref' => '#/components/schemas/Event',
+				'$ref' => tribe( OpenApiDocs::class )->get_url() . '#/components/schemas/Event',
 			],
 		];
 	}
