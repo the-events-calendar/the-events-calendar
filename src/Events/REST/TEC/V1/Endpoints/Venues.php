@@ -19,6 +19,11 @@ use WP_REST_Request;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use Tribe\Events\Models\Post_Types\Venue as Venue_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 
 /**
  * Archive venues endpoint for the TEC REST API V1.
@@ -238,55 +243,74 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return Collection
 	 */
-	public function read_args(): array {
-		return [
-			'page'               => [
-				'description'       => __( 'The collection page number.', 'the-events-calendar' ),
-				'type'              => 'integer',
-				'default'           => 1,
-				'minimum'           => 1,
-				'validate_callback' => [ $this->validator, 'is_positive_int' ],
-			],
-			'per_page'           => [
-				'description'       => __( 'Maximum number of items to be returned in result set.', 'the-events-calendar' ),
-				'type'              => 'integer',
-				'default'           => $this->get_default_posts_per_page(),
-				'minimum'           => 1,
-				'maximum'           => $this->get_max_posts_per_page(),
-				'validate_callback' => [ $this->validator, 'is_positive_int' ],
-			],
-			'search'             => [
-				'description' => __( 'Limit results to those matching a string.', 'the-events-calendar' ),
-				'type'        => 'string',
-			],
-			'event'              => [
-				'description'       => __( 'Limit result set to events assigned to specific venues.', 'the-events-calendar' ),
-				'type'              => 'integer',
-				'validate_callback' => [ $this->validator, 'is_positive_int' ],
-			],
-			'has_events'         => [
-				'description' => __( 'Limit result set to venues with events.', 'the-events-calendar' ),
-				'type'        => 'boolean',
-				'default'     => false,
-			],
-			'only_with_upcoming' => [
-				'description' => __( 'Limit result set to venues with only upcoming events.', 'the-events-calendar' ),
-				'type'        => 'boolean',
-				'default'     => false,
-			],
-			'status'             => [
-				'description'       => __( 'Limit result set to events with specific status.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [
-					'type' => 'string',
-					'enum' => self::ALLOWED_STATUS,
-				],
-				'default'           => [ 'publish' ],
-				'validate_callback' => [ $this, 'validate_status' ],
-				'explode'           => false,
-			],
-		];
+	public function read_args(): Collection {
+		$collection = new Collection();
+
+		$collection[] = new Positive_Integer(
+			'page',
+			fn() => __( 'The collection page number.', 'the-events-calendar' ),
+			false,
+			null,
+			null,
+			1,
+			null,
+			null,
+			1
+		);
+
+		$collection[] = new Positive_Integer(
+			'per_page',
+			fn() => __( 'Maximum number of items to be returned in result set.', 'the-events-calendar' ),
+			false,
+			null,
+			null,
+			$this->get_default_posts_per_page(),
+			null,
+			100,
+			1
+		);
+
+		$collection[] = new Text(
+			'search',
+			fn() => __( 'Limit results to those matching a string.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Positive_Integer(
+			'event',
+			fn() => __( 'Limit result set to venues with specific event.', 'the-events-calendar' ),
+			false,
+		);
+
+		$collection[] = new Boolean(
+			'has_events',
+			fn() => __( 'Limit result set to venues with events.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Boolean(
+			'only_with_upcoming',
+			fn() => __( 'Limit result set to venues with upcoming events.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Array_Of_Type(
+			'status',
+			fn() => __( 'Limit result set to venues with specific status.', 'the-events-calendar' ),
+			false,
+			Text::class,
+			null,
+			[ 'publish' ],
+			self::ALLOWED_STATUS,
+			null,
+			null,
+			null,
+			null,
+			fn( $value ) => $this->validate_status( $value )
+		);
+
+		return $collection;
 	}
 }
