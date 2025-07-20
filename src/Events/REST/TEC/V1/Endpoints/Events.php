@@ -21,6 +21,12 @@ use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use Tribe__Repository__Interface;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use WP_Post;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -286,132 +292,176 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return Collection
 	 */
-	public function read_args(): array {
-		return [
-			'page'          => [
-				'description'       => __( 'The collection page number.', 'the-events-calendar' ),
-				'type'              => 'integer',
-				'default'           => 1,
-				'minimum'           => 1,
-				'validate_callback' => [ $this->validator, 'is_positive_int' ],
-			],
-			'per_page'      => [
-				'description'       => __( 'Maximum number of items to be returned in result set.', 'the-events-calendar' ),
-				'type'              => 'integer',
-				'default'           => $this->get_default_posts_per_page(),
-				'minimum'           => 1,
-				'maximum'           => $this->get_max_posts_per_page(),
-				'validate_callback' => [ $this->validator, 'is_positive_int' ],
-			],
-			'start_date'    => [
-				'description'       => __( 'Limit events to those starting after the specified date.', 'the-events-calendar' ),
-				'type'              => 'string',
-				'format'            => 'date-time',
-				'validate_callback' => [ $this->validator, 'is_time' ],
-			],
-			'end_date'      => [
-				'description'       => __( 'Limit events to those ending before the specified date.', 'the-events-calendar' ),
-				'type'              => 'string',
-				'format'            => 'date-time',
-				'validate_callback' => [ $this->validator, 'is_time' ],
-			],
-			'search'        => [
-				'description' => __( 'Limit results to those matching a string.', 'the-events-calendar' ),
-				'type'        => 'string',
-			],
-			'categories'    => [
-				'description'       => __( 'Limit result set to events assigned specific categories.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [ 'type' => 'integer' ],
-				'validate_callback' => [ $this->validator, 'is_event_category' ],
-			],
-			'tags'          => [
-				'description'       => __( 'Limit result set to events assigned specific tags.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [ 'type' => 'integer' ],
-				'validate_callback' => [ $this->validator, 'is_post_tag' ],
-			],
-			'venue'         => [
-				'description'       => __( 'Limit result set to events assigned to specific venues.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [ 'type' => 'integer' ],
-				'validate_callback' => [ $this->validator, 'is_venue_id_list' ],
-			],
-			'organizer'     => [
-				'description'       => __( 'Limit result set to events assigned to specific organizers.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [ 'type' => 'integer' ],
-				'validate_callback' => [ $this->validator, 'is_organizer_id_list' ],
-			],
-			'featured'      => [
-				'description' => __( 'Limit result set to featured events only.', 'the-events-calendar' ),
-				'type'        => 'boolean',
-			],
-			'status'        => [
-				'description'       => __( 'Limit result set to events with specific status.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [
-					'type' => 'string',
-					'enum' => self::ALLOWED_STATUS,
-				],
-				'default'           => [ 'publish' ],
-				'validate_callback' => [ $this, 'validate_status' ],
-				'explode'           => false,
-			],
-			'post_parent'   => [
-				'description'       => __( 'Limit result set to events with specific post parent.', 'the-events-calendar' ),
-				'type'              => 'integer',
-				'validate_callback' => [ $this->validator, 'is_positive_int' ],
-			],
-			'include'       => [
-				'description'       => __( 'Limit result set to specific IDs.', 'the-events-calendar' ),
-				'type'              => 'array',
-				'items'             => [ 'type' => 'integer' ],
-				'validate_callback' => [ $this->validator, 'is_positive_int_list' ],
-			],
-			'starts_before' => [
-				'description'       => __( 'Limit result set to events starting before the specified date.', 'the-events-calendar' ),
-				'type'              => 'string',
-				'format'            => 'date-time',
-				'validate_callback' => [ $this->validator, 'is_time' ],
-			],
-			'starts_after'  => [
-				'description'       => __( 'Limit result set to events starting after the specified date.', 'the-events-calendar' ),
-				'type'              => 'string',
-				'format'            => 'date-time',
-				'validate_callback' => [ $this->validator, 'is_time' ],
-			],
-			'ends_before'   => [
-				'description'       => __( 'Limit result set to events ending before the specified date.', 'the-events-calendar' ),
-				'type'              => 'string',
-				'format'            => 'date-time',
-				'validate_callback' => [ $this->validator, 'is_time' ],
-			],
-			'ends_after'    => [
-				'description'       => __( 'Limit result set to events ending after the specified date.', 'the-events-calendar' ),
-				'type'              => 'string',
-				'format'            => 'date-time',
-				'validate_callback' => [ $this->validator, 'is_time' ],
-			],
-			'ticketed'      => [
-				'description' => __( 'Limit result set to events with tickets.', 'the-events-calendar' ),
-				'type'        => 'boolean',
-			],
-			'orderby'       => [
-				'description' => __( 'Sort collection by event attribute.', 'the-events-calendar' ),
-				'type'        => 'string',
-				'default'     => 'event_date',
-				'enum'        => [ 'date', 'event_date', 'title', 'menu_order', 'modified' ],
-			],
-			'order'         => [
-				'description' => __( 'Order sort attribute ascending or descending.', 'the-events-calendar' ),
-				'type'        => 'string',
-				'default'     => 'ASC',
-				'enum'        => [ 'ASC', 'DESC' ],
-			],
-		];
+	public function read_args(): Collection {
+		$collection = new Collection();
+
+		$collection[] = new Positive_Integer(
+			'page',
+			fn() => __( 'The collection page number.', 'the-events-calendar' ),
+			false,
+			null,
+			null,
+			1,
+			null,
+			null,
+			1
+		);
+
+		$collection[] = new Positive_Integer(
+			'per_page',
+			fn() => __( 'Maximum number of items to be returned in result set.', 'the-events-calendar' ),
+			false,
+			null,
+			null,
+			$this->get_default_posts_per_page(),
+			null,
+			100,
+			1
+		);
+
+		$collection[] = new Date_Time(
+			'start_date',
+			fn() => __( 'Limit events to those starting after the specified date.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Date_Time(
+			'end_date',
+			fn() => __( 'Limit events to those ending before the specified date.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Text(
+			'search',
+			fn() => __( 'Limit results to those matching a string.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Array_Of_Type(
+			'categories',
+			fn() => __( 'Limit result set to events assigned specific categories.', 'the-events-calendar' ),
+			false,
+			Positive_Integer::class,
+		);
+
+		$collection[] = new Array_Of_Type(
+			'tags',
+			fn() => __( 'Limit result set to events assigned specific tags.', 'the-events-calendar' ),
+			false,
+			Positive_Integer::class,
+		);
+
+		$collection[] = new Array_Of_Type(
+			'venue',
+			fn() => __( 'Limit result set to events assigned to specific venues.', 'the-events-calendar' ),
+			false,
+			Positive_Integer::class,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			fn( $value ) => $this->validator->is_venue_id_list( $value ),
+		);
+
+		$collection[] = new Array_Of_Type(
+			'organizer',
+			fn() => __( 'Limit result set to events assigned to specific organizers.', 'the-events-calendar' ),
+			false,
+			Positive_Integer::class,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			fn( $value ) => $this->validator->is_organizer_id_list( $value )
+		);
+
+		$collection[] = new Boolean(
+			'featured',
+			fn() => __( 'Limit result set to featured events only.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Array_Of_Type(
+			'status',
+			fn() => __( 'Limit result set to events with specific status.', 'the-events-calendar' ),
+			false,
+			Text::class,
+			null,
+			[ 'publish' ],
+			self::ALLOWED_STATUS,
+			null,
+			null,
+			null,
+			null,
+			fn( $value ) => $this->validate_status( $value )
+		);
+
+		$collection[] = new Positive_Integer(
+			'post_parent',
+			fn() => __( 'Limit result set to events with specific post parent.', 'the-events-calendar' ),
+			false
+		);
+
+
+		$collection[] = new Date_Time(
+			'starts_before',
+			fn() => __( 'Limit result set to events starting before the specified date.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Date_Time(
+			'starts_after',
+			fn() => __( 'Limit result set to events starting after the specified date.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Date_Time(
+			'ends_before',
+			fn() => __( 'Limit result set to events ending before the specified date.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Date_Time(
+			'ends_after',
+			fn() => __( 'Limit result set to events ending after the specified date.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Boolean(
+			'ticketed',
+			fn() => __( 'Limit result set to events with tickets.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Text(
+			'orderby',
+			fn() => __( 'Sort collection by event attribute.', 'the-events-calendar' ),
+			false,
+			null,
+			null,
+			'event_date',
+			[ 'date', 'event_date', 'title', 'menu_order', 'modified' ],
+		);
+
+		$collection[] = new Text(
+			'order',
+			fn() => __( 'Order sort attribute ascending or descending.', 'the-events-calendar' ),
+			false,
+			null,
+			null,
+			'ASC',
+			[ 'ASC', 'DESC' ],
+		);
+
+		return $collection;
 	}
 
 	/**
