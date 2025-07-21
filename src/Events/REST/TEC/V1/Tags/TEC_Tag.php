@@ -42,7 +42,7 @@ class TEC_Tag extends Tag {
 	public function get(): array {
 		return [
 			'name'        => $this->get_name(),
-			'description' => __( 'These operations are introduced by the Events Calendar.', 'the-events-calendar' ),
+			'description' => __( 'These operations are introduced by The Events Calendar.', 'the-events-calendar' ),
 		];
 	}
 }
