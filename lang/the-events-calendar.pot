@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.14.1\n"
+"Project-Id-Version: The Events Calendar 6.14.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-15T18:05:00+00:00\n"
+"POT-Creation-Date: 2025-07-21T21:55:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -3617,55 +3617,63 @@ msgstr ""
 msgid "This feature helps your users highlight events belonging to a specific category."
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:153
+#: src/Events/Category_Colors/Settings/Settings.php:154
 msgctxt "Category Colors section header"
 msgid "Category Colors"
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:160
+#: src/Events/Category_Colors/Settings/Settings.php:161
 msgid "Category colors helps your users relate events to a specific category on the event listing pages. To assign colors to event categories see Event Categories page."
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:172
+#: src/Events/Category_Colors/Settings/Settings.php:173
 msgctxt "Category Legend settings section header"
 msgid "Category Legend"
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:175
+#: src/Events/Category_Colors/Settings/Settings.php:176
 msgid "The category legend provides labels for the colors that appear on your events on event listing pages."
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:180
-msgid "Show Category Legend in these Event Views"
-msgstr ""
-
-#: src/Events/Category_Colors/Settings/Settings.php:192
-msgid "Legend Superpowers"
-msgstr ""
-
-#: src/Events/Category_Colors/Settings/Settings.php:193
-#: src/Events/Category_Colors/Settings/Settings.php:214
+#: src/Events/Category_Colors/Settings/Settings.php:181
+#: src/Events/Category_Colors/Settings/Settings.php:201
 msgid "Enable"
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:199
-msgid "Show hidden categories in legend"
+#: src/Events/Category_Colors/Settings/Settings.php:182
+msgid "Enable the frontend functionality for Category Colors."
+msgstr ""
+
+#: src/Events/Category_Colors/Settings/Settings.php:188
+msgid "Show Category Legend in these Event Views"
 msgstr ""
 
 #: src/Events/Category_Colors/Settings/Settings.php:200
-msgid "Display categories in the legend even if they aren't currently shown on the calendar."
-msgstr ""
-
-#: src/Events/Category_Colors/Settings/Settings.php:206
-msgid "Custom CSS"
+msgid "Legend Superpowers"
 msgstr ""
 
 #: src/Events/Category_Colors/Settings/Settings.php:207
+msgid "Show hidden categories in legend"
+msgstr ""
+
+#: src/Events/Category_Colors/Settings/Settings.php:208
+msgid "Display categories in the legend even if they aren't currently shown on the calendar."
+msgstr ""
+
+#: src/Events/Category_Colors/Settings/Settings.php:214
+msgid "Custom CSS"
+msgstr ""
+
+#: src/Events/Category_Colors/Settings/Settings.php:215
 msgid "Use your own CSS for category legend"
 msgstr ""
 
-#: src/Events/Category_Colors/Settings/Settings.php:213
+#: src/Events/Category_Colors/Settings/Settings.php:221
 msgid "Reset Button"
+msgstr ""
+
+#: src/Events/Category_Colors/Settings/Settings.php:222
+msgid "Only appears if Legend Superpowers are active. Helps users clear their category selections."
 msgstr ""
 
 #: src/Events/Custom_Tables/V1/admin-views/migration/icons/rerun.php:13
@@ -3822,7 +3830,7 @@ msgstr ""
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:232
 #: src/views/v2/day.php:46
 #: src/views/v2/list.php:48
-#: src/views/v2/month.php:44
+#: src/views/v2/month.php:46
 msgid "Loading..."
 msgstr ""
 
@@ -10484,43 +10492,44 @@ msgstr ""
 msgid "Subscribe to calendar"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:41
+#: src/views/v2/components/top-bar/category-color-picker.php:43
 msgid "Select categories to highlight"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:48
+#: src/views/v2/components/top-bar/category-color-picker.php:50
+#: src/views/v2/components/top-bar/category-color-picker.php:57
 msgid "Category selection"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:50
+#: src/views/v2/components/top-bar/category-color-picker.php:52
 msgid "Highlight a category"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:50
+#: src/views/v2/components/top-bar/category-color-picker.php:52
 msgid "Browse by category"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:51
+#: src/views/v2/components/top-bar/category-color-picker.php:53
 msgid "Close category selection"
 msgstr ""
 
 #. translators: %s is the category name.
-#: src/views/v2/components/top-bar/category-color-picker.php:63
+#: src/views/v2/components/top-bar/category-color-picker.php:78
 #, php-format
 msgid "Highlight events in %s"
 msgstr ""
 
 #. translators: %s is the category name.
-#: src/views/v2/components/top-bar/category-color-picker.php:82
+#: src/views/v2/components/top-bar/category-color-picker.php:97
 #, php-format
 msgid "View events in %s"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:104
+#: src/views/v2/components/top-bar/category-color-picker.php:120
 msgid "Reset category selection"
 msgstr ""
 
-#: src/views/v2/components/top-bar/category-color-picker.php:105
+#: src/views/v2/components/top-bar/category-color-picker.php:121
 msgid "Reset"
 msgstr ""
 
@@ -10606,13 +10615,13 @@ msgid "Previous %1$s"
 msgstr ""
 
 #. translators: %s: event label plural.
-#: src/views/v2/month.php:58
+#: src/views/v2/month.php:60
 #, php-format
 msgid "Calendar of %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural).
-#: src/views/v2/month/calendar-body/day/cell-title.php:44
+#: src/views/v2/month/calendar-body/day/cell-title.php:47
 #, php-format
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
