@@ -26,6 +26,9 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Contracts\Parameter;
+use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Events\REST\TEC\V1\Documentation\Venue_Definition;
+use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 
 /**
  * Archive venues endpoint for the TEC REST API V1.
@@ -170,80 +173,6 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint {
 	}
 
 	/**
-	 * Returns the OpenAPI documentation for the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	public function get_documentation(): array {
-		$collection = $this->read_args();
-		$parameters = $collection->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() );
-
-		return [
-			'get' => [
-				'summary'     => __( 'Get venues', 'the-events-calendar' ),
-				'description' => __( 'Returns a list of venues', 'the-events-calendar' ),
-				'operationId' => 'getVenues',
-				'tags'        => [ tribe( TEC_Tag::class )->get_name() ],
-				'parameters'  => $parameters,
-				'responses'   => [
-					'200' => [
-						'description' => __( 'Returns the list of venues', 'the-events-calendar' ),
-						'headers'     => [
-							'X-WP-Total'      => [
-								'description' => __( 'The total number of venues matching the request.', 'the-events-calendar' ),
-								'schema'      => [
-									'type' => 'integer',
-								],
-							],
-							'X-WP-TotalPages' => [
-								'description' => __( 'The total number of pages for the request.', 'the-events-calendar' ),
-								'schema'      => [
-									'type' => 'integer',
-								],
-							],
-							'Link'            => [
-								'description' => __(
-									'RFC 5988 Link header for pagination. Contains navigation links with relationships:
-									`rel="next"` for the next page (if not on last page),
-									`rel="prev"` for the previous page (if not on first page).
-									Header is omitted entirely if there\'s only one page',
-									'the-events-calendar'
-								),
-								'schema'      => [
-									'type'  => 'array',
-									'items' => [
-										'type'   => 'string',
-										'format' => 'uri',
-									],
-								],
-								'required'    => false,
-							],
-						],
-						'content'     => [
-							'application/json' => [
-								'schema' => [
-									'type'  => 'array',
-									'items' => [
-										'$ref' => '#/components/schemas/Venue',
-									],
-								],
-							],
-						],
-					],
-					'400' => [
-						'description' => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
-					],
-					'404' => [
-						'description' => __( 'The requested page was not found', 'the-events-calendar' ),
-					],
-				],
-			],
-		];
-	}
-
-	/**
 	 * Returns the arguments for the read request.
 	 *
 	 * @since TBD
@@ -298,5 +227,80 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint {
 		);
 
 		return $collection;
+	}
+
+	/**
+	 * Returns the schema for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function read_schema(): OpenAPI_Schema {
+		$schema = new OpenAPI_Schema(
+			fn() => __( 'Get venues', 'the-events-calendar' ),
+			fn() => __( 'Returns a list of venues', 'the-events-calendar' ),
+			'getVenues',
+			[ tribe( TEC_Tag::class ) ],
+			$this->read_args(),
+		);
+
+		$headers_collection = new Collection();
+
+		$headers_collection[] = new Positive_Integer(
+			'X-WP-Total',
+			fn() => __( 'The total number of venues matching the request.', 'the-events-calendar' ),
+			null,
+			null,
+			null,
+			true
+		);
+
+		$headers_collection[] = new Positive_Integer(
+			'X-WP-TotalPages',
+			fn() => __( 'The total number of pages for the request.', 'the-events-calendar' ),
+			null,
+			null,
+			null,
+			true
+		);
+
+		$headers_collection[] = new Array_Of_Type(
+			'Link',
+			fn() => __(
+				'RFC 5988 Link header for pagination. Contains navigation links with relationships:
+				`rel="next"` for the next page (if not on last page),
+				`rel="prev"` for the previous page (if not on first page).
+				Header is omitted entirely if there\'s only one page',
+				'the-events-calendar'
+			),
+			URI::class,
+		);
+
+		$response = new Array_Of_Type(
+			'Venue',
+			null,
+			Venue_Definition::class,
+		);
+
+		$schema->add_response(
+			200,
+			fn() => __( 'Returns the list of venues', 'the-events-calendar' ),
+			$headers_collection,
+			'application/json',
+			$response,
+		);
+
+		$schema->add_response(
+			400,
+			fn() => __( 'A required parameter is missing or an input parameter is in the wrong format', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			404,
+			fn() => __( 'The requested page was not found', 'the-events-calendar' ),
+		);
+
+		return $schema;
 	}
 }
