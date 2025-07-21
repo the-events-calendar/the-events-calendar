@@ -42,16 +42,15 @@ jobs:
       translation-summary: ${{ steps.sync-translations.outputs.translation-summary }}
       changes-made: ${{ steps.sync-translations.outputs.changes-made }}
     steps:
-      - name: Call reusable sync-translations workflow
+      - name: Sync translations
         id: sync-translations
-        uses: ./.github/workflows/reusable/release-process/sync-translations.yml
+        uses: the-events-calendar/actions/.github/actions/sync-translations@main
         with:
           target-branch: ${{ inputs.target-branch }}
-        secrets:
-          TRANSLATIONS_DEPLOY_HOST: ${{ secrets.TRANSLATIONS_DEPLOY_HOST }}
-          TRANSLATIONS_DEPLOY_USER: ${{ secrets.TRANSLATIONS_DEPLOY_USER }}
-          TRANSLATIONS_DEPLOY_SSH_KEY: ${{ secrets.TRANSLATIONS_DEPLOY_SSH_KEY }}
-          TRANSLATIONS_DEPLOY_POT_LOCATION: ${{ secrets.TRANSLATIONS_DEPLOY_POT_LOCATION }}
+          translations-deploy-host: ${{ secrets.TRANSLATIONS_DEPLOY_HOST }}
+          translations-deploy-user: ${{ secrets.TRANSLATIONS_DEPLOY_USER }}
+          translations-deploy-ssh-key: ${{ secrets.TRANSLATIONS_DEPLOY_SSH_KEY }}
+          translations-deploy-pot-location: ${{ secrets.TRANSLATIONS_DEPLOY_POT_LOCATION }}
 
   # Job 2: Analyze Changes
   analyze-changes:
@@ -62,9 +61,9 @@ jobs:
       analysis-summary: ${{ steps.analyze-changes.outputs.analysis-summary }}
       changes-detected: ${{ steps.analyze-changes.outputs.changes-detected }}
     steps:
-      - name: Call reusable analyze-changes workflow
+      - name: Analyze changes
         id: analyze-changes
-        uses: ./.github/workflows/reusable/release-process/analyze-changes.yml
+        uses: the-events-calendar/actions/.github/actions/analyze-changes@main
         with:
           compare-commit: ""
           output-format: "changelog"
@@ -78,9 +77,9 @@ jobs:
       changelog-content: ${{ steps.process-changelog.outputs.changelog-content }}
       changes-made: ${{ steps.process-changelog.outputs.changes-made }}
     steps:
-      - name: Call reusable process-changelog workflow
+      - name: Process changelog
         id: process-changelog
-        uses: ./.github/workflows/reusable/release-process/process-changelog.yml
+        uses: the-events-calendar/actions/.github/actions/process-changelog@main
         with:
           release-version: ${{ inputs.release-version }}
           release-date: ${{ inputs.release-date }}
@@ -96,9 +95,9 @@ jobs:
       changes-made: ${{ steps.replace-tbd.outputs.changes-made }}
       current-version: ${{ steps.replace-tbd.outputs.current-version }}
     steps:
-      - name: Call reusable replace-tbd-entries workflow
+      - name: Replace TBD entries
         id: replace-tbd
-        uses: ./.github/workflows/reusable/release-process/replace-tbd-entries.yml
+        uses: the-events-calendar/actions/.github/actions/replace-tbd-entries@main
         with:
           target-branch: ${{ inputs.target-branch }}
 

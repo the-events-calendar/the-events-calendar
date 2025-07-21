@@ -16,14 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
     steps:
-      # Setup environment using reusable workflow
+      # Setup environment using action
       - name: Setup environment
-        uses: ./.github/workflows/reusable/basic-setup.yml
+        uses: the-events-calendar/actions/.github/actions/basic-setup@main
         with:
-          setup-php: true
-          setup-node: false
-          php-version: 7.4
-          fetch-depth: 1000
+          setup-php: 'true'
+          setup-node: 'false'
+          php-version: '7.4'
+          fetch-depth: '1000'
 
       # Enable composer caching
       - name: Get Composer Cache Directory

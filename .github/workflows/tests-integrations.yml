@@ -3,13 +3,15 @@ on:
   pull_request:
 jobs:
   test:
-    uses: ./.github/workflows/reusable/slic-test-runner.yml
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         suite:
           - elementor_integration
-    with:
-      suite: ${{ matrix.suite }}
-      skip-flag: tests-integrations
-    secrets:
-      gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}
+    steps:
+      - name: Run slic tests
+        uses: the-events-calendar/actions/.github/actions/slic-test-runner@main
+        with:
+          suite: ${{ matrix.suite }}
+          skip-flag: tests-integrations
+          gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}

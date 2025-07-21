@@ -13,10 +13,10 @@ jobs:
     if: "!contains(github.event.pull_request.body, '[skip-lint]')"
     steps:
       - name: Setup environment
-        uses: ./.github/workflows/reusable/basic-setup.yml
+        uses: the-events-calendar/actions/.github/actions/basic-setup@main
         with:
-          setup-php: false
-          setup-node: true
+          setup-php: 'false'
+          setup-node: 'true'
 
       # ------------------------------------------------------------------------------
       # Run linting tasks

@@ -29,12 +29,12 @@ jobs:
           echo "- new-branch: \`${{ github.event.inputs['new-branch'] }}\`" >> $GITHUB_STEP_SUMMARY
 
       - name: Setup environment
-        uses: ./.github/workflows/reusable/basic-setup.yml
+        uses: the-events-calendar/actions/.github/actions/basic-setup@main
         with:
-          setup-php: true
-          setup-node: false
-          php-version: 7.4
-          fetch-depth: 1
+          setup-php: 'true'
+          setup-node: 'false'
+          php-version: '7.4'
+          fetch-depth: '1'
 
       - name: Set Variables
         id: vars

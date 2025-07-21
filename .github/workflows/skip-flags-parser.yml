@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup environment
-        uses: ./.github/workflows/reusable/basic-setup.yml
+        uses: the-events-calendar/actions/.github/actions/basic-setup@main
         with:
-          setup-php: false
-          setup-node: false
+          setup-php: 'false'
+          setup-node: 'false'
 
       - name: Parse skip flags
         id: parse-flags

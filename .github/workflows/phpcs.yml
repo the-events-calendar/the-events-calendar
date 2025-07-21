@@ -3,12 +3,16 @@ on: [pull_request]
 
 jobs:
   conditional:
-    uses: ./.github/workflows/reusable/php-change-detector.yml
-    with:
-      skip-flag: phpcs
+    runs-on: ubuntu-latest
     outputs:
-      has-php-changes: ${{ jobs.conditional.outputs.has-php-changes }}
-      should-run: ${{ jobs.conditional.outputs.should-run }}
+      has-php-changes: ${{ steps.php-changes.outputs.has-php-changes }}
+      should-run: ${{ steps.php-changes.outputs.should-run }}
+    steps:
+      - name: Check PHP changes
+        id: php-changes
+        uses: the-events-calendar/actions/.github/actions/php-change-detector@main
+        with:
+          skip-flag: phpcs
 
   phpcs:
     needs:

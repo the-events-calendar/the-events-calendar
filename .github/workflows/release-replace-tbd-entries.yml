@@ -26,9 +26,9 @@ jobs:
       changes-made: ${{ steps.replace-tbd.outputs.changes-made }}
       current-version: ${{ steps.replace-tbd.outputs.current-version }}
     steps:
-      - name: Call reusable replace-tbd-entries workflow
+      - name: Replace TBD entries
         id: replace-tbd
-        uses: ./.github/workflows/reusable/release-process/replace-tbd-entries.yml
+        uses: the-events-calendar/actions/.github/actions/replace-tbd-entries@main
         with:
           target-branch: ${{ inputs.target-branch || github.head_ref || github.ref_name }}
 

@@ -59,9 +59,9 @@ jobs:
       changelog-content: ${{ steps.process-changelog.outputs.changelog-content }}
       changes-made: ${{ steps.process-changelog.outputs.changes-made }}
     steps:
-      - name: Call reusable process-changelog workflow
+      - name: Process changelog
         id: process-changelog
-        uses: ./.github/workflows/reusable/release-process/process-changelog.yml
+        uses: the-events-calendar/actions/.github/actions/process-changelog@main
         with:
           release-version: ${{ inputs.release-version }}
           release-date: ${{ inputs.release-date }}

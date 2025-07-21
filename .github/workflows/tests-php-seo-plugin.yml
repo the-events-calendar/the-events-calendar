@@ -3,18 +3,20 @@ on:
   pull_request:
 jobs:
   test:
-    uses: ./.github/workflows/reusable/slic-test-runner.yml
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         suite:
           - integrations_plugin_wordpress_seo
-    with:
-      suite: ${{ matrix.suite }}
-      skip-flag: tests-php-seo-plugin
-      # SEO plugin specific setup
-      additional-setup: |
-        # Install Yoast SEO
-        ${SLIC_BIN} wp core update --force --version=6.6
-        ${SLIC_BIN} wp plugin install wordpress-seo
-    secrets:
-      gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}
+    steps:
+      - name: Run slic tests
+        uses: the-events-calendar/actions/.github/actions/slic-test-runner@main
+        with:
+          suite: ${{ matrix.suite }}
+          skip-flag: tests-php-seo-plugin
+          # SEO plugin specific setup
+          additional-setup: |
+            # Install Yoast SEO
+            ${SLIC_BIN} wp core update --force --version=6.6
+            ${SLIC_BIN} wp plugin install wordpress-seo
+          gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}

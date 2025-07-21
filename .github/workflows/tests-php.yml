@@ -3,7 +3,7 @@ on:
   pull_request:
 jobs:
   test:
-    uses: ./.github/workflows/reusable/slic-test-runner.yml
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         suite:
@@ -31,8 +31,10 @@ jobs:
           - ct1_migration
           - rewrite_functional
           - wpunit
-    with:
-      suite: ${{ matrix.suite }}
-      skip-flag: tests-php
-    secrets:
-      gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}
+    steps:
+      - name: Run slic tests
+        uses: the-events-calendar/actions/.github/actions/slic-test-runner@main
+        with:
+          suite: ${{ matrix.suite }}
+          skip-flag: tests-php
+          gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}

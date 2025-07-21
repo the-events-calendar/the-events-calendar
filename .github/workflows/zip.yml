@@ -79,11 +79,11 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Setup Node.js environment
-        uses: ./.github/workflows/reusable/basic-setup.yml
+        uses: the-events-calendar/actions/.github/actions/basic-setup@main
         with:
-          setup-php: false
-          setup-node: true
-          fetch-depth: 1000
+          setup-php: 'false'
+          setup-node: 'true'
+          fetch-depth: '1000'
 
       # ------------------------------------------------------------------------------
       # Install Pup

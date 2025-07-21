@@ -7,12 +7,16 @@ on:
       - 'src/**.php'
 jobs:
   conditional:
-    uses: ./.github/workflows/reusable/php-change-detector.yml
-    with:
-      skip-flag: phpstan
+    runs-on: ubuntu-latest
     outputs:
-      has-php-changes: ${{ jobs.conditional.outputs.has-php-changes }}
-      should-run: ${{ jobs.conditional.outputs.should-run }}
+      has-php-changes: ${{ steps.php-changes.outputs.has-php-changes }}
+      should-run: ${{ steps.php-changes.outputs.should-run }}
+    steps:
+      - name: Check PHP changes
+        id: php-changes
+        uses: the-events-calendar/actions/.github/actions/php-change-detector@main
+        with:
+          skip-flag: phpstan
 
   phpstan:
     needs:
@@ -33,12 +37,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup environment
-        uses: ./.github/workflows/reusable/basic-setup.yml
+        uses: the-events-calendar/actions/.github/actions/basic-setup@main
         with:
-          setup-php: true
-          setup-node: false
+          setup-php: 'true'
+          setup-node: 'false'
           php-version: ${{ matrix.phpVersion }}
-          fetch-depth: 1000
+          fetch-depth: '1000'
 
       # ------------------------------------------------------------------------------
       # Enable composer caching

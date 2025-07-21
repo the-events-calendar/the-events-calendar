@@ -48,9 +48,9 @@ jobs:
       analysis-summary: ${{ steps.analyze-changes.outputs.analysis-summary }}
       changes-detected: ${{ steps.analyze-changes.outputs.changes-detected }}
     steps:
-      - name: Call reusable analyze-changes workflow
+      - name: Analyze changes
         id: analyze-changes
-        uses: ./.github/workflows/reusable/release-process/analyze-changes.yml
+        uses: the-events-calendar/actions/.github/actions/analyze-changes@main
         with:
           compare-commit: ${{ inputs.compare-commit }}
           output-format: ${{ inputs.output-format }}

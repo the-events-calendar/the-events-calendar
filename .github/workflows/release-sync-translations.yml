@@ -35,16 +35,15 @@ jobs:
       translation-summary: ${{ steps.sync-translations.outputs.translation-summary }}
       changes-made: ${{ steps.sync-translations.outputs.changes-made }}
     steps:
-      - name: Call reusable sync-translations workflow
+      - name: Sync translations
         id: sync-translations
-        uses: ./.github/workflows/reusable/release-process/sync-translations.yml
+        uses: the-events-calendar/actions/.github/actions/sync-translations@main
         with:
           target-branch: ${{ inputs.target-branch || github.head_ref || github.ref_name }}
-        secrets:
-          TRANSLATIONS_DEPLOY_HOST: ${{ secrets.TRANSLATIONS_DEPLOY_HOST }}
-          TRANSLATIONS_DEPLOY_USER: ${{ secrets.TRANSLATIONS_DEPLOY_USER }}
-          TRANSLATIONS_DEPLOY_SSH_KEY: ${{ secrets.TRANSLATIONS_DEPLOY_SSH_KEY }}
-          TRANSLATIONS_DEPLOY_POT_LOCATION: ${{ secrets.TRANSLATIONS_DEPLOY_POT_LOCATION }}
+          translations-deploy-host: ${{ secrets.TRANSLATIONS_DEPLOY_HOST }}
+          translations-deploy-user: ${{ secrets.TRANSLATIONS_DEPLOY_USER }}
+          translations-deploy-ssh-key: ${{ secrets.TRANSLATIONS_DEPLOY_SSH_KEY }}
+          translations-deploy-pot-location: ${{ secrets.TRANSLATIONS_DEPLOY_POT_LOCATION }}
 
       # Create PR only when run individually
       - name: Create Pull Request
