@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { PostFeaturedImage } from '@wordpress/editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { TinyMceEditor } from '@tec/common/classy/components';
+import { isValidUrl } from '@tec/common/classy/functions';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { METADATA_EVENT_URL } from '../../constants';
 
@@ -40,8 +41,14 @@ export default function EventDetails( props: FieldProps ) {
 	};
 
 	const onUrlChange = ( nextValue: string | undefined ): void => {
-		setEventUrlValue( nextValue ?? '' );
-		editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
+		const urlValue = nextValue ?? '';
+
+		if ( ! isValidUrl( urlValue ) ) {
+		    return;
+		}
+
+        setEventUrlValue( urlValue );
+        editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};
 
 	return (
