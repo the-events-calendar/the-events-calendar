@@ -17,6 +17,7 @@ use Tribe__Utils__Array as Arr;
  * @var array $breadcrumb Data for breadcrumb.
  */
 
+// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $title        = Arr::get( 'title', '' );
 $aria_current = isset( $breadcrumb['current_page'] ) ? 'page' : null;
 
