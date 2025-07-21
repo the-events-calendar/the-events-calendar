@@ -25,6 +25,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 
 /**
  * Archive organizers endpoint for the TEC REST API V1.
@@ -176,13 +177,16 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 * @return array
 	 */
 	public function get_documentation(): array {
+		$collection = $this->read_args();
+		$parameters = $collection->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() );
+
 		return [
 			'get' => [
 				'summary'     => __( 'Get organizers', 'the-events-calendar' ),
 				'description' => __( 'Returns a list of organizers', 'the-events-calendar' ),
 				'operationId' => 'getOrganizers',
 				'tags'        => [ tribe( TEC_Tag::class )->get_name() ],
-				'parameters'  => $this->get_read_documentation_params(),
+				'parameters'  => $parameters,
 				'responses'   => [
 					'200' => [
 						'description' => __( 'Returns the list of organizers', 'the-events-calendar' ),
@@ -252,63 +256,44 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint {
 		$collection[] = new Positive_Integer(
 			'page',
 			fn() => __( 'The collection page number.', 'the-events-calendar' ),
-			false,
-			null,
-			null,
 			1,
-			null,
-			null,
 			1
 		);
 
 		$collection[] = new Positive_Integer(
 			'per_page',
 			fn() => __( 'Maximum number of items to be returned in result set.', 'the-events-calendar' ),
-			false,
-			null,
-			null,
 			$this->get_default_posts_per_page(),
-			null,
-			100,
-			1
+			1,
+			100
 		);
 
 		$collection[] = new Text(
 			'search',
 			fn() => __( 'Limit results to those matching a string.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Positive_Integer(
 			'event',
 			fn() => __( 'Limit result set to organizers with specific event.', 'the-events-calendar' ),
-			false,
 		);
 
 		$collection[] = new Boolean(
 			'has_events',
 			fn() => __( 'Limit result set to organizers with events.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Boolean(
 			'only_with_upcoming',
 			fn() => __( 'Limit result set to organizers with upcoming events.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Array_Of_Type(
 			'status',
 			fn() => __( 'Limit result set to organizers with specific status.', 'the-events-calendar' ),
-			false,
 			Text::class,
-			null,
-			[ 'publish' ],
 			self::ALLOWED_STATUS,
-			null,
-			null,
-			null,
-			null,
+			[ 'publish' ],
 			fn( $value ) => $this->validate_status( $value )
 		);
 

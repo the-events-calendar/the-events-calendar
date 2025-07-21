@@ -28,6 +28,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
+use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -225,13 +226,16 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 * @return array
 	 */
 	public function get_documentation(): array {
+		$collection = $this->read_args();
+		$parameters = $collection->map( fn( Parameter $parameter ) => $parameter->to_openapi_schema() );
+
 		return [
 			'get' => [
 				'summary'     => __( 'Get events', 'the-events-calendar' ),
 				'description' => __( 'Returns a list of events', 'the-events-calendar' ),
 				'operationId' => 'getEvents',
 				'tags'        => [ tribe( TEC_Tag::class )->get_name() ],
-				'parameters'  => $this->get_read_documentation_params(),
+				'parameters'  => $parameters,
 				'responses'   => [
 					'200' => [
 						'description' => __( 'Returns the list of events', 'the-events-calendar' ),
@@ -301,69 +305,49 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 		$collection[] = new Positive_Integer(
 			'page',
 			fn() => __( 'The collection page number.', 'the-events-calendar' ),
-			false,
-			null,
-			null,
 			1,
-			null,
-			null,
 			1
 		);
 
 		$collection[] = new Positive_Integer(
 			'per_page',
 			fn() => __( 'Maximum number of items to be returned in result set.', 'the-events-calendar' ),
-			false,
-			null,
-			null,
 			$this->get_default_posts_per_page(),
-			null,
+			1,
 			100,
-			1
 		);
 
 		$collection[] = new Date_Time(
 			'start_date',
 			fn() => __( 'Limit events to those starting after the specified date.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Date_Time(
 			'end_date',
 			fn() => __( 'Limit events to those ending before the specified date.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Text(
 			'search',
 			fn() => __( 'Limit results to those matching a string.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Array_Of_Type(
 			'categories',
 			fn() => __( 'Limit result set to events assigned specific categories.', 'the-events-calendar' ),
-			false,
 			Positive_Integer::class,
 		);
 
 		$collection[] = new Array_Of_Type(
 			'tags',
 			fn() => __( 'Limit result set to events assigned specific tags.', 'the-events-calendar' ),
-			false,
 			Positive_Integer::class,
 		);
 
 		$collection[] = new Array_Of_Type(
 			'venue',
 			fn() => __( 'Limit result set to events assigned to specific venues.', 'the-events-calendar' ),
-			false,
 			Positive_Integer::class,
-			null,
-			null,
-			null,
-			null,
-			null,
 			null,
 			null,
 			fn( $value ) => $this->validator->is_venue_id_list( $value ),
@@ -372,13 +356,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 		$collection[] = new Array_Of_Type(
 			'organizer',
 			fn() => __( 'Limit result set to events assigned to specific organizers.', 'the-events-calendar' ),
-			false,
 			Positive_Integer::class,
-			null,
-			null,
-			null,
-			null,
-			null,
 			null,
 			null,
 			fn( $value ) => $this->validator->is_organizer_id_list( $value )
@@ -387,67 +365,50 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 		$collection[] = new Boolean(
 			'featured',
 			fn() => __( 'Limit result set to featured events only.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Array_Of_Type(
 			'status',
 			fn() => __( 'Limit result set to events with specific status.', 'the-events-calendar' ),
-			false,
 			Text::class,
-			null,
-			[ 'publish' ],
 			self::ALLOWED_STATUS,
-			null,
-			null,
-			null,
-			null,
+			[ 'publish' ],
 			fn( $value ) => $this->validate_status( $value )
 		);
 
 		$collection[] = new Positive_Integer(
 			'post_parent',
 			fn() => __( 'Limit result set to events with specific post parent.', 'the-events-calendar' ),
-			false
 		);
-
 
 		$collection[] = new Date_Time(
 			'starts_before',
 			fn() => __( 'Limit result set to events starting before the specified date.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Date_Time(
 			'starts_after',
 			fn() => __( 'Limit result set to events starting after the specified date.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Date_Time(
 			'ends_before',
 			fn() => __( 'Limit result set to events ending before the specified date.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Date_Time(
 			'ends_after',
 			fn() => __( 'Limit result set to events ending after the specified date.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Boolean(
 			'ticketed',
 			fn() => __( 'Limit result set to events with tickets.', 'the-events-calendar' ),
-			false
 		);
 
 		$collection[] = new Text(
 			'orderby',
 			fn() => __( 'Sort collection by event attribute.', 'the-events-calendar' ),
-			false,
-			null,
-			null,
 			'event_date',
 			[ 'date', 'event_date', 'title', 'menu_order', 'modified' ],
 		);
@@ -455,9 +416,6 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 		$collection[] = new Text(
 			'order',
 			fn() => __( 'Order sort attribute ascending or descending.', 'the-events-calendar' ),
-			false,
-			null,
-			null,
 			'ASC',
 			[ 'ASC', 'DESC' ],
 		);
