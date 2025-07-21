@@ -26,6 +26,7 @@ export default function EventDetails( props: FieldProps ) {
 
 	const [ description, setDescription ] = useState< string >( postContent || '' );
 	const [ eventUrlValue, setEventUrlValue ] = useState< string >( eventUrlMeta );
+	const [ isUrlInvalid, setIsUrlInvalid ] = useState< boolean >( false );
 
 	useEffect( () => {
 		setDescription( postContent );
@@ -44,9 +45,11 @@ export default function EventDetails( props: FieldProps ) {
 		const urlValue = nextValue ?? '';
 
 		if ( ! isValidUrl( urlValue ) ) {
+            setIsUrlInvalid( true );
 		    return;
 		}
 
+        setIsUrlInvalid( false );
         setEventUrlValue( urlValue );
         editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};
@@ -109,12 +112,17 @@ export default function EventDetails( props: FieldProps ) {
 					</div>
 
 					<InputControl
-						className="classy-field__control classy-field__control--input"
+						className={`classy-field__control classy-field__control--input${isUrlInvalid ? ' classy-field__control--invalid' : ''}`}
 						__next40pxDefaultSize
 						value={ eventUrlValue }
 						onChange={ onUrlChange }
 						placeholder="www.example.com"
 					/>
+					{isUrlInvalid && (
+						<div className="classy-field__input-note classy-field__input-note--error">
+							{ _x( 'Please enter a valid URL', 'Event details website URL input error message', 'the-events-calendar' ) }
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
