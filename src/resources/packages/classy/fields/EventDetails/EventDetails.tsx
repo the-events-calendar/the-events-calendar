@@ -123,7 +123,7 @@ export default function EventDetails( props: FieldProps ) {
 					{ isUrlInvalid && (
 						<div className="classy-field__input-note classy-field__input-note--error">
 							{ _x(
-								'Please enter a valid URL',
+								'Must be a valid URL',
 								'Event details website URL input error message',
 								'the-events-calendar'
 							) }
