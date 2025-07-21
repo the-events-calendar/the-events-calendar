@@ -2304,6 +2304,11 @@ class View implements View_Interface {
 		 */
 		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breadcrumbs", $breadcrumbs, $this );
 
+		if ( ! empty( $breadcrumbs ) ) {
+			$last_index                                 = array_key_last( $breadcrumbs );
+			$breadcrumbs[ $last_index ]['current_page'] = true;
+		}
+
 		return $breadcrumbs;
 	}
 

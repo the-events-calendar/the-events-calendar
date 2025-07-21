@@ -19,7 +19,7 @@ if ( empty( $breadcrumbs ) ) {
 }
 
 ?>
-<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
+<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="Breadcrumb">
 	<ol class="tribe-events-c-breadcrumbs__list">
 		<?php foreach ( $breadcrumbs as $breadcrumb ) : ?>
 

@@ -16,7 +16,10 @@ use Tribe__Utils__Array as Arr;
  *
  * @var array $breadcrumb Data for breadcrumb.
  */
-$title = Arr::get( 'title', '' );
+
+$title        = Arr::get( 'title', '' );
+$aria_current = isset( $breadcrumb['current_page'] ) ? 'page' : null;
+
 ?>
 <li class="tribe-events-c-breadcrumbs__list-item">
 	<a
@@ -24,6 +27,7 @@ $title = Arr::get( 'title', '' );
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
 		title="<?php echo esc_attr( $title ); ?>"
 		data-js="tribe-events-view-link"
+		<?php echo $aria_current ? 'aria-current="' . esc_attr( $aria_current ) . '"' : ''; ?>
 	>
 		<?php echo esc_html( $breadcrumb['label'] ); ?>
 	</a>
