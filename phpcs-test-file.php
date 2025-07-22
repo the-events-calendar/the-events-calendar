@@ -6,21 +6,6 @@
 // Missing `/**` style comment for class.
 class phpcsTest
 {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	// Incorrect camel-case class name. Class name must begin with a capital letter.
 	public function no_docblock()
     {
@@ -187,15 +172,9 @@ class phpcsTest
 	 * Argument lists MAY be split across multiple lines, where each subsequent line is indented once.
 	 *
 	 * @param string $foo Some string.
-	 * @param string $bar Another string.
-	 * @param string $baz Yet another string.
-	 * @param string $booze A final string.
 	 */
 	public function multi_line_no_indent(
-	$foo,
-	$bar,
-	$baz,
-	$booze
+	$foo, // triggers "Multi-line function declaration not indented correctly; expected 8 spaces but found 4"
 	) {
 		// do stuff.
 	}
@@ -286,6 +265,7 @@ class phpcsTest
 
 	/**
 	 * Function to call for tests above.
+	 * Will throw "Doc comment for parameter "X" missing"
 	 */
 	public function star_wars(
 		$episode,
@@ -301,16 +281,16 @@ class phpcsTest
 	 * When doing so, the first conditional in the list MUST be on the next line, and there MUST be only one conditional per line.
 	 */
 	public function multiline_control_structures() {
-		$a = $b = $c = $d = $q = $banana_pancake = 'foo'; // phpcs:ignore-line
+		$a = $b = $c = $d = $q = $banana_pancake = 'foo'; // Fails: "Assignments must be the first block of code on a line."
 
-		// alignment beyond a single tab can be fraught with differences between devs.
+		// Alignment beyond a single tab can be fraught with differences between devs.
 		if ( $a == $b
 			 && $b == $c
 		) {
 			$banana_pancake = false;
 		}
 
-		// this one causes needless churn in Git as conditionals are added to the control structure.
+		// This one causes needless churn in Git as conditionals are added to the control structure.
 		if (
 			$a == $b &&
 			$b == $c
@@ -318,7 +298,7 @@ class phpcsTest
 			$banana_pancake = false;
 		}
 
-		// since we use tabs, we could be bitten by the tab/space nature of alignment here.
+		// Since we use tabs, we could be bitten by the tab/space nature of alignment here.
 		if (
 		   $a == $b
 		&& $b == $c
@@ -326,7 +306,7 @@ class phpcsTest
 			$banana_pancake = false;
 		}
 
-		// something a bit more complex - this violates the 1 conditional per line rule
+		// Something a bit more complex - this violates the 1 conditional per line rule.
 		if (
 			( $a == $b || $a == $c )
 			&& $b == $d
@@ -337,5 +317,5 @@ class phpcsTest
 	}
 }
 
-// Should trigger "no closing tag for pure PHP files".
+// Should trigger "no closing tag for pure PHP files" and "Additional whitespace found at end of file"
 ?>
