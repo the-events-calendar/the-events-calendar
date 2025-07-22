@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
+<?php return '<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="Breadcrumb">
 	<ol class="tribe-events-c-breadcrumbs__list">
 		
 							<li class="tribe-events-c-breadcrumbs__list-item">
@@ -7,7 +7,7 @@
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
 		title=""
 		data-js="tribe-events-view-link"
-	>
+			>
 		Events	</a>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg" 	aria-hidden="true"
@@ -20,8 +20,9 @@
 			
 		
 							<li class="tribe-events-c-breadcrumbs__list-item">
-	<span class="tribe-events-c-breadcrumbs__list-item-text">
-		Category	</span>
+	<span class="tribe-events-c-breadcrumbs__list-item-text"
+		>
+	Category	</span>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 10 16"

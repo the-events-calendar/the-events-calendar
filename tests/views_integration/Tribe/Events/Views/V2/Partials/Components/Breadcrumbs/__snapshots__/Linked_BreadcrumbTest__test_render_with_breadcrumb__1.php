@@ -4,7 +4,7 @@
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
 		title=""
 		data-js="tribe-events-view-link"
-	>
+			>
 		Events	</a>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg" 	aria-hidden="true"

@@ -1,6 +1,7 @@
 <?php return '<li class="tribe-events-c-breadcrumbs__list-item">
-	<span class="tribe-events-c-breadcrumbs__list-item-text">
-		Category	</span>
+	<span class="tribe-events-c-breadcrumbs__list-item-text"
+		>
+	Category	</span>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 10 16"
