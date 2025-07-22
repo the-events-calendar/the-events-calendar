@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.14.2
  *
- * @since TBD Added the category class to the list item to make customization easier.
+ * @since 6.14.2 Added the category class to the list item to make customization easier.
  *
  * @var string  $category_colors_enabled           Whether the category colors view should display.
  * @var array[] $category_colors_category_dropdown Array of categories with metadata.

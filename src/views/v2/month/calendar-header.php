@@ -10,9 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @since 4.9.10
- * @since TBD Improved accessibility for calendar view [TEC-5211].
+ * @since 6.14.2 Improved accessibility for calendar view [TEC-5211].
  *
- * @version TBD
+ * @version 6.14.2
  */
 
 global $wp_locale;

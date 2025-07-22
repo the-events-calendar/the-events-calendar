@@ -11,9 +11,9 @@
  *
  * @since 6.1.4 Changing our nonce verification structures.
  * @since 6.2.0 Moved the header information into a new components/header.php template.
- * @since TBD Improved accessibility for calendar view.
+ * @since 6.14.2 Improved accessibility for calendar view.
  *
- * @version TBD
+ * @version 6.14.2
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_method          The HTTP method, either `POST` or `GET`, the View will use to make requests.

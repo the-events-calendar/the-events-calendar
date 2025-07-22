@@ -10,9 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.0.0
- * @since TBD Removed link around featured image for accessibility update.
+ * @since 6.14.2 Removed link around featured image for accessibility update.
  *
- * @version TBD
+ * @version 6.14.2
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *

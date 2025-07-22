@@ -12,7 +12,7 @@
  * @since 5.0.0
  * @since Removed link around featured image for accessibility update [TEC-5179].
  *
- * @version TBD
+ * @version 6.14.2
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
