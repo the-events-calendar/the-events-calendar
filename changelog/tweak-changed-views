@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Changed views: `v2/components/top-bar/category-color-picker`, `v2/day/event/featured-image`, `v2/list/event/featured-image`, `v2/month`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-header`
