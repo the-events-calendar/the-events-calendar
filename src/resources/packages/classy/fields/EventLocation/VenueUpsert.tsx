@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { __experimentalInputControl as InputControl, Button, CustomSelectControl } from '@wordpress/components';
 import { CenteredSpinner, IconNew, LabeledInput } from '@tec/common/classy/components';
+import { isValidUrl } from '@tec/common/classy/functions';
 import { VenueData } from '../../types/VenueData';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { useSelect } from '@wordpress/data';
@@ -69,6 +70,7 @@ export default function VenueUpsert( props: {
 
 	// At a minimum, a Venue requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
+	const [ isUrlInvalid, setIsUrlInvalid ] = useState< boolean >( false );
 
 	const [ countryOption, setCountryOption ] = useState( countryPlaceholderOption );
 	const [ usStateOption, setUsStateOption ] = useState( usStatePlaceholderOption );
@@ -114,6 +116,23 @@ export default function VenueUpsert( props: {
 		( newValue: { selectedItem: CustomSelectOption } ) => {
 			setCurrentValues( { ...currentValues, stateprovince: newValue.selectedItem.name } );
 			setUsStateOption( newValue.selectedItem );
+		},
+		[ currentValues ]
+	);
+
+	const onWebsiteChange = useCallback(
+		( value: string | undefined ): void => {
+			const websiteValue = value ?? '';
+
+			// If the website is empty, it's considered valid (not required)
+			if ( ! isValidUrl( websiteValue ) ) {
+				setIsUrlInvalid( true );
+
+				return;
+			}
+			setIsUrlInvalid( false );
+			// Always update the input value to show what user typed
+			setCurrentValues( { ...currentValues, website: websiteValue } );
 		},
 		[ currentValues ]
 	);
@@ -251,14 +270,21 @@ export default function VenueUpsert( props: {
 
 				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
 					<InputControl
-						className="classy-field__control classy-field__control--input"
+						className={ `classy-field__control classy-field__control--input${
+							isUrlInvalid ? ' classy-field__control--invalid' : ''
+						}` }
 						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
 						value={ decodeEntities( currentValues.website ) }
-						onChange={ ( value ) => setCurrentValues( { ...currentValues, website: value || '' } ) }
+						onChange={ onWebsiteChange }
 						type="url"
 						__next40pxDefaultSize
 					/>
+					{ isUrlInvalid && (
+						<div className="classy-field__input-note classy-field__input-note--error">
+							{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
+						</div>
+					) }
 				</LabeledInput>
 			</section>
 
