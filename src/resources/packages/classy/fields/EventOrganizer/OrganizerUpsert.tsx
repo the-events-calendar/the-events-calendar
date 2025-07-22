@@ -30,18 +30,18 @@ export default function OrganizerUpsert( props: {
 
 	// At a minimum an Organizers requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
-	const [ isUrlInvalid, setIsUrlInvalid ] = useState< boolean >( false );
+	const [ hasValidUrl, setHasValidUrl ] = useState< boolean >( true );
 
 	const onWebsiteChange = useCallback(
 		( value: string | undefined ): void => {
 			const websiteValue = value ?? '';
 
 			if ( ! isValidUrl( websiteValue ) ) {
-				setIsUrlInvalid( true );
+				setHasValidUrl( false );
 				return;
 			}
 
-			setIsUrlInvalid( false );
+			setHasValidUrl( true );
 			// Always update the input value to show what user typed
 			setValues( { ...currentValues, website: websiteValue } );
 		},
@@ -114,7 +114,7 @@ export default function OrganizerUpsert( props: {
 				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
 					<InputControl
 						className={ `classy-field__control classy-field__control--input${
-							isUrlInvalid ? ' classy-field__control--invalid' : ''
+							! hasValidUrl ? ' classy-field__control--invalid' : ''
 						}` }
 						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
@@ -124,7 +124,7 @@ export default function OrganizerUpsert( props: {
 						placeholder=""
 						__next40pxDefaultSize
 					/>
-					{ isUrlInvalid && (
+					{ ! hasValidUrl && (
 						<div className="classy-field__input-note classy-field__input-note--error">
 							{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
 						</div>

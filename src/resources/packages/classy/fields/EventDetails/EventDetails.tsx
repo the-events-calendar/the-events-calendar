@@ -26,7 +26,7 @@ export default function EventDetails( props: FieldProps ) {
 
 	const [ description, setDescription ] = useState< string >( postContent || '' );
 	const [ eventUrlValue, setEventUrlValue ] = useState< string >( eventUrlMeta );
-	const [ isUrlInvalid, setIsUrlInvalid ] = useState< boolean >( false );
+	const [ hasValidUrl, setHasValidUrl ] = useState< boolean >( true );
 
 	useEffect( () => {
 		setDescription( postContent );
@@ -45,11 +45,11 @@ export default function EventDetails( props: FieldProps ) {
 		const urlValue = nextValue ?? '';
 
 		if ( ! isValidUrl( urlValue ) ) {
-			setIsUrlInvalid( true );
+			setHasValidUrl( false );
 			return;
 		}
 
-		setIsUrlInvalid( false );
+		setHasValidUrl( true );
 		setEventUrlValue( urlValue );
 		editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};
@@ -113,14 +113,14 @@ export default function EventDetails( props: FieldProps ) {
 
 					<InputControl
 						className={ `classy-field__control classy-field__control--input${
-							isUrlInvalid ? ' classy-field__control--invalid' : ''
+							! hasValidUrl ? ' classy-field__control--invalid' : ''
 						}` }
 						__next40pxDefaultSize
 						value={ eventUrlValue }
 						onChange={ onUrlChange }
 						placeholder="www.example.com"
 					/>
-					{ isUrlInvalid && (
+					{ ! hasValidUrl && (
 						<div className="classy-field__input-note classy-field__input-note--error">
 							{ _x(
 								'Must be a valid URL',

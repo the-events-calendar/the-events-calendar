@@ -70,7 +70,7 @@ export default function VenueUpsert( props: {
 
 	// At a minimum, a Venue requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
-	const [ isUrlInvalid, setIsUrlInvalid ] = useState< boolean >( false );
+	const [ hasValidUrl, setHasValidUrl ] = useState< boolean >( true );
 
 	const [ countryOption, setCountryOption ] = useState( countryPlaceholderOption );
 	const [ usStateOption, setUsStateOption ] = useState( usStatePlaceholderOption );
@@ -126,11 +126,11 @@ export default function VenueUpsert( props: {
 
 			// If the website is empty, it's considered valid (not required)
 			if ( ! isValidUrl( websiteValue ) ) {
-				setIsUrlInvalid( true );
+				setHasValidUrl( false );
 
 				return;
 			}
-			setIsUrlInvalid( false );
+			setHasValidUrl( true );
 			// Always update the input value to show what user typed
 			setCurrentValues( { ...currentValues, website: websiteValue } );
 		},
@@ -271,7 +271,7 @@ export default function VenueUpsert( props: {
 				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
 					<InputControl
 						className={ `classy-field__control classy-field__control--input${
-							isUrlInvalid ? ' classy-field__control--invalid' : ''
+							! hasValidUrl ? ' classy-field__control--invalid' : ''
 						}` }
 						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
@@ -280,7 +280,7 @@ export default function VenueUpsert( props: {
 						type="url"
 						__next40pxDefaultSize
 					/>
-					{ isUrlInvalid && (
+					{ ! hasValidUrl && (
 						<div className="classy-field__input-note classy-field__input-note--error">
 							{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
 						</div>
