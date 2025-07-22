@@ -18,7 +18,9 @@ use WP_REST_Request;
 use WP_REST_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
@@ -148,7 +150,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return Collection
 	 */
 	public function read_args(): Collection {
-		$collection = new Collection();
+		$collection = new PathArgumentCollection();
 
 		$collection[] = new Positive_Integer(
 			'id',
@@ -281,7 +283,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return Collection
 	 */
 	public function update_args(): Collection {
-		$collection = new Collection();
+		$collection = new RequestBodyCollection();
 
 		$collection[] = new Positive_Integer(
 			'id',
@@ -426,7 +428,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return Collection
 	 */
 	public function delete_args(): Collection {
-		$collection = new Collection();
+		$collection = new PathArgumentCollection();
 
 		$collection[] = new Positive_Integer(
 			'id',

@@ -21,7 +21,10 @@ use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
+use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
@@ -187,7 +190,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * @return Collection
 	 */
 	public function read_args(): Collection {
-		$collection = new Collection();
+		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
 			'page',
@@ -252,7 +255,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 			$this->read_args(),
 		);
 
-		$headers_collection = new Collection();
+		$headers_collection = new HeadersCollection();
 
 		$headers_collection[] = new Positive_Integer(
 			'X-WP-Total',
@@ -319,7 +322,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * @return Collection
 	 */
 	public function create_args(): Collection {
-		$collection = new Collection();
+		$collection = new RequestBodyCollection();
 
 		$collection[] = new Text(
 			'name',

@@ -23,7 +23,9 @@ use Tribe__Repository__Interface;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use WP_Post;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
+use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
+use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
@@ -238,7 +240,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$this->read_args()
 		);
 
-		$headers_collection = new Collection();
+		$headers_collection = new QueryArgumentCollection();
 
 		$headers_collection[] = new Positive_Integer(
 			'X-WP-Total',
@@ -305,7 +307,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return Collection
 	 */
 	public function read_args(): Collection {
-		$collection = new Collection();
+		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
 			'page',
@@ -436,7 +438,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return Collection
 	 */
 	public function create_args(): Collection {
-		$collection = new Collection();
+		$collection = new RequestBodyCollection();
 
 		$collection[] = new Text(
 			'title',
@@ -445,7 +447,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			null,
 			null,
 			null,
-			true
+			true,
 		);
 
 		$collection[] = new Text(
