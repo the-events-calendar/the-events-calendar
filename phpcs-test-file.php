@@ -4,49 +4,80 @@
 // This serves to "test our tests" AND to ensure we have test coverage for every internal rule.
 
 // Missing `/**` style comment for class.
-class phpcsTest { // Incorrect camel-case class name. Class name must begin with a capital letter.
-	public function no_docblock() {
-		// Missing `/**` style docblock for function.
-	}
+class phpcsTest
+{
 
-	// Missing end-of comment punctuation
 
-	/**
-	 * We don't use camelCase in PHP.
-	 */
-	public function camelCaseFunction() {} // Camel-case function name.
 
-	/**
-	 * Should trigger an incorrect array syntax issue.
-	 */
-	public function incorrect_array_syntax() {
-		$foo = array( 'foo' => 'bar', 'bar' => 'foo' ); // Incorrect long-syntax array.
-	}
 
-	/**
-	 * Should trigger a missing params issue.
-	 * All params need to be in the docblock.
-	 */
-	public function missing_params_in_docblock( $foo ) {
-		$foo = 'bar';
-	}
 
-	/**
-	 * Should trigger a params missing comment/description issue.
-	 *
-	 * @param string $foo Some string.
-	 * @param string $bar
-	 */
-	public function params_missing_description_in_docblock( $foo, $bar ) {
-		$foo = $bar;
-	}
 
-	/**
-	 * Should trigger a params missing type issue.
-	 * This will get reported as "missing parameter name" as it reads the name as the type.
-	 *
-	 * @param $foo Some string.
-	 * @param $bar Another string.
+
+
+
+
+
+
+
+
+
+	// Incorrect camel-case class name. Class name must begin with a capital letter.
+	public function no_docblock()
+    {
+        // Missing `/**` style docblock for function.
+    }
+
+    // Missing end-of comment punctuation
+
+    /**
+     * We don't use camelCase in PHP.
+     */
+    public function camelCaseFunction()
+    {
+    } // Camel-case function name.
+
+    /**
+     * Should trigger an incorrect array syntax issue.
+     */
+    public function incorrect_array_syntax()
+    {
+        $foo = [
+        'foo' => 'bar',
+        'bar' => 'foo',
+        ]; // Incorrect long-syntax array.
+
+        $foo = [
+            'foo' => 'bar',
+            'bar' => 'foo',
+        ]; // Also incorrect long-syntax array.
+    }
+
+    /**
+     * Should trigger a missing params issue.
+     * All params need to be in the docblock.
+     */
+    public function missing_params_in_docblock( $foo )
+    {
+        $foo = 'bar';
+    }
+
+    /**
+     * Should trigger a params missing comment/description issue.
+     *
+     * @param string $foo Some string.
+     * @param string $bar
+     */
+    public function params_missing_description_in_docblock( $foo, $bar )
+    {
+        $foo = $bar;
+    }
+
+    /**
+     * Should trigger a params missing type issue.
+     * This will get reported as "missing parameter name" as it reads the name as the type.
+     *
+     * @param $foo Some string.
+	 * @param string $bar Another string.
 	 */
 	public function params_missing_type_in_docblock( $foo, $bar ) {
 		$foo = $bar;
@@ -308,4 +339,3 @@ class phpcsTest { // Incorrect camel-case class name. Class name must begin with
 
 // Should trigger "no closing tag for pure PHP files".
 ?>
-

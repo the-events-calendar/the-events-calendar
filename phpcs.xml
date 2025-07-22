@@ -8,17 +8,6 @@
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 
-	<rule ref="WordPress">
-		<!-- We don't want these. -->
-		<exclude name="WordPress.Files.FileName"/>
-		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
-		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-
-		<!-- We cover these with our own tests so they're redundant. -->
-		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
-	</rule>
-
 	<!-- Tweak this one - we always want them lined up. 1000 is the default, WP overrides that. -->
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
@@ -34,6 +23,25 @@
 			<property name="text_domain" type="array" value="the-events-calendar" />
 		</properties>
 	</rule>
+
+	<!--- Excludes -->
+
+	<rule ref="WordPress">
+		<!-- We don't want these. -->
+		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+
+		<!-- We cover these with our own tests so they're redundant. -->
+		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
+	</rule>
+
+	<rule ref="PEAR">
+		<exclude name="PEAR.NamingConventions.ValidClassName.StartWithCapital"/>
+	</rule>
+
+	<!-- Excludes -->
 
 	<exclude-pattern>*/bin/source-updater/*</exclude-pattern>
 	<exclude-pattern>*/common/*</exclude-pattern>
