@@ -13,6 +13,7 @@ namespace TEC\Events\REST\TEC\V1\Endpoints;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
+use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
 use WP_REST_Request;
@@ -20,6 +21,7 @@ use Tribe\Events\Models\Post_Types\Event as Event_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use Tribe__Repository__Interface;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
+use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use WP_Post;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Collection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
@@ -31,6 +33,8 @@ use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -39,8 +43,10 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
-class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
+class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatable_Endpoint {
 	use Read_Archive_Response;
+	use Create_Entity_Response;
+	use With_Events_ORM;
 
 	/**
 	 * The event validator.
@@ -60,6 +66,17 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 */
 	public function get_model_class(): string {
 		return Event_Model::class;
+	}
+
+	/**
+	 * Returns the base path of the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_base_path(): string {
+		return '/events';
 	}
 
 	/**
@@ -96,17 +113,6 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 	}
 
 	/**
-	 * Returns the path for the endpoint.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_path(): string {
-		return '/events';
-	}
-
-	/**
 	 * Returns the schema for the endpoint.
 	 *
 	 * @since TBD
@@ -131,11 +137,11 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
-	 * @return \Tribe__Repository__Interface The events query.
+	 * @return Tribe__Repository__Interface The events query.
 	 */
-	protected function build_query( WP_REST_Request $request ) {
+	protected function build_query( WP_REST_Request $request ): Tribe__Repository__Interface {
 		/** @var Tribe__Repository__Interface $events_query */
-		$events_query = tribe_events();
+		$events_query = $this->get_orm();
 
 		if ( ! empty( $request['start_date'] ) ) {
 			$events_query->where( 'starts_after', tribe_beginning_of_day( $request['start_date'] ) );
@@ -420,6 +426,156 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint {
 		);
 
 		return $collection;
+	}
+
+	/**
+	 * Returns the arguments for the create request.
+	 *
+	 * @since TBD
+	 *
+	 * @return Collection
+	 */
+	public function create_args(): Collection {
+		$collection = new Collection();
+
+		$collection[] = new Text(
+			'title',
+			fn() => __( 'The title of the event.', 'the-events-calendar' ),
+			null,
+			null,
+			null,
+			null,
+			true
+		);
+
+		$collection[] = new Text(
+			'description',
+			fn() => __( 'The description/content of the event.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Text(
+			'excerpt',
+			fn() => __( 'The excerpt of the event.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Date_Time(
+			'start_date',
+			fn() => __( 'The start date and time of the event.', 'the-events-calendar' ),
+			null,
+			null,
+			null,
+			null,
+			true
+		);
+
+		$collection[] = new Date_Time(
+			'end_date',
+			fn() => __( 'The end date and time of the event.', 'the-events-calendar' ),
+			null,
+			null,
+			null,
+			null,
+			true
+		);
+
+		$collection[] = new Boolean(
+			'all_day',
+			fn() => __( 'Whether the event is an all-day event.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Text(
+			'timezone',
+			fn() => __( 'The timezone of the event.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Array_Of_Type(
+			'venue',
+			fn() => __( 'The venue IDs for the event.', 'the-events-calendar' ),
+			Positive_Integer::class,
+		);
+
+		$collection[] = new Array_Of_Type(
+			'organizer',
+			fn() => __( 'The organizer IDs for the event.', 'the-events-calendar' ),
+			Positive_Integer::class,
+		);
+
+		$collection[] = new Boolean(
+			'featured',
+			fn() => __( 'Whether the event is featured.', 'the-events-calendar' ),
+			false
+		);
+
+		$collection[] = new Text(
+			'status',
+			fn() => __( 'The status of the event.', 'the-events-calendar' ),
+			'publish',
+			self::ALLOWED_STATUS,
+		);
+
+		$collection[] = new Array_Of_Type(
+			'categories',
+			fn() => __( 'The category IDs for the event.', 'the-events-calendar' ),
+			Positive_Integer::class,
+		);
+
+		$collection[] = new Array_Of_Type(
+			'tags',
+			fn() => __( 'The tag IDs for the event.', 'the-events-calendar' ),
+			Positive_Integer::class,
+		);
+
+		$collection[] = new URI(
+			'website',
+			fn() => __( 'The event website URL.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Text(
+			'cost',
+			fn() => __( 'The cost of the event.', 'the-events-calendar' ),
+		);
+
+		return $collection;
+	}
+
+	/**
+	 * Returns the OpenAPI schema for creating an event.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function create_schema(): OpenAPI_Schema {
+		$schema = new OpenAPI_Schema(
+			fn() => __( 'Create an Event', 'the-events-calendar' ),
+			fn() => __( 'Creates a new event', 'the-events-calendar' ),
+			'createEvent',
+			[ tribe( TEC_Tag::class ) ],
+			$this->create_args()
+		);
+
+		$response = new Definition_Parameter( new Event_Definition() );
+
+		$schema->add_response(
+			201,
+			fn() => __( 'Event created successfully', 'the-events-calendar' ),
+			null,
+			'application/json',
+			$response,
+		);
+
+		$schema->add_response(
+			400,
+			fn() => __( 'Invalid request data', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
+			fn() => __( 'You do not have permission to create events', 'the-events-calendar' ),
+		);
+
+		return $schema;
 	}
 
 	/**

@@ -12,10 +12,12 @@ declare( strict_types=1 );
 namespace TEC\Events\REST\TEC\V1\Endpoints;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
+use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Validator;
 use WP_REST_Request;
+use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
@@ -25,10 +27,13 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
-use TEC\Common\REST\TEC\V1\Contracts\Parameter;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use Tribe__Repository__Interface;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Email;
+use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
 
 /**
  * Archive organizers endpoint for the TEC REST API V1.
@@ -37,8 +42,10 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
-class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint {
+class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Creatable_Endpoint {
 	use Read_Archive_Response;
+	use Create_Entity_Response;
+	use With_Organizers_ORM;
 
 	/**
 	 * The validator.
@@ -94,13 +101,13 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint {
 	}
 
 	/**
-	 * Returns the path for the endpoint.
+	 * Returns the base path of the endpoint.
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	public function get_path(): string {
+	public function get_base_path(): string {
 		return '/organizers';
 	}
 
@@ -129,10 +136,10 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint {
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
-	 * @return \Tribe__Repository__Interface The organizers query.
+	 * @return Tribe__Repository__Interface The organizers query.
 	 */
-	protected function build_query( WP_REST_Request $request ) {
-		$organizers_query = tribe_organizers();
+	protected function build_query( WP_REST_Request $request ): Tribe__Repository__Interface {
+		$organizers_query = $this->get_orm();
 
 		if ( ! empty( $request['search'] ) ) {
 			$organizers_query->search( $request['search'] );
@@ -299,6 +306,95 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint {
 		$schema->add_response(
 			404,
 			fn() => __( 'The requested page was not found', 'the-events-calendar' ),
+		);
+
+		return $schema;
+	}
+
+	/**
+	 * Returns the arguments for the create request.
+	 *
+	 * @since TBD
+	 *
+	 * @return Collection
+	 */
+	public function create_args(): Collection {
+		$collection = new Collection();
+
+		$collection[] = new Text(
+			'name',
+			fn() => __( 'The name of the organizer.', 'the-events-calendar' ),
+			null,
+			null,
+			null,
+			null,
+			true
+		);
+
+		$collection[] = new Text(
+			'description',
+			fn() => __( 'The description of the organizer.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Email(
+			'email',
+			fn() => __( 'The email address of the organizer.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Text(
+			'phone',
+			fn() => __( 'The phone number of the organizer.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new URI(
+			'website',
+			fn() => __( 'The website URL of the organizer.', 'the-events-calendar' ),
+		);
+
+		$collection[] = new Text(
+			'status',
+			fn() => __( 'The status of the organizer.', 'the-events-calendar' ),
+			'publish',
+			self::ALLOWED_STATUS,
+		);
+
+		return $collection;
+	}
+
+	/**
+	 * Returns the OpenAPI schema for creating an organizer.
+	 *
+	 * @since TBD
+	 *
+	 * @return OpenAPI_Schema
+	 */
+	public function create_schema(): OpenAPI_Schema {
+		$schema = new OpenAPI_Schema(
+			fn() => __( 'Create an Organizer', 'the-events-calendar' ),
+			fn() => __( 'Creates a new organizer', 'the-events-calendar' ),
+			'createOrganizer',
+			[ tribe( TEC_Tag::class ) ],
+			$this->create_args()
+		);
+
+		$response = new Definition_Parameter( new Organizer_Definition() );
+
+		$schema->add_response(
+			201,
+			fn() => __( 'Organizer created successfully', 'the-events-calendar' ),
+			null,
+			'application/json',
+			$response,
+		);
+
+		$schema->add_response(
+			400,
+			fn() => __( 'Invalid request data', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
+			fn() => __( 'You do not have permission to create organizers', 'the-events-calendar' ),
 		);
 
 		return $schema;

@@ -17,8 +17,11 @@ use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Venue_Definition;
 use TEC\Events\REST\TEC\V1\Endpoints\Events;
+use TEC\Events\REST\TEC\V1\Endpoints\Event;
 use TEC\Events\REST\TEC\V1\Endpoints\Organizers;
+use TEC\Events\REST\TEC\V1\Endpoints\Organizer;
 use TEC\Events\REST\TEC\V1\Endpoints\Venues;
+use TEC\Events\REST\TEC\V1\Endpoints\Venue;
 use TEC\Common\REST\TEC\V1\Abstracts\Endpoints_Controller;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 
@@ -40,8 +43,11 @@ class Endpoints extends Endpoints_Controller {
 	public function get_endpoints(): array {
 		return [
 			Events::class,
+			Event::class,
 			Organizers::class,
+			Organizer::class,
 			Venues::class,
+			Venue::class,
 		];
 	}
 
