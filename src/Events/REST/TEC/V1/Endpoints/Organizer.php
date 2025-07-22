@@ -193,7 +193,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to view this organizer', 'the-events-calendar' ),
 		);
 
@@ -363,7 +363,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to update this organizer', 'the-events-calendar' ),
 		);
 
@@ -466,7 +466,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to delete this organizer', 'the-events-calendar' ),
 		);
 

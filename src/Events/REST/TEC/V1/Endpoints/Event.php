@@ -215,7 +215,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to view this event', 'the-events-calendar' ),
 		);
 
@@ -470,7 +470,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to update this event', 'the-events-calendar' ),
 		);
 
@@ -573,7 +573,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to delete this event', 'the-events-calendar' ),
 		);
 
@@ -584,5 +584,4 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		return $schema;
 	}
-
 }

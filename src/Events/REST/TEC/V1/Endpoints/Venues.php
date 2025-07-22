@@ -429,7 +429,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to create venues', 'the-events-calendar' ),
 		);
 

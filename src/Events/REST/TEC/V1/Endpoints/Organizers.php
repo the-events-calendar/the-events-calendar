@@ -393,7 +393,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 		);
 
 		$schema->add_response(
-			403,
+			401,
 			fn() => __( 'You do not have permission to create organizers', 'the-events-calendar' ),
 		);
 
