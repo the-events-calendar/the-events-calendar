@@ -443,7 +443,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 * @since 4.9.11 Add the `$min_sec_overlap` parameter.
-	 * @since TBD    Refactored the code to avoid the of performance cost of using TIMESTAMPDIFF when possible.
+	 * @since 6.14.2    Refactored the code to avoid the of performance cost of using TIMESTAMPDIFF when possible.
 	 *
 	 * @param string|DateTime|int $start_datetime  A `strtotime` parse-able string, a DateTime object or
 	 *                                             a timestamp.

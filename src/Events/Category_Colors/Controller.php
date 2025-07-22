@@ -183,7 +183,7 @@ class Controller extends Controller_Contract {
 	 * Determines if the Category Colors frontend UI should be displayed.
 	 *
 	 * @since 6.14.0
-	 * @since TBD Added new UI option to enable/disable the frontend UI.
+	 * @since 6.14.2 Added new UI option to enable/disable the frontend UI.
 	 *
 	 * @return bool True if the frontend UI should be displayed, false otherwise.
 	 */
