@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 6.14.2
 Requires at least: 6.6
-Tested up to: 6.8.1
+Tested up to: 6.8.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
