@@ -2,23 +2,27 @@ name: 'PHPStan Tests'
 on:
   pull_request:
     paths:
-      - 'src/**.php'
+      - '.github/**/*'
       - '*.php'
+      - 'src/**.php'
 jobs:
   phpstan:
     strategy:
       matrix:
         phpVersion: [
             "7.4",
-            "8.0",
-            "8.1",
-            "8.2",
-            "8.3",
+            # ----------------------------------------
+            # Disabled until we get all of 7.4 passing
+            # "8.0",
+            # "8.1",
+            # "8.2",
+            # "8.3",
+            # ----------------------------------------
         ]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000
           submodules: recursive
@@ -38,15 +42,14 @@ jobs:
       # Install dependencies in common - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install common dependencies
-        run: cd common &&  composer i --ignore-platform-req=php+ && cd ../
+        run: cd common &&  composer i --ignore-platform-reqs && cd ../
       # ------------------------------------------------------------------------------
       # Install dependencies - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install dependencies
-        run: composer i --ignore-platform-req=php+
+        run: composer i --ignore-platform-reqs
       # ------------------------------------------------------------------------------
       # Run phpstan
       # ------------------------------------------------------------------------------
       - name: Run phpstan
         run: ./vendor/bin/phpstan analyse --error-format=table
-

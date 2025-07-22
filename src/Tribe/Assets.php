@@ -3,6 +3,7 @@
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use TEC\Common\StellarWP\Assets\Config;
 
 /**
  * Registers and Enqueues the assets
@@ -32,15 +33,16 @@ class Tribe__Events__Assets {
 	 * @return void
 	 */
 	public function register() {
-		$plugin = Tribe__Events__Main::instance();
+		$plugin        = Tribe__Events__Main::instance();
 		$admin_helpers = Tribe__Admin__Helpers::instance();
 
 		// Vendor
-		tribe_assets(
+		tec_assets(
 			$plugin,
 			[
 				[ 'jquery-placeholder', 'vendor/jquery-placeholder/jquery.placeholder.js', [ 'jquery' ] ],
-				[ 'tribe-events-php-date-formatter', 'vendor/php-date-formatter/js/php-date-formatter.js', [] ],
+				// This does not come from TEC anymore, but from Common. It's still here to ensure back-compatibility.
+				[ 'tribe-events-php-date-formatter', 'common/node_modules/php-date-formatter/js/php-date-formatter.js', [] ],
 				[ 'tribe-events-custom-jquery-styles', 'vendor/jquery/smoothness/jquery-ui-1.8.23.custom.css', [] ],
 				[ 'tribe-events-jquery-resize', 'vendor/jquery-resize/jquery.ba-resize.js', [ 'jquery' ] ],
 				[ 'tribe-events-chosen-style', 'vendor/chosen/public/chosen.css', [] ],
@@ -63,7 +65,7 @@ class Tribe__Events__Assets {
 		);
 
 		// All post Type pages
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-admin',
 			'events-admin.js',
@@ -97,7 +99,7 @@ class Tribe__Events__Assets {
 		);
 
 		// Post Type admin page
-		tribe_assets(
+		tec_assets(
 			$plugin,
 			[
 				[ 'tribe-events-ecp-plugins', 'jquery-ecp-plugins.js', [ 'jquery' ] ],
@@ -137,7 +139,7 @@ class Tribe__Events__Assets {
 		);
 
 		// Admin Menu Assets
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-admin-menu',
 			'admin-menu.css',
@@ -148,20 +150,8 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		// Admin update page CSS
-		tribe_asset(
-			$plugin,
-			'tribe-events-admin-update-page',
-			'admin-update-page.css',
-			[ ],
-			[ 'admin_enqueue_scripts', 'wp_enqueue_scripts' ],
-			[
-				'conditionals' => [ $this, 'should_enqueue_admin_update_page_assets' ],
-			]
-		);
-
 		// Setting page Assets
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-settings',
 			'tribe-settings.js',
@@ -193,7 +183,7 @@ class Tribe__Events__Assets {
 			 */
 			$google_maps_js_url = apply_filters( 'tribe_events_google_maps_api', $api_url );
 
-			tribe_asset(
+			tec_asset(
 				$plugin,
 				'tribe-events-google-maps',
 				$google_maps_js_url,
@@ -204,7 +194,7 @@ class Tribe__Events__Assets {
 				]
 			);
 
-			tribe_asset(
+			tec_asset(
 				$plugin,
 				Tribe__Events__Embedded_Maps::MAP_HANDLE,
 				'embedded-map.js',
@@ -216,15 +206,13 @@ class Tribe__Events__Assets {
 			);
 		}
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-dynamic',
 			'events-dynamic.js',
 			[
 				'jquery',
-				'tribe-events-php-date-formatter',
-				'tribe-moment',
-				'tribe-moment-locales'
+				'tec-common-php-date-formatter',
 			],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
@@ -237,7 +225,7 @@ class Tribe__Events__Assets {
 		);
 
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-calendar-mobile-style',
 			'tribe-events-theme-mobile.css',
@@ -255,7 +243,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-calendar-full-mobile-style',
 			'tribe-events-full-mobile.css',
@@ -274,7 +262,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-full-calendar-style',
 			'tribe-events-full.css',
@@ -291,7 +279,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-calendar-style',
 			$this->get_style_file(),
@@ -303,18 +291,22 @@ class Tribe__Events__Assets {
 			]
 		);
 
+		// Custom stylesheet.
+		$override_sheet = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 
-		tribe_asset(
-			$plugin,
-			'tribe-events-calendar-override-style',
-			Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' ),
-			[],
-			'wp_enqueue_scripts',
-			[
-				'groups'       => [ 'events-styles' ],
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
+		if ( ! empty( $override_sheet ) && file_exists( $override_sheet ) ) {
+			tec_asset(
+				$plugin,
+				'tribe-events-calendar-override-style',
+				$override_sheet,
+				[],
+				'wp_enqueue_scripts',
+				[
+					'groups'       => [ 'events-styles' ],
+					'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				]
+			);
+		}
 	}
 
 	/**
@@ -454,9 +446,13 @@ class Tribe__Events__Assets {
 	 *
 	 * @since  6.0.0
 	 *
+	 * @deprecated 6.8.2 The page this function is testing for no longer exists.
+	 *
 	 * @return bool
 	 */
 	public function should_enqueue_admin_update_page_assets() {
+		_deprecated_function( __METHOD__, '6.8.2', 'No alternative' );
+
 		$should_enqueue = isset( $_GET[ 'update-message-the-events-calendar' ] );
 
 		/**
@@ -521,6 +517,24 @@ class Tribe__Events__Assets {
 		$admin_helpers = Tribe__Admin__Helpers::instance();
 
 		return $admin_helpers->is_screen( 'settings_page_tribe-settings' );
+	}
+
+	/**
+	 * Check if the override stylesheet exists.
+	 *
+	 * @since 6.6.0
+	 *
+	 * @return bool
+	 */
+	public function override_style_exists(): bool {
+		_deprecated_function( __METHOD__, '6.6.1', 'Tribe__Events__Assets::should_enqueue_frontend' );
+		// This is a frontend script, let's bail early if we can.
+		if ( ! $this->should_enqueue_frontend() ) {
+			return false;
+		}
+
+		$file = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
+		return $file && file_exists( $file );
 	}
 
 	/**
@@ -605,10 +619,10 @@ class Tribe__Events__Assets {
 		 * @since 4.8.1
 		 *
 		 * @param array $data {
-	     *     These items exist on the TEC object in admin JS.
-	     *
-	     *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
-	     *     @type string post_type The Event post type.
+		 *     These items exist on the TEC object in admin JS.
+		 *
+		 *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
+		 *     @type string post_type The Event post type.
 		 * }
 		 */
 		return apply_filters( 'tribe_events_admin_js_ajax_url_data', $data );
@@ -747,4 +761,15 @@ class Tribe__Events__Assets {
 		return array_merge( $sheets, $tec_sheets );
 	}
 
+	/**
+	 * Configure the group path for the resources assets folder.
+	 *
+	 * @since 6.11.0
+	 * @deprecated 6.13.0
+	 *
+	 * @return void
+	 */
+	public function configure_assets(): void {
+		_deprecated_function( __METHOD__, '6.13.0' );
+	}
 }

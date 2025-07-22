@@ -224,7 +224,7 @@ abstract class By_Day_View extends View {
 				->set_found_rows( true )
 				->fields( 'ids' )
 				->by_args( $repository_args )
-				->where( 'date_overlaps', $start, $end, null, 2 )
+				->where( 'date_overlaps', $start, $end, null, 1 )
 				->per_page( - 1 )
 				->order_by( $order_by, $order );
 
@@ -386,7 +386,7 @@ abstract class By_Day_View extends View {
 		 * @param int         $events_per_day The default number of events that will be fetched for each day.
 		 * @param By_Day_View $this           The current View instance.
 		 */
-		return apply_filters( "tribe_events_views_v2_{$view_slug}_events_per_day", $events_per_day, $this );
+		return (int) apply_filters( "tribe_events_views_v2_{$view_slug}_events_per_day", $events_per_day, $this );
 	}
 
 	/**
@@ -798,7 +798,7 @@ abstract class By_Day_View extends View {
 
 	/**
 	 * Overrides the base View implementation to remove pagination from the URL.
-	 * 
+	 *
 	 * {@inheritdoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {

@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -20,22 +21,22 @@ import { Placeholder, Spinner } from '@wordpress/components';
  */
 
 class FeaturedImage extends Component {
+	static propTypes = {
+		image: PropTypes.object,
+	};
+
 	constructor() {
 		super( ...arguments );
 	}
 
 	render() {
-		return [
-			this.renderUI(),
-		];
+		return [ this.renderUI() ];
 	}
 
 	renderUI() {
 		return (
 			<section key="featured-image" className="tribe-editor__block">
-				<div className="tribe-editor__featured-image">
-					{ this.renderImage() }
-				</div>
+				<div className="tribe-editor__featured-image">{ this.renderImage() }</div>
 			</section>
 		);
 	}
@@ -50,9 +51,7 @@ class FeaturedImage extends Component {
 			return this.renderLoading();
 		}
 
-		return (
-			<img src={ image.source_url } alt={ __( 'Featured Image', 'the-events-calendar' ) } />
-		);
+		return <img src={ image.source_url } alt={ __( 'Featured Image', 'the-events-calendar' ) } />;
 	}
 
 	renderPlaceholder() {
@@ -61,14 +60,8 @@ class FeaturedImage extends Component {
 				style={ { minHeight: 150 } }
 				key="placeholder"
 				icon="format-image"
-				instructions={
-					__(
-						'Add a Featured Image from the Document Settings sidebar',
-						'the-events-calendar',
-					)
-				}
-			>
-			</Placeholder>
+				instructions={ __( 'Add a Featured Image from the Document Settings sidebar', 'the-events-calendar' ) }
+			></Placeholder>
 		);
 	}
 

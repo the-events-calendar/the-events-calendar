@@ -1,7 +1,4 @@
 <?php
-
-use \Tribe\Events\Views\V2\Template;
-
 /**
  * View Component: Title
  *
@@ -15,13 +12,13 @@ use \Tribe\Events\Views\V2\Template;
  * @version 6.2.0
  * @since   6.2.0
  *
- * @var Template $this          Template Engine instance rendering.
- * @var string   $content_title The title to display.
+ * @var \Tribe\Events\Views\V2\Template $this          Template Engine instance rendering.
+ * @var string                          $content_title The title to display.
  */
+
 if ( empty( $content_title ) ) {
 	return;
 }
-
 ?>
 
 <div class="tribe-events-header__content-title">

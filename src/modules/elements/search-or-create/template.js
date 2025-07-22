@@ -48,6 +48,9 @@ class SearchOrCreate extends Component {
 		onInputChange: PropTypes.func,
 		onCreateClick: PropTypes.func,
 		onItemClick: PropTypes.func,
+		addBlock: PropTypes.func,
+		setSearchPostType: PropTypes.func,
+		postType: PropTypes.string,
 	};
 
 	constructor( props ) {
@@ -116,14 +119,13 @@ class SearchOrCreate extends Component {
 				{ posts.map( this.renderItem ) }
 			</ul>
 		);
-	}
+	};
 
 	render() {
 		const { isSelected, icon, term, placeholder, onInputChange } = this.props;
-		const containerClass = classNames(
-			'tribe-editor__soc__input__container',
-			{ 'tribe-editor__soc__input__container--active': isSelected },
-		);
+		const containerClass = classNames( 'tribe-editor__soc__input__container', {
+			'tribe-editor__soc__input__container--active': isSelected,
+		} );
 
 		const currentTerm = isSelected ? term : '';
 

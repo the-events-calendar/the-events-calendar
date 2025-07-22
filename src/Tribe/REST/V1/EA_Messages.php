@@ -55,7 +55,14 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			'tec-rest-api-single-event-empty',
 		];
 
-		$adjust_link         = esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'imports#tribe-field-tribe_aggregator_default_url_import_range' ] ) );
+		$adjust_link         = esc_url(
+			tribe( Plugin_Settings::class )->get_url(
+				[
+					'tab'    => 'imports',
+					'anchor' => 'tribe-field-tribe_aggregator_default_url_import_range',
+				]
+			)
+		);
 		$adjust_message      = esc_html__( 'Try to adjust your import settings and try again.', 'the-events-calendar' );
 		$adjust_message_html = sprintf( '<p><a href="%s" target="_blank">%s</a></p> ', $adjust_link, $adjust_message );
 

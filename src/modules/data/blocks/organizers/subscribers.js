@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import {differenceBy, isEmpty} from 'lodash';
+import { differenceBy } from 'lodash';
 
 /**
  * Internal dependencies
@@ -24,16 +24,16 @@ const { getState, dispatch } = store;
  *
  * @exports
  * @param {Object} block Object with block attributes and data.
- * @returns {string} Client ID of the block.
+ * @return {string} Client ID of the block.
  */
-export const compareBlocks = block => block.clientId;
+export const compareBlocks = ( block ) => block.clientId;
 
 /**
  * Checks whether the block is the organizer block.
  *
  * @exports
  * @param {Object} block Object with block attributes and data.
- * @returns {boolean} Whether the block is the organizer block or not.
+ * @return {boolean} Whether the block is the organizer block or not.
  */
 export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
 
@@ -43,16 +43,20 @@ export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organiz
  * @since 6.2.0
  * @param {number} organizer
  */
-globals.wpHooks.addAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', 'tec.events.blocks.organizer.subscribers', ( organizer ) => {
-	const path = `tribe_organizer/${ organizer }`;
-	const options = {
-		path,
-		actions: {
-			success: formActions.deleteEntry( dispatch )( path ),
-		},
-	};
-	dispatch( requestActions.wpRequest( options ) );
-} );
+globals.wpHooks.addAction(
+	'tec.events.blocks.organizer.maybeRemoveOrganizer',
+	'tec.events.blocks.organizer.subscribers',
+	( organizer ) => {
+		const path = `tribe_organizer/${ organizer }`;
+		const options = {
+			path,
+			actions: {
+				success: formActions.deleteEntry( dispatch )( path ),
+			},
+		};
+		dispatch( requestActions.wpRequest( options ) );
+	}
+);
 
 /**
  * Handles the block that was added.
@@ -79,7 +83,7 @@ export const handleBlockAdded = ( block ) => {
  *
  * @exports
  * @param {Array} currBlocks Array of current blocks in the editor.
- * @returns {Function} Function that handles the block that was removed.
+ * @return {Function} Function that handles the block that was removed.
  */
 export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	// only handle event organizer block removal
@@ -87,9 +91,7 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		return;
 	}
 
-	const classicBlock = currBlocks.filter( currBlock => (
-		currBlock.name === 'tribe/classic-event-details'
-	) );
+	const classicBlock = currBlocks.filter( ( currBlock ) => currBlock.name === 'tribe/classic-event-details' );
 	const organizer = organizerSelectors.getOrganizerByClientId( getState(), block );
 
 	// remove organizer from block state
@@ -150,7 +152,7 @@ export const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
  *
  * @exports
  * @param {Function} selector Selector function to get current blocks.
- * @returns {Function} Listener that subscribes to WP store.
+ * @return {Function} Listener that subscribes to WP store.
  */
 export const onBlocksChangeListener = ( selector ) => {
 	let holdBlocks = selector();
@@ -159,10 +161,7 @@ export const onBlocksChangeListener = ( selector ) => {
 		const currBlocks = selector();
 		holdBlocks = currBlocks;
 
-		if (
-			prevBlocks.length !== currBlocks.length ||
-			differenceBy( currBlocks, prevBlocks, compareBlocks ).length
-		) {
+		if ( prevBlocks.length !== currBlocks.length || differenceBy( currBlocks, prevBlocks, compareBlocks ).length ) {
 			onBlocksChangeHandler( currBlocks, prevBlocks );
 		}
 	};
@@ -177,11 +176,7 @@ export const onBlocksChangeListener = ( selector ) => {
  *              are handled in a global subscriber.
  */
 const subscribe = () => {
-	globals.wpData.subscribe(
-		onBlocksChangeListener(
-			globals.wpDataSelectCoreEditor().getBlocks,
-		),
-	);
+	globals.wpData.subscribe( onBlocksChangeListener( globals.wpDataSelectCoreEditor().getBlocks ) );
 };
 
 export default subscribe;

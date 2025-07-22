@@ -191,7 +191,7 @@ class TribeDb extends \Codeception\Module {
 	 *                         Notable arguments:
 	 *                         `when` - by default events will happen in 24hrs; set this to a different hour offset
 	 *                         to have them happen at a different time in the format `+4 hours`
-	 *                         `duration` - by defautl events will last for 2hrs; set this to a different duration
+	 *                         `duration` - by default events will last for 2hrs; set this to a different duration
 	 *                         in seconds if required.
 	 *                         `utc_offset` - by default events will happen on UTC time; set this to a different hour
 	 *                         offset if required.

@@ -5,25 +5,17 @@
 		role="tooltip"
 	>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-wrapper">
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-1"
-		title="Single Event 1"
-		rel="bookmark"
-		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image-link"
-	>
-		<img
-			src="http://test.tri.be/wp-content/uploads/2018/08/featured-image.jpg"
-										alt=""
-										title="featured-image.jpg"
-						class="tribe-events-calendar-month__calendar-event-tooltip-featured-image"
-		/>
-	</a>
+	<img
+		class="tribe-events-calendar-month__calendar-event-tooltip-featured-image"
+		src="http://test.tri.be/wp-content/uploads/2018/08/featured-image.jpg"
+							alt=""
+			/>
 </div>
 		<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20, 2019 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
 	</div>
-		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
+		<div class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
@@ -31,7 +23,7 @@
 		class="tribe-events-calendar-month__calendar-event-tooltip-title-link tribe-common-anchor-thin"
 	>
 		Single Event 1	</a>
-</h3>
+</div>
 				<div class="tribe-events-c-small-cta tribe-common-b3 tribe-events-calendar-month__calendar-event-tooltip-cost">
 	<span class="tribe-events-c-small-cta__price">
 		$10	</span>

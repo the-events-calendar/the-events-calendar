@@ -1,0 +1,54 @@
+/**
+ * Elementor Event Organizer Widget styles.
+ *
+ * @since 6.4.0
+ */
+
+.tec-events-elementor-event-widget__organizer {
+	margin: 0 0 var(--tec-spacer-0) 0;
+	padding-bottom: var(--tec-spacer-2);
+
+	> [class*="tec-events-elementor-event-widget"] {
+		margin: 0 0 var(--tec-spacer-1) 0;
+		padding: 0;
+	}
+
+	.tec-events-elementor-event-widget__organizer-header {
+		font-weight: var(--tec-font-weight-bold);
+		text-transform: uppercase;
+	}
+
+	.tec-events-elementor-event-widget__organizer-phone,
+	.tec-events-elementor-event-widget__organizer-email,
+	.tec-events-elementor-event-widget__organizer-website {
+
+		&-wrapper {
+			margin: 0 0 var(--tec-spacer-5) 0;
+		}
+
+		&-header {
+			font-weight: var(--tec-font-weight-bold);
+			margin-bottom: var(--tec-spacer-1);
+		}
+	}
+
+	.tec-events-elementor-event-widget__organizer-website {
+
+		> a {
+			border-color: currentcolor;
+			color: var(--tec-color-accent-primary);
+			text-decoration: underline;
+
+			&:hover {
+				color: var(--tec-color-accent-primary-hover);
+			}
+		}
+	}
+
+	.tec-events-elementor-event-widget__organizer-email-link,
+	.tec-events-elementor-event-widget__organizer-phone-link {
+		border-color: currentcolor;
+		color: var(--tec-color-accent-primary);
+		text-decoration: underline;
+	}
+}

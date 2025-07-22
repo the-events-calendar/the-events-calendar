@@ -5,13 +5,15 @@
 /* = Post Type Listing
 ============================================= */
 .events-cal {
-	.tablenav select[name=m],
+
+	.tablenav select[name="m"],
 	#post-query-submit {
 		display: none;
 	}
 }
 
 .fixed {
+
 	.column-start-date,
 	.column-end-date,
 	.column-events-cats {
@@ -20,6 +22,7 @@
 }
 
 #additional-field-table {
+
 	input,
 	select,
 	textarea {
@@ -47,6 +50,7 @@
 
 		input,
 		select {
+
 			/* Add extra separation between form inputs when left aligned */
 			&.alignleft {
 				margin-right: 0.3rem;
@@ -59,6 +63,7 @@
 	}
 
 	#event-meta {
+
 		td {
 			vertical-align: top;
 
@@ -129,6 +134,7 @@
 	}
 
 	.tribe-datetime-block {
+
 		.tribe-allday {
 			margin: 10px 0 0;
 		}
@@ -161,6 +167,7 @@
 		}
 
 		.tribe-datetime-separator {
+
 			@media (--tablet) {
 				display: block;
 				padding: 5px 0;
@@ -211,6 +218,7 @@
 
 /* Apply a grey highlight to 'today' */
 .ui-datepicker-calendar .ui-datepicker-today {
+
 	a {
 		background: linear-gradient(354deg, #ccc 0%, #eee 100%);
 		color: black;
@@ -292,6 +300,7 @@
 }
 
 .linked-post-wrapper {
+
 	tbody + tbody tr:first-child td {
 		padding-top: var(--tec-spacer-4);
 	}
@@ -336,7 +345,9 @@
 }
 
 .tribe_community_edit {
+
 	.edit-linked-post-link {
+
 		a {
 			display: none;
 		}
@@ -359,7 +370,7 @@
 ============================================= */
 #tribe-field-donate-link legend {
 	float: left;
-	font-weight: bold;
+	font-weight: 700;
 	margin-right: 1em;
 }
 
@@ -408,6 +419,7 @@
 		}
 
 		@media (--not-phone) {
+
 			.tribe-upgrade-absolute-text {
 				bottom: 80px;
 				position: absolute;
@@ -417,6 +429,7 @@
 		}
 
 		@media (--phone) {
+
 			.tribe-upgrade-absolute-text {
 				display: block;
 				margin: 15px 10px;
@@ -425,6 +438,7 @@
 	}
 
 	#tribe-upgrade-step1 {
+
 		span {
 			color: #334aff;
 		}
@@ -486,8 +500,10 @@
 }
 
 .tribe-settings-form {
+
 	.tec-settings-display,
 	.tec-settings-general {
+
 		.tribe-field-indent {
 			margin-left: 255px;
 		}
@@ -542,6 +558,7 @@
 }
 
 .tec-settings-header {
+
 	.tec-settings-header-links-section {
 		display: flex;
 		flex-flow: row wrap;
@@ -589,7 +606,7 @@
 
 #eventBriteTicketing,
 #mainDonateRow {
-	background: url('../images/bg_fade.png') repeat-x top left;
+	background: url(../images/bg_fade.png) repeat-x top left;
 	background-color: #fff;
 	border: 1px solid #e2e2e2;
 	-khtml-border-radius: 3px;
@@ -605,7 +622,7 @@
 }
 
 #eventBriteTicketing h2 {
-	background: url('../images/eb_press_little.gif') no-repeat top right;
+	background: url(../images/eb_press_little.gif) no-repeat top right;
 	height: 80px;
 	margin: 0;
 }
@@ -700,7 +717,7 @@ table.eventForm {
 	}
 
 	.tribe-value {
-		font-weight: bold;
+		font-weight: 700;
 	}
 }
 
@@ -839,13 +856,14 @@ table.eventForm {
 		}
 
 		.tribe-widget-form-control--fieldset {
+
 			.tribe-widget-form-control {
 				margin: 4px 0;
 			}
 		}
 
 		.tribe-widget-form-control--legend {
-			font-weight: bold;
+			font-weight: 700;
 			margin: 8px 0;
 		}
 
@@ -896,14 +914,14 @@ table.eventForm {
 
 h3.tec-update-notice__title {
 	font-size: 20px;
-	font-weight: bold;
+	font-weight: 700;
 	line-height: 35px;
 	margin: 16px 0 4px 0;
 
 	img {
+		font-size: 0.8em;
 		height: 1em;
 		width: 1em;
-		font-size: 0.8em;
 	}
 }
 
@@ -912,11 +930,11 @@ h3.tec-update-notice__title {
 }
 
 .button.tec-update-notice__button {
-	background: #3352F5;
+	background: #3352f5;
 	border-color: transparent;
 	border-radius: 4px;
-	color: #ffffff;
-	font-weight: bold;
+	color: #fff;
+	font-weight: 700;
 	margin-right: 12px;
 	padding: 4px 12px;
 	vertical-align: baseline;
@@ -925,6 +943,14 @@ h3.tec-update-notice__title {
 	&:active,
 	&:focus {
 		background: #1f3ac9;
-		color: #ffffff;
+		color: #fff;
+	}
+}
+
+#tec-events-onboarding-wizard-tickets {
+	display: none;
+
+	@media (min-width: 783px) {
+		display: block;
 	}
 }

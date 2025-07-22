@@ -96,7 +96,7 @@ class Emails {
 					'state'           => esc_html__( 'NY 10001', 'the-events-calendar' ),
 					'country'         => esc_html__( 'United States', 'the-events-calendar' ),
 					'phone'           => esc_html__( '(555) 555-5555', 'the-events-calendar' ),
-					'website_url'     => esc_url( get_site_url() ),
+					'website'         => esc_url( get_site_url() ),
 					'directions_link' => '#',
 				],
 			],
@@ -180,9 +180,9 @@ class Emails {
 			return $attachments;
 		}
 
-		$ics_filname = $file . '.ics';
-		file_put_contents( $ics_filname, $ics_content );
-		$attachments[] = $ics_filname;
+		$ics_filename = $file . '.ics';
+		file_put_contents( $ics_filename, $ics_content ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
+		$attachments[] = $ics_filename;
 		unlink( $file );
 
 		return $attachments;

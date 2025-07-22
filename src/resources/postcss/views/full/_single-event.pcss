@@ -26,6 +26,7 @@
 
 	&,
 	&:visited {
+
 		@mixin body;
 
 		font-size: var(--tec-font-size-3);
@@ -48,12 +49,14 @@
 
 /* Event title */
 .tribe-events-single-event-title {
+
 	@mixin heading;
 	@mixin mobile-heading-2;
 
 	color: var(--tec-color-text-event-title);
 
 	@media (--viewport-medium) {
+
 		@mixin desktop-heading-1;
 	}
 }
@@ -66,6 +69,7 @@
 
 /* Datetime block */
 .tribe-events-schedule h2 {
+
 	@mixin heading;
 	@mixin mobile-heading-6;
 
@@ -73,6 +77,7 @@
 	font-weight: var(--tec-font-weight-regular);
 
 	@media (--viewport-medium) {
+
 		@mixin desktop-heading-6;
 	}
 }
@@ -80,6 +85,7 @@
 /* Recurring info block */
 .tribe-events-schedule .recurringinfo,
 .tribe-related-event-info .recurringinfo {
+
 	@mixin heading;
 	@mixin heading-8;
 
@@ -101,6 +107,7 @@
 
 /* Recurring info block */
 .tribe-events-schedule .recurringinfo {
+
 	@mixin heading;
 	@mixin heading-8;
 
@@ -108,10 +115,12 @@
 	border-radius: 40px;
 
 	@media (--viewport-medium) {
+
 		@mixin heading-7;
 	}
 
 	.event-is-recurring {
+
 		@media (--viewport-medium) {
 			letter-spacing: normal;
 		}
@@ -120,6 +129,7 @@
 
 /* Cost block */
 .tribe-events-schedule .tribe-events-cost {
+
 	@mixin heading;
 	@mixin mobile-heading-6;
 
@@ -127,12 +137,14 @@
 	text-transform: uppercase;
 
 	@media (--viewport-medium) {
+
 		@mixin desktop-heading-6;
 	}
 }
 
 /* Description Block */
 .tribe-events-content {
+
 	@mixin body;
 
 	h2,
@@ -140,6 +152,7 @@
 	h4,
 	h5,
 	h6 {
+
 		@mixin heading;
 
 		letter-spacing: normal;
@@ -168,6 +181,7 @@
 	}
 
 	a {
+
 		@mixin anchor-thin-alt;
 
 		text-decoration: none;
@@ -182,11 +196,11 @@
 	blockquote {
 		quotes: auto;
 
-		&:before {
+		&::before {
 			content: open-quote;
 		}
 
-		&:after {
+		&::after {
 			content: close-quote;
 		}
 	}
@@ -194,6 +208,7 @@
 
 /* Cal export links block */
 .tribe-events-cal-links {
+
 	@mixin body;
 
 	a {
@@ -208,6 +223,7 @@
 
 /* Details block */
 .tribe-events-event-meta {
+
 	@mixin body;
 
 	font-size: var(--tec-font-size-2);
@@ -241,12 +257,13 @@
 
 	/* TODO: move .event-tickets declaration to ET in the future if still needed,
 	/* depending on template updates */
-	&:before,
+	&::before,
 	& ~ div:not(.tribe-events-event-meta, .event-tickets) {
 		border-top: 1px solid var(--tec-color-border-secondary);
 	}
 
-	&.secondary:before {
+	&.secondary::before {
+
 		@media (--viewport-medium) {
 			content: normal;
 		}
@@ -288,12 +305,14 @@
 
 /* Related Events block */
 .tribe-events-related-events-title {
+
 	@mixin heading;
 	@mixin mobile-heading-3;
 
 	border-top: 1px solid var(--tec-color-border-secondary);
 
 	@media (--viewport-medium) {
+
 		@mixin desktop-heading-3;
 	}
 }
@@ -301,11 +320,15 @@
 .tribe-events-single ul.tribe-related-events {
 
 	li {
+
 		@mixin body;
 
 		.tribe-related-events-title {
+
 			@mixin heading;
-			@mixin heading-7;
+
+			font-size: var(--tec-font-size-2);
+			line-height: var(--tec-line-height-3);
 
 			a {
 				color: var(--tec-color-link-primary);
@@ -320,6 +343,7 @@
 }
 
 .tribe-events-single .tribe-events-sub-nav {
+
 	@mixin body;
 
 	font-size: var(--tec-font-size-1);
@@ -335,9 +359,9 @@
 		text-decoration: none;
 		vertical-align: middle;
 
-		&:before,
-		&:after {
-			content: '';
+		&::before,
+		&::after {
+			content: "";
 			display: inline-block;
 			height: 20px;
 			vertical-align: middle;
@@ -352,7 +376,7 @@
 
 	.tribe-events-nav-previous a {
 
-		&:before {
+		&::before {
 			background: svg-inline(caret-left) 0 / 7px no-repeat;
 
 			@media (--viewport-medium) {
@@ -363,7 +387,7 @@
 		&:hover,
 		&:focus {
 
-			&:before {
+			&::before {
 				background-image: svg-inline(caret-left-active);
 			}
 		}
@@ -371,7 +395,7 @@
 
 	.tribe-events-nav-next a {
 
-		&:after {
+		&::after {
 			background: svg-inline(caret-right) right / 7px no-repeat;
 
 			@media (--viewport-medium) {
@@ -382,7 +406,7 @@
 		&:hover,
 		&:focus {
 
-			&:after {
+			&::after {
 				background-image: svg-inline(caret-right-active);
 			}
 		}
@@ -407,7 +431,7 @@
 	.tribe-events-single-section-title,
 	.tribe-events-related-events-title {
 
-		&:before {
+		&::before {
 			content: normal;
 		}
 	}
@@ -440,17 +464,20 @@
 #top.tribe-theme-enfold.single-tribe_events {
 
 	.tribe-events-single-event-title {
+
 		@mixin heading;
 		@mixin mobile-heading-2;
 
 		color: var(--tec-color-text-event-title);
 
 		@media (--viewport-medium) {
+
 			@mixin desktop-heading-1;
 		}
 	}
 
 	.tribe-events-schedule h3 {
+
 		@mixin heading;
 		@mixin mobile-heading-6;
 
@@ -458,6 +485,7 @@
 		font-weight: var(--tec-font-weight-regular);
 
 		@media (--viewport-medium) {
+
 			@mixin desktop-heading-6;
 		}
 	}
@@ -473,7 +501,7 @@
 }
 
 /* removes weird border on the event meta on Avada theme [TEC-3952] */
-.fusion-widget-area .tribe-events-event-meta:before,
+.fusion-widget-area .tribe-events-event-meta::before,
 .fusion-widget-area .tribe-events-event-meta ~ div:not(.tribe-events-event-meta):not(.event-tickets) {
 	border: none;
 }

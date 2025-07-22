@@ -1,6 +1,6 @@
 Feature: single event navigation links
 
-A Site Visitor can navigate to the single event preceeding or following the one they are viewing.
+A Site Visitor can navigate to the single event preceding or following the one they are viewing.
 
 Background:
     Given that I am a Visitor on a site with TEC
@@ -24,11 +24,11 @@ Background:
 
 Scenario Outline: navigating to proceeding event
     Given that I am viewing the single event page for event <home event>
-    When I use the event navigation to view the preceeding event
-    Then I should see the single event page for event <preceeding event>
+    When I use the event navigation to view the preceding event
+    Then I should see the single event page for event <preceding event>
 
 Examples:
-    | home event       | preceeding event |
+    | home event       | preceding event  |
     | strawberry S-T-P | none (no link)   |
     | banana M-A-P     | strawberry S-T-P |
     | eggplant M-A-N   | banana M-A-P     |

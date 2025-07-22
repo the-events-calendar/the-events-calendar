@@ -33,6 +33,7 @@ a.tribe-events-gmap {
    @ Template: day.php
 =============================================*/
 .tribe-events-day {
+
 	.tribe-events-day-time-slot .tribe-events-day-time-slot-heading {
 		margin-top: 2em;
 	}
@@ -45,6 +46,7 @@ a.tribe-events-gmap {
 /* = General Template Header/Footer Nav
 =============================================*/
 #tribe-events {
+
 	#tribe-events-header,
 	#tribe-events-footer {
 		padding: 0;
@@ -55,6 +57,7 @@ a.tribe-events-gmap {
 #tribe-events-footer {
 	position: relative;
 }
+
 .single-tribe_events #tribe-events-footer,
 .tribe-events-day #tribe-events-footer,
 .events-list #tribe-events-footer,
@@ -65,10 +68,11 @@ a.tribe-events-gmap {
 
 #tribe-events-header,
 #tribe-events-footer {
+
 	&::before,
 	&::after {
 		background-color: #fff;
-		content: '';
+		content: "";
 		display: block;
 		height: 100%;
 		position: absolute;
@@ -88,7 +92,9 @@ a.tribe-events-gmap {
 
 #tribe-events-header,
 #tribe-events-footer {
+
 	.tribe-events-sub-nav {
+
 		.tribe-events-nav-next,
 		.tribe-events-nav-previous {
 			box-sizing: border-box;
@@ -105,6 +111,7 @@ a.tribe-events-gmap {
 }
 
 .tribe-events-sub-nav {
+
 	li a {
 		background: #666;
 		color: #fff;
@@ -120,16 +127,16 @@ a.tribe-events-gmap {
 	}
 
 	.tribe-events-nav-left a span {
+		content: "\ab";
 		display: block;
-		content: '\ab';
-		position: absolute;
 		left: 10px;
+		position: absolute;
 		top: 10px;
 	}
 
 	.tribe-events-nav-right a span {
+		content: "\00BB";
 		display: block;
-		content: '\00BB';
 		position: absolute;
 		right: 10px;
 		top: 10px;
@@ -140,13 +147,14 @@ a.tribe-events-gmap {
    @ Template: list.php
 =============================================*/
 .tribe-events-list {
+
 	.tribe-events-event-image {
 		float: left;
 		margin: 0 3% 0 0;
 
 		img {
-			width: auto;
 			max-height: 400px;
+			width: auto;
 		}
 	}
 
@@ -156,14 +164,16 @@ a.tribe-events-gmap {
 		width: 100%;
 	}
 
-    /* Reset list-view descriptions to static position; fixes bug with relative positioning
+	/* Reset list-view descriptions to static position; fixes bug with relative positioning
        that prevented the full area of the .tribe-events-event-image being "clickable". */
 	.tribe-events-event-image + div.tribe-events-content.tribe-events-list-event-description {
 		position: static;
 	}
 
 	.tribe-events-loop {
+
 		.tribe-events-event-meta {
+
 			.recurringinfo {
 				display: block;
 				margin: 4px 0 0;
@@ -209,7 +219,9 @@ a.tribe-events-gmap {
 }
 
 .tribe-events-event-cost {
-	.tribe-out-of-stock, .tribe-tickets-left {
+
+	.tribe-out-of-stock,
+ .tribe-tickets-left {
 		font-size: 12px;
 		line-height: 15px;
 		white-space: nowrap;
@@ -220,6 +232,7 @@ a.tribe-events-gmap {
    @ Template: single-event.php
 =============================================*/
 .single-tribe_events {
+
 	.tribe-events-schedule {
 		background: #fafafa;
 		border: 1px solid #eee;
@@ -230,7 +243,7 @@ a.tribe-events-gmap {
 		.tribe-events-cost {
 			display: block;
 			font-size: 15px;
-			font-weight: normal;
+			font-weight: 400;
 			line-height: 1.25;
 			margin: 0;
 		}
@@ -264,16 +277,16 @@ a.tribe-events-gmap {
 	}
 
 	.tribe-events-venue-map {
-		width: 90%;
-		margin: 5px auto 0;
 		display: block;
 		float: none;
+		margin: 5px auto 0;
+		width: 90%;
 	}
 }
 
 #tribe-events div.tribe-events-single-event-description {
-	padding: 0;
 	margin-bottom: 10px;
+	padding: 0;
 }
 
 .tribe-events-meta-group .tribe-events-single-section-title {
@@ -281,6 +294,7 @@ a.tribe-events-gmap {
 }
 
 .tribe-events-event-meta {
+
 	.tribe-events-meta-group {
 		margin-bottom: 0;
 	}
@@ -295,23 +309,23 @@ a.tribe-events-gmap {
 /* = Global Grid Template Styles (Large Calendar & Week)
    @ Template: month.php & week.php
 =============================================*/
-.tribe-events-calendar .tribe-events-has-events:after {
-	content: '';
+.tribe-events-calendar .tribe-events-has-events::after {
+	background-color: #333;
+	border-radius: 50%;
+	content: "";
 	display: block;
 	height: 8px;
-	width: 8px;
-	padding: 0;
-	border-radius: 50%;
-	background-color: #333;
 	margin: 5px auto;
+	padding: 0;
+	width: 8px;
 }
 
-.tribe-events-calendar .tribe-events-has-events.tribe-events-othermonth:after {
-	-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
-	    filter: alpha(opacity=40);
-	  -moz-opacity: .4;
-	-khtml-opacity: .4;
-	       opacity: .4;
+.tribe-events-calendar .tribe-events-has-events.tribe-events-othermonth::after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+	filter: alpha(opacity=40);
+	-moz-opacity: 0.4;
+	-khtml-opacity: 0.4;
+	opacity: 0.4;
 }
 
 /* Actual Event Styles */
@@ -320,32 +334,33 @@ a.tribe-events-gmap {
 	margin: 0 auto 10px;
 
 	.type-tribe_events {
-		padding: 20px 0 16px;
 		margin-bottom: 0;
+		padding: 20px 0 16px;
 	}
 
 	.type-tribe_events {
+
 		~ .type-tribe_events {
-			padding: 15px 0;
 			border-top: 1px solid #ddd;
+			padding: 15px 0;
 		}
 
 		h4 {
 			font-size: 1.25em;
-			margin: 0 0 2px;
 			line-height: 1.35;
+			margin: 0 0 2px;
 		}
 
 		.time-details {
 			font-size: 13px;
-			font-weight: bold;
+			font-weight: 700;
 			margin: 0 0 2px;
 		}
 
 		.tribe-events-event-image {
 			float: left;
-			width: 25%;
 			margin: 5px 15px 10px 0;
+			width: 25%;
 
 			a {
 				display: block;
@@ -353,13 +368,13 @@ a.tribe-events-gmap {
 		}
 
 		.entry-summary.description {
-			padding: 0;
 			margin-bottom: 0;
+			padding: 0;
 		}
 
 		.tribe-events-read-more {
-			margin-top: 8px;
 			display: inline-block;
+			margin-top: 8px;
 		}
 	}
 }
@@ -373,7 +388,9 @@ a.tribe-events-gmap {
    @ Template: month.php
 =============================================*/
 .tribe-events-calendar {
+
 	td {
+
 		&.tribe-events-has-events:hover {
 			cursor: pointer;
 		}
@@ -388,8 +405,8 @@ a.tribe-events-gmap {
 			display: none;
 		}
 
-		div[id*='tribe-events-daynum-'],
-		div[id*='tribe-events-daynum-'] a {
+		div[id*="tribe-events-daynum-"],
+		div[id*="tribe-events-daynum-"] a {
 			background: none;
 			font-size: 16px;
 			line-height: 1;
@@ -399,28 +416,28 @@ a.tribe-events-gmap {
 		}
 	}
 
-	.mobile-active.tribe-events-past div[id*='tribe-events-daynum-'],
-	.mobile-active.tribe-events-past div[id*='tribe-events-daynum-'] > a {
+	.mobile-active.tribe-events-past div[id*="tribe-events-daynum-"],
+	.mobile-active.tribe-events-past div[id*="tribe-events-daynum-"] > a {
 		color: #fff;
 	}
 
 	td.mobile-active,
-	.mobile-active div[id*='tribe-events-daynum-'],
-	.mobile-active div[id*='tribe-events-daynum-'] a,
-	.tribe-events-past.tribe-events-has-events:after {
+	.mobile-active div[id*="tribe-events-daynum-"],
+	.mobile-active div[id*="tribe-events-daynum-"] a,
+	.tribe-events-past.tribe-events-has-events::after {
 		background-color: #999;
 		color: #fff;
 	}
 
-	.tribe-events-present.tribe-events-has-events:after,
-	.mobile-active.tribe-events-has-events:after {
+	.tribe-events-present.tribe-events-has-events::after,
+	.mobile-active.tribe-events-has-events::after {
 		background: #fff;
 	}
 
 	.tribe-events-present,
 	td.tribe-events-present.mobile-active,
-	.tribe-events-present.mobile-active div[id*='tribe-events-daynum-'],
-	.tribe-events-present.mobile-active div[id*='tribe-events-daynum-'] a {
+	.tribe-events-present.mobile-active div[id*="tribe-events-daynum-"],
+	.tribe-events-present.mobile-active div[id*="tribe-events-daynum-"] a {
 		background-color: #666;
 	}
 }
@@ -466,7 +483,7 @@ a.tribe-events-gmap {
 	display: block;
 	float: none;
 	font-size: 12px;
-	font-weight: normal;
+	font-weight: 400;
 	height: 32px;
 	line-height: 32px;
 	margin: 0 auto 10px;
@@ -478,6 +495,7 @@ a.tribe-events-gmap {
    @ Template: ALL
 =============================================*/
 .tribe-theme-twentyfourteen {
+
 	.entry-content .tribe-events-calendar th,
 	.tribe-events-calendar th {
 		border-width: 0;
@@ -500,8 +518,9 @@ a.tribe-events-gmap {
 }
 
 .tribe-is-responsive.tribe-mobile {
+
 	.tribe-events-page-title {
-		margin-top: .5em;
+		margin-top: 0.5em;
 	}
 }
 
@@ -510,6 +529,7 @@ a.tribe-events-gmap {
 =============================================*/
 .tribe-theme-twentyfifteen {
 	--tec-color-background-events: var(--tec-color-background);
+
 	#tribe-events {
 		margin-left: 0;
 		margin-right: 0;
@@ -525,6 +545,7 @@ a.tribe-events-gmap {
    @ Template: ALL
 =============================================*/
 .tribe-theme-twentysixteen {
+
 	#tribe-events-pg-template {
 		padding-top: 0;
 	}

@@ -1,14 +1,14 @@
 var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ignore_events : {};
 
-( function( $, data ) {
-	"use strict";
+( function ( $, data ) {
+	'use strict';
 
 	/**
 	 * Migration for Legacy Ignored Event
 	 */
-	$( function() {
-		$( '#tribe-migrate-legacy-events' ).on( 'click', function() {
-			var $this = $( this ),
+	$( function () {
+		$( '#tribe-migrate-legacy-events' ).on( 'click', function () {
+			const $this = $( this ),
 				$spinner = $this.next( '.spinner' ),
 				$dismiss = $this.parents( '.notice' ).eq( 0 ).find( '.notice-dismiss' ),
 				$container = $this.parent();
@@ -19,9 +19,10 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 				dataType: 'json',
 				method: 'POST',
 				data: {
-					action: 'tribe_convert_legacy_ignored_events'
+					action: 'tribe_convert_legacy_ignored_events',
 				},
-				success: function ( response, status ) { // eslint-disable-line no-unused-vars
+				success( response, status ) {
+					// eslint-disable-line no-unused-vars
 					if ( response.status ) {
 						$container.html( response.text );
 						setTimeout( function () {
@@ -31,9 +32,9 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 						$container.before( $( '<p>' ).html( response.text ) );
 					}
 				},
-				complete: function () {
+				complete() {
 					$spinner.css( { visibility: 'hidden' } );
-				}
+				},
 			} );
 		} );
 	} );
@@ -41,18 +42,14 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 	/**
 	 * Modify Archive page elements
 	 */
-	$( function(){
+	$( function () {
 		// Verify that all WP variables exists
 		if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
 			return false;
 		}
 
 		// We are not on the correct Page
-		if (
-			'edit-tribe_events' !== pagenow ||
-			'tribe_events' !== typenow ||
-			'edit-php' !== adminpage
-		) {
+		if ( 'edit-tribe_events' !== pagenow || 'tribe_events' !== typenow || 'edit-php' !== adminpage ) {
 			return false;
 		}
 
@@ -60,18 +57,17 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 			return false;
 		}
 
-		var $selects = $( '#bulk-action-selector-top, #bulk-action-selector-bottom' );
+		const $selects = $( '#bulk-action-selector-top, #bulk-action-selector-bottom' );
 
-		$selects.each( function() {
-			var $this = $( this );
-			$this.append( $( '<option>', { 'value': 'delete', 'text' : data.archive.delete_label } ) );
+		$selects.each( function () {
+			const $this = $( this );
+			$this.append( $( '<option>', { value: 'delete', text: data.archive.delete_label } ) );
 		} );
-
 	} );
 	/**
 	 * Modify Single page elements
 	 */
-	$( function() {
+	$( function () {
 		// Verify that all WP variables exists
 		if ( -1 !== [ typeof pagenow, typeof typenow, typeof adminpage ].indexOf( 'undefined' ) ) {
 			return false;
@@ -90,10 +86,14 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 
 		$( '.submitdelete' ).attr( 'title', data.single.link_title ).html( data.single.link_text );
 		if ( 'undefined' !== typeof data.single.link_nonce ) {
-			$( '#post_status' ).append( $( '<option>', { 'value': 'ignored', 'text' : data.single.link_status } ).prop( 'selected', true ) ); // eslint-disable-line max-len
+			$( '#post_status' ).append(
+				$( '<option>', { value: 'ignored', text: data.single.link_status } ).prop( 'selected', true )
+			); // eslint-disable-line max-len
 			$( '#post-status-display' ).html( data.single.link_status );
-			$( '.submitdelete' ).attr( 'href', 'post.php?action=delete&post=' + data.single.link_post + '&_wpnonce=' + data.single.link_nonce ); // eslint-disable-line max-len
+			$( '.submitdelete' ).attr(
+				'href',
+				'post.php?action=delete&post=' + data.single.link_post + '&_wpnonce=' + data.single.link_nonce
+			); // eslint-disable-line max-len
 		}
 	} );
-
-}( jQuery, tribe_ignore_events ) );
+} )( jQuery, tribe_ignore_events );

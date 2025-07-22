@@ -30,11 +30,7 @@ const EventDetailsOrganizers = ( props ) => {
 	);
 
 	const renderDropdownContent = ( { onClose, isOpen } ) => (
-		<OrganizerForm
-			addOrganizer={ props.addOrganizer }
-			onClose={ onClose }
-			aria-expanded={ isOpen }
-		/>
+		<OrganizerForm addOrganizer={ props.addOrganizer } onClose={ onClose } aria-expanded={ isOpen } />
 	);
 
 	const { addOrganizer, removeOrganizer, organizers } = props;
@@ -67,7 +63,7 @@ const EventDetailsOrganizers = ( props ) => {
 				<Dropdown
 					key="organizer-create-dropdown"
 					className="tribe-editor__organizer__dropdown"
-					position="bottom center"
+					popoverProps={ { placement: 'bottom center' } }
 					contentClassName="tribe-editor-dropdown__dialog"
 					renderToggle={ renderDropdownToggle }
 					renderContent={ renderDropdownContent }

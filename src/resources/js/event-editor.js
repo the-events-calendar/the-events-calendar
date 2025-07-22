@@ -2,6 +2,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 /**
  * Implements behaviours that are specific to the event editor.
+ * @param $
+ * @param obj
  */
 ( function ( $, obj ) {
 	'use strict';
@@ -21,7 +23,6 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * sticky-in-month-view box also.
 	 *
 	 * @since 6.0.1
-	 *
 	 */
 	obj.auto_enable_sticky_field = function () {
 		if ( $( this ).prop( 'checked' ) ) {
@@ -44,7 +45,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 *
 	 * @since 6.0.1
 	 */
-	obj.init = () => {
+	obj.init = function () {
 		obj.bindFeaturedEvents();
 
 		// We need to register core/legacy-widget block to support

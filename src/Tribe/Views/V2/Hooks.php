@@ -17,6 +17,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use TEC\Events\Views\Modifiers\Hide_End_Time_Modifier;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -35,11 +36,15 @@ use TEC\Common\Contracts\Service_Provider;
  * Class Hooks
  *
  * @since 4.9.2
+ * @since 6.6.3 Moved Hide End Time feature into Hide_End_Time_Provider provider.
  *
  * @package Tribe\Events\Views\V2
  */
 class Hooks extends Service_Provider {
-
+	/**
+	 * @var Hide_End_Time_Modifier The modifier to hide the end time.
+	 */
+	protected Hide_End_Time_Modifier $end_time_modifier;
 
 	/**
 	 * Binds and sets up implementations.
@@ -47,6 +52,13 @@ class Hooks extends Service_Provider {
 	 * @since 4.9.2
 	 */
 	public function register() {
+		// Bind as singleton to maintain state in filters.
+		$this->container->singleton( Title::class );
+
+		// Register Hide End Time modifier provider.
+		$this->container->register( Hide_End_Time_Provider::class );
+
+		// Setup hooks.
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -69,8 +81,10 @@ class Hooks extends Service_Provider {
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+		add_action( 'template_redirect', [ $this, 'disabled_views_redirect' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
 	}
 
 	/**
@@ -79,7 +93,7 @@ class Hooks extends Service_Provider {
 	 * @since 5.14.1
 	 */
 	public function enqueue_customizer_in_block_editor() {
-		// Make sure we're on the block edit screen
+		// Make sure we're on the block edit screen.
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
@@ -94,12 +108,15 @@ class Hooks extends Service_Provider {
 			return;
 		}
 
-		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
-			$sheets[] = 'tribe-admin-v2-single-blocks';
+		// Append the customizer styles to the single block stylesheet.
+		add_filter(
+			'tribe_customizer_inline_stylesheets',
+			static function ( $sheets ) {
+				$sheets[] = 'tribe-admin-v2-single-blocks';
 
-			return $sheets;
-		} );
+				return $sheets;
+			}
+		);
 
 		// Print the styles!
 		tribe( 'customizer' )->inline_style( true );
@@ -175,15 +192,35 @@ class Hooks extends Service_Provider {
 
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
-
 		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 5 );
-
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
-
-		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
-
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12, 2 );
 		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+
+		add_filter( 'wp_rest_cache/allowed_endpoints', [ $this, 'include_rest_for_caching' ], 10, 1 );
+	}
+
+	/**
+	 * This retrieves the posts to be used on the rendered page, and stores them for use in title generation.
+	 *
+	 * @since 6.3.6
+	 *
+	 * @param WP_Post[] $events The list of tribe events for this page.
+	 * @param View      $view   The current view being rendered.
+	 */
+	public function action_set_title_events( $events, $view ) {
+		// Not a list? Bail.
+		if ( ! is_array( $events ) ) {
+			return;
+		}
+
+		// Trim to what is shown (we add one sometimes for pagination links).
+		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $cnt ) {
+			$events = array_slice( $events, 0, (int) $cnt );
+		}
+		$this->container->make( Title::class )->set_posts( $events );
 	}
 
 	/**
@@ -196,7 +233,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return void
 	 */
-	public function action_include_filters_excerpt() {
+	public function action_include_filters_excerpt(): void {
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
 	}
 
@@ -276,6 +313,41 @@ class Hooks extends Service_Provider {
 	}
 
 	/**
+	 * Redirects to the default view if the current view is not enabled.
+	 *
+	 * @since 6.14.0
+	 *
+	 * @return void
+	 */
+	public function disabled_views_redirect() {
+		$context = tribe_context();
+
+		if ( ! ( $context->get( 'event_post_type' ) && is_archive( TEC::POSTTYPE ) ) ) {
+			return;
+		}
+
+		$view_slug = $context->get( 'event_display' );
+		if ( ! empty( $view_slug ) && 'default' !== $view_slug ) {
+			$public_views = $this->container->make( Manager::class )->get_publicly_visible_views();
+
+			if ( ! isset( $public_views[ $view_slug ] ) ) {
+				$default = tribe_events_get_url(
+					[
+						'eventDisplay'     => 'default',
+						'tribe_redirected' => 1,
+					]
+				);
+
+				add_filter( 'tribe_events_views_v2_redirected', '__return_true' );
+
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect, StellarWP.CodeAnalysis.RedirectAndDie
+				wp_safe_redirect( $default );
+				tribe_exit();
+			}
+		}
+	}
+
+	/**
 	 * Filters the template included file.
 	 *
 	 * @since 4.9.2
@@ -296,6 +368,20 @@ class Hooks extends Service_Provider {
 	 */
 	public function register_rest_endpoints() {
 		$this->container->make( Rest_Endpoint::class )->register();
+	}
+
+
+	/**
+	 * Include the REST endpoint so it will be cached.
+	 *
+	 * @since 6.11.1
+	 *
+	 * @param array[] $allowed_endpoints The allowed endpoints.
+	 *
+	 * @return array[] The allowed endpoints.
+	 */
+	public function include_rest_for_caching( $allowed_endpoints ): array {
+		return $this->container->make( Rest_Endpoint::class )->include_rest_for_caching( $allowed_endpoints );
 	}
 
 	/**
@@ -497,7 +583,12 @@ class Hooks extends Service_Provider {
 	 */
 	public function pre_get_document_title( $title ) {
 		$bootstrap = $this->container->make( Template_Bootstrap::class );
-		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
+		if (
+			! $bootstrap->should_load()
+			|| $bootstrap->is_single_event()
+			|| $bootstrap->is_single_organizer()
+			|| $bootstrap->is_single_venue()
+		) {
 			return $title;
 		}
 
@@ -937,7 +1028,7 @@ class Hooks extends Service_Provider {
 			return $value;
 		}
 
-		// Note: backslash is hte escape character - so we need to escape it.
+		// Note: backslash is the escape character - so we need to escape it.
 		// This is the equivalent of replacing any occurrence of \\ with \
 		$value = str_replace( "\\\\", "\\", $value);
 		//$value = stripslashes( $value ); will strip out ones we want to keep!
@@ -1364,6 +1455,8 @@ class Hooks extends Service_Provider {
 		], 10, 3 );
 		remove_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		remove_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
+		remove_action( 'template_redirect', [ $this, 'disabled_views_redirect' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		remove_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ] );
 	}
 }

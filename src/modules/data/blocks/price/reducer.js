@@ -1,5 +1,5 @@
 /**
- * Wordpress dependenciess
+ * WordPress dependenciess
  */
 import { __ } from '@wordpress/i18n';
 
@@ -10,20 +10,19 @@ import { settings, priceSettings } from '@moderntribe/common/utils/globals';
 import { string } from '@moderntribe/common/utils';
 import * as types from './types';
 
-const position = string.isTruthy( settings() && settings().reverseCurrencyPosition )
-	? 'suffix'
-	: 'prefix';
+const position = string.isTruthy( settings() && settings().reverseCurrencyPosition ) ? 'suffix' : 'prefix';
 
 export const DEFAULT_STATE = {
-	position: priceSettings() && priceSettings().defaultCurrencyPosition
-		? priceSettings().defaultCurrencyPosition
-		: position,
-	symbol: priceSettings() && priceSettings().defaultCurrencySymbol
-		? priceSettings().defaultCurrencySymbol
-		: __( '$', 'the-events-calendar' ),
-	code: priceSettings() && priceSettings().defaultCurrencyCode
-		? priceSettings().defaultCurrencyCode
-		: __( 'USD', 'the-events-calendar' ),
+	position:
+		priceSettings() && priceSettings().defaultCurrencyPosition ? priceSettings().defaultCurrencyPosition : position,
+	symbol:
+		priceSettings() && priceSettings().defaultCurrencySymbol
+			? priceSettings().defaultCurrencySymbol
+			: __( '$', 'the-events-calendar' ),
+	code:
+		priceSettings() && priceSettings().defaultCurrencyCode
+			? priceSettings().defaultCurrencyCode
+			: __( 'USD', 'the-events-calendar' ),
 	cost: '',
 };
 

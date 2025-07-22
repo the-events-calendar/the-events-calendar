@@ -4,6 +4,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { unescape } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -29,39 +30,42 @@ const getTerms = ( terms, parentId = null ) => {
 	return terms.filter( ( term ) => term.parent === parentId );
 };
 
-const getTermListClassName = ( level = 0 ) => (
-	`tribe-editor__terms__list tribe-editor__terms__list--level-${ level }`
-);
+const getTermListClassName = ( level = 0 ) => `tribe-editor__terms__list tribe-editor__terms__list--level-${ level }`;
 
-const getTermListItemClassName = ( level = 0 ) => (
-	`tribe-editor__terms__list-item tribe-editor__terms__list-item--level-${ level }`
-);
+const getTermListItemClassName = ( level = 0 ) =>
+	`tribe-editor__terms__list-item tribe-editor__terms__list-item--level-${ level }`;
 
 const termName = ( term = {} ) => {
-	return term.name
-		? unescape( term.name ).trim()
-		: __( '(Untitled)', 'the-events-calendar' );
+	return term.name ? unescape( term.name ).trim() : __( '(Untitled)', 'the-events-calendar' );
 };
 
-const Label = ( { text } ) => (
+const Label = ( { text = '' } ) => (
 	<strong className="tribe-editor__terms__label" key="terms-label">
-		{ text }
-		{ ' ' }
+		{ text }{ ' ' }
 	</strong>
 );
 
-const Empty = ( { renderEmpty = null, id, label } ) => (
+Label.propTypes = {
+	text: PropTypes.string,
+};
+
+const Empty = ( { renderEmpty = null, id, label } ) =>
 	renderEmpty && (
 		<div key={ id } className="tribe-editor__terms--empty">
 			<Label text={ label } />
 			{ renderEmpty }
 		</div>
-	)
-);
+	);
+
+Empty.propTypes = {
+	renderEmpty: PropTypes.node,
+	id: PropTypes.string,
+	label: PropTypes.string,
+};
 
 const List = ( {
 	terms = [],
-	termSeparator = ', ',
+	termSeparator = __( ',', 'the-events-calendar' ),
 	isLoading = false,
 	id = '',
 	className = '',
@@ -73,18 +77,26 @@ const List = ( {
 	return (
 		<ul className={ getTermListClassName() }>
 			{ terms.map( ( term, index ) => (
-				<Item
-					key={ index }
-					term={ term }
-					separator={ termSeparator }
-					isLast={ index + 1 === terms.length }
-				/>
+				<Item key={ index } term={ term } separator={ termSeparator } isLast={ index + 1 === terms.length } />
 			) ) }
 		</ul>
 	);
 };
 
-const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
+List.propTypes = {
+	terms: PropTypes.array,
+	termSeparator: PropTypes.string,
+	isLoading: PropTypes.bool,
+	id: PropTypes.string,
+	className: PropTypes.string,
+};
+
+const Separator = ( { delimiter, isLast } ) => ( ! isLast ? <span>{ delimiter }</span> : '' );
+
+Separator.propTypes = {
+	delimiter: PropTypes.string,
+	isLast: PropTypes.bool,
+};
 
 const Item = ( { separator, term, isLast } ) => {
 	let termLink = term.link;
@@ -109,6 +121,12 @@ const Item = ( { separator, term, isLast } ) => {
 	);
 };
 
+Item.propTypes = {
+	separator: PropTypes.string,
+	term: PropTypes.object,
+	isLast: PropTypes.bool,
+};
+
 const Loading = ( { id = '', className = '' } ) => (
 	<div key={ id } className={ `tribe-editor__terms__spinner ${ className }` }>
 		<Label />
@@ -116,18 +134,25 @@ const Loading = ( { id = '', className = '' } ) => (
 	</div>
 );
 
+Loading.propTypes = {
+	id: PropTypes.string,
+	className: PropTypes.string,
+};
+
 export const TaxonomiesElement = ( {
-	className,
-	slug,
-	label,
-	renderEmpty,
-	isRequesting,
+	className = '',
+	slug = '',
+	label = '',
+	renderEmpty = null,
+	isRequesting = false,
+	// eslint-disable-next-line no-unused-vars
+	terms = [],
 	...rest
 } ) => {
-	const terms = getTerms( rest.terms );
+	const termsList = getTerms( rest.terms );
 	const key = `tribe-terms-${ slug }`;
 
-	if ( ! terms.length && ! isRequesting ) {
+	if ( ! termsList.length && ! isRequesting ) {
 		return <Empty id={ key } renderEmpty={ renderEmpty } label={ label } />;
 	}
 
@@ -135,17 +160,19 @@ export const TaxonomiesElement = ( {
 		<div key={ key } className={ `tribe-editor__terms ${ className }` }>
 			<Label text={ label } />
 			<div key="terms" className="tribe-editor__terms__list-wrapper">
-				<List terms={ terms } className={ className } id={ key } isLoading={ isRequesting } />
+				<List terms={ termsList } className={ className } id={ key } isLoading={ isRequesting } />
 			</div>
 		</div>
 	);
 };
 
-TaxonomiesElement.defaultProps = {
-	termSeparator: __( ', ', 'the-events-calendar' ),
-	className: '',
-	terms: [],
-	isRequesting: false,
+TaxonomiesElement.propTypes = {
+	className: PropTypes.string,
+	slug: PropTypes.string,
+	label: PropTypes.string,
+	renderEmpty: PropTypes.node,
+	isRequesting: PropTypes.bool,
+	terms: PropTypes.array,
 };
 
 const applySelect = withSelect( ( select, props ) => {
@@ -172,6 +199,4 @@ const applySelect = withSelect( ( select, props ) => {
 	};
 } );
 
-export default compose(
-	applySelect,
-)( TaxonomiesElement );
+export default compose( applySelect )( TaxonomiesElement );

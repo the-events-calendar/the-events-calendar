@@ -77,7 +77,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should print a view HTML on the page when caling send_html
+	 * It should print a view HTML on the page when calling send_html
 	 *
 	 * @test
 	 */
@@ -263,7 +263,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			'2019-10-11' => [ '2019-10-11', '2019-10-11' ],
 			'false'      => [ false, false ],
 			'now'        => [ 'now', false ],
-			'today'      => [ 'today', date( Dates::DBDATEFORMAT ) ],
+			'today'      => [ 'today', gmdate( Dates::DBDATEFORMAT ) ],
 		];
 	}
 

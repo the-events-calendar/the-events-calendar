@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 * Calendar Body
 	 * ----------------------------------------------------------------------------- */
@@ -11,7 +12,8 @@
 	}
 
 	.tribe-events-calendar-month__week {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(7, 1fr);
 
 		.tribe-common--breakpoint-medium& {
 			border-left: 1px solid var(--tec-color-border-secondary-month-grid);

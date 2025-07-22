@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 *
 	 * View Selector
@@ -88,7 +89,7 @@
 				outline: 2px solid var(--tec-color-accent-secondary);
 			}
 
-			&:before {
+			&::before {
 
 				.tribe-common--breakpoint-medium& {
 					content: none;
@@ -107,7 +108,7 @@
 				width: 10px;
 
 				path {
-					fill: currentColor;
+					fill: currentcolor;
 				}
 			}
 		}
@@ -125,6 +126,7 @@
 		.tribe-events-c-view-selector__button-text {
 
 			.tribe-common--breakpoint-medium& {
+
 				@mixin desktop-body-2-bold;
 
 				color: var(--tec-color-text-view-selector-list-item);
@@ -155,12 +157,12 @@
 
 			.tribe-events-c-view-selector__list-item-link {
 
-				&:after {
+				&::after {
 
 					.tribe-common--breakpoint-medium& {
 						background-color: var(--tec-color-accent-secondary);
 						bottom: -1px;
-						content: '';
+						content: "";
 						display: block;
 						height: 2px;
 						position: absolute;
@@ -172,6 +174,7 @@
 	}
 
 	.tribe-events-c-view-selector__button {
+		background: transparent;
 		text-align: left;
 
 		&:hover,
@@ -183,9 +186,9 @@
 			opacity: var(--tec-opacity-icon-active);
 		}
 
-		&:before {
+		&::before {
 			background-color: var(--tec-color-accent-primary);
-			content: '';
+			content: "";
 			display: none;
 			height: 2px;
 			pointer-events: none;
@@ -203,7 +206,7 @@
 
 	.tribe-events-c-view-selector__button--active {
 
-		&:before {
+		&::before {
 			display: block;
 		}
 	}
@@ -228,6 +231,7 @@
 	}
 
 	.tribe-events-c-view-selector__list-item-text {
+
 		@mixin desktop-body-2;
 
 		color: var(--tec-color-text-view-selector-list-item);

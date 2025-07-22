@@ -18,16 +18,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 }
 
 /**
- * Used in the multiday month loop.
- * Outputs classes for the multiday event (article).
+ * A list of CSS classes that will be added to multiday events in month view.
+ * Used in the Month view multiday loop.
  *
  * @since 5.1.1
  *
- * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
+ * @param WP_Post $event            An event post object with event-specific properties added from the `tribe_get_event`
  *                                  function.
- * @param string  $day_date         The `Y-m-d` date of the day currently being displayed.
+ * @param string  $day_date         The date of the day currently being displayed in `Y-m-d` format.
  * @param bool    $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
- * @param string  $today_date       Today's date in the `Y-m-d` format.
+ * @param string  $today_date       Today's date in `Y-m-d` format.
  *
  * @return array<string> $classes   The classes to add to the multiday event.
  */
@@ -44,36 +44,36 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 	 */
 	$should_display = $is_start_of_week || in_array( $day_date, $event->displays_on, true );
 
-	// If doesn't start today and this week, let's not add the left border or set the width.
+	// If the event doesn't start today or this week, let's not add the left border or set the width.
 	if ( ! $should_display ) {
 		/**
 		 * Allows filtering the multiday event classes.
 		 *
 		 * @since 5.1.1
 		 *
-		 * @param array<string> $classes    An array of thee classes to be applied.
-		 * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
+		 * @param array<string> $classes    An array of the classes to be applied.
+		 * @param WP_Post $event            An event post object with event-specific properties added from the `tribe_get_event`
 		 *                                  function.
-		 * @param string  $day_date         The `Y-m-d` date of the day currently being displayed.
+		 * @param string  $day_date         The date of the day currently being displayed in `Y-m-d` format.
 		 * @param bool    $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
-		 * @param string  $today_date       Today's date in the `Y-m-d` format.
+		 * @param string  $today_date       Today's date in `Y-m-d` format.
 		 */
 		return apply_filters( 'tribe_events_views_v2_month_multiday_classes', $classes, $event, $day_date, $is_start_of_week, $today_date );
 	}
 
 	/*
 	* The "duration" here is how many days the event will take this week, not in total.
-	* The two values might be the same but they will differ for events that last more than one week.
+	* The two values might be the same, but they will differ for events that last more than one week.
 	*/
 	$classes[] = 'tribe-events-calendar-month__multiday-event--width-' . $event->this_week_duration;
 	$classes[] = 'tribe-events-calendar-month__multiday-event--display';
 
-	// If it ends this week, let's add the start class (left border).
+	// If the event ends this week, let's add the start class (left border).
 	if ( $event->starts_this_week ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--start';
 	}
 
-	// If it ends this week, let's add the end class (right border).
+	// If the event ends this week, let's add the end class (right border).
 	if ( $event->ends_this_week ) {
 		$classes[] = 'tribe-events-calendar-month__multiday-event--end';
 	}
@@ -87,27 +87,27 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 	 *
 	 * @since 5.1.1
 	 *
-	 * @param array<string> $classes    An array of thee classes to be applied.
-	 * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
+	 * @param array<string> $classes    An array of the classes to be applied.
+	 * @param WP_Post $event            An event post object with event-specific properties added from the `tribe_get_event`
 	 *                                  function.
-	 * @param string  $day_date         The `Y-m-d` date of the day currently being displayed.
+	 * @param string  $day_date         The date of the day currently being displayed in `Y-m-d` format.
 	 * @param bool    $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
-	 * @param string  $today_date       Today's date in the `Y-m-d` format.
+	 * @param string  $today_date       Today's date in `Y-m-d` format.
 	 */
 	return apply_filters( 'tribe_events_views_v2_month_multiday_classes', $classes, $event, $day_date, $is_start_of_week, $today_date );
 }
 
 /**
+ * A list of CSS classes that will be added to the day "cell" in month view.
  * Used in the Month View days loop.
- * Outputs classes for each day "cell".
  *
  * @since 6.0.2
  * @since 6.2.9 Updated logic to always default to comparing days with today's date.
  *
  * @param array<mixed> $day          The current day data.
- * @param string       $day_date     The current day date, in the `Y-m-d` format.
+ * @param string       $day_date     The current day date in `Y-m-d` format.
  * @param \DateTime    $request_date The request date for the view.
- * @param string       $today_date   Today's date in the `Y-m-d` format.
+ * @param string       $today_date   Today's date in `Y-m-d` format.
  *
  * @return array<string,bool> $day_classes The classes to add to the day "cell".
  */
@@ -119,11 +119,11 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	 * @since 6.2.9 Added `$today_date` parameter to the filter.
 	 * @since 6.2.9 Comparison date now defaults to today's date instead of the request date.
 	 *
-	 * @param string       $comparison_date The date used for comparisons. Defaults to today's date ($today_date).
+	 * @param string       $comparison_date The date used for comparisons. Defaults to today's date (`$today_date`).
 	 * @param \DateTime    $request_date    The request date for the view.
-	 * @param string       $day_date        The current day date, in the `Y-m-d` format.
+	 * @param string       $day_date        The current day date in `Y-m-d` format.
 	 * @param array<mixed> $day             The current day data.
-	 * @param string       $today_date      Today's date in the `Y-m-d` format.
+	 * @param string       $today_date      Today's date in `Y-m-d` format.
 	 */
 	$comparison_date = apply_filters( 'tec_events_month_day_classes_comparison_date', $today_date, $request_date, $day_date, $day, $today_date );
 

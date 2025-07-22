@@ -35,7 +35,7 @@ $website_title = tribe_events_get_venue_website_title();
 		>
 			<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
 		</dt>
-		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
+		<dd class="tribe-venue"> <?php echo wp_kses_post( tribe_get_venue() ); ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
 			<dt

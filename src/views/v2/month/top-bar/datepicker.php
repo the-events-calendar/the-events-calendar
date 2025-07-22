@@ -9,7 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @version 6.14.0
+ * @since 5.3.0
+ * @since 6.14.0 Changed aria-label to aria-description for WCAG compliance.
  *
  * @var string    $now                        The current date and time in the `Y-m-d H:i:s` format.
  * @var string    $grid_date                  The current calendar grid date in the `Y-m-d` format.
@@ -19,6 +21,7 @@
  *                                            Date Format" option.
  * @var object    $date_formats               Object containing the date formats.
  * @var \DateTime $the_date                   The Month current date object.
+ * @var bool      $past                       Whether to show only past events.
  */
 use Tribe__Date_Utils as Dates;
 
@@ -28,11 +31,10 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
+		aria-description="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
 			datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
@@ -63,6 +65,7 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 		tabindex="-1"
 		autocomplete="off"
 		readonly="readonly"
+		<?php echo $past ? 'data-date-end-date="0d"' : ''; ?>
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
 	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">

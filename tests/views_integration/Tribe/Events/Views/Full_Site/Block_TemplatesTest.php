@@ -3,8 +3,9 @@
 namespace Tribe\Events\Views\Full_Site;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use TEC\Events\Editor\Full_Site\Controller;
+use TEC\Events\Block_Templates\Controller;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
+use WP_Block_Template;
 
 class Block_TemplatesTest extends HtmlTestCase {
 	use MatchesSnapshots;
@@ -25,7 +26,7 @@ class Block_TemplatesTest extends HtmlTestCase {
 		$array_template = (array) $template;
 		asort( $array_template );
 		// Dynamic fields, ditch them for snapshots.
-		foreach ( [ 'wp_id', 'author', 'modified' ] as $field ) {
+		foreach ( [ 'wp_id', 'author', 'modified', 'plugin' ] as $field ) {
 			$array_template[ $field ] = null;
 		}
 
@@ -82,5 +83,38 @@ class Block_TemplatesTest extends HtmlTestCase {
 			$this->assertEquals( $normalized_templateA, $normalized_templateB );
 			$this->assertMatchesSnapshot( self::normalize_wp_template( $normalized_templateA ) );
 		}
+	}
+
+	public function test_tec_blocks_are_not_used_if_theme_has_templates() {
+		$snapshot = [];
+		$controller = tribe( Controller::class );
+		$template_services = $controller->get_filtered_block_templates();
+		$snapshot[] = array_map( fn( $b ) => $b->id(), $template_services );
+		$this->assertCount( 2, $template_services );
+
+		$fake_single_event_template = new WP_Block_Template();
+		$fake_single_event_template->slug = 'single-event';
+		$fake_single_event_template->origin = 'theme';
+
+		$fake_archive_event_template = new WP_Block_Template();
+		$fake_archive_event_template->slug = 'archive-events';
+		$fake_archive_event_template->source = 'theme';
+
+		$query_result = [ $fake_single_event_template ];
+		$template_services = $controller->get_filtered_block_templates( 'wp_template', $query_result );
+		$snapshot[] = array_map( fn( $b ) => $b->id(), $template_services );
+		$this->assertCount( 1, $template_services );
+
+		$query_result = [ $fake_archive_event_template ];
+		$template_services = $controller->get_filtered_block_templates( 'wp_template', $query_result );
+		$snapshot[] = array_map( fn( $b ) => $b->id(), $template_services );
+		$this->assertCount( 1, $template_services );
+
+		$query_result = [ $fake_single_event_template, $fake_archive_event_template ];
+		$template_services = $controller->get_filtered_block_templates( 'wp_template', $query_result );
+		$snapshot[] = array_map( fn( $b ) => $b->id(), $template_services );
+		$this->assertCount( 0, $template_services );
+
+		$this->assertMatchesJsonSnapshot( wp_json_encode( $snapshot, JSON_PRETTY_PRINT ) );
 	}
 }

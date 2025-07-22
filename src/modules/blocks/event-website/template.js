@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import AutosizeInput from 'react-input-autosize';
+import AutosizeInput from 'react-18-input-autosize';
 
 /**
  * WordPress dependencies
@@ -27,7 +27,7 @@ const placeholder = __( 'Add Event Website', 'the-events-calendar' );
 const buttonPlaceholder = __( 'Button text', 'the-events-calendar' );
 const urlPlaceholder = __( 'Website URL', 'the-events-calendar' );
 
-const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
+const renderUrlInput = ( { isSelected, url, setWebsite } ) =>
 	isSelected && (
 		<div key="tribe-events-website-url" className="tribe-editor__event-website__url">
 			<Dashicon icon="admin-links" />
@@ -38,11 +38,10 @@ const renderUrlInput = ( { isSelected, url, setWebsite } ) => (
 				placeholder={ urlPlaceholder }
 			/>
 		</div>
-	)
-);
+	);
 
 const renderLabelInput = ( { isSelected, attributes, setAttributes } ) => {
-	const setLabel = event => setAttributes( { urlLabel: event.target.value } );
+	const setLabel = ( event ) => setAttributes( { urlLabel: event.target.value } );
 	const isEmpty = attributes.urlLabel.trim() === '';
 
 	const containerClassNames = classNames( {
@@ -56,10 +55,7 @@ const renderLabelInput = ( { isSelected, attributes, setAttributes } ) => {
 	} );
 
 	return (
-		<div
-			key="tribe-events-website-label"
-			className={ containerClassNames }
-		>
+		<div key="tribe-events-website-label" className={ containerClassNames }>
 			<AutosizeInput
 				id="tribe-events-website-link"
 				className={ inputClassNames }
@@ -72,34 +68,24 @@ const renderLabelInput = ( { isSelected, attributes, setAttributes } ) => {
 };
 
 const renderPlaceholder = () => {
-	const classes = [
-		'tribe-editor__event-website__label',
-		'tribe-editor__event-website__label--placeholder',
-	];
+	const classes = [ 'tribe-editor__event-website__label', 'tribe-editor__event-website__label--placeholder' ];
 
-	return (
-		<button className={ classNames( classes ) }>
-			{ placeholder }
-		</button>
-	);
+	return <button className={ classNames( classes ) }>{ placeholder }</button>;
 };
 
 const EventWebsite = ( props ) => {
 	const { isSelected, attributes } = props;
-	const eventWebsite = ( ! isSelected && ! attributes.urlLabel )
-		? renderPlaceholder()
-		: [ renderLabelInput( props ), renderUrlInput( props ) ];
+	const eventWebsite =
+		! isSelected && ! attributes.urlLabel
+			? renderPlaceholder()
+			: [ renderLabelInput( props ), renderUrlInput( props ) ];
 
 	const blockContainerClassNames = classNames( {
 		'tribe-editor__block tribe-editor__event-website': true,
 		'tribe-editor__event-website--selected': isSelected,
 	} );
 
-	return (
-		<div className={ blockContainerClassNames }>
-			{ eventWebsite }
-		</div>
-	);
+	return <div className={ blockContainerClassNames }>{ eventWebsite }</div>;
 };
 
 EventWebsite.propTypes = {

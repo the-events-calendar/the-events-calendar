@@ -38,11 +38,11 @@ const blocks = [
 	eventWebsite,
 	FeaturedImage,
 	archiveEvents,
-	singleEvent
+	singleEvent,
 ];
 
-blocks.forEach( block => {
-	const blockName = block.id.includes('/') ? block.id : `tribe/${ block.id }`;
+blocks.forEach( ( block ) => {
+	const blockName = block.id.includes( '/' ) ? block.id : `tribe/${ block.id }`;
 	registerBlockType( blockName, block );
 } );
 

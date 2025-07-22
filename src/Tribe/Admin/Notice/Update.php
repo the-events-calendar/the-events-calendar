@@ -51,7 +51,7 @@ class Update {
 			[ $this, 'should_display' ]
 		);
 
-		tribe_asset(
+		tec_asset(
 			tribe( 'tec.main' ),
 			'tec-update-6-0-0-notice',
 			'tec-update-6.0.0-notice.js',

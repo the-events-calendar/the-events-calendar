@@ -1,20 +1,43 @@
 <?xml version="1.0"?>
 <ruleset name="The Events Calendar Coding Standards">
-	<rule ref="TEC"/>
+	<rule ref="StellarWP"/>
 	<rule ref="WordPress-VIP-Go"/>
 	<rule ref="WordPress-Extra"/>
 	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-Docs">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
+
 	<rule ref="WordPress">
+		<!-- We don't want these. -->
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+
+		<!-- We cover these with our own tests so they're redundant. -->
+		<exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
+	</rule>
+
+	<!-- Tweak this one - we always want them lined up. 1000 is the default, WP overrides that. -->
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="maxColumn" value="1000"/>
+		</properties>
 	</rule>
 
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
+	<!-- Enforce our specific plugin's text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="the-events-calendar" />
+		</properties>
+	</rule>
+
+	<exclude-pattern>*/bin/source-updater/*</exclude-pattern>
+	<exclude-pattern>*/common/*</exclude-pattern>
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/views/integrations/elementor/templates/*</exclude-pattern>
 </ruleset>

@@ -18,8 +18,8 @@
  * |_|3|3|_|_|
  * |_|_|_|4|4|
  *
- * Looking at this last representation there is some "wasted" visual space rigth of 2 that might be filled by 4; if the
- * stack is set ot "recycle" space then this would be the representation of the same events:
+ * Looking at this last representation there is some "wasted" visual space right of 2 that might be filled by 4; if the
+ * stack is set to "recycle" space then this would be the representation of the same events:
  *
  * |1|1|1|1|_|
  * |2|2|_|4|4|
@@ -169,7 +169,7 @@ class Stack {
 		 *
 		 * @since 4.9.7
 		 *
-		 * @param mixed $spacer The spacer that will be used to indicate an empty space in ths stack; default `false`.
+		 * @param mixed $spacer The spacer that will be used to indicate an empty space in this stack; default `false`.
 		 */
 		$spacer = apply_filters( 'tribe_events_views_v2_stack_spacer', false );
 
@@ -475,7 +475,7 @@ class Stack {
 	}
 
 	/**
-	 * Assigns a stack postion to each event w/o one not recycling space.
+	 * Assigns a stack position to each event w/o one not recycling space.
 	 *
 	 * @since 4.9.9
 	 *

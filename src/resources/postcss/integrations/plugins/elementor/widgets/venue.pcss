@@ -1,0 +1,116 @@
+/**
+ * Elementor Event Venue Widget styles.
+ *
+ * @since 6.4.0
+ */
+
+.tec-events-elementor-event-widget__venue,
+.tec-events-elementor-event-widget__venue .tribe-events-content {
+	display: flex;
+	flex-direction: column;
+
+	@media only screen and (min-width: 767px) {
+		flex-direction: row;
+	}
+
+	.tec-events-elementor-event-widget__venue-header {
+		font-weight: var(--tec-font-weight-bold);
+		margin: var(--tec-spacer-1) 0;
+		text-transform: uppercase;
+	}
+
+	.tec-events-elementor-event-widget__venue-container {
+		border: 1px solid var(--tec-color-border-secondary);
+		border-radius: var(--tec-border-radius-default);
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		height: fit-content;
+		justify-content: space-between;
+		margin: auto;
+		width: fit-content;
+
+		@media only screen and (min-width: 767px) {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr;
+			margin: var(--tec-spacer-2);
+			max-width: 580px;
+		}
+	}
+
+	.tec-events-elementor-event-widget__venue-details {
+		box-sizing: border-box;
+		font-size: var(--tec-font-size-2);
+		padding: 10px;
+
+		> * {
+			margin: var(--tec-spacer-3) 0;
+			padding: 0;
+		}
+
+		p {
+			margin: 0;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		.tec-events-elementor-event-widget__venue-address,
+		.tec-events-elementor-event-widget__venue-phone,
+		.tec-events-elementor-event-widget__venue-website {
+			margin: 0 0 var(--tec-spacer-5) 0;
+
+			&-header {
+				font-weight: var(--tec-font-weight-bold);
+				margin-bottom: var(--tec-spacer-1);
+			}
+		}
+
+		.tec-events-elementor-event-widget__venue-email-link,
+		.tec-events-elementor-event-widget__venue-name-link,
+		.tec-events-elementor-event-widget__venue-phone-link {
+			border-color: currentcolor;
+			color: var(--tec-color-accent-primary);
+			font-size: inherit;
+			text-decoration: underline;
+		}
+
+		.tec-events-elementor-event-widget__venue-address-address {
+			margin: 0;
+		}
+
+		.tec-events-elementor-event-widget__venue-address-map-link {
+			margin: -var(--tec-spacer-3) 0;
+		}
+
+		.tec-events-elementor-event-widget__venue-address-map-link,
+		.tec-events-elementor-event-widget__venue-website-url {
+
+			> a {
+				border-color: currentcolor;
+				color: var(--tec-color-accent-primary);
+				text-decoration: underline;
+
+				&:hover {
+					color: var(--tec-color-accent-primary-hover);
+				}
+			}
+		}
+
+		.tec-events-elementor-event-widget__venue-name {
+			font-size: var(--tec-font-size-4);
+
+			&-header {
+				padding-bottom: var(--tec-spacer-2);
+			}
+		}
+
+		.tec-events-elementor-event-widget__venue-map {
+			margin: 0;
+			max-height: 100%;
+			overflow: hidden;
+			padding: 0;
+		}
+	}
+}

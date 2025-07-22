@@ -59,12 +59,15 @@ class String_Dictionary {
 	 * Initializes the strings map filtering it.
 	 *
 	 * @since 6.0.0
+	 * @since 6.3.0 Added the `$force` parameter.
+	 *
+	 * @param bool $force Whether to force the initialization or not.
 	 *
 	 * @return void The method does not return any value and will
 	 *              lazily initialize the strings map.
 	 */
-	private function init() {
-		if ( $this->did_init ) {
+	private function init(bool $force = false) {
+		if ( $this->did_init && ! $force ) {
 			return;
 		}
 
@@ -488,5 +491,18 @@ class String_Dictionary {
 
 		// If we cannot find a string for the slug, then return the key.
 		return $key;
+	}
+
+	/**
+	 * Forces the re-initialization of the strings map.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @return String_Dictionary For chaining.
+	 */
+	public function reinit(): String_Dictionary {
+		$this->init( true );
+
+		return $this;
 	}
 }

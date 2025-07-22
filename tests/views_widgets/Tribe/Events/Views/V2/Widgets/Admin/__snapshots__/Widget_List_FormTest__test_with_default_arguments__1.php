@@ -5,8 +5,7 @@
 <div
 	 class="tribe-widget-fields" >
 	<div
-	class="tribe-widget-form-control tribe-widget-form-control--text"
-	>
+	 class="tribe-widget-form-control tribe-widget-form-control--text" 	>
 	<label
 		class="tribe-common-form-control__label"
 		for="widget-tribe-widget-events-list--title"
@@ -89,5 +88,4 @@
 </div>
 </div>
 </div>
-
 ';

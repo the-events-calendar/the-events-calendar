@@ -76,7 +76,7 @@ class Redirection_Schema {
 
 		/**
 		 * Filters the meta key redirection map that will be used, from a meta key (e.g. `_EventStartDate`) to
-		 * redirect the request to a custom table key and colum.
+		 * redirect the request to a custom table key and column.
 		 *
 		 * @since 6.0.0
 		 *

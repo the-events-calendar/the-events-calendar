@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				}
 			];
 
-			tribe_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', [ 'jquery' ], 'admin_enqueue_scripts', $args );
+			tec_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', [ 'jquery' ], 'admin_enqueue_scripts', $args );
 		}
 
 		/**
@@ -190,6 +190,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
+			if ( ! wp_verify_nonce( tribe_get_request_var( '_wpnonce', '' ), 'restore-post_' . tribe_get_request_var( 'post', '' ) ) ) {
+				return;
+			}
+
 			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}

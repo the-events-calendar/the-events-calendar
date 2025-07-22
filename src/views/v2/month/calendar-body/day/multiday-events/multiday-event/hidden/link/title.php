@@ -19,6 +19,6 @@
  */
 
 ?>
-<h3 class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
+<div class="tribe-events-calendar-month__multiday-event-hidden-title tribe-common-h8">
 	<?php echo $event->title; // phpcs:ignore  ?>
-</h3>
+</div>

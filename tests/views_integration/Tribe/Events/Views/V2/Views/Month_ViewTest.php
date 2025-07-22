@@ -3,12 +3,14 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Views\V2\Hide_End_Time_Provider;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 use Tribe__Events__Main as TEC;
+use Tribe__Settings_Manager;
 
-class Month_ViewTest extends ViewTestCase {
+class Month_ViewTest extends TecViewTestCase {
 	use MatchesSnapshots;
 
 	/**
@@ -145,6 +147,106 @@ class Month_ViewTest extends ViewTestCase {
 
 		 $this->assertMatchesSnapshot( $html );
 	}
+
+	/**
+	 * Test render with events with end time hidden.
+	 */
+	public function test_render_with_events_hide_endtime() {
+		/* The views will default to `list` because of a dirty context check, so use list here.
+		 It's ok because we are checking the View objects directly. When the dirty context is fixed, this should change. */
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [ 'list' ] );
+
+		tribe( Hide_End_Time_Provider::class )->hide_event_end_time();
+		$timezone_string = 'Europe/Paris';
+		$timezone        = new \DateTimeZone( $timezone_string );
+		update_option( 'timezone_string', $timezone_string );
+
+		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
+
+		$events    = array_map(
+			static function ( $i ) use ( $now, $timezone ) {
+				return tribe_events()->set_args(
+					[
+						'start_date' => $now->setTime( 10 + $i, 0 ),
+						'timezone'   => $timezone,
+						'duration'   => 3 * HOUR_IN_SECONDS,
+						'title'      => 'Test Event - ' . $i,
+						'status'     => 'publish',
+					]
+				)->create();
+			},
+			range( 1, 3 )
+		);
+		$event_ids = wp_list_pluck($events,'ID') ;
+		$mock_and_insert = function($template, $id){
+			$this->wp_insert_post($this->get_mock_event( $template, [ 'id' => $id ] ));
+
+			return $id;
+		};
+		$remapped_post_ids = array_combine( $event_ids, [
+			$mock_and_insert( 'events/featured/id.template.json', 234234234 ),
+			$mock_and_insert( 'events/single/id.template.json', 2453454355 ),
+			$mock_and_insert( 'events/single/id.template.json', 3094853477 ),
+		] );
+
+		add_filter(
+			'tribe_events_views_v2_view_data',
+			function ( array $data ) use ( $remapped_post_ids ) {
+				if ( ! empty( $data['events'] ) ) {
+					foreach ( $data['events'] as &$day_events_ids ) {
+						$day_events_ids = $this->remap_post_id_array( $day_events_ids, $remapped_post_ids );
+					}
+				}
+
+				return $data;
+			}
+		);
+		add_filter( 'tribe_events_views_v2_view_month_template_vars', function ( $vars ) use ( $remapped_post_ids )
+		{
+			$vars['events']['2019-01-01']         = $this->remap_post_id_array( $vars['events']['2019-01-01'],
+			                                                                    $remapped_post_ids );
+			$vars['days']['2019-01-01']['events'] = array_combine(
+				$remapped_post_ids,
+				array_map( 'tribe_get_event', $remapped_post_ids )
+			);
+
+			return $vars;
+		} );
+
+		/** @var Month_View $month_view */
+		$month_view      = View::make( Month_View::class, $this->context );
+		$html = $month_view->get_html();
+
+		$this->assertEquals( $event_ids, $month_view->found_post_ids() );
+
+		foreach ( $month_view->get_grid_days( $now->format( 'Y-m' ) ) as $date => $found_day_ids ) {
+			$day          = new \DateTimeImmutable( $date, $timezone );
+			$expected_ids = tribe_events()
+				->where(
+					'date_overlaps',
+					$day->setTime( 0, 0 ),
+					$day->setTime( 23, 59, 59 ),
+					$timezone
+				)->get_ids();
+
+			$this->assertEquals(
+				$expected_ids,
+				$found_day_ids,
+				sprintf(
+					'Day %s event IDs mismatch, expected %s, got %s',
+					$day->format( 'Y-m-d' ),
+					json_encode( $expected_ids ),
+					json_encode( $found_day_ids )
+				)
+			);
+		}
+
+		$this->assertMatchesSnapshot( $html );
+
+		// Remove option so the flag doesn't bleed into other tests.
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [] );
+	}
+
 
 	public function today_url_data_sets() {
 		$event_dates    = [

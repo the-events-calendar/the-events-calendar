@@ -22,16 +22,16 @@
 	<div class="tribe-events-calendar-month-mobile-events__mobile-event-details">
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
-	<em
-	class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon"
-	title="Featured"
+	<em class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon">
+	<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 8 10"
+	xmlns="http://www.w3.org/2000/svg"
 >
-	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg"  viewBox="0 0 8 10" xmlns="http://www.w3.org/2000/svg">
-	<title>Featured</title>
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>
 </em>
-<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text">
+<span class="tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
 			<time datetime="2019-06-20">
 			<span class="tribe-event-date-start">June 20, 2019 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
@@ -92,7 +92,13 @@
 		title="Previous month, May"
 		rel="noindex"
 	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
 		May	</a>
 </li>
 
@@ -117,7 +123,13 @@
 		title="Next month, July"
 		rel="noindex"
 	>
-		July		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+		July		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 	</a>
 </li>
 	</ul>

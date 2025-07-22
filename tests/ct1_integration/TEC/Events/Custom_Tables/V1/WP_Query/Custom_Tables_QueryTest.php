@@ -157,8 +157,10 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				return $query;
 			}
 
-			// Remove IDs, it changes.
-			$trimmed_query = preg_replace( '/IN (\([0-9].*?\))/i', 'IN ()', $trimmed_query );
+			// Drop a query for terms.
+			if ( strpos( $trimmed_query, 'SELECT DISTINCT t.term_id' ) !== false ) {
+				return $query;
+			}
 
 			$logged_queries[] = $trimmed_query;
 
@@ -250,6 +252,63 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				'orderby'  => 'meta_value',
 			]
 		];
+		yield 'by invalid order type' => [
+			[
+				'orderby' => 'ID',
+				'order' => 'bork bork bork',
+			],
+		];
+		yield 'by ASC' => [
+			[
+				'orderby' => 'ID',
+				'order' => 'ASC',
+			],
+		];
+		yield 'by DESC' => [
+			[
+				'orderby' => 'ID',
+				'order' => 'DESC',
+			],
+		];
+		yield 'by nested invalid order type' => [
+			[
+				'orderby' => [
+					'ID' => 'bork bork bork',
+				],
+			],
+		];
+		yield 'by nested ASC' => [
+			[
+				'orderby' => [
+					'ID' => 'ASC',
+				],
+			],
+		];
+		yield 'by nested DESC' => [
+			[
+				'orderby' => [
+					'ID' => 'DESC',
+				],
+			],
+		];
+		yield 'SQL injection on order and order by' => [
+			[
+				'orderby' => 'ID; (SELECT ID FROM wp_posts)',
+				'order' => 'ASC (SELECT ID FROM wp_posts)',
+			],
+		];
+		yield 'SQL injection on order by' => [
+			[
+				'orderby' => 'ID (SELECT ID FROM wp_posts)',
+				'order' => 'DESC',
+			],
+		];
+		yield 'SQL injection on order' => [
+			[
+				'orderby' => 'ID',
+				'order' => 'ASC; SELECT ID FROM wp_posts',
+			],
+		];
 	}
 
 	/**
@@ -263,10 +322,16 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'tec_events_query_current_moment', static function () {
 			return '2022-10-01 08:00:00';
 		} );
-		$query = new \WP_Query( wp_parse_args( [
-			'post_type' => TEC::POSTTYPE,
-			'order'     => 'DESC',
-		], $args ) );
+
+		$args = wp_parse_args(
+			$args,
+			[
+				'post_type' => TEC::POSTTYPE,
+				'order'     => 'DESC',
+			]
+		);
+
+		$query = new \WP_Query( $args );
 
 		$request = $query->request;
 

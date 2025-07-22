@@ -12,17 +12,14 @@ import { decode } from 'he';
 import { __ } from '@wordpress/i18n';
 import { Component } from '@wordpress/element';
 
-import {
-	Spinner,
-	Placeholder,
-} from '@wordpress/components';
+import { Spinner, Placeholder } from '@wordpress/components';
 import PropTypes from 'prop-types';
 
 export default class VenueDetails extends Component {
 	static propTypes = {
-		venue: PropTypes.number,
+		venue: PropTypes.oneOfType( [ PropTypes.number, PropTypes.object ] ),
 		isLoading: PropTypes.bool,
-		removeVenue: PropTypes.func,
+		removeVenue: PropTypes.node,
 		beforeTitle: PropTypes.node,
 		afterTitle: PropTypes.node,
 		maybeEdit: PropTypes.func,
@@ -67,10 +64,7 @@ export default class VenueDetails extends Component {
 		const { venue, removeVenue } = this.props;
 
 		return (
-			<div
-				className="tribe-editor__venue--current"
-				key={ venue.id }
-			>
+			<div className="tribe-editor__venue--current" key={ venue.id }>
 				{ this.renderVenueName() }
 				{ this.renderAddress() }
 				{ this.renderPhone() }
@@ -78,7 +72,7 @@ export default class VenueDetails extends Component {
 				{ removeVenue }
 			</div>
 		);
-	}
+	};
 
 	renderVenueName() {
 		const { beforeTitle, afterTitle, maybeEdit } = this.props;
@@ -113,36 +107,26 @@ export default class VenueDetails extends Component {
 			return null;
 		}
 
-		const {
-			city,
-			street,
-			province,
-			zip,
-			country,
-		} = address;
+		const { city, street, province, zip, country } = address;
 
 		return (
 			<address className="tribe-editor__venue__address">
 				<span className="tribe-venue__street-address">{ street }</span>
-				{
-					city && (
-						<Fragment>
-							<br />
-							<span className="tribe-venue__locality">{ city }</span>
-						</Fragment>
-					)
-				}
+				{ city && (
+					<Fragment>
+						<br />
+						<span className="tribe-venue__locality">{ city }</span>
+					</Fragment>
+				) }
 				{ city && <span className="tribe-venue__delimiter">, </span> }
 				{ province && <span className="tribe-venue__region">{ province }</span> }
 				{ zip && <span className="tribe-venue__postal-code"> { zip }</span> }
-				{
-					country && (
-						<Fragment>
-							<br />
-							<span className="tribe-venue__country-name"> { country }</span>
-						</Fragment>
-					)
-				}
+				{ country && (
+					<Fragment>
+						<br />
+						<span className="tribe-venue__country-name"> { country }</span>
+					</Fragment>
+				) }
 				{ this.renderGoogleMapLink() }
 			</address>
 		);

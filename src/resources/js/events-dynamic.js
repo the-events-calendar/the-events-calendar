@@ -1,39 +1,38 @@
 /**
  * Event Date and Time Dynamic Helper Text
  *
- * @var object tribe_dynamic_helper_text
+ * @member object tribe_dynamic_helper_text
  */
 var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
-(function ( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
 
-	obj.field_class       = '.event-dynamic-helper-text';
+	obj.field_class = '.event-dynamic-helper-text';
 	obj.date_fmt_settings = {
-		dateSettings : {
-			days        : tribe_dynamic_help_text.days,
-			daysShort   : tribe_dynamic_help_text.daysShort,
-			months      : tribe_dynamic_help_text.months,
-			monthsShort : tribe_dynamic_help_text.monthsShort,
-		}
+		dateSettings: {
+			days: tribe_dynamic_help_text.days,
+			daysShort: tribe_dynamic_help_text.daysShort,
+			months: tribe_dynamic_help_text.months,
+			monthsShort: tribe_dynamic_help_text.monthsShort,
+		},
 	};
 
 	obj.date_fmt = new DateFormatter( obj.date_fmt_settings );
-	obj.text     = JSON.parse( tribe_dynamic_help_text.msgs );
+	obj.text = JSON.parse( tribe_dynamic_help_text.msgs );
 
 	// Date Formats
-	obj.date_with_year    = tribe_dynamic_help_text.date_with_year;
-	obj.date_no_year      = tribe_dynamic_help_text.date_no_year;
+	obj.date_with_year = tribe_dynamic_help_text.date_with_year;
+	obj.date_no_year = tribe_dynamic_help_text.date_no_year;
 	obj.datepicker_format = tribe_dynamic_help_text.datepicker_format;
 
 	// Setup object variables
-	obj.dynamic_text, obj.start_date, obj.start_time, obj.end_date, obj.end_time, obj.all_day = '';
+	obj.dynamic_text, obj.start_date, obj.start_time, obj.end_date, obj.end_time, ( obj.all_day = '' );
 
 	/**
 	 * Setup Dynamic Text on Load
 	 */
 	obj.init = function () {
-
 		//setup text and display
 		obj.setup_and_display_text();
 
@@ -45,7 +44,6 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Wrapper Method to call methods to update and display text
 	 */
 	obj.setup_and_display_text = function () {
-
 		//get current field values
 		obj.update();
 
@@ -60,21 +58,19 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Get Event Date and Time Values
 	 */
 	obj.update = function () {
-
 		obj.start_date = $( '#EventStartDate' ).val();
 		obj.start_time = $( '#EventStartTime' ).val();
-		obj.end_date   = $( '#EventEndDate' ).val();
-		obj.end_time   = $( '#EventEndTime' ).val();
-		obj.all_day    = $( '#allDayCheckbox' ).prop( 'checked' ) ? true : '';
+		obj.end_date = $( '#EventEndDate' ).val();
+		obj.end_time = $( '#EventEndTime' ).val();
+		obj.all_day = $( '#allDayCheckbox' ).prop( 'checked' ) ? true : '';
 
 		// Prevent user from making an invalid end-time entry; an event has to end after it starts, not before.
 		if ( obj.start_date === obj.end_date ) {
 			// Convert to 24-hour time for easier comparison.
-			var comparison_start_time = moment( obj.start_time, 'h:mm a' ).format( 'HH:mm' );
-			var comparison_end_time   = moment( obj.end_time, 'h:mm a' ).format( 'HH:mm' );
+			const comparison_start_time = new Date( obj.start_time ).toTimeString().substring( 0, 5 );
+			const comparison_end_time = new Date( obj.end_time ).toTimeString().substring( 0, 5 );
 
 			if ( comparison_start_time > comparison_end_time ) {
-
 				if ( 'undefined' !== typeof $.fn.tribeTimepicker ) {
 					$( '#EventEndTime' ).tribeTimepicker( 'setTime', obj.start_time );
 				} else {
@@ -91,30 +87,30 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Determine Message to Use based on Date and Time
 	 */
 	obj.msg_logic = function () {
-
-		if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) { // eslint-disable-line eqeqeq,max-len
+		if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
+			// eslint-disable-line eqeqeq,max-len
 			//single date, different start and end time
-			obj.dynamic_text = obj.text[0];
-
-		} else if ( obj.start_date == obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) { // eslint-disable-line eqeqeq,max-len
+			obj.dynamic_text = obj.text[ 0 ];
+		} else if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
+			// eslint-disable-line eqeqeq,max-len
 			//single date, same start and end time
-			obj.dynamic_text = obj.text[1];
-
-		} else if ( obj.start_date == obj.end_date && obj.all_day ) { // eslint-disable-line eqeqeq
+			obj.dynamic_text = obj.text[ 1 ];
+		} else if ( obj.start_date == obj.end_date && obj.all_day ) {
+			// eslint-disable-line eqeqeq
 			//single date, all day
-			obj.dynamic_text = obj.text[2];
-
-		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time != obj.end_time ) { // eslint-disable-line eqeqeq,max-len
+			obj.dynamic_text = obj.text[ 2 ];
+		} else if ( obj.start_date != obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
+			// eslint-disable-line eqeqeq,max-len
 			//different date, different start and end time
-			obj.dynamic_text = obj.text[3];
-
-		} else if ( obj.start_date != obj.end_date && !obj.all_day && obj.start_time == obj.end_time ) { // eslint-disable-line eqeqeq,max-len
+			obj.dynamic_text = obj.text[ 3 ];
+		} else if ( obj.start_date != obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
+			// eslint-disable-line eqeqeq,max-len
 			//different date, same start and end time
-			obj.dynamic_text = obj.text[4];
-
-		} else if ( obj.start_date != obj.end_date && obj.all_day ) { // eslint-disable-line eqeqeq
+			obj.dynamic_text = obj.text[ 4 ];
+		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
+			// eslint-disable-line eqeqeq
 			//different date, all day
-			obj.dynamic_text = obj.text[5];
+			obj.dynamic_text = obj.text[ 5 ];
 		}
 	};
 
@@ -122,23 +118,22 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Parse the Message and Insert into Div
 	 */
 	obj.parse_and_display_text = function () {
-
-		obj.dynamic_text = obj.dynamic_text.replace( "%%starttime%%", obj.start_time );
-		obj.dynamic_text = obj.dynamic_text.replace( "%%endtime%%", obj.end_time );
+		obj.dynamic_text = obj.dynamic_text.replace( '%%starttime%%', obj.start_time );
+		obj.dynamic_text = obj.dynamic_text.replace( '%%endtime%%', obj.end_time );
 		obj.dynamic_text = obj.dynamic_text.replace(
-			"%%startdatewithyear%%",
+			'%%startdatewithyear%%',
 			obj.date_formatter( obj.start_date, obj.datepicker_format, obj.date_with_year )
 		);
 		obj.dynamic_text = obj.dynamic_text.replace(
-			"%%enddatewithyear%%",
+			'%%enddatewithyear%%',
 			obj.date_formatter( obj.end_date, obj.datepicker_format, obj.date_with_year )
 		);
 		obj.dynamic_text = obj.dynamic_text.replace(
-			"%%startdatenoyear%%",
+			'%%startdatenoyear%%',
 			obj.date_formatter( obj.start_date, obj.datepicker_format, obj.date_no_year )
 		);
 		obj.dynamic_text = obj.dynamic_text.replace(
-			"%%enddatenoyear%%",
+			'%%enddatenoyear%%',
 			obj.date_formatter( obj.end_date, obj.datepicker_format, obj.date_no_year )
 		);
 
@@ -148,10 +143,10 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	/**
 	 * Format Date using DateFormatter library enabling PHP date-time formats
 	 *
-	 * @param date
-	 * @param datepicker
-	 * @param dateformat
-	 * @returns {*}
+	 * @param  date
+	 * @param  datepicker
+	 * @param  dateformat
+	 * @return {*}
 	 */
 	obj.date_formatter = function ( date, datepicker, dateformat ) {
 		return obj.date_fmt.formatDate( obj.date_fmt.parseDate( date, datepicker ), dateformat );
@@ -161,11 +156,12 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Detect Changes to Event Start and End Dates, and All Day Checkbox
 	 */
 	obj.event_date_change = function () {
-
-		$( '#EventStartDate, #EventStartTime, #EventEndDate, #EventEndTime, #allDayCheckbox' )
-			.on( 'change', function () {
+		$( '#EventStartDate, #EventStartTime, #EventEndDate, #EventEndTime, #allDayCheckbox' ).on(
+			'change',
+			function () {
 				obj.setup_and_display_text();
-			} );
+			}
+		);
 	};
 
 	/**
@@ -176,5 +172,4 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 			obj.init();
 		}
 	} );
-
-})( jQuery, tribe_dynamic_helper_text );
+} )( jQuery, tribe_dynamic_helper_text );

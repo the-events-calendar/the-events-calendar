@@ -65,12 +65,17 @@ class Provider extends Service_Provider {
 		}, 99 );
 
 		// Hide from settings page.
-		add_filter( 'tribe_general_settings_tab_fields', function ( $args ) {
-			$event_cleaner = tribe( 'tec.event-cleaner' );
-			unset( $args[ $event_cleaner->key_delete_events ] );
+		add_filter(
+			'tribe_general_settings_maintenance_section',
+			function ( $args ) {
+				$event_cleaner = tribe( 'tec.event-cleaner' );
+				unset( $args[ $event_cleaner->key_delete_events ] );
 
-			return $args;
-		}, 99, 1 );
+				return $args;
+			},
+			99,
+			1
+		);
 
 		// Remove scheduled cleaner task.
 		add_action( 'init', function () {

@@ -33,7 +33,7 @@ $alert_classes = [
 			?>
 		</p>
 
-		<p <?php tribe_classes( $alert_classes ); ?>>
+		<p <?php tec_classes( $alert_classes ); ?>>
 			<i class="tec-ct1-upgrade__alert-icon">i</i>
 			<span>
 			<?php

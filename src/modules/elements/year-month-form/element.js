@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 /**
  * Internal dependencies
@@ -58,7 +59,7 @@ const YearMonthForm = ( { today, date, localeUtils, onChange } ) => {
 				onChange={ handleChange }
 				value={ date.getFullYear() }
 			>
-				{ years.map( year => {
+				{ years.map( ( year ) => {
 					if ( date.getMonth() < currentMonth && year === currentYear - yearsBack ) {
 						return (
 							<option key={ year } value={ year } disabled>
@@ -76,6 +77,13 @@ const YearMonthForm = ( { today, date, localeUtils, onChange } ) => {
 			</select>
 		</form>
 	);
+};
+
+YearMonthForm.propTypes = {
+	today: PropTypes.instanceOf( Date ),
+	date: PropTypes.instanceOf( Date ),
+	localeUtils: PropTypes.object,
+	onChange: PropTypes.func,
 };
 
 export default YearMonthForm;

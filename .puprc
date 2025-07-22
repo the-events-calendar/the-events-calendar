@@ -1,22 +1,31 @@
 {
 	"build": [
-		"cd common && rm -rf vendor",
-		"cd common && git checkout -- vendor",
-		"cd common && composer install --no-dev",
-		"cd common && npm run build",
+		"cd common && composer -- pup build",
+		"composer pup",
 		"composer install --no-dev",
-		"npm ci",
+		"npm ci --no-audit --no-fund",
 		"npm run build"
 	],
 	"build_dev": [
-		"cd common && rm -rf vendor",
-		"cd common && git checkout -- vendor",
-		"cd common && composer install --no-dev",
-		"cd common && npm run build",
+		"cd common && composer -- pup build",
 		"composer install",
-		"npm ci",
+		"npm ci --no-audit --no-fund",
 		"npm run build"
 	],
+	"workflows": {
+		"rebuild": [
+			"composer pup",
+			"composer install --no-dev",
+			"npm ci --no-audit --no-fund",
+			"npm run build"
+		],
+		"tec-zip": [
+			"git submodule update --recursive --init",
+			"pup build",
+			"pup package $(pup get-version)",
+			"pup clean"
+		]
+	},
 	"checks": {
 		"tbd": {
 			"dirs": [
@@ -24,19 +33,21 @@
 				"common/src"
 			]
 		},
-		"version-conflict": {}
+		"version-conflict": {
+			"fail_method": "error",
+			"fail_method_dev": "warn"
+		}
 	},
 	"i18n": [
 		{
+			"slug": "wp-plugins/the-events-calendar/stable",
 			"textdomain": "the-events-calendar",
-			"url": "https://translate.wordpress.org",
-			"slug": "wp-plugins/the-events-calendar/stable"
+			"url": "https://translate.wordpress.org"
 		},
 		{
-			"path": "common/lang",
-			"textdomain": "tribe-common",
-			"url": "https://translations.theeventscalendar.com",
-			"slug": "tribe-common"
+			"slug": "the-events-calendar",
+			"textdomain": "the-events-calendar",
+			"url": "https://translations.stellarwp.com/glotpress/"
 		}
 	],
 	"paths": {
@@ -66,7 +77,7 @@
 			},
 			{
 				"file": "package.json",
-				"regex": "(\"version\": \")([^\"]+)"
+				"regex": "(\"version\": ?\")([^\"]+)"
 			},
 			{
 				"file": "readme.txt",
@@ -78,5 +89,6 @@
 			"common/src/views"
 		]
 	},
+	"zip_use_default_ignore": false,
 	"zip_name": "the-events-calendar"
 }

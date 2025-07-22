@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 * Day
 	 * ----------------------------------------------------------------------------- */
@@ -10,12 +11,12 @@
 			border-radius: 0;
 		}
 
-		&:after {
+		&::after {
 
 			.tribe-common--breakpoint-medium& {
 				background-color: transparent;
 				bottom: 0;
-				content: '';
+				content: "";
 				display: block;
 				height: 2px;
 				left: -1px;
@@ -27,7 +28,7 @@
 
 		&:hover {
 
-			&:after {
+			&::after {
 
 				.tribe-common--breakpoint-medium& {
 					background-color: var(--tec-color-border-active-month-grid-hover);
@@ -155,7 +156,7 @@
 	.tribe-events-calendar-month__mobile-events-icon--featured {
 
 		.tribe-events-calendar-month__mobile-events-icon-svg path {
-			fill: currentColor;
+			fill: currentcolor;
 		}
 	}
 

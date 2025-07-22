@@ -5,7 +5,7 @@ defined( 'WPINC' ) or die;
 class Tribe__Events__Aggregator__Event {
 
 	/**
-	 * Slug used to mark Event Orgin on `_EventOrigin` meta
+	 * Slug used to mark Event Origin on `_EventOrigin` meta
 	 *
 	 * @var string
 	 */

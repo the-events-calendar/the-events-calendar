@@ -9,8 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.2.0
+ * @version 6.12.0
  * @since 6.2.0 Resolved spacing issues.
+ * @since 6.12.0 Small tweaks for accessibility.
  *
  * @var array<string,array<string>> $messages   An array of user-facing messages, managed by the View.
  * @var array<string,mixed>         $attributes A optional map of attributes that should be applied to the wrapper div element.
@@ -27,23 +28,19 @@ global $wp_version;
 
 $default_classes = [ 'tribe-events-header__messages', 'tribe-events-c-messages', 'tribe-common-b2' ];
 $classes         = isset( $classes ) ? array_merge( $default_classes, $classes ) : $default_classes;
-$attributes = isset( $attributes ) ? (array) $attributes : [];
+$attributes      = isset( $attributes ) ? (array) $attributes : [];
 
 ?>
-<div <?php tribe_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
+<div <?php tec_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
-		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
+		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" tabindex="0" role="alert" aria-live="assertive">
 			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
-			<ul class="tribe-events-c-messages__message-list">
-				<?php foreach ( $message_group as $key => $message ) : ?>
-					<li
-						class="tribe-events-c-messages__message-list-item"
-						<?php tribe_attributes( [ 'data-key' => (string) $key ] ); ?>
-					>
-					<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : $message; ?>
-					</li>
-				<?php endforeach; ?>
-			</ul>
+			<?php foreach ( $message_group as $key => $message ) : ?>
+				<div
+					<?php tribe_attributes( [ 'data-key' => esc_attr( (string) $key ) ] ); ?>>
+					<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : esc_html( $message ); ?>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	<?php endforeach; ?>
 </div>

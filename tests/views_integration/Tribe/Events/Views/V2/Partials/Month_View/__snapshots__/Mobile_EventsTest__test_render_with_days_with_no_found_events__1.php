@@ -6,15 +6,25 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="raccoons" 					>
-					Too many raccoons on this day					</li>
-							</ul>
-		</div>
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 21 23"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<g fill-rule="evenodd">
+		<path d="M.5 2.5h20v20H.5z"/>
+		<path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/>
+		<path stroke-linecap="round" d="M4.5.5v4m12-4v4"/>
+		<path stroke-linecap="square" d="M.5 7.5h20"/>
+	</g>
+</svg>
+<span class="tribe-common-a11y-visual-hide">
+	Notice</span>
+							<div
+					 data-key="raccoons" >
+					Too many raccoons on this day				</div>
+					</div>
 	</div>
 
 	</div>
@@ -25,15 +35,25 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg"><g fill-rule="evenodd"><path d="M.5 2.5h20v20H.5z"/><path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/><path stroke-linecap="round" d="M4.5.5v4m12-4v4"/><path stroke-linecap="square" d="M.5 7.5h20"/></g></svg>
-			<ul class="tribe-events-c-messages__message-list">
-									<li
-						class="tribe-events-c-messages__message-list-item"
-						 data-key="raccoons" 					>
-					Too many raccoons on this day					</li>
-							</ul>
-		</div>
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
+			<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 21 23"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<g fill-rule="evenodd">
+		<path d="M.5 2.5h20v20H.5z"/>
+		<path stroke-linecap="round" d="M7.583 11.583l5.834 5.834m0-5.834l-5.834 5.834" class="tribe-common-c-svgicon__svg-stroke"/>
+		<path stroke-linecap="round" d="M4.5.5v4m12-4v4"/>
+		<path stroke-linecap="square" d="M.5 7.5h20"/>
+	</g>
+</svg>
+<span class="tribe-common-a11y-visual-hide">
+	Notice</span>
+							<div
+					 data-key="raccoons" >
+					Too many raccoons on this day				</div>
+					</div>
 	</div>
 
 	</div>
@@ -51,7 +71,13 @@
 		title="Previous month, May"
 		rel="noindex"
 	>
-		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-nav__prev-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
 		May	</a>
 </li>
 
@@ -76,7 +102,13 @@
 		title="Next month, July"
 		rel="noindex"
 	>
-		July		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
+		July		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-nav__next-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
 	</a>
 </li>
 	</ul>

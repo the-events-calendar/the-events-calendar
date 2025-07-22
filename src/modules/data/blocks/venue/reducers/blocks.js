@@ -15,9 +15,9 @@ import * as types from './../types';
  * This sets the state.events.blocks.venue.blocks.byId state, which holds all venue blocks indexed by clientId.
  *
  * @since 6.2.0
- * @param {Object} state State object.
+ * @param {Object} state  State object.
  * @param {string} action Action being taken.
- * @returns {{}}
+ * @return {{}} The new state.
  */
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
@@ -48,16 +48,16 @@ export const byId = ( state = {}, action ) => {
  * This sets the state.events.blocks.venue.blocks.allIds state, which is a numerically indexed array of all venues.
  *
  * @since 6.2.0
- * @param {Object} state State object.
+ * @param {Object} state  State object.
  * @param {string} action Action being taken.
- * @returns {{}}
+ * @return {{}} The new state.
  */
 export const allIds = ( state = [], action ) => {
 	switch ( action.type ) {
 		case types.ADD_BLOCK_VENUE:
 			return uniq( [ ...state, action.payload.venue ] );
 		case types.REMOVE_BLOCK_VENUE:
-			return state.filter( venue => venue !== action.payload.venue );
+			return state.filter( ( venue ) => venue !== action.payload.venue );
 		default:
 			return state;
 	}
@@ -69,9 +69,9 @@ export const allIds = ( state = [], action ) => {
  * This sets the state.events.blocks.venue.blocks.core state.
  *
  * @since 6.2.0
- * @param {Object} state State object.
+ * @param {Object} state  State object.
  * @param {string} action Action being taken.
- * @returns {{}}
+ * @return {{}} The new state.
  */
 export const core = ( state = {}, action ) => {
 	switch ( action.type ) {

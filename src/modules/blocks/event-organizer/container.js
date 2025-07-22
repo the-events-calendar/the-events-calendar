@@ -37,9 +37,11 @@ const addOrganizer = ( { state, dispatch, ownProps, organizerID, details } ) => 
 	dispatch( actions.addOrganizerInBlock( ownProps.clientId, organizerID ) );
 };
 
-const onFormCompleted = ( state, dispatch, ownProps ) => ( body = {} ) => {
-	addOrganizer( { state, dispatch, ownProps, organizerID: body.id, details: body } );
-};
+const onFormCompleted =
+	( state, dispatch, ownProps ) =>
+	( body = {} ) => {
+		addOrganizer( { state, dispatch, ownProps, organizerID: body.id, details: body } );
+	};
 
 const mapStateToProps = ( state, ownProps ) => ( {
 	/**
@@ -94,13 +96,11 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			globals.wpHooks.doAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', organizer );
 
 			const blocks = globals.wpDataSelectCoreEditor().getBlocks();
-			const classicBlock = blocks
-				.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
+			const classicBlock = blocks.filter( ( block ) => block.name === `tribe/${ classicEventDetailsBlock.id }` );
 
 			if ( ! classicBlock.length || volatile ) {
-
 				const organizers = selectors.getOrganizersInClassic( state );
-				const newOrganizers = organizers.filter( id => id !== organizer );
+				const newOrganizers = organizers.filter( ( id ) => id !== organizer );
 
 				ownProps.setAttributes( { organizers: newOrganizers } );
 				dispatch( actions.removeOrganizerInClassic( organizer ) );
@@ -113,17 +113,19 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 /**
  * Our Event Organizer blocks container. This is responsible for managing the state passed down to the template.
  *
- * @param props The props with the organizer and `setAttributes` function, that will be passed down to the
- * 				EventOrganizer component.
- * @returns {JSX.IntrinsicElements} Returns the EventOrganizer component.
- * @constructor
+ * @param  props The props with the organizer and `setAttributes` function, that will be passed down to the
+ *               EventOrganizer component.
+ * @return {JSX.IntrinsicElements} Returns the EventOrganizer component.
+ * @class
  */
 const StatefulEventOrganizer = ( props ) => {
 	// This hook should only run once, it checks for default values.
 	useEffect( () => {
 		// Manage our initial state for defaults.
 		const defaults = editorDefaults();
-		const { attributes: { organizer } } = props;
+		const {
+			attributes: { organizer },
+		} = props;
 
 		if ( organizer === null && defaults && defaults.organizer ) {
 			props.setAttributes( { organizer: defaults.organizer } );
@@ -131,9 +133,7 @@ const StatefulEventOrganizer = ( props ) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );
 
-	return (
-		<EventOrganizer { ...props } />
-	);
+	return <EventOrganizer { ...props } />;
 };
 
 StatefulEventOrganizer.propTypes = {
@@ -146,5 +146,5 @@ export default compose(
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),
-	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
+	connect( mapStateToProps, mapDispatchToProps, mergeProps )
 )( StatefulEventOrganizer );

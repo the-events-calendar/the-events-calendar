@@ -3,15 +3,13 @@
  */
 import React from 'react';
 import { isFunction, values } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	Spinner,
-	Placeholder,
-} from '@wordpress/components';
+import { Spinner, Placeholder } from '@wordpress/components';
 import { Component } from '@wordpress/element';
 
 /**
@@ -24,6 +22,12 @@ import { Input } from '@moderntribe/events/elements';
  */
 
 class OrganizerForm extends Component {
+	static propTypes = {
+		addOrganizer: PropTypes.func,
+		onClose: PropTypes.func,
+		postType: PropTypes.string,
+	};
+
 	static defaultProps = {
 		postType: 'tribe_organizer',
 	};
@@ -51,18 +55,13 @@ class OrganizerForm extends Component {
 		}
 
 		return 'pending' === organizer.state();
-	}
+	};
 
 	onSubmit = () => {
-		const {
-			title,
-			phone,
-			website,
-			email,
-		} = this.state;
+		const { title, phone, website, email } = this.state;
 
 		this.updateOrganizer( {
-			title: title,
+			title,
 			// For now every Organizer goes are publish
 			status: 'publish',
 			meta: {
@@ -71,15 +70,15 @@ class OrganizerForm extends Component {
 				_OrganizerWebsite: website,
 			},
 		} );
-	}
+	};
 
 	onInputChange = ( key ) => ( value ) => {
 		this.setState( { [ key ]: value } );
-	}
+	};
 
 	onInputComplete = () => {
 		this.setState( { isValid: this.isValid() } );
-	}
+	};
 
 	updateOrganizer = ( toSend ) => {
 		const { postType } = this.props;
@@ -92,24 +91,26 @@ class OrganizerForm extends Component {
 		// Set the organizer state
 		this.setState( { organizer: request } );
 
-		request.done( ( newPost ) => {
-			if ( ! newPost.id ) {
-				console.warning( 'Invalid creation of organizer:', newPost );
-			}
+		request
+			.done( ( newPost ) => {
+				if ( ! newPost.id ) {
+					console.warning( 'Invalid creation of organizer:', newPost );
+				}
 
-			this.props.addOrganizer( newPost.id, newPost );
-			this.props.onClose();
-		} ).fail( ( err ) => {
-			console.error( err );
-		} );
-	}
+				this.props.addOrganizer( newPost.id, newPost );
+				this.props.onClose();
+			} )
+			.fail( ( err ) => {
+				console.error( err );
+			} );
+	};
 
 	isValid = () => {
 		const fields = values( this.fields );
 		const results = fields.filter( ( input ) => input.isValid() );
 
 		return fields.length === results.length;
-	}
+	};
 
 	saveRef = ( input ) => {
 		if ( input ) {
@@ -117,15 +118,12 @@ class OrganizerForm extends Component {
 			const { name } = props || {};
 			this.fields[ name ] = input;
 		}
-	}
+	};
 
 	render() {
 		if ( this.isCreating() ) {
 			return (
-				<div
-					className="tribe-editor__organizer__form"
-					key="tribe-organizer-form"
-				>
+				<div className="tribe-editor__organizer__form" key="tribe-organizer-form">
 					<Placeholder key="placeholder">
 						<Spinner />
 					</Placeholder>
@@ -134,23 +132,16 @@ class OrganizerForm extends Component {
 		}
 
 		return (
-			<div
-				className="tribe-editor__organizer__form"
-				key="tribe-organizer-form"
-			>
-				<h3 key="tribe-organizer-form-title">
-					{ __( 'Create Organizer' ) }
-				</h3>
+			<div className="tribe-editor__organizer__form" key="tribe-organizer-form">
+				<h3 key="tribe-organizer-form-title">{ __( 'Create Organizer' ) }</h3>
 				<p className="description">
 					{ __(
 						'The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.', // eslint-disable-line max-len
-						'the-events-calendar',
+						'the-events-calendar'
 					) }
 				</p>
 				<dl>
-					<dt>
-						{ __( 'Name:', 'the-events-calendar' ) }
-					</dt>
+					<dt>{ __( 'Name:', 'the-events-calendar' ) }</dt>
 					<dd>
 						<Input
 							type="text"
@@ -161,9 +152,7 @@ class OrganizerForm extends Component {
 							validate
 						/>
 					</dd>
-					<dt>
-						{ __( 'Phone:', 'the-events-calendar' ) }
-					</dt>
+					<dt>{ __( 'Phone:', 'the-events-calendar' ) }</dt>
 					<dd>
 						<Input
 							type="phone"
@@ -175,9 +164,7 @@ class OrganizerForm extends Component {
 							data-testid="organizer-form-input-phone"
 						/>
 					</dd>
-					<dt>
-						{ __( 'Website:', 'the-events-calendar' ) }
-					</dt>
+					<dt>{ __( 'Website:', 'the-events-calendar' ) }</dt>
 					<dd>
 						<Input
 							type="url"
@@ -188,9 +175,7 @@ class OrganizerForm extends Component {
 							validate
 						/>
 					</dd>
-					<dt>
-						{ __( 'Email:', 'the-events-calendar' ) }
-					</dt>
+					<dt>{ __( 'Email:', 'the-events-calendar' ) }</dt>
 					<dd>
 						<Input
 							type="email"
