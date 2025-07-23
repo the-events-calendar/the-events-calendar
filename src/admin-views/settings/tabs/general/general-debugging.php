@@ -26,6 +26,14 @@ $tec_events_general_debugging = [
 		'validation_type' => 'boolean',
 		'conditional'     => is_super_admin(),
 	],
+	'tec_mcp_support'                             => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'MCP AI Service Support', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Enable this option to activate MCP (Model Context Protocol) tools for AI Service integration. This allows AI assistants to interact with calendar events, venues, organizers, and tickets.', 'the-events-calendar' ),
+		'default'         => false,
+		'validation_type' => 'boolean',
+		'conditional'     => is_super_admin(),
+	],
 ];
 
 $tec_events_general_debugging += [
