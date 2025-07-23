@@ -119,7 +119,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'all_day'            => '_EventAllDay',
 				'timezone'           => '_EventTimezone',
 				'venue'              => '_EventVenueID',
+				'venues'             => '_EventVenueID',
 				'organizer'          => '_EventOrganizerID',
+				'organizers'         => '_EventOrganizerID',
 				'category'           => $tribe_events_category,
 				'cost'               => '_EventCost',
 				'currency_symbol'    => '_EventCurrencySymbol',
@@ -189,6 +191,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$this->add_simple_tax_schema_entry( $tribe_events_category, $tribe_events_category );
 		$this->add_simple_tax_schema_entry( $tribe_events_category . '_not_in', $tribe_events_category, 'term_not_in' );
 		$this->add_simple_tax_schema_entry( 'tag', 'post_tag' );
+		$this->add_simple_tax_schema_entry( 'tags', 'post_tag' );
 		$this->add_simple_tax_schema_entry( 'tag_not_in', 'post_tag', 'term_not_in' );
 	}
 

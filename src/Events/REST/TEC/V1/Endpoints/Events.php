@@ -34,6 +34,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Event_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
@@ -452,7 +453,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	public function create_schema(): OpenAPI_Schema {
 		$collection = new RequestBodyCollection();
 
-		$definition = new Event_Definition();
+		$definition = new Event_Request_Body_Definition();
 
 		$collection->set_example( $definition->get_example() );
 

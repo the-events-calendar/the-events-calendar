@@ -21,6 +21,7 @@ use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Organizer_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
@@ -202,7 +203,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		$collection = new RequestBodyCollection();
 
-		$definition = new Organizer_Definition();
+		$definition = new Organizer_Request_Body_Definition();
 
 		$collection->set_example( $definition->get_example() );
 

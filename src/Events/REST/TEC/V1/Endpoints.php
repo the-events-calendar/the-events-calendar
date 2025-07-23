@@ -14,8 +14,13 @@ namespace TEC\Events\REST\TEC\V1;
 use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
 use TEC\Common\REST\TEC\V1\Contracts\Endpoint_Interface;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Venue_Only_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Organizer_Only_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Venue_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Event_Request_Body_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Organizer_Request_Body_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Venue_Request_Body_Definition;
 use TEC\Events\REST\TEC\V1\Endpoints\Events;
 use TEC\Events\REST\TEC\V1\Endpoints\Event;
 use TEC\Events\REST\TEC\V1\Endpoints\Organizers;
@@ -73,9 +78,14 @@ class Endpoints extends Endpoints_Controller {
 	 */
 	public function get_definitions(): array {
 		return [
+			Venue_Only_Definition::class,
+			Organizer_Only_Definition::class,
 			Event_Definition::class,
 			Organizer_Definition::class,
 			Venue_Definition::class,
+			Event_Request_Body_Definition::class,
+			Organizer_Request_Body_Definition::class,
+			Venue_Request_Body_Definition::class,
 		];
 	}
 }

@@ -22,6 +22,7 @@ use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Event_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
@@ -222,7 +223,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
 		);
 
-		$definition = new Event_Definition();
+		$definition = new Event_Request_Body_Definition();
 
 		$collection = new RequestBodyCollection();
 
@@ -239,7 +240,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			true
 		);
 
-		$response = new Definition_Parameter( $definition );
+		$response = new Definition_Parameter( new Event_Definition() );
 
 		$schema->add_response(
 			200,

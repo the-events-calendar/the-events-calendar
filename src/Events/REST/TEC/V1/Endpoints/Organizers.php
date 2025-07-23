@@ -31,6 +31,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
+use TEC\Events\REST\TEC\V1\Documentation\Organizer_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use Tribe__Repository__Interface;
@@ -334,7 +335,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	public function create_schema(): OpenAPI_Schema {
 		$collection = new RequestBodyCollection();
 
-		$definition = new Organizer_Definition();
+		$definition = new Organizer_Request_Body_Definition();
 
 		$collection->set_example( $definition->get_example() );
 

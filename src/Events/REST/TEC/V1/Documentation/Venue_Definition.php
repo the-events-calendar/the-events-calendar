@@ -58,50 +58,16 @@ class Venue_Definition extends Definition {
 					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
 				[
-					'type'        => 'object',
-					'description' => __( 'A venue', 'the-events-calendar' ),
+					'$ref' => '#/components/schemas/Venue_Only',
+				],
+				[
 					'title'       => 'Venue',
+					'description' => __( 'A venue', 'the-events-calendar' ),
+					'type'        => 'object',
 					'properties'  => [
-						'address'         => [
-							'type'        => 'string',
-							'description' => __( 'The venue address', 'the-events-calendar' ),
-						],
-						'country'         => [
-							'type'        => 'string',
-							'description' => __( 'The venue country', 'the-events-calendar' ),
-						],
-						'city'            => [
-							'type'        => 'string',
-							'description' => __( 'The venue city', 'the-events-calendar' ),
-						],
-						'state_province'  => [
-							'type'        => 'string',
-							'description' => __( 'The venue state/province', 'the-events-calendar' ),
-						],
-						'state'           => [
-							'type'        => 'string',
-							'description' => __( 'The venue state', 'the-events-calendar' ),
-						],
-						'province'        => [
-							'type'        => 'string',
-							'description' => __( 'The venue province', 'the-events-calendar' ),
-						],
-						'zip'             => [
-							'type'        => 'string',
-							'description' => __( 'The venue zip code', 'the-events-calendar' ),
-						],
-						'phone'           => [
-							'type'        => 'string',
-							'description' => __( 'The venue phone number', 'the-events-calendar' ),
-						],
 						'directions_link' => [
 							'type'        => 'string',
 							'description' => __( 'The venue directions link', 'the-events-calendar' ),
-							'format'      => 'uri',
-						],
-						'website'         => [
-							'type'        => 'string',
-							'description' => __( 'The venue website', 'the-events-calendar' ),
 							'format'      => 'uri',
 						],
 					],

@@ -262,7 +262,7 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 
 		$data = [];
 		foreach ( $events as $event ) {
-			$data[] = $this->endpoint->get_formatted_entity( get_post( $event ) );
+			$data[] = $this->endpoint->get_formatted_entity( $this->endpoint->get_orm()->by_args( [ 'id' => $event, 'status' => 'any' ] )->first() );
 		}
 
 		$json = wp_json_encode( $data, JSON_SNAPSHOT_OPTIONS );

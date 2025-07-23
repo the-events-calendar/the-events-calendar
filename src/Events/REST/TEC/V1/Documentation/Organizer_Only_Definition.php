@@ -1,6 +1,6 @@
 <?php
 /**
- * Organizer definition provider for the TEC REST API.
+ * Organizer only definition provider for the TEC REST API.
  *
  * @since TBD
  *
@@ -14,13 +14,13 @@ namespace TEC\Events\REST\TEC\V1\Documentation;
 use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 
 /**
- * Organizer definition provider for the TEC REST API.
+ * Organizer only definition provider for the TEC REST API.
  *
  * @since TBD
  *
  * @package TEC\Events\REST\TEC\V1\Documentation
  */
-class Organizer_Definition extends Definition {
+class Organizer_Only_Definition extends Definition {
 	/**
 	 * Returns the type of the definition.
 	 *
@@ -29,7 +29,7 @@ class Organizer_Definition extends Definition {
 	 * @return string
 	 */
 	public function get_type(): string {
-		return 'Organizer';
+		return 'Organizer_Only';
 	}
 
 	/**
@@ -52,16 +52,22 @@ class Organizer_Definition extends Definition {
 	 */
 	public function get_documentation(): array {
 		$documentation = [
-			'allOf' => [
-				[
-					'$ref' => '#/components/schemas/TEC_Post_Entity',
+			'type'       => 'object',
+			'properties' => [
+				'phone'   => [
+					'type'        => 'string',
+					'description' => __( 'The organizer\'s phone number', 'the-events-calendar' ),
+					'format'      => 'tel',
 				],
-				[
-					'$ref' => '#/components/schemas/Organizer_Only',
+				'website' => [
+					'type'        => 'string',
+					'description' => __( 'The organizer\'s website', 'the-events-calendar' ),
+					'format'      => 'uri',
 				],
-				[
-					'title'       => 'Organizer',
-					'description' => __( 'An organizer', 'the-events-calendar' ),
+				'email'   => [
+					'type'        => 'string',
+					'description' => __( 'The organizer\'s email address', 'the-events-calendar' ),
+					'format'      => 'email',
 				],
 			],
 		];

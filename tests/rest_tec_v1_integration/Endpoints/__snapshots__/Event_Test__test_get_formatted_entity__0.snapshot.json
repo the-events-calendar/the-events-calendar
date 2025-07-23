@@ -34,7 +34,143 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2023-01-15 09:00:00",
+        "start_date_utc": "2023-01-15 09:00:00",
+        "end_date": "2023-01-15 17:00:00",
+        "end_date_utc": "2023-01-15 17:00:00",
+        "dates": {
+            "start": {
+                "date": "2023-01-15 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2023-01-15 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2023-01-15 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2023-01-15 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2023-01-15 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2023-01-15 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2023-01-15 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2023-01-15 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "28800",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "$99.00",
+        "organizer_names": [
+            "Test Organizer 1"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-1/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-1/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-1/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "123 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-1/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">January 15, 2023 @ 9:00 am</span> - <span class=\"tribe-event-time\">5:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">9:00 am</span> - <span class=\"tribe-event-time\">5:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -71,7 +207,143 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-06-13 15:25:00",
+        "start_date_utc": "2025-06-13 15:25:00",
+        "end_date": "2025-06-13 19:25:00",
+        "end_date_utc": "2025-06-13 19:25:00",
+        "dates": {
+            "start": {
+                "date": "2025-06-13 15:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-06-13 15:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-06-13 15:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-06-13 15:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-06-13 19:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-06-13 19:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-06-13 19:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-06-13 19:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "14400",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": true,
+        "sticky": false,
+        "cost": "Free",
+        "organizer_names": [
+            "Test Organizer 2"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 2",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-2",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-2/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test2@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-2/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 2",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-2",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-2/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "456 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-2/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=456+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">June 13 @ 3:25 pm</span> - <span class=\"tribe-event-time\">7:25 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">3:25 pm</span> - <span class=\"tribe-event-time\">7:25 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -108,7 +380,174 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-07-13 17:25:00",
+        "start_date_utc": "2025-07-13 17:25:00",
+        "end_date": "2025-07-14 01:25:00",
+        "end_date_utc": "2025-07-14 01:25:00",
+        "dates": {
+            "start": {
+                "date": "2025-07-13 17:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-07-13 17:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-07-13 17:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-07-13 17:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-07-14 01:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-07-14 01:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-07-14 01:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-07-14 01:25:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "28800",
+        "multiday": 2,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": true,
+        "sticky": false,
+        "cost": "$299.99",
+        "organizer_names": [
+            "Test Organizer 1",
+            "Test Organizer 2"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-1/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-1/"
+            },
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 2",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-2",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-2/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test2@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-2/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 3",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-3",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-3/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "789 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-3/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=789+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">July 13 @ 5:25 pm</span> - <span class=\"tribe-event-date-end\">July 14 @ 1:25 am</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">July 13 @ 5:25 pm</span> - <span class=\"tribe-event-date-end\">July 14 @ 1:25 am</span>"
     },
     {
         "id": {EVENT_ID},
@@ -145,7 +584,143 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-08-13 12:00:00",
+        "start_date_utc": "2025-08-13 12:00:00",
+        "end_date": "2025-08-16 23:00:00",
+        "end_date_utc": "2025-08-16 23:00:00",
+        "dates": {
+            "start": {
+                "date": "2025-08-13 12:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-08-13 12:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-08-13 12:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-08-13 12:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-08-16 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-08-16 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-08-16 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-08-16 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "298800",
+        "multiday": 4,
+        "is_past": false,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": true,
+        "sticky": false,
+        "cost": "$150 – $500",
+        "organizer_names": [
+            "Test Organizer 3"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 3",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-3",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-3/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test3@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-3/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-1/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "123 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-1/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">August 13 @ 12:00 pm</span> - <span class=\"tribe-event-date-end\">August 16 @ 11:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">August 13 @ 12:00 pm</span> - <span class=\"tribe-event-date-end\">August 16 @ 11:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -182,7 +757,143 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-06-27 00:00:00",
+        "start_date_utc": "2025-06-27 00:00:00",
+        "end_date": "2025-06-27 23:59:59",
+        "end_date_utc": "2025-06-27 23:59:59",
+        "dates": {
+            "start": {
+                "date": "2025-06-27 00:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-06-27 00:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-06-27 00:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-06-27 00:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-06-27 23:59:59.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-06-27 23:59:59.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-06-27 23:59:59.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-06-27 23:59:59.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "86399",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": true,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "",
+        "organizer_names": [
+            "Test Organizer 1"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-1/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-1/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 2",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-2",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-2/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "456 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-2/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=456+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">June 27</span>",
+        "short_schedule_details": "All day"
     },
     {
         "id": {EVENT_ID},
@@ -219,7 +930,174 @@
             "type-tribe_events",
             "status-private",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-07-04 18:00:00",
+        "start_date_utc": "2025-07-04 18:00:00",
+        "end_date": "2025-07-04 22:00:00",
+        "end_date_utc": "2025-07-04 22:00:00",
+        "dates": {
+            "start": {
+                "date": "2025-07-04 18:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-07-04 18:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-07-04 18:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-07-04 18:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-07-04 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-07-04 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-07-04 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-07-04 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "14400",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "$500",
+        "organizer_names": [
+            "Test Organizer 2",
+            "Test Organizer 3"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 2",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-2",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-2/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test2@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-2/"
+            },
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 3",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-3",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-3/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test3@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-3/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 3",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-3",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-3/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "789 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-3/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=789+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">July 4 @ 6:00 pm</span> - <span class=\"tribe-event-time\">10:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">6:00 pm</span> - <span class=\"tribe-event-time\">10:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -256,7 +1134,143 @@
             "type-tribe_events",
             "status-draft",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-12-13 10:00:00",
+        "start_date_utc": "2025-12-13 10:00:00",
+        "end_date": "2025-12-13 16:00:00",
+        "end_date_utc": "2025-12-13 16:00:00",
+        "dates": {
+            "start": {
+                "date": "2025-12-13 10:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-12-13 10:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-12-13 10:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-12-13 10:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-12-13 16:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-12-13 16:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-12-13 16:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-12-13 16:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "21600",
+        "multiday": false,
+        "is_past": false,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "TBD",
+        "organizer_names": [
+            "Test Organizer 1"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-1/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-1/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-1/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "123 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-1/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">December 13 @ 10:00 am</span> - <span class=\"tribe-event-time\">4:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">10:00 am</span> - <span class=\"tribe-event-time\">4:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -293,7 +1307,105 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-06-23 15:00:00",
+        "start_date_utc": "2025-06-23 15:00:00",
+        "end_date": "2025-06-23 16:30:00",
+        "end_date_utc": "2025-06-23 16:30:00",
+        "dates": {
+            "start": {
+                "date": "2025-06-23 15:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-06-23 15:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-06-23 15:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-06-23 15:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-06-23 16:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-06-23 16:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-06-23 16:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-06-23 16:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "5400",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "$45",
+        "organizer_names": [
+            "Test Organizer 2"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 2",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-2",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-2/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test2@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-2/"
+            }
+        ],
+        "venues": [],
+        "schedule_details": "<span class=\"tribe-event-date-start\">June 23 @ 3:00 pm</span> - <span class=\"tribe-event-time\">4:30 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">3:00 pm</span> - <span class=\"tribe-event-time\">4:30 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -330,7 +1442,110 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-06-27 19:00:00",
+        "start_date_utc": "2025-06-27 19:00:00",
+        "end_date": "2025-06-27 22:00:00",
+        "end_date_utc": "2025-06-27 22:00:00",
+        "dates": {
+            "start": {
+                "date": "2025-06-27 19:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-06-27 19:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-06-27 19:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-06-27 19:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-06-27 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-06-27 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-06-27 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-06-27 22:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "10800",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "Free",
+        "organizer_names": [],
+        "organizers": [],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-1/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "123 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-1/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">June 27 @ 7:00 pm</span> - <span class=\"tribe-event-time\">10:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">7:00 pm</span> - <span class=\"tribe-event-time\">10:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -367,7 +1582,143 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-06-18 17:30:00",
+        "start_date_utc": "2025-06-18 17:30:00",
+        "end_date": "2025-06-18 20:00:00",
+        "end_date_utc": "2025-06-18 20:00:00",
+        "dates": {
+            "start": {
+                "date": "2025-06-18 17:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-06-18 17:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-06-18 17:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-06-18 17:30:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-06-18 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-06-18 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-06-18 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-06-18 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "9000",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "Free (drinks not included)",
+        "organizer_names": [
+            "Test Organizer 3"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 3",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-3",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-3/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test3@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-3/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-1/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "123 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-1/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">June 18 @ 5:30 pm</span> - <span class=\"tribe-event-time\">8:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">5:30 pm</span> - <span class=\"tribe-event-time\">8:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -404,7 +1755,143 @@
             "type-tribe_events",
             "status-publish",
             "hentry"
-        ]
+        ],
+        "start_date": "2025-06-20 09:00:00",
+        "start_date_utc": "2025-06-20 09:00:00",
+        "end_date": "2025-06-22 17:00:00",
+        "end_date_utc": "2025-06-22 17:00:00",
+        "dates": {
+            "start": {
+                "date": "2025-06-20 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-06-20 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-06-20 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-06-20 09:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-06-22 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-06-22 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-06-22 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-06-22 17:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "201600",
+        "multiday": 3,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": true,
+        "sticky": false,
+        "cost": "$799",
+        "organizer_names": [
+            "Test Organizer 1"
+        ],
+        "organizers": [
+            {
+                "ID": {ORGANIZER_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Organizer 1",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-organizer-1",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/organizer/test-organizer-1/",
+                "menu_order": 0,
+                "post_type": "tribe_organizer",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "phone": "",
+                "website": "",
+                "email": "test@example.com",
+                "permalink": "http://wordpress.test/organizer/test-organizer-1/"
+            }
+        ],
+        "venues": [
+            {
+                "ID": {VENUE_ID},
+                "post_author": "0",
+                "post_date": "2025-06-13 17:25:00",
+                "post_date_gmt": "2025-06-13 17:25:00",
+                "post_content": "",
+                "post_title": "Test Venue 3",
+                "post_excerpt": "",
+                "post_status": "publish",
+                "comment_status": "closed",
+                "ping_status": "closed",
+                "post_password": "",
+                "post_name": "test-venue-3",
+                "to_ping": "",
+                "pinged": "",
+                "post_modified": "2025-06-13 17:25:00",
+                "post_modified_gmt": "2025-06-13 17:25:00",
+                "post_content_filtered": "",
+                "post_parent": 0,
+                "guid": "http://wordpress.test/venue/test-venue-3/",
+                "menu_order": 0,
+                "post_type": "tribe_venue",
+                "post_mime_type": "",
+                "comment_count": "0",
+                "filter": "raw",
+                "address": "789 Main St, Anytown, USA",
+                "country": "",
+                "city": "",
+                "state_province": "",
+                "state": "",
+                "province": "",
+                "zip": "",
+                "phone": "",
+                "permalink": "http://wordpress.test/venue/test-venue-3/",
+                "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=789+Main+St%2C+Anytown%2C+USA",
+                "website": ""
+            }
+        ],
+        "schedule_details": "<span class=\"tribe-event-date-start\">June 20 @ 9:00 am</span> - <span class=\"tribe-event-date-end\">June 22 @ 5:00 pm</span>",
+        "short_schedule_details": "<span class=\"tribe-event-date-start\">June 20 @ 9:00 am</span> - <span class=\"tribe-event-date-end\">June 22 @ 5:00 pm</span>"
     },
     {
         "id": {EVENT_ID},
@@ -442,6 +1929,73 @@
             "status-publish",
             "post-password-required",
             "hentry"
-        ]
+        ],
+        "start_date": "",
+        "start_date_utc": "",
+        "end_date": "",
+        "end_date_utc": "",
+        "dates": {
+            "start": {
+                "date": "2025-07-13 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_utc": {
+                "date": "2025-07-13 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_site": {
+                "date": "2025-07-13 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "start_display": {
+                "date": "2025-07-13 20:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end": {
+                "date": "2025-07-13 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_utc": {
+                "date": "2025-07-13 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_site": {
+                "date": "2025-07-13 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            },
+            "end_display": {
+                "date": "2025-07-13 23:00:00.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        },
+        "timezone": "UTC",
+        "duration": "10800",
+        "multiday": false,
+        "is_past": true,
+        "is_now": false,
+        "all_day": false,
+        "starts_this_week": null,
+        "ends_this_week": null,
+        "this_week_duration": null,
+        "happens_this_week": null,
+        "displays_on": [],
+        "featured": false,
+        "sticky": false,
+        "cost": "",
+        "organizer_names": [
+            "Protected: Exclusive Events Co"
+        ],
+        "organizers": [],
+        "venues": [],
+        "schedule_details": "",
+        "short_schedule_details": ""
     }
 ]

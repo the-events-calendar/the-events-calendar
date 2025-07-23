@@ -47,23 +47,25 @@ class Tribe__Events__Dates__Known_Range {
 		$_stati = apply_filters( 'tribe_events_known_range_stati', $_stati );
 		$stati  = "('" . implode( "','", $_stati ) . "')";
 
-		$earliest = strtotime( $wpdb->get_var( $wpdb->prepare( "
-				SELECT MIN(meta_value) FROM $wpdb->postmeta
+		$earliest_str = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT MIN(meta_value) FROM $wpdb->postmeta
 				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventStartDate'
-				AND post_type = '%s'
-				AND post_status IN $stati
-			",
-			Tribe__Events__Main::POSTTYPE ) ) );
+				WHERE meta_key = '_EventStartDate' AND post_type = '%s' AND post_status IN $stati",
+				Tribe__Events__Main::POSTTYPE
+			)
+		);
 
-		$latest = strtotime( $wpdb->get_var( $wpdb->prepare( "
-				SELECT MAX(meta_value) FROM $wpdb->postmeta
-				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventEndDate'
-				AND post_type = '%s'
-				AND post_status IN $stati
-			",
-			Tribe__Events__Main::POSTTYPE ) ) );
+		$latest_str = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT MAX(meta_value) FROM $wpdb->postmeta JOIN $wpdb->posts ON post_id = ID WHERE meta_key = '_EventEndDate' AND post_type = '%s' AND post_status IN $stati",
+				Tribe__Events__Main::POSTTYPE
+			)
+		);
+
+		$earliest = $earliest_str ? strtotime( $earliest_str ) : null;
+
+		$latest = $latest_str ? strtotime( $latest_str ) : null;
 
 		if ( $earliest ) {
 			$earliest_date = date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest );
