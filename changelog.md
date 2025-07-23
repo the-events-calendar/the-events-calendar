@@ -1,5 +1,9 @@
 # Changelog
 
+### [7.8.9] 2025-07-23
+
+* Feature - test
+
 ### [6.14.2] 2025-07-22
 
 * Tweak - Implemented an Enable setting for Category Colors. [TEC-5533]
