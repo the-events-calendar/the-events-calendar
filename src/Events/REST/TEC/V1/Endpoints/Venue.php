@@ -14,8 +14,6 @@ namespace TEC\Events\REST\TEC\V1\Endpoints;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\RUD_Endpoint;
 use Tribe__Events__Main as Events_Main;
-use WP_REST_Request;
-use WP_REST_Response;
 use Tribe\Events\Models\Post_Types\Venue as Venue_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
@@ -27,6 +25,9 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Venues_ORM;
+use TEC\Common\REST\TEC\V1\Traits\Update_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Delete_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Read_Entity_Response;
 
 /**
  * Single venue endpoint for the TEC REST API V1.
@@ -37,6 +38,9 @@ use TEC\Events\REST\TEC\V1\Traits\With_Venues_ORM;
  */
 class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 	use With_Venues_ORM;
+	use Read_Entity_Response;
+	use Update_Entity_Response;
+	use Delete_Entity_Response;
 
 	/**
 	 * Returns the base path of the endpoint.
@@ -114,31 +118,6 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 	}
 
 	/**
-	 * Reads a single venue.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function read( WP_REST_Request $request ): WP_REST_Response {
-		$venue_id = (int) $request['id'];
-		$venue    = get_post( $venue_id );
-
-		if ( ! ( $venue && $venue->post_type === $this->get_post_type() ) ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Venue not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		return new WP_REST_Response( tribe( Venues::class )->get_formatted_entity( $venue ), 200 );
-	}
-
-	/**
 	 * Returns the arguments for the read request.
 	 *
 	 * @since TBD
@@ -193,97 +172,6 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		return $schema;
-	}
-
-	/**
-	 * Updates an existing venue.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function update( WP_REST_Request $request ): WP_REST_Response {
-		$venue_id = (int) $request['id'];
-		$venue    = tribe_venues()->where( 'id', $venue_id )->first();
-
-		if ( ! $venue ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Venue not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		$update_args = [];
-
-		if ( isset( $request['name'] ) ) {
-			$update_args['title'] = $request['name'];
-		}
-
-		if ( isset( $request['description'] ) ) {
-			$update_args['content'] = $request['description'];
-		}
-
-		if ( isset( $request['address'] ) ) {
-			$update_args['address'] = $request['address'];
-		}
-
-		if ( isset( $request['city'] ) ) {
-			$update_args['city'] = $request['city'];
-		}
-
-		if ( isset( $request['state'] ) || isset( $request['province'] ) ) {
-			$update_args['state'] = $request['state'] ?? $request['province'];
-		}
-
-		if ( isset( $request['zip'] ) ) {
-			$update_args['zip'] = $request['zip'];
-		}
-
-		if ( isset( $request['country'] ) ) {
-			$update_args['country'] = $request['country'];
-		}
-
-		if ( isset( $request['phone'] ) ) {
-			$update_args['phone'] = $request['phone'];
-		}
-
-		if ( isset( $request['website'] ) ) {
-			$update_args['website'] = $request['website'];
-		}
-
-		if ( isset( $request['status'] ) ) {
-			$update_args['post_status'] = $request['status'];
-		}
-
-		if ( isset( $request['show_map'] ) ) {
-			$update_args['show_map'] = $request['show_map'];
-		}
-
-		if ( isset( $request['show_map_link'] ) ) {
-			$update_args['show_map_link'] = $request['show_map_link'];
-		}
-
-		if ( ! empty( $update_args ) ) {
-			$result = tribe_venues()
-				->where( 'id', $venue_id )
-				->set_args( $update_args )
-				->save();
-
-			if ( ! $result ) {
-				return new WP_REST_Response(
-					[
-						'error' => __( 'Failed to update venue.', 'the-events-calendar' ),
-					],
-					500
-				);
-			}
-		}
-
-		return new WP_REST_Response( tribe( Venues::class )->get_formatted_entity( get_post( $venue_id ) ), 200 );
 	}
 
 	/**
@@ -356,48 +244,6 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		return $schema;
-	}
-
-	/**
-	 * Deletes a venue.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function delete( WP_REST_Request $request ): WP_REST_Response {
-		$venue_id = (int) $request['id'];
-		$venue    = get_post( $venue_id );
-
-		if ( ! $venue || $venue->post_type !== $this->get_post_type() ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Venue not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		$result = wp_delete_post( $venue_id );
-
-		if ( ! $result ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'The venue could not be deleted.', 'the-events-calendar' ),
-				],
-				500
-			);
-		}
-
-		return new WP_REST_Response(
-			[
-				'message' => __( 'Venue deleted successfully.', 'the-events-calendar' ),
-				'id'      => $venue_id,
-			],
-			200
-		);
 	}
 
 	/**

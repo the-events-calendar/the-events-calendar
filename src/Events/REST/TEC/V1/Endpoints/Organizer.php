@@ -14,8 +14,6 @@ namespace TEC\Events\REST\TEC\V1\Endpoints;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\RUD_Endpoint;
 use Tribe__Events__Main as Events_Main;
-use WP_REST_Request;
-use WP_REST_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
@@ -27,6 +25,9 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
+use TEC\Common\REST\TEC\V1\Traits\Update_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Delete_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Read_Entity_Response;
 
 /**
  * Single organizer endpoint for the TEC REST API V1.
@@ -37,6 +38,9 @@ use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
  */
 class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	use With_Organizers_ORM;
+	use Read_Entity_Response;
+	use Update_Entity_Response;
+	use Delete_Entity_Response;
 
 	/**
 	 * Returns the base path of the endpoint.
@@ -114,32 +118,6 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	}
 
 	/**
-	 * Reads a single organizer.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function read( WP_REST_Request $request ): WP_REST_Response {
-		$organizer_id = (int) $request['id'];
-		$organizer    = get_post( $organizer_id );
-
-		if ( ! ( $organizer && $organizer->post_type === $this->get_post_type() ) ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Organizer not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		return new WP_REST_Response( tribe( Organizers::class )->get_formatted_entity( $organizer ), 200 );
-	}
-
-
-	/**
 	 * Returns the arguments for the read request.
 	 *
 	 * @since TBD
@@ -195,74 +173,6 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		return $schema;
 	}
-
-	/**
-	 * Updates an existing organizer.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function update( WP_REST_Request $request ): WP_REST_Response {
-		$organizer_id = (int) $request['id'];
-		$organizer    = tribe_organizers()->where( 'id', $organizer_id )->first();
-
-		if ( ! $organizer ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Organizer not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		$update_args = [];
-
-		if ( isset( $request['name'] ) ) {
-			$update_args['title'] = $request['name'];
-		}
-
-		if ( isset( $request['description'] ) ) {
-			$update_args['content'] = $request['description'];
-		}
-
-		if ( isset( $request['email'] ) ) {
-			$update_args['email'] = $request['email'];
-		}
-
-		if ( isset( $request['phone'] ) ) {
-			$update_args['phone'] = $request['phone'];
-		}
-
-		if ( isset( $request['website'] ) ) {
-			$update_args['website'] = $request['website'];
-		}
-
-		if ( isset( $request['status'] ) ) {
-			$update_args['post_status'] = $request['status'];
-		}
-
-		if ( ! empty( $update_args ) ) {
-			$result = tribe_organizers()
-				->where( 'id', $organizer_id )
-				->set_args( $update_args )
-				->save();
-
-			if ( ! $result ) {
-				return new WP_REST_Response(
-					[
-						'error' => __( 'Failed to update organizer.', 'the-events-calendar' ),
-					],
-					500
-				);
-			}
-		}
-
-		return new WP_REST_Response( tribe( Organizers::class )->get_formatted_entity( get_post( $organizer_id ) ), 200 );
-	}
-
 
 	/**
 	 * Returns the arguments for the update request.
@@ -335,49 +245,6 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		return $schema;
 	}
-
-	/**
-	 * Deletes an organizer.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function delete( WP_REST_Request $request ): WP_REST_Response {
-		$organizer_id = (int) $request['id'];
-		$organizer    = get_post( $organizer_id );
-
-		if ( ! $organizer || $organizer->post_type !== $this->get_post_type() ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Organizer not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		$result = wp_delete_post( $organizer_id );
-
-		if ( ! $result ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'The organizer could not be deleted.', 'the-events-calendar' ),
-				],
-				500
-			);
-		}
-
-		return new WP_REST_Response(
-			[
-				'message' => __( 'Organizer deleted successfully.', 'the-events-calendar' ),
-				'id'      => $organizer_id,
-			],
-			200
-		);
-	}
-
 
 	/**
 	 * Returns the arguments for the delete request.

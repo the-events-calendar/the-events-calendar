@@ -15,8 +15,6 @@ use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\RUD_Endpoint;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
-use WP_REST_Request;
-use WP_REST_Response;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
@@ -28,6 +26,9 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
+use TEC\Common\REST\TEC\V1\Traits\Update_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Delete_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Read_Entity_Response;
 
 /**
  * Single event endpoint for the TEC REST API V1.
@@ -38,6 +39,9 @@ use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
  */
 class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	use With_Events_ORM;
+	use Read_Entity_Response;
+	use Update_Entity_Response;
+	use Delete_Entity_Response;
 
 	/**
 	 * The event validator.
@@ -135,31 +139,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	}
 
 	/**
-	 * Reads a single event.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function read( WP_REST_Request $request ): WP_REST_Response {
-		$event_id = (int) $request['id'];
-		$event    = get_post( $event_id );
-
-		if ( ! ( $event && $event->post_type === $this->get_post_type() ) ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Event not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		return new WP_REST_Response( tribe( Events::class )->get_formatted_entity( $event ), 200 );
-	}
-
-	/**
 	 * Returns the arguments for the read request.
 	 *
 	 * @since TBD
@@ -214,109 +193,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		return $schema;
-	}
-
-	/**
-	 * Updates an existing event.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function update( WP_REST_Request $request ): WP_REST_Response {
-		$event_id = (int) $request['id'];
-		$event    = tribe_events()->where( 'id', $event_id )->first();
-
-		if ( ! $event ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Event not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		$update_args = [];
-
-		if ( isset( $request['title'] ) ) {
-			$update_args['title'] = $request['title'];
-		}
-
-		if ( isset( $request['description'] ) ) {
-			$update_args['content'] = $request['description'];
-		}
-
-		if ( isset( $request['excerpt'] ) ) {
-			$update_args['excerpt'] = $request['excerpt'];
-		}
-
-		if ( isset( $request['start_date'] ) ) {
-			$update_args['start_date'] = $request['start_date'];
-		}
-
-		if ( isset( $request['end_date'] ) ) {
-			$update_args['end_date'] = $request['end_date'];
-		}
-
-		if ( isset( $request['all_day'] ) ) {
-			$update_args['all_day'] = $request['all_day'];
-		}
-
-		if ( isset( $request['timezone'] ) ) {
-			$update_args['timezone'] = $request['timezone'];
-		}
-
-		if ( isset( $request['venue'] ) ) {
-			$update_args['venue'] = $request['venue'];
-		}
-
-		if ( isset( $request['organizer'] ) ) {
-			$update_args['organizer'] = $request['organizer'];
-		}
-
-		if ( isset( $request['featured'] ) ) {
-			$update_args['featured'] = $request['featured'];
-		}
-
-		if ( isset( $request['status'] ) ) {
-			$update_args['post_status'] = $request['status'];
-		}
-
-		if ( isset( $request['website'] ) ) {
-			$update_args['website'] = $request['website'];
-		}
-
-		if ( isset( $request['cost'] ) ) {
-			$update_args['cost'] = $request['cost'];
-		}
-
-		if ( isset( $request['categories'] ) ) {
-			$update_args['categories'] = $request['categories'];
-		}
-
-		if ( isset( $request['tags'] ) ) {
-			$update_args['tags'] = $request['tags'];
-		}
-
-		if ( ! empty( $update_args ) ) {
-			$result = tribe_events()
-				->where( 'id', $event_id )
-				->set_args( $update_args )
-				->save();
-
-			if ( ! $result ) {
-				return new WP_REST_Response(
-					[
-						'error' => __( 'Failed to update event.', 'the-events-calendar' ),
-					],
-					500
-				);
-			}
-		}
-
-		return new WP_REST_Response( tribe( Events::class )->get_formatted_entity( get_post( $event_id ) ), 200 );
 	}
 
 
@@ -389,49 +265,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		return $schema;
 	}
-
-	/**
-	 * Deletes an event.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function delete( WP_REST_Request $request ): WP_REST_Response {
-		$event_id = (int) $request['id'];
-		$event    = get_post( $event_id );
-
-		if ( ! $event || $event->post_type !== $this->get_post_type() ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Event not found.', 'the-events-calendar' ),
-				],
-				404
-			);
-		}
-
-		$result = wp_delete_post( $event_id );
-
-		if ( ! $result ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'The event could not be deleted.', 'the-events-calendar' ),
-				],
-				500
-			);
-		}
-
-		return new WP_REST_Response(
-			[
-				'message' => __( 'Event deleted successfully.', 'the-events-calendar' ),
-				'id'      => $event_id,
-			],
-			200
-		);
-	}
-
 
 	/**
 	 * Returns the arguments for the delete request.
