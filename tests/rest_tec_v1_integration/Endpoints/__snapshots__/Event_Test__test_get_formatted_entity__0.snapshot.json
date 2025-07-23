@@ -1,0 +1,447 @@
+[
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/past-conference-2023/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "past-conference-2023",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/past-conference-2023/",
+        "title": {
+            "rendered": "Past Conference 2023"
+        },
+        "content": {
+            "rendered": "<p>A past conference that already happened.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>A past conference that already happened.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/current-workshop-series/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "current-workshop-series",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/current-workshop-series/",
+        "title": {
+            "rendered": "Current Workshop Series"
+        },
+        "content": {
+            "rendered": "<p>An ongoing workshop happening right now.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>An ongoing workshop happening right now.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/future-tech-summit/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "future-tech-summit",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/future-tech-summit/",
+        "title": {
+            "rendered": "Future Tech Summit"
+        },
+        "content": {
+            "rendered": "<p>The premier technology summit of the year.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>The premier technology summit of the year.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/music-festival-2024/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "music-festival-2024",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/music-festival-2024/",
+        "title": {
+            "rendered": "Music Festival 2024"
+        },
+        "content": {
+            "rendered": "<p>A 4-day music festival with multiple stages and artists.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>A 4-day music festival with multiple stages and artists.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/community-cleanup-day/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "community-cleanup-day",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/community-cleanup-day/",
+        "title": {
+            "rendered": "Community Cleanup Day"
+        },
+        "content": {
+            "rendered": "<p>Join us for a day of community service and environmental cleanup.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Join us for a day of community service and environmental cleanup.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "vip-dinner-gala",
+        "status": "private",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}",
+        "title": {
+            "rendered": "Private: VIP Dinner Gala"
+        },
+        "content": {
+            "rendered": "<p>An exclusive dinner event for VIP members only.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>An exclusive dinner event for VIP members only.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-private",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "",
+        "status": "draft",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}",
+        "title": {
+            "rendered": "Planning Stage Event"
+        },
+        "content": {
+            "rendered": "<p>This event is still in the planning stages.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>This event is still in the planning stages.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-draft",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/virtual-webinar-seo-best-practices/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "virtual-webinar-seo-best-practices",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/virtual-webinar-seo-best-practices/",
+        "title": {
+            "rendered": "Virtual Webinar: SEO Best Practices"
+        },
+        "content": {
+            "rendered": "<p>Join us online for this informative webinar about SEO strategies.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Join us online for this informative webinar about SEO strategies.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/community-open-mic-night/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "community-open-mic-night",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/community-open-mic-night/",
+        "title": {
+            "rendered": "Community Open Mic Night"
+        },
+        "content": {
+            "rendered": "<p>Share your talents at our community open mic night.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Share your talents at our community open mic night.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/cafe-code-developers-meetup/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "cafe-code-developers-meetup",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/cafe-code-developers-meetup/",
+        "title": {
+            "rendered": "Café &amp; Code: Developer&#8217;s Meetup"
+        },
+        "content": {
+            "rendered": "<p>Network with fellow developers over coffee &amp; snacks.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Network with fellow developers over coffee &amp; snacks.</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/web-development-bootcamp/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "web-development-bootcamp",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/web-development-bootcamp/",
+        "title": {
+            "rendered": "Web Development Bootcamp"
+        },
+        "content": {
+            "rendered": "<h3>Learn Web Development</h3>\n<p>Join our intensive 3-day bootcamp covering:</p>\n<ul>\n<li>HTML5 &amp; CSS3</li>\n<li>JavaScript ES6+</li>\n<li>React.js</li>\n<li>Node.js</li>\n</ul>\n<p><strong>Limited seats available!</strong></p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Learn Web Development Join our intensive 3-day bootcamp covering: HTML5 &amp; CSS3 JavaScript ES6+ React.js Node.js Limited seats available!</p>\n",
+            "protected": false
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "hentry"
+        ]
+    },
+    {
+        "id": {EVENT_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/event/secret-society-annual-meeting/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "secret-society-annual-meeting",
+        "status": "publish",
+        "type": "tribe_events",
+        "link": "http://wordpress.test/event/secret-society-annual-meeting/",
+        "title": {
+            "rendered": "Secret Society Annual Meeting"
+        },
+        "content": {
+            "rendered": "",
+            "protected": true
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": true
+        },
+        "author": 0,
+        "featured_media": 0,
+        "template": "",
+        "tags": [],
+        "tribe_events_cat": [],
+        "class_list": [
+            "post-{EVENT_ID}",
+            "tribe_events",
+            "type-tribe_events",
+            "status-publish",
+            "post-password-required",
+            "hentry"
+        ]
+    }
+]
