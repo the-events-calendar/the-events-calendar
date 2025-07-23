@@ -207,7 +207,7 @@ add_full_changelog_link() {
 
     # Check if the link is already present
     if grep -q "$full_changelog_url" "$content_file"; then
-        return 0
+        return 1  # Return 1 to indicate link already exists (no changes made)
     fi
 
     # Check if file ends with empty line, if not add one
@@ -222,6 +222,7 @@ add_full_changelog_link() {
 
     # Add the link
     echo "$link_text" >> "$content_file"
+    return 0  # Return 0 to indicate link was successfully added
 }
 
 # Function to replace changelog section in readme.txt
@@ -298,13 +299,14 @@ process_readme_changelog() {
     local new_changelog_file=$(mktemp)
     rebuild_changelog "$changelog_temp_file" "$kept_entries_file" "$new_changelog_file"
 
-    # Add full changelog link if trimming occurred
-    if [ "$was_trimmed" = "true" ]; then
-        add_full_changelog_link "$new_changelog_file" "$full_changelog_url"
+    # Always add full changelog link to ensure it's present
+    local link_added=false
+    if add_full_changelog_link "$new_changelog_file" "$full_changelog_url"; then
+        link_added=true
     fi
 
     # Only proceed if trimming occurred or the link was added
-    if [ "$was_trimmed" = "false" ]; then
+    if [ "$was_trimmed" = "false" ] && [ "$link_added" = "false" ]; then
         echo "No changes needed to changelog section"
         rm -f "$changelog_temp_file" "$entries_file" "$kept_entries_file" "$new_changelog_file"
         return 0
@@ -321,6 +323,7 @@ process_readme_changelog() {
         echo "  Kept entries: $kept_count"
         echo "  Total word count: $total_words"
         echo "  Was trimmed: $was_trimmed"
+        echo "  Link added/verified: $link_added"
 
         # Cleanup
         rm -f "$changelog_temp_file" "$entries_file" "$kept_entries_file" "$new_changelog_file" "$final_readme_file"
