@@ -187,9 +187,9 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): Collection {
+	public function read_args(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -252,6 +252,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 			fn() => __( 'Returns a list of organizers', 'the-events-calendar' ),
 			'getOrganizers',
 			[ tribe( TEC_Tag::class ) ],
+			null,
 			$this->read_args(),
 		);
 
@@ -319,49 +320,10 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function create_args(): Collection {
-		$collection = new RequestBodyCollection();
-
-		$collection[] = new Text(
-			'name',
-			fn() => __( 'The name of the organizer.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			null,
-			true
-		);
-
-		$collection[] = new Text(
-			'description',
-			fn() => __( 'The description of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Email(
-			'email',
-			fn() => __( 'The email address of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'phone',
-			fn() => __( 'The phone number of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new URI(
-			'website',
-			fn() => __( 'The website URL of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'status',
-			fn() => __( 'The status of the organizer.', 'the-events-calendar' ),
-			'publish',
-			self::ALLOWED_STATUS,
-		);
-
-		return $collection;
+	public function create_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -372,12 +334,22 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Organizer_Definition();
+
+		$collection->set_example( $definition->get_example() );
+
+		$collection[] = new Definition_Parameter( $definition );
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Creates a new organizer', 'the-events-calendar' ),
 			'createOrganizer',
 			[ tribe( TEC_Tag::class ) ],
-			$this->create_args()
+			null,
+			null,
+			$collection->set_description_provider( fn() => __( 'The organizer data to create.', 'the-events-calendar' ) )->set_required( true )
 		);
 
 		$response = new Definition_Parameter( new Organizer_Definition() );

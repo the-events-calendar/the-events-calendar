@@ -23,7 +23,7 @@ use Tribe__Repository__Interface;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use WP_Post;
-use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
@@ -237,10 +237,11 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			fn() => __( 'Returns a list of events', 'the-events-calendar' ),
 			'getEvents',
 			[ tribe( TEC_Tag::class ) ],
+			null,
 			$this->read_args()
 		);
 
-		$headers_collection = new QueryArgumentCollection();
+		$headers_collection = new HeadersCollection();
 
 		$headers_collection[] = new Positive_Integer(
 			'X-WP-Total',
@@ -304,9 +305,9 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): Collection {
+	public function read_args(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -435,110 +436,10 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function create_args(): Collection {
-		$collection = new RequestBodyCollection();
-
-		$collection[] = new Text(
-			'title',
-			fn() => __( 'The title of the event.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			null,
-			true,
-		);
-
-		$collection[] = new Text(
-			'description',
-			fn() => __( 'The description/content of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'excerpt',
-			fn() => __( 'The excerpt of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Date_Time(
-			'start_date',
-			fn() => __( 'The start date and time of the event.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			null,
-			true
-		);
-
-		$collection[] = new Date_Time(
-			'end_date',
-			fn() => __( 'The end date and time of the event.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			null,
-			true
-		);
-
-		$collection[] = new Boolean(
-			'all_day',
-			fn() => __( 'Whether the event is an all-day event.', 'the-events-calendar' ),
-			false
-		);
-
-		$collection[] = new Text(
-			'timezone',
-			fn() => __( 'The timezone of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Array_Of_Type(
-			'venue',
-			fn() => __( 'The venue IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new Array_Of_Type(
-			'organizer',
-			fn() => __( 'The organizer IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new Boolean(
-			'featured',
-			fn() => __( 'Whether the event is featured.', 'the-events-calendar' ),
-			false
-		);
-
-		$collection[] = new Text(
-			'status',
-			fn() => __( 'The status of the event.', 'the-events-calendar' ),
-			'publish',
-			self::ALLOWED_STATUS,
-		);
-
-		$collection[] = new Array_Of_Type(
-			'categories',
-			fn() => __( 'The category IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new Array_Of_Type(
-			'tags',
-			fn() => __( 'The tag IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new URI(
-			'website',
-			fn() => __( 'The event website URL.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'cost',
-			fn() => __( 'The cost of the event.', 'the-events-calendar' ),
-		);
-
-		return $collection;
+	public function create_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -549,12 +450,22 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Event_Definition();
+
+		$collection->set_example( $definition->get_example() );
+
+		$collection[] = new Definition_Parameter( $definition );
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Event', 'the-events-calendar' ),
 			fn() => __( 'Creates a new event', 'the-events-calendar' ),
 			'createEvent',
 			[ tribe( TEC_Tag::class ) ],
-			$this->create_args()
+			null,
+			null,
+			$collection->set_description_provider( fn() => __( 'The event data to create.', 'the-events-calendar' ) )->set_required( true )
 		);
 
 		$response = new Definition_Parameter( new Event_Definition() );

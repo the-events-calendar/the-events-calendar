@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Events\REST\TEC\V1\Documentation;
 
-use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
+use TEC\Common\REST\TEC\V1\Abstracts\Definition;
 
 /**
  * Venue definition provider for the TEC REST API.
@@ -20,7 +20,7 @@ use TEC\Common\REST\TEC\V1\Contracts\Definition_Interface;
  *
  * @package TEC\Events\REST\TEC\V1\Documentation
  */
-class Venue_Definition implements Definition_Interface {
+class Venue_Definition extends Definition {
 
 	/**
 	 * Returns the type of the definition.

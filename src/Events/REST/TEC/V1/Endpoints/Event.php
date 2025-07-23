@@ -20,6 +20,7 @@ use WP_REST_Response;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
@@ -169,25 +170,10 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): Collection {
-		$collection = new PathArgumentCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
-			null,
-			1,
-			null,
-			true,
-			null,
-			null,
-			null,
-			Positive_Integer::LOCATION_PATH
-		);
-
-		return $collection;
+	public function read_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -198,12 +184,19 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function read_schema(): OpenAPI_Schema {
+		$collection = new PathArgumentCollection();
+
+		$collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
+		);
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Retrieve an Event', 'the-events-calendar' ),
 			fn() => __( 'Returns a single event', 'the-events-calendar' ),
 			'getEvent',
 			[ tribe( TEC_Tag::class ) ],
-			$this->read_args()
+			$collection
 		);
 
 		$response = new Definition_Parameter( new Event_Definition() );
@@ -338,106 +331,10 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function update_args(): Collection {
-		$collection = new RequestBodyCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			true,
-			null,
-			null,
-			null,
-			Positive_Integer::LOCATION_PATH
-		);
-
-		$collection[] = new Text(
-			'title',
-			fn() => __( 'The title of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'description',
-			fn() => __( 'The description/content of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'excerpt',
-			fn() => __( 'The excerpt of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Date_Time(
-			'start_date',
-			fn() => __( 'The start date and time of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Date_Time(
-			'end_date',
-			fn() => __( 'The end date and time of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Boolean(
-			'all_day',
-			fn() => __( 'Whether the event is an all-day event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'timezone',
-			fn() => __( 'The timezone of the event.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Array_Of_Type(
-			'venue',
-			fn() => __( 'The venue IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new Array_Of_Type(
-			'organizer',
-			fn() => __( 'The organizer IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new Boolean(
-			'featured',
-			fn() => __( 'Whether the event is featured.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'status',
-			fn() => __( 'The status of the event.', 'the-events-calendar' ),
-			'publish',
-			self::ALLOWED_STATUS,
-		);
-
-		$collection[] = new Array_Of_Type(
-			'categories',
-			fn() => __( 'The category IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new Array_Of_Type(
-			'tags',
-			fn() => __( 'The tag IDs for the event.', 'the-events-calendar' ),
-			Positive_Integer::class,
-		);
-
-		$collection[] = new URI(
-			'website',
-			fn() => __( 'The event website URL.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'cost',
-			fn() => __( 'The cost of the event.', 'the-events-calendar' ),
-		);
-
-		return $collection;
+	public function update_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -448,15 +345,30 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function update_schema(): OpenAPI_Schema {
+		$path_collection = new PathArgumentCollection();
+
+		$path_collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
+		);
+
+		$definition = new Event_Definition();
+
+		$collection = new RequestBodyCollection();
+
+		$collection[] = new Definition_Parameter( $definition );
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Update an Event', 'the-events-calendar' ),
 			fn() => __( 'Updates an existing event', 'the-events-calendar' ),
 			'updateEvent',
 			[ tribe( TEC_Tag::class ) ],
-			$this->update_args()
+			$path_collection,
+			null,
+			$collection->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )->set_required( true )->set_example( $definition->get_example() )
 		);
 
-		$response = new Definition_Parameter( new Event_Definition() );
+		$response = new Definition_Parameter( $definition );
 
 		$schema->add_response(
 			200,
@@ -532,25 +444,10 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function delete_args(): Collection {
-		$collection = new PathArgumentCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			true,
-			null,
-			null,
-			null,
-			Positive_Integer::LOCATION_PATH
-		);
-
-		return $collection;
+	public function delete_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -561,12 +458,19 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function delete_schema(): OpenAPI_Schema {
+		$collection = new PathArgumentCollection();
+
+		$collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
+		);
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Delete an Event', 'the-events-calendar' ),
 			fn() => __( 'Deletes an existing event', 'the-events-calendar' ),
 			'deleteEvent',
 			[ tribe( TEC_Tag::class ) ],
-			$this->delete_args()
+			$collection
 		);
 
 		$schema->add_response(

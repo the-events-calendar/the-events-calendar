@@ -19,6 +19,7 @@ use WP_REST_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\PathArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
@@ -147,25 +148,10 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): Collection {
-		$collection = new PathArgumentCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the organizer.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			true,
-			null,
-			null,
-			null,
-			Positive_Integer::LOCATION_PATH
-		);
-
-		return $collection;
+	public function read_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -176,12 +162,19 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function read_schema(): OpenAPI_Schema {
+		$collection = new PathArgumentCollection();
+
+		$collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the organizer.', 'the-events-calendar' ),
+		);
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Retrieve an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Returns a single organizer', 'the-events-calendar' ),
 			'getOrganizer',
 			[ tribe( TEC_Tag::class ) ],
-			$this->read_args()
+			$collection
 		);
 
 		$response = new Definition_Parameter( new Organizer_Definition() );
@@ -280,57 +273,10 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function update_args(): Collection {
-		$collection = new RequestBodyCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the organizer.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			true,
-			null,
-			null,
-			null,
-			Positive_Integer::LOCATION_PATH
-		);
-
-		$collection[] = new Text(
-			'name',
-			fn() => __( 'The name of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'description',
-			fn() => __( 'The description of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Email(
-			'email',
-			fn() => __( 'The email address of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'phone',
-			fn() => __( 'The phone number of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new URI(
-			'website',
-			fn() => __( 'The website URL of the organizer.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'status',
-			fn() => __( 'The status of the organizer.', 'the-events-calendar' ),
-			'publish',
-			self::ALLOWED_STATUS,
-		);
-
-		return $collection;
+	public function update_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -341,12 +287,29 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function update_schema(): OpenAPI_Schema {
+		$path_collection = new PathArgumentCollection();
+
+		$path_collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the organizer.', 'the-events-calendar' ),
+		);
+
+		$collection = new RequestBodyCollection();
+
+		$definition = new Organizer_Definition();
+
+		$collection->set_example( $definition->get_example() );
+
+		$collection[] = new Definition_Parameter( $definition );
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Update an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Updates an existing organizer', 'the-events-calendar' ),
 			'updateOrganizer',
 			[ tribe( TEC_Tag::class ) ],
-			$this->update_args()
+			$path_collection,
+			null,
+			$collection->set_description_provider( fn() => __( 'The organizer data to update.', 'the-events-calendar' ) )->set_required( true )
 		);
 
 		$response = new Definition_Parameter( new Organizer_Definition() );
@@ -425,25 +388,10 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function delete_args(): Collection {
-		$collection = new PathArgumentCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the organizer.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			true,
-			null,
-			null,
-			null,
-			Positive_Integer::LOCATION_PATH
-		);
-
-		return $collection;
+	public function delete_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -454,12 +402,19 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function delete_schema(): OpenAPI_Schema {
+		$collection = new PathArgumentCollection();
+
+		$collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the organizer.', 'the-events-calendar' ),
+		);
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Delete an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Deletes an existing organizer', 'the-events-calendar' ),
 			'deleteOrganizer',
 			[ tribe( TEC_Tag::class ) ],
-			$this->delete_args()
+			$collection
 		);
 
 		$schema->add_response(

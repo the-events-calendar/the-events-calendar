@@ -186,9 +186,9 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @since TBD
 	 *
-	 * @return Collection
+	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): Collection {
+	public function read_args(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -251,6 +251,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			fn() => __( 'Returns a list of venues', 'the-events-calendar' ),
 			'getVenues',
 			[ tribe( TEC_Tag::class ) ],
+			null,
 			$this->read_args(),
 		);
 
@@ -320,84 +321,8 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @return Collection
 	 */
-	public function create_args(): Collection {
-		$collection = new RequestBodyCollection();
-
-		$collection[] = new Text(
-			'name',
-			fn() => __( 'The name of the venue.', 'the-events-calendar' ),
-			null,
-			null,
-			null,
-			null,
-			true
-		);
-
-		$collection[] = new Text(
-			'description',
-			fn() => __( 'The description of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'address',
-			fn() => __( 'The street address of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'city',
-			fn() => __( 'The city of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'state',
-			fn() => __( 'The state or province of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'province',
-			fn() => __( 'The province (alias for state).', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'zip',
-			fn() => __( 'The zip/postal code of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'country',
-			fn() => __( 'The country of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'phone',
-			fn() => __( 'The phone number of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new URI(
-			'website',
-			fn() => __( 'The website URL of the venue.', 'the-events-calendar' ),
-		);
-
-		$collection[] = new Text(
-			'status',
-			fn() => __( 'The status of the venue.', 'the-events-calendar' ),
-			'publish',
-			self::ALLOWED_STATUS,
-		);
-
-		$collection[] = new Boolean(
-			'show_map',
-			fn() => __( 'Whether to show the map for this venue.', 'the-events-calendar' ),
-			true
-		);
-
-		$collection[] = new Boolean(
-			'show_map_link',
-			fn() => __( 'Whether to show the map link for this venue.', 'the-events-calendar' ),
-			true
-		);
-
-		return $collection;
+	public function create_args(): QueryArgumentCollection {
+		return new QueryArgumentCollection();
 	}
 
 	/**
@@ -408,12 +333,22 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Venue_Definition();
+
+		$collection->set_example( $definition->get_example() );
+
+		$collection[] = new Definition_Parameter( $definition );
+
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create a Venue', 'the-events-calendar' ),
 			fn() => __( 'Creates a new venue', 'the-events-calendar' ),
 			'createVenue',
 			[ tribe( TEC_Tag::class ) ],
-			$this->create_args()
+			null,
+			null,
+			$collection->set_description_provider( fn() => __( 'The venue data to create.', 'the-events-calendar' ) )->set_required( true )
 		);
 
 		$response = new Definition_Parameter( new Venue_Definition() );
