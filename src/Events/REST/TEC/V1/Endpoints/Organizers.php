@@ -21,7 +21,6 @@ use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
-use TEC\Common\REST\TEC\V1\Collections\Collection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
 use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
@@ -35,7 +34,6 @@ use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use Tribe__Repository__Interface;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Email;
 use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
 
 /**
