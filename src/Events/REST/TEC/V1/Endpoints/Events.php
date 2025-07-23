@@ -465,7 +465,8 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			[ tribe( TEC_Tag::class ) ],
 			null,
 			null,
-			$collection->set_description_provider( fn() => __( 'The event data to create.', 'the-events-calendar' ) )->set_required( true )
+			$collection->set_description_provider( fn() => __( 'The event data to create.', 'the-events-calendar' ) )->set_required( true ),
+			true
 		);
 
 		$response = new Definition_Parameter( new Event_Definition() );

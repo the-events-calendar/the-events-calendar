@@ -215,7 +215,8 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 			[ tribe( TEC_Tag::class ) ],
 			$path_collection,
 			null,
-			$collection->set_description_provider( fn() => __( 'The venue data to update.', 'the-events-calendar' ) )->set_required( true )
+			$collection->set_description_provider( fn() => __( 'The venue data to update.', 'the-events-calendar' ) )->set_required( true ),
+			true
 		);
 
 		$response = new Definition_Parameter( $definition );
@@ -277,7 +278,10 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'Deletes an existing venue', 'the-events-calendar' ),
 			'deleteVenue',
 			[ tribe( TEC_Tag::class ) ],
-			$collection
+			$collection,
+			null,
+			null,
+			true
 		);
 
 		$schema->add_response(

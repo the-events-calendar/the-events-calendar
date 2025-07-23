@@ -235,7 +235,8 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			[ tribe( TEC_Tag::class ) ],
 			$path_collection,
 			null,
-			$collection->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )->set_required( true )->set_example( $definition->get_example() )
+			$collection->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )->set_required( true )->set_example( $definition->get_example() ),
+			true
 		);
 
 		$response = new Definition_Parameter( $definition );
@@ -297,7 +298,10 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'Deletes an existing event', 'the-events-calendar' ),
 			'deleteEvent',
 			[ tribe( TEC_Tag::class ) ],
-			$collection
+			$collection,
+			null,
+			null,
+			true
 		);
 
 		$schema->add_response(
