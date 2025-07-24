@@ -176,8 +176,8 @@ jobs:
       - name: Run OpenAPI Linter
         if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
         run: |
-          source .env.testing.slic
-          npm run spectral -- $WP_URL
+          ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
+          npm run spectral -- http://host.docker.internal:8888/wp-json/tec/v1/docs/
 
       # ------------------------------------------------------------------------------
       # Run the Actual tests
