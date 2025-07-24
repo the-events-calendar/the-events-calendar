@@ -158,8 +158,8 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$events_query->search( $request['search'] );
 		}
 
-		if ( ! empty( $request['categories'] ) ) {
-			$events_query->where( 'category', array_map( 'absint', $request['categories'] ) );
+		if ( ! empty( $request['tribe_events_cat'] ) || ! empty( $request['categories'] ) ) {
+			$events_query->where( 'category', array_map( 'absint', $request['tribe_events_cat'] ?? $request['categories'] ?? [] ) );
 		}
 
 		if ( ! empty( $request['tags'] ) ) {

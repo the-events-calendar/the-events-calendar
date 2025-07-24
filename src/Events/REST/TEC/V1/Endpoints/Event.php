@@ -30,6 +30,7 @@ use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
 use TEC\Common\REST\TEC\V1\Traits\Update_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Delete_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Entity_Response;
+use WP_Post;
 
 /**
  * Single event endpoint for the TEC REST API V1.
@@ -321,5 +322,28 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		return $schema;
+	}
+
+	/**
+	 * Transforms the entity.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $entity The entity to transform.
+	 *
+	 * @return array
+	 */
+	protected function transform_entity( array $entity ): array {
+		if ( ! empty( $entity['organizers'] ) ) {
+			$organizers           = tribe( Organizers::class );
+			$entity['organizers'] = array_map( fn ( WP_Post $organizer ) => $organizers->get_formatted_entity( $organizer ), $entity['organizers']->all() );
+		}
+
+		if ( ! empty( $entity['venues'] ) ) {
+			$venues           = tribe( Venues::class );
+			$entity['venues'] = array_map( fn ( WP_Post $venue ) => $venues->get_formatted_entity( $venue ), $entity['venues']->all() );
+		}
+
+		return $entity;
 	}
 }
