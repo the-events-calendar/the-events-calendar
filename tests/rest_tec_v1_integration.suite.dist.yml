@@ -1,8 +1,8 @@
-actor: IntegrationTester
+actor: RestIntegrationTester
 bootstrap: _bootstrap.php
 modules:
   enabled:
-    - \Helper\Integration
+    - \Helper\RestIntegration
     - WPLoader:
   config:
     WPLoader:
