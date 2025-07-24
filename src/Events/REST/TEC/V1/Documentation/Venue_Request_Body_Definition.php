@@ -55,7 +55,48 @@ class Venue_Request_Body_Definition extends Definition {
 					'$ref' => '#/components/schemas/TEC_Post_Entity_Request_Body',
 				],
 				[
-					'$ref' => '#/components/schemas/Venue_Only',
+					'type'        => 'object',
+					'title'       => 'Venue Request Body',
+					'description' => __( 'The request body for the venue endpoint', 'the-events-calendar' ),
+					'properties'  => [
+						'address'        => [
+							'type'        => 'string',
+							'description' => __( 'The venue address', 'the-events-calendar' ),
+						],
+						'country'        => [
+							'type'        => 'string',
+							'description' => __( 'The venue country', 'the-events-calendar' ),
+						],
+						'city'           => [
+							'type'        => 'string',
+							'description' => __( 'The venue city', 'the-events-calendar' ),
+						],
+						'state_province' => [
+							'type'        => 'string',
+							'description' => __( 'The venue state/province', 'the-events-calendar' ),
+						],
+						'state'          => [
+							'type'        => 'string',
+							'description' => __( 'The venue state', 'the-events-calendar' ),
+						],
+						'province'       => [
+							'type'        => 'string',
+							'description' => __( 'The venue province', 'the-events-calendar' ),
+						],
+						'zip'            => [
+							'type'        => 'string',
+							'description' => __( 'The venue zip code', 'the-events-calendar' ),
+						],
+						'phone'          => [
+							'type'        => 'string',
+							'description' => __( 'The venue phone number', 'the-events-calendar' ),
+						],
+						'website'        => [
+							'type'        => 'string',
+							'description' => __( 'The venue website', 'the-events-calendar' ),
+							'format'      => 'uri',
+						],
+					],
 				],
 			],
 		];

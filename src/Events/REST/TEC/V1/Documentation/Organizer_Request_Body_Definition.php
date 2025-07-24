@@ -55,7 +55,26 @@ class Organizer_Request_Body_Definition extends Definition {
 					'$ref' => '#/components/schemas/TEC_Post_Entity_Request_Body',
 				],
 				[
-					'$ref' => '#/components/schemas/Organizer_Only',
+					'type'        => 'object',
+					'title'       => 'Organizer Request Body',
+					'description' => __( 'The request body for the organizer endpoint', 'the-events-calendar' ),
+					'properties'  => [
+						'phone'   => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s phone number', 'the-events-calendar' ),
+							'format'      => 'tel',
+						],
+						'website' => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s website', 'the-events-calendar' ),
+							'format'      => 'uri',
+						],
+						'email'   => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s email address', 'the-events-calendar' ),
+							'format'      => 'email',
+						],
+					],
 				],
 			],
 		];

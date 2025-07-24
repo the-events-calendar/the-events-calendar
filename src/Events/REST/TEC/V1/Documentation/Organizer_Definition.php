@@ -57,11 +57,26 @@ class Organizer_Definition extends Definition {
 					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
 				[
-					'$ref' => '#/components/schemas/Organizer_Only',
-				],
-				[
+					'type'        => 'object',
 					'title'       => 'Organizer',
 					'description' => __( 'An organizer', 'the-events-calendar' ),
+					'properties'  => [
+						'phone'   => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s phone number', 'the-events-calendar' ),
+							'format'      => 'tel',
+						],
+						'website' => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s website', 'the-events-calendar' ),
+							'format'      => 'uri',
+						],
+						'email'   => [
+							'type'        => 'string',
+							'description' => __( 'The organizer\'s email address', 'the-events-calendar' ),
+							'format'      => 'email',
+						],
+					],
 				],
 			],
 		];
