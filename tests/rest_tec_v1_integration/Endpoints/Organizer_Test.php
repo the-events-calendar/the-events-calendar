@@ -2,7 +2,7 @@
 
 namespace TEC\Events\Tests\REST\TEC\V1\Endpoints;
 
-use TEC\Common\Tests\TestCases\REST\TEC\V1\Post_Entity_REST_Test_Case;
+use TEC\Common\Tests\Testcases\REST\TEC\V1\Post_Entity_REST_Test_Case;
 use Tribe__Events__Repositories__Organizer as Organizer_Repository;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
 use TEC\Events\REST\TEC\V1\Endpoints\Organizer;
@@ -13,7 +13,7 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 
 	protected function create_test_data(): array {
 		wp_set_current_user( 1 );
-		
+
 		// Create test venues for relationships
 		$venue_1 = tribe_venues()->set_args(
 			[

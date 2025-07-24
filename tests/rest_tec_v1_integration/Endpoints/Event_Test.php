@@ -2,7 +2,7 @@
 
 namespace TEC\Events\Tests\REST\TEC\V1\Endpoints;
 
-use TEC\Common\Tests\TestCases\REST\TEC\V1\Post_Entity_REST_Test_Case;
+use TEC\Common\Tests\Testcases\REST\TEC\V1\Post_Entity_REST_Test_Case;
 use Tribe__Events__Repositories__Event as Event_Repository;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
 use TEC\Events\REST\TEC\V1\Endpoints\Event;
