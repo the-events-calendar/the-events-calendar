@@ -55,39 +55,39 @@ class Venue_Only_Definition extends Definition {
 		$documentation = [
 			'type'       => 'object',
 			'properties' => [
-				'address'         => [
+				'address'        => [
 					'type'        => 'string',
 					'description' => __( 'The venue address', 'the-events-calendar' ),
 				],
-				'country'         => [
+				'country'        => [
 					'type'        => 'string',
 					'description' => __( 'The venue country', 'the-events-calendar' ),
 				],
-				'city'            => [
+				'city'           => [
 					'type'        => 'string',
 					'description' => __( 'The venue city', 'the-events-calendar' ),
 				],
-				'state_province'  => [
+				'state_province' => [
 					'type'        => 'string',
 					'description' => __( 'The venue state/province', 'the-events-calendar' ),
 				],
-				'state'           => [
+				'state'          => [
 					'type'        => 'string',
 					'description' => __( 'The venue state', 'the-events-calendar' ),
 				],
-				'province'        => [
+				'province'       => [
 					'type'        => 'string',
 					'description' => __( 'The venue province', 'the-events-calendar' ),
 				],
-				'zip'             => [
+				'zip'            => [
 					'type'        => 'string',
 					'description' => __( 'The venue zip code', 'the-events-calendar' ),
 				],
-				'phone'           => [
+				'phone'          => [
 					'type'        => 'string',
 					'description' => __( 'The venue phone number', 'the-events-calendar' ),
 				],
-				'website'         => [
+				'website'        => [
 					'type'        => 'string',
 					'description' => __( 'The venue website', 'the-events-calendar' ),
 					'format'      => 'uri',

@@ -59,7 +59,7 @@ class Event_Request_Body_Definition extends Definition {
 					'description' => __( 'The request body for the event endpoint', 'the-events-calendar' ),
 					'type'        => 'object',
 					'properties'  => [
-						'tribe_events_cat'       => [
+						'tribe_events_cat' => [
 							'type'        => 'array',
 							'description' => __( 'The terms assigned to the entity in the tribe_events_cat taxonomy', 'the-events-calendar' ),
 							'items'       => [
@@ -67,72 +67,72 @@ class Event_Request_Body_Definition extends Definition {
 							],
 							'example'     => [ 1, 5, 12 ],
 						],
-						'start_date'             => [
+						'start_date'       => [
 							'type'        => 'string',
 							'description' => __( 'The start date of the event', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
 							'example'     => '2021-01-01 00:00:00',
 						],
-						'start_date_utc'         => [
+						'start_date_utc'   => [
 							'type'        => 'string',
 							'description' => __( 'The start date of the event in UTC', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
 							'example'     => '2021-01-01 00:00:00',
 						],
-						'end_date'               => [
+						'end_date'         => [
 							'type'        => 'string',
 							'description' => __( 'The end date of the event', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
 							'example'     => '2021-01-01 00:00:00',
 						],
-						'end_date_utc'           => [
+						'end_date_utc'     => [
 							'type'        => 'string',
 							'description' => __( 'The end date of the event in UTC', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
 							'example'     => '2021-01-01 00:00:00',
 						],
-						'timezone'               => [
+						'timezone'         => [
 							'type'        => 'string',
 							'description' => __( 'The timezone of the event', 'the-events-calendar' ),
 							'example'     => 'Europe/Athens',
 						],
-						'duration'               => [
+						'duration'         => [
 							'type'        => 'integer',
 							'description' => __( 'The duration of the event in seconds', 'the-events-calendar' ),
 							'example'     => 3600,
 						],
-						'all_day'                => [
+						'all_day'          => [
 							'type'        => 'boolean',
 							'description' => __( 'Whether the event is all day', 'the-events-calendar' ),
 							'example'     => false,
 						],
-						'featured'               => [
+						'featured'         => [
 							'type'        => 'boolean',
 							'description' => __( 'Whether the event is featured', 'the-events-calendar' ),
 							'example'     => false,
 						],
-						'sticky'                 => [
+						'sticky'           => [
 							'type'        => 'boolean',
 							'description' => __( 'Whether the event is sticky', 'the-events-calendar' ),
 							'example'     => false,
 						],
-						'cost'                   => [
+						'cost'             => [
 							'type'        => 'string',
 							'description' => __( 'The cost of the event', 'the-events-calendar' ),
 							'example'     => '$10',
 						],
-						'organizers'             => [
+						'organizers'       => [
 							'type'        => 'array',
 							'description' => __( 'The organizers of the event', 'the-events-calendar' ),
 							'items'       => [
 								'$ref' => '#/components/schemas/Organizer',
 							],
 						],
-						'venues'                 => [
+						'venues'           => [
 							'type'        => 'array',
 							'description' => __( 'The venues of the event', 'the-events-calendar' ),
 							'items'       => [
