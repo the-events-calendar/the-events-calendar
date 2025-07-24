@@ -6,6 +6,7 @@ use TEC\Common\Tests\TestCases\REST\TEC\V1\Post_Entity_REST_Test_Case;
 use Tribe__Events__Repositories__Event as Event_Repository;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
 use TEC\Events\REST\TEC\V1\Endpoints\Event;
+use Closure;
 
 class Event_Test extends Post_Entity_REST_Test_Case {
 	protected $endpoint_class = Event::class;
@@ -62,9 +63,9 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 		// Create password-protected venue
 		$password_venue = tribe_venues()->set_args(
 			[
-				'title' => 'Private Members Club',
+				'title' => 'Password Private Members Club',
 				'status' => 'publish',
-				'post_password' => 'venuepass123',
+				'post_password' => 'password123',
 				'address' => '999 Secret Ave, Private City, USA',
 			]
 		)->create();
@@ -72,9 +73,9 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 		// Create password-protected organizer
 		$password_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Exclusive Events Co',
+				'title' => 'Password Exclusive Events Co',
 				'status' => 'publish',
-				'post_password' => 'organizerpass456',
+				'post_password' => 'password123',
 				'email' => 'private@exclusive.com',
 			]
 		)->create();
@@ -225,13 +226,13 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 
 		// Create password-protected event
 		$password_event = tribe_events()->set_args( [
-			'title'      => 'Secret Society Annual Meeting',
+			'title'      => 'Password Secret Society Annual Meeting',
 			'start_date' => date( 'Y-m-d', strtotime( '+1 month' ) ) . ' 20:00:00',
 			'end_date'   => date( 'Y-m-d', strtotime( '+1 month' ) ) . ' 23:00:00',
 			'status'     => 'publish',
-			'post_password' => 'eventpass789',
+			'post_password' => 'password123',
 			'venue'      => $password_venue->ID,
-			'organizer'  => [ $password_organizer->ID ],
+			'organizer'  => [ $password_organizer->ID, $organizer_1->ID ],
 			'cost'       => 'Members Only',
 			'featured'   => false,
 			'description' => 'Annual gathering of our exclusive society members.',
@@ -280,5 +281,55 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 
 	public function test_get_model_class() {
 		$this->assertSame( Event_Model::class, $this->endpoint->get_model_class() );
+	}
+
+	/**
+	 * @dataProvider different_user_roles_provider
+	 */
+	public function test_read_responses( Closure $fixture ) {
+		if ( ! $this->is_readable() ) {
+			return;
+		}
+
+		[ $venues, $organizers, $events ] = $this->create_test_data();
+		$fixture();
+
+		$responses = [];
+		foreach ( $events as $event_id ) {
+			$responses[] = $this->assert_endpoint( '/events/' . $event_id );
+		}
+
+		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
+
+		$json = str_replace( $venues, '{VENUE_ID}', $json );
+		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
+		$json = str_replace( $events, '{EVENT_ID}', $json );
+
+		$this->assertMatchesJsonSnapshot( $json );
+	}
+
+	/**
+	 * @dataProvider different_user_roles_provider
+	 */
+	public function test_read_responses_with_password( Closure $fixture ) {
+		if ( ! $this->is_readable() ) {
+			return;
+		}
+
+		[ $venues, $organizers, $events ] = $this->create_test_data();
+		$fixture();
+
+		$responses = [];
+		foreach ( $events as $event_id ) {
+			$responses[] = $this->assert_endpoint( '/events/' . $event_id, 'GET', 200, [ 'password' => 'password123' ] );
+		}
+
+		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
+
+		$json = str_replace( $venues, '{VENUE_ID}', $json );
+		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
+		$json = str_replace( $events, '{EVENT_ID}', $json );
+
+		$this->assertMatchesJsonSnapshot( $json );
 	}
 }

@@ -27,10 +27,10 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
+use TEC\Events\REST\TEC\V1\Traits\With_Transform_Organizers_And_Venues;
 use TEC\Common\REST\TEC\V1\Traits\Update_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Delete_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Entity_Response;
-use WP_Post;
 
 /**
  * Single event endpoint for the TEC REST API V1.
@@ -44,6 +44,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	use Read_Entity_Response;
 	use Update_Entity_Response;
 	use Delete_Entity_Response;
+	use With_Transform_Organizers_And_Venues;
 
 	/**
 	 * The event validator.
@@ -322,28 +323,5 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		return $schema;
-	}
-
-	/**
-	 * Transforms the entity.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $entity The entity to transform.
-	 *
-	 * @return array
-	 */
-	protected function transform_entity( array $entity ): array {
-		if ( ! empty( $entity['organizers'] ) ) {
-			$organizers           = tribe( Organizers::class );
-			$entity['organizers'] = array_map( fn ( WP_Post $organizer ) => $organizers->get_formatted_entity( $organizer ), $entity['organizers']->all() );
-		}
-
-		if ( ! empty( $entity['venues'] ) ) {
-			$venues           = tribe( Venues::class );
-			$entity['venues'] = array_map( fn ( WP_Post $venue ) => $venues->get_formatted_entity( $venue ), $entity['venues']->all() );
-		}
-
-		return $entity;
 	}
 }

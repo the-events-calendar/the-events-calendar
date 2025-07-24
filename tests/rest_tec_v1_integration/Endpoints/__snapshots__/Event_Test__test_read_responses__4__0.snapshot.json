@@ -918,7 +918,7 @@
         "slug": "vip-dinner-gala",
         "status": "private",
         "type": "tribe_events",
-        "link": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}",
+        "link": "http://wordpress.test/event/vip-dinner-gala/",
         "title": {
             "rendered": "Private: VIP Dinner Gala"
         },

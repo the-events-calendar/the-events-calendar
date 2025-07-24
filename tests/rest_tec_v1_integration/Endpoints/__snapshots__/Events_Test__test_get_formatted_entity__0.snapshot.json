@@ -1932,11 +1932,11 @@
             "rendered": "Password Secret Society Annual Meeting"
         },
         "content": {
-            "rendered": "",
+            "rendered": "<p>Annual gathering of our exclusive society members.</p>\n",
             "protected": true
         },
         "excerpt": {
-            "rendered": "",
+            "rendered": "<p>Annual gathering of our exclusive society members.</p>\n",
             "protected": true
         },
         "author": 0,

@@ -22,7 +22,6 @@ use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use Tribe__Repository__Interface;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
-use WP_Post;
 use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
@@ -38,6 +37,7 @@ use TEC\Events\REST\TEC\V1\Documentation\Event_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
+use TEC\Events\REST\TEC\V1\Traits\With_Transform_Organizers_And_Venues;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -50,6 +50,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	use Read_Archive_Response;
 	use Create_Entity_Response;
 	use With_Events_ORM;
+	use With_Transform_Organizers_And_Venues;
 
 	/**
 	 * The event validator.
@@ -491,28 +492,5 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		);
 
 		return $schema;
-	}
-
-	/**
-	 * Transforms the entity.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $entity The entity to transform.
-	 *
-	 * @return array
-	 */
-	protected function transform_entity( array $entity ): array {
-		if ( ! empty( $entity['organizers'] ) ) {
-			$organizers           = tribe( Organizers::class );
-			$entity['organizers'] = array_map( fn ( WP_Post $organizer ) => $organizers->get_formatted_entity( $organizer ), $entity['organizers']->all() );
-		}
-
-		if ( ! empty( $entity['venues'] ) ) {
-			$venues           = tribe( Venues::class );
-			$entity['venues'] = array_map( fn ( WP_Post $venue ) => $venues->get_formatted_entity( $venue ), $entity['venues']->all() );
-		}
-
-		return $entity;
 	}
 }
