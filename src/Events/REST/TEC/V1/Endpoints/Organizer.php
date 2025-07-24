@@ -163,11 +163,6 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			401,
-			fn() => __( 'You do not have permission to view this organizer', 'the-events-calendar' ),
-		);
-
-		$schema->add_response(
 			404,
 			fn() => __( 'The requested organizer was not found', 'the-events-calendar' ),
 		);
@@ -237,6 +232,11 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		$schema->add_response(
 			401,
+			fn() => __( 'You are not logged in', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
 			fn() => __( 'You do not have permission to update this organizer', 'the-events-calendar' ),
 		);
 
@@ -292,6 +292,11 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		$schema->add_response(
 			401,
+			fn() => __( 'You are not logged in', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
 			fn() => __( 'You do not have permission to delete this organizer', 'the-events-calendar' ),
 		);
 

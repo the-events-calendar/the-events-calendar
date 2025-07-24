@@ -167,8 +167,8 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$events_query->where( 'tag', array_map( 'absint', $request['tags'] ) );
 		}
 
-		if ( ! empty( $request['venue'] ) ) {
-			$events_query->where( 'venue', array_map( 'absint', $request['venue'] ) );
+		if ( ! empty( $request['venues'] ) ) {
+			$events_query->where( 'venues', array_map( 'absint', $request['venues'] ) );
 		}
 
 		if ( ! empty( $request['organizer'] ) ) {
@@ -488,8 +488,14 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 
 		$schema->add_response(
 			401,
+			fn() => __( 'You are not logged in', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
 			fn() => __( 'You do not have permission to create events', 'the-events-calendar' ),
 		);
+
 
 		return $schema;
 	}

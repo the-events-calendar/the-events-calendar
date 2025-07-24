@@ -186,11 +186,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		$schema->add_response(
-			401,
-			fn() => __( 'You do not have permission to view this event', 'the-events-calendar' ),
-		);
-
-		$schema->add_response(
 			404,
 			fn() => __( 'The requested event was not found', 'the-events-calendar' ),
 		);
@@ -259,6 +254,11 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		$schema->add_response(
 			401,
+			fn() => __( 'You are not logged in', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
 			fn() => __( 'You do not have permission to update this event', 'the-events-calendar' ),
 		);
 
@@ -314,6 +314,11 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 
 		$schema->add_response(
 			401,
+			fn() => __( 'You are not logged in', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			403,
 			fn() => __( 'You do not have permission to delete this event', 'the-events-calendar' ),
 		);
 

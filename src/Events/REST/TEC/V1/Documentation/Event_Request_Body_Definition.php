@@ -72,28 +72,28 @@ class Event_Request_Body_Definition extends Definition {
 							'description' => __( 'The start date of the event', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 12:00:00',
 						],
 						'start_date_utc'   => [
 							'type'        => 'string',
 							'description' => __( 'The start date of the event in UTC', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 09:00:00',
 						],
 						'end_date'         => [
 							'type'        => 'string',
 							'description' => __( 'The end date of the event', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 16:00:00',
 						],
 						'end_date_utc'     => [
 							'type'        => 'string',
 							'description' => __( 'The end date of the event in UTC', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 13:00:00',
 						],
 						'timezone'         => [
 							'type'        => 'string',
@@ -103,7 +103,7 @@ class Event_Request_Body_Definition extends Definition {
 						'duration'         => [
 							'type'        => 'integer',
 							'description' => __( 'The duration of the event in seconds', 'the-events-calendar' ),
-							'example'     => 3600,
+							'example'     => 14400,
 						],
 						'all_day'          => [
 							'type'        => 'boolean',
@@ -129,15 +129,14 @@ class Event_Request_Body_Definition extends Definition {
 							'type'        => 'array',
 							'description' => __( 'The organizers of the event', 'the-events-calendar' ),
 							'items'       => [
-								'$ref' => '#/components/schemas/Organizer',
+								'type' => 'integer',
 							],
+							'example'     => [ 1, 2 ],
 						],
 						'venues'           => [
-							'type'        => 'array',
-							'description' => __( 'The venues of the event', 'the-events-calendar' ),
-							'items'       => [
-								'$ref' => '#/components/schemas/Venue',
-							],
+							'type'        => 'integer',
+							'description' => __( 'The venue of the event', 'the-events-calendar' ),
+							'example'     => 7,
 						],
 					],
 				],

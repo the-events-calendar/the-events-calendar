@@ -74,28 +74,28 @@ class Event_Definition extends Definition {
 							'description' => __( 'The start date of the event', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 12:00:00',
 						],
 						'start_date_utc'         => [
 							'type'        => 'string',
 							'description' => __( 'The start date of the event in UTC', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 09:00:00',
 						],
 						'end_date'               => [
 							'type'        => 'string',
 							'description' => __( 'The end date of the event', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 16:00:00',
 						],
 						'end_date_utc'           => [
 							'type'        => 'string',
 							'description' => __( 'The end date of the event in UTC', 'the-events-calendar' ),
 							'format'      => 'date-time',
 							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2021-01-01 00:00:00',
+							'example'     => '2025-06-05 13:00:00',
 						],
 						'dates'                  => [
 							'$ref' => '#/components/schemas/DateDetails',
@@ -108,7 +108,7 @@ class Event_Definition extends Definition {
 						'duration'               => [
 							'type'        => 'integer',
 							'description' => __( 'The duration of the event in seconds', 'the-events-calendar' ),
-							'example'     => 3600,
+							'example'     => 14400,
 						],
 						'multiday'               => [
 							'type'        => 'boolean',
@@ -161,7 +161,7 @@ class Event_Definition extends Definition {
 								'type'    => 'string',
 								'format'  => 'date',
 								'pattern' => '^[0-9]{4}-[0-9]{2}-[0-9]{2}$',
-								'example' => '2021-01-01',
+								'example' => '2025-06-05',
 							],
 						],
 						'featured'               => [

@@ -12,6 +12,7 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 	protected $endpoint_class = Event::class;
 
 	protected function create_test_data(): array {
+		wp_set_current_user( 1 );
 		$venue_1 = tribe_venues()->set_args(
 			[
 				'title' => 'Test Venue 1',
@@ -237,6 +238,8 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 			'featured'   => false,
 			'description' => 'Annual gathering of our exclusive society members.',
 		] )->create();
+
+		wp_set_current_user( 0 );
 
 		return [
 			[ $venue_1->ID, $venue_2->ID, $venue_3->ID, $password_venue->ID ],
