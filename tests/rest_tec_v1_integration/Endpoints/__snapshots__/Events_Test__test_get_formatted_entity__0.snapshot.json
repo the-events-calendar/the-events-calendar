@@ -23,7 +23,7 @@
             "rendered": "<p>A past conference that already happened.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -123,7 +123,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -156,7 +156,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "123 Main St, Anytown, USA",
@@ -198,7 +198,7 @@
             "rendered": "<p>An ongoing workshop happening right now.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -298,7 +298,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -331,7 +331,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "456 Main St, Anytown, USA",
@@ -373,7 +373,7 @@
             "rendered": "<p>The premier technology summit of the year.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -474,7 +474,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -505,7 +505,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -538,7 +538,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "789 Main St, Anytown, USA",
@@ -580,7 +580,7 @@
             "rendered": "<p>A 4-day music festival with multiple stages and artists.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -680,7 +680,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -713,7 +713,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "123 Main St, Anytown, USA",
@@ -755,7 +755,7 @@
             "rendered": "<p>Join us for a day of community service and environmental cleanup.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -855,7 +855,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -888,7 +888,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "456 Main St, Anytown, USA",
@@ -911,7 +911,7 @@
         "date": "2025-06-13T17:25:00",
         "date_gmt": "2025-06-13T17:25:00",
         "guid": {
-            "rendered": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}"
+            "rendered": "http://wordpress.test/event/vip-dinner-gala/"
         },
         "modified": "2025-06-13T17:25:00",
         "modified_gmt": "2025-06-13T17:25:00",
@@ -930,7 +930,7 @@
             "rendered": "<p>An exclusive dinner event for VIP members only.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -1031,7 +1031,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -1062,7 +1062,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -1095,7 +1095,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "789 Main St, Anytown, USA",
@@ -1137,7 +1137,7 @@
             "rendered": "<p>This event is still in the planning stages.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -1237,7 +1237,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -1270,7 +1270,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "123 Main St, Anytown, USA",
@@ -1312,7 +1312,7 @@
             "rendered": "<p>Join us online for this informative webinar about SEO strategies.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -1412,7 +1412,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -1448,7 +1448,7 @@
             "rendered": "<p>Share your talents at our community open mic night.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -1547,7 +1547,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "123 Main St, Anytown, USA",
@@ -1579,17 +1579,17 @@
         "type": "tribe_events",
         "link": "http://wordpress.test/event/cafe-code-developers-meetup/",
         "title": {
-            "rendered": "Café &amp; Code: Developer&#8217;s Meetup"
+            "rendered": "Café &#038; Code: Developer&#8217;s Meetup"
         },
         "content": {
-            "rendered": "<p>Network with fellow developers over coffee &amp; snacks.</p>\n",
+            "rendered": "<p>Network with fellow developers over coffee &#038; snacks.</p>\n",
             "protected": false
         },
         "excerpt": {
-            "rendered": "<p>Network with fellow developers over coffee &amp; snacks.</p>\n",
+            "rendered": "<p>Network with fellow developers over coffee &#038; snacks.</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -1689,7 +1689,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -1722,7 +1722,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "123 Main St, Anytown, USA",
@@ -1757,14 +1757,14 @@
             "rendered": "Web Development Bootcamp"
         },
         "content": {
-            "rendered": "<h3>Learn Web Development</h3>\n<p>Join our intensive 3-day bootcamp covering:</p>\n<ul>\n<li>HTML5 &amp; CSS3</li>\n<li>JavaScript ES6+</li>\n<li>React.js</li>\n<li>Node.js</li>\n</ul>\n<p><strong>Limited seats available!</strong></p>\n",
+            "rendered": "<h3>Learn Web Development</h3>\n<p>Join our intensive 3-day bootcamp covering:</p>\n<ul>\n<li>HTML5 &#038; CSS3</li>\n<li>JavaScript ES6+</li>\n<li>React.js</li>\n<li>Node.js</li>\n</ul>\n<p><strong>Limited seats available!</strong></p>\n",
             "protected": false
         },
         "excerpt": {
-            "rendered": "<p>Learn Web Development Join our intensive 3-day bootcamp covering: HTML5 &amp; CSS3 JavaScript ES6+ React.js Node.js Limited seats available!</p>\n",
+            "rendered": "<p>Learn Web Development Join our intensive 3-day bootcamp covering: HTML5 &#038; CSS3 JavaScript ES6+ React.js Node.js Limited seats available!</p>\n",
             "protected": false
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
@@ -1864,7 +1864,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "phone": "",
@@ -1897,7 +1897,7 @@
                     "rendered": "",
                     "protected": false
                 },
-                "author": 0,
+                "author": 1,
                 "featured_media": 0,
                 "template": "",
                 "address": "789 Main St, Anytown, USA",
@@ -1932,14 +1932,14 @@
             "rendered": "Password Secret Society Annual Meeting"
         },
         "content": {
-            "rendered": "<p>Annual gathering of our exclusive society members.</p>\n",
+            "rendered": "",
             "protected": true
         },
         "excerpt": {
-            "rendered": "<p>Annual gathering of our exclusive society members.</p>\n",
+            "rendered": "",
             "protected": true
         },
-        "author": 0,
+        "author": 1,
         "featured_media": 0,
         "template": "",
         "tags": [],
