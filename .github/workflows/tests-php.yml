@@ -32,9 +32,16 @@ jobs:
           - rewrite_functional
           - wpunit
     steps:
+      - name: Check global skip flag
+        id: check-global-skip
+        uses: the-events-calendar/actions/.github/actions/check-skip-flag@main
+        with:
+          skip-flag: tests-php
+
       - name: Run slic tests
+        if: steps.check-global-skip.outputs.should-skip != 'true'
         uses: the-events-calendar/actions/.github/actions/slic-test-runner@main
         with:
           suite: ${{ matrix.suite }}
-          skip-flag: tests-php
+          skip-flag: ${{ matrix.suite }}
           gh-bot-token: ${{ secrets.GH_BOT_TOKEN }}

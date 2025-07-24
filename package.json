@@ -145,30 +145,6 @@
     }
   },
   "tec-actions": {
-    "changelog_url": "https://evnt.is/1b5k",
-    "skip-flags": [
-      "aggregatorv1",
-      "blocks_editor_integration",
-      "embed_calendar_integration",
-      "event_status",
-      "integration",
-      "integration_category_colors",
-      "muintegration",
-      "restv1",
-      "views_integration",
-      "views_settings",
-      "views_ui",
-      "views_v2_customizer_integration",
-      "views_widgets",
-      "views_wpunit",
-      "ct1_integration",
-      "ct1_multisite_integration",
-      "deprecated",
-      "wp_json_api",
-      "ct1_wp_json_api",
-      "ct1_migration",
-      "rewrite_functional",
-      "wpunit"
-    ]
+    "changelog_url": "https://evnt.is/1b5k"
   }
 }
