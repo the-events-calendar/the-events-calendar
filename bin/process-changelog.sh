@@ -4,6 +4,7 @@ RELEASE_VERSION=${1-}
 CURRENT_VERSION=${2-}
 ACTION_TYPE=${3-generate}
 RELEASE_DATE=${4-today}
+CHANGELOG_FULL_URL=${5-https://evnt.is/1b5k}
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS with gdate
@@ -38,7 +39,17 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 cd $SCRIPT_DIR/../
 
+# Check for changelog URL in package.json first, then fall back to parameter, then default
+if [ -f "package.json" ] && command -v jq >/dev/null 2>&1; then
+	PACKAGE_CHANGELOG_URL=$(jq -r '.["tec-actions"].changelog_url // empty' package.json 2>/dev/null)
+	if [ -n "$PACKAGE_CHANGELOG_URL" ] && [ "$PACKAGE_CHANGELOG_URL" != "null" ]; then
+		CHANGELOG_FULL_URL="$PACKAGE_CHANGELOG_URL"
+		echo "Using changelog URL from package.json: $CHANGELOG_FULL_URL"
+	fi
+fi
+
 echo "RELEASE_DATE=$RELEASE_DATE"
+echo "CHANGELOG_FULL_URL=$CHANGELOG_FULL_URL"
 
 if [ "$ACTION_TYPE" == "amend-version" ]; then
 	sed_compatible "s/^### \[$CURRENT_VERSION\] .*$/### [$RELEASE_VERSION] $RELEASE_DATE/" changelog.md
