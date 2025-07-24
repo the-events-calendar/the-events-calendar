@@ -143,5 +143,8 @@
     "babel-plugin-lodash": {
       "@babel/types": "~7.20.0"
     }
+  },
+  "tec-actions": {
+    "changelog_url": "https://evnt.is/1b5k"
   }
 }
