@@ -173,12 +173,6 @@ jobs:
         if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
         run: npm ci
 
-      - name: Run OpenAPI Linter
-        if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
-        run: |
-          ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
-          npm run spectral -- http://127.0.0.1:8888/wp-json/tec/v1/docs/
-
       # ------------------------------------------------------------------------------
       # Run the Actual tests
       # ------------------------------------------------------------------------------
@@ -186,3 +180,9 @@ jobs:
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
         run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
+
+      - name: Run OpenAPI Linter
+        if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
+        run: |
+          ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
+          npm run spectral -- http://127.0.0.1:8888/wp-json/tec/v1/docs/
