@@ -9,19 +9,25 @@
             "description": "The request body for the organizer endpoint",
             "properties": {
                 "phone": {
-                    "type": "string",
                     "description": "The organizer's phone number",
-                    "format": "tel"
+                    "type": "string",
+                    "format": "tel",
+                    "required": false,
+                    "example": "123-456-7890"
                 },
                 "website": {
-                    "type": "string",
                     "description": "The organizer's website",
-                    "format": "uri"
+                    "type": "string",
+                    "format": "uri",
+                    "required": false,
+                    "example": "https://example.com"
                 },
                 "email": {
-                    "type": "string",
                     "description": "The organizer's email address",
-                    "format": "email"
+                    "type": "string",
+                    "format": "email",
+                    "required": false,
+                    "example": "example@theeventscalendar.com"
                 }
             }
         }

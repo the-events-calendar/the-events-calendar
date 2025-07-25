@@ -10,6 +10,12 @@
 namespace TEC\Events\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Definition;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 
 /**
  * Event request body definition provider for the TEC REST API.
@@ -49,6 +55,101 @@ class Event_Request_Body_Definition extends Definition {
 	 * @return array
 	 */
 	public function get_documentation(): array {
+		$properties = new PropertiesCollection();
+
+		$properties[] = (
+			new Array_Of_Type(
+				'tribe_events_cat',
+				fn() => __( 'The terms assigned to the entity in the tribe_events_cat taxonomy', 'the-events-calendar' ),
+				Positive_Integer::class,
+			)
+		)->set_example( [ 1, 5, 12 ] );
+
+		$properties[] = (
+			new Date_Time(
+				'start_date',
+				fn() => __( 'The start date of the event', 'the-events-calendar' ),
+			)
+		)->set_example( '2025-06-05 12:00:00' )->set_pattern( '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$' );
+
+		$properties[] = (
+			new Date_Time(
+				'start_date_utc',
+				fn() => __( 'The start date of the event in UTC', 'the-events-calendar' ),
+			)
+		)->set_example( '2025-06-05 09:00:00' )->set_pattern( '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$' );
+
+		$properties[] = (
+			new Date_Time(
+				'end_date',
+				fn() => __( 'The end date of the event', 'the-events-calendar' ),
+			)
+		)->set_example( '2025-06-05 16:00:00' )->set_pattern( '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$' );
+
+		$properties[] = (
+			new Date_Time(
+				'end_date_utc',
+				fn() => __( 'The end date of the event in UTC', 'the-events-calendar' ),
+			)
+		)->set_example( '2025-06-05 13:00:00' )->set_pattern( '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$' );
+
+		$properties[] = (
+			new Text(
+				'timezone',
+				fn() => __( 'The timezone of the event', 'the-events-calendar' ),
+			)
+		)->set_example( 'Europe/Athens' );
+
+		$properties[] = (
+			new Positive_Integer(
+				'duration',
+				fn() => __( 'The duration of the event in seconds', 'the-events-calendar' ),
+			)
+		)->set_example( 14400 );
+
+		$properties[] = (
+			new Boolean(
+				'all_day',
+				fn() => __( 'Whether the event is all day', 'the-events-calendar' ),
+			)
+		)->set_example( false );
+
+		$properties[] = (
+			new Boolean(
+				'featured',
+				fn() => __( 'Whether the event is featured', 'the-events-calendar' ),
+			)
+		)->set_example( false );
+
+		$properties[] = (
+			new Boolean(
+				'sticky',
+				fn() => __( 'Whether the event is sticky', 'the-events-calendar' ),
+			)
+		)->set_example( false );
+
+		$properties[] = (
+			new Text(
+				'cost',
+				fn() => __( 'The cost of the event', 'the-events-calendar' ),
+			)
+		)->set_example( '$10' );
+
+		$properties[] = (
+			new Array_Of_Type(
+				'organizers',
+				fn() => __( 'The organizers of the event', 'the-events-calendar' ),
+				Positive_Integer::class,
+			)
+		)->set_example( [ 1, 2 ] );
+
+		$properties[] = (
+			new Positive_Integer(
+				'venues',
+				fn() => __( 'The venue of the event', 'the-events-calendar' ),
+			)
+		)->set_example( 7 );
+
 		return [
 			'allOf' => [
 				[
@@ -58,87 +159,7 @@ class Event_Request_Body_Definition extends Definition {
 					'title'       => 'Event Request Body',
 					'description' => __( 'The request body for the event endpoint', 'the-events-calendar' ),
 					'type'        => 'object',
-					'properties'  => [
-						'tribe_events_cat' => [
-							'type'        => 'array',
-							'description' => __( 'The terms assigned to the entity in the tribe_events_cat taxonomy', 'the-events-calendar' ),
-							'items'       => [
-								'type' => 'integer',
-							],
-							'example'     => [ 1, 5, 12 ],
-						],
-						'start_date'       => [
-							'type'        => 'string',
-							'description' => __( 'The start date of the event', 'the-events-calendar' ),
-							'format'      => 'date-time',
-							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2025-06-05 12:00:00',
-						],
-						'start_date_utc'   => [
-							'type'        => 'string',
-							'description' => __( 'The start date of the event in UTC', 'the-events-calendar' ),
-							'format'      => 'date-time',
-							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2025-06-05 09:00:00',
-						],
-						'end_date'         => [
-							'type'        => 'string',
-							'description' => __( 'The end date of the event', 'the-events-calendar' ),
-							'format'      => 'date-time',
-							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2025-06-05 16:00:00',
-						],
-						'end_date_utc'     => [
-							'type'        => 'string',
-							'description' => __( 'The end date of the event in UTC', 'the-events-calendar' ),
-							'format'      => 'date-time',
-							'pattern'     => '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$',
-							'example'     => '2025-06-05 13:00:00',
-						],
-						'timezone'         => [
-							'type'        => 'string',
-							'description' => __( 'The timezone of the event', 'the-events-calendar' ),
-							'example'     => 'Europe/Athens',
-						],
-						'duration'         => [
-							'type'        => 'integer',
-							'description' => __( 'The duration of the event in seconds', 'the-events-calendar' ),
-							'example'     => 14400,
-						],
-						'all_day'          => [
-							'type'        => 'boolean',
-							'description' => __( 'Whether the event is all day', 'the-events-calendar' ),
-							'example'     => false,
-						],
-						'featured'         => [
-							'type'        => 'boolean',
-							'description' => __( 'Whether the event is featured', 'the-events-calendar' ),
-							'example'     => false,
-						],
-						'sticky'           => [
-							'type'        => 'boolean',
-							'description' => __( 'Whether the event is sticky', 'the-events-calendar' ),
-							'example'     => false,
-						],
-						'cost'             => [
-							'type'        => 'string',
-							'description' => __( 'The cost of the event', 'the-events-calendar' ),
-							'example'     => '$10',
-						],
-						'organizers'       => [
-							'type'        => 'array',
-							'description' => __( 'The organizers of the event', 'the-events-calendar' ),
-							'items'       => [
-								'type' => 'integer',
-							],
-							'example'     => [ 1, 2 ],
-						],
-						'venues'           => [
-							'type'        => 'integer',
-							'description' => __( 'The venue of the event', 'the-events-calendar' ),
-							'example'     => 7,
-						],
-					],
+					'properties'  => $properties,
 				],
 			],
 		];

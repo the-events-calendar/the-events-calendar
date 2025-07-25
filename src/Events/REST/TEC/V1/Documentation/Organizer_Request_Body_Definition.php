@@ -10,6 +10,10 @@
 namespace TEC\Events\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Definition;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Email;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
+use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 
 /**
  * Organizer request body definition provider for the TEC REST API.
@@ -49,6 +53,29 @@ class Organizer_Request_Body_Definition extends Definition {
 	 * @return array
 	 */
 	public function get_documentation(): array {
+		$properties = new PropertiesCollection();
+
+		$properties[] = (
+			new Text(
+				'phone',
+				fn() => __( 'The organizer\'s phone number', 'the-events-calendar' ),
+			)
+		)->set_format( 'tel' )->set_example( '123-456-7890' );
+
+		$properties[] = (
+			new URI(
+				'website',
+				fn() => __( 'The organizer\'s website', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Email(
+				'email',
+				fn() => __( 'The organizer\'s email address', 'the-events-calendar' ),
+			)
+		);
+
 		return [
 			'allOf' => [
 				[
@@ -58,23 +85,7 @@ class Organizer_Request_Body_Definition extends Definition {
 					'type'        => 'object',
 					'title'       => 'Organizer Request Body',
 					'description' => __( 'The request body for the organizer endpoint', 'the-events-calendar' ),
-					'properties'  => [
-						'phone'   => [
-							'type'        => 'string',
-							'description' => __( 'The organizer\'s phone number', 'the-events-calendar' ),
-							'format'      => 'tel',
-						],
-						'website' => [
-							'type'        => 'string',
-							'description' => __( 'The organizer\'s website', 'the-events-calendar' ),
-							'format'      => 'uri',
-						],
-						'email'   => [
-							'type'        => 'string',
-							'description' => __( 'The organizer\'s email address', 'the-events-calendar' ),
-							'format'      => 'email',
-						],
-					],
+					'properties'  => $properties,
 				],
 			],
 		];

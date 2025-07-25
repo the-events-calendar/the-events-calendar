@@ -9,41 +9,59 @@
             "description": "The request body for the venue endpoint",
             "properties": {
                 "address": {
+                    "description": "The venue address",
                     "type": "string",
-                    "description": "The venue address"
+                    "required": false,
+                    "example": "Example"
                 },
                 "country": {
+                    "description": "The venue country",
                     "type": "string",
-                    "description": "The venue country"
+                    "required": false,
+                    "example": "Example"
                 },
                 "city": {
+                    "description": "The venue city",
                     "type": "string",
-                    "description": "The venue city"
+                    "required": false,
+                    "example": "Example"
                 },
                 "state_province": {
+                    "description": "The venue state/province",
                     "type": "string",
-                    "description": "The venue state/province"
+                    "required": false,
+                    "example": "Example"
                 },
                 "state": {
+                    "description": "The venue state",
                     "type": "string",
-                    "description": "The venue state"
+                    "required": false,
+                    "example": "Example"
                 },
                 "province": {
+                    "description": "The venue province",
                     "type": "string",
-                    "description": "The venue province"
+                    "required": false,
+                    "example": "Example"
                 },
                 "zip": {
+                    "description": "The venue zip code",
                     "type": "string",
-                    "description": "The venue zip code"
+                    "required": false,
+                    "example": "Example"
                 },
                 "phone": {
+                    "description": "The venue phone number",
                     "type": "string",
-                    "description": "The venue phone number"
+                    "required": false,
+                    "example": "Example"
                 },
                 "website": {
-                    "type": "string",
                     "description": "The venue website",
-                    "format": "uri"
+                    "type": "string",
+                    "format": "uri",
+                    "required": false,
+                    "example": "https://example.com"
                 }
             }
         }

@@ -12,6 +12,9 @@ declare( strict_types=1 );
 namespace TEC\Events\REST\TEC\V1\Documentation;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Definition;
+use TEC\Common\REST\TEC\V1\Collections\PropertiesCollection;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
+use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 
 /**
  * Venue definition provider for the TEC REST API.
@@ -52,64 +55,88 @@ class Venue_Definition extends Definition {
 	 * @return array An array description of a Swagger supported component.
 	 */
 	public function get_documentation(): array {
+		$properties = new PropertiesCollection();
+
+		$properties[] = (
+			new Text(
+				'address',
+				fn() => __( 'The venue address', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'country',
+				fn() => __( 'The venue country', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'city',
+				fn() => __( 'The venue city', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'state_province',
+				fn() => __( 'The venue state/province', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'state',
+				fn() => __( 'The venue state', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'province',
+				fn() => __( 'The venue province', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'zip',
+				fn() => __( 'The venue zip code', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new Text(
+				'phone',
+				fn() => __( 'The venue phone number', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new URI(
+				'website',
+				fn() => __( 'The venue website', 'the-events-calendar' ),
+			)
+		);
+
+		$properties[] = (
+			new URI(
+				'directions_link',
+				fn() => __( 'The venue directions link', 'the-events-calendar' ),
+			)
+		);
+
 		$documentation = [
 			'allOf' => [
 				[
 					'$ref' => '#/components/schemas/TEC_Post_Entity',
 				],
 				[
-					'type'       => 'object',
-					'properties' => [
-						'address'        => [
-							'type'        => 'string',
-							'description' => __( 'The venue address', 'the-events-calendar' ),
-						],
-						'country'        => [
-							'type'        => 'string',
-							'description' => __( 'The venue country', 'the-events-calendar' ),
-						],
-						'city'           => [
-							'type'        => 'string',
-							'description' => __( 'The venue city', 'the-events-calendar' ),
-						],
-						'state_province' => [
-							'type'        => 'string',
-							'description' => __( 'The venue state/province', 'the-events-calendar' ),
-						],
-						'state'          => [
-							'type'        => 'string',
-							'description' => __( 'The venue state', 'the-events-calendar' ),
-						],
-						'province'       => [
-							'type'        => 'string',
-							'description' => __( 'The venue province', 'the-events-calendar' ),
-						],
-						'zip'            => [
-							'type'        => 'string',
-							'description' => __( 'The venue zip code', 'the-events-calendar' ),
-						],
-						'phone'          => [
-							'type'        => 'string',
-							'description' => __( 'The venue phone number', 'the-events-calendar' ),
-						],
-						'website'        => [
-							'type'        => 'string',
-							'description' => __( 'The venue website', 'the-events-calendar' ),
-							'format'      => 'uri',
-						],
-					],
-				],
-				[
 					'title'       => 'Venue',
 					'description' => __( 'A venue', 'the-events-calendar' ),
 					'type'        => 'object',
-					'properties'  => [
-						'directions_link' => [
-							'type'        => 'string',
-							'description' => __( 'The venue directions link', 'the-events-calendar' ),
-							'format'      => 'uri',
-						],
-					],
+					'properties'  => $properties,
 				],
 			],
 		];

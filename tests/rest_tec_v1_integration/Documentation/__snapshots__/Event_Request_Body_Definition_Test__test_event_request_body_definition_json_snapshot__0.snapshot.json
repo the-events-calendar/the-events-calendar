@@ -9,11 +9,12 @@
             "type": "object",
             "properties": {
                 "tribe_events_cat": {
-                    "type": "array",
                     "description": "The terms assigned to the entity in the tribe_events_cat taxonomy",
+                    "type": "array",
                     "items": {
                         "type": "integer"
                     },
+                    "required": false,
                     "example": [
                         1,
                         5,
@@ -21,77 +22,89 @@
                     ]
                 },
                 "start_date": {
-                    "type": "string",
                     "description": "The start date of the event",
+                    "type": "string",
                     "format": "date-time",
+                    "required": false,
                     "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
                     "example": "2025-06-05 12:00:00"
                 },
                 "start_date_utc": {
-                    "type": "string",
                     "description": "The start date of the event in UTC",
+                    "type": "string",
                     "format": "date-time",
+                    "required": false,
                     "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
                     "example": "2025-06-05 09:00:00"
                 },
                 "end_date": {
-                    "type": "string",
                     "description": "The end date of the event",
+                    "type": "string",
                     "format": "date-time",
+                    "required": false,
                     "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
                     "example": "2025-06-05 16:00:00"
                 },
                 "end_date_utc": {
-                    "type": "string",
                     "description": "The end date of the event in UTC",
+                    "type": "string",
                     "format": "date-time",
+                    "required": false,
                     "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
                     "example": "2025-06-05 13:00:00"
                 },
                 "timezone": {
-                    "type": "string",
                     "description": "The timezone of the event",
+                    "type": "string",
+                    "required": false,
                     "example": "Europe/Athens"
                 },
                 "duration": {
-                    "type": "integer",
                     "description": "The duration of the event in seconds",
+                    "type": "integer",
+                    "required": false,
                     "example": 14400
                 },
                 "all_day": {
-                    "type": "boolean",
                     "description": "Whether the event is all day",
+                    "type": "boolean",
+                    "required": false,
                     "example": false
                 },
                 "featured": {
-                    "type": "boolean",
                     "description": "Whether the event is featured",
+                    "type": "boolean",
+                    "required": false,
                     "example": false
                 },
                 "sticky": {
-                    "type": "boolean",
                     "description": "Whether the event is sticky",
+                    "type": "boolean",
+                    "required": false,
                     "example": false
                 },
                 "cost": {
-                    "type": "string",
                     "description": "The cost of the event",
+                    "type": "string",
+                    "required": false,
                     "example": "$10"
                 },
                 "organizers": {
-                    "type": "array",
                     "description": "The organizers of the event",
+                    "type": "array",
                     "items": {
                         "type": "integer"
                     },
+                    "required": false,
                     "example": [
                         1,
                         2
                     ]
                 },
                 "venues": {
-                    "type": "integer",
                     "description": "The venue of the event",
+                    "type": "integer",
+                    "required": false,
                     "example": 7
                 }
             }
