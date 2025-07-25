@@ -1,0 +1,29 @@
+{
+    "allOf": [
+        {
+            "$ref": "#/components/schemas/TEC_Post_Entity_Request_Body"
+        },
+        {
+            "type": "object",
+            "title": "Organizer Request Body",
+            "description": "The request body for the organizer endpoint",
+            "properties": {
+                "phone": {
+                    "type": "string",
+                    "description": "The organizer's phone number",
+                    "format": "tel"
+                },
+                "website": {
+                    "type": "string",
+                    "description": "The organizer's website",
+                    "format": "uri"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "The organizer's email address",
+                    "format": "email"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "allOf": [
+        {
+            "$ref": "#/components/schemas/TEC_Post_Entity"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "description": "The venue address"
+                },
+                "country": {
+                    "type": "string",
+                    "description": "The venue country"
+                },
+                "city": {
+                    "type": "string",
+                    "description": "The venue city"
+                },
+                "state_province": {
+                    "type": "string",
+                    "description": "The venue state/province"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "The venue state"
+                },
+                "province": {
+                    "type": "string",
+                    "description": "The venue province"
+                },
+                "zip": {
+                    "type": "string",
+                    "description": "The venue zip code"
+                },
+                "phone": {
+                    "type": "string",
+                    "description": "The venue phone number"
+                },
+                "website": {
+                    "type": "string",
+                    "description": "The venue website",
+                    "format": "uri"
+                }
+            }
+        },
+        {
+            "title": "Venue",
+            "description": "A venue",
+            "type": "object",
+            "properties": {
+                "directions_link": {
+                    "type": "string",
+                    "description": "The venue directions link",
+                    "format": "uri"
+                }
+            }
+        }
+    ]
+}
