@@ -29,12 +29,12 @@
         "address": "123 Main St",
         "country": "United States",
         "city": "New York",
-        "state_province": "",
+        "state_province": "NY",
         "state": "",
         "province": "",
         "zip": "10001",
         "phone": "+1-212-555-0123",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St+New+York+10001+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St+New+York+NY+10001+United+States",
         "website": "https://downtowncc.example.com"
     },
     {
@@ -67,12 +67,12 @@
         "address": "456 Ocean Blvd",
         "country": "United States",
         "city": "Miami",
-        "state_province": "",
+        "state_province": "FL",
         "state": "",
         "province": "",
         "zip": "33139",
         "phone": "+1-305-555-0456",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=456+Ocean+Blvd+Miami+33139+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=456+Ocean+Blvd+Miami+FL+33139+United+States",
         "website": ""
     },
     {
@@ -143,12 +143,12 @@
         "address": "789 Country Club Rd",
         "country": "United States",
         "city": "Augusta",
-        "state_province": "",
+        "state_province": "GA",
         "state": "",
         "province": "",
         "zip": "30901",
         "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=789+Country+Club+Rd+Augusta+30901+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=789+Country+Club+Rd+Augusta+GA+30901+United+States",
         "website": ""
     },
     {
@@ -181,12 +181,12 @@
         "address": "321 Music Way",
         "country": "United States",
         "city": "Nashville",
-        "state_province": "",
+        "state_province": "TN",
         "state": "",
         "province": "",
         "zip": "37201",
         "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=321+Music+Way+Nashville+37201+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=321+Music+Way+Nashville+TN+37201+United+States",
         "website": ""
     },
     {
@@ -219,12 +219,12 @@
         "address": "10 Downing Street",
         "country": "United Kingdom",
         "city": "London",
-        "state_province": "",
+        "state_province": "England",
         "state": "",
         "province": "",
         "zip": "SW1A 2AA",
         "phone": "+44 20 7930 4433",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=10+Downing+Street+London+SW1A+2AA+United+Kingdom",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=10+Downing+Street+London+England+SW1A+2AA+United+Kingdom",
         "website": "https://londonexhibition.co.uk"
     },
     {
@@ -257,12 +257,12 @@
         "address": "15 Rue de la Paix",
         "country": "France",
         "city": "Paris",
-        "state_province": "",
+        "state_province": "Île-de-France",
         "state": "",
         "province": "",
         "zip": "75002",
         "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=15+Rue+de+la+Paix+Paris+75002+France",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=15+Rue+de+la+Paix+Paris+%C3%8Ele-de-France+75002+France",
         "website": ""
     },
     {
@@ -295,12 +295,12 @@
         "address": "999 Innovation Dr",
         "country": "United States",
         "city": "San Jose",
-        "state_province": "",
+        "state_province": "CA",
         "state": "",
         "province": "",
         "zip": "95110",
         "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=999+Innovation+Dr+San+Jose+95110+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=999+Innovation+Dr+San+Jose+CA+95110+United+States",
         "website": ""
     },
     {
@@ -333,12 +333,12 @@
         "address": "555 Exclusive Ave",
         "country": "United States",
         "city": "Beverly Hills",
-        "state_province": "",
+        "state_province": "CA",
         "state": "",
         "province": "",
         "zip": "90210",
         "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=555+Exclusive+Ave+Beverly+Hills+90210+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=555+Exclusive+Ave+Beverly+Hills+CA+90210+United+States",
         "website": ""
     },
     {
@@ -371,12 +371,12 @@
         "address": "777 Event Plaza",
         "country": "United States",
         "city": "Chicago",
-        "state_province": "",
+        "state_province": "IL",
         "state": "",
         "province": "",
         "zip": "60601",
         "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=777+Event+Plaza+Chicago+60601+United+States",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=777+Event+Plaza+Chicago+IL+60601+United+States",
         "website": ""
     }
 ]
