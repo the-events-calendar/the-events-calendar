@@ -11,63 +11,53 @@
                 "address": {
                     "description": "The venue address",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "country": {
                     "description": "The venue country",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "city": {
                     "description": "The venue city",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "state_province": {
                     "description": "The venue state/province",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "state": {
                     "description": "The venue state",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "province": {
                     "description": "The venue province",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "zip": {
                     "description": "The venue zip code",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "phone": {
                     "description": "The venue phone number",
                     "type": "string",
-                    "required": false,
                     "example": "Example"
                 },
                 "website": {
                     "description": "The venue website",
                     "type": "string",
                     "format": "uri",
-                    "required": false,
                     "example": "https://example.com"
                 },
                 "directions_link": {
                     "description": "The venue directions link",
                     "type": "string",
                     "format": "uri",
-                    "required": false,
                     "example": "https://example.com"
                 }
             }

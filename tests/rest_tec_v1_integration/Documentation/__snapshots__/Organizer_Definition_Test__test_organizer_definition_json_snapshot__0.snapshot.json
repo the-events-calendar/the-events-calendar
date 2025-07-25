@@ -12,21 +12,18 @@
                     "description": "The organizer's phone number",
                     "type": "string",
                     "format": "tel",
-                    "required": false,
                     "example": "123-456-7890"
                 },
                 "website": {
                     "description": "The organizer's website",
                     "type": "string",
                     "format": "uri",
-                    "required": false,
                     "example": "https://example.com"
                 },
                 "email": {
                     "description": "The organizer's email address",
                     "type": "string",
                     "format": "email",
-                    "required": false,
                     "example": "example@theeventscalendar.com"
                 }
             }
