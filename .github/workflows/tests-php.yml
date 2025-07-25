@@ -184,6 +184,6 @@ jobs:
       - name: Run OpenAPI Linter
         if: steps.skip.outputs.value != 1 && matrix.suite == 'rest_tec_v1_integration'
         run: |
-          ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
           ${SLIC_BIN} wp plugin activate the-events-calendar
+          ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard
           npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/
