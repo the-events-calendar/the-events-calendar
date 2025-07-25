@@ -16,7 +16,6 @@ use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Validator;
-use WP_REST_Request;
 use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
@@ -34,7 +33,6 @@ use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
-use Tribe__Repository__Interface;
 use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
 
 /**
@@ -129,56 +127,6 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 				'$ref' => tribe( OpenApiDocs::class )->get_url() . '#/components/schemas/Organizer',
 			],
 		];
-	}
-
-	/**
-	 * Builds the organizers query using the ORM.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return Tribe__Repository__Interface The organizers query.
-	 */
-	protected function build_query( WP_REST_Request $request ): Tribe__Repository__Interface {
-		$organizers_query = $this->get_orm();
-
-		if ( ! empty( $request['search'] ) ) {
-			$organizers_query->search( $request['search'] );
-		}
-
-		if ( ! empty( $request['event'] ) ) {
-			$organizers_query->where( 'event', $request['event'] );
-		}
-
-		if ( isset( $request['has_events'] ) ) {
-			$organizers_query->where( 'has_events', (bool) $request['has_events'] );
-		}
-
-		if ( isset( $request['only_with_upcoming'] ) ) {
-			$organizers_query->where( 'only_with_upcoming', (bool) $request['only_with_upcoming'] );
-		}
-
-		$organizers_query->where( 'post_status', current_user_can( $this->get_post_type_object()->cap->edit_posts ) ? $request['status'] : 'publish' );
-
-		if ( ! empty( $request['status'] ) ) {
-			$organizers_query->where( 'post_status', current_user_can( $this->get_post_type_object()->cap->edit_posts ) ? $request['status'] : 'publish' );
-		}
-
-		if ( ! empty( $request['orderby'] ) ) {
-			$order = ! empty( $request['order'] ) ? $request['order'] : 'ASC';
-			$organizers_query->order_by( $request['orderby'], $order );
-		}
-
-		/**
-		 * Filters the organizers query in the TEC REST API.
-		 *
-		 * @since TBD
-		 *
-		 * @param \Tribe__Repository__Interface $organizers_query  The organizers query.
-		 * @param WP_REST_Request               $request           The request object.
-		 */
-		return apply_filters( 'tec_rest_organizers_query', $organizers_query, $request );
 	}
 
 	/**

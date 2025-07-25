@@ -16,10 +16,8 @@ use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
-use WP_REST_Request;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
 use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
-use Tribe__Repository__Interface;
 use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
@@ -132,102 +130,6 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 				'$ref' => tribe( OpenApiDocs::class )->get_url() . '#/components/schemas/Event',
 			],
 		];
-	}
-
-	/**
-	 * Builds the events query using the ORM.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_REST_Request $request The request object.
-	 *
-	 * @return Tribe__Repository__Interface The events query.
-	 */
-	protected function build_query( WP_REST_Request $request ): Tribe__Repository__Interface {
-		/** @var Tribe__Repository__Interface $events_query */
-		$events_query = $this->get_orm();
-
-		if ( ! empty( $request['start_date'] ) ) {
-			$events_query->where( 'starts_after', tribe_beginning_of_day( $request['start_date'] ) );
-		}
-
-		if ( ! empty( $request['end_date'] ) ) {
-			$events_query->where( 'ends_before', tribe_end_of_day( $request['end_date'] ) );
-		}
-
-		if ( ! empty( $request['search'] ) ) {
-			$events_query->search( $request['search'] );
-		}
-
-		if ( ! empty( $request['tribe_events_cat'] ) || ! empty( $request['categories'] ) ) {
-			$events_query->where( 'category', array_map( 'absint', $request['tribe_events_cat'] ?? $request['categories'] ?? [] ) );
-		}
-
-		if ( ! empty( $request['tags'] ) ) {
-			$events_query->where( 'tag', array_map( 'absint', $request['tags'] ) );
-		}
-
-		if ( ! empty( $request['venues'] ) ) {
-			$events_query->where( 'venues', array_map( 'absint', $request['venues'] ) );
-		}
-
-		if ( ! empty( $request['organizer'] ) ) {
-			$events_query->where( 'organizer', array_map( 'absint', $request['organizer'] ) );
-		}
-
-		if ( isset( $request['featured'] ) ) {
-			$events_query->where( 'featured', $request['featured'] );
-		}
-
-		$events_query->where( 'post_status', 'publish' );
-
-		if ( ! empty( $request['status'] ) ) {
-			$events_query->where( 'post_status', current_user_can( $this->get_post_type_object()->cap->edit_posts ) ? $request['status'] : 'publish' );
-		}
-
-		if ( ! empty( $request['post_parent'] ) ) {
-			$events_query->where( 'post_parent', $request['post_parent'] );
-		}
-
-		if ( ! empty( $request['include'] ) ) {
-			$events_query->where( 'post__in', array_map( 'absint', $request['include'] ) );
-		}
-
-		if ( ! empty( $request['starts_before'] ) ) {
-			$events_query->where( 'starts_before', $request['starts_before'] );
-		}
-
-		if ( ! empty( $request['starts_after'] ) ) {
-			$events_query->where( 'starts_after', $request['starts_after'] );
-		}
-
-		if ( ! empty( $request['ends_before'] ) ) {
-			$events_query->where( 'ends_before', $request['ends_before'] );
-		}
-
-		if ( ! empty( $request['ends_after'] ) ) {
-			$events_query->where( 'ends_after', $request['ends_after'] );
-		}
-
-		if ( isset( $request['ticketed'] ) ) {
-			$events_query->where( 'ticketed', (bool) $request['ticketed'] );
-		}
-
-		if ( ! empty( $request['orderby'] ) ) {
-			$orderby = $request['orderby'] === 'event_date' ? 'event_date' : $request['orderby'];
-			$order   = ! empty( $request['order'] ) ? $request['order'] : 'ASC';
-			$events_query->order_by( $orderby, $order );
-		}
-
-		/**
-		 * Filters the events query in the TEC REST API.
-		 *
-		 * @since TBD
-		 *
-		 * @param \Tribe__Repository__Interface $events_query The events query.
-		 * @param WP_REST_Request               $request      The request object.
-		 */
-		return apply_filters( 'tec_rest_events_query', $events_query, $request );
 	}
 
 	/**
