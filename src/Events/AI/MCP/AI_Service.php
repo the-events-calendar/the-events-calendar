@@ -1,24 +1,24 @@
 <?php
 /**
- * MCP singleton class for The Events Calendar AI integration.
+ * MCP class for The Events Calendar AI Engine integration.
  * This class handles the registration and execution of MCP tools
  * for interacting with calendar entities through AI Engine.
  *
  * @since TBD
  *
- * @package TEC\Events\AI
+ * @package TEC\Events\AI\MCP
  */
 
-namespace TEC\Events\AI;
+namespace TEC\Events\AI\MCP;
 
 /**
- * Class MCP
+ * Class AI_Service
  *
  * @since TBD
  *
- * @package TEC\Events\AI
+ * @package TEC\Events\AI\MCP
  */
-class MCP {
+class AI_Service {
 
 	/**
 	 * Get the MCP tool definitions.

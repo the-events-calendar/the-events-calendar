@@ -46,11 +46,12 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		// Register MCP singleton in the container.
-		$this->container->singleton( MCP::class );
+		// Register AI_Service singleton in the container.
+		$this->container->singleton( MCP\AI_Service::class );
+		$this->container->register( MCP\Angie::class );
 
-		// Initialize MCP.
-		$this->container->make( MCP::class )->init();
+		// Initialize AI_Service.
+		$this->container->make( MCP\AI_Service::class )->init();
 	}
 
 	/**
@@ -59,9 +60,9 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
-		// Get MCP instance and unregister it.
-		if ( $this->container->has( MCP::class ) ) {
-			$this->container->make( MCP::class )->unregister();
+		// Get AI_Service instance and unregister it.
+		if ( $this->container->has( MCP\AI_Service::class ) ) {
+			$this->container->make( MCP\AI_Service::class )->unregister();
 		}
 	}
 }
