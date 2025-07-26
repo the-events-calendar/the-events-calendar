@@ -78,7 +78,7 @@ class AI_Service {
 
 	/**
 	 * Register MCP tools with AI Engine.
-	 	*
+	 *
 	 * @since TBD
 	 *
 	 * @param array $tools Existing tools array.
@@ -114,7 +114,7 @@ class AI_Service {
 	 *
 	 * @return mixed The filtered result.
 	 */
-	public function handle_tool_execution( $result, $tool, $args, $id ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	public function handle_tool_execution( $result, $tool, $args, $id ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $id is part of the filter signature
 		// Only handle our tools.
 		if ( strpos( $tool, 'tec-calendar-' ) !== 0 ) {
 			return $result;
@@ -198,7 +198,7 @@ class AI_Service {
 			];
 		}
 
-		$endpoint = $endpoints[ $post_type ];
+		$endpoint  = $endpoints[ $post_type ];
 		$namespace = tribe( 'tec.rest-v1.main' )->get_events_route_namespace();
 
 		// Prepare REST request.
@@ -292,7 +292,7 @@ class AI_Service {
 			];
 		}
 
-		$endpoint = $endpoints[ $post_type ];
+		$endpoint  = $endpoints[ $post_type ];
 		$namespace = tribe( 'tec.rest-v1.main' )->get_events_route_namespace();
 
 		// Prepare REST request.
@@ -323,7 +323,7 @@ class AI_Service {
 
 			// Add post type specific filters.
 			$filter_params = $this->map_filters_to_rest_params( $post_type, $args );
-			$query_params = array_merge( $query_params, $filter_params );
+			$query_params  = array_merge( $query_params, $filter_params );
 		}
 
 		$request->set_query_params( $query_params );
@@ -426,11 +426,11 @@ class AI_Service {
 			];
 		}
 
-		$endpoint = $endpoints[ $post_type ];
+		$endpoint  = $endpoints[ $post_type ];
 		$namespace = tribe( 'tec.rest-v1.main' )->get_events_route_namespace();
 
 		// Prepare REST request.
-		$route = '/' . $namespace . '/' . $endpoint . '/' . $id;
+		$route   = '/' . $namespace . '/' . $endpoint . '/' . $id;
 		$request = new \WP_REST_Request( 'DELETE', $route );
 
 		// Set force parameter.
@@ -475,7 +475,7 @@ class AI_Service {
 	 *
 	 * @return array Result array.
 	 */
-	private function handle_current_datetime( $args ): array { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+	private function handle_current_datetime( $args ): array { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $args is part of the method signature
 		// Get WordPress timezone.
 		$wp_timezone = wp_timezone();
 		$wp_now      = new \DateTime( 'now', $wp_timezone );
@@ -694,7 +694,7 @@ class AI_Service {
 			$params['include'] = $args['include'];
 		}
 		if ( ! empty( $args['exclude'] ) ) {
-			$params['exclude'] = $args['exclude'];
+			$params['exclude'] = $args['exclude']; // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- This is for REST API parameters, not WP_Query
 		}
 
 		return $params;

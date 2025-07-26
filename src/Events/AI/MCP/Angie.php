@@ -27,7 +27,7 @@ class Angie extends Controller_Contract {
 	 * @return bool Whether the controller is active or not.
 	 */
 	public function is_active(): bool {
-		return current_user_can( 'use_angie' );
+		return current_user_can( 'use_angie' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown -- Custom capability for AI features
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Angie extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
-		// Remove hooks if needed
+		// Remove hooks if needed.
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Angie extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_hooks() {
-		// Add hooks here for MCP functionality
+		// Add hooks here for MCP functionality.
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Angie extends Controller_Contract {
 			'tec-angie-mcp-server',
 			'tec-angie-mcp-server.js',
 			[],
-			'admin_enqueue_scripts',
+			'wp_enqueue_scripts',
 			[
 				'groups'       => [ 'tec-angie-mcp' ],
 				'conditionals' => [ $this, 'should_enqueue_mcp_assets' ],
@@ -95,7 +95,7 @@ class Angie extends Controller_Contract {
 	 * @return bool
 	 */
 	public function should_enqueue_mcp_assets() {
-		return current_user_can( 'use_angie' );
+		return current_user_can( 'use_angie' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown -- Custom capability for AI features
 	}
 
 	/**
