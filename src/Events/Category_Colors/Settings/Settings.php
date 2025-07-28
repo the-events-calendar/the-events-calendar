@@ -140,6 +140,7 @@ class Settings {
 	 * Generates the settings for the Category Colors feature.
 	 *
 	 * @since 6.14.0
+	 * @since 6.14.2 Added the "Enabled" setting, and updated the Reset button tooltip.
 	 *
 	 * @return array The structured settings array for Category Colors.
 	 */
@@ -175,6 +176,13 @@ class Settings {
 					( new Plain_Text( esc_html__( 'The category legend provides labels for the colors that appear on your events on event listing pages.', 'the-events-calendar' ) ) ),
 				]
 			),
+			'category-color-enable-frontend'        => [
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Enable', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Enable the frontend functionality for Category Colors.', 'the-events-calendar' ),
+				'default'         => true,
+				'validation_type' => 'boolean',
+			],
 			'category-color-legend-show'            => [
 				'type'            => 'checkbox_list',
 				'label'           => __( 'Show Category Legend in these Event Views', 'the-events-calendar' ),
@@ -211,7 +219,7 @@ class Settings {
 			'category-color-reset-button'           => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Reset Button', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Only appears if Legend Superpowers are active. Helps users clear their category selections.', 'the-events-calendar' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 			],

@@ -9,8 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.9.10
+ * @since 4.9.10
+ * @since 6.14.2 Improved accessibility for calendar view [TEC-5211].
  *
+ * @version 6.14.2
  */
 
 global $wp_locale;
@@ -21,7 +23,6 @@ global $wp_locale;
 			<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="<?php echo esc_attr( $day ); ?>"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">

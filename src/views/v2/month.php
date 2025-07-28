@@ -9,9 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.2.0
- * @since   6.1.4 Changing our nonce verification structures.
- * @since   6.2.0 Moved the header information into a new components/header.php template.
+ * @since 6.1.4 Changing our nonce verification structures.
+ * @since 6.2.0 Moved the header information into a new components/header.php template.
+ * @since 6.14.2 Improved accessibility for calendar view.
+ *
+ * @version 6.14.2
  *
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_method          The HTTP method, either `POST` or `GET`, the View will use to make requests.
@@ -59,9 +61,9 @@ if ( empty( $disable_event_search ) ) {
 		</h2>
 		<table
 			class="tribe-events-calendar-month"
-			aria-labelledby="tribe-events-calendar-header"
-			aria-readonly="true"
 			data-js="tribe-events-month-grid"
+			aria-readonly="true"
+			role="presentation"
 		>
 
 			<?php $this->template( 'month/calendar-header' ); ?>

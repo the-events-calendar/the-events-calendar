@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.14.1
+Stable tag: 6.14.2
 Requires at least: 6.6
-Tested up to: 6.8.1
+Tested up to: 6.8.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,15 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.14.2] 2025-07-22 =
+
+* Tweak - Implemented an Enable setting for Category Colors. [TEC-5533]
+* Tweak - Updated the Category Colors settings to add a tooltip to the Reset Button option that explains Superpowers must be enabled. [TEC-5534]
+* Tweak - Changed views: `v2/components/top-bar/category-color-picker`, `v2/day/event/featured-image`, `v2/list/event/featured-image`, `v2/month`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-header`
+* Performance - Avoid use of TIMESTAMPDIFF when fetching overlapping events. [TEC-5537]
+* Accessibility - Updated day views with proper aria label and titles for event linked featured images. [TEC-5179]
+* Language - 2 new strings added, 24 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.14.1] 2025-07-16 =
 
