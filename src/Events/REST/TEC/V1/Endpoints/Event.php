@@ -84,14 +84,17 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return PathArgumentCollection
 	 */
-	public function get_path_parameters(): array {
-		return [
-			'id' => [
-				'type' => 'integer',
-			],
-		];
+	public function get_path_parameters(): PathArgumentCollection {
+		$collection = new PathArgumentCollection();
+
+		$collection[] = new Positive_Integer(
+			'id',
+			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
+		);
+
+		return $collection;
 	}
 
 	/**
@@ -162,19 +165,12 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function read_schema(): OpenAPI_Schema {
-		$collection = new PathArgumentCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
-		);
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Retrieve an Event', 'the-events-calendar' ),
 			fn() => __( 'Returns a single event', 'the-events-calendar' ),
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
-			$collection
+			$this->get_path_parameters(),
 		);
 
 		$response = new Definition_Parameter( new Event_Definition() );
@@ -215,13 +211,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function update_schema(): OpenAPI_Schema {
-		$path_collection = new PathArgumentCollection();
-
-		$path_collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
-		);
-
 		$definition = new Event_Request_Body_Definition();
 
 		$collection = new RequestBodyCollection();
@@ -233,7 +222,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'Updates an existing event', 'the-events-calendar' ),
 			$this->get_operation_id( 'update' ),
 			$this->get_tags(),
-			$path_collection,
+			$this->get_path_parameters(),
 			null,
 			$collection->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )->set_required( true )->set_example( $definition->get_example() ),
 			true
@@ -291,19 +280,12 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function delete_schema(): OpenAPI_Schema {
-		$collection = new PathArgumentCollection();
-
-		$collection[] = new Positive_Integer(
-			'id',
-			fn() => __( 'Unique identifier for the event.', 'the-events-calendar' ),
-		);
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Delete an Event', 'the-events-calendar' ),
 			fn() => __( 'Deletes an existing event', 'the-events-calendar' ),
 			$this->get_operation_id( 'delete' ),
 			$this->get_tags(),
-			$collection,
+			$this->get_path_parameters(),
 			null,
 			null,
 			true
