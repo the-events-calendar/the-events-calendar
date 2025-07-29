@@ -1,6 +1,7 @@
 <?php
 
 use Codeception\Util\Autoload;
+use TEC\Common\Tests\Extensions\Suite_Env;
 
 // This is global bootstrap for autoloading
 $common_support_dir = dirname( __DIR__ ) . '/common/tests/_support';
@@ -24,3 +25,11 @@ if ( in_array( '--debug', $_SERVER['argv'], true ) ) {
 // By default, do not enable the Custom Tables v1 implementation in tests.
 putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=1' );
 $_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 1;
+
+// Set up the environment required for some suites.
+$disable_classy = static function () {
+	putenv( 'TEC_CLASSY_EDITOR_DISABLED=1' );
+	$_ENV['TEC_CLASSY_EDITOR_DISABLED'] = 1;
+};
+
+Suite_Env::module_init( 'blocks_editor_integration', $disable_classy );
