@@ -31,6 +31,8 @@ use TEC\Events\REST\TEC\V1\Traits\With_Transform_Organizers_And_Venues;
 use TEC\Common\REST\TEC\V1\Traits\Update_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Delete_Entity_Response;
 use TEC\Common\REST\TEC\V1\Traits\Read_Entity_Response;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use InvalidArgumentException;
 
 /**
  * Single event endpoint for the TEC REST API V1.
@@ -170,8 +172,8 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Retrieve an Event', 'the-events-calendar' ),
 			fn() => __( 'Returns a single event', 'the-events-calendar' ),
-			'getEvent',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'read' ),
+			$this->get_tags(),
 			$collection
 		);
 
@@ -229,8 +231,8 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Update an Event', 'the-events-calendar' ),
 			fn() => __( 'Updates an existing event', 'the-events-calendar' ),
-			'updateEvent',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'update' ),
+			$this->get_tags(),
 			$path_collection,
 			null,
 			$collection->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )->set_required( true )->set_example( $definition->get_example() ),
@@ -299,8 +301,8 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Delete an Event', 'the-events-calendar' ),
 			fn() => __( 'Deletes an existing event', 'the-events-calendar' ),
-			'deleteEvent',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'delete' ),
+			$this->get_tags(),
 			$collection,
 			null,
 			null,
@@ -328,5 +330,40 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		);
 
 		return $schema;
+	}
+
+	/**
+	 * Returns the tags for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag[]
+	 */
+	public function get_tags(): array {
+		return [ tribe( TEC_Tag::class ) ];
+	}
+
+	/**
+	 * Returns the operation ID for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $operation The operation to get the operation ID for.
+	 *
+	 * @return string
+	 *
+	 * @throws InvalidArgumentException If the operation is invalid.
+	 */
+	public function get_operation_id( string $operation ): string {
+		switch ( $operation ) {
+			case 'read':
+				return 'getEvent';
+			case 'update':
+				return 'updateEvent';
+			case 'delete':
+				return 'deleteEvent';
+		}
+
+		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
 }

@@ -34,6 +34,8 @@ use TEC\Events\REST\TEC\V1\Documentation\Organizer_Request_Body_Definition;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use InvalidArgumentException;
 
 /**
  * Archive organizers endpoint for the TEC REST API V1.
@@ -197,8 +199,8 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Get organizers', 'the-events-calendar' ),
 			fn() => __( 'Returns a list of organizers', 'the-events-calendar' ),
-			'getOrganizers',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'read' ),
+			$this->get_tags(),
 			null,
 			$this->read_args(),
 		);
@@ -292,8 +294,8 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Creates a new organizer', 'the-events-calendar' ),
-			'createOrganizer',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'create' ),
+			$this->get_tags(),
 			null,
 			null,
 			$collection->set_description_provider( fn() => __( 'The organizer data to create.', 'the-events-calendar' ) )->set_required( true ),
@@ -326,5 +328,38 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 		);
 
 		return $schema;
+	}
+
+	/**
+	 * Returns the tags for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag[]
+	 */
+	public function get_tags(): array {
+		return [ tribe( TEC_Tag::class ) ];
+	}
+
+	/**
+	 * Returns the operation ID for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $operation The operation to get the operation ID for.
+	 *
+	 * @return string
+	 *
+	 * @throws InvalidArgumentException If the operation is invalid.
+	 */
+	public function get_operation_id( string $operation ): string {
+		switch ( $operation ) {
+			case 'read':
+				return 'getOrganizers';
+			case 'create':
+				return 'createOrganizer';
+		}
+
+		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
 }

@@ -36,6 +36,8 @@ use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
 use TEC\Events\REST\TEC\V1\Traits\With_Transform_Organizers_And_Venues;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use InvalidArgumentException;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -139,8 +141,8 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Retrieve Events', 'the-events-calendar' ),
 			fn() => __( 'Returns a list of events', 'the-events-calendar' ),
-			'getEvents',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'read' ),
+			$this->get_tags(),
 			null,
 			$this->read_args()
 		);
@@ -365,8 +367,8 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Event', 'the-events-calendar' ),
 			fn() => __( 'Creates a new event', 'the-events-calendar' ),
-			'createEvent',
-			[ tribe( TEC_Tag::class ) ],
+			$this->get_operation_id( 'create' ),
+			$this->get_tags(),
 			null,
 			null,
 			$collection->set_description_provider( fn() => __( 'The event data to create.', 'the-events-calendar' ) )->set_required( true ),
@@ -400,5 +402,38 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 
 
 		return $schema;
+	}
+
+	/**
+	 * Returns the tags for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tag[]
+	 */
+	public function get_tags(): array {
+		return [ tribe( TEC_Tag::class ) ];
+	}
+
+	/**
+	 * Returns the operation ID for the endpoint.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $operation The operation to get the operation ID for.
+	 *
+	 * @return string
+	 *
+	 * @throws InvalidArgumentException If the operation is invalid.
+	 */
+	public function get_operation_id( string $operation ): string {
+		switch ( $operation ) {
+			case 'read':
+				return 'getEvents';
+			case 'create':
+				return 'createEvent';
+		}
+
+		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
 }
