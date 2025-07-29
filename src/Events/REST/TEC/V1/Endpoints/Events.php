@@ -334,7 +334,15 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			[ 'ASC', 'DESC' ],
 		);
 
-		return $collection;
+		/**
+		 * Filters the arguments for the events read request.
+		 *
+		 * @since TBD
+		 *
+		 * @param QueryArgumentCollection $collection The collection of arguments.
+		 * @param Events                  $this       The events endpoint.
+		 */
+		return apply_filters( 'tec_events_rest_v1_events_read_args', $collection, $this );
 	}
 
 	/**

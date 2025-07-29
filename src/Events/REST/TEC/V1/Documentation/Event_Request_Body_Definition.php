@@ -150,18 +150,32 @@ class Event_Request_Body_Definition extends Definition {
 			)
 		)->set_example( 7 );
 
-		return [
-			'allOf' => [
-				[
-					'$ref' => '#/components/schemas/TEC_Post_Entity_Request_Body',
-				],
-				[
-					'title'       => 'Event Request Body',
-					'description' => __( 'The request body for the event endpoint', 'the-events-calendar' ),
-					'type'        => 'object',
-					'properties'  => $properties,
+		/**
+		 * Filters the Swagger documentation generated for an event request body in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                $documentation An associative PHP array in the format supported by Swagger.
+		 * @param PropertiesCollection $properties    The properties collection.
+		 *
+		 * @return array
+		 */
+		return apply_filters(
+			'tec_events_rest_v1_event_request_body_definition',
+			[
+				'allOf' => [
+					[
+						'$ref' => '#/components/schemas/TEC_Post_Entity_Request_Body',
+					],
+					[
+						'title'       => 'Event Request Body',
+						'description' => __( 'The request body for the event endpoint', 'the-events-calendar' ),
+						'type'        => 'object',
+						'properties'  => $properties,
+					],
 				],
 			],
-		];
+			$properties
+		);
 	}
 }

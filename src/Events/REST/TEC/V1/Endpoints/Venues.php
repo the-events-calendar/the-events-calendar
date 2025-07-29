@@ -186,7 +186,15 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			fn( $value ) => $this->validate_status( $value )
 		);
 
-		return $collection;
+		/**
+		 * Filters the arguments for the venues read request.
+		 *
+		 * @since TBD
+		 *
+		 * @param QueryArgumentCollection $collection The collection of arguments.
+		 * @param Venues                  $this       The venues endpoint.
+		 */
+		return apply_filters( 'tec_events_rest_v1_venues_read_args', $collection, $this );
 	}
 
 	/**

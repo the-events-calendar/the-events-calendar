@@ -223,6 +223,14 @@ class Event_Definition extends Definition {
 		);
 
 		$properties[] = (
+			new Array_Of_Type(
+				'ticketed',
+				fn() => __( 'Array of ticket providers or false if the event is not ticketed.', 'the-events-calendar' ),
+				Text::class
+			)
+		)->set_example( [ 'tc' ] );
+
+		$properties[] = (
 			new Text(
 				'schedule_details',
 				fn() => __( 'The schedule details of the event', 'the-events-calendar' ),
