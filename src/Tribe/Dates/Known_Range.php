@@ -72,7 +72,7 @@ class Tribe__Events__Dates__Known_Range {
 		if ( $earliest ) {
 			$earliest_date = date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest );
 			tribe_update_option( 'earliest_date', $earliest_date );
-			// get all posts that have a start date equal to the earliest date./
+			// get all posts that have a start date equal to the earliest date.
 			$earliest_ids = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT pm.post_id FROM $wpdb->postmeta pm JOIN $wpdb->posts p ON p.ID = pm.post_id WHERE p.post_type = %s AND pm.meta_key = '_EventStartDate' AND pm.meta_value = %s",
