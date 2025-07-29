@@ -61,17 +61,6 @@ class MyEntity extends Post_Entity_Endpoint implements RUD_Endpoint {
     }
 
     /**
-     * Returns the path parameters.
-     */
-    public function get_path_parameters(): array {
-        return [
-            'id' => [
-                'type' => 'integer',
-            ],
-        ];
-    }
-
-    /**
      * Returns the model class.
      */
     public function get_model_class(): string {
