@@ -45,4 +45,15 @@ class TEC_Tag extends Tag {
 			'description' => __( 'These operations are introduced by The Events Calendar.', 'the-events-calendar' ),
 		];
 	}
+
+	/**
+	 * Returns the priority of the tag.
+	 *
+	 * @since TBD
+	 *
+	 * @return int
+	 */
+	public function get_priority(): int {
+		return 1;
+	}
 }
