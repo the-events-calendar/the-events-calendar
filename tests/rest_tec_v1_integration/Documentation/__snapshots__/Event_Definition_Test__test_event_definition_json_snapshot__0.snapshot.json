@@ -160,6 +160,17 @@
                         "$ref": "#/components/schemas/Venue"
                     }
                 },
+                "ticketed": {
+                    "description": "Array of ticket providers or false if the event is not ticketed.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        "tc"
+                    ]
+                },
                 "schedule_details": {
                     "description": "The schedule details of the event",
                     "type": "string",
