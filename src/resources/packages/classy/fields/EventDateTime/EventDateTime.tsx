@@ -61,10 +61,7 @@ function getNewStartEndDates(
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
-	const isMultiday =
-		startDate.getDate() !== endDate.getDate() ||
-		startDate.getMonth() !== endDate.getMonth() ||
-		startDate.getFullYear() !== endDate.getFullYear();
+	const isMultiday = ! areDatesOnSameDay( startDate, endDate );
 	// By default, do not move the start date but keep it to the previous value.
 	let newStartDate = startDate;
 	// By default, do not move the end date but keep it to the previous value.
@@ -327,13 +324,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			} );
 
 			// If the start date and end date are on the same year, month, day, then it's not multiday.
-			if (
-				newStartDate.getFullYear() === newEndDate.getFullYear() &&
-				newStartDate.getMonth() === newEndDate.getMonth() &&
-				newStartDate.getDate() === newEndDate.getDate()
-			) {
-				setIsMultidayValue( false );
-			}
+            setIsMultidayValue( ! areDatesOnSameDay( newStartDate, newEndDate ) );
 
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsSelectingDate( false );
