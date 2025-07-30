@@ -413,11 +413,16 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
+			if ( newValue && !isMultidayValue) {
+				// Save current duration when toggling multi day.
+				refs.current.singleDayDuration = endDate.getTime() - startDate.getTime();
+			}
+
 			let newEndDate = getMultiDayEndDate( refs, newValue, startDate );
 			onDateChange( 'endDate', format( phpDateMysqlFormat, newEndDate ) );
 			setIsMultidayValue( newValue );
 		},
-		[ startDateIsoString ]
+		[ startDateIsoString, endDateIsoString, isMultidayValue ]
 	);
 
 	const onAllDayToggleChange = useCallback(
