@@ -199,11 +199,8 @@ function getAllDayNewDates(
 		const endDay = new Date( endDate );
 		endDay.setHours( 23 );
 		endDay.setMinutes( 59 );
-		const daysBetween = Math.ceil( ( endDay.getTime() - startDay.getTime() ) / dayDuration );
-		// Subtract one second to avoid the next day.
-		const duration = daysBetween * dayDuration - 1;
-		// Move the end date to the next day's end-of-day cutoff time minus on second; e.g. 23:59:59
-		newEndDate = new Date( newStartDate.getTime() + duration );
+
+		newEndDate = endDay;
 
 		// Save the current start date and end times.
 		refs.current.startTimeHours = startDate.getHours();
@@ -404,9 +401,17 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
-			if ( newValue && !isMultidayValue) {
-				// Save current duration when toggling multi day.
+			if ( newValue && !isMultidayValue ) {
+				// Save current duration when toggling on multi day.
 				refs.current.singleDayDuration = endDate.getTime() - startDate.getTime();
+				// Also update multiDayDuration to match current difference plus one day
+				// refs.current.multiDayDuration = ( 24 * 60 * 60 * 1000 ) + refs.current.singleDayDuration;
+			} else {
+				// Reset refs when toggling off multi day.
+				if ( isMultidayValue ) {
+					refs.current.singleDayDuration = 9 * 60 * 60 * 1000;
+					refs.current.multiDayDuration = 24 * 60 * 60 * 1000;
+				}
 			}
 
 			let newEndDate = getMultiDayEndDate( refs, newValue, startDate );
