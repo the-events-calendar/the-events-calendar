@@ -76,18 +76,44 @@ class Organizer_Request_Body_Definition extends Definition {
 			)
 		);
 
-		return [
-			'allOf' => [
-				[
-					'$ref' => '#/components/schemas/TEC_Post_Entity_Request_Body',
-				],
-				[
-					'type'        => 'object',
-					'title'       => 'Organizer Request Body',
-					'description' => __( 'The request body for the organizer endpoint', 'the-events-calendar' ),
-					'properties'  => $properties,
+		/**
+		 * Filters the Swagger documentation generated for an organizer request body in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                             $documentation An associative PHP array in the format supported by Swagger.
+		 * @param Organizer_Request_Body_Definition $this          The Organizer_Request_Body_Definition instance.
+		 *
+		 * @return array
+		 */
+		$documentation = (array) apply_filters(
+			'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition',
+			[
+				'allOf' => [
+					[
+						'$ref' => '#/components/schemas/TEC_Post_Entity_Request_Body',
+					],
+					[
+						'type'        => 'object',
+						'title'       => 'Organizer Request Body',
+						'description' => __( 'The request body for the organizer endpoint', 'the-events-calendar' ),
+						'properties'  => $properties,
+					],
 				],
 			],
-		];
+			$this
+		);
+
+		/**
+		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                             $documentation An associative PHP array in the format supported by Swagger.
+		 * @param Organizer_Request_Body_Definition $this          The Organizer_Request_Body_Definition instance.
+		 *
+		 * @return array
+		 */
+		return (array) apply_filters( 'tec_rest_swagger_definition', $documentation, $this );
 	}
 }

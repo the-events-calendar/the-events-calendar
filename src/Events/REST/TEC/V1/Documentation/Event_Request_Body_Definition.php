@@ -155,13 +155,13 @@ class Event_Request_Body_Definition extends Definition {
 		 *
 		 * @since TBD
 		 *
-		 * @param array                $documentation An associative PHP array in the format supported by Swagger.
-		 * @param PropertiesCollection $properties    The properties collection.
+		 * @param array                         $documentation An associative PHP array in the format supported by Swagger.
+		 * @param Event_Request_Body_Definition $this          The Event_Request_Body_Definition instance.
 		 *
 		 * @return array
 		 */
-		return apply_filters(
-			'tec_events_rest_v1_event_request_body_definition',
+		$documentation = (array) apply_filters(
+			'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition',
 			[
 				'allOf' => [
 					[
@@ -175,7 +175,19 @@ class Event_Request_Body_Definition extends Definition {
 					],
 				],
 			],
-			$properties
+			$this
 		);
+
+		/**
+		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                         $documentation An associative PHP array in the format supported by Swagger.
+		 * @param Event_Request_Body_Definition $this          The Event_Request_Body_Definition instance.
+		 *
+		 * @return array
+		 */
+		return (array) apply_filters( 'tec_rest_swagger_definition', $documentation, $this );
 	}
 }

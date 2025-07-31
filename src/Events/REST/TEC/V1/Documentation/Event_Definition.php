@@ -263,11 +263,23 @@ class Event_Definition extends Definition {
 		 *
 		 * @since TBD
 		 *
-		 * @param array              $documentation An associative PHP array in the format supported by Swagger.
+		 * @param array            $documentation An associative PHP array in the format supported by Swagger.
 		 * @param Event_Definition $this          The Event_Definition instance.
 		 *
 		 * @return array
 		 */
-		return (array) apply_filters( 'tec_rest_swagger_' . $this->get_type() . '_definition', $documentation, $this );
+		$documentation = (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $documentation, $this );
+
+		/**
+		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
+		 *
+		 * @since TBD
+		 *
+		 * @param array            $documentation An associative PHP array in the format supported by Swagger.
+		 * @param Event_Definition $this          The Event_Definition instance.
+		 *
+		 * @return array
+		 */
+		return (array) apply_filters( 'tec_rest_swagger_definition', $documentation, $this );
 	}
 }
