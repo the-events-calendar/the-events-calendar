@@ -355,9 +355,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->maybe_set_common_lib_info();
 
 			// let's initialize tec
-			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_old_et_is_present' ], -1 );
-			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -1 );
-			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 0 );
+			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_old_et_is_present' ], -3 );
+			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -3 );
+			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], -2 );
 
 			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
 
