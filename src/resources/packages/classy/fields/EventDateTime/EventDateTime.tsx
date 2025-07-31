@@ -321,7 +321,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			} );
 
 			// If the start date and end date are on the same year, month, day, then it's not multiday.
-            setIsMultidayValue( ! areDatesOnSameDay( newStartDate, newEndDate ) );
+			setIsMultidayValue( ! areDatesOnSameDay( newStartDate, newEndDate ) );
 
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsSelectingDate( false );
@@ -401,7 +401,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
-			if ( newValue && !isMultidayValue ) {
+			if ( newValue && ! isMultidayValue ) {
 				// Save current duration when toggling on multi day.
 				refs.current.singleDayDuration = endDate.getTime() - startDate.getTime();
 			} else {

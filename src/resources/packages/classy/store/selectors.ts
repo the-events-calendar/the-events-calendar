@@ -6,7 +6,7 @@ import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constan
 import { StoreState } from '../types/Store';
 import { TECSettings } from '../types/Settings';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
-import {areDatesOnSameDay} from "@tec/common/classy/functions";
+import { areDatesOnSameDay } from '@tec/common/classy/functions';
 
 /**
  * Retrieves the post meta from the editor.
