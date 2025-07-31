@@ -1,5 +1,14 @@
 # Changelog
 
+### [6.14.2] 2025-07-22
+
+* Tweak - Implemented an Enable setting for Category Colors. [TEC-5533]
+* Tweak - Updated the Category Colors settings to add a tooltip to the Reset Button option that explains Superpowers must be enabled. [TEC-5534]
+* Tweak - Changed views: `v2/components/top-bar/category-color-picker`, `v2/day/event/featured-image`, `v2/list/event/featured-image`, `v2/month`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-header`
+* Performance - Avoid use of TIMESTAMPDIFF when fetching overlapping events. [TEC-5537]
+* Accessibility - Updated day views with proper aria label and titles for event linked featured images. [TEC-5179]
+* Language - 2 new strings added, 24 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.14.1] 2025-07-16
 
 * Fix - Ensure all featured images on calendar views have dimensions set to reduce layout shifts. [TEC-4715]

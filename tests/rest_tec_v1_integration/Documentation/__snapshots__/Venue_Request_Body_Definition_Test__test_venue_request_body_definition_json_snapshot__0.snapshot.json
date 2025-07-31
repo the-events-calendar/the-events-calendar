@@ -1,0 +1,60 @@
+{
+    "allOf": [
+        {
+            "$ref": "#/components/schemas/TEC_Post_Entity_Request_Body"
+        },
+        {
+            "type": "object",
+            "title": "Venue Request Body",
+            "description": "The request body for the venue endpoint",
+            "properties": {
+                "address": {
+                    "description": "The venue address",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "country": {
+                    "description": "The venue country",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "city": {
+                    "description": "The venue city",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "state_province": {
+                    "description": "The venue state/province",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "state": {
+                    "description": "The venue state",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "province": {
+                    "description": "The venue province",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "zip": {
+                    "description": "The venue zip code",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "phone": {
+                    "description": "The venue phone number",
+                    "type": "string",
+                    "example": "Example"
+                },
+                "website": {
+                    "description": "The venue website",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://example.com"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,102 @@
+{
+    "allOf": [
+        {
+            "$ref": "#/components/schemas/TEC_Post_Entity_Request_Body"
+        },
+        {
+            "title": "Event Request Body",
+            "description": "The request body for the event endpoint",
+            "type": "object",
+            "properties": {
+                "tribe_events_cat": {
+                    "description": "The terms assigned to the entity in the tribe_events_cat taxonomy",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        1,
+                        5,
+                        12
+                    ]
+                },
+                "start_date": {
+                    "description": "The start date of the event",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 12:00:00"
+                },
+                "start_date_utc": {
+                    "description": "The start date of the event in UTC",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 09:00:00"
+                },
+                "end_date": {
+                    "description": "The end date of the event",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 16:00:00"
+                },
+                "end_date_utc": {
+                    "description": "The end date of the event in UTC",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 13:00:00"
+                },
+                "timezone": {
+                    "description": "The timezone of the event",
+                    "type": "string",
+                    "example": "Europe/Athens"
+                },
+                "duration": {
+                    "description": "The duration of the event in seconds",
+                    "type": "integer",
+                    "example": 14400
+                },
+                "all_day": {
+                    "description": "Whether the event is all day",
+                    "type": "boolean",
+                    "example": false
+                },
+                "featured": {
+                    "description": "Whether the event is featured",
+                    "type": "boolean",
+                    "example": false
+                },
+                "sticky": {
+                    "description": "Whether the event is sticky",
+                    "type": "boolean",
+                    "example": false
+                },
+                "cost": {
+                    "description": "The cost of the event",
+                    "type": "string",
+                    "example": "$10"
+                },
+                "organizers": {
+                    "description": "The organizers of the event",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        1,
+                        2
+                    ]
+                },
+                "venues": {
+                    "description": "The venue of the event",
+                    "type": "integer",
+                    "example": 7
+                }
+            }
+        }
+    ]
+}
