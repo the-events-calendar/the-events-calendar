@@ -150,6 +150,8 @@ class Event_Request_Body_Definition extends Definition {
 			)
 		)->set_example( 7 );
 
+		$type = strtolower( $this->get_type() );
+
 		/**
 		 * Filters the Swagger documentation generated for an event request body in the TEC REST API.
 		 *
@@ -161,7 +163,7 @@ class Event_Request_Body_Definition extends Definition {
 		 * @return array
 		 */
 		$documentation = (array) apply_filters(
-			'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition',
+			"tec_rest_swagger_{$type}_definition",
 			[
 				'allOf' => [
 					[

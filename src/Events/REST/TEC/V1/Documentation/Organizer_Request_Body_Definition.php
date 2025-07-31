@@ -76,6 +76,8 @@ class Organizer_Request_Body_Definition extends Definition {
 			)
 		);
 
+		$type = strtolower( $this->get_type() );
+
 		/**
 		 * Filters the Swagger documentation generated for an organizer request body in the TEC REST API.
 		 *
@@ -87,7 +89,7 @@ class Organizer_Request_Body_Definition extends Definition {
 		 * @return array
 		 */
 		$documentation = (array) apply_filters(
-			'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition',
+			"tec_rest_swagger_{$type}_definition",
 			[
 				'allOf' => [
 					[

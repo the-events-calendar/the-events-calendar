@@ -92,6 +92,8 @@ class Organizer_Definition extends Definition {
 			],
 		];
 
+		$type = strtolower( $this->get_type() );
+
 		/**
 		 * Filters the Swagger documentation generated for an organizer in the TEC REST API.
 		 *
@@ -102,7 +104,7 @@ class Organizer_Definition extends Definition {
 		 *
 		 * @return array
 		 */
-		$documentation = (array) apply_filters( 'tec_rest_swagger_' . strtolower( $this->get_type() ) . '_definition', $documentation, $this );
+		$documentation = (array) apply_filters( "tec_rest_swagger_{$type}_definition", $documentation, $this );
 
 		/**
 		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
