@@ -404,8 +404,6 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			if ( newValue && !isMultidayValue ) {
 				// Save current duration when toggling on multi day.
 				refs.current.singleDayDuration = endDate.getTime() - startDate.getTime();
-				// Also update multiDayDuration to match current difference plus one day
-				// refs.current.multiDayDuration = ( 24 * 60 * 60 * 1000 ) + refs.current.singleDayDuration;
 			} else {
 				// Reset refs when toggling off multi day.
 				if ( isMultidayValue ) {
