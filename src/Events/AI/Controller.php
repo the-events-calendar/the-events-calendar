@@ -1,7 +1,8 @@
 <?php
 /**
  * Controller class for handling the AI MCP integration feature in The Events Calendar.
- * This class extends the Common AI Controller to provide plugin-specific customization.
+ * This empty controller extends the Controller Contract for potential future
+ * plugin-specific AI implementations.
  *
  * @since TBD
  *
@@ -10,7 +11,7 @@
 
 namespace TEC\Events\AI;
 
-use TEC\Common\AI\Controller as Common_Controller;
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
 /**
  * Class Controller
@@ -19,6 +20,34 @@ use TEC\Common\AI\Controller as Common_Controller;
  *
  * @package TEC\Events\AI
  */
-class Controller extends Common_Controller {
-	// Plugin-specific customizations can be added here.
+class Controller extends Controller_Contract {
+
+	/**
+	 * Whether the controller is active or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the controller is active or not.
+	 */
+	public function is_active(): bool {
+		return false;
+	}
+
+	/**
+	 * Register the controller.
+	 *
+	 * @since TBD
+	 */
+	public function do_register(): void {
+		// Plugin-specific AI implementations can be added here.
+	}
+
+	/**
+	 * Unregister the controller.
+	 *
+	 * @since TBD
+	 */
+	public function unregister(): void {
+		// Plugin-specific cleanup can be added here.
+	}
 }
