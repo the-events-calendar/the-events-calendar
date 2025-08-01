@@ -62,8 +62,7 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 		eventEnd.setHours( 17, 0, 0 );
 	}
 	const isMultiday = ! areDatesOnSameDay( eventStart, eventEnd );
-	const isAllDayStringValue = meta?._EventAllDay ?? '0';
-	const isAllDay = isAllDayStringValue ?? false;
+	const isAllDay = meta?._EventAllDay ?? false;
 
 	return {
 		eventStart: eventStart.toISOString(),
