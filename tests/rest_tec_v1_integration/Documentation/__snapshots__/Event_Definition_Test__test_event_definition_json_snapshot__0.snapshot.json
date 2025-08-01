@@ -1,0 +1,187 @@
+{
+    "allOf": [
+        {
+            "$ref": "#/components/schemas/TEC_Post_Entity"
+        },
+        {
+            "type": "object",
+            "description": "An event",
+            "title": "Event",
+            "properties": {
+                "tribe_events_cat": {
+                    "description": "The terms assigned to the entity in the tribe_events_cat taxonomy",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        1,
+                        5,
+                        12
+                    ]
+                },
+                "start_date": {
+                    "description": "The start date of the event",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 12:00:00"
+                },
+                "start_date_utc": {
+                    "description": "The start date of the event in UTC",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 09:00:00"
+                },
+                "end_date": {
+                    "description": "The end date of the event",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 16:00:00"
+                },
+                "end_date_utc": {
+                    "description": "The end date of the event in UTC",
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$",
+                    "example": "2025-06-05 13:00:00"
+                },
+                "dates": {
+                    "$ref": "#/components/schemas/DateDetails"
+                },
+                "timezone": {
+                    "description": "The timezone of the event",
+                    "type": "string",
+                    "example": "Europe/Athens"
+                },
+                "duration": {
+                    "description": "The duration of the event in seconds",
+                    "type": "integer",
+                    "example": 14400
+                },
+                "multiday": {
+                    "description": "Whether the event is multiday",
+                    "type": "boolean",
+                    "example": false
+                },
+                "is_past": {
+                    "description": "Whether the event is in the past",
+                    "type": "boolean",
+                    "example": false
+                },
+                "is_now": {
+                    "description": "Whether the event is happening now",
+                    "type": "boolean",
+                    "example": false
+                },
+                "all_day": {
+                    "description": "Whether the event is all day",
+                    "type": "boolean",
+                    "example": false
+                },
+                "starts_this_week": {
+                    "description": "Whether the event starts this week",
+                    "nullable": true,
+                    "type": "boolean",
+                    "example": false
+                },
+                "ends_this_week": {
+                    "description": "Whether the event ends this week",
+                    "nullable": true,
+                    "type": "boolean",
+                    "example": false
+                },
+                "happens_this_week": {
+                    "description": "Whether the event happens this week",
+                    "nullable": true,
+                    "type": "boolean",
+                    "example": false
+                },
+                "this_week_duration": {
+                    "description": "The duration of the event in the current week",
+                    "nullable": true,
+                    "type": "integer",
+                    "example": 3600
+                },
+                "displays_on": {
+                    "description": "The days of the week that the event displays on",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "date",
+                        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        "2025-06-05"
+                    ]
+                },
+                "featured": {
+                    "description": "Whether the event is featured",
+                    "type": "boolean",
+                    "example": false
+                },
+                "sticky": {
+                    "description": "Whether the event is sticky",
+                    "type": "boolean",
+                    "example": false
+                },
+                "cost": {
+                    "description": "The cost of the event",
+                    "type": "string",
+                    "example": "$10"
+                },
+                "organizer_names": {
+                    "description": "The names of the organizers of the event",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        "John Doe",
+                        "Jane Doe"
+                    ]
+                },
+                "organizers": {
+                    "description": "The organizers of the event",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/components/schemas/Organizer"
+                    }
+                },
+                "venues": {
+                    "description": "The venues of the event",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/components/schemas/Venue"
+                    }
+                },
+                "ticketed": {
+                    "description": "Array of ticket providers or false if the event is not ticketed.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        "tc"
+                    ]
+                },
+                "schedule_details": {
+                    "description": "The schedule details of the event",
+                    "type": "string",
+                    "example": "10:00 - 12:00"
+                },
+                "short_schedule_details": {
+                    "description": "The schedule details of the event in HTML",
+                    "type": "string",
+                    "example": "<p>10:00 - 12:00</p>"
+                }
+            }
+        }
+    ]
+}
