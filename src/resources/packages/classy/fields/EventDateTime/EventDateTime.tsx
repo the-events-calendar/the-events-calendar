@@ -50,14 +50,20 @@ type NewDatesReturn = {
  * @param {Date} startDate The current start date.
  * @param {'start' | 'end'} updated Indicates whether the start or end date was updated.
  * @param {string} newDate The new date string provided by the user.
+ * @param {number} timeInterval The time interval in minutes.
  * @return {NewDatesReturn} An object defining the new start and end dates, and whether the user needs to be notified
  *     of the implicit change of either.
  */
+function getTimeInMinutes(date: Date): number {
+	return date.getHours() * 60 + date.getMinutes();
+}
+
 function getNewStartEndDates(
 	endDate: Date,
 	startDate: Date,
 	updated: DateTimeUpdateType,
-	newDate: string
+	newDate: string,
+	timeInterval: number,
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
@@ -75,28 +81,38 @@ function getNewStartEndDates(
 				// The user has updated the start date.
 				newStartDate = new Date( newDate );
 
-				// If the new start date is after the end date, then move the end date using the previous duration.
-				if ( newStartDate.getTime() > endDate.getTime() ) {
-					// Move the end date using the same duration.
-					newEndDate = new Date( newStartDate.getTime() + duration );
-
-					if ( ! isMultiday && ! areDatesOnSameDay( newStartDate, newEndDate ) ) {
-						// If it was not multi-day and now is, just set the end date to the start date.
+				if (updated === 'startTime') {
+					if (getTimeInMinutes(newStartDate) >= getTimeInMinutes(endDate)) {
+						// For time updates, push end time to next interval
+						newEndDate = new Date(newStartDate);
+						newEndDate.setMinutes(newEndDate.getMinutes() + timeInterval);
+						notify.endTime = true;
+					}
+				} else if (newStartDate.getTime() >= endDate.getTime()) {
+					// For date updates, maintain duration
+					newEndDate = new Date(newStartDate.getTime() + duration);
+					if (!isMultiday && !areDatesOnSameDay(newStartDate, newEndDate)) {
 						newEndDate = newStartDate;
 					}
 				}
-
 				break;
+
 			case 'endDate':
 			case 'endTime':
 				// The user has updated the end date.
 				newEndDate = new Date( newDate );
 
-				// If the new end date is before the start date, then move the start date using the previous duration.
-				if ( newEndDate.getTime() < startDate.getTime() ) {
-					newStartDate = new Date( newEndDate.getTime() - duration );
+				if (updated === 'endTime') {
+					if (getTimeInMinutes(newEndDate) <= getTimeInMinutes(startDate)) {
+						// For time updates, pull start time to previous interval
+						newStartDate = new Date(newEndDate);
+						newStartDate.setMinutes(newStartDate.getMinutes() - timeInterval);
+						notify.startTime = true;
+					}
+				} else if (newEndDate.getTime() <= startDate.getTime()) {
+					// For date updates, maintain duration
+					newStartDate = new Date(newEndDate.getTime() - duration);
 				}
-
 				break;
 		}
 
@@ -239,6 +255,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		isNewEvent,
 		startOfWeek,
 		timeFormat,
+		timeInterval,
 	} = useSelect( ( select ) => {
 		const tecStore: StoreSelect = select( 'tec/classy/events' );
 
@@ -310,8 +327,8 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	const endDateIsoString = endDate.toISOString();
 
 	const onDateChange = useCallback(
-		( updated: DateUpdateType, newDate: string ): void => {
-			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate );
+		( updated: DateTimeUpdateType, newDate: string ): void => {
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate, timeInterval );
 
 			editPost( {
 				meta: {
@@ -369,6 +386,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startDateIsoString,
 		startOfWeek,
 		timeFormat,
+        endDate,
 	] );
 
 	const endSelector = useMemo( () => {
@@ -397,6 +415,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startDateIsoString,
 		startOfWeek,
 		timeFormat,
+        startDate,
 	] );
 
 	const onMultiDayToggleChange = useCallback(
