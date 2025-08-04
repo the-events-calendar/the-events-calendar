@@ -54,10 +54,6 @@ type NewDatesReturn = {
  * @return {NewDatesReturn} An object defining the new start and end dates, and whether the user needs to be notified
  *     of the implicit change of either.
  */
-function getTimeInMinutes(date: Date): number {
-	return date.getHours() * 60 + date.getMinutes();
-}
-
 function getNewStartEndDates(
 	endDate: Date,
 	startDate: Date,
@@ -82,7 +78,7 @@ function getNewStartEndDates(
 				newStartDate = new Date( newDate );
 
 				if (updated === 'startTime') {
-					if (getTimeInMinutes(newStartDate) >= getTimeInMinutes(endDate)) {
+					if ( newStartDate.getTime() >= endDate.getTime() ) {
 						// For time updates, push end time to next interval
 						newEndDate = new Date(newStartDate);
 						newEndDate.setMinutes(newEndDate.getMinutes() + timeInterval);
@@ -103,7 +99,7 @@ function getNewStartEndDates(
 				newEndDate = new Date( newDate );
 
 				if (updated === 'endTime') {
-					if (getTimeInMinutes(newEndDate) <= getTimeInMinutes(startDate)) {
+					if ( newEndDate.getTime() <= startDate.getTime() ) {
 						// For time updates, pull start time to previous interval
 						newStartDate = new Date(newEndDate);
 						newStartDate.setMinutes(newStartDate.getMinutes() - timeInterval);
