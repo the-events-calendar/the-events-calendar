@@ -72,43 +72,46 @@ function getNewStartEndDates(
 
 	try {
 		switch ( updated ) {
-			case 'startDate':
+            case 'startDate':
+                newStartDate = new Date( newDate );
+
+                // If not multiday update end date with original duration.
+                if ( ! isMultiday ) {
+                    newEndDate = new Date(newStartDate.getTime() + duration);
+                }
+
+                break;
 			case 'startTime':
 				// The user has updated the start date.
 				newStartDate = new Date( newDate );
 
-				if (updated === 'startTime') {
-					if ( newStartDate.getTime() >= endDate.getTime() ) {
-						// For time updates, push end time to next interval
-						newEndDate = new Date(newStartDate);
-						newEndDate.setMinutes(newEndDate.getMinutes() + timeInterval);
-						notify.endTime = true;
-					}
-				} else if (newStartDate.getTime() >= endDate.getTime()) {
-					// For date updates, maintain duration
-					newEndDate = new Date(newStartDate.getTime() + duration);
-					if (!isMultiday && !areDatesOnSameDay(newStartDate, newEndDate)) {
-						newEndDate = newStartDate;
-					}
-				}
-				break;
+                if ( newStartDate.getTime() >= endDate.getTime() ) {
+                    // For time updates, push end time to next interval
+                    newEndDate = new Date(newStartDate);
+                    newEndDate.setMinutes(newEndDate.getMinutes() + timeInterval);
+                    notify.endTime = true;
+                }
 
+				break;
 			case 'endDate':
+                // The user has updated the end date.
+                newEndDate = new Date( newDate );
+                if (newEndDate.getTime() <= startDate.getTime()) {
+                    // For date updates, maintain duration
+                    newStartDate = new Date(newEndDate.getTime() - duration);
+                }
+
+                break;
 			case 'endTime':
 				// The user has updated the end date.
 				newEndDate = new Date( newDate );
 
-				if (updated === 'endTime') {
-					if ( newEndDate.getTime() <= startDate.getTime() ) {
-						// For time updates, pull start time to previous interval
-						newStartDate = new Date(newEndDate);
-						newStartDate.setMinutes(newStartDate.getMinutes() - timeInterval);
-						notify.startTime = true;
-					}
-				} else if (newEndDate.getTime() <= startDate.getTime()) {
-					// For date updates, maintain duration
-					newStartDate = new Date(newEndDate.getTime() - duration);
-				}
+                if ( newEndDate.getTime() <= startDate.getTime() ) {
+                    // For time updates, pull start time to previous interval.
+                    newStartDate = new Date(newEndDate);
+                    newStartDate.setMinutes(newStartDate.getMinutes() - timeInterval);
+                    notify.startTime = true;
+                }
 				break;
 		}
 
