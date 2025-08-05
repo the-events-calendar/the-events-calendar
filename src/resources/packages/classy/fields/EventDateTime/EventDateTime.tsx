@@ -59,7 +59,7 @@ function getNewStartEndDates(
 	startDate: Date,
 	updated: DateTimeUpdateType,
 	newDate: string,
-	timeInterval: number,
+	timeInterval: number
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
@@ -72,46 +72,46 @@ function getNewStartEndDates(
 
 	try {
 		switch ( updated ) {
-            case 'startDate':
-                newStartDate = new Date( newDate );
+			case 'startDate':
+				newStartDate = new Date( newDate );
 
-                // If not multiday update end date with original duration.
-                if ( ! isMultiday ) {
-                    newEndDate = new Date(newStartDate.getTime() + duration);
-                }
+				// If not multiday update end date with original duration.
+				if ( ! isMultiday ) {
+					newEndDate = new Date( newStartDate.getTime() + duration );
+				}
 
-                break;
+				break;
 			case 'startTime':
 				// The user has updated the start date.
 				newStartDate = new Date( newDate );
 
-                if ( newStartDate.getTime() >= endDate.getTime() ) {
-                    // For time updates, push end time to next interval
-                    newEndDate = new Date(newStartDate);
-                    newEndDate.setMinutes(newEndDate.getMinutes() + timeInterval);
-                    notify.endTime = true;
-                }
+				if ( newStartDate.getTime() >= endDate.getTime() ) {
+					// For time updates, push end time to next interval
+					newEndDate = new Date( newStartDate );
+					newEndDate.setMinutes( newEndDate.getMinutes() + timeInterval );
+					notify.endTime = true;
+				}
 
 				break;
 			case 'endDate':
-                // The user has updated the end date.
-                newEndDate = new Date( newDate );
-                if (newEndDate.getTime() <= startDate.getTime()) {
-                    // For date updates, maintain duration
-                    newStartDate = new Date(newEndDate.getTime() - duration);
-                }
+				// The user has updated the end date.
+				newEndDate = new Date( newDate );
+				if ( newEndDate.getTime() <= startDate.getTime() ) {
+					// For date updates, maintain duration
+					newStartDate = new Date( newEndDate.getTime() - duration );
+				}
 
-                break;
+				break;
 			case 'endTime':
 				// The user has updated the end date.
 				newEndDate = new Date( newDate );
 
-                if ( newEndDate.getTime() <= startDate.getTime() ) {
-                    // For time updates, pull start time to previous interval.
-                    newStartDate = new Date(newEndDate);
-                    newStartDate.setMinutes(newStartDate.getMinutes() - timeInterval);
-                    notify.startTime = true;
-                }
+				if ( newEndDate.getTime() <= startDate.getTime() ) {
+					// For time updates, pull start time to previous interval.
+					newStartDate = new Date( newEndDate );
+					newStartDate.setMinutes( newStartDate.getMinutes() - timeInterval );
+					notify.startTime = true;
+				}
 				break;
 		}
 
@@ -327,7 +327,13 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onDateChange = useCallback(
 		( updated: DateTimeUpdateType, newDate: string ): void => {
-			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate, timeInterval );
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates(
+				endDate,
+				startDate,
+				updated,
+				newDate,
+				timeInterval
+			);
 
 			editPost( {
 				meta: {
@@ -385,7 +391,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startDateIsoString,
 		startOfWeek,
 		timeFormat,
-        endDate,
+		endDate,
 	] );
 
 	const endSelector = useMemo( () => {
@@ -414,7 +420,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startDateIsoString,
 		startOfWeek,
 		timeFormat,
-        startDate,
+		startDate,
 	] );
 
 	const onMultiDayToggleChange = useCallback(
