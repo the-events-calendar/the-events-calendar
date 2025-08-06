@@ -1343,20 +1343,30 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	protected function update_linked_post_meta( array $postarr ) {
 		// @todo [BTRIA-592]: Create linked posts here?! Using ORM?
-		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
-			unset( $postarr['meta_input']['_EventVenueID'] );
+		if ( isset( $postarr['meta_input']['_EventVenueID'] ) ) {
+			// If venue is empty string, explicitly remove the venue.
+			if ( $postarr['meta_input']['_EventVenueID'] === '' ) {
+				$postarr['meta_input']['_EventVenueID'] = 0;
+			} elseif ( ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
+				unset( $postarr['meta_input']['_EventVenueID'] );
+			}
 		}
 
 		if ( isset( $postarr['meta_input']['_EventOrganizerID'] ) ) {
-			$postarr['meta_input']['_EventOrganizerID'] = (array) $postarr['meta_input']['_EventOrganizerID'];
-			$valid                                      = [];
-			foreach ( $postarr['meta_input']['_EventOrganizerID'] as $organizer ) {
+			$organizers_input = (array) $postarr['meta_input']['_EventOrganizerID'];
+			$valid            = [];
+			foreach ( $organizers_input as $organizer ) {
 				if ( ! tribe_is_organizer( $organizer ) ) {
 					continue;
 				}
 				$valid[] = $organizer;
 			}
-			if ( ! count( $valid ) ) {
+			// If input was explicitly an empty array, we want to remove all organizers
+			if ( empty( $organizers_input ) ) {
+				$this->unpack_meta_on_update( '_EventOrganizerID' );
+				$postarr['meta_input']['_EventOrganizerID'] = [];
+			} elseif ( ! count( $valid ) ) {
+				// If we had organizers but none were valid, don't update the field
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 			} else {
 				$this->unpack_meta_on_update( '_EventOrganizerID' );

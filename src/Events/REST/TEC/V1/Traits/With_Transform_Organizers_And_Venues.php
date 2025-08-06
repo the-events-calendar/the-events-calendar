@@ -38,9 +38,25 @@ trait With_Transform_Organizers_And_Venues {
 			// Take the first venue from the array for TEC compatibility.
 			if ( ! empty( $params['venues'] ) ) {
 				$params['venue'] = $params['venues'][0];
+			} else {
+				// If venues array is empty, explicitly set venue to empty to remove existing venue.
+				$params['venue'] = '';
 			}
 			// Remove the venues array to avoid conflicts.
 			unset( $params['venues'] );
+		}
+
+		// Transform organizers array to handle multiple organizers.
+		if ( isset( $params['organizers'] ) && is_array( $params['organizers'] ) ) {
+			// Convert organizers array to the format TEC expects.
+			if ( ! empty( $params['organizers'] ) ) {
+				$params['organizer'] = $params['organizers'];
+			} else {
+				// If organizers array is empty, explicitly set organizer to empty to remove existing organizers.
+				$params['organizer'] = [];
+			}
+			// Remove the organizers array to avoid conflicts.
+			unset( $params['organizers'] );
 		}
 
 		return $params;
