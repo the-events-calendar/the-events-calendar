@@ -33,16 +33,21 @@ trait With_Transform_Organizers_And_Venues {
 	 * @return array
 	 */
 	protected function transform_input_params( array $params ): array {
-		// Transform venues array to use first element (TEC default behavior).
-		if ( isset( $params['venues'] ) && is_array( $params['venues'] ) ) {
-			// Take the first venue from the array for TEC compatibility.
-			if ( ! empty( $params['venues'] ) ) {
-				$params['venue'] = $params['venues'][0];
+		// Transform venues to use first element (TEC default behavior).
+		if ( isset( $params['venues'] ) ) {
+			if ( is_array( $params['venues'] ) ) {
+				// Take the first venue from the array for TEC compatibility.
+				if ( ! empty( $params['venues'] ) ) {
+					$params['venue'] = $params['venues'][0];
+				} else {
+					// If venues array is empty, explicitly set venue to 0 to remove existing venue.
+					$params['venue'] = 0;
+				}
 			} else {
-				// If venues array is empty, explicitly set venue to 0 to remove existing venue.
-				$params['venue'] = 0;
+				// If venues is a scalar, use it directly (backwards compatibility).
+				$params['venue'] = $params['venues'];
 			}
-			// Remove the venues array to avoid conflicts.
+			// Remove the venues parameter to avoid conflicts.
 			unset( $params['venues'] );
 		}
 

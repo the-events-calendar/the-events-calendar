@@ -1344,11 +1344,21 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	protected function update_linked_post_meta( array $postarr ) {
 		// @todo [BTRIA-592]: Create linked posts here?! Using ORM?
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) ) {
+			$venue_id = $postarr['meta_input']['_EventVenueID'];
+
+			// If venue is an array, take the first element (backwards compatibility)
+			if ( is_array( $venue_id ) ) {
+				$venue_id = ! empty( $venue_id ) ? $venue_id[0] : 0;
+			}
+
 			// If venue is empty string or 0, explicitly remove the venue.
-			if ( $postarr['meta_input']['_EventVenueID'] === '' || $postarr['meta_input']['_EventVenueID'] === 0 ) {
+			if ( $venue_id === '' || $venue_id === 0 || $venue_id === null ) {
 				$postarr['meta_input']['_EventVenueID'] = 0;
-			} elseif ( ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
+			} elseif ( ! tribe_is_venue( $venue_id ) ) {
 				unset( $postarr['meta_input']['_EventVenueID'] );
+			} else {
+				// Ensure we store the scalar value, not an array
+				$postarr['meta_input']['_EventVenueID'] = $venue_id;
 			}
 		}
 
