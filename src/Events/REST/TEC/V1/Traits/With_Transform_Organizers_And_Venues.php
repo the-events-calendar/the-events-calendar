@@ -24,6 +24,31 @@ use TEC\Events\REST\TEC\V1\Endpoints\Venues;
  */
 trait With_Transform_Organizers_And_Venues {
 	/**
+	 * Transforms the input parameters before processing.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params The input parameters to transform.
+	 *
+	 * @return array
+	 */
+	protected function transform_input_params( array $params ): array {
+		// Transform venues array to use first element (TEC default behavior).
+		if ( isset( $params['venues'] ) && is_array( $params['venues'] ) ) {
+			// Take the first venue from the array for TEC compatibility.
+			if ( ! empty( $params['venues'] ) ) {
+				$params['venue'] = $params['venues'][0];
+			}
+			// Remove the venues array to avoid conflicts.
+			unset( $params['venues'] );
+		}
+
+		return $params;
+	}
+
+
+
+	/**
 	 * Transforms the entity.
 	 *
 	 * @since TBD

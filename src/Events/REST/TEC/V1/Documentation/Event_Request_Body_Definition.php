@@ -144,11 +144,12 @@ class Event_Request_Body_Definition extends Definition {
 		)->set_example( [ 1, 2 ] );
 
 		$properties[] = (
-			new Positive_Integer(
+			new Array_Of_Type(
 				'venues',
-				fn() => __( 'The venue of the event', 'the-events-calendar' ),
+				fn() => __( 'The venues of the event', 'the-events-calendar' ),
+				Positive_Integer::class,
 			)
-		)->set_example( 7 );
+		)->set_example( [ 7 ] );
 
 		$type = strtolower( $this->get_type() );
 
