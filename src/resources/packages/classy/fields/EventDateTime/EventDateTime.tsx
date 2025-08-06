@@ -132,6 +132,7 @@ function getNewStartEndDates(
  * @param {Date} endDate The current end date.
  * @param {Date} defaultStartDate The default start date (8:00 AM).
  * @param {Date} defaultEndDate The default end date (5:00 PM).
+ * @param {{start: Date, end: Date} | null} previousDates The previous dates before toggle, if available.
  * @return {{newStartDate: Date, newEndDate: Date}} An object containing the new start and end dates.
  */
 function getMultiDayDates(
@@ -140,6 +141,7 @@ function getMultiDayDates(
 	endDate: Date,
 	defaultStartDate: Date,
 	defaultEndDate: Date,
+	previousDates: { start: Date; end: Date } | null,
 ): { newStartDate: Date; newEndDate: Date } {
 	if ( newValue ) {
 		// Enable multiday: start date + 24 hours + duration difference
@@ -147,8 +149,10 @@ function getMultiDayDates(
 		const newEndDate = new Date( startDate.getTime() + ( 24 * 60 * 60 * 1000 ) + duration );
 		return { newStartDate: startDate, newEndDate };
 	} else {
-		// Disable multiday: revert to default state
-		return { newStartDate: defaultStartDate, newEndDate: defaultEndDate };
+		// Disable multiday: revert to previous state if available, otherwise default
+		const revertStart = previousDates ? previousDates.start : defaultStartDate;
+		const revertEnd = previousDates ? previousDates.end : defaultEndDate;
+		return { newStartDate: revertStart, newEndDate: revertEnd };
 	}
 }
 
@@ -163,6 +167,7 @@ function getMultiDayDates(
  * @param {Date} endDate The current end date of the event.
  * @param {Date} defaultStartDate The default start date (8:00 AM).
  * @param {Date} defaultEndDate The default end date (5:00 PM).
+ * @param {{start: Date, end: Date} | null} previousDates The previous dates before toggle, if available.
  * @return {{newStartDate: Date, newEndDate: Date}} An object containing the new start and end dates.
  */
 function getAllDayNewDates(
@@ -175,6 +180,7 @@ function getAllDayNewDates(
 	endDate: Date,
 	defaultStartDate: Date,
 	defaultEndDate: Date,
+	previousDates: { start: Date; end: Date } | null,
 ): { newStartDate: Date; newEndDate: Date } {
 	if ( newValue ) {
 		// Enable all-day: set to full day
@@ -186,8 +192,10 @@ function getAllDayNewDates(
 
 		return { newStartDate, newEndDate };
 	} else {
-		// Disable all-day: revert to default state
-		return { newStartDate: defaultStartDate, newEndDate: defaultEndDate };
+		// Disable all-day: revert to previous state if available, otherwise default
+		const revertStart = previousDates ? previousDates.start : defaultStartDate;
+		const revertEnd = previousDates ? previousDates.end : defaultEndDate;
+		return { newStartDate: revertStart, newEndDate: revertEnd };
 	}
 }
 
@@ -261,6 +269,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
+	const [ previousDates, setPreviousDates ] = useState<{ start: Date; end: Date } | null>( null );
 
 	// Default values: current day with 8:00 AM start and 5:00 PM end.
 	const defaultDates = useRef( {
@@ -375,12 +384,18 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
+			// Save current state when turning ON
+			if ( newValue ) {
+				setPreviousDates( { start: startDate, end: endDate } );
+			}
+
 			const { newStartDate, newEndDate } = getMultiDayDates(
 				newValue,
 				startDate,
 				endDate,
 				defaultDates.current.start,
 				defaultDates.current.end,
+				previousDates,
 			);
 
 			editPost( {
@@ -393,11 +408,16 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsMultidayValue( newValue );
 		},
-		[ startDateIsoString, endDateIsoString, editPost ]
+		[ startDateIsoString, endDateIsoString, editPost, previousDates ]
 	);
 
 	const onAllDayToggleChange = useCallback(
 		( newValue: boolean ) => {
+			// Save current state when turning ON
+			if ( newValue && ! isMultidayValue ) {
+				setPreviousDates( { start: startDate, end: endDate } );
+			}
+
 			const { newStartDate, newEndDate } = getAllDayNewDates(
 				newValue,
 				startDate,
@@ -405,6 +425,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				endDate,
 				defaultDates.current.start,
 				defaultDates.current.end,
+				previousDates,
 			);
 
 			editPost( {
@@ -418,7 +439,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsAllDayValue( newValue );
 		},
-		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost, isMultidayValue ]
+		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost, isMultidayValue, previousDates ]
 	);
 
 	const onTimezoneChange = useCallback(
