@@ -1346,7 +1346,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) ) {
 			$venue_id = $postarr['meta_input']['_EventVenueID'];
 
-			// If venue is an array, take the first element (backwards compatibility)
+			// If venue is an array, take the first element (backwards compatibility).
 			if ( is_array( $venue_id ) ) {
 				$venue_id = ! empty( $venue_id ) ? $venue_id[0] : 0;
 			}
@@ -1357,7 +1357,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			} elseif ( ! tribe_is_venue( $venue_id ) ) {
 				unset( $postarr['meta_input']['_EventVenueID'] );
 			} else {
-				// Ensure we store the scalar value, not an array
+				// Ensure we store the scalar value, not an array.
 				$postarr['meta_input']['_EventVenueID'] = $venue_id;
 			}
 		}

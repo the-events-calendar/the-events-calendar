@@ -92,9 +92,15 @@
                     ]
                 },
                 "venues": {
-                    "description": "The venue of the event",
-                    "type": "integer",
-                    "example": 7
+                    "description": "The venues of the event",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "uniqueItems": true,
+                    "example": [
+                        7
+                    ]
                 }
             }
         }
