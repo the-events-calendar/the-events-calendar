@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/element';
+import { useCallback, useMemo, useRef, useState } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Hours } from '@tec/common/classy/types/Hours';
 import { Minutes } from '@tec/common/classy/types/Minutes';
@@ -18,17 +18,6 @@ import { EndSelector, StartSelector, TimeZone } from '@tec/common/classy/compone
 import { StoreSelect } from '../../types/Store';
 import { addFilter, removeFilter } from '@wordpress/hooks';
 import { areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
-
-type DateTimeRefs = {
-	startDate: Date;
-	endDate: Date;
-	endTimeHours: number;
-	endTimeMinutes: number;
-	multiDayDuration: number;
-	singleDayDuration: number;
-	startTimeHours: number;
-	startTimeMinutes: number;
-};
 
 const phpDateMysqlFormat = 'Y-m-d H:i:s';
 
@@ -134,39 +123,33 @@ function getNewStartEndDates(
 }
 
 /**
- * Calculates a new end date for multi-day events.
+ * Calculates new dates for multiday toggle.
  *
  * @since TBD
  *
- * @param {RefObject<DateTimeRefs>} refs A reference object containing duration information.
- * @param {boolean} newValue Indicates whether the event is now multi-day.
- * @param {Date} startDate The current start date of the event.
- *
+ * @param {boolean} newValue Whether multiday is being enabled.
+ * @param {Date} startDate The current start date.
+ * @param {Date} endDate The current end date.
+ * @param {Date} defaultStartDate The default start date (8:00 AM).
+ * @param {Date} defaultEndDate The default end date (5:00 PM).
  * @return {{newStartDate: Date, newEndDate: Date}} An object containing the new start and end dates.
  */
-function getMultiDayDates( refs: RefObject< DateTimeRefs >, newValue: boolean, startDate: Date ): { newStartDate: Date; newEndDate: Date } {
-	const { startDate: defaultStart, endDate: defaultEnd, singleDayDuration, multiDayDuration } = refs.current as DateTimeRefs;
-	let duration: number;
-
+function getMultiDayDates(
+	newValue: boolean,
+	startDate: Date,
+	endDate: Date,
+	defaultStartDate: Date,
+	defaultEndDate: Date,
+): { newStartDate: Date; newEndDate: Date } {
 	if ( newValue ) {
-		// Move the end date forward by 24 hours plus the single-day duration.
-		duration = multiDayDuration + singleDayDuration;
-		return { newStartDate: startDate, newEndDate: new Date( startDate.getTime() + duration ) };
+		// Enable multiday: start date + 24 hours + duration difference
+		const duration = endDate.getTime() - startDate.getTime();
+		const newEndDate = new Date( startDate.getTime() + ( 24 * 60 * 60 * 1000 ) + duration );
+		return { newStartDate: startDate, newEndDate };
+	} else {
+		// Disable multiday: revert to default state
+		return { newStartDate: defaultStartDate, newEndDate: defaultEndDate };
 	}
-
-	// Reset start and end dates for single day.
-	const newStartDate = new Date( defaultStart );
-	newStartDate.setHours( defaultStart.getHours(), defaultStart.getMinutes(), 0, 0 );
-
-    let newEndDate = new Date( defaultEnd );
-
-    if ( ! areDatesOnSameDay( defaultStart, defaultEnd) ) {
-        newEndDate = new Date( defaultStart );
-    }
-
-    newEndDate.setHours( defaultEnd.getHours(), defaultEnd.getMinutes(), 0, 0 );
-
-	return { newStartDate, newEndDate };
 }
 
 /**
@@ -178,8 +161,8 @@ function getMultiDayDates( refs: RefObject< DateTimeRefs >, newValue: boolean, s
  * @param {Date} startDate The current start date of the event.
  * @param {{hours: Hours, minutes: Minutes}} endOfDayCutoff The time at which the day ends.
  * @param {Date} endDate The current end date of the event.
- * @param {RefObject<DateTimeRefs>} refs A reference object containing saved time information.
- * @param {boolean} isMultiDay Whether multiday is on or off.
+ * @param {Date} defaultStartDate The default start date (8:00 AM).
+ * @param {Date} defaultEndDate The default end date (5:00 PM).
  * @return {{newStartDate: Date, newEndDate: Date}} An object containing the new start and end dates.
  */
 function getAllDayNewDates(
@@ -190,56 +173,22 @@ function getAllDayNewDates(
 		minutes: Minutes;
 	},
 	endDate: Date,
-	refs: RefObject< DateTimeRefs >,
-    isMultiDay: boolean,
+	defaultStartDate: Date,
+	defaultEndDate: Date,
 ): { newStartDate: Date; newEndDate: Date } {
-	if ( refs.current === null ) {
-		return { newStartDate: startDate, newEndDate: endDate };
-	}
-
-	let newStartDate: Date;
-	let newEndDate: Date;
-
 	if ( newValue ) {
-        // Move the start date to the current-day end-of-day cutoff time.
-        newStartDate = new Date(startDate);
-        newStartDate.setHours(endOfDayCutoff.hours);
-        newStartDate.setMinutes(endOfDayCutoff.minutes);
-        // Round the current duration to the nearest day and remove one second.
-        const dayDuration = 1000 * 60 * 60 * 24;
-        const startDay = new Date(startDate);
-        startDay.setHours(0);
-        startDay.setMinutes(0);
-        const endDay = new Date(endDate);
-        endDay.setHours(23);
-        endDay.setMinutes(59);
+		// Enable all-day: set to full day
+		const newStartDate = new Date( startDate );
+		newStartDate.setHours( 0, 0, 0, 0 );
 
-        newEndDate = endDay;
+		const newEndDate = new Date( endDate );
+		newEndDate.setHours( endOfDayCutoff.hours, endOfDayCutoff.minutes );
 
-        // Save the current start date and end times.
-        refs.current.startTimeHours = startDate.getHours();
-        refs.current.startTimeMinutes = startDate.getMinutes();
-        refs.current.endTimeHours = endDate.getHours();
-        refs.current.endTimeMinutes = endDate.getMinutes();
-
-        return { newStartDate, newEndDate };
-    }
-
-    if ( isMultiDay ) {
-        return getMultiDayDates( refs, isMultiDay, startDate);
-    }
-    // Restore the saved start and end times but respect the days.
-    newStartDate = new Date( refs.current.startDate );
-    newStartDate.setHours( refs.current.startTimeHours, refs.current.startTimeMinutes, 0 );
-    newEndDate = new Date( refs.current.endDate );
-
-    if ( ! areDatesOnSameDay( refs.current.startDate, refs.current.endDate ) ) {
-        newEndDate = new Date( refs.current.startDate );
-    }
-
-    newEndDate.setHours( refs.current.endTimeHours, refs.current.endTimeMinutes, 0 );
-
-	return { newStartDate, newEndDate };
+		return { newStartDate, newEndDate };
+	} else {
+		// Disable all-day: revert to default state
+		return { newStartDate: defaultStartDate, newEndDate: defaultEndDate };
+	}
 }
 
 /**
@@ -312,24 +261,16 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
+
+	// Default values: current day with 8:00 AM start and 5:00 PM end.
+	const defaultDates = useRef( {
+		start: new Date( new Date().setHours( 8, 0, 0, 0 ) ),
+		end: new Date( new Date().setHours( 17, 0, 0, 0 ) ),
+	} );
 	const { start: startDate, end: endDate } = dates;
 	const [ timezoneString, setTimezoneString ] = useState( eventTimezone );
 	const [ highlightStartTime, setHighlightStartTime ] = useState( false );
 	const [ highlightEndTime, setHighlightEndTime ] = useState( false );
-
-	// Store a reference to some ground values to allow the toggle of multi-day and all-day correctly.
-	const refs = useRef( {
-        startDate: startDate,
-        endDate: endDate,
-		startTimeHours: 8,
-		startTimeMinutes: 0,
-		endTimeHours: 17,
-		endTimeMinutes: 0,
-		// The default single-day duration is 9 hours.
-		singleDayDuration: isMultiday ? 9 * 60 * 60 * 1000 : dates.end.getTime() - dates.start.getTime(),
-		// The default multi-day duration is 24 hours.
-		multiDayDuration: isMultiday ? dates.end.getTime() - dates.start.getTime() : 24 * 60 * 60 * 1000,
-	} );
 
 	// Used in dependencies.
 	const startDateIsoString = startDate.toISOString();
@@ -434,30 +375,37 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
-			if ( newValue ) {
-				// Save current duration when toggling on multi day.
-				refs.current.singleDayDuration = endDate.getTime() - startDate.getTime();
-			}
+			const { newStartDate, newEndDate } = getMultiDayDates(
+				newValue,
+				startDate,
+				endDate,
+				defaultDates.current.start,
+				defaultDates.current.end,
+			);
 
-            let { newStartDate, newEndDate } = getMultiDayDates( refs, newValue, startDate );
+			editPost( {
+				meta: {
+					[ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, newStartDate ),
+					[ METADATA_EVENT_END_DATE ]: format( phpDateMysqlFormat, newEndDate ),
+				},
+			} );
 
-            setDates( { start: newStartDate, end: newEndDate } );
-
-            editPost( {
-                meta: {
-                    [ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, newStartDate ),
-                    [ METADATA_EVENT_END_DATE ]: format( phpDateMysqlFormat, newEndDate ),
-                },
-            } );
-
-            setIsMultidayValue( newValue );
-        },
-		[ startDateIsoString, endDateIsoString, isMultidayValue ]
+			setDates( { start: newStartDate, end: newEndDate } );
+			setIsMultidayValue( newValue );
+		},
+		[ startDateIsoString, endDateIsoString, editPost ]
 	);
 
 	const onAllDayToggleChange = useCallback(
 		( newValue: boolean ) => {
-			let { newStartDate, newEndDate } = getAllDayNewDates( newValue, startDate, endOfDayCutoff, endDate, refs, isMultidayValue );
+			const { newStartDate, newEndDate } = getAllDayNewDates(
+				newValue,
+				startDate,
+				endOfDayCutoff,
+				endDate,
+				defaultDates.current.start,
+				defaultDates.current.end,
+			);
 
 			editPost( {
 				meta: {
@@ -470,7 +418,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsAllDayValue( newValue );
 		},
-		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost ]
+		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost, isMultidayValue ]
 	);
 
 	const onTimezoneChange = useCallback(
