@@ -68,14 +68,14 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function update( array $params = [] ): WP_REST_Response {
-		// Transform venues array to use first element (TEC default behavior)
+		// Transform venues array to use first element (TEC default behavior).
 		$params = $this->transform_input_params( $params );
 
 		$id = $params['id'] ?? null;
 		if ( ! $id ) {
 			return new WP_REST_Response(
 				[
-					'error' => __( 'Missing ID for update.', 'tribe-common' ),
+					'error' => __( 'Missing ID for update.', 'the-events-calendar' ),
 				],
 				400
 			);
@@ -86,7 +86,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		if ( ! $entity ) {
 			return new WP_REST_Response(
 				[
-					'error' => __( 'Failed to update entity.', 'tribe-common' ),
+					'error' => __( 'Failed to update entity.', 'the-events-calendar' ),
 				],
 				500
 			);
