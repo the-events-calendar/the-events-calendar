@@ -1344,8 +1344,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	protected function update_linked_post_meta( array $postarr ) {
 		// @todo [BTRIA-592]: Create linked posts here?! Using ORM?
 		if ( isset( $postarr['meta_input']['_EventVenueID'] ) ) {
-			// If venue is empty string, explicitly remove the venue.
-			if ( $postarr['meta_input']['_EventVenueID'] === '' ) {
+			// If venue is empty string or 0, explicitly remove the venue.
+			if ( $postarr['meta_input']['_EventVenueID'] === '' || $postarr['meta_input']['_EventVenueID'] === 0 ) {
 				$postarr['meta_input']['_EventVenueID'] = 0;
 			} elseif ( ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
 				unset( $postarr['meta_input']['_EventVenueID'] );

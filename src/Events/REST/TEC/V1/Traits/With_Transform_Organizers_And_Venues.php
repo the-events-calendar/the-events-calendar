@@ -39,8 +39,8 @@ trait With_Transform_Organizers_And_Venues {
 			if ( ! empty( $params['venues'] ) ) {
 				$params['venue'] = $params['venues'][0];
 			} else {
-				// If venues array is empty, explicitly set venue to empty to remove existing venue.
-				$params['venue'] = '';
+				// If venues array is empty, explicitly set venue to 0 to remove existing venue.
+				$params['venue'] = 0;
 			}
 			// Remove the venues array to avoid conflicts.
 			unset( $params['venues'] );
