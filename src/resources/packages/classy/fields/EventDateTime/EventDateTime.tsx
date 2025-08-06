@@ -20,6 +20,8 @@ import { addFilter, removeFilter } from '@wordpress/hooks';
 import { areDatesOnSameDay, areDatesOnSameTime } from '@tec/common/classy/functions';
 
 type DateTimeRefs = {
+	startDate: Date;
+	endDate: Date;
 	endTimeHours: number;
 	endTimeMinutes: number;
 	multiDayDuration: number;
@@ -304,10 +306,12 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	// Store a reference to some ground values to allow the toggle of multi-day and all-day correctly.
 	const refs = useRef( {
-		startTimeHours: isAllDay ? 8 : startDate.getHours(),
-		startTimeMinutes: isAllDay ? 0 : startDate.getMinutes(),
-		endTimeHours: isAllDay ? 17 : endDate.getHours(),
-		endTimeMinutes: isAllDay ? 0 : endDate.getMinutes(),
+        startDate: startDate,
+        endDate: endDate,
+		startTimeHours: 8,
+		startTimeMinutes: 0,
+		endTimeHours: 17,
+		endTimeMinutes: 0,
 		// The default single-day duration is 9 hours.
 		singleDayDuration: isMultiday ? 9 * 60 * 60 * 1000 : dates.end.getTime() - dates.start.getTime(),
 		// The default multi-day duration is 24 hours.
