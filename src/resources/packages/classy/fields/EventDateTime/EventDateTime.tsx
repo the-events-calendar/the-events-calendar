@@ -50,7 +50,6 @@ type NewDatesReturn = {
  * @param {Date} startDate The current start date.
  * @param {'start' | 'end'} updated Indicates whether the start or end date was updated.
  * @param {string} newDate The new date string provided by the user.
- * @param {number} timeInterval The time interval in minutes.
  * @return {NewDatesReturn} An object defining the new start and end dates, and whether the user needs to be notified
  *     of the implicit change of either.
  */
@@ -249,7 +248,6 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		isNewEvent,
 		startOfWeek,
 		timeFormat,
-		timeInterval,
 	} = useSelect( ( select ) => {
 		const tecStore: StoreSelect = select( 'tec/classy/events' );
 
