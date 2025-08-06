@@ -13,6 +13,7 @@ namespace TEC\Events\REST\TEC\V1\Endpoints;
 
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\RUD_Endpoint;
+use WP_REST_Response;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
@@ -56,6 +57,53 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @var Event_Validator
 	 */
 	protected Event_Validator $validator;
+
+	/**
+	 * Updates an event with venues array transformation.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params The sanitized parameters to use for the request.
+	 *
+	 * @return WP_REST_Response The response object.
+	 */
+	public function update( array $params = [] ): WP_REST_Response {
+		// Transform venues array to use first element (TEC default behavior).
+		$params = $this->transform_input_params( $params );
+
+		$id = $params['id'] ?? null;
+		if ( ! $id ) {
+			return new WP_REST_Response(
+				[
+					'error' => __( 'Missing ID for update.', 'the-events-calendar' ),
+				],
+				400
+			);
+		}
+
+		$entity = $this->get_orm()->where( 'id', $id )->set_args( $params )->save();
+
+		if ( ! $entity ) {
+			return new WP_REST_Response(
+				[
+					'error' => __( 'Failed to update entity.', 'the-events-calendar' ),
+				],
+				500
+			);
+		}
+
+		return new WP_REST_Response(
+			$this->get_formatted_entity(
+				$this->get_orm()->by_args(
+					[
+						'id'     => $id,
+						'status' => 'any',
+					]
+				)->first()
+			),
+			200
+		);
+	}
 
 	/**
 	 * Event constructor.

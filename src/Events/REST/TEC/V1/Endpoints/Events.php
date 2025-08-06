@@ -14,6 +14,7 @@ namespace TEC\Events\REST\TEC\V1\Endpoints;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
+use WP_REST_Response;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
@@ -60,6 +61,44 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @var Event_Validator
 	 */
 	protected Event_Validator $validator;
+
+	/**
+	 * Creates a new event with venues array transformation.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params The sanitized parameters to use for the request.
+	 *
+	 * @return WP_REST_Response The response object.
+	 */
+	public function create( array $params = [] ): WP_REST_Response {
+		// Transform venues array to use first element (TEC default behavior).
+		$params = $this->transform_input_params( $params );
+
+		// Call the parent create method.
+		$entity = $this->get_orm()->set_args( $params )->create();
+
+		if ( ! $entity ) {
+			return new WP_REST_Response(
+				[
+					'error' => __( 'Failed to create entity.', 'the-events-calendar' ),
+				],
+				500
+			);
+		}
+
+		return new WP_REST_Response(
+			$this->get_formatted_entity(
+				$this->get_orm()->by_args(
+					[
+						'id'     => $entity->ID,
+						'status' => 'any',
+					]
+				)->first()
+			),
+			201
+		);
+	}
 
 	/**
 	 * Returns the model class.

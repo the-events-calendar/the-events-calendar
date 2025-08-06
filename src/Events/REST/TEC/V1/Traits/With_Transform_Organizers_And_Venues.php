@@ -24,6 +24,52 @@ use TEC\Events\REST\TEC\V1\Endpoints\Venues;
  */
 trait With_Transform_Organizers_And_Venues {
 	/**
+	 * Transforms the input parameters before processing.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $params The input parameters to transform.
+	 *
+	 * @return array
+	 */
+	protected function transform_input_params( array $params ): array {
+		// Transform venues to use first element (TEC default behavior).
+		if ( isset( $params['venues'] ) ) {
+			if ( is_array( $params['venues'] ) ) {
+				// Take the first venue from the array for TEC compatibility.
+				if ( ! empty( $params['venues'] ) ) {
+					$params['venue'] = $params['venues'][0];
+				} else {
+					// If venues array is empty, explicitly set venue to 0 to remove existing venue.
+					$params['venue'] = 0;
+				}
+			} else {
+				// If venues is a scalar, use it directly (backwards compatibility).
+				$params['venue'] = $params['venues'];
+			}
+			// Remove the venues parameter to avoid conflicts.
+			unset( $params['venues'] );
+		}
+
+		// Transform organizers array to handle multiple organizers.
+		if ( isset( $params['organizers'] ) && is_array( $params['organizers'] ) ) {
+			// Convert organizers array to the format TEC expects.
+			if ( ! empty( $params['organizers'] ) ) {
+				$params['organizer'] = $params['organizers'];
+			} else {
+				// If organizers array is empty, explicitly set organizer to empty to remove existing organizers.
+				$params['organizer'] = [];
+			}
+			// Remove the organizers array to avoid conflicts.
+			unset( $params['organizers'] );
+		}
+
+		return $params;
+	}
+
+
+
+	/**
 	 * Transforms the entity.
 	 *
 	 * @since TBD
