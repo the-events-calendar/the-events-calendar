@@ -59,7 +59,6 @@ function getNewStartEndDates(
 	startDate: Date,
 	updated: DateTimeUpdateType,
 	newDate: string,
-	timeInterval: number
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
@@ -88,8 +87,6 @@ function getNewStartEndDates(
 				if ( newStartDate.getTime() >= endDate.getTime() ) {
 					// For time updates, push end time to next interval
 					newEndDate = new Date( newStartDate );
-					newEndDate.setMinutes( newEndDate.getMinutes() + timeInterval );
-					notify.endTime = true;
 				}
 
 				break;
@@ -109,8 +106,6 @@ function getNewStartEndDates(
 				if ( newEndDate.getTime() <= startDate.getTime() ) {
 					// For time updates, pull start time to previous interval.
 					newStartDate = new Date( newEndDate );
-					newStartDate.setMinutes( newStartDate.getMinutes() - timeInterval );
-					notify.startTime = true;
 				}
 				break;
 		}
@@ -332,7 +327,6 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				startDate,
 				updated,
 				newDate,
-				timeInterval
 			);
 
 			editPost( {
