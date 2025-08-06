@@ -154,11 +154,17 @@ function getMultiDayDates( refs: RefObject< DateTimeRefs >, newValue: boolean, s
 		return { newStartDate: startDate, newEndDate: new Date( startDate.getTime() + duration ) };
 	}
 
-	// we should reset start and end dates to the default start and end dates with the same time from ref.
+	// Reset start and end dates for single day.
 	const newStartDate = new Date( defaultStart );
 	newStartDate.setHours( defaultStart.getHours(), defaultStart.getMinutes(), 0, 0 );
-	const newEndDate = new Date( defaultEnd );
-	newEndDate.setHours( defaultEnd.getHours(), defaultEnd.getMinutes(), 0, 0 );
+
+    let newEndDate = new Date( defaultEnd );
+
+    if ( ! areDatesOnSameDay( defaultStart, defaultEnd) ) {
+        newEndDate = new Date( defaultStart );
+    }
+
+    newEndDate.setHours( defaultEnd.getHours(), defaultEnd.getMinutes(), 0, 0 );
 
 	return { newStartDate, newEndDate };
 }
@@ -173,6 +179,7 @@ function getMultiDayDates( refs: RefObject< DateTimeRefs >, newValue: boolean, s
  * @param {{hours: Hours, minutes: Minutes}} endOfDayCutoff The time at which the day ends.
  * @param {Date} endDate The current end date of the event.
  * @param {RefObject<DateTimeRefs>} refs A reference object containing saved time information.
+ * @param {boolean} isMultiDay Whether multiday is on or off.
  * @return {{newStartDate: Date, newEndDate: Date}} An object containing the new start and end dates.
  */
 function getAllDayNewDates(
@@ -183,7 +190,8 @@ function getAllDayNewDates(
 		minutes: Minutes;
 	},
 	endDate: Date,
-	refs: RefObject< DateTimeRefs >
+	refs: RefObject< DateTimeRefs >,
+    isMultiDay: boolean,
 ): { newStartDate: Date; newEndDate: Date } {
 	if ( refs.current === null ) {
 		return { newStartDate: startDate, newEndDate: endDate };
@@ -193,33 +201,43 @@ function getAllDayNewDates(
 	let newEndDate: Date;
 
 	if ( newValue ) {
-		// Move the start date to the current-day end-of-day cutoff time.
-		newStartDate = new Date( startDate );
-		newStartDate.setHours( endOfDayCutoff.hours );
-		newStartDate.setMinutes( endOfDayCutoff.minutes );
-		// Round the current duration to the nearest day and remove one second.
-		const dayDuration = 1000 * 60 * 60 * 24;
-		const startDay = new Date( startDate );
-		startDay.setHours( 0 );
-		startDay.setMinutes( 0 );
-		const endDay = new Date( endDate );
-		endDay.setHours( 23 );
-		endDay.setMinutes( 59 );
+        // Move the start date to the current-day end-of-day cutoff time.
+        newStartDate = new Date(startDate);
+        newStartDate.setHours(endOfDayCutoff.hours);
+        newStartDate.setMinutes(endOfDayCutoff.minutes);
+        // Round the current duration to the nearest day and remove one second.
+        const dayDuration = 1000 * 60 * 60 * 24;
+        const startDay = new Date(startDate);
+        startDay.setHours(0);
+        startDay.setMinutes(0);
+        const endDay = new Date(endDate);
+        endDay.setHours(23);
+        endDay.setMinutes(59);
 
-		newEndDate = endDay;
+        newEndDate = endDay;
 
-		// Save the current start date and end times.
-		refs.current.startTimeHours = startDate.getHours();
-		refs.current.startTimeMinutes = startDate.getMinutes();
-		refs.current.endTimeHours = endDate.getHours();
-		refs.current.endTimeMinutes = endDate.getMinutes();
-	} else {
-		// Restore the saved start and end times but respect the days.
-		newStartDate = new Date( startDate );
-		newStartDate.setHours( refs.current.startTimeHours, refs.current.startTimeMinutes, 0 );
-		newEndDate = new Date( endDate );
-		newEndDate.setHours( refs.current.endTimeHours, refs.current.endTimeMinutes, 0 );
-	}
+        // Save the current start date and end times.
+        refs.current.startTimeHours = startDate.getHours();
+        refs.current.startTimeMinutes = startDate.getMinutes();
+        refs.current.endTimeHours = endDate.getHours();
+        refs.current.endTimeMinutes = endDate.getMinutes();
+
+        return { newStartDate, newEndDate };
+    }
+
+    if ( isMultiDay ) {
+        return getMultiDayDates( refs, isMultiDay, startDate);
+    }
+    // Restore the saved start and end times but respect the days.
+    newStartDate = new Date( refs.current.startDate );
+    newStartDate.setHours( refs.current.startTimeHours, refs.current.startTimeMinutes, 0 );
+    newEndDate = new Date( refs.current.endDate );
+
+    if ( ! areDatesOnSameDay( refs.current.startDate, refs.current.endDate ) ) {
+        newEndDate = new Date( refs.current.startDate );
+    }
+
+    newEndDate.setHours( refs.current.endTimeHours, refs.current.endTimeMinutes, 0 );
 
 	return { newStartDate, newEndDate };
 }
@@ -439,7 +457,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onAllDayToggleChange = useCallback(
 		( newValue: boolean ) => {
-			let { newStartDate, newEndDate } = getAllDayNewDates( newValue, startDate, endOfDayCutoff, endDate, refs );
+			let { newStartDate, newEndDate } = getAllDayNewDates( newValue, startDate, endOfDayCutoff, endDate, refs, isMultidayValue );
 
 			editPost( {
 				meta: {
