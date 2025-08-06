@@ -72,16 +72,16 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return WP_REST_Response The response object.
 	 */
 	public function create( array $params = [] ): WP_REST_Response {
-		// Transform venues array to use first element (TEC default behavior)
+		// Transform venues array to use first element (TEC default behavior).
 		$params = $this->transform_input_params( $params );
 
-		// Call the parent create method
+		// Call the parent create method.
 		$entity = $this->get_orm()->set_args( $params )->create();
 
 		if ( ! $entity ) {
 			return new WP_REST_Response(
 				[
-					'error' => __( 'Failed to create entity.', 'tribe-common' ),
+					'error' => __( 'Failed to create entity.', 'the-events-calendar' ),
 				],
 				500
 			);

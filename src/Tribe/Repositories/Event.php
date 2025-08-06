@@ -1361,12 +1361,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				}
 				$valid[] = $organizer;
 			}
-			// If input was explicitly an empty array, we want to remove all organizers
+			// If input was explicitly an empty array, we want to remove all organizers.
 			if ( empty( $organizers_input ) ) {
 				$this->unpack_meta_on_update( '_EventOrganizerID' );
 				$postarr['meta_input']['_EventOrganizerID'] = [];
 			} elseif ( ! count( $valid ) ) {
-				// If we had organizers but none were valid, don't update the field
+				// If we had organizers but none were valid, don't update the field.
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 			} else {
 				$this->unpack_meta_on_update( '_EventOrganizerID' );
