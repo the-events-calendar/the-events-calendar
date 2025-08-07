@@ -8,11 +8,8 @@
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
-use Tribe__Events__Linked_Posts;
-use Tribe__Events__Venue;
-use Tribe__Events__Organizer;
 
-// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase,PEAR.NamingConventions.ValidClassName.Invalid
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase,PEAR.NamingConventions.ValidClassName.Invalid, WordPress.DB.SlowDBQuery.slow_db_query_meta_query, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 /**
  * Class Tribe__Events__Repositories__Event
@@ -494,8 +491,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			/*
 			 * If the minimum overlap requested is more than one second, then we have to use a not performant logic.
 			 * The interpolated variables come from the code.
-			 *
-			 * @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			 */
 			$alt_where = $wpdb->prepare(
 				"(
@@ -508,7 +503,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$lower_string,
 				$min_sec_overlap
 			);
-			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		} else {
 			// A `$min_sec_overlap` of 0 is an inclusive check; a value of 1 in an exclusive check.
 			$lt_operator = $min_sec_overlap === 0 ? '<=' : '<';
@@ -527,7 +521,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * - 5 ends after the range start, but starts after the range end.
 			 *
 			 * The interpolated variables come from the code.
-			 * @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			 */
 			$alt_where = $wpdb->prepare(
 				"(
@@ -538,7 +531,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$upper_string,
 				$lower_string
 			);
-			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		}
 
 		$this->filter_query->where( $alt_where );
@@ -1145,7 +1137,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array<string,mixed> The updated post data.
 	 */
 	protected function update_date_meta( array $postarr, $post_id = null ) {
-		set_error_handler( [ $this, 'cast_error_to_exception' ] );
+		set_error_handler( [ $this, 'cast_error_to_exception' ] ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler
 
 		$was_all_day = (bool) get_post_meta( $post_id, '_EventAllDay', true );
 		$is_all_day  = false;
@@ -1988,4 +1980,4 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	}
 }
 
-// phpcs:enable StellarWP.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid
+// phpcs:enable StellarWP.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, WordPress.DB.SlowDBQuery.slow_db_query_meta_query, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
