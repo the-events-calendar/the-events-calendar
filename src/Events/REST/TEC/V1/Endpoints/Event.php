@@ -68,9 +68,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return WP_REST_Response The response object.
 	 */
 	public function update( array $params = [] ): WP_REST_Response {
-		// Transform venues array to use first element (TEC default behavior).
-		$params = $this->transform_input_params( $params );
-
 		$id = $params['id'] ?? null;
 		if ( ! $id ) {
 			return new WP_REST_Response(
