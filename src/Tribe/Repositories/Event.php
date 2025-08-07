@@ -1364,8 +1364,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$venue_type   = Tribe__Events__Linked_Posts::instance()->get_type_args( Tribe__Events__Venue::POSTTYPE );
 
 		// If the venue type does not allow multiple, we just use the first one.
-		if ( ! $venue_type['allow_multiple'] ) {
-			$postarr['meta_input']['_EventVenueID'] = (array) array_shift( $venues_input );
+		if ( empty( $venue_type['allow_multiple'] ) ) {
+			$first_venue                            = array_shift( $venues_input );
+			$postarr['meta_input']['_EventVenueID'] = $first_venue; // Store as single value, not array.
 
 			return $postarr;
 		}
