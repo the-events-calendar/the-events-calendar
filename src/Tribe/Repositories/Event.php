@@ -1419,7 +1419,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 				return $postarr;
 			}
-			$postarr['meta_input']['_EventOrganizerID'] = (array) $first_organizer;
+			$postarr['meta_input']['_EventOrganizerID'] = $first_organizer;
 
 			return $postarr;
 		}
