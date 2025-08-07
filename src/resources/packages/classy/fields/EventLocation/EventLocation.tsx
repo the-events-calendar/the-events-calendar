@@ -13,6 +13,7 @@ import { METADATA_EVENT_VENUE_ID } from '../../constants';
 import { VenueData } from '../../types/VenueData';
 import VenueUpsertModal from './VenueUpsertModal.tsx';
 import { fetchVenues, upsertVenue } from '../../api';
+import { StoreSelect } from '../../types/Store';
 
 function buildOptionFromFetchedVenue( venue: FetchedVenue ): CustomSelectOption {
 	return {
@@ -50,9 +51,7 @@ export default function EventLocation( props: FieldProps ) {
 			const editorStore: {
 				getEditedPostAttribute: ( attribute: string ) => any;
 			} = select( 'core/editor' );
-			const classyStore: {
-				getVenuesLimit: () => number;
-			} = select( 'tec/classy/events' );
+			const classyStore: StoreSelect = select( 'tec/classy/events' );
 
 			const meta = editorStore.getEditedPostAttribute( 'meta' ) || null;
 			const venuesLimit = classyStore.getVenuesLimit() || 1;

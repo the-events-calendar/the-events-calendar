@@ -39,7 +39,7 @@ exports[`EventCost Component displays "Free" when event is free 1`] = `
   <div
     class="classy-field__input-note"
   >
-    If multiple entry prices are available, list each price separated by commas.
+    Enter a single price or a price range (e.g. 10-20)
   </div>
 </div>
 `;
@@ -57,7 +57,7 @@ exports[`EventCost Component formats multiple cost values correctly 1`] = `
       >
         <input
           aria-label="Event cost"
-          value="10.50, 20.75, 15.25"
+          value="$10.50"
         />
       </div>
     </div>
@@ -82,7 +82,7 @@ exports[`EventCost Component formats multiple cost values correctly 1`] = `
   <div
     class="classy-field__input-note"
   >
-    If multiple entry prices are available, list each price separated by commas.
+    Enter a single price or a price range (e.g. 10-20)
   </div>
 </div>
 `;
@@ -100,7 +100,7 @@ exports[`EventCost Component formats single cost value correctly 1`] = `
       >
         <input
           aria-label="Event cost"
-          value="10.50"
+          value="$10.50"
         />
       </div>
     </div>
@@ -125,7 +125,7 @@ exports[`EventCost Component formats single cost value correctly 1`] = `
   <div
     class="classy-field__input-note"
   >
-    If multiple entry prices are available, list each price separated by commas.
+    Enter a single price or a price range (e.g. 10-20)
   </div>
 </div>
 `;
@@ -168,7 +168,7 @@ exports[`EventCost Component handles invalid cost values gracefully 1`] = `
   <div
     class="classy-field__input-note"
   >
-    If multiple entry prices are available, list each price separated by commas.
+    Enter a single price or a price range (e.g. 10-20)
   </div>
 </div>
 `;
@@ -211,7 +211,7 @@ exports[`EventCost Component renders correctly with default props 1`] = `
   <div
     class="classy-field__input-note"
   >
-    If multiple entry prices are available, list each price separated by commas.
+    Enter a single price or a price range (e.g. 10-20)
   </div>
 </div>
 `;
@@ -254,7 +254,7 @@ exports[`EventCost Component updates currency symbol and position correctly 1`] 
   <div
     class="classy-field__input-note"
   >
-    If multiple entry prices are available, list each price separated by commas.
+    Enter a single price or a price range (e.g. 10-20)
   </div>
 </div>
 `;

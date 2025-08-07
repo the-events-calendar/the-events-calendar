@@ -1,35 +1,38 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { RegistryProvider } from '@wordpress/data';
-import { createRegistry } from '../../../../common/src/resources/packages/classy/store';
+import { getRegistry } from '@tec/common/classy/store';
 import EventCost from '../../../../src/resources/packages/classy/fields/EventCost/EventCost';
-import { Currency } from '../../../../common/src/resources/packages/classy/types/Currency';
-import { CurrencyPosition } from '../../../../common/src/resources/packages/classy/types/CurrencyPosition';
-
-type Selector = {
-	'core/editor': {
-		getEditedPostAttribute: ( attribute: string ) => any;
-	};
-	'tec/classy': {
-		getDefaultCurrency: () => Currency;
-	};
-};
+import { Currency } from '@tec/common/classy/types/Currency';
+import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
 
 // Mock WordPress data store
 jest.mock( '@wordpress/data', () => {
+	// Mock state inside the mock function to avoid hoisting issues
+	const mockState = {
+		meta: {
+			_EventCost: '',
+			_EventCurrencySymbol: '$',
+			_EventCurrencyPosition: 'prefix',
+		},
+		editPost: jest.fn( ( { meta } ) => {
+			if ( meta ) {
+				mockState.meta = { ...mockState.meta, ...meta };
+			}
+		} ),
+	};
+
 	const mockSelect = ( storeName: string ) => {
 		if ( storeName === 'core/editor' ) {
 			return {
-				getEditedPostAttribute: () => ( {
-					meta: {
-						tribe_event_cost: '',
-						tribe_event_currency_symbol: '$',
-						tribe_event_currency_position: 'prefix',
-						tribe_event_is_free: false,
-					},
-				} ),
+				getEditedPostAttribute: ( attribute: string ) => {
+					if ( attribute === 'meta' ) {
+						return mockState.meta;
+					}
+					return null;
+				},
 			};
 		}
 		if ( storeName === 'tec/classy' ) {
@@ -47,7 +50,7 @@ jest.mock( '@wordpress/data', () => {
 	const mockDispatch = ( storeName: string ) => {
 		if ( storeName === 'core/editor' ) {
 			return {
-				editPost: jest.fn(),
+				editPost: mockState.editPost,
 			};
 		}
 		return {};
@@ -57,6 +60,7 @@ jest.mock( '@wordpress/data', () => {
 		useSelect: ( callback: ( select: typeof mockSelect ) => any ) => callback( mockSelect ),
 		useDispatch: ( storeName: string ) => mockDispatch( storeName ),
 		RegistryProvider: ( { children } ) => children,
+		__mockState: mockState, // Expose for testing
 	};
 } );
 
@@ -96,15 +100,22 @@ describe( 'EventCost Component', () => {
 		[ 'tribe_event_cost' ]: '',
 		[ 'tribe_event_currency_symbol' ]: '$',
 		[ 'tribe_event_currency_position' ]: 'prefix',
-		[ 'tribe_event_is_free' ]: false,
 	};
 
 	beforeEach( () => {
 		jest.resetAllMocks();
+		// Reset the mock meta state
+		const mockData = jest.requireMock( '@wordpress/data' ) as any;
+		mockData.__mockState.meta = {
+			_EventCost: '',
+			_EventCurrencySymbol: '$',
+			_EventCurrencyPosition: 'prefix',
+		};
+		mockData.__mockState.editPost.mockClear();
 	} );
 
 	it( 'renders correctly with default props', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -115,7 +126,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'displays "Free" when event is free', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -123,13 +134,29 @@ describe( 'EventCost Component', () => {
 		);
 
 		const freeToggle = screen.getByLabelText( 'Event is free' );
+		const costInput = screen.getByLabelText( 'Event cost' );
+
+		// Initially, the input should not be disabled
+		expect( ( costInput as HTMLInputElement ).disabled ).toBe( false );
+		expect( ( costInput as HTMLInputElement ).value ).toBe( '' );
 		await userEvent.click( freeToggle );
+
+		// Wait for the state to update
+		await waitFor( () => {
+			// After clicking free toggle, the input should be disabled and show "Free"
+			expect( ( costInput as HTMLInputElement ).disabled ).toBe( true );
+			expect( ( costInput as HTMLInputElement ).value ).toBe( 'Free' );
+		} );
+
+		// Should also call editPost with meta value of '0' for free
+		const mockData = jest.requireMock( '@wordpress/data' ) as any;
+		expect( mockData.__mockState.editPost ).toHaveBeenCalledWith( { meta: { _EventCost: '0' } } );
 
 		expect( container ).toMatchSnapshot();
 	} );
 
 	it( 'formats single cost value correctly', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -138,12 +165,14 @@ describe( 'EventCost Component', () => {
 
 		const costInput = screen.getByLabelText( 'Event cost' );
 		await userEvent.type( costInput, '10.50' );
+		// click outside the input to trigger the change
+		await userEvent.click( document.body );
 
 		expect( container ).toMatchSnapshot();
 	} );
 
 	it( 'formats multiple cost values correctly', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -152,12 +181,14 @@ describe( 'EventCost Component', () => {
 
 		const costInput = screen.getByLabelText( 'Event cost' );
 		await userEvent.type( costInput, '10.50, 20.75, 15.25' );
+		// click outside the input to trigger the change
+		await userEvent.click( document.body );
 
 		expect( container ).toMatchSnapshot();
 	} );
 
 	it( 'handles invalid cost values gracefully', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />
@@ -171,7 +202,7 @@ describe( 'EventCost Component', () => {
 	} );
 
 	it( 'updates currency symbol and position correctly', async () => {
-		const registry = await createRegistry();
+		const registry = getRegistry();
 		const { container } = render(
 			<RegistryProvider value={ registry }>
 				<EventCost />

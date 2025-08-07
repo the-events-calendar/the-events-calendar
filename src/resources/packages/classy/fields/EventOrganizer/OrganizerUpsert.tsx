@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
 import { IconNew, LabeledInput } from '@tec/common/classy/components';
+import { isValidUrl } from '@tec/common/classy/functions';
 import { OrganizerData } from '../../types/OrganizerData';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -29,6 +30,23 @@ export default function OrganizerUpsert( props: {
 
 	// At a minimum an Organizers requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
+	const [ hasValidUrl, setHasValidUrl ] = useState< boolean >( true );
+
+	const onWebsiteChange = useCallback(
+		( value: string | undefined ): void => {
+			const websiteValue = value ?? '';
+
+			if ( ! isValidUrl( websiteValue ) ) {
+				setHasValidUrl( false );
+				return;
+			}
+
+			setHasValidUrl( true );
+			// Always update the input value to show what user typed
+			setValues( { ...currentValues, website: websiteValue } );
+		},
+		[ currentValues ]
+	);
 
 	const invokeSaveWithData = useCallback( (): void => {
 		if ( ! confirmEnabled ) {
@@ -76,6 +94,7 @@ export default function OrganizerUpsert( props: {
 							} );
 						} }
 						required
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
@@ -88,19 +107,28 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
 						type="tel"
 						placeholder=""
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 
 				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
 					<InputControl
-						className="classy-field__control classy-field__control--input"
+						className={ `classy-field__control classy-field__control--input${
+							! hasValidUrl ? ' classy-field__control--invalid' : ''
+						}` }
 						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
 						value={ decodeEntities( currentValues.website ) }
-						onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
+						onChange={ onWebsiteChange }
 						type="url"
 						placeholder=""
+						__next40pxDefaultSize
 					/>
+					{ ! hasValidUrl && (
+						<div className="classy-field__input-note classy-field__input-note--error">
+							{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
+						</div>
+					) }
 				</LabeledInput>
 
 				<LabeledInput label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }>
@@ -112,6 +140,7 @@ export default function OrganizerUpsert( props: {
 						onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
 						type="email"
 						placeholder=""
+						__next40pxDefaultSize
 					/>
 				</LabeledInput>
 			</section>

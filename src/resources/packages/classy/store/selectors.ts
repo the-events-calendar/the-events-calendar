@@ -3,9 +3,10 @@ import { EventMeta } from '../types/EventMeta';
 import { Settings } from '@tec/common/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
-import { StoreState } from '../types/StoreState';
+import { StoreState } from '../types/Store';
 import { TECSettings } from '../types/Settings';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
+import { areDatesOnSameDay } from '@tec/common/classy/functions';
 
 /**
  * Retrieves the post meta from the editor.
@@ -60,12 +61,8 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 		eventEnd = new Date();
 		eventEnd.setHours( 17, 0, 0 );
 	}
-	const isMultiday =
-		eventStart.getDate() !== eventEnd.getDate() ||
-		eventStart.getMonth() !== eventEnd.getMonth() ||
-		eventStart.getFullYear() !== eventEnd.getFullYear();
-	const isAllDayStringValue = meta?._EventAllDay ?? '0';
-	const isAllDay = isAllDayStringValue === '1';
+	const isMultiday = ! areDatesOnSameDay( eventStart, eventEnd );
+	const isAllDay = meta?._EventAllDay ?? false;
 
 	return {
 		eventStart: eventStart.toISOString(),

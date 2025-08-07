@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { PostFeaturedImage } from '@wordpress/editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { TinyMceEditor } from '@tec/common/classy/components';
+import { isValidUrl } from '@tec/common/classy/functions';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { METADATA_EVENT_URL } from '../../constants';
 
@@ -25,6 +26,7 @@ export default function EventDetails( props: FieldProps ) {
 
 	const [ description, setDescription ] = useState< string >( postContent || '' );
 	const [ eventUrlValue, setEventUrlValue ] = useState< string >( eventUrlMeta );
+	const [ hasValidUrl, setHasValidUrl ] = useState< boolean >( true );
 
 	useEffect( () => {
 		setDescription( postContent );
@@ -40,7 +42,15 @@ export default function EventDetails( props: FieldProps ) {
 	};
 
 	const onUrlChange = ( nextValue: string | undefined ): void => {
-		setEventUrlValue( nextValue ?? '' );
+		const urlValue = nextValue ?? '';
+
+		if ( ! isValidUrl( urlValue ) ) {
+			setHasValidUrl( false );
+			return;
+		}
+
+		setHasValidUrl( true );
+		setEventUrlValue( urlValue );
 		editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};
 
@@ -102,12 +112,23 @@ export default function EventDetails( props: FieldProps ) {
 					</div>
 
 					<InputControl
-						className="classy-field__control classy-field__control--input"
+						className={ `classy-field__control classy-field__control--input${
+							! hasValidUrl ? ' classy-field__control--invalid' : ''
+						}` }
 						__next40pxDefaultSize
 						value={ eventUrlValue }
 						onChange={ onUrlChange }
 						placeholder="www.example.com"
 					/>
+					{ ! hasValidUrl && (
+						<div className="classy-field__input-note classy-field__input-note--error">
+							{ _x(
+								'Must be a valid URL',
+								'Event details website URL input error message',
+								'the-events-calendar'
+							) }
+						</div>
+					) }
 				</div>
 			</div>
 		</div>

@@ -6,11 +6,13 @@ import { _x } from '@wordpress/i18n';
 import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { IconTicket } from '@tec/common/classy/components';
 import { EventCost } from '../EventCost';
+import { StoreSelect } from '../../types/Store';
 
 export default function EventAdmission( props: FieldProps ) {
 	// Initially select and subscribe to the store that will control whether tickets are supported or not.
-	const areTicketsSupported: boolean = useSelect( ( select: Function ) => {
-		return select( 'tec/classy/events' ).areTicketsSupported();
+	const areTicketsSupported: boolean = useSelect( ( select ) => {
+		const tecStore: StoreSelect = select( 'tec/classy/events' );
+		return tecStore.areTicketsSupported();
 	}, [] );
 
 	// The initial value depends on whether tickets are supported or not.
@@ -29,7 +31,7 @@ export default function EventAdmission( props: FieldProps ) {
 						<ButtonGroup className="components-button-group--classy">
 							<Button
 								className="classy-button"
-								__next40pxDefaultSize={ true }
+								__next40pxDefaultSize
 								variant="primary"
 								onClick={ (): void => setIsUsingTickets( true ) }
 							>
@@ -39,7 +41,7 @@ export default function EventAdmission( props: FieldProps ) {
 
 							<Button
 								className="classy-button"
-								__next40pxDefaultSize={ true }
+								__next40pxDefaultSize
 								variant="secondary"
 								onClick={ (): void => setIsUsingTickets( false ) }
 							>
