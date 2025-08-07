@@ -48,7 +48,7 @@ function getNewStartEndDates(
 	endDate: Date,
 	startDate: Date,
 	updated: DateTimeUpdateType,
-	newDate: string,
+	newDate: string
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
@@ -141,12 +141,12 @@ function getMultiDayDates(
 	endDate: Date,
 	defaultStartDate: Date,
 	defaultEndDate: Date,
-	previousDates: { start: Date; end: Date } | null,
+	previousDates: { start: Date; end: Date } | null
 ): { newStartDate: Date; newEndDate: Date } {
 	if ( newValue ) {
 		// Enable multiday: start date + 24 hours + duration difference
 		const duration = endDate.getTime() - startDate.getTime();
-		const newEndDate = new Date( startDate.getTime() + ( 24 * 60 * 60 * 1000 ) + duration );
+		const newEndDate = new Date( startDate.getTime() + 24 * 60 * 60 * 1000 + duration );
 		return { newStartDate: startDate, newEndDate };
 	} else {
 		// Disable multiday: revert to previous state if available, otherwise default
@@ -180,7 +180,7 @@ function getAllDayNewDates(
 	endDate: Date,
 	defaultStartDate: Date,
 	defaultEndDate: Date,
-	previousDates: { start: Date; end: Date } | null,
+	previousDates: { start: Date; end: Date } | null
 ): { newStartDate: Date; newEndDate: Date } {
 	if ( newValue ) {
 		// Enable all-day: set to full day
@@ -269,7 +269,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
-	const [ previousDates, setPreviousDates ] = useState<{ start: Date; end: Date } | null>( null );
+	const [ previousDates, setPreviousDates ] = useState< { start: Date; end: Date } | null >( null );
 
 	// Default values: current day with 8:00 AM start and 5:00 PM end.
 	const defaultDates = useRef( {
@@ -287,12 +287,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onDateChange = useCallback(
 		( updated: DateTimeUpdateType, newDate: string ): void => {
-			const { newStartDate, newEndDate, notify } = getNewStartEndDates(
-				endDate,
-				startDate,
-				updated,
-				newDate,
-			);
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate );
 
 			editPost( {
 				meta: {
@@ -395,7 +390,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				endDate,
 				defaultDates.current.start,
 				defaultDates.current.end,
-				previousDates,
+				previousDates
 			);
 
 			editPost( {
@@ -425,7 +420,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				endDate,
 				defaultDates.current.start,
 				defaultDates.current.end,
-				previousDates,
+				previousDates
 			);
 
 			editPost( {
