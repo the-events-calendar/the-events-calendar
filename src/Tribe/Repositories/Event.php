@@ -1058,9 +1058,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *                       e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
 	 *                       In the latter case results will include any event with the matching currency symbol,
 	 *                       this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_between( $low, $high, $symbol = null ) {
-		$this->by( 'cost', [ $low, $high ], 'BETWEEN', $symbol );
+		return $this->by( 'cost', [ $low, $high ], 'BETWEEN', $symbol );
 	}
 
 	/**
@@ -1075,9 +1077,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *                           e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
 	 *                           In the latter case results will include any event with the matching currency symbol,
 	 *                           this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_greater_than( $value, $symbol = null ) {
-		$this->by( 'cost', $value, '>', $symbol );
+		return $this->by( 'cost', $value, '>', $symbol );
 	}
 
 	/**
@@ -1092,9 +1096,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *                           e.g. "USD" for U.S. dollars, or a currency symbol, e.g. "$".
 	 *                           In the latter case results will include any event with the matching currency symbol,
 	 *                           this might lead to ambiguous results.
+	 *
+	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_less_than( $value, $symbol = null ) {
-		$this->by( 'cost', $value, '<', $symbol );
+		return $this->by( 'cost', $value, '<', $symbol );
 	}
 
 	/**
