@@ -1363,7 +1363,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		// If the venue type does not allow multiple, we just use the first one.
 		if ( empty( $venue_type['allow_multiple'] ) ) {
-			$first_venue                            = array_shift( $venues_input );
+			$first_venue = array_shift( $venues_input );
+			if ( ! tribe_is_venue( $first_venue ) ) {
+				unset( $postarr['meta_input']['_EventVenueID'] );
+				return $postarr;
+			}
+
 			$postarr['meta_input']['_EventVenueID'] = $first_venue; // Store as single value, not array.
 
 			return $postarr;
@@ -1409,7 +1414,12 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		// If the organizer type does not allow multiple, we just use the first one.
 		if ( ! $organizer_type['allow_multiple'] ) {
-			$postarr['meta_input']['_EventOrganizerID'] = (array) array_shift( $organizers_input );
+			$first_organizer = array_shift( $organizers_input );
+			if ( ! tribe_is_organizer( $first_organizer ) ) {
+				unset( $postarr['meta_input']['_EventOrganizerID'] );
+				return $postarr;
+			}
+			$postarr['meta_input']['_EventOrganizerID'] = (array) $first_organizer;
 
 			return $postarr;
 		}
