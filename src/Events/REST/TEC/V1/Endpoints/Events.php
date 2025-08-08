@@ -483,30 +483,4 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 
 		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
-
-	/**
-	 * Transform the entity data.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $entity The entity data.
-	 *
-	 * @return array The transformed entity data.
-	 */
-	protected function transform_entity( array $entity ): array {
-		// Call parent transform first
-		$entity = parent::transform_entity( $entity );
-
-		/**
-		 * Filter to allow modification of the entity data for events.
-		 * This can be used to add additional fields like original_id.
-		 *
-		 * @since TBD
-		 *
-		 * @param array $entity The entity data.
-		 */
-		$entity = apply_filters( 'tec_events_rest_v1_event_transform_entity', $entity );
-
-		return $entity;
-	}
 }
