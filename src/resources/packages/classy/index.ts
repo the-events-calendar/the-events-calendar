@@ -2,6 +2,7 @@ import { addAction, addFilter, didAction, doAction } from '@wordpress/hooks';
 import renderFields from './functions/renderFields';
 import { STORE_NAME, storeConfig } from './store';
 import { getRegistry } from '@tec/common/classy/store';
+import * as constants from './constants';
 
 /**
  * Hook on the Classy application initialization to add TEC store to the Classy registry.
@@ -31,3 +32,6 @@ if ( didAction( 'tec.classy.initialized' ) ) {
 
 // Hook on the Classy fields rendering logic to render the fields.
 addFilter( 'tec.classy.render', 'tec.classy.events', renderFields );
+
+// Export constants to allow their reference in other packages.
+export { constants };
