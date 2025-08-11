@@ -306,16 +306,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		return $schema;
 	}
 
-	/**
-	 * Returns the arguments for the delete request.
-	 *
-	 * @since TBD
-	 *
-	 * @return QueryArgumentCollection
-	 */
-	public function delete_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
-	}
+
 
 	/**
 	 * Returns the OpenAPI schema for deleting an event.
@@ -331,7 +322,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			$this->get_operation_id( 'delete' ),
 			$this->get_tags(),
 			$this->get_path_parameters(),
-			null,
+			$this->delete_args(),
 			null,
 			true
 		);
