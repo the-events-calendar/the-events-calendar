@@ -33,6 +33,9 @@ trait With_Transform_Organizers_And_Venues {
 	 * @return array
 	 */
 	protected function transform_entity( array $entity ): array {
+		// First, call the parent transform_entity method to apply filters like occurrence ID transformation.
+		$entity = parent::transform_entity( $entity );
+
 		if ( ! empty( $entity['organizers'] ) ) {
 			$organizers           = tribe( Organizers::class );
 			$entity['organizers'] = array_map( fn ( WP_Post $organizer ) => $organizers->get_formatted_entity( $organizer ), $entity['organizers']->all() );
