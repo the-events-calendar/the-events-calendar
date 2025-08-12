@@ -43,6 +43,6 @@ trait With_Transform_Organizers_And_Venues {
 			$entity['venues'] = array_map( fn ( WP_Post $venue ) => $venues->get_formatted_entity( $venue ), $entity['venues']->all() );
 		}
 
-		return $entity;
+		return parent::transform_entity( $entity );
 	}
 }
