@@ -33,9 +33,6 @@ trait With_Transform_Organizers_And_Venues {
 	 * @return array
 	 */
 	protected function transform_entity( array $entity ): array {
-
-
-
 		if ( ! empty( $entity['organizers'] ) ) {
 			$organizers           = tribe( Organizers::class );
 			$entity['organizers'] = array_map( fn ( WP_Post $organizer ) => $organizers->get_formatted_entity( $organizer ), $entity['organizers']->all() );
