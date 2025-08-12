@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.14.2
+Stable tag: 6.14.3
 Requires at least: 6.6
 Tested up to: 6.8.2
 Requires PHP: 7.4
