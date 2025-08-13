@@ -944,22 +944,25 @@ class Builder {
 	 * Execute a COUNT() call against the DB using the provided query elements.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Create working copy to preserve original parameter value for debug_backtrace().
 	 *
 	 * @param string|null $column_name The name of the column used for the count, '*` otherwise.
 	 *
 	 * @return int
 	 */
 	public function count( $column_name = null ) {
+		$working_column_name = $column_name;
+
 		if ( $this->invalid ) {
 			return 0;
 		}
 
 		global $wpdb;
 
-		if ( $column_name === null ) {
+		if ( $working_column_name === null ) {
 			$this->operation = 'SELECT COUNT(*)';
 		} else {
-			$this->operation = $wpdb->prepare( 'SELECT COUNT(%s)', $column_name );
+			$this->operation = $wpdb->prepare( 'SELECT COUNT(%s)', $working_column_name );
 		}
 
 		// If the query is invalid, don't return a single result.
@@ -977,9 +980,10 @@ class Builder {
 				'debug',
 				'Builder: query failure.',
 				[
-					'source' => __METHOD__ . ':' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-					'error'  => $wpdb->last_error,
+					'source'              => __METHOD__ . ':' . __LINE__,
+					'trace'               => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+					'error'               => $wpdb->last_error,
+					'working_column_name' => $working_column_name,
 				]
 			);
 		}
