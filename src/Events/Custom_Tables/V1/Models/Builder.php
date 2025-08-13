@@ -290,6 +290,7 @@ class Builder {
 	/**
 	 * Insert a new row or update one if already exists.
 	 *
+	 * @since TBD Create working copies to preserve original parameter values for debug_backtrace().
 	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
@@ -299,29 +300,32 @@ class Builder {
 	 * @return false|int The rows affected flag or false on failure.
 	 */
 	public function upsert( array $unique_by, array $data = null ) {
-		if ( empty( $unique_by ) ) {
+		$working_unique_by = $unique_by;
+		$working_data      = $data;
+
+		if ( empty( $working_unique_by ) ) {
 			throw new InvalidArgumentException( 'A series of unique column needs to be specified.' );
 		}
 
 		// If no input was provided use the model as input.
-		if ( $data === null ) {
+		if ( $working_data === null ) {
 			$model = $this->model;
 			$model->validate();
 		} else {
-			if ( empty( $data ) ) {
+			if ( empty( $working_data ) ) {
 				return false;
 			}
 
-			$columns = array_keys( $data );
+			$columns = array_keys( $working_data );
 			// Make sure the required key is part of the data to be inserted in.
-			foreach ( $unique_by as $column ) {
+			foreach ( $working_unique_by as $column ) {
 				if ( ! in_array( $column, $columns, true ) ) {
 					throw new InvalidArgumentException( "The column '{$column}' must be part of the data array" );
 				}
 			}
 
-			$model = $this->set_data_to_model( $data );
-			$model->validate( array_keys( $data ) );
+			$model = $this->set_data_to_model( $working_data );
+			$model->validate( array_keys( $working_data ) );
 		}
 
 		if ( $model->is_invalid() ) {
@@ -357,7 +361,7 @@ class Builder {
 		$update_sql   = [];
 		$update_value = [];
 		foreach ( $formatted_data as $column => $value ) {
-			if ( in_array( $column, $unique_by, true ) ) {
+			if ( in_array( $column, $working_unique_by, true ) ) {
 				continue;
 			}
 			$value_placeholder = $format[ $column ] ?? '%s';
@@ -394,10 +398,10 @@ class Builder {
 
 			// If we have a cache, let's clear it.
 			// It may be either a static call or on an instance, handle both.
-			if ( $data !== null ) {
+			if ( $working_data !== null ) {
 				// Attempt to generate a cache key by the upsert key.
-				foreach ( $unique_by as $field ) {
-					$value = $data[ $field ] ?? null;
+				foreach ( $working_unique_by as $field ) {
+					$value = $working_data[ $field ] ?? null;
 					$key   = self::generate_cache_key( $model, $field, $value );
 
 					// Invalidate the caches.
