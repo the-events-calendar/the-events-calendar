@@ -834,6 +834,7 @@ class Builder {
 	 * that will be hidden from the client code.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Create working copies to preserve original parameter values for debug_backtrace().
 	 *
 	 * @param mixed|array<mixed> $value     The value, or values, to find the matches for.
 	 * @param string|null        $column    The column to search the Models by, or `null` to use the Model
@@ -843,22 +844,25 @@ class Builder {
 	 *                               hiding the batched query logic.
 	 */
 	public function find_all( $value, $column = null ) {
-		if ( false === $column_data_format = $this->check_find_value_column( $value, $column ) ) {
+		$working_value  = $value;
+		$working_column = $column;
+
+		if ( false === $column_data_format = $this->check_find_value_column( $working_value, $working_column ) ) {
 			// Nothing to return.
 			return;
 		}
 
-		list( $column, $data, $format ) = $column_data_format;
+		list( $working_column, $data, $format ) = $column_data_format;
 
-		$operator = is_array( $value ) ? 'IN' : '=';
-		$compare  = is_array( $value ) ? implode( ',', array_column( $format, $column ) ) : $format[ $column ];
-		$data     = is_array( $value ) ? array_column( $data, $column ) : $data;
+		$operator = is_array( $working_value ) ? 'IN' : '=';
+		$compare  = is_array( $working_value ) ? implode( ',', array_column( $format, $working_column ) ) : $format[ $working_column ];
+		$data     = is_array( $working_value ) ? array_column( $data, $working_column ) : $data;
 
 		// Build our order by string.
 		$order_by = $this->get_order_by_clause();
 
 		global $wpdb;
-		$sql = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$column}` {$operator} ({$compare}) {$order_by} LIMIT %d";
+		$sql = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$working_column}` {$operator} ({$compare}) {$order_by} LIMIT %d";
 
 		$batch_size    = min( absint( $this->batch_size ), 5000 );
 		$semi_prepared = $wpdb->prepare( $sql, array_merge( (array) $data, [ $batch_size ] ) );
@@ -877,9 +881,11 @@ class Builder {
 						'debug',
 						'Builder: query failure.',
 						[
-							'source' => __METHOD__ . ':' . __LINE__,
-							'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-						'error'      => $wpdb->last_error,
+							'source'         => __METHOD__ . ':' . __LINE__,
+							'trace'          => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+							'error'          => $wpdb->last_error,
+							'working_value'  => $working_value,
+							'working_column' => $working_column,
 						]
 					);
 				}
