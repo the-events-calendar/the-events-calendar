@@ -13,6 +13,8 @@ class Tribe__Events__Templates extends Tribe__Templates {
 	 * 2) parent template, 3) plugin resources. will look in the events/
 	 * directory in a theme and the views/ directory in the plugin
 	 *
+	 * @since TBD Capture arguments at the beginning.
+	 * 
 	 * @param string $template template file to search for
 	 * @param array  $args     additional arguments to affect the template path
 	 *                         - namespace
