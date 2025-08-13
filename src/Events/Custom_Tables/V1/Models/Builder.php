@@ -290,9 +290,9 @@ class Builder {
 	/**
 	 * Insert a new row or update one if already exists.
 	 *
-	 * @since TBD Create working copies to preserve original parameter values for debug_backtrace().
-	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
+	 * @since 6.1.3 Integration with memoization.
+	 * @since TBD Create working copies to preserve original parameter values for debug_backtrace().
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
 	 * @param array<string,mixed>|null $data      The data to be inserted or updated into the table.
