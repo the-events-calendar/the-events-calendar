@@ -389,9 +389,11 @@ class Builder {
 					'debug',
 					'Builder: query failure.',
 					[
-						'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-						'error'  => $wpdb->last_error,
+						'source'            => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+						'trace'             => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+						'error'             => $wpdb->last_error,
+						'working_unique_by' => $working_unique_by,
+						'working_data'      => $working_data,
 					]
 				);
 			}
