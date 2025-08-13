@@ -995,25 +995,31 @@ class Builder {
 	 * Run a query and return the results directly from $wpdb->query().
 	 *
 	 * @since 6.3.1
+	 * @since TBD Create working copy to preserve original parameter value for debug_backtrace().
 	 *
 	 * @param string $query The SQL query to run on the database.
 	 *
 	 * @return bool|int|mixed|\mysqli_result|resource|null The query result or null.
 	 */
 	protected function query( string $query ) {
+		$working_query = $query;
+
 		global $wpdb;
+
 		$result = null;
+
 		if ( $this->execute_queries ) {
-			$result = $wpdb->query( $query );
+			$result = $wpdb->query( $working_query );
 			if ( $result === false || $wpdb->last_error ) {
 				do_action(
 					'tribe_log',
 					'debug',
 					'Builder: query failure.',
 					[
-						'source' => __METHOD__ . ':' . __LINE__,
-						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-						'error'  => $wpdb->last_error,
+						'source'        => __METHOD__ . ':' . __LINE__,
+						'trace'         => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+						'error'         => $wpdb->last_error,
+						'working_query' => $working_query,
 					]
 				);
 			}
