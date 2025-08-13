@@ -62,11 +62,11 @@ function getNewStartEndDates(
 	try {
 		switch ( updated ) {
 			case 'startDate':
-				newStartDate = new Date( newDate );
+				newStartDate.setDate( new Date( newDate ).getDate());
 
 				// If not multiday update end date with original duration.
 				if ( ! isMultiday ) {
-					newEndDate = new Date( newStartDate.getTime() + duration );
+					newEndDate.setDate( newStartDate.getDate() );
 				}
 
 				break;
