@@ -345,7 +345,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startDateIsoString,
 		startOfWeek,
 		timeFormat,
-		endDate,
+        dates,
 	] );
 
 	const endSelector = useMemo( () => {
@@ -374,7 +374,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		startDateIsoString,
 		startOfWeek,
 		timeFormat,
-		startDate,
+		dates,
 	] );
 
 	const onMultiDayToggleChange = useCallback(
