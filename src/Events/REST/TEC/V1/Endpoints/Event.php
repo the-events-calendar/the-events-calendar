@@ -303,10 +303,13 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'The requested event was not found', 'the-events-calendar' ),
 		);
 
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to update the event', 'the-events-calendar' ),
+		);
+
 		return $schema;
 	}
-
-
 
 	/**
 	 * Returns the OpenAPI schema for deleting an event.
@@ -345,6 +348,21 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema->add_response(
 			404,
 			fn() => __( 'The requested event was not found', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			410,
+			fn() => __( 'The event has already been trashed', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to delete the event', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			501,
+			fn() => __( 'The event does not support trashing. Set force=true to delete', 'the-events-calendar' ),
 		);
 
 		return $schema;

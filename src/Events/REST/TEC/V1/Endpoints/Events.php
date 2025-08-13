@@ -444,6 +444,11 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			fn() => __( 'You do not have permission to create events', 'the-events-calendar' ),
 		);
 
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to create the event', 'the-events-calendar' ),
+		);
+
 
 		return $schema;
 	}
