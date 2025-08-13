@@ -22,8 +22,10 @@ class Tribe__Events__Templates extends Tribe__Templates {
 	 * @return string Template path.
 	 **/
 	public static function getTemplateHierarchy( $template, $args = [] ) {
+		// Capture arguments before use.
+		$passed = func_get_args();
+
 		if ( ! is_array( $args ) ) {
-			$passed        = func_get_args();
 			$args          = [];
 			$backwards_map = [ 'namespace', 'plugin_path' ];
 			$count = count( $passed );
