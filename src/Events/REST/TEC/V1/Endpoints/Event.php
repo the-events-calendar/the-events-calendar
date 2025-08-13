@@ -59,50 +59,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	protected Event_Validator $validator;
 
 	/**
-	 * Updates an event with venues array transformation.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $params The sanitized parameters to use for the request.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function update( array $params = [] ): WP_REST_Response {
-		$id = $params['id'] ?? null;
-		if ( ! $id ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Missing ID for update.', 'the-events-calendar' ),
-				],
-				400
-			);
-		}
-
-		$entity = $this->get_orm()->where( 'id', $id )->set_args( $params )->save();
-
-		if ( ! $entity ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Failed to update entity.', 'the-events-calendar' ),
-				],
-				500
-			);
-		}
-
-		return new WP_REST_Response(
-			$this->get_formatted_entity(
-				$this->get_orm()->by_args(
-					[
-						'id'     => $id,
-						'status' => 'any',
-					]
-				)->first()
-			),
-			200
-		);
-	}
-
-	/**
 	 * Event constructor.
 	 *
 	 * @since TBD
