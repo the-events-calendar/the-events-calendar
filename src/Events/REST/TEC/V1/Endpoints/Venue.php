@@ -236,10 +236,13 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'The requested venue was not found', 'the-events-calendar' ),
 		);
 
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to update the venue', 'the-events-calendar' ),
+		);
+
 		return $schema;
 	}
-
-
 
 	/**
 	 * Returns the OpenAPI schema for deleting a venue.
@@ -278,6 +281,21 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema->add_response(
 			404,
 			fn() => __( 'The requested venue was not found', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			410,
+			fn() => __( 'The venue has already been trashed', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to delete the venue', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			501,
+			fn() => __( 'The venue does not support trashing. Set force=true to delete', 'the-events-calendar' ),
 		);
 
 		return $schema;

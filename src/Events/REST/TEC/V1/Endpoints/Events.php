@@ -63,41 +63,6 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	protected Event_Validator $validator;
 
 	/**
-	 * Creates a new event with venues array transformation.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $params The sanitized parameters to use for the request.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function create( array $params = [] ): WP_REST_Response {
-		// Call the parent create method.
-		$entity = $this->get_orm()->set_args( $params )->create();
-
-		if ( ! $entity ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Failed to create entity.', 'the-events-calendar' ),
-				],
-				500
-			);
-		}
-
-		return new WP_REST_Response(
-			$this->get_formatted_entity(
-				$this->get_orm()->by_args(
-					[
-						'id'     => $entity->ID,
-						'status' => 'any',
-					]
-				)->first()
-			),
-			201
-		);
-	}
-
-	/**
 	 * Returns the model class.
 	 *
 	 * @since TBD
@@ -442,6 +407,11 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		$schema->add_response(
 			403,
 			fn() => __( 'You do not have permission to create events', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to create the event', 'the-events-calendar' ),
 		);
 
 

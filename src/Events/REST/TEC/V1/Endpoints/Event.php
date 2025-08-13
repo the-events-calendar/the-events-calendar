@@ -59,50 +59,6 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	protected Event_Validator $validator;
 
 	/**
-	 * Updates an event with venues array transformation.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $params The sanitized parameters to use for the request.
-	 *
-	 * @return WP_REST_Response The response object.
-	 */
-	public function update( array $params = [] ): WP_REST_Response {
-		$id = $params['id'] ?? null;
-		if ( ! $id ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Missing ID for update.', 'the-events-calendar' ),
-				],
-				400
-			);
-		}
-
-		$entity = $this->get_orm()->where( 'id', $id )->set_args( $params )->save();
-
-		if ( ! $entity ) {
-			return new WP_REST_Response(
-				[
-					'error' => __( 'Failed to update entity.', 'the-events-calendar' ),
-				],
-				500
-			);
-		}
-
-		return new WP_REST_Response(
-			$this->get_formatted_entity(
-				$this->get_orm()->by_args(
-					[
-						'id'     => $id,
-						'status' => 'any',
-					]
-				)->first()
-			),
-			200
-		);
-	}
-
-	/**
 	 * Event constructor.
 	 *
 	 * @since TBD
@@ -303,10 +259,13 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'The requested event was not found', 'the-events-calendar' ),
 		);
 
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to update the event', 'the-events-calendar' ),
+		);
+
 		return $schema;
 	}
-
-
 
 	/**
 	 * Returns the OpenAPI schema for deleting an event.
@@ -345,6 +304,21 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema->add_response(
 			404,
 			fn() => __( 'The requested event was not found', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			410,
+			fn() => __( 'The event has already been trashed', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to delete the event', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			501,
+			fn() => __( 'The event does not support trashing. Set force=true to delete', 'the-events-calendar' ),
 		);
 
 		return $schema;

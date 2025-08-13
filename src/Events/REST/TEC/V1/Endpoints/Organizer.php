@@ -236,10 +236,13 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 			fn() => __( 'The requested organizer was not found', 'the-events-calendar' ),
 		);
 
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to update the organizer', 'the-events-calendar' ),
+		);
+
 		return $schema;
 	}
-
-
 
 	/**
 	 * Returns the OpenAPI schema for deleting an organizer.
@@ -278,6 +281,21 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 		$schema->add_response(
 			404,
 			fn() => __( 'The requested organizer was not found', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			410,
+			fn() => __( 'The organizer has already been trashed', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			500,
+			fn() => __( 'Failed to delete the organizer', 'the-events-calendar' ),
+		);
+
+		$schema->add_response(
+			501,
+			fn() => __( 'The organizer does not support trashing. Set force=true to delete', 'the-events-calendar' ),
 		);
 
 		return $schema;
