@@ -14,7 +14,6 @@ namespace TEC\Events\REST\TEC\V1\Endpoints;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
 use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
-use WP_REST_Response;
 use Tribe__Events__Main as Events_Main;
 use Tribe__Events__Validator__Base as Event_Validator;
 use Tribe\Events\Models\Post_Types\Event as Event_Model;
