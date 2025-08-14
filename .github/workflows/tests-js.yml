@@ -1,0 +1,72 @@
+name: 'JS Tests'
+on:
+  pull_request:
+    paths:
+      - '.github/**/*'
+      - 'tests/classy_jest/**.(js|ts)'
+      - 'src/modules/**.js'
+      - 'src/resources/packages/**.(js|ts)'
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - src/modules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          submodules: recursive
+      - name: Check for .nvmrc file
+        id: check-nvmrc
+        run: |
+          if test -f "${{ github.workspace }}/.nvmrc"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      - uses: actions/setup-node@v3
+        if: steps.check-nvmrc.outputs.exists == 'true'
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Install node modules
+        run: npm ci
+      - name: Run jest task
+        run: npx jest ${{ matrix.suite }}/
+
+  npm_tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - classy:jest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          submodules: recursive
+      - name: Check for .nvmrc file
+        id: check-nvmrc
+        run: |
+          if test -f "${{ github.workspace }}/.nvmrc"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      - uses: actions/setup-node@v3
+        if: steps.check-nvmrc.outputs.exists == 'true'
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Install node modules
+        run: npm ci
+      - name: Run jest task
+        run: npm run ${{ matrix.suite }}
