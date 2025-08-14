@@ -50,10 +50,8 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Install TEC node modules
         run: npm ci
-      - name: Build Common
-        working-directory: common
-        run: |
-          npm ci
-          npm run build
+      - name: Debug common content
+        working-directory: common/src/resources/packages/classy
+        run: tree -L 3
       - name: Run jest task
         run: npm run ${{ matrix.suite }}
