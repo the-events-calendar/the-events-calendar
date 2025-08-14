@@ -3,7 +3,7 @@ const path = require( 'path' );
 
 module.exports = {
 	verbose: true,
-	setupFiles: [ __dirname + '/jest.setup.ts' ],
+	setupFiles: [ __dirname + '/jest.setup.js' ],
 	testEnvironment: 'jest-environment-jsdom-global',
 	testMatch: [ '**/*.spec.ts', '**/*.spec.tsx' ],
 	resolver: __dirname + '/jest-resolver.js',

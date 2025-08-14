@@ -2,16 +2,10 @@
 
 import { jest } from '@jest/globals';
 import { TextDecoder as NodeTextDecoder, TextEncoder as NodeTextEncoder } from 'util';
-import { Currency } from '../../common/src/resources/packages/classy/types/Currency';
-import { LocalizedData } from '../../common/src/resources/packages/classy/types/LocalizedData';
-import { StartOfWeek } from '../../common/src/resources/packages/classy/types/StartOfWeek';
-import { Hours } from '../../common/src/resources/packages/classy/types/Hours';
-import { Minutes } from '../../common/src/resources/packages/classy/types/Minutes';
-import type { StoreDescriptor } from '@wordpress/data';
 
 // Add TextDecoder and TextEncoder to global scope
-global.TextDecoder = NodeTextDecoder as unknown as typeof TextDecoder;
-global.TextEncoder = NodeTextEncoder as unknown as typeof TextEncoder;
+global.TextDecoder = NodeTextDecoder;
+global.TextEncoder = NodeTextEncoder;
 
 /**
  * @see: https://github.com/WordPress/gutenberg/blob/trunk/test/unit/config/global-mocks.js
@@ -50,7 +44,7 @@ window.Element.prototype.scrollIntoView = function () {};
  */
 const originalWarn = console.warn;
 
-console.warn = ( msg: string | Error ) => {
+console.warn = ( msg ) => {
 	// From the `PostFeaturedImage` component of the `@wordpress/editor` package.
 	if ( msg.toString().includes( 'motion() is deprecated. Use motion.create() instead' ) ) {
 		return;
@@ -61,33 +55,20 @@ console.warn = ( msg: string | Error ) => {
 /**
  * Mocks for the global TinyMCE instance loaded on the `window` object by the `wp-tinymce` dependency.
  */
-interface TinyMCEMock {
-	get: ( id: string ) => {
-		initialized: boolean;
-		on: jest.Mock;
-		off: jest.Mock;
-		initialization: boolean;
-		init: jest.Mock;
-	};
-	EditorManager: {
-		editors: any[];
-	};
-}
-
 global.window.tinymce = {
 	get: () => ( {
 		initialized: true,
 		on: jest.fn(),
 		off: jest.fn(),
 		initialization: false,
-		init: jest.fn( ( config: any, callback: () => void ) => {
+		init: jest.fn( ( config, callback ) => {
 			callback();
 		} ),
 	} ),
 	EditorManager: {
 		editors: [],
 	},
-} as TinyMCEMock;
+};
 
 global.window.wp = {
 	...( global.window.wp || {} ),
@@ -99,24 +80,7 @@ global.window.wp = {
 };
 
 // Setup the localized data for the store.
-interface TECWindow extends Window {
-	tec: {
-		common: {
-			classy: {
-				data: LocalizedData;
-				registry: {
-					registerGenericStore: jest.Mock;
-					registerStore: jest.Mock;
-					subscribe: jest.Mock;
-					select: jest.Mock;
-					dispatch: jest.Mock;
-				};
-			};
-		};
-	};
-}
-
-const defaultCurrency: Currency = {
+const defaultCurrency = {
 	code: 'USD',
 	symbol: '$',
 	position: 'prefix',
@@ -129,10 +93,10 @@ const defaultSettings = {
 		'<optgroup label="Europe"><option value"Europe/Paris">Paris</optionvalue></optgroup>' +
 		'<optgroup label="North America"><option value="America/New_York">New York</option></optgroup>' +
 		'<optgroup label="UTC"><option value="UTC+0">UTC</option></optgroup>',
-	startOfWeek: 0 as StartOfWeek,
+	startOfWeek: 0,
 	endOfDayCutoff: {
-		hours: 0 as Hours,
-		minutes: 0 as Minutes,
+		hours: 0,
+		minutes: 0,
 	},
 	dateWithYearFormat: 'F j, Y',
 	dateWithoutYearFormat: 'F j',
@@ -145,7 +109,7 @@ const defaultSettings = {
 	defaultCurrency,
 };
 
-( global.window as unknown as TECWindow ).tec = {
+global.window.tec = {
 	common: {
 		classy: {
 			data: {
