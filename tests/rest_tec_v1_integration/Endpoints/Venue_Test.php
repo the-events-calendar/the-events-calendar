@@ -232,7 +232,15 @@ class Venue_Test extends Post_Entity_REST_Test_Case {
 
 		$responses = [];
 		foreach ( $venues as $venue_id ) {
-			$responses[] = $this->assert_endpoint( '/venues/' . $venue_id );
+			if ( 'publish' === get_post_status( $venue_id ) ) {
+				$responses[] = $this->assert_endpoint( '/venues/' . $venue_id );
+			} else {
+				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $venue_id );
+				$response = $this->assert_endpoint( '/venues/' . $venue_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
+				if ( $should_pass ) {
+					$responses[] = $response;
+				}
+			}
 		}
 
 		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
@@ -256,7 +264,15 @@ class Venue_Test extends Post_Entity_REST_Test_Case {
 
 		$responses = [];
 		foreach ( $venues as $venue_id ) {
-			$responses[] = $this->assert_endpoint( '/venues/' . $venue_id, 'GET', 200, [ 'password' => 'password123' ] );
+			if ( 'publish' === get_post_status( $venue_id ) ) {
+				$responses[] = $this->assert_endpoint( '/venues/' . $venue_id, 'GET', 200, [ 'password' => 'password123' ] );
+			} else {
+				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $venue_id );
+				$response = $this->assert_endpoint( '/venues/' . $venue_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'password' => 'password123' ] );
+				if ( $should_pass ) {
+					$responses[] = $response;
+				}
+			}
 		}
 
 		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );

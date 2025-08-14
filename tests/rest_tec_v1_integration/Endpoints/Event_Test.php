@@ -299,7 +299,15 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 
 		$responses = [];
 		foreach ( $events as $event_id ) {
-			$responses[] = $this->assert_endpoint( '/events/' . $event_id );
+			if ( 'publish' === get_post_status( $event_id ) ) {
+				$responses[] = $this->assert_endpoint( '/events/' . $event_id );
+			} else {
+				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $event_id );
+				$response = $this->assert_endpoint( '/events/' . $event_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
+				if ( $should_pass ) {
+					$responses[] = $response;
+				}
+			}
 		}
 
 		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
@@ -324,7 +332,15 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 
 		$responses = [];
 		foreach ( $events as $event_id ) {
-			$responses[] = $this->assert_endpoint( '/events/' . $event_id, 'GET', 200, [ 'password' => 'password123' ] );
+			if ( 'publish' === get_post_status( $event_id ) ) {
+				$responses[] = $this->assert_endpoint( '/events/' . $event_id, 'GET', 200, [ 'password' => 'password123' ] );
+			} else {
+				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $event_id );
+				$response = $this->assert_endpoint( '/events/' . $event_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'password' => 'password123' ] );
+				if ( $should_pass ) {
+					$responses[] = $response;
+				}
+			}
 		}
 
 		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
