@@ -32,7 +32,7 @@ module.exports = {
 	// Load modules only from TEC, override default resolution that could lead Common loading from its own `node_modules`.
 	moduleDirectories: [ path.resolve( __dirname, '../../node_modules' ) ],
 	moduleNameMapper: {
-		'@tec/common/(.*)$': __dirname + '/../../common/src/resources/packages/$1',
-		'@tec/common/classy/(.*)$': __dirname + '/../../common/src/resources/packages/classy/$1',
+		'@tec/common/(.*)$': '<rootDir>/common/src/resources/packages/$1',
+		'@tec/common/classy/(.*)$': '<rootDir>/common/src/resources/packages/classy/$1',
 	},
 };
