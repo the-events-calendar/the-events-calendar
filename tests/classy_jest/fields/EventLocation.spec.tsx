@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { Provider as ClassyProvider } from '@tec/common/classy/components/Provider.tsx';
+import { Provider as ClassyProvider } from '@tec/common/classy/components/Provider';
 // import { EventLocation } from '../../../src/resources/packages/classy/fields';
 
 // @todo the apiFetch will have to be mocked since this component makes requests to the backed to get Venues.
