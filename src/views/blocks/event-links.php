@@ -43,6 +43,7 @@ if ( empty( $subscribe_links ) ) {
 }
 
 $template = $this;
+
 $subscribe_links = array_filter(
 	$subscribe_links,
 	function ( $item ) use ( $template ) {
