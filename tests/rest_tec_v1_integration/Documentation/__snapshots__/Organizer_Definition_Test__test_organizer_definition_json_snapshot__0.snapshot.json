@@ -1,0 +1,32 @@
+{
+    "allOf": [
+        {
+            "$ref": "#/components/schemas/TEC_Post_Entity"
+        },
+        {
+            "type": "object",
+            "title": "Organizer",
+            "description": "An organizer",
+            "properties": {
+                "phone": {
+                    "description": "The organizer's phone number",
+                    "type": "string",
+                    "format": "tel",
+                    "example": "123-456-7890"
+                },
+                "website": {
+                    "description": "The organizer's website",
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://example.com"
+                },
+                "email": {
+                    "description": "The organizer's email address",
+                    "type": "string",
+                    "format": "email",
+                    "example": "example@theeventscalendar.com"
+                }
+            }
+        }
+    ]
+}

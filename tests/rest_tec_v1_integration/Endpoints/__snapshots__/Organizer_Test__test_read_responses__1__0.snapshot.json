@@ -1,0 +1,281 @@
+[
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/professional-events-company/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "professional-events-company",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/professional-events-company/",
+        "title": {
+            "rendered": "Professional Events Company"
+        },
+        "content": {
+            "rendered": "<p>We organize professional conferences and workshops.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>We organize professional conferences and workshops.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+1-555-123-4567",
+        "website": "https://proevents.example.com",
+        "email": "info@proevents.example.com"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/community-arts-foundation/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "community-arts-foundation",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/community-arts-foundation/",
+        "title": {
+            "rendered": "Community Arts Foundation"
+        },
+        "content": {
+            "rendered": "<p>Supporting local artists and cultural events.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Supporting local artists and cultural events.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+1-555-987-6543",
+        "website": "https://communityarts.example.org",
+        "email": "contact@artsorg.example.org"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/simple-organizer/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "simple-organizer",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/simple-organizer/",
+        "title": {
+            "rendered": "Simple Organizer"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "",
+        "website": "",
+        "email": ""
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/global-events-international/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "global-events-international",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/global-events-international/",
+        "title": {
+            "rendered": "Global Events International"
+        },
+        "content": {
+            "rendered": "<p>Organizing events across Europe and beyond.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Organizing events across Europe and beyond.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+44 20 7946 0958",
+        "website": "https://globalevents.example.eu",
+        "email": "info@globalevents.example.eu"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/societe-devenements-lumiere-son/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "societe-devenements-lumiere-son",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/societe-devenements-lumiere-son/",
+        "title": {
+            "rendered": "Société d&#8217;Événements &#8220;Lumière &#038; Son&#8221;"
+        },
+        "content": {
+            "rendered": "<p>Spécialistes en événements audiovisuels.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Spécialistes en événements audiovisuels.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+33 1 42 86 82 00",
+        "website": "",
+        "email": "contact@lumiere-son.example.fr"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/tech-events-conferences/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "tech-events-conferences",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/tech-events-conferences/",
+        "title": {
+            "rendered": "Tech Events &#038; Conferences"
+        },
+        "content": {
+            "rendered": "<h3>What We Do</h3>\n<p>We specialize in:</p>\n<ul>\n<li>Developer conferences</li>\n<li>Tech workshops</li>\n<li>Hackathons</li>\n<li>Product launches</li>\n</ul>\n<p><strong>Contact us for your next tech event!</strong></p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>What We Do We specialize in: Developer conferences Tech workshops Hackathons Product launches Contact us for your next tech event!</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "",
+        "website": "https://techevents.example.com",
+        "email": "hello@techevents.example.com"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/password-exclusive-events-management/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "password-exclusive-events-management",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/password-exclusive-events-management/",
+        "title": {
+            "rendered": "Password Exclusive Events Management"
+        },
+        "content": {
+            "rendered": "",
+            "protected": true
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": true
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+1-555-VIP-ONLY",
+        "website": "",
+        "email": "exclusive@vipevents.example.com"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/active-event-productions/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "active-event-productions",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/active-event-productions/",
+        "title": {
+            "rendered": "Active Event Productions"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+1-555-BOOK-NOW",
+        "website": "https://activeproductions.example.com",
+        "email": "bookings@activeevents.example.com"
+    },
+    {
+        "id": {ORGANIZER_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/organizer/multi-contact-organization/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "multi-contact-organization",
+        "status": "publish",
+        "type": "tribe_organizer",
+        "link": "http://wordpress.test/organizer/multi-contact-organization/",
+        "title": {
+            "rendered": "Multi-Contact Organization"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "phone": "+1-555-1234, +1-555-5678",
+        "website": "https://multicontact.example.com",
+        "email": "info@multi-contact.example.com, support@multi-contact.example.com"
+    }
+]

@@ -47,56 +47,58 @@ class Tribe__Events__Dates__Known_Range {
 		$_stati = apply_filters( 'tribe_events_known_range_stati', $_stati );
 		$stati  = "('" . implode( "','", $_stati ) . "')";
 
-		$earliest = strtotime( $wpdb->get_var( $wpdb->prepare( "
-				SELECT MIN(meta_value) FROM $wpdb->postmeta
-				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventStartDate'
-				AND post_type = '%s'
-				AND post_status IN $stati
-			",
-			Tribe__Events__Main::POSTTYPE ) ) );
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.QuotedSimplePlaceholder
 
-		$latest = strtotime( $wpdb->get_var( $wpdb->prepare( "
-				SELECT MAX(meta_value) FROM $wpdb->postmeta
+		$earliest_str = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT MIN(meta_value) FROM $wpdb->postmeta
 				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventEndDate'
-				AND post_type = '%s'
-				AND post_status IN $stati
-			",
-			Tribe__Events__Main::POSTTYPE ) ) );
+				WHERE meta_key = '_EventStartDate' AND post_type = '%s' AND post_status IN $stati",
+				Tribe__Events__Main::POSTTYPE
+			)
+		);
+
+		$latest_str = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT MAX(meta_value) FROM $wpdb->postmeta JOIN $wpdb->posts ON post_id = ID WHERE meta_key = '_EventEndDate' AND post_type = '%s' AND post_status IN $stati",
+				Tribe__Events__Main::POSTTYPE
+			)
+		);
+
+		$earliest = $earliest_str ? strtotime( $earliest_str ) : null;
+
+		$latest = $latest_str ? strtotime( $latest_str ) : null;
 
 		if ( $earliest ) {
 			$earliest_date = date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest );
 			tribe_update_option( 'earliest_date', $earliest_date );
-			// get all posts that have a start date equal to the earliest date
-			$earliest_ids = $wpdb->get_col( $wpdb->prepare( "
-				SELECT pm.post_id FROM $wpdb->postmeta pm
-				JOIN $wpdb->posts p ON p.ID = pm.post_id
-				WHERE p.post_type = %s
-				AND pm.meta_key = '_EventStartDate'
-				AND pm.meta_value = %s
-			",
-				Tribe__Events__Main::POSTTYPE,
-				$earliest_date ) );
-			// save those post ids as new earliest date markers
+			// get all posts that have a start date equal to the earliest date.
+			$earliest_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT pm.post_id FROM $wpdb->postmeta pm JOIN $wpdb->posts p ON p.ID = pm.post_id WHERE p.post_type = %s AND pm.meta_key = '_EventStartDate' AND pm.meta_value = %s",
+					Tribe__Events__Main::POSTTYPE,
+					$earliest_date
+				)
+			);
+			// save those post ids as new earliest date markers.
 			tribe_update_option( 'earliest_date_markers', $earliest_ids );
 		}
 		if ( $latest ) {
 			$latest_date = date( Tribe__Date_Utils::DBDATETIMEFORMAT, $latest );
 			tribe_update_option( 'latest_date', $latest_date );
-			// get all posts that have an end date equal to the latest date
-			$latest_ids = $wpdb->get_col( $wpdb->prepare( "
-				SELECT pm.post_id FROM $wpdb->postmeta pm
-				JOIN $wpdb->posts p ON p.ID = pm.post_id
-				WHERE p.post_type = %s
-				AND pm.meta_key = '_EventEndDate'
-				AND pm.meta_value = %s
-			",
-				Tribe__Events__Main::POSTTYPE,
-				$latest_date ) );
-			// save those post ids as new latest date markers
+			// get all posts that have an end date equal to the latest date.
+			$latest_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT pm.post_id FROM $wpdb->postmeta pm JOIN $wpdb->posts p ON p.ID = pm.post_id WHERE p.post_type = %s AND pm.meta_key = '_EventEndDate' AND pm.meta_value = %s",
+					Tribe__Events__Main::POSTTYPE,
+					$latest_date
+				)
+			);
+			// save those post ids as new latest date markers.
 			tribe_update_option( 'latest_date_markers', $latest_ids );
 		}
+
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.QuotedSimplePlaceholder
 	}
 
 	/**
