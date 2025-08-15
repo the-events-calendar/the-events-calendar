@@ -42,12 +42,13 @@ if ( empty( $subscribe_links ) ) {
 	return;
 }
 
+$template = $this;
 $subscribe_links = array_filter(
 	$subscribe_links,
-	function( $item ) use ( $this ) {
+	function ( $item ) use ( $template ) {
 		return $item instanceof Link_Abstract
 			&& isset( $item->block_slug )
-			&& $this->attr( $item->block_slug );
+			&& $template->attr( $item->block_slug );
 	}
 );
 

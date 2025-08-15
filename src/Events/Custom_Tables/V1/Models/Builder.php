@@ -849,6 +849,7 @@ class Builder {
 		$working_value  = $value;
 		$working_column = $column;
 
+		// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
 		if ( false === $column_data_format = $this->check_find_value_column( $working_value, $working_column ) ) {
 			// Nothing to return.
 			return;
@@ -1009,6 +1010,7 @@ class Builder {
 		$result = null;
 
 		if ( $this->execute_queries ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 			$result = $wpdb->query( $working_query );
 			if ( $result === false || $wpdb->last_error ) {
 				do_action(
