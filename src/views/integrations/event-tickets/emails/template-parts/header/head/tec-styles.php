@@ -1,3 +1,8 @@
+<?php
+/**
+ * @since 6.1.1
+ */
+?>
 <style type="text/css">
 	td.tec-tickets__email-table-content-event-links-container,
 	td.tec-tickets__email-table-content-event-date-container,
