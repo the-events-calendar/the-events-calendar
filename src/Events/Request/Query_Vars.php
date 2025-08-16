@@ -71,9 +71,9 @@ class Query_Vars {
 		}
 
 		// Mirror the same sanitization to superglobals, but only if the key exists in them.
-		$this->sanitize_superglobal_key( $_GET, 'ical', [ $this, 'normalize_ical' ] );
-		$this->sanitize_superglobal_key( $_POST, 'ical', [ $this, 'normalize_ical' ] );
-		$this->sanitize_superglobal_key( $_REQUEST, 'ical', [ $this, 'normalize_ical' ] );
+		$this->sanitize_superglobal_key( '_GET', 'ical', [ $this, 'normalize_ical' ] );
+		$this->sanitize_superglobal_key( '_POST', 'ical', [ $this, 'normalize_ical' ] );
+		$this->sanitize_superglobal_key( '_REQUEST', 'ical', [ $this, 'normalize_ical' ] );
 
 		return $vars;
 	}
@@ -88,12 +88,22 @@ class Query_Vars {
 	 *
 	 * @return void
 	 */
-	protected function sanitize_superglobal_key( array &$array, string $key, callable $normalizer ): void {
-		if ( ! array_key_exists( $key, $array ) ) {
+	protected function sanitize_superglobal_key( string $superglobal, string $key, callable $normalizer ): void {
+		// Only allow whitelisted superglobals.
+		$allowed = [ '_GET', '_POST', '_REQUEST' ];
+		if ( ! in_array( $superglobal, $allowed, true ) ) {
 			return;
 		}
 
-		$value = $array[ $key ];
+		if ( ! isset( $GLOBALS[ $superglobal ] ) || ! is_array( $GLOBALS[ $superglobal ] ) ) {
+			return;
+		}
+
+		if ( ! array_key_exists( $key, $GLOBALS[ $superglobal ] ) ) {
+			return;
+		}
+
+		$value = $GLOBALS[ $superglobal ][ $key ];
 
 		if ( is_array( $value ) ) {
 			$value = reset( $value );
@@ -102,11 +112,11 @@ class Query_Vars {
 		$normalized = $normalizer( $value );
 
 		if ( null === $normalized ) {
-			unset( $array[ $key ] );
+			unset( $GLOBALS[ $superglobal ][ $key ] );
 			return;
 		}
 
-		$array[ $key ] = $normalized;
+		$GLOBALS[ $superglobal ][ $key ] = $normalized;
 	}
 
 	/**
