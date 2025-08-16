@@ -28,6 +28,7 @@ use TEC\Events\Admin\Onboarding\Controller as Admin_Onboarding_Controller;
 use TEC\Events\Admin\Help_Hub\Provider as Admin_Help_Hub_Provider;
 use TEC\Events\Category_Colors\Controller as Category_Colors_Controller;
 use TEC\Events\Calendar_Embeds\Controller as Calendar_Embeds_Controller;
+use TEC\Events\Request\Controller as Request_Controller;
 use TEC\Events\Custom_Tables\V1\Provider as Custom_Tables_V1_Provider;
 use TEC\Events\REST\Controller as REST_Controller;
 
@@ -55,6 +56,7 @@ class Controller extends Controller_Contract {
 			[ Site_Health_Provider::class ],
 			[ Telemetry_Provider::class ],
 			[ Notifications_Provider::class ],
+			[ Request_Controller::class ],
 			[
 				'on_action' => 'tec_qr_code_loaded',
 				QR_Controller::class,
