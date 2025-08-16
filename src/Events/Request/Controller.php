@@ -51,5 +51,3 @@ class Controller extends Controller_Contract {
 		$this->container->get( Query_Vars::class )->unregister();
 	}
 }
-
-
