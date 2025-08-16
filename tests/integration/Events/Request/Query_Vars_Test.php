@@ -12,7 +12,7 @@
  *
  * @since TBD
  */
-class Query_Vars_Test extends \PHPUnit\Framework\TestCase {
+class Query_Vars_Test extends \Codeception\TestCase\WPTestCase {
 
     /**
      * Holds the Query_Vars instance to manage hooks lifecycle.
@@ -109,7 +109,7 @@ class Query_Vars_Test extends \PHPUnit\Framework\TestCase {
      *
      * @return array
      */
-    public function truthy_values_provider() {
+    public static function truthy_values_provider() {
         return [
             [ '1' ],
             [ 1 ],
@@ -127,7 +127,7 @@ class Query_Vars_Test extends \PHPUnit\Framework\TestCase {
      *
      * @return array
      */
-    public function falsey_values_provider() {
+    public static function falsey_values_provider() {
         return [
             [ '0' ],
             [ 0 ],
@@ -145,7 +145,7 @@ class Query_Vars_Test extends \PHPUnit\Framework\TestCase {
      *
      * @return array
      */
-    public function array_values_provider() {
+    public static function array_values_provider() {
         return [
             // Truthy first element sets ical to 1.
             [ [ '1', '0' ], true, 1 ],
