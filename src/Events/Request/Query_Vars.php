@@ -61,13 +61,69 @@ class Query_Vars {
 				$value = reset( $value );
 			}
 
-			if ( tribe_is_truthy( $value ) ) {
-				$vars['ical'] = 1;
+			$normalized = $this->normalize_ical( $value );
+
+			if ( null !== $normalized ) {
+				$vars['ical'] = $normalized;
 			} else {
 				unset( $vars['ical'] );
 			}
 		}
 
+		// Mirror the same sanitization to superglobals, but only if the key exists in them.
+		$this->sanitize_superglobal_key( $_GET, 'ical', [ $this, 'normalize_ical' ] );
+		$this->sanitize_superglobal_key( $_POST, 'ical', [ $this, 'normalize_ical' ] );
+		$this->sanitize_superglobal_key( $_REQUEST, 'ical', [ $this, 'normalize_ical' ] );
+
 		return $vars;
+	}
+
+	/**
+	 * Sanitize a specific key in a superglobal-like array reference.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $array The superglobal array passed by reference.
+	 * @param string $key   The key to sanitize.
+	 *
+	 * @return void
+	 */
+	protected function sanitize_superglobal_key( array &$array, string $key, callable $normalizer ): void {
+		if ( ! array_key_exists( $key, $array ) ) {
+			return;
+		}
+
+		$value = $array[ $key ];
+
+		if ( is_array( $value ) ) {
+			$value = reset( $value );
+		}
+
+		$normalized = $normalizer( $value );
+
+		if ( null === $normalized ) {
+			unset( $array[ $key ] );
+			return;
+		}
+
+		$array[ $key ] = $normalized;
+	}
+
+	/**
+	 * Normalizes the `ical` value to either `1` or `null` (unset).
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $value The raw value to normalize.
+	 *
+	 * @return int|null `1` when truthy, `null` when not.
+	 */
+	protected function normalize_ical( $value ) {
+		// Support presence-only query var (?ical) as truthy.
+		if ( '' === $value || null === $value ) {
+			return 1;
+		}
+
+		return tribe_is_truthy( $value ) ? 1 : null;
 	}
 }
