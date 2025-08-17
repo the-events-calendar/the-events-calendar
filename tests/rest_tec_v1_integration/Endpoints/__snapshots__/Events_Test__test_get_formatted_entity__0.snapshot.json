@@ -920,7 +920,7 @@
         "type": "tribe_events",
         "link": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}",
         "title": {
-            "rendered": "VIP Dinner Gala"
+            "rendered": "Private: VIP Dinner Gala"
         },
         "content": {
             "rendered": "<p>An exclusive dinner event for VIP members only.</p>\n",
