@@ -244,26 +244,26 @@
             "rendered": "Password Members Only Club"
         },
         "content": {
-            "rendered": "",
-            "protected": true
+            "rendered": "Password protected",
+            "protected": null
         },
         "excerpt": {
-            "rendered": "",
-            "protected": true
+            "rendered": "Password protected",
+            "protected": null
         },
         "author": 1,
         "featured_media": 0,
-        "template": "",
-        "address": "555 Exclusive Ave",
-        "country": "United States",
-        "city": "Beverly Hills",
-        "state_province": "CA",
-        "state": "",
-        "province": "",
-        "zip": "90210",
-        "phone": "",
-        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=555+Exclusive+Ave+Beverly+Hills+CA+90210+United+States",
-        "website": ""
+        "template": "Password protected",
+        "address": "Password protected",
+        "country": "Password protected",
+        "city": "Password protected",
+        "state_province": "Password protected",
+        "state": "Password protected",
+        "province": "Password protected",
+        "zip": "Password protected",
+        "phone": "Password protected",
+        "directions_link": "Password protected",
+        "website": "Password protected"
     },
     {
         "id": {VENUE_ID},

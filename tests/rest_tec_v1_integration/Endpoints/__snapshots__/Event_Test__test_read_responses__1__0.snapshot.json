@@ -642,7 +642,7 @@
         "duration": "298800",
         "multiday": 4,
         "is_past": true,
-        "is_now": true,
+        "is_now": false,
         "all_day": false,
         "starts_this_week": null,
         "ends_this_week": null,
@@ -1550,16 +1550,16 @@
             "rendered": "Password Secret Society Annual Meeting"
         },
         "content": {
-            "rendered": "",
-            "protected": true
+            "rendered": "Password protected",
+            "protected": null
         },
         "excerpt": {
-            "rendered": "",
-            "protected": true
+            "rendered": "Password protected",
+            "protected": null
         },
         "author": 1,
         "featured_media": 0,
-        "template": "",
+        "template": "Password protected",
         "tags": [],
         "tribe_events_cat": [],
         "class_list": [
@@ -1570,73 +1570,73 @@
             "post-password-required",
             "hentry"
         ],
-        "start_date": "",
-        "start_date_utc": "",
-        "end_date": "",
-        "end_date_utc": "",
+        "start_date": "Password protected",
+        "start_date_utc": "Password protected",
+        "end_date": "Password protected",
+        "end_date_utc": "Password protected",
         "dates": {
             "start": {
-                "date": "2025-07-13 20:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "start_utc": {
-                "date": "2025-07-13 20:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "start_site": {
-                "date": "2025-07-13 20:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "start_display": {
-                "date": "2025-07-13 20:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "end": {
-                "date": "2025-07-13 23:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "end_utc": {
-                "date": "2025-07-13 23:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "end_site": {
-                "date": "2025-07-13 23:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             },
             "end_display": {
-                "date": "2025-07-13 23:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
+                "date": "1970-01-01 00:00:00.000000",
+                "timezone_type": 0,
+                "timezone": "Password protected"
             }
         },
-        "timezone": "UTC",
-        "duration": "10800",
-        "multiday": false,
-        "is_past": true,
-        "is_now": false,
-        "all_day": false,
+        "timezone": "Password protected",
+        "duration": "Password protected",
+        "multiday": null,
+        "is_past": null,
+        "is_now": null,
+        "all_day": null,
         "starts_this_week": null,
         "ends_this_week": null,
         "this_week_duration": null,
         "happens_this_week": null,
         "displays_on": [],
-        "featured": false,
-        "sticky": false,
-        "cost": "",
+        "featured": null,
+        "sticky": null,
+        "cost": "Password protected",
         "organizer_names": [
-            "Protected: Password Exclusive Events Co",
-            "Test Organizer 1"
+            "Password protected",
+            "Password protected"
         ],
         "organizers": [],
         "venues": [],
-        "schedule_details": "",
-        "short_schedule_details": ""
+        "schedule_details": "Password protected",
+        "short_schedule_details": "Password protected"
     }
 ]
