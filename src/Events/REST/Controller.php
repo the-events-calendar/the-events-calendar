@@ -2,7 +2,7 @@
 /**
  * Controller for the Events REST API.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST
  */
@@ -18,7 +18,7 @@ use TEC\Events\REST\TEC\V1\Controller as V1_Controller;
 /**
  * Controller for the Events REST API.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST
  */
@@ -26,7 +26,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return void
 	 */
@@ -37,7 +37,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return void
 	 */

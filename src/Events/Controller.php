@@ -2,7 +2,7 @@
 /**
  * Controller class for the Events plugin.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events
  */
@@ -34,7 +34,7 @@ use TEC\Events\REST\Controller as REST_Controller;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events
  */
@@ -42,7 +42,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the controllers to register.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array<array<class-string>>
 	 */
@@ -104,7 +104,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */

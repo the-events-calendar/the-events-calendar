@@ -393,7 +393,7 @@ class Event extends Base {
 	/**
 	 * Returns the properties to add to the event.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array<string,bool>
 	 */
@@ -401,7 +401,7 @@ class Event extends Base {
 		/**
 		 * Filters the properties to add to the event.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param array<string,bool> $properties The properties to add to the event.
 		 *

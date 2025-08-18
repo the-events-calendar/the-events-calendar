@@ -2,7 +2,7 @@
 /**
  * Trait to handle the transformation of organizers and venues.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Traits
  */
@@ -18,7 +18,7 @@ use TEC\Events\REST\TEC\V1\Endpoints\Venues;
 /**
  * Trait to handle the transformation of organizers and venues.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Traits
  */
@@ -26,7 +26,7 @@ trait With_Transform_Organizers_And_Venues {
 	/**
 	 * Transforms the entity.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param array $entity The entity to transform.
 	 *

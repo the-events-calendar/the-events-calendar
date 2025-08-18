@@ -2,7 +2,7 @@
 /**
  * Archive venues endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -41,7 +41,7 @@ use InvalidArgumentException;
 /**
  * Archive venues endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -53,7 +53,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * The validator.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @var Validator
 	 */
@@ -62,7 +62,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the model class.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -73,7 +73,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return bool
 	 */
@@ -84,7 +84,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the post type of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -95,7 +95,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Archive_Venues constructor.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param Validator $validator The validator.
 	 */
@@ -106,7 +106,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the base path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -117,7 +117,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array
 	 */
@@ -135,7 +135,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the arguments for the read request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -189,7 +189,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		/**
 		 * Filters the arguments for the venues read request.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param QueryArgumentCollection $collection The collection of arguments.
 		 * @param Venues                  $this       The venues endpoint.
@@ -200,7 +200,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -276,7 +276,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the arguments for the create request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return Collection
 	 */
@@ -287,7 +287,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the OpenAPI schema for creating a venue.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -347,7 +347,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the tags for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return Tag[]
 	 */
@@ -358,7 +358,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the operation ID for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param string $operation The operation to get the operation ID for.
 	 *

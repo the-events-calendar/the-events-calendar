@@ -58,7 +58,7 @@ class Organizer extends Base {
 	/**
 	 * Returns the properties to add to the organizer.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array<string,bool>
 	 */
@@ -66,7 +66,7 @@ class Organizer extends Base {
 		/**
 		 * Filters the properties to add to the organizer.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param array<string,bool> $properties The properties to add to the organizer.
 		 *

@@ -2,7 +2,7 @@
 /**
  * Archive events endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -42,7 +42,7 @@ use InvalidArgumentException;
 /**
  * Archive events endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -55,7 +55,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * The event validator.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @var Event_Validator
 	 */
@@ -64,7 +64,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the model class.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -75,7 +75,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the base path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -86,7 +86,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return bool
 	 */
@@ -97,7 +97,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the post type of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -108,7 +108,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Archive_Events constructor.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param Event_Validator $validator The event validator.
 	 */
@@ -119,7 +119,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array
 	 */
@@ -209,7 +209,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the arguments for the read request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -337,7 +337,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		/**
 		 * Filters the arguments for the events read request.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param QueryArgumentCollection $collection The collection of arguments.
 		 * @param Events                  $this       The events endpoint.
@@ -348,7 +348,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the arguments for the create request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -359,7 +359,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the OpenAPI schema for creating an event.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -420,7 +420,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the tags for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return Tag[]
 	 */
@@ -431,7 +431,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	/**
 	 * Returns the operation ID for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param string $operation The operation to get the operation ID for.
 	 *
