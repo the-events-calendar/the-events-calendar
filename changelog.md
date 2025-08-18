@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.15.0] 2025-08-19
+
+* Language - 153 new strings added, 140 updated, 1 fuzzied, and 0 obsoleted.
+
 ### [6.14.2] 2025-07-22
 
 * Tweak - Implemented an Enable setting for Category Colors. [TEC-5533]
