@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.15.0] 2025-08-19 =
 
+* Feature - Introducing new REST endpoints for managing your Events, Venues and Organizers.
 * Language - 153 new strings added, 140 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.14.2] 2025-07-22 =
