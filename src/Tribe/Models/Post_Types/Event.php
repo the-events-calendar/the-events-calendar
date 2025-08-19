@@ -16,7 +16,6 @@ use Tribe\Events\Collections\Lazy_Post_Collection;
 use Tribe\Models\Post_Types\Base;
 use Tribe\Utils\Date_I18n;
 use Tribe\Utils\Date_I18n_Immutable;
-use Tribe\Utils\Lazy_Boolean;
 use Tribe\Utils\Lazy_Collection;
 use Tribe\Utils\Lazy_String;
 use Tribe\Utils\Post_Thumbnail;
@@ -389,5 +388,63 @@ class Event extends Base {
 		}, $properties['dates'] ?? [] );
 
 		return $properties;
+	}
+
+	/**
+	 * Returns the properties to add to the event.
+	 *
+	 * @since 6.15.0
+	 *
+	 * @return array<string,bool>
+	 */
+	public static function get_properties_to_add(): array {
+		/**
+		 * Filters the properties to add to the event.
+		 *
+		 * @since 6.15.0
+		 *
+		 * @param array<string,bool> $properties The properties to add to the event.
+		 *
+		 * @return array<string,bool>
+		 */
+		return (array) apply_filters(
+			'tec_rest_event_properties_to_add',
+			[
+				'start_date'             => true,
+				'start_date_utc'         => true,
+				'end_date'               => true,
+				'end_date_utc'           => true,
+				'dates'                  => (object) [
+					'start'         => true,
+					'start_utc'     => true,
+					'start_site'    => true,
+					'start_display' => true,
+					'end'           => true,
+					'end_utc'       => true,
+					'end_site'      => true,
+					'end_display'   => true,
+				],
+				'timezone'               => true,
+				'duration'               => true,
+				'multiday'               => true,
+				'is_past'                => true,
+				'is_now'                 => true,
+				'all_day'                => true,
+				'starts_this_week'       => true,
+				'ends_this_week'         => true,
+				'this_week_duration'     => true,
+				'happens_this_week'      => true,
+				'displays_on'            => true,
+				'featured'               => true,
+				'sticky'                 => true,
+				'cost'                   => true,
+				'organizer_names'        => true,
+				'organizers'             => true,
+				'venues'                 => true,
+				'permalink'              => true,
+				'schedule_details'       => true,
+				'short_schedule_details' => true,
+			]
+		);
 	}
 }
