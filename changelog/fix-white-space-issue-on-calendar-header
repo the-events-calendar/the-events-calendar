@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolves issues with Day breaking in multiple lines above the Calendar's month view. [TEC-5590]
