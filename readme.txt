@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.0
+Stable tag: 6.15.0.1
 Requires at least: 6.6
 Tested up to: 6.8.2
 Requires PHP: 7.4
@@ -231,6 +231,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.15.0.1] 2025-08-20 =
+
+* Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
+* Fix - Resolves issues with Day breaking in multiple lines above the Calendar's month view. [TEC-5590]
 
 = [6.15.0] 2025-08-19 =
 

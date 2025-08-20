@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.15.0.1] 2025-08-20
+
+* Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
+* Fix - Resolves issues with Day breaking in multiple lines above the Calendar's month view. [TEC-5590]
+
 ### [6.15.0] 2025-08-19
 
 * Version - The Events Calendar 6.15.0 is only compatible with Event Tickets 5.26.0 and higher.
