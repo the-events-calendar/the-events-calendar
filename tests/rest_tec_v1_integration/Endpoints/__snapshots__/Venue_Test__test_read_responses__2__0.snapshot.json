@@ -1,0 +1,306 @@
+[
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/downtown-convention-center/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "downtown-convention-center",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/downtown-convention-center/",
+        "title": {
+            "rendered": "Downtown Convention Center"
+        },
+        "content": {
+            "rendered": "<p>A modern convention center in the heart of downtown.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>A modern convention center in the heart of downtown.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "123 Main St",
+        "country": "United States",
+        "city": "New York",
+        "state_province": "NY",
+        "state": "",
+        "province": "",
+        "zip": "10001",
+        "phone": "+1-212-555-0123",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=123+Main+St+New+York+NY+10001+United+States",
+        "website": "https://downtowncc.example.com"
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/beach-resort-amphitheater/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "beach-resort-amphitheater",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/beach-resort-amphitheater/",
+        "title": {
+            "rendered": "Beach Resort Amphitheater"
+        },
+        "content": {
+            "rendered": "<p>Outdoor amphitheater with ocean views.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Outdoor amphitheater with ocean views.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "456 Ocean Blvd",
+        "country": "United States",
+        "city": "Miami",
+        "state_province": "FL",
+        "state": "",
+        "province": "",
+        "zip": "33139",
+        "phone": "+1-305-555-0456",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=456+Ocean+Blvd+Miami+FL+33139+United+States",
+        "website": ""
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/simple-venue/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "simple-venue",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/simple-venue/",
+        "title": {
+            "rendered": "Simple Venue"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "",
+        "country": "",
+        "city": "",
+        "state_province": "",
+        "state": "",
+        "province": "",
+        "zip": "",
+        "phone": "",
+        "directions_link": "",
+        "website": ""
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/london-exhibition-centre/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "london-exhibition-centre",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/london-exhibition-centre/",
+        "title": {
+            "rendered": "London Exhibition Centre"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "10 Downing Street",
+        "country": "United Kingdom",
+        "city": "London",
+        "state_province": "England",
+        "state": "",
+        "province": "",
+        "zip": "SW1A 2AA",
+        "phone": "+44 20 7930 4433",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=10+Downing+Street+London+England+SW1A+2AA+United+Kingdom",
+        "website": "https://londonexhibition.co.uk"
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/cafe-gallery-lart-moderne/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "cafe-gallery-lart-moderne",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/cafe-gallery-lart-moderne/",
+        "title": {
+            "rendered": "Café &#038; Gallery &#8220;L&#8217;Art Moderne&#8221;"
+        },
+        "content": {
+            "rendered": "<p>Un lieu unique pour l&#8217;art et la culture.</p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>Un lieu unique pour l&#8217;art et la culture.</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "15 Rue de la Paix",
+        "country": "France",
+        "city": "Paris",
+        "state_province": "Île-de-France",
+        "state": "",
+        "province": "",
+        "zip": "75002",
+        "phone": "",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=15+Rue+de+la+Paix+Paris+%C3%8Ele-de-France+75002+France",
+        "website": ""
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/tech-conference-center/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "tech-conference-center",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/tech-conference-center/",
+        "title": {
+            "rendered": "Tech Conference Center"
+        },
+        "content": {
+            "rendered": "<h3>State-of-the-art Facilities</h3>\n<p>Our venue features:</p>\n<ul>\n<li>High-speed WiFi</li>\n<li>4K projectors</li>\n<li>Live streaming capabilities</li>\n</ul>\n<p><strong>Perfect for tech events!</strong></p>\n",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "<p>State-of-the-art Facilities Our venue features: High-speed WiFi 4K projectors Live streaming capabilities Perfect for tech events!</p>\n",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "999 Innovation Dr",
+        "country": "United States",
+        "city": "San Jose",
+        "state_province": "CA",
+        "state": "",
+        "province": "",
+        "zip": "95110",
+        "phone": "",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=999+Innovation+Dr+San+Jose+CA+95110+United+States",
+        "website": ""
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/password-members-only-club/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "password-members-only-club",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/password-members-only-club/",
+        "title": {
+            "rendered": "Password Members Only Club"
+        },
+        "content": {
+            "rendered": "Password protected",
+            "protected": null
+        },
+        "excerpt": {
+            "rendered": "Password protected",
+            "protected": null
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "Password protected",
+        "address": "Password protected",
+        "country": "Password protected",
+        "city": "Password protected",
+        "state_province": "Password protected",
+        "state": "Password protected",
+        "province": "Password protected",
+        "zip": "Password protected",
+        "phone": "Password protected",
+        "directions_link": "Password protected",
+        "website": "Password protected"
+    },
+    {
+        "id": {VENUE_ID},
+        "date": "2025-06-13T17:25:00",
+        "date_gmt": "2025-06-13T17:25:00",
+        "guid": {
+            "rendered": "http://wordpress.test/venue/popular-event-space/"
+        },
+        "modified": "2025-06-13T17:25:00",
+        "modified_gmt": "2025-06-13T17:25:00",
+        "slug": "popular-event-space",
+        "status": "publish",
+        "type": "tribe_venue",
+        "link": "http://wordpress.test/venue/popular-event-space/",
+        "title": {
+            "rendered": "Popular Event Space"
+        },
+        "content": {
+            "rendered": "",
+            "protected": false
+        },
+        "excerpt": {
+            "rendered": "",
+            "protected": false
+        },
+        "author": 1,
+        "featured_media": 0,
+        "template": "",
+        "address": "777 Event Plaza",
+        "country": "United States",
+        "city": "Chicago",
+        "state_province": "IL",
+        "state": "",
+        "province": "",
+        "zip": "60601",
+        "phone": "",
+        "directions_link": "https://maps.google.com/maps?f=q&#038;source=s_q&#038;hl=en&#038;geocode=&#038;q=777+Event+Plaza+Chicago+IL+60601+United+States",
+        "website": ""
+    }
+]

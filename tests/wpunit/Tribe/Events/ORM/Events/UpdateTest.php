@@ -125,10 +125,12 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_set_the_venue_if_invalid() {
 		list( $start_date, $end_date, $event ) = $this->create_test_event();
+		// An event ID will return invalid.
+		$event_2 = $this->factory()->event->create( [ 'when' => '2018-01-12 09:00:00', 'duration' => DAY_IN_SECONDS ] );
 
 		tribe_events()
 			->where( 'post__in', [ $event ] )
-			->set( 'venue', 2389 )
+			->set( 'venue', $event_2 )
 			->save();
 
 		$this->assertEmpty( get_post_meta( $event, '_EventVenueID', true ) );
@@ -141,11 +143,14 @@ class UpdateTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_set_the_organizer_if_invalid() {
 		list( $start_date, $end_date, $event ) = $this->create_test_event();
+		// An event ID will return invalid.
+		$event_2 = $this->factory()->event->create( [ 'when' => '2018-01-12 09:00:00', 'duration' => DAY_IN_SECONDS ] );
 
 		tribe_events()
 			->where( 'post__in', [ $event ] )
-			->set( 'organizer', 2389 )
+			->set( 'organizer', $event_2 )
 			->save();
+
 
 		$this->assertEmpty( get_post_meta( $event, '_EventOrganizerID', true ) );
 	}
