@@ -9,6 +9,8 @@ use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 
+// phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase,PEAR.NamingConventions.ValidClassName.Invalid, WordPress.DB.SlowDBQuery.slow_db_query_meta_query, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
 /**
  * Class Tribe__Events__Repositories__Event
  *
@@ -118,8 +120,11 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				'all_day'            => '_EventAllDay',
 				'timezone'           => '_EventTimezone',
 				'venue'              => '_EventVenueID',
+				'venues'             => '_EventVenueID',
 				'organizer'          => '_EventOrganizerID',
+				'organizers'         => '_EventOrganizerID',
 				'category'           => $tribe_events_category,
+				'tags'               => 'post_tag',
 				'cost'               => '_EventCost',
 				'currency_symbol'    => '_EventCurrencySymbol',
 				'currency_position'  => '_EventCurrencyPosition',
@@ -486,8 +491,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			/*
 			 * If the minimum overlap requested is more than one second, then we have to use a not performant logic.
 			 * The interpolated variables come from the code.
-			 *
-			 * @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			 */
 			$alt_where = $wpdb->prepare(
 				"(
@@ -500,7 +503,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$lower_string,
 				$min_sec_overlap
 			);
-			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		} else {
 			// A `$min_sec_overlap` of 0 is an inclusive check; a value of 1 in an exclusive check.
 			$lt_operator = $min_sec_overlap === 0 ? '<=' : '<';
@@ -519,7 +521,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 			 * - 5 ends after the range start, but starts after the range end.
 			 *
 			 * The interpolated variables come from the code.
-			 * @phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			 */
 			$alt_where = $wpdb->prepare(
 				"(
@@ -530,7 +531,6 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$upper_string,
 				$lower_string
 			);
-			// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		}
 
 		$this->filter_query->where( $alt_where );
@@ -1100,7 +1100,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array An array of query arguments that will be added to the main query.
 	 */
 	public function filter_by_cost_less_than( $value, $symbol = null ) {
-		$this->by( 'cost', $value, '<', $symbol );
+		return $this->by( 'cost', $value, '<', $symbol );
 	}
 
 	/**
@@ -1143,7 +1143,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array<string,mixed> The updated post data.
 	 */
 	protected function update_date_meta( array $postarr, $post_id = null ) {
-		set_error_handler( [ $this, 'cast_error_to_exception' ] );
+		set_error_handler( [ $this, 'cast_error_to_exception' ] ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler
 
 		$was_all_day = (bool) get_post_meta( $post_id, '_EventAllDay', true );
 		$is_all_day  = false;
@@ -1339,27 +1339,111 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 * @return array The filtered event post array.
 	 */
 	protected function update_linked_post_meta( array $postarr ) {
-		// @todo [BTRIA-592]: Create linked posts here?! Using ORM?
-		if ( isset( $postarr['meta_input']['_EventVenueID'] ) && ! tribe_is_venue( $postarr['meta_input']['_EventVenueID'] ) ) {
-			unset( $postarr['meta_input']['_EventVenueID'] );
+		if ( isset( $postarr['meta_input']['_EventVenueID'] ) ) {
+			$postarr = $this->update_venues( $postarr );
 		}
 
 		if ( isset( $postarr['meta_input']['_EventOrganizerID'] ) ) {
-			$postarr['meta_input']['_EventOrganizerID'] = (array) $postarr['meta_input']['_EventOrganizerID'];
-			$valid                                      = [];
-			foreach ( $postarr['meta_input']['_EventOrganizerID'] as $organizer ) {
-				if ( ! tribe_is_organizer( $organizer ) ) {
-					continue;
-				}
-				$valid[] = $organizer;
+			$postarr = $this->update_organizers( $postarr );
+		}
+
+		return $postarr;
+	}
+
+	/**
+	 * Updates the event venue meta and attributes.
+	 *
+	 * @param array $postarr The candidate post array for the update or insertion.
+	 *
+	 * @return array The updated post array for update or insertion.
+	 */
+	protected function update_venues( array $postarr ) {
+		$venues_input = (array) $postarr['meta_input']['_EventVenueID'];
+		$venue_type   = Tribe__Events__Linked_Posts::instance()->get_type_args( Tribe__Events__Venue::POSTTYPE );
+
+		// If the venue type does not allow multiple, we just use the first one.
+		if ( empty( $venue_type['allow_multiple'] ) ) {
+			$first_venue = array_shift( $venues_input );
+			if ( ! tribe_is_venue( $first_venue ) ) {
+				unset( $postarr['meta_input']['_EventVenueID'] );
+				return $postarr;
 			}
-			if ( ! count( $valid ) ) {
+
+			$postarr['meta_input']['_EventVenueID'] = $first_venue; // Store as single value, not array.
+
+			return $postarr;
+		}
+
+		// Only include valid venues.
+		$valid = [];
+		foreach ( $venues_input as $venue ) {
+			if ( ! tribe_is_venue( $venue ) ) {
+				continue;
+			}
+
+			$valid[] = $venue;
+		}
+
+		// If input was explicitly an empty array, we want to remove all venues.
+		if ( empty( $venues_input ) ) {
+			$this->unpack_meta_on_update( '_EventVenueID' );
+			$postarr['meta_input']['_EventVenueID'] = [];
+		} elseif ( ! count( $valid ) ) {
+			// If we had venues but none were valid, don't update the field.
+			unset( $postarr['meta_input']['_EventVenueID'] );
+		} else {
+			$this->unpack_meta_on_update( '_EventVenueID' );
+			// Pass this to the function to have this value passed to the closure later.
+			$postarr['meta_input']['_EventVenueID'] = $valid;
+		}
+
+		return $postarr;
+	}
+
+	/**
+	 * Updates the event organizer meta and attributes.
+	 *
+	 * @param array $postarr The candidate post array for the update or insertion.
+	 *
+	 * @return array The updated post array for update or insertion.
+	 */
+	protected function update_organizers( array $postarr ) {
+		$organizer_type = Tribe__Events__Linked_Posts::instance()->get_type_args( Tribe__Events__Organizer::POSTTYPE );
+
+		$organizers_input = (array) $postarr['meta_input']['_EventOrganizerID'];
+
+		// If the organizer type does not allow multiple, we just use the first one.
+		if ( ! $organizer_type['allow_multiple'] ) {
+			$first_organizer = array_shift( $organizers_input );
+			if ( ! tribe_is_organizer( $first_organizer ) ) {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
-			} else {
-				$this->unpack_meta_on_update( '_EventOrganizerID' );
-				// Pass this to the function to have this value passed to the closure later.
-				$postarr['meta_input']['_EventOrganizerID'] = $valid;
+				return $postarr;
 			}
+			$postarr['meta_input']['_EventOrganizerID'] = $first_organizer;
+
+			return $postarr;
+		}
+
+		// Only include valid organizers.
+		$valid = [];
+		foreach ( $organizers_input as $organizer ) {
+			if ( ! tribe_is_organizer( $organizer ) ) {
+				continue;
+			}
+			$valid[] = $organizer;
+		}
+
+		// If input was explicitly an empty array, we want to remove all organizers.
+		if ( empty( $organizers_input ) ) {
+			$this->unpack_meta_on_update( '_EventOrganizerID' );
+			$postarr['meta_input']['_EventOrganizerID'] = [];
+		} elseif ( ! count( $valid ) ) {
+			// If we had organizers but none were valid, don't update the field.
+			unset( $postarr['meta_input']['_EventOrganizerID'] );
+		} else {
+			$this->unpack_meta_on_update( '_EventOrganizerID' );
+			// Pass this to the function to have this value passed to the closure later.
+			$postarr['meta_input']['_EventOrganizerID'] = $valid;
 		}
 
 		return $postarr;
@@ -1911,3 +1995,5 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DECIMAL ) AS {$meta_alias}", $filter_id, $override );
 	}
 }
+
+// phpcs:enable StellarWP.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, WordPress.DB.SlowDBQuery.slow_db_query_meta_query, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
