@@ -1,0 +1,23 @@
+actor: RestIntegrationTester
+bootstrap: _bootstrap.php
+modules:
+  enabled:
+    - \Helper\RestIntegration
+    - WPLoader:
+  config:
+    WPLoader:
+      wpRootFolder: "%WP_ROOT_FOLDER%"
+      dbName: "%WP_TEST_DB_NAME%"
+      dbHost: "%WP_TEST_DB_HOST%"
+      dbUser: "%WP_TEST_DB_USER%"
+      dbPassword: "%WP_TEST_DB_PASSWORD%"
+      tablePrefix: test_
+      domain: "%WP_DOMAIN%"
+      adminEmail: admin@%WP_DOMAIN%
+      title: 'The Events Calendar REST API V1 Tests'
+      configFile: tests/rest_tec_v1_integration/config.php
+      plugins:
+        - the-events-calendar/the-events-calendar.php
+      activatePlugins:
+        - the-events-calendar/the-events-calendar.php
+      theme: twentytwenty

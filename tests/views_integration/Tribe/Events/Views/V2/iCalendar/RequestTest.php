@@ -5,10 +5,15 @@ namespace Tribe\Events\Views\V2\iCalendar;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\Traits\With_Context;
+use Tribe\Tests\Traits\With_Clock_Mock;
+use Tribe__Date_Utils as Dates;
+use Closure;
+use Generator;
 
 class RequestTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
 	use With_Context;
+	use With_Clock_Mock;
 
 	public static $events = [];
 
@@ -154,9 +159,9 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		return new Request( $context );
 	}
 
-	public function request_context_data() {
-		$data = [
-			'without_date_list_view' => [
+	public function request_context_data(): Generator {
+		yield 'without_date_list_view' => [
+			fn() => [
 				[
 					'view' => 'list',
 					'timezone' => 'Europe/Paris',
@@ -175,8 +180,11 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'next week wednesday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
-			'with_date_list_view' => [
+		];
+		yield 'with_date_list_view' => [
+			fn() => [
 				[
 					'view' => 'list',
 					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
@@ -194,8 +202,11 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
-			'without_date_featured_list_view' => [
+		];
+		yield 'without_date_featured_list_view' => [
+			fn() => [
 				[
 					'view' => 'list',
 					'featured' => true,
@@ -212,8 +223,11 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
-			'with_date_featured_list_view' => [
+		];
+		yield 'with_date_featured_list_view' => [
+			fn() => [
 				[
 					'view' => 'list',
 					'featured' => true,
@@ -229,7 +243,9 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
+		];
 			/* Skipping for now as the iCalendar feed does not follow the month view list any more.
 			'without_date_month_view' => [
 				[
@@ -238,7 +254,8 @@ a				],
 				[], // This gets populated in the calling method below, since ical feeds for month defaults to the current day forward.
 				'create_and_get_month_events',
 			], */
-			'with_date_month_view' => [
+		yield 'with_date_month_view' => [
+			fn() => [
 				[
 					'view' => 'month',
 					'event_date' => date( 'Y-m', strtotime( 'next month' ) ),
@@ -251,7 +268,9 @@ a				],
 				[],
 				'create_and_get_month_events',
 			],
-			'without_date_featured_month_view' => [
+		];
+		yield 'without_date_featured_month_view' => [
+			fn() => [
 				[
 					'view' => 'month',
 					'featured' => true,
@@ -260,7 +279,9 @@ a				],
 				[],
 				'create_and_get_month_events',
 			],
-			'with_date_featured_month_view' => [
+		];
+		yield 'with_date_featured_month_view' => [
+			fn() => [
 				[
 					'view' => 'month',
 					'featured' => true,
@@ -271,7 +292,9 @@ a				],
 				[],
 				'create_and_get_month_events',
 			],
-			'without_date_day_view' => [
+		];
+		yield 'without_date_day_view' => [
+			fn() => [
 				[
 					'view' => 'day',
 					'timezone' => 'Europe/Paris',
@@ -288,8 +311,11 @@ a				],
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
-			'with_date_day_view' => [
+		];
+		yield 'with_date_day_view' => [
+			fn() => [
 				[
 					'view' => 'day',
 					'event_date' => gmdate( 'Y-m-d', strtotime( 'next week tuesday' ) ),
@@ -306,8 +332,11 @@ a				],
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
-			'without_date_featured_day_view' => [
+		];
+		yield 'without_date_featured_day_view' => [
+			fn() => [
 				[
 					'view' => 'day',
 					'featured' => true,
@@ -324,8 +353,11 @@ a				],
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
-			'with_date_featured_day_view' => [
+		];
+		yield 'with_date_featured_day_view' => [
+			fn() => [
 				[
 					'view' => 'day',
 					'featured' => true,
@@ -341,17 +373,19 @@ a				],
 					'next week thursday',
 					'+49 days',
 				],
+				'create_and_get_generic_events',
 			],
 		];
-
-		return $data;
 	}
 
 	/**
 	 * @dataProvider request_context_data
 	 * @test
 	 */
-	public function it_should_render_based_on_context_arguments( $context_args, $expected_events_index, $events_to_create, $method = 'create_and_get_generic_events' ) {
+	public function it_should_render_based_on_context_arguments( Closure $fixture) {
+		$this->freeze_time( Dates::immutable( '2022-06-05 17:25:00' ) );
+		[ $context_args, $expected_events_index, $events_to_create, $method ] = $fixture();
+
 		// create the events.
 		call_user_func_array( [ $this, $method ], [ $events_to_create ] );
 
@@ -385,6 +419,14 @@ a				],
 		add_filter( 'tribe_ical_feed_posts_per_page', static function () {
 			return 4;
 		} );
+
+		add_filter( 'tribe_context_pre_now', static function () {
+			return gmdate( 'Y-m-d H:i:s' );
+		} );
+		add_filter( 'tribe_context_pre_today', static function () {
+			return gmdate( 'Y-m-d H:i:s' );
+		} );
+		add_filter( 'tribe_context_event_date', static fn () => isset( $context_args['event_date'] ) ? $context_args['event_date'] : gmdate( 'Y-m-d' ) );
 
 		// Overwrite the context.
 		$context = tribe_context()->alter( $context_args );

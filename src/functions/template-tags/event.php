@@ -123,6 +123,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			$cache_post->post_modified,
 			// Use the `post_password` field as we show/hide some information depending on that.
 			$cache_post->post_password,
+			$cache_post->post_name,
+			$cache_post->post_status,
+			$cache_post->post_title,
 			// We must include options on cache key, because options influence the hydrated data on the Event object.
 			Tribe__Settings_Manager::get_options(),
 			$cache['option_start_of_week'],

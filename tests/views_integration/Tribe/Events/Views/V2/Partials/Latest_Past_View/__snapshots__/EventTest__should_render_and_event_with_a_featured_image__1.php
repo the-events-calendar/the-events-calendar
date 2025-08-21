@@ -27,9 +27,9 @@
 										alt=""
 										title="featured-image.jpg"
 						class="tribe-events-calendar-latest-past__event-featured-image"
-			width="400"
-			height="200"
-		/>
+							width="400"
+				height="200"
+					/>
 	</a>
 </div>
 

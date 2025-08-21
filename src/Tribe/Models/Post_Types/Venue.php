@@ -62,4 +62,39 @@ class Venue extends Base {
 	protected function get_cache_slug() {
 		return 'venues';
 	}
+
+	/**
+	 * Returns the properties to add to the venue.
+	 *
+	 * @since 6.15.0
+	 *
+	 * @return array<string,bool>
+	 */
+	public static function get_properties_to_add(): array {
+		/**
+		 * Filters the properties to add to the venue.
+		 *
+		 * @since 6.15.0
+		 *
+		 * @param array<string,bool> $properties The properties to add to the venue.
+		 *
+		 * @return array<string,bool>
+		 */
+		return (array) apply_filters(
+			'tec_rest_venue_properties_to_add',
+			[
+				'address'         => true,
+				'country'         => true,
+				'city'            => true,
+				'state_province'  => true,
+				'state'           => true,
+				'province'        => true,
+				'zip'             => true,
+				'phone'           => true,
+				'permalink'       => true,
+				'directions_link' => true,
+				'website'         => true,
+			]
+		);
+	}
 }
