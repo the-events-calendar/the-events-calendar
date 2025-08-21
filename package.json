@@ -67,9 +67,10 @@
     "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
     "changelog": "./vendor/bin/changelogger add",
     "jest": "TZ=UTC gulp jest",
+    "spectral": "spectral lint",
+    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
-    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
     "classy:format": "wp-scripts format src/resources/packages/classy tests/classy_jest && composer run classy:format",
     "classy:jest": "jest --config tests/classy_jest/jest.config.js tests/classy_jest",
@@ -77,10 +78,15 @@
     "classy:pre-commit": "npm run classy:format && npm run classy:test",
     "test": "jest"
   },
+  "engines": {
+    "node": "18.17.0",
+    "npm": "9.6.7"
+  },
   "devDependencies": {
+    "@stellarwp/tyson": "*",
+    "@stoplight/spectral-cli": "^6.15.0",
     "@emotion/jest": "^11.13.0",
     "@jest/globals": "^29.7.0",
-    "@stellarwp/tyson": "^0.0.9",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",

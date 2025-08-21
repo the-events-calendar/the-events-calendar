@@ -1516,7 +1516,8 @@ function tec_events_get_current_view() {
  */
 function tribe_events_promo_banner( $echo = true ) {
 	if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-		$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %s', 'the-events-calendar' ), '<a class="tribe-common-anchor-thin vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>' ) );
+		// translators: %s: The Events Calendar Link element.
+		$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %s', 'the-events-calendar' ), '<a target="_blank" rel="noopener noreferrer" class="tribe-common-anchor-thin vcard url org fn" href="' . esc_url( Tribe__Events__Main::$tecUrl . 'products/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app' ) . '">' . esc_html__( 'The Events Calendar', 'the-events-calendar' ) . '</a>' ) ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo tribe-common-b1 tribe-events-c-promo">%s</p>', $promo ), $promo );
 		if ( $echo ) {
 			echo $html;

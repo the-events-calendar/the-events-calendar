@@ -183,12 +183,22 @@ class Controller extends Controller_Contract {
 	 * Determines if the Category Colors frontend UI should be displayed.
 	 *
 	 * @since 6.14.0
+	 * @since 6.14.2 Added new UI option to enable/disable the frontend UI.
 	 *
 	 * @return bool True if the frontend UI should be displayed, false otherwise.
 	 */
 	public function should_show_frontend_ui(): bool {
+		// Check if the user has disabled frontend display via the UI option.
+		// This takes precedence over any filter or technical availability.
+		if ( ! tribe_get_option( 'category-color-enable-frontend', true ) ) {
+			return false;
+		}
+
 		/**
 		 * Filters whether the Category Colors frontend UI should be displayed.
+		 *
+		 * Note: This filter only applies when the frontend display option is enabled.
+		 * The UI option takes precedence over this filter.
 		 *
 		 * @since 6.14.0
 		 *

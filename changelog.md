@@ -1,5 +1,32 @@
 # Changelog
 
+### [6.15.0.1] 2025-08-20
+
+* Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
+* Fix - Resolves issues with Day breaking in multiple lines above the Calendar's month view. [TEC-5590]
+
+### [6.15.0] 2025-08-19
+
+* Version - The Events Calendar 6.15.0 is only compatible with Event Tickets 5.26.0 and higher.
+* [EXPERIMENTAL] Feature - Introduced new REST endpoints for managing your Events, Venues and Organizers. Note: This API is for experimental use only and requires the X-TEC-EEA header. It may be subject to breaking changes in upcoming releases.
+* Language - 153 new strings added, 140 updated, 1 fuzzied, and 0 obsoleted.
+
+### [6.14.2] 2025-07-22
+
+* Tweak - Implemented an Enable setting for Category Colors. [TEC-5533]
+* Tweak - Updated the Category Colors settings to add a tooltip to the Reset Button option that explains Superpowers must be enabled. [TEC-5534]
+* Tweak - Changed views: `v2/components/top-bar/category-color-picker`, `v2/day/event/featured-image`, `v2/list/event/featured-image`, `v2/month`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-header`
+* Performance - Avoid use of TIMESTAMPDIFF when fetching overlapping events. [TEC-5537]
+* Accessibility - Updated day views with proper aria label and titles for event linked featured images. [TEC-5179]
+* Language - 2 new strings added, 24 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.14.1] 2025-07-16
+
+* Fix - Ensure all featured images on calendar views have dimensions set to reduce layout shifts. [TEC-4715]
+* Fix - Ensure views selector links have proper aria-current attributes.
+ Tweak - Changed views: `v2/components/events-bar/views/list/item`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.14.0] 2025-07-03
 
 * Feature - Category Colors functionality has been merged into The Events Calendar. [TEC-5364]
