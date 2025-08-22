@@ -26,17 +26,8 @@ $has_ical         = $this->attr( 'hasiCal' );
 $has_outlook_365  = $this->attr( 'hasOutlook365' );
 $has_outlook_live = $this->attr( 'hasOutlookLive' );
 
-// Don't show on password protected posts.
-if ( post_password_required() ) {
-	return;
-}
-
-$has_google_cal   = $this->attr( 'hasGoogleCalendar' );
-$has_ical         = $this->attr( 'hasiCal' );
-$has_outlook_365  = $this->attr( 'hasOutlook365' );
-$has_outlook_live = $this->attr( 'hasOutlookLive' );
-
 $subscribe_links = empty( $this->get( ['subscribe_links'] ) ) ? false : $this->get( ['subscribe_links'] );
+
 // Just bail.
 if ( empty( $subscribe_links ) ) {
 	return;
