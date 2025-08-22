@@ -94,6 +94,34 @@ https://yoursite.com/wp-json/tec/v1
 - **Operation IDs**: `getVenue` (GET), `updateVenue` (PUT), `deleteVenue` (DELETE)
 - [Full Documentation](endpoints/venues.md#single-entity-endpoint)
 
+### Tickets (Event Tickets Plugin)
+
+#### Collection Endpoint
+
+- **Path**: `/tickets`
+- **Class**: `TEC\Tickets\REST\TEC\V1\Endpoints\Tickets`
+- **Interfaces**: `Collection_Endpoint` (Readable_Endpoint, Creatable_Endpoint)
+- **Operations**: GET, POST
+- **Description**: Manage ticket collections
+- **ORM**: Uses `tribe_tickets()` via `With_Tickets_ORM` trait
+- **Post Type**: `tec_tc_ticket`
+- **Operation IDs**: `getTickets` (GET), `createTicket` (POST)
+- **Note**: Requires Tickets Commerce to be enabled
+- [Full Documentation](/wp-content/plugins/event-tickets/docs/REST/TEC/V1/endpoints/tickets.md)
+
+#### Single Entity Endpoint
+
+- **Path**: `/tickets/{id}`
+- **Class**: `TEC\Tickets\REST\TEC\V1\Endpoints\Ticket`
+- **Interface**: `RUD_Endpoint`
+- **Operations**: GET, PUT/PATCH, DELETE
+- **Description**: Manage individual tickets
+- **ORM**: Uses `tribe_tickets()` via `With_Tickets_ORM` trait
+- **Post Type**: `tec_tc_ticket`
+- **Operation IDs**: `getTicket` (GET), `updateTicket` (PUT), `deleteTicket` (DELETE)
+- **Note**: Requires Tickets Commerce to be enabled
+- [Full Documentation](/wp-content/plugins/event-tickets/docs/REST/TEC/V1/endpoints/tickets.md#single-entity-endpoint)
+
 ### Documentation
 
 #### OpenAPI Documentation
@@ -106,15 +134,19 @@ https://yoursite.com/wp-json/tec/v1
 
 ## Quick Reference
 
-| Endpoint | GET | POST | PUT | DELETE |
-|----------|-----|------|-----|--------|
+| Endpoint | GET | POST | PUT/PATCH | DELETE |
+|----------|-----|------|-----------|--------|
 | `/events` | ✓ | ✓ | - | - |
 | `/events/{id}` | ✓ | - | ✓ | ✓ |
 | `/organizers` | ✓ | ✓ | - | - |
 | `/organizers/{id}` | ✓ | - | ✓ | ✓ |
 | `/venues` | ✓ | ✓ | - | - |
 | `/venues/{id}` | ✓ | - | ✓ | ✓ |
+| `/tickets`* | ✓ | ✓ | - | - |
+| `/tickets/{id}`* | ✓ | - | ✓ | ✓ |
 | `/docs` | ✓ | - | - | - |
+
+*Requires Event Tickets plugin with Tickets Commerce enabled
 
 ## Implementation Details
 
@@ -141,11 +173,25 @@ The Events API endpoints use several traits for common functionality:
 
 ### Tags
 
-All Events Calendar endpoints are tagged with:
+Endpoints are organized by tags:
 
+#### Events Calendar Tag
 - **Tag Class**: `TEC\Events\REST\TEC\V1\Tags\TEC_Tag`
 - **Tag Name**: "Events"
 - **Description**: "These operations are introduced by The Events Calendar."
+- **Applies to**: Events, Venues, Organizers endpoints
+
+#### Tickets Tag
+- **Tag Class**: `TEC\Tickets\REST\TEC\V1\Tags\Tickets_Tag`
+- **Tag Name**: "Tickets"
+- **Description**: "Operations for managing event tickets"
+- **Applies to**: Tickets endpoints
+
+#### Common Tag
+- **Tag Class**: `TEC\Common\REST\TEC\V1\Tags\Common_Tag`
+- **Tag Name**: "Common"
+- **Description**: "Common operations shared across plugins"
+- **Applies to**: Documentation endpoints
 
 ## Authentication
 
