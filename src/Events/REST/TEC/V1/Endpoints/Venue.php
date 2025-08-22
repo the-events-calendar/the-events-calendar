@@ -172,11 +172,20 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * Returns the arguments for the update request.
 	 *
 	 * @since 6.15.0
+	 * @since TBD Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return QueryArgumentCollection
+	 * @return RequestBodyCollection
 	 */
-	public function update_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function update_args(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Venue_Request_Body_Definition();
+
+		$collection->set_example( $definition->get_example() );
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection->set_description_provider( fn() => __( 'The venue data to update.', 'the-events-calendar' ) )->set_required( true );
 	}
 
 	/**
@@ -187,14 +196,6 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function update_schema(): OpenAPI_Schema {
-		$collection = new RequestBodyCollection();
-
-		$definition = new Venue_Request_Body_Definition();
-
-		$collection->set_example( $definition->get_example() );
-
-		$collection[] = new Definition_Parameter( $definition );
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Update a Venue', 'the-events-calendar' ),
 			fn() => __( 'Updates an existing venue', 'the-events-calendar' ),
@@ -202,7 +203,7 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 			$this->get_tags(),
 			$this->get_path_parameters(),
 			null,
-			$collection->set_description_provider( fn() => __( 'The venue data to update.', 'the-events-calendar' ) )->set_required( true ),
+			$this->update_args(),
 			true
 		);
 
