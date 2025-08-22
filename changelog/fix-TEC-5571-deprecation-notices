@@ -1,0 +1,4 @@
+Significance: patch
+Type: compatibility
+
+PHP 8.3 compatibility improvements. [TEC-5571]
