@@ -16,7 +16,7 @@
 
 use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
 
-// Don't show on password protected posts.
+// Don't show on password-protected posts.
 if ( post_password_required() ) {
 	return;
 }
