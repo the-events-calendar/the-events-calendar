@@ -19,7 +19,11 @@ The TEC REST API is built using a sophisticated, enterprise-level architecture:
 - **Endpoints**: Interface-driven endpoint classes handling HTTP operations
 - **Definitions**: OpenAPI 3.0 schema definitions with composition support
 - **Parameters**: Strongly-typed parameter system with validation and sanitization
-- **Collections**: Specialized collections for different parameter types (Query, Path, Headers, etc.)
+- **Collections**: Specialized collections for different contexts:
+  - `QueryArgumentCollection`: For GET/DELETE query parameters
+  - `RequestBodyCollection`: For POST/PUT/PATCH request bodies
+  - `PropertiesCollection`: For schema property definitions
+- **Validation Pipeline**: Multi-stage validation leveraging WordPress core
 - **ORM Integration**: Leverages TEC's ORM system (`tribe_events()`, `tribe_venues()`, etc.)
 - **Traits**: Reusable functionality for response handling and data access
 - **Controllers**: Plugin-specific controllers managing endpoint registration
@@ -29,6 +33,9 @@ The TEC REST API is built using a sophisticated, enterprise-level architecture:
 - **OpenAPI 3.0.4 Compliance**: Full specification support with auto-generated documentation
 - **Interface-Driven Design**: Clear separation of concerns with operation interfaces
 - **Strong Type System**: Parameter-based validation with comprehensive type support
+- **WordPress Core Integration**: Leverages WordPress REST API validation/sanitization
+- **Request Body Collections**: Structured request body handling with automatic bridging
+- **Multi-Stage Validation**: Schema validation → Custom filtering → Operation handler
 - **Experimental Endpoint Support**: Beta endpoints with acknowledgment headers
 - **Caching System**: Version-aware caching with plugin fingerprinting
 - **Permission Integration**: WordPress capability system integration
@@ -65,7 +72,8 @@ The API is available under the `/tec/v1` namespace. All endpoints support:
 ### Common Library Documentation
 
 - [Interfaces Overview](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/interfaces.md) - Understanding endpoint interfaces
-- [Parameter Types](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/parameter-types.md) - Type system and validation
+- [Parameter Types](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/parameter-types.md) - Type system and collections
+- [Validation & Sanitization](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/validation-sanitization.md) - Request processing pipeline
 - [Traits](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/traits.md) - Reusable functionality
 - [Abstract Classes](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/abstract-classes.md) - Base implementations
 - [ORM Usage](/wp-content/plugins/the-events-calendar/common/docs/REST/TEC/V1/orm-usage.md) - Working with the ORM
