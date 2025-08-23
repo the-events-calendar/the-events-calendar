@@ -23,12 +23,6 @@ Located in `endpoints/`:
 - [Venues Endpoints](endpoints/venues.md) - Venue CRUD operations
 - [OpenAPI Endpoint](endpoints/openapi.md) - API documentation endpoint
 
-#### Event Tickets Plugin
-
-Located in `/wp-content/plugins/event-tickets/docs/REST/TEC/V1/`:
-
-- [Tickets Endpoints](/wp-content/plugins/event-tickets/docs/REST/TEC/V1/endpoints/tickets.md) - Ticket CRUD operations
-
 ### Definition Documentation
 
 #### The Events Calendar
@@ -38,10 +32,6 @@ Located in `definitions/`:
 - [Event Definition](definitions/event.md) - Event data structure
 - [Organizer Definition](definitions/organizer.md) - Organizer data structure
 - [Venue Definition](definitions/venue.md) - Venue data structure
-
-#### Event Tickets Plugin
-
-- [Ticket Definition](/wp-content/plugins/event-tickets/docs/REST/TEC/V1/definitions/ticket.md) - Ticket data structure
 
 #### Common Library
 
@@ -128,28 +118,6 @@ TEC\Events\REST\TEC\V1\
     └── With_Venues_ORM.php
 ```
 
-### Tickets Plugin Structure
-
-```
-TEC\Tickets\REST\TEC\V1\
-├── Controller.php             # Conditional registration controller
-├── Endpoints.php             # Tickets endpoints controller
-├── Endpoints/                # Ticket endpoints
-│   ├── Ticket.php           # Single ticket (RUD operations)
-│   └── Tickets.php          # Tickets collection (Read/Create)
-├── Documentation/            # OpenAPI definitions
-│   ├── Ticket_Definition.php
-│   └── Ticket_Request_Body_Definition.php
-├── Tags/                     # API tags
-│   └── Tickets_Tag.php      # Tickets tag
-└── Traits/                   # Ticket-specific traits
-    ├── With_Filtered_Ticket_Params.php
-    ├── With_Parent_Post_Read_Check.php
-    ├── With_TC_Provider.php
-    ├── With_Ticket_Upsert.php
-    └── With_Tickets_ORM.php
-```
-
 ## Quick Links
 
 ### For Developers
@@ -219,7 +187,5 @@ TEC\Tickets\REST\TEC\V1\
 | Events | `/events` | `/events/{id}` | Always available |
 | Organizers | `/organizers` | `/organizers/{id}` | Always available |
 | Venues | `/venues` | `/venues/{id}` | Always available |
-| **Event Tickets** | | | |
-| Tickets | `/tickets` | `/tickets/{id}` | Requires Tickets Commerce |
 | **Common** | | | |
 | Documentation | `/docs` | - | Always available |
