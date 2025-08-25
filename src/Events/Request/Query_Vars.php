@@ -83,8 +83,9 @@ class Query_Vars {
 	 *
 	 * @since TBD
 	 *
-	 * @param array  $array The superglobal array passed by reference.
-	 * @param string $key   The key to sanitize.
+	 * @param string   $superglobal The superglobal key (GET, POST, REQUEST).
+	 * @param string   $key   The key to sanitize.
+	 * @param callable $normalizer The function to use to normalize the value.
 	 *
 	 * @return void
 	 */
