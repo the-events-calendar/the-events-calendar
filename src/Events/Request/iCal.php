@@ -79,14 +79,9 @@ class Ical extends Abstract_Query_Var {
 
 		// Support presence-only query var (?ical) as truthy.
 		if ( array_key_exists( $this->get_name(), $query_vars ) && ( '' === $value || null === $value ) ) {
-			codecept_debug( 'Setting ical to 1 as key exists' );
 			return 1;
 		}
 
-		$return = tribe_is_truthy( $value ) ? 1 : null;
-
-		codecept_debug( 'Returning ' . $return . ' for value: ' . var_export( $value, true ) );
-
-		return $return;
+		return tribe_is_truthy( $value ) ? 1 : null;
 	}
 }
