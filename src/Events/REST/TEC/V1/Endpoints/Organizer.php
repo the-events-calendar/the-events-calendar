@@ -2,7 +2,7 @@
 /**
  * Single organizer endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -35,7 +35,7 @@ use InvalidArgumentException;
 /**
  * Single organizer endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -48,7 +48,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the base path of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -59,7 +59,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the path parameters of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return PathArgumentCollection
 	 */
@@ -77,7 +77,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the model class.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -88,7 +88,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return bool
 	 */
@@ -99,7 +99,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the post type of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -110,7 +110,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array
 	 */
@@ -126,7 +126,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the arguments for the read request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -137,7 +137,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the OpenAPI schema for reading an organizer.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -171,7 +171,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the arguments for the update request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -182,7 +182,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the OpenAPI schema for updating an organizer.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -247,7 +247,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the OpenAPI schema for deleting an organizer.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -304,7 +304,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the tags for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return Tag[]
 	 */
@@ -315,7 +315,7 @@ class Organizer extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the operation ID for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param string $operation The operation to get the operation ID for.
 	 *

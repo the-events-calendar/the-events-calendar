@@ -2,7 +2,7 @@
 /**
  * TEC tag for the TEC REST API.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Tags
  */
@@ -16,7 +16,7 @@ use TEC\Common\REST\TEC\V1\Abstracts\Tag;
 /**
  * TEC tag for the TEC REST API.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Tags
  */
@@ -24,7 +24,7 @@ class TEC_Tag extends Tag {
 	/**
 	 * Returns the name of the tag.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -35,7 +35,7 @@ class TEC_Tag extends Tag {
 	/**
 	 * Returns the tag.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array
 	 */
@@ -49,7 +49,7 @@ class TEC_Tag extends Tag {
 	/**
 	 * Returns the priority of the tag.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return int
 	 */

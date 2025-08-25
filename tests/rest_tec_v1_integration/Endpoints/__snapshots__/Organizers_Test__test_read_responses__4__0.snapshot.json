@@ -264,19 +264,19 @@
             "rendered": "Password Exclusive Events Management"
         },
         "content": {
-            "rendered": "",
-            "protected": true
+            "rendered": "Password protected",
+            "protected": null
         },
         "excerpt": {
-            "rendered": "",
-            "protected": true
+            "rendered": "Password protected",
+            "protected": null
         },
         "author": 1,
         "featured_media": 0,
-        "template": "",
-        "phone": "+1-555-VIP-ONLY",
-        "website": "",
-        "email": "exclusive@vipevents.example.com"
+        "template": "Password protected",
+        "phone": "Password protected",
+        "website": "Password protected",
+        "email": "Password protected"
     },
     {
         "id": {ORGANIZER_ID},

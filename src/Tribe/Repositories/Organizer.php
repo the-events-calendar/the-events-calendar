@@ -124,7 +124,7 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 		/**
 		 * Filters a single formatted organizer result.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param mixed|WP_Post                $formatted The formatted event result, usually a post object.
 		 * @param int                          $id        The formatted post ID.

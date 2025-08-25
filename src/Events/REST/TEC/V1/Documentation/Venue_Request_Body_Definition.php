@@ -2,7 +2,7 @@
 /**
  * Venue request body definition provider for the TEC REST API.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Documentation
  */
@@ -17,7 +17,7 @@ use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
 /**
  * Venue request body definition provider for the TEC REST API.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Documentation
  */
@@ -25,7 +25,7 @@ class Venue_Request_Body_Definition extends Definition {
 	/**
 	 * Returns the type of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -36,7 +36,7 @@ class Venue_Request_Body_Definition extends Definition {
 	/**
 	 * Returns the priority of the definition.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return int
 	 */
@@ -47,7 +47,7 @@ class Venue_Request_Body_Definition extends Definition {
 	/**
 	 * Returns the documentation for the definition.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array
 	 */
@@ -122,7 +122,7 @@ class Venue_Request_Body_Definition extends Definition {
 		/**
 		 * Filters the Swagger documentation generated for a venue request body in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param array                         $documentation An associative PHP array in the format supported by Swagger.
 		 * @param Venue_Request_Body_Definition $this          The Venue_Request_Body_Definition instance.
@@ -150,7 +150,7 @@ class Venue_Request_Body_Definition extends Definition {
 		/**
 		 * Filters the Swagger documentation generated for a definition in the TEC REST API.
 		 *
-		 * @since TBD
+		 * @since 6.15.0
 		 *
 		 * @param array                         $documentation An associative PHP array in the format supported by Swagger.
 		 * @param Venue_Request_Body_Definition $this          The Venue_Request_Body_Definition instance.

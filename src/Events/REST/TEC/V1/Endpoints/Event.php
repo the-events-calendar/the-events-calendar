@@ -2,7 +2,7 @@
 /**
  * Single event endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -37,7 +37,7 @@ use InvalidArgumentException;
 /**
  * Single event endpoint for the TEC REST API V1.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
@@ -51,7 +51,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * The event validator.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @var Event_Validator
 	 */
@@ -60,7 +60,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Event constructor.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param Event_Validator $validator The event validator.
 	 */
@@ -71,7 +71,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the base path for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -82,7 +82,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the path parameters for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return PathArgumentCollection
 	 */
@@ -100,7 +100,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the model class.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -111,7 +111,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns whether the guest can read the object.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return bool
 	 */
@@ -122,7 +122,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the post type of the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return string
 	 */
@@ -133,7 +133,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the schema for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return array
 	 */
@@ -149,7 +149,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the arguments for the read request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -160,7 +160,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the OpenAPI schema for reading an event.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -195,7 +195,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the arguments for the update request.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return QueryArgumentCollection
 	 */
@@ -206,7 +206,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the OpenAPI schema for updating an event.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -269,7 +269,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the OpenAPI schema for deleting an event.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return OpenAPI_Schema
 	 */
@@ -326,7 +326,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the tags for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return Tag[]
 	 */
@@ -337,7 +337,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	/**
 	 * Returns the operation ID for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @param string $operation The operation to get the operation ID for.
 	 *

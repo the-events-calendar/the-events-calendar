@@ -2,7 +2,7 @@
 /**
  * Trait to handle the ORM for venues.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Traits
  */
@@ -16,7 +16,7 @@ use Tribe__Repository__Interface;
 /**
  * Trait to handle the ORM for venues.
  *
- * @since TBD
+ * @since 6.15.0
  *
  * @package TEC\Events\REST\TEC\V1\Traits
  */
@@ -24,7 +24,7 @@ trait With_Venues_ORM {
 	/**
 	 * Returns the ORM for the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.15.0
 	 *
 	 * @return Tribe__Repository__Interface
 	 */
