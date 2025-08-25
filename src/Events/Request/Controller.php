@@ -10,6 +10,7 @@
 namespace TEC\Events\Request;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Request\Ical;
 
 /**
  * Class Controller
