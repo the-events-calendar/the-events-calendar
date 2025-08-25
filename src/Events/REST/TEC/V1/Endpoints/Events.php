@@ -349,11 +349,21 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * Returns the arguments for the create request.
 	 *
 	 * @since 6.15.0
+	 * @since TBD Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return QueryArgumentCollection
+	 * @return RequestBodyCollection
 	 */
-	public function create_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function create_args(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Event_Request_Body_Definition();
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection
+			->set_description_provider( fn() => __( 'The event data to create.', 'the-events-calendar' ) )
+			->set_required( true )
+			->set_example( $definition->get_example() );
 	}
 
 	/**
@@ -364,14 +374,6 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
-		$collection = new RequestBodyCollection();
-
-		$definition = new Event_Request_Body_Definition();
-
-		$collection->set_example( $definition->get_example() );
-
-		$collection[] = new Definition_Parameter( $definition );
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Event', 'the-events-calendar' ),
 			fn() => __( 'Creates a new event', 'the-events-calendar' ),
@@ -379,7 +381,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$this->get_tags(),
 			null,
 			null,
-			$collection->set_description_provider( fn() => __( 'The event data to create.', 'the-events-calendar' ) )->set_required( true ),
+			$this->create_args(),
 			true
 		);
 

@@ -106,8 +106,8 @@ https://yoursite.com/wp-json/tec/v1
 
 ## Quick Reference
 
-| Endpoint | GET | POST | PUT | DELETE |
-|----------|-----|------|-----|--------|
+| Endpoint | GET | POST | PUT/PATCH | DELETE |
+|----------|-----|------|-----------|--------|
 | `/events` | ✓ | ✓ | - | - |
 | `/events/{id}` | ✓ | - | ✓ | ✓ |
 | `/organizers` | ✓ | ✓ | - | - |
@@ -141,11 +141,19 @@ The Events API endpoints use several traits for common functionality:
 
 ### Tags
 
-All Events Calendar endpoints are tagged with:
+Endpoints are organized by tags:
 
+#### Events Calendar Tag
 - **Tag Class**: `TEC\Events\REST\TEC\V1\Tags\TEC_Tag`
 - **Tag Name**: "Events"
 - **Description**: "These operations are introduced by The Events Calendar."
+- **Applies to**: Events, Venues, Organizers endpoints
+
+#### Common Tag
+- **Tag Class**: `TEC\Common\REST\TEC\V1\Tags\Common_Tag`
+- **Tag Name**: "Common"
+- **Description**: "Common operations shared across plugins"
+- **Applies to**: Documentation endpoints
 
 ## Authentication
 
