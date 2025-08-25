@@ -374,7 +374,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * In the past we used to parse `common/src/Tribe/Main.php` for the Common Lib version.
 		 *
-		 * @link https://github.com/moderntribe/tribe-common
+		 * @link https://github.com/the-events-calendar/tribe-common
 		 * @see  self::init_autoloading
 		 *
 		 * @return void
