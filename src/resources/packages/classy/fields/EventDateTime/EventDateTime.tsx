@@ -343,8 +343,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		isSelectingDate,
 		startOfWeek,
 		timeFormat,
-        dates.start,
-        dates.end, // Watch end date changes as they can affect start time
+        dates,
 	] );
 
 	const endSelector = useMemo( () => {
@@ -366,11 +365,9 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		);
 	}, [
 		dateWithYearFormat,
-		endDateIsoString,
 		isAllDayValue,
 		isMultidayValue,
 		isSelectingDate,
-		startDateIsoString,
 		startOfWeek,
 		timeFormat,
 		dates,
