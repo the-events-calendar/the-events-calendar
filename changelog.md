@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.15.1] 2025-08-26
+
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.0.1] 2025-08-20
 
 * Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
