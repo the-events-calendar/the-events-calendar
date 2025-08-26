@@ -69,10 +69,7 @@ class Controller extends Controller_Contract {
 			[ Category_Colors_Controller::class ],
 			[ Calendar_Embeds_Controller::class ],
 			[ REST_Controller::class ],
-			[
-				'on_action' => 'tec_request_query_vars_registered',
-				Request_Controller::class,
-			],
+			[ Request_Controller::class ],
 		];
 	}
 
