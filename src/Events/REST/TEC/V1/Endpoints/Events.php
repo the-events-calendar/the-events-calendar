@@ -144,7 +144,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
 			null,
-			$this->read_args()
+			$this->read_params()
 		);
 
 		$headers_collection = new HeadersCollection();
@@ -213,7 +213,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -342,7 +342,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		 * @param QueryArgumentCollection $collection The collection of arguments.
 		 * @param Events                  $this       The events endpoint.
 		 */
-		return apply_filters( 'tec_events_rest_v1_events_read_args', $collection, $this );
+		return apply_filters( 'tec_events_rest_v1_events_read_params', $collection, $this );
 	}
 
 	/**
@@ -353,7 +353,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @return RequestBodyCollection
 	 */
-	public function create_args(): RequestBodyCollection {
+	public function create_params(): RequestBodyCollection {
 		$collection = new RequestBodyCollection();
 
 		$definition = new Event_Request_Body_Definition();
@@ -381,7 +381,7 @@ class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$this->get_tags(),
 			null,
 			null,
-			$this->create_args(),
+			$this->create_params(),
 			true
 		);
 

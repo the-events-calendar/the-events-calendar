@@ -130,7 +130,7 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		return new QueryArgumentCollection();
 	}
 
@@ -176,7 +176,7 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @return RequestBodyCollection
 	 */
-	public function update_args(): RequestBodyCollection {
+	public function update_params(): RequestBodyCollection {
 		$collection = new RequestBodyCollection();
 
 		$definition = new Venue_Request_Body_Definition();
@@ -203,7 +203,7 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 			$this->get_tags(),
 			$this->get_path_parameters(),
 			null,
-			$this->update_args(),
+			$this->update_params(),
 			true
 		);
 
@@ -259,7 +259,7 @@ class Venue extends Post_Entity_Endpoint implements RUD_Endpoint {
 			$this->get_operation_id( 'delete' ),
 			$this->get_tags(),
 			$this->get_path_parameters(),
-			$this->delete_args(),
+			$this->delete_params(),
 			null,
 			true
 		);
