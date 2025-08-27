@@ -488,6 +488,17 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Get the arguments for a linked post type.
+	 *
+	 * @param string $post_type Post type.
+	 *
+	 * @return array|null The arguments for the linked post type, or `null` if the post type is not a linked post type.
+	 */
+	public function get_type_args( string $post_type ): ?array {
+		return $this->get_linked_post_types()[ $post_type ] ?? null;
+	}
+
+	/**
 	 * Get Linked Post info
 	 *
 	 * @param string    $linked_post_type   Post type of linked post.
