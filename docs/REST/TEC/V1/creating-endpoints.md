@@ -90,7 +90,7 @@ class MyEntity extends Post_Entity_Endpoint implements RUD_Endpoint {
     }
 
     // Implement read(), update(), delete() methods with array $params
-    // Implement read_args(), update_args(), delete_args() methods
+    // Implement read_params(), update_params(), delete_params() methods
     // Implement read_schema(), update_schema(), delete_schema() methods
 }
 ```
@@ -112,7 +112,7 @@ public function read( array $params = [] ): WP_REST_Response {
     return new WP_REST_Response( $this->get_formatted_entity( $entity ), 200 );
 }
 
-public function read_args(): QueryArgumentCollection {
+public function read_params(): QueryArgumentCollection {
     $collection = new QueryArgumentCollection();
 
     // Path parameters are defined separately
@@ -138,7 +138,7 @@ public function read_schema(): OpenAPI_Schema {
         fn() => __( 'Returns a single entity', 'text-domain' ),
         'getEntity',
         [ tribe( TEC_Tag::class ) ],
-        $this->read_args()
+        $this->read_params()
     );
 
     // Add responses
@@ -167,12 +167,12 @@ public function create( array $params = [] ): WP_REST_Response {
 }
 
 // Use RequestBodyCollection for POST/PUT operations
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $collection = new RequestBodyCollection();
     $definition = new MyEntity_Request_Body_Definition();
-    
+
     $collection[] = new Definition_Parameter($definition);
-    
+
     return $collection
         ->set_description_provider(fn() => __('Entity data to create', 'text-domain'))
         ->set_required(true)
@@ -217,13 +217,13 @@ Define your endpoint's parameters based on the operation:
 ### For GET/DELETE Operations (Query Parameters)
 
 ```php
-public function read_args(): QueryArgumentCollection {
+public function read_params(): QueryArgumentCollection {
     $collection = new QueryArgumentCollection();
 
     $collection->add(
         new Positive_Integer('page', fn() => __('Page number', 'text-domain'), 1, 1)
     );
-    
+
     $collection->add(
         new Text('search', fn() => __('Search term', 'text-domain'))
     );
@@ -235,13 +235,13 @@ public function read_args(): QueryArgumentCollection {
 ### For POST/PUT Operations (Request Body)
 
 ```php
-public function create_args(): RequestBodyCollection {
+public function create_params(): RequestBodyCollection {
     $collection = new RequestBodyCollection();
-    
+
     // Use Definition_Parameter for complex objects
     $definition = new MyEntity_Request_Body_Definition();
     $collection[] = new Definition_Parameter($definition);
-    
+
     return $collection
         ->set_description_provider(fn() => __('Entity data', 'text-domain'))
         ->set_required(true)
@@ -270,7 +270,7 @@ class MyEntity_Request_Body_Definition extends Definition {
             ],
         ];
     }
-    
+
     public function get_example(): array {
         return [
             'title' => 'Example Entity',
