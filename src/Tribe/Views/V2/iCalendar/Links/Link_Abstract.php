@@ -106,6 +106,8 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 		}
 
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links' ], 10 );
+		add_filter( 'tec_views_v2_subscribe_link_gcal_visibility', [ $this, 'maybe_hide_subscribe_link' ], 10 );
+		add_filter( 'tec_views_v2_subscribe_link_ical_visibility', [ $this, 'maybe_hide_subscribe_link' ], 10 );
 
 		$this->set_hooked();
 	}
@@ -151,6 +153,35 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 		);
 
 		return $links;
+	}
+
+	/**
+	 * Hide the subscribe link on user agents with selected keywords.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $visible Whether the subscribe link should be visible.
+	 *
+	 * @return bool
+	 */
+	function maybe_hide_subscribe_link( $visible ): bool {
+		// Bail if we're on the single event page. (Subscription on single event pages work.)
+		if ( is_single() ) {
+			return true;
+		}
+
+		$current_user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+		$skip_user_agents = [ 'Android' ];
+
+		// Return false and thus hide the subscribe link if any of the keywords are present.
+		foreach ( $skip_user_agents as $skipped_user_agent ) {
+			if ( stripos( $current_user_agent, $skipped_user_agent ) !== false ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**
