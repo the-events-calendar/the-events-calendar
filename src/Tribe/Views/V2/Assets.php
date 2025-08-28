@@ -521,6 +521,18 @@ class Assets extends Service_Provider {
 				],
 			]
 		);
+
+		tec_asset(
+			$plugin,
+			'tribe-events-views-v2-user-agent',
+			'views/user-agent.js',
+			[],
+			'wp_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
 	}
 
 	/**
