@@ -164,8 +164,9 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 *
 	 * @return bool
 	 */
-	function maybe_hide_subscribe_link( $visible ): bool {
-		// Bail if we're on the single event page. (Subscription on single event pages work.)
+	public function maybe_hide_subscribe_link( $visible ): bool {
+		// Bail if we're on the single event page.
+		// Note, subscription on single event pages works.
 		if ( is_single() ) {
 			return true;
 		}
@@ -175,7 +176,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			return true;
 		}
 
-		$current_user_agent = $_SERVER['HTTP_USER_AGENT'];
+		$current_user_agent = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] );
 
 		$skip_user_agents = [ 'Android' ];
 
