@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Add filtering for the ical request var. Uses the new Request controller system in TCMN.
