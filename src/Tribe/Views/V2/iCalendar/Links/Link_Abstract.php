@@ -168,12 +168,12 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 		// Bail if we're on the single event page.
 		// Note, subscription on single event pages works.
 		if ( is_single() ) {
-			return true;
+			return $visible;
 		}
 
 		// Bail if the user agent is not set.
 		if ( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			return true;
+			return $visible;
 		}
 
 		$current_user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__
@@ -187,7 +187,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			}
 		}
 
-		return true;
+		return $visible;
 	}
 
 	/**
