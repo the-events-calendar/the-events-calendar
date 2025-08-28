@@ -45,6 +45,7 @@ class Link_AbstractTest extends WPTestCase {
 	public function test_maybe_hide_subscribe_link_returns_true_on_single_event_page(
 		string $user_agent,
 		bool $visible,
+		bool $expected,
 		string $expected_message
 	) {
 		$link = $this->make_instance();
@@ -56,7 +57,7 @@ class Link_AbstractTest extends WPTestCase {
 
 		$result = $link->maybe_hide_subscribe_link( $visible );
 
-		$this->assertTrue( $result, $expected_message );
+		$this->assertEquals( $visible, $result, $expected_message );
 	}
 
 	/**
@@ -69,30 +70,35 @@ class Link_AbstractTest extends WPTestCase {
 		yield 'android_user_agent_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true on single event pages with Android user agent when visible=true'
 		];
 
 		yield 'android_user_agent_visible_false' => [
 			'user_agent' => 'Mozilla/5.0 (Linux; Android 10; SM-G975F) AppleWebKit/537.36',
 			'visible' => false,
+			'expected' => false,
 			'expected_message' => 'Should return true on single event pages with Android user agent when visible=false'
 		];
 
 		yield 'chrome_user_agent_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true on single event pages with Chrome user agent when visible=true'
 		];
 
 		yield 'chrome_user_agent_visible_false' => [
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 			'visible' => false,
+			'expected' => false,
 			'expected_message' => 'Should return true on single event pages with Chrome user agent when visible=false'
 		];
 
 		yield 'empty_user_agent_visible_true' => [
 			'user_agent' => '',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true on single event pages with empty user agent when visible=true'
 		];
 	}
@@ -106,6 +112,7 @@ class Link_AbstractTest extends WPTestCase {
 	public function test_maybe_hide_subscribe_link_returns_false_for_android_user_agent(
 		string $user_agent,
 		bool $visible,
+		bool $expected,
 		string $expected_message
 	) {
 		$link = $this->make_instance();
@@ -117,7 +124,7 @@ class Link_AbstractTest extends WPTestCase {
 
 		$result = $link->maybe_hide_subscribe_link( $visible );
 
-		$this->assertFalse( $result, $expected_message );
+		$this->assertEquals( $expected, $result, $expected_message );
 	}
 
 	/**
@@ -130,30 +137,35 @@ class Link_AbstractTest extends WPTestCase {
 		yield 'android_lowercase_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Linux; android 10; SM-G975F) AppleWebKit/537.36',
 			'visible' => true,
+			'expected' => false,
 			'expected_message' => 'Should return false for lowercase Android user agent when visible=true'
 		];
 
 		yield 'android_lowercase_visible_false' => [
 			'user_agent' => 'Mozilla/5.0 (Linux; android 10; SM-G975F) AppleWebKit/537.36',
 			'visible' => false,
+			'expected' => false,
 			'expected_message' => 'Should return false for lowercase Android user agent when visible=false'
 		];
 
 		yield 'android_uppercase_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Linux; ANDROID 10; SM-G975F) AppleWebKit/537.36',
 			'visible' => true,
+			'expected' => false,
 			'expected_message' => 'Should return false for uppercase Android user agent when visible=true'
 		];
 
 		yield 'android_mixed_case_visible_false' => [
 			'user_agent' => 'Mozilla/5.0 (Linux; AnDrOiD 10; SM-G975F) AppleWebKit/537.36',
 			'visible' => false,
+			'expected' => false,
 			'expected_message' => 'Should return false for mixed case Android user agent when visible=false'
 		];
 
 		yield 'android_in_middle' => [
 			'user_agent' => 'Something Android Something',
 			'visible' => true,
+			'expected' => false,
 			'expected_message' => 'Should return false when Android is in middle of user agent string'
 		];
 	}
@@ -167,6 +179,7 @@ class Link_AbstractTest extends WPTestCase {
 	public function test_maybe_hide_subscribe_link_returns_true_for_non_android_user_agents(
 		string $user_agent,
 		bool $visible,
+		bool $expected,
 		string $expected_message
 	) {
 		$link = $this->make_instance();
@@ -178,7 +191,7 @@ class Link_AbstractTest extends WPTestCase {
 
 		$result = $link->maybe_hide_subscribe_link( $visible );
 
-		$this->assertTrue( $result, $expected_message );
+		$this->assertEquals( $expected, $result, $expected_message );
 	}
 
 	/**
@@ -191,48 +204,56 @@ class Link_AbstractTest extends WPTestCase {
 		yield 'chrome_windows_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true for Chrome Windows user agent when visible=true'
 		];
 
 		yield 'chrome_windows_visible_false' => [
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
 			'visible' => false,
-			'expected_message' => 'Should return true for Chrome Windows user agent when visible=false'
+			'expected' => false,
+			'expected_message' => 'Should return false for Chrome Windows user agent when visible=false'
 		];
 
 		yield 'firefox_windows_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true for Firefox Windows user agent when visible=true'
 		];
 
 		yield 'safari_macos_visible_false' => [
 			'user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15',
 			'visible' => false,
-			'expected_message' => 'Should return true for Safari macOS user agent when visible=false'
+			'expected' => false,
+			'expected_message' => 'Should return false for Safari macOS user agent when visible=false'
 		];
 
 		yield 'edge_windows_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true for Edge Windows user agent when visible=true'
 		];
 
 		yield 'ios_safari_visible_true' => [
 			'user_agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true for iOS Safari user agent when visible=true'
 		];
 
 		yield 'empty_string_visible_false' => [
 			'user_agent' => '',
 			'visible' => false,
-			'expected_message' => 'Should return true for empty user agent string when visible=false'
+			'expected' => false,
+			'expected_message' => 'Should return false for empty user agent string when visible=false'
 		];
 
 		yield 'generic_browser_visible_true' => [
 			'user_agent' => 'GenericBrowser/1.0',
 			'visible' => true,
+			'expected' => true,
 			'expected_message' => 'Should return true for generic browser user agent when visible=true'
 		];
 	}
@@ -265,11 +286,7 @@ class Link_AbstractTest extends WPTestCase {
 
 		$result = $link->maybe_hide_subscribe_link( $visible );
 
-		if ( $expected ) {
-			$this->assertTrue( $result, $expected_message );
-		} else {
-			$this->assertFalse( $result, $expected_message );
-		}
+		$this->assertEquals( $expected, $result, $expected_message );
 	}
 
 	/**
@@ -285,7 +302,7 @@ class Link_AbstractTest extends WPTestCase {
 			'user_agent' => '', // will be unset
 			'visible' => true,
 			'expected' => true,
-			'expected_message' => 'Should return true when HTTP_USER_AGENT is not set on non-single page',
+			'expected_message' => 'Should return true when HTTP_USER_AGENT is not set on non-single page with visible=true',
 			'unset_user_agent' => true
 		];
 
@@ -293,8 +310,8 @@ class Link_AbstractTest extends WPTestCase {
 			'is_single' => false,
 			'user_agent' => '', // will be unset
 			'visible' => false,
-			'expected' => true,
-			'expected_message' => 'Should return true when HTTP_USER_AGENT is not set on non-single page with visible=false',
+			'expected' => false,
+			'expected_message' => 'Should return false when HTTP_USER_AGENT is not set on non-single page with visible=false',
 			'unset_user_agent' => true
 		];
 
@@ -328,8 +345,8 @@ class Link_AbstractTest extends WPTestCase {
 			'is_single' => true,
 			'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
 			'visible' => false,
-			'expected' => true,
-			'expected_message' => 'Should return true on single page with non-Android regardless of visible=false parameter'
+			'expected' => false,
+			'expected_message' => 'Should return false on single page with non-Android regardless of visible=false parameter'
 		];
 
 		// Additional Android position tests
