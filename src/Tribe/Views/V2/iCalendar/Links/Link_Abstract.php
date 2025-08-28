@@ -176,7 +176,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			return true;
 		}
 
-		$current_user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
+		$current_user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___SERVER__HTTP_USER_AGENT__
 
 		$skip_user_agents = [ 'android' ];
 
