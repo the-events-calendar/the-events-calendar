@@ -176,9 +176,9 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			return true;
 		}
 
-		$current_user_agent = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] );
+		$current_user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
 
-		$skip_user_agents = [ 'Android' ];
+		$skip_user_agents = [ 'android' ];
 
 		// Return false and thus hide the subscribe link if any of the keywords are present.
 		foreach ( $skip_user_agents as $skipped_user_agent ) {
