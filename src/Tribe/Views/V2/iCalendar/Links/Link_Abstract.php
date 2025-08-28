@@ -170,6 +170,11 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			return true;
 		}
 
+		// Bail if the user agent is not set.
+		if ( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return true;
+		}
+
 		$current_user_agent = $_SERVER['HTTP_USER_AGENT'];
 
 		$skip_user_agents = [ 'Android' ];
