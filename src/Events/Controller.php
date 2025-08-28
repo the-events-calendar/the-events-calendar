@@ -30,6 +30,7 @@ use TEC\Events\Category_Colors\Controller as Category_Colors_Controller;
 use TEC\Events\Calendar_Embeds\Controller as Calendar_Embeds_Controller;
 use TEC\Events\Custom_Tables\V1\Provider as Custom_Tables_V1_Provider;
 use TEC\Events\REST\Controller as REST_Controller;
+use TEC\Events\Request\Controller as Request_Controller;
 
 /**
  * Class Controller
@@ -68,6 +69,10 @@ class Controller extends Controller_Contract {
 			[ Category_Colors_Controller::class ],
 			[ Calendar_Embeds_Controller::class ],
 			[ REST_Controller::class ],
+			[
+				'on_action' => 'tec_request_query_vars_registered',
+				Request_Controller::class,
+			],
 		];
 	}
 
