@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Hide the "Subscribe > Google Calendar" and "Subscribe > iCalendar" options on Android devices because they are not supported. [TEC-4242]
