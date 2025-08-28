@@ -67,16 +67,26 @@ class Ical extends Abstract_Query_Var {
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed $value The raw value to normalize.
+	 * @param mixed $value      The raw value to normalize.
+	 * @param array $query_vars The query vars.
 	 *
 	 * @return int|null `1` when truthy, `null` when not.
 	 */
-	public function filter_query_var( $value ) {
+	public function filter_query_var( $value, array $query_vars ) {
+		if ( is_array( $value ) ) {
+			$value = reset( $value );
+		}
+
 		// Support presence-only query var (?ical) as truthy.
-		if ( '' === $value || null === $value ) {
+		if ( array_key_exists( $this->get_name(), $query_vars ) && ( '' === $value || null === $value ) ) {
+			codecept_debug( 'Setting ical to 1 as key exists' );
 			return 1;
 		}
 
-		return tribe_is_truthy( $value ) ? 1 : null;
+		$return = tribe_is_truthy( $value ) ? 1 : null;
+
+		codecept_debug( 'Returning ' . $return . ' for value: ' . var_export( $value, true ) );
+
+		return $return;
 	}
 }
