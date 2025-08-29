@@ -39,7 +39,7 @@ class Tribe__Events__Integrations__ACF__ACF {
 			[ 'jquery' ],
 			'admin_enqueue_scripts',
 			[
-				'conditionals' => [ $this, 'should_enqueue_acf_compat' ]
+				'conditionals' => [ $this, 'should_enqueue_acf_compat' ],
 			]
 		);
 	}
