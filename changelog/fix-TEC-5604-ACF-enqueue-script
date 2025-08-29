@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Corrected path for enqueuing ACF scripts to avoid 404 errors. [TEC-5604]
