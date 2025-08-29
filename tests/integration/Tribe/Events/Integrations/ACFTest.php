@@ -33,15 +33,19 @@ class ACFTest extends WPTestCase {
 	public function should_verify_javascript_source_file_exists(): void {
 		$plugin_root = dirname( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
 		$expected_source_path = $plugin_root . '/src/resources/js/tribe-admin-acf-compat.js';
-		$expected_build_path = $plugin_root . '/build/js/tribe-admin-acf-compat.js';
 
 		$this->assertFileExists( $expected_source_path, 'The ACF compatibility JavaScript source file should exist in src/resources/js/' );
-		$this->assertFileExists( $expected_build_path, 'The ACF compatibility JavaScript built file should exist in build/js/' );
 
 		// Verify source file contains expected content.
 		$file_contents = file_get_contents( $expected_source_path );
 		$this->assertStringContainsString( 'tribe.ui-datepicker-div-beforeshow', $file_contents, 'Source file should contain ACF datepicker compatibility code' );
 		$this->assertStringContainsString( 'acf-ui-datepicker', $file_contents, 'Source file should contain ACF-specific functionality' );
+
+		// Only check for build file if build directory exists (after build process has run).
+		$expected_build_path = $plugin_root . '/build/js/tribe-admin-acf-compat.js';
+		if ( file_exists( $plugin_root . '/build' ) ) {
+			$this->assertFileExists( $expected_build_path, 'The ACF compatibility JavaScript built file should exist in build/js/ when build directory exists' );
+		}
 	}
 
 	/**
