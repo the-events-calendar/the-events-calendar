@@ -1,3 +1,6 @@
+// TEC Classy data store.
+export const STORE_NAME = 'tec/classy/events';
+
 // Post types.
 export const POST_TYPE_EVENT = 'tribe_events';
 

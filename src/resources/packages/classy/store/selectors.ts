@@ -1,7 +1,6 @@
 import { select } from '@tec/common/classy/store';
 import { EventMeta } from '../types/EventMeta';
 import { Settings } from '@tec/common/classy/types/LocalizedData';
-import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
 import { StoreState } from '../types/Store';
 import { TECSettings } from '../types/Settings';
@@ -114,8 +113,18 @@ export function getEditedPostVenueIds(): number[] {
  * @return {boolean} Whether tickets are supported.
  */
 export function areTicketsSupported( state: StoreState ): boolean {
-	// todo: Restore this default back to false;
-	return state?.areTicketsSupported || true;
+	return state?.areTicketsSupported || false;
+}
+
+/**
+ * Returns whether the event is using tickets.
+ *
+ * @param {StoreState} state The store state.
+ *
+ * @return {boolean} Whether the event is using tickets.
+ */
+export function isUsingTickets( state: StoreState ): boolean {
+	return state.areTicketsSupported && state.isUsingTickets;
 }
 
 /**
