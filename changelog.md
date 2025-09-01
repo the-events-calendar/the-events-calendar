@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.15.1] 2025-09-02
+
+* Tweak - Changed views: `blocks/event-links`, `integrations/elementor/templates/starter`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
+* Compatibility - PHP 8.3 compatibility improvements. [TEC-5571]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.0.1] 2025-08-20
 
 * Fix - Ensures the Actions Scheduler Logs table is present before attempting to use it. [TCMN-190]
