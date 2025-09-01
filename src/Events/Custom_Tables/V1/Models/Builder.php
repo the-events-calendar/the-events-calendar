@@ -292,7 +292,7 @@ class Builder {
 	 *
 	 * @since 6.0.0
 	 * @since 6.1.3 Integration with memoization.
-	 * @since TBD Create working copies to preserve original parameter values for debug_backtrace().
+	 * @since 6.15.1 Create working copies to preserve original parameter values for debug_backtrace().
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
 	 * @param array<string,mixed>|null $data      The data to be inserted or updated into the table.
@@ -836,7 +836,7 @@ class Builder {
 	 * that will be hidden from the client code.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Create working copies to preserve original parameter values for debug_backtrace().
+	 * @since 6.15.1 Create working copies to preserve original parameter values for debug_backtrace().
 	 *
 	 * @param mixed|array<mixed> $value     The value, or values, to find the matches for.
 	 * @param string|null        $column    The column to search the Models by, or `null` to use the Model
@@ -945,7 +945,7 @@ class Builder {
 	 * Execute a COUNT() call against the DB using the provided query elements.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Create working copy to preserve original parameter value for debug_backtrace().
+	 * @since 6.15.1 Create working copy to preserve original parameter value for debug_backtrace().
 	 *
 	 * @param string|null $column_name The name of the column used for the count, '*` otherwise.
 	 *
@@ -996,7 +996,7 @@ class Builder {
 	 * Run a query and return the results directly from $wpdb->query().
 	 *
 	 * @since 6.3.1
-	 * @since TBD Create working copy to preserve original parameter value for debug_backtrace().
+	 * @since 6.15.1 Create working copy to preserve original parameter value for debug_backtrace().
 	 *
 	 * @param string $query The SQL query to run on the database.
 	 *

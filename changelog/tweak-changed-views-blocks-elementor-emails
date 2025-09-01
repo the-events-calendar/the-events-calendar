@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Changed views: `blocks/event-links`, `integrations/elementor/templates/starter`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
