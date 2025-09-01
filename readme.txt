@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.15.1] 2025-09-02 =
 
+* Fix - Figure out where assets are located in complex environments with a mix of symlinked or normally placed plugins. Resolving as a result issues with Recurring Events UI in WordPress.com. [ECP-1929]
 * Tweak - Changed views: `blocks/event-links`, `integrations/elementor/templates/starter`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
 * Compatibility - PHP 8.3 compatibility improvements. [TEC-5571]
 * Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
