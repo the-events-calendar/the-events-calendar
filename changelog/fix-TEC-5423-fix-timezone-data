@@ -1,5 +1,0 @@
-Significance: patch
-Type: fix
-
-Fix the process of updating event time zone data. [TEC-5423]
-Make sure the user is redirected to the correct settings page after clicking on the "Fix Time Zone Data" button. [TEC-5423]
