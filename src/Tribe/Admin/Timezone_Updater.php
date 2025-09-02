@@ -5,6 +5,7 @@
  * The application for this is in transitioning any event data created in 3.11.x or
  * earlier that hasn't since been updated, so that it becomes "time zone ready".
  */
+
 class Tribe__Events__Admin__Timezone_Updater {
 	/**
 	 * A count of events in need of updating - used to determine the percentage

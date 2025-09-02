@@ -2,6 +2,7 @@
 /**
  * Manages the admin settings UI in relation to timezones.
  */
+
 class Tribe__Events__Admin__Timezone_Settings {
 	/**
 	 * Sets up the display of timezone-related settings and listeners to deal with timezone update
