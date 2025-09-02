@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tool for adding timezone data to events.
  *
@@ -74,7 +73,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 */
 	public function notice_display() {
 		$update = $this->notice_inner();
-		echo '<div class="tribe-events-timezone-update-msg updated updating">' . $update . '</div>';
+		echo '<div class="tribe-events-timezone-update-msg updated updating">' . wp_kses_post( $update ) . '</div>';
 	}
 
 	/**
@@ -84,7 +83,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 */
 	public function notice_inner() {
 		$remaining = $this->count_ids();
-		$spinner   = ' <img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
+		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
 
 		$progress = ( 0 < $remaining )
 			? $this->calculate_progress( $remaining )
@@ -94,7 +93,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 			? __( 'Please wait while time zone data is added to your events.', 'the-events-calendar' )
 			: __( 'Update complete: time zone data has been added to all events in the database.', 'the-events-calendar' );
 
-		$update = "<p> $update </p>";
+		$update = "<p>$update</p>";
 
 		if ( 100 === $progress ) {
 			$spinner = '';
@@ -128,7 +127,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Returns an integer representing the degree to which the update task has progressed
 	 * as a percentage of events in need of updating.
 	 *
-	 * @param int $remaining
+	 * @param int $remaining The number of events remaining to be processed.
 	 *
 	 * @return int
 	 */
@@ -171,7 +170,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Return an array of event IDs for those events that still do not have
 	 * time zone data.
 	 *
-	 * @param int $limit
+	 * @param int $limit The number of events to return. Defaults to -1 meaning "all".
 	 *
 	 * @return array
 	 */
@@ -209,8 +208,8 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * number) of events without time zone data, or alternatively can return a count of
 	 * those events.
 	 *
-	 * @param int        $limit
-	 * @param bool|false $count
+	 * @param int        $limit The number of events to return. Defaults to -1 meaning "all".
+	 * @param bool|false $count Whether to return an array of IDs (default) or a count of the events.
 	 *
 	 * @return array|int
 	 */
