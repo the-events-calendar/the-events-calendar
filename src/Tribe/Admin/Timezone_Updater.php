@@ -73,7 +73,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 */
 	public function notice_display() {
 		$update = $this->notice_inner();
-		echo '<div class="tribe-events-timezone-update-msg updated updating"> ' . $update . ' </div>';
+		echo '<div class="tribe-events-timezone-update-msg updated updating">' . $update . '</div>';
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 
 		if ( $progress >= 0 ) {
 			$percent = sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress );
-			$update .= '<div class="tribe-update-bar"> <div class="progress" title="' . $percent . '"> <div class="bar" style="width: ' . $progress . '%"></div> </div>' . $spinner . '</div>';
+			$update .= '<div class="tribe-update-bar"><div class="progress" title="' . $percent . '"><div class="bar" style="width: ' . $progress . '%"></div></div>' . $spinner . '</div>';
 		}
 
 		return $update;
@@ -146,7 +146,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * @param int $batch_size (defaults to -1 meaning "update all")
 	 */
 	public function process( $batch_size = -1 ) {
-		$site_timezone      = Tribe__Timezones::wp_timezone_string();
+		$site_timezone = Tribe__Timezones::wp_timezone_string();
 
 		foreach ( $this->get_ids( $batch_size ) as $event_id ) {
 			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );

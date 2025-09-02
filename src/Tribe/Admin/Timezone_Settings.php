@@ -69,6 +69,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 
 		// Update request?
 		if ( isset( $_GET['timezone-update'] ) ) {
+
 			$updater = new Tribe__Events__Admin__Timezone_Updater;
 			$updater->init_update();
 		}
