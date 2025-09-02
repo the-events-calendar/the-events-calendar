@@ -714,7 +714,16 @@ class Custom_Tables_Query extends WP_Query {
 				continue;
 			}
 
-			$parsed_orderby = $this->parse_orderby( (string) $orderby ) ?: $orderby;
+			$parsed_orderby = $this->parse_orderby( (string) $orderby );
+
+			if ( ! $parsed_orderby ) {
+				continue;
+			}
+
+			if ( strpos( $redirected_orderbys, $parsed_orderby ) !== false ) {
+				// The field has been already added to the redirected `ORDER BY` clause.
+				continue;
+			}
 
 			$redirected_orderbys .= $redirected_orderbys === '' ?
 				$parsed_orderby . ' ' . $order
