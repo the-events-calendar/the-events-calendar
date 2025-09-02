@@ -33,10 +33,10 @@ class Tribe__Events__Admin__Timezone_Settings {
 		// Remove unneeded options: until timezone data has been updated, users should only see the update
 		// button - after that point, they should see the "real" settings but not the update button
 		if ( $updater->update_needed() ) {
-			unset( $timezone_settings[ 'tribe_events_timezone_mode' ] );
-			unset( $timezone_settings[ 'tribe_events_timezones_show_zone' ] );
+			unset( $timezone_settings['tribe_events_timezone_mode'] );
+			unset( $timezone_settings['tribe_events_timezones_show_zone'] );
 		} else {
-			unset( $timezone_settings[ 'tribe_events_enable_timezones' ] );
+			unset( $timezone_settings['tribe_events_enable_timezones'] );
 		}
 
 		// Add the new section just before the settings form is closed
@@ -50,6 +50,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 */
 	protected function get_settings_array() {
 		$plugin_path = Tribe__Events__Main::instance()->plugin_path;
+
 		return (array) include $plugin_path . 'src/admin-views/tribe-options-timezones.php';
 	}
 
