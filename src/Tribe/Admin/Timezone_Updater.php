@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tool for adding timezone data to events.
  *
@@ -43,7 +44,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 			 *
 			 * @param int $batch_size Number of events to be processed in a single batch.
 			 */
-			$batch_size = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
+			$batch_size          = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
 			$this->initial_count = $this->count_ids();
 
 			if ( $this->initial_count <= 0 ) {
@@ -127,13 +128,14 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Returns an integer representing the degree to which the update task has progressed
 	 * as a percentage of events in need of updating.
 	 *
-	 * @param  int $remaining
+	 * @param int $remaining
 	 *
 	 * @return int
 	 */
 	protected function calculate_progress( $remaining ) {
 		if ( $this->initial_count ) {
 			$percentage = ( $this->initial_count - $remaining ) / $this->initial_count;
+
 			return (int) ( $percentage * 100 );
 		}
 
@@ -150,10 +152,10 @@ class Tribe__Events__Admin__Timezone_Updater {
 
 		foreach ( $this->get_ids( $batch_size ) as $event_id ) {
 			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$utc_start_time = Tribe__Timezones::to_utc( $local_start_time, $site_timezone );
+			$utc_start_time   = Tribe__Timezones::to_utc( $local_start_time, $site_timezone );
 
 			$local_end_time = tribe_get_end_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$utc_end_time = Tribe__Timezones::to_utc( $local_end_time, $site_timezone );
+			$utc_end_time   = Tribe__Timezones::to_utc( $local_end_time, $site_timezone );
 
 			// The abbreviation needs to be calculated per event as it can vary according to the actual date
 			$site_timezone_abbr = Tribe__Timezones::wp_timezone_abbr( $local_start_time );
@@ -169,7 +171,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Return an array of event IDs for those events that still do not have
 	 * timezone data.
 	 *
-	 * @param  int $limit
+	 * @param int $limit
 	 *
 	 * @return array
 	 */
@@ -208,8 +210,8 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * number) of events without timezone data, or alternatively can return a count of
 	 * those events.
 	 *
-	 * @param  int        $limit
-	 * @param  bool|false $count
+	 * @param int        $limit
+	 * @param bool|false $count
 	 *
 	 * @return array|int
 	 */
