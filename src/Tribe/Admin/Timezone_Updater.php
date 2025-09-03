@@ -22,7 +22,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 *
 	 * @var string
 	 */
-	protected string $timed_option_key = 'events_timezone_update_needed';
+	protected const TIMED_OPTION_KEY = 'events_timezone_update_needed';
 
 	/**
 	 * Initializes the update process.
@@ -51,7 +51,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 			$this->initial_count = $this->count_ids();
 
 			if ( $this->initial_count <= 0 ) {
-				tec_timed_option()->set( $this->timed_option_key, false );
+				tec_timed_option()->set( self::TIMED_OPTION_KEY, false );
 			}
 
 			$this->process( $batch_size );
@@ -197,11 +197,11 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * @return bool
 	 */
 	public function update_needed() {
-		$update_needed = tec_timed_option()->get( $this->timed_option_key );
+		$update_needed = tec_timed_option()->get( self::TIMED_OPTION_KEY );
 
 		if ( null === $update_needed ) {
 			$update_needed = (bool) $this->find( 1, true );
-			tec_timed_option()->set( $this->timed_option_key, $update_needed );
+			tec_timed_option()->set( self::TIMED_OPTION_KEY, $update_needed );
 		}
 
 		return $update_needed;
