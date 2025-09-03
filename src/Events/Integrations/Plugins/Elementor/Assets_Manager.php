@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use Elementor\Core\Files\CSS\Post as Post_CSS;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Static;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Importer;
 use Tribe\Events\Views\V2\Template_Bootstrap;
@@ -257,13 +258,7 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		$upload_dir = wp_upload_dir();
-
-		wp_enqueue_style(
-			'elementor-event-template-' . $template->ID,
-			$upload_dir['baseurl'] . '/elementor/css/post-' . $template->ID . '.css',
-			[],
-			\Tribe__Events__Main::VERSION
-		);
+		$post_css = Post_CSS::create( $template->ID );
+		$post_css->enqueue();
 	}
 }

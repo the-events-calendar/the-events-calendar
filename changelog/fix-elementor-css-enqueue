@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Properly enqueue event template stylesheets for Elementor so they get regenerated if needed (props to @pressidium)
