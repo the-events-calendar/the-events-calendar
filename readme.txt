@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.15.1.1] 2025-09-03 =
+
+* Security - Ensures only known values are accepted for the ORDER BY query clause. [SVUL-19]
+
 = [6.15.1] 2025-09-02 =
 
 * Fix - Figure out where assets are located in complex environments with a mix of symlinked or normally placed plugins. Resolving as a result issues with Recurring Events UI in WordPress.com. [ECP-1929]
