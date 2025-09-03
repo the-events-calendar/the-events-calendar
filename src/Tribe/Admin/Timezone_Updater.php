@@ -35,6 +35,9 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * an ajax loop).
 	 *
 	 * @since 4.0 0
+	 * @since TBD Make use of a timed option to determine if an update is needed.
+	 *
+	 * @return void
 	 */
 	public function init_update() {
 		if ( $this->update_needed() ) {

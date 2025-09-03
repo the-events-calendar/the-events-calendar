@@ -16,7 +16,7 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
      */
     private $event_ids = [];
 
-    public function setUp(): void {
+	public function setUp(): void {
 		parent::setUp();
 
         // Create our updater instance
@@ -29,17 +29,8 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         tec_timed_option()->delete('events_timezone_update_needed');
     }
 
-    public function tearDown(): void {
-        // Clean up created events
-        foreach ($this->event_ids as $event_id) {
-            wp_delete_post($event_id, true);
-        }
-
-        parent::tearDown();
-    }
-
 	/**
-     * Helper function to create test events without time zone data
+     * Helper function to create test events without time zone data.
      */
     private function create_event_without_timezone($start_date = '2024-03-15 10:00:00', $end_date = '2024-03-15 12:00:00'): int {
         $event_data = [
@@ -59,7 +50,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         return $event_id;
     }
 
-    public function test_update_needed_should_return_true_when_events_lack_timezone(): void {
+	/**
+	 * @test
+	 */
+	public function update_needed_should_return_true_when_events_lack_timezone(): void {
         // Create an event without time zone data
         $this->create_event_without_timezone();
 
@@ -67,7 +61,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         $this->assertTrue($this->updater->update_needed(), 'Update needed should return true when events lack time zone data');
     }
 
-    public function test_update_needed_should_return_false_when_all_events_have_timezone(): void {
+	/**
+	 * @test
+	 */
+    public function update_needed_should_return_false_when_all_events_have_timezone(): void {
         // Create an event with time zone data
         $event_id = $this->create_event_without_timezone();
 
@@ -78,7 +75,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         $this->assertFalse($this->updater->update_needed(), 'Update needed should return false when all events have time zone data');
     }
 
-    public function test_count_ids_should_return_correct_count(): void {
+	/**
+	 * @test
+	 */
+    public function count_ids_should_return_correct_count(): void {
         // Create multiple events without a time zone
         $this->create_event_without_timezone();
         $this->create_event_without_timezone();
@@ -88,7 +88,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         $this->assertEquals(3, $this->updater->count_ids(), 'Count IDs should return 3 when 3 events lack time zone data');
     }
 
-    public function test_get_ids_should_return_correct_events(): void {
+	/**
+	 * @test
+	 */
+    public function get_ids_should_return_correct_events(): void {
         // Create events without a time zone
         $event1 = $this->create_event_without_timezone();
         $event2 = $this->create_event_without_timezone();
@@ -107,7 +110,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         $this->assertNotContains($event3, $ids, 'Get IDs should not contain event3');
     }
 
-    public function test_process_should_update_events_with_timezone_data(): void {
+	/**
+	 * @test
+	 */
+    public function process_should_update_events_with_timezone_data(): void {
         // Create a test event
         $event_id = $this->create_event_without_timezone();
 
@@ -121,7 +127,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         $this->assertNotEmpty(get_post_meta($event_id, '_EventEndDateUTC', true), 'Event end date UTC should be set');
     }
 
-    public function test_process_should_respect_batch_size(): void {
+	/**
+	 * @test
+	 */
+    public function process_should_respect_batch_size(): void {
         // Create more events than the batch size
         for ($i = 0; $i < 5; $i++) {
             $this->create_event_without_timezone();
@@ -134,7 +143,10 @@ class Timezone_UpdaterTest extends \Codeception\TestCase\WPTestCase {
         $this->assertEquals(3, $this->updater->count_ids(), 'Count IDs should return 3 when 3 events lack time zone data');
     }
 
-    public function test_init_update_should_process_initial_batch(): void {
+	/**
+	 * @test
+	 */
+    public function init_update_should_process_initial_batch(): void {
         // Create test events
         for ($i = 0; $i < 3; $i++) {
             $this->create_event_without_timezone();
