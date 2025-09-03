@@ -344,14 +344,27 @@ class Custom_Tables_Query extends WP_Query {
 		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 
+		$orderby = str_replace( [ $occurrences . '.', $wpdb->posts . '.' ], '', $orderby );
+
 		// Let's try to handle some specific cases first.
 		switch ( $orderby ) {
+			case 'start_date':
 			case 'event_date':
 				$parsed = $occurrences . '.start_date';
 				break;
+			case 'end_date':
+			case 'event_end_date':
+				$parsed = $occurrences . '.end_date';
+				break;
+			case 'start_date_utc':
 			case 'event_date_utc':
 				$parsed = $occurrences . '.start_date_utc';
 				break;
+			case 'end_date_utc':
+			case 'event_end_date_utc':
+				$parsed = $occurrences . '.end_date_utc';
+				break;
+			case 'duration':
 			case 'event_duration':
 				$parsed = $occurrences . '.duration';
 				break;
@@ -714,7 +727,16 @@ class Custom_Tables_Query extends WP_Query {
 				continue;
 			}
 
-			$parsed_orderby = $this->parse_orderby( (string) $orderby ) ?: $orderby;
+			$parsed_orderby = $this->parse_orderby( (string) $orderby );
+
+			if ( ! $parsed_orderby ) {
+				continue;
+			}
+
+			if ( strpos( $redirected_orderbys, $parsed_orderby ) !== false ) {
+				// The field has been already added to the redirected `ORDER BY` clause.
+				continue;
+			}
 
 			$redirected_orderbys .= $redirected_orderbys === '' ?
 				$parsed_orderby . ' ' . $order
