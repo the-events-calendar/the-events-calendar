@@ -146,7 +146,7 @@
 		.tribe-field-end_date {
 			width: 100px;
 
-			@media (--viewport-wpadmin) {
+			@media (min-width: 783px) {
 				display: inline-block;
 				width: 63%;
 			}
@@ -156,7 +156,7 @@
 		.tribe-field-end_time {
 			width: 80px;
 
-			@media (--viewport-wpadmin) {
+			@media (min-width: 783px) {
 				display: inline-block;
 				width: 35%;
 			}
@@ -164,7 +164,7 @@
 
 		.tribe-datetime-separator {
 
-			@media (--viewport-wpadmin) {
+			@media (min-width: 783px) {
 				display: block;
 				padding: 5px 0;
 				text-align: center;
@@ -187,7 +187,7 @@
 				display: inline-block;
 				margin-top: -4px;
 
-				@media (--viewport-wpadmin) {
+				@media (min-width: 783px) {
 					display: table;
 					margin: 10px auto 0;
 				}
@@ -197,7 +197,7 @@
 		.tribe-change-timezone {
 			white-space: nowrap;
 
-			@media (--viewport-wpadmin) {
+			@media (min-width: 783px) {
 				display: block;
 				padding: 5px 0;
 				text-align: center;
@@ -369,6 +369,14 @@
 		align-items: center;
 		display: flex;
 		flex-wrap: nowrap;
+
+		@media (min-width: 783px) {
+			margin-top: 12px;
+		}
+
+		label {
+			margin-top: 0;
+		}
 	}
 
 	.tec-settings-teaser-pill {
@@ -378,15 +386,27 @@
 		background-repeat: no-repeat;
 		background-size: var(--tec-font-size-4);
 		display: inline-block;
-		height: 44px;
+		min-height: 44px;
 		margin: 0;
-		vertical-align: middle;
+		margin-top: -14px;
 		width: 44px;
 
-		@media (--viewport-wpadmin) {
-			height: 24px;
+		@media (min-width: 783px) {
+			margin-left: 8px;
+			margin-top: 0;
+			min-height: 24px;
 			width: 24px;
 		}
+	}
+}
+
+#tribe-field-tribeEnableViews label {
+	box-sizing: border-box;
+	margin-top: 0;
+	min-height: 44px;
+
+	@media (min-width: 783px) {
+		min-height: 24px;
 	}
 }
 
@@ -968,7 +988,7 @@ h3.tec-update-notice__title {
 #tec-events-onboarding-wizard-tickets {
 	display: none;
 
-	@media (--viewport-wpadmin) {
+	@media (min-width: 783px) {
 		display: block;
 	}
 }
