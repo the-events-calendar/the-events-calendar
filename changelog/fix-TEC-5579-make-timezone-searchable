@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Adjusted timezone dropdown in onboarding to be searchable. [TEC-5579]
