@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Make sure the user is redirected to the correct settings page after clicking on the "Fix Time Zone Data" button. [TEC-5423]

@@ -43,6 +43,7 @@ class Tribe__Events__REST__V1__Validator__Base
 			'checked_in'      => 'null',
 			'not_checked_in'  => 'null',
 		],
+		'custom_fields'        => [],
 	];
 
 	/**
