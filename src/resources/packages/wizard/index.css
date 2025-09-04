@@ -427,14 +427,14 @@
 @media (min-width: 500px) {
 
 	.tec-events-onboarding__tab-content {
-		max-width: min(100%, 100vw);
+		max-width: 464px;
 	}
 }
 
 @media (min-width: 1024px) {
 
 	#settingsPanel .tec-events-onboarding__tab-content,
-	#organizerPanel .tec-events-onboarding__tab-content, {
+	#organizerPanel .tec-events-onboarding__tab-content {
 		max-width: 330px;
 	}
 
@@ -807,6 +807,16 @@
 .tec-events-onboarding__form-field.empty .tec-events-onboarding__field-description,
 .tec-events-onboarding__form-field.invalid .tec-events-onboarding__field-description {
 	display: none;
+}
+
+/* Override the CSS-in-JS generated height for the ComboboxControl Flex container */
+.tec-events-onboarding__form-wrapper .components-flex.components-combobox-control {
+	height: auto !important;
+}
+
+/* Also target any Flex containers within ComboboxControl that might have fixed heights */
+.tec-events-onboarding__form-wrapper .components-combobox-control .components-flex {
+	height: auto !important;
 }
 
 .tec-events-dismiss-onboarding-screen {

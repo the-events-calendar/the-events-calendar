@@ -1,6 +1,6 @@
 import React from 'react';
-import { BaseControl } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { BaseControl, ComboboxControl } from '@wordpress/components';
+import { useState, useEffect, useMemo } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { SETTINGS_STORE_KEY } from '../../../data';
@@ -27,7 +27,7 @@ const startDayOptions = [
 ];
 
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields(), []);
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 	const { currency, timezone_string, date_format, start_of_week, timezones, currencies }: { currency: string, timezone_string: string, date_format: string, start_of_week: number, timezones: Record<string, Record<string, string>>, currencies: Record<string, { symbol: string, name: string }> } = useSelect(
 		(select) => {
@@ -48,6 +48,24 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	const [ dateFormat, setDateFormat ] = useState( date_format || dateFormatOptions[ 0 ].value );
 	const [ weekStart, setWeekStart ] = useState( start_of_week || 0 );
 	const [ canContinue, setCanContinue ] = useState( false );
+
+	// Transform nested timezones object into flat array for ComboboxControl.
+	const timezoneOptions = useMemo( () => {
+		const options = [
+			{ label: __( 'Select a non-UTC timezone.', 'the-events-calendar' ), value: '' }
+		];
+
+		Object.entries( timezones ).forEach( ( [ continent, cities ] ) => {
+			Object.entries( cities as { [ key: string ]: string } ).forEach( ( [ key, city ] ) => {
+				options.push( {
+					label: `${continent}/${city}`,
+					value: key
+				} );
+			} );
+		} );
+
+		return options;
+	}, [ timezones ] );
 
 	let timeZoneMessage = __( 'Please ensure your time zone is correct.', 'the-events-calendar' );
 
@@ -100,7 +118,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const hasVisitedHere = () => {
 		const values = [ !! currencyCode && !! timeZone && !! dateFormat && !! weekStart ];
-		const fields = [ 'currencyCode', 'timeZone', 'dateFormat', 'weekStart' ];
+		const fields = [ 'currencyCode', 'time-zone', 'dateFormat', 'weekStart' ];
 		return fields.some( ( field ) => visitedFields.includes( field ) ) || values;
 	};
 
@@ -108,12 +126,6 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 		const inputId = 'time-zone';
 		const isVisited = visitedFields.includes( inputId );
 		const isValid = ! isVisited || !! timeZone;
-		const fieldEle = document.getElementById( inputId );
-		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
-
-		if ( isVisited ) {
-			toggleClasses( timeZone, fieldEle, parentEle, isValid );
-		}
 
 		return isValid;
 	};
@@ -171,25 +183,18 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						label={ __( 'Time zone', 'the-events-calendar' ) }
 						className="tec-events-onboarding__form-field"
 					>
-						<select
+						<ComboboxControl
 							id="time-zone"
-							onChange={ ( e ) => setTimeZone( e.target.value ) }
-							describedby="time-zone-description"
-							defaultValue={ timeZone }
-						>
-							<option value="">{ __( 'Select a non-UTC timezone.', 'the-events-calendar' ) }</option>
-							{ Object.entries( timezones ).map( ( [ key, cities ] ) => (
-								<optgroup key={ key } className="continent" label={ key }>
-									{ Object.entries( cities as { [ key: string ]: string } ).map(
-										( [ key, city ] ) => (
-											<option key={ key } value={ key }>
-												{ city }
-											</option>
-										)
-									) }
-								</optgroup>
-							) ) }
-						</select>
+							value={ timeZone }
+							onChange={ ( value ) => {
+								setTimeZone( value );
+								setVisitedField( 'time-zone' );
+							} }
+							options={ timezoneOptions }
+							placeholder={ __( 'Search for a timezone...', 'the-events-calendar' ) }
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+						/>
 						<span id="time-zone-description" className="tec-events-onboarding__field-description">
 							{ timeZoneMessage }
 						</span>
@@ -234,7 +239,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					>
 						<select
 							id="week-starts"
-							onChange={ ( e ) => setWeekStart( e.target.value ) }
+							onChange={ ( e ) => setWeekStart( parseInt( e.target.value, 10 ) ) }
 							defaultValue={ weekStart }
 						>
 							{ startDayOptions.map( ( { label, value } ) => (
