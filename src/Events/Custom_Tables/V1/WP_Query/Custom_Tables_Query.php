@@ -693,6 +693,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * @return string The filtered `ORDER` section of the query.
 	 */
 	public function redirect_posts_orderby( $posts_orderby, $query ) {
+        error_log( $posts_orderby );
 		if ( $query !== $this ) {
 			return $posts_orderby;
 		}
