@@ -58,7 +58,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 		Object.entries( timezones ).forEach( ( [ continent, cities ] ) => {
 			Object.entries( cities as { [ key: string ]: string } ).forEach( ( [ key, city ] ) => {
 				options.push( {
-					label: `${continent}/${city}`,
+					label: `${continent} - ${city}`,
 					value: key
 				} );
 			} );
@@ -66,6 +66,20 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 		return options;
 	}, [ timezones ] );
+
+	// Transform currencies object into flat array for ComboboxControl.
+	const currencyOptions = useMemo( () => {
+		const options: { label: string; value: string }[] = [];
+
+		Object.entries( currencies ).forEach( ( [ key, data ] ) => {
+			options.push( {
+				label: `${data.symbol} (${data.name})`,
+				value: key
+			} );
+		} );
+
+		return options;
+	}, [ currencies ] );
 
 	let timeZoneMessage = __( 'Please ensure your time zone is correct.', 'the-events-calendar' );
 
@@ -118,7 +132,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const hasVisitedHere = () => {
 		const values = [ !! currencyCode && !! timeZone && !! dateFormat && !! weekStart ];
-		const fields = [ 'currencyCode', 'time-zone', 'dateFormat', 'weekStart' ];
+		const fields = [ 'currency-code', 'time-zone', 'dateFormat', 'weekStart' ];
 		return fields.some( ( field ) => visitedFields.includes( field ) ) || values;
 	};
 
@@ -162,13 +176,18 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						label={ __( 'Currency symbol', 'the-events-calendar' ) }
 						className="tec-events-onboarding__form-field"
 					>
-						<select onChange={ ( e ) => setCurrency( e.target.value ) } defaultValue={ currencyCode }>
-							{ Object.entries( currencies ).map( ( [ key, data ] ) => (
-								<option key={ key } value={ key }>
-									{ data.symbol } ({ data.name })
-								</option>
-							) ) }
-						</select>
+						<ComboboxControl
+						id="currency-code"
+						value={ currencyCode }
+						onChange={ ( value ) => {
+							setCurrency( value );
+							setVisitedField( 'currency-code' );
+						} }
+						placeholder={ __( 'Search for a currency...', 'the-events-calendar' ) }
+						options={ currencyOptions }
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+					/>
 						<span className="tec-events-onboarding__required-label">
 							{ __( 'Currency symbol is required.', 'the-events-calendar' ) }
 						</span>
@@ -184,17 +203,17 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						className="tec-events-onboarding__form-field"
 					>
 						<ComboboxControl
-							id="time-zone"
-							value={ timeZone }
-							onChange={ ( value ) => {
-								setTimeZone( value );
-								setVisitedField( 'time-zone' );
-							} }
-							options={ timezoneOptions }
-							placeholder={ __( 'Search for a timezone...', 'the-events-calendar' ) }
-							__nextHasNoMarginBottom
-							__next40pxDefaultSize
-						/>
+						id="time-zone"
+						value={ timeZone }
+						onChange={ ( value ) => {
+							setTimeZone( value );
+							setVisitedField( 'time-zone' );
+						} }
+						placeholder={ __( 'Search for a timezone...', 'the-events-calendar' ) }
+						options={ timezoneOptions }
+						__nextHasNoMarginBottom
+						__next40pxDefaultSize
+					/>
 						<span id="time-zone-description" className="tec-events-onboarding__field-description">
 							{ timeZoneMessage }
 						</span>

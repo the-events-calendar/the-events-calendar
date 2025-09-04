@@ -819,6 +819,14 @@
 	height: auto !important;
 }
 
+/* Ensure ComboboxControl inputs have consistent styling with other form fields */
+.tec-events-onboarding__form-wrapper input[type="text"].components-combobox-control__input.components-form-token-field__input[role="combobox"] {
+	height: auto !important;
+	padding: var(--tec-spacer-2) var(--tec-spacer-3) !important;
+	font-size: var(--tec-font-size-2) !important;
+	line-height: normal !important;
+}
+
 .tec-events-dismiss-onboarding-screen {
 	bottom: 2em;
 	display: none;
