@@ -1,7 +1,3 @@
-@custom-media --tablet (max-width: 782px);
-@custom-media --not-phone (min-width: 480px);
-@custom-media --phone (max-width: 480px);
-
 /* = Post Type Listing
 ============================================= */
 .events-cal {
@@ -150,7 +146,7 @@
 		.tribe-field-end_date {
 			width: 100px;
 
-			@media (--tablet) {
+			@media (min-width: 783px) {
 				display: inline-block;
 				width: 63%;
 			}
@@ -160,7 +156,7 @@
 		.tribe-field-end_time {
 			width: 80px;
 
-			@media (--tablet) {
+			@media (min-width: 783px) {
 				display: inline-block;
 				width: 35%;
 			}
@@ -168,7 +164,7 @@
 
 		.tribe-datetime-separator {
 
-			@media (--tablet) {
+			@media (min-width: 783px) {
 				display: block;
 				padding: 5px 0;
 				text-align: center;
@@ -191,7 +187,7 @@
 				display: inline-block;
 				margin-top: -4px;
 
-				@media (--tablet) {
+				@media (min-width: 783px) {
 					display: table;
 					margin: 10px auto 0;
 				}
@@ -201,7 +197,7 @@
 		.tribe-change-timezone {
 			white-space: nowrap;
 
-			@media (--tablet) {
+			@media (min-width: 783px) {
 				display: block;
 				padding: 5px 0;
 				text-align: center;
@@ -216,7 +212,7 @@
 	}
 }
 
-/* Apply a grey highlight to 'today' */
+/* Apply a gray highlight to 'today' */
 .ui-datepicker-calendar .ui-datepicker-today {
 
 	a {
@@ -366,6 +362,54 @@
 	display: none;
 }
 
+/* Class is duplicated, overriding styles in Common that may load later. */
+.tribe_events_page_tec-events-settings .tec-settings-form,
+.tribe_events_page_tec-events-settings #tec-settings-form  {
+	.tec-settings-teaser-pill-wrapper {
+		align-items: center;
+		display: flex;
+		flex-wrap: nowrap;
+
+		@media (min-width: 783px) {
+			margin-top: 12px;
+		}
+
+		label {
+			margin-top: 0;
+		}
+	}
+
+	.tec-settings-teaser-pill {
+		background-color: transparent;
+		background-image: url(../images/icons/lightning.svg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: var(--tec-font-size-4);
+		display: inline-block;
+		min-height: 44px;
+		margin: 0;
+		margin-top: -14px;
+		width: 44px;
+
+		@media (min-width: 783px) {
+			margin-left: 8px;
+			margin-top: 0;
+			min-height: 24px;
+			width: 24px;
+		}
+	}
+}
+
+#tribe-field-tribeEnableViews label {
+	box-sizing: border-box;
+	margin-top: 0;
+	min-height: 44px;
+
+	@media (min-width: 783px) {
+		min-height: 24px;
+	}
+}
+
 /* Donate link - remove if/when we move this.
 ============================================= */
 #tribe-field-donate-link legend {
@@ -418,21 +462,15 @@
 			display: none;
 		}
 
-		@media (--not-phone) {
+		.tribe-upgrade-absolute-text {
+			display: block;
+			margin: 15px 10px;
 
-			.tribe-upgrade-absolute-text {
+			@media (--viewport-xsmall) {
 				bottom: 80px;
 				position: absolute;
 				white-space: nowrap;
 				word-wrap: break-word;
-			}
-		}
-
-		@media (--phone) {
-
-			.tribe-upgrade-absolute-text {
-				display: block;
-				margin: 15px 10px;
 			}
 		}
 	}
