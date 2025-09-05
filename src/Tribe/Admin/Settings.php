@@ -661,28 +661,34 @@ class Settings {
 			'map'     => _x( 'Map', 'Label for the Map View checkbox.', 'the-events-calendar' ),
 		];
 
-		$tooltip_label = _x( 'PRO', 'The label for the premium view indicator.', 'the-events-calendar' );
-		$tooltip_title = _x(
-			'Get Events Calendar Pro to use this View.',
-			'The title (hover text) for the premium view indicator.',
-			'the-events-calendar'
-		);
-
 		// Loop through the term array above and create teaser checkboxes.
 		ob_start();
 
-		foreach( $views as $name => $label ) { ?>
-			<label title="Summary" class="tec-disabled">
-				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
-				<?php echo esc_attr( $label ) ?>
+		foreach ( $views as $name => $label ) {
+
+			$tooltip_title = sprintf(
+				/* translators: %1$s: The name of the view. Translated above. */
+				_x(
+					'Get Events Calendar Pro to use the %1$s View.',
+					'The title (hover text) for the premium view indicator.',
+					'the-events-calendar'
+				),
+				$label
+			);
+			?>
+			<span class="tec-settings-teaser-pill-wrapper">
+				<label class="tec-disabled">
+				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ); ?>" disabled>
+					<?php echo esc_attr( $label ); ?>
+				</label>
 				<a
 					href="https://evnt.is/1bb-"
 					class="tec-settings-teaser-pill"
 					title="<?php echo esc_attr( $tooltip_title ); ?>"
-				><?php echo esc_html( $tooltip_label ); ?>
-				</a>
-			</label>
-		<?php }
+				><span class="tribe-common-a11y-visual-hide"><?php echo esc_html( $tooltip_title ); ?></span></a>
+			</span>
+			<?php
+		}
 
 		$ecp_string = ob_get_clean();
 

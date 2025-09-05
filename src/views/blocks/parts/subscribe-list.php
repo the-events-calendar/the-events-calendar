@@ -47,7 +47,7 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 					<div id="tribe-events-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 						<ul class="tribe-events-c-subscribe-dropdown__list">
 							<?php foreach ( $items as $item ) : ?>
-								<li class="tribe-events-c-subscribe-dropdown__list-item">
+								<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--<?php echo esc_attr( $item->get_slug() ); ?>">
 									<a
 										href="<?php echo esc_url( $item->get_uri( null ) ); ?>"
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
