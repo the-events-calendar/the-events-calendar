@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       new-branch:
-        description: 'Name of the new branch (e.g. release/T24.centaur)'
-        default: release/T24.release-name
+        description: 'Name of the new branch (e.g. release/T25.centaur)'
+        default: release/T25.release-name
         required: true
       version-bump-type:
         description: 'Type of version bump'
@@ -96,7 +96,7 @@ jobs:
                 echo "Skipping version bump in \`package.json\` for \`hotfix\` mode" >> $GITHUB_STEP_SUMMARY
                 continue
               fi
-              
+
               IFS='.' read -r -a version_parts <<< "$existing_version"
 
               case "$versionBumpType" in
