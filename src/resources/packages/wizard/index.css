@@ -839,7 +839,6 @@
 	box-shadow: none;
 	cursor: text;
 	min-height: calc(var(--tec-spacer-5) + var(--tec-spacer-1));
-	padding: var(--tec-spacer-1) var(--tec-spacer-2);
 }
 
 .tec-events-onboarding__form-wrapper .tec-react-select__control:hover {
