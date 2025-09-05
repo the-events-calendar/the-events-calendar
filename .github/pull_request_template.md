@@ -1,9 +1,7 @@
-### 🎫 Ticket
+# [Title]
+<!-- Add a descriptive title -->
 
-[TICKET_ID]
-<!-- Ticket ID, if there's any put it between brackets -->
-
-### 🗒️ Description
+## 🗒️ Description
 
 <!--
 Please describe what you have changed or added
@@ -13,11 +11,17 @@ New feature (non-breaking change which adds functionality)
 Include any important information for reviewers
 -->
 
+### 🎫 Ticket
+
+[TICKET_ID]
+<!-- Ticket ID, if there's any put it between brackets -->
+
 ### 🎥 Artifacts <!-- if applicable-->
 <!-- 🎥 screencast(s) or 📷 screenshot(s) -->
 
 ### ✔️ Checklist
-- [ ] Ran `npm run changelog` to add changelog file(s). More info [here](https://docs.theeventscalendar.com/developer/git/changelogs/#process)
+
+- [ ] Ran `npm run changelog` to add changelog file(s). [More info here](https://docs.theeventscalendar.com/developer/git/changelogs/#process)
 - [ ] Code is covered by **NEW** `wpunit` or `integration` tests.
 - [ ] Code is covered by **EXISTING** `wpunit` or `integration` tests.
 - [ ] Are all the **required** tests passing?
