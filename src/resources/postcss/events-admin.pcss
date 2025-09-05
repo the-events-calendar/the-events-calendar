@@ -1,3 +1,6 @@
+@custom-media --tablet (max-width: 782px);
+@custom-media --not-phone (min-width: 480px);
+@custom-media --phone (max-width: 480px);
 /* = Post Type Listing
 ============================================= */
 .events-cal {
@@ -40,7 +43,7 @@
 	margin-top: -20px;
 
 	td {
-		font-size: 12px;
+		font-size: var(--tec-font-size-1);
 		padding: 0 6px 10px 0;
 		vertical-align: middle;
 
@@ -366,13 +369,21 @@
 .tribe_events_page_tec-events-settings .tec-settings-form,
 .tribe_events_page_tec-events-settings #tec-settings-form  {
 	/* Styling for the "Calendar Display" section. */
-	#tribe-field-tribeEnableViews {
-		label:first-child {
-			margin-top: 0;
-		}
+	#tribe-field-tribeEnableViews .tribe-field-wrap{
+		> label {
+			margin-bottom: 12px;
 
-		.tooltip.description {
-			margin-top: 0;
+			&:last-of-type {
+				margin-bottom: 8px;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&:first-child {
+				margin-top: 0;
+			}
 		}
 
 		.tec-settings-teaser-pill-wrapper {
@@ -385,7 +396,14 @@
 			}
 
 			label {
+				align-items: center;
+				display: flex;
 				margin-top: 0;
+				text-indent: 0;
+			}
+
+			input {
+				margin: 0 8px 0 0;
 			}
 		}
 
@@ -396,28 +414,15 @@
 			background-repeat: no-repeat;
 			background-size: var(--tec-font-size-4);
 			display: inline-block;
-			min-height: 44px;
+			min-height: 24px;
 			margin: 0;
-			margin-top: -14px;
-			width: 44px;
+			width: 24px;
 
-			@media (--tablet) {
-				margin-left: 8px;
+			@media (min-width: 782px) {
+				margin-left: var(--tec-spacer-1);
 				margin-top: 0;
-				min-height: 24px;
-				width: 24px;
 			}
 		}
-	}
-}
-
-#tribe-field-tribeEnableViews label {
-	box-sizing: border-box;
-	margin-top: 0;
-	min-height: 44px;
-
-	@media (--tablet) {
-		min-height: 24px;
 	}
 }
 
@@ -425,7 +430,7 @@
 ============================================= */
 #tribe-field-donate-link legend {
 	float: left;
-	font-weight: 700;
+	font-weight: var(--tec-font-weight-bold);
 	margin-right: 1em;
 }
 
@@ -437,11 +442,11 @@
 
 	a,
 	.dashicons {
-		color: #334aff;
+		color: var(--tec-color-accent-primary);
 	}
 
 	h3 {
-		font-size: 24px;
+		font-size: var(--tec-font-size-7);
 		line-height: 1.4em;
 	}
 
@@ -489,13 +494,13 @@
 	#tribe-upgrade-step1 {
 
 		span {
-			color: #334aff;
+			color: var(--tec-color-accent-primary);
 		}
 	}
 
 	.button,
 	button {
-		background: #334aff;
+		background: var(--tec-color-accent-primary);
 		border: 0;
 		border-radius: 0.25rem;
 		box-shadow: 0 2px black;
@@ -632,7 +637,7 @@
 }
 
 #upgrade-button {
-	background: #334aff;
+	background: var(--tec-color-accent-primary);
 	border: 0;
 	border-radius: 0.25rem;
 	box-shadow: 0 2px black;

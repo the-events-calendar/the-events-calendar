@@ -872,6 +872,10 @@
 	font-size: var(--tec-font-size-2);
 }
 
+.tec-events-onboarding__form-wrapper .tec-react-select__input:focus {
+	box-shadow: none;
+}
+
 /* Dropdown indicator */
 .tec-events-onboarding__form-wrapper .tec-react-select__dropdown-indicator {
 	color: #646970;
