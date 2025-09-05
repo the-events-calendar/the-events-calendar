@@ -10,8 +10,7 @@ import {
 	METADATA_EVENT_CURRENCY_POSITION,
 	METADATA_EVENT_CURRENCY_SYMBOL,
 } from '../../constants';
-import { Currency } from '@tec/common/classy/types/Currency';
-import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
+import { Currency, CurrencyPosition } from '@tec/common/classy/types/Currency';
 
 export default function EventCost(): JSX.Element {
 	const meta = useSelect( ( select ) => {
