@@ -257,7 +257,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					>
 						<select
 							id="week-starts"
-							onChange={ ( e ) => setWeekStart( parseInt( e.target.value, 10 ) ) }
+							onChange={ ( e ) => setWeekStart( e.target.value  ) }
 							defaultValue={ weekStart }
 						>
 							{ startDayOptions.map( ( { label, value } ) => (
