@@ -31,6 +31,7 @@ jobs:
           - rewrite_functional
           - wpunit
           - rest_tec_v1_integration
+          - classy_integration
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
