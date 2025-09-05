@@ -434,7 +434,7 @@
 @media (min-width: 1024px) {
 
 	#settingsPanel .tec-events-onboarding__tab-content,
-	#organizerPanel .tec-events-onboarding__tab-content, {
+	#organizerPanel .tec-events-onboarding__tab-content {
 		max-width: 330px;
 	}
 
@@ -821,4 +821,141 @@
 	.tec-events-dismiss-onboarding-screen {
 		display: inline-block;
 	}
+}
+
+/* -----------------------------------------------------------------------------
+ * React-Select Styling (to match WordPress timezone selector)
+ * ----------------------------------------------------------------------------- */
+
+.tec-events-onboarding__form-wrapper .tec-react-select-container {
+	font-size: var(--tec-font-size-2);
+}
+
+/* Control (the main input area) */
+.tec-events-onboarding__form-wrapper .tec-react-select__control {
+	background-color: #fff;
+	border: 1px solid #8c8f94;
+	border-radius: 3px;
+	box-shadow: none;
+	cursor: text;
+	min-height: calc(var(--tec-spacer-5) + var(--tec-spacer-1));
+	padding: var(--tec-spacer-1) var(--tec-spacer-2);
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__control:hover {
+	border-color: #8c8f94;
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__control--is-focused {
+	border-color: var(--tec-wp-core-blue-50) !important;
+	box-shadow: 0 0 0 0.5px var(--tec-wp-core-blue-50) !important;
+	outline: 1px solid transparent;
+}
+
+/* Value and placeholder */
+.tec-events-onboarding__form-wrapper .tec-react-select__single-value {
+	color: #2c3338;
+	font-size: var(--tec-font-size-2);
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__placeholder {
+	color: #646970;
+	font-size: var(--tec-font-size-2);
+}
+
+/* Input (search field) */
+.tec-events-onboarding__form-wrapper .tec-react-select__input-container {
+	color: #2c3338;
+	font-size: var(--tec-font-size-2);
+}
+
+/* Dropdown indicator */
+.tec-events-onboarding__form-wrapper .tec-react-select__dropdown-indicator {
+	color: #646970;
+	padding: 0 var(--tec-spacer-1);
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__dropdown-indicator:hover {
+	color: #646970;
+}
+
+/* Remove separator */
+.tec-events-onboarding__form-wrapper .tec-react-select__indicator-separator {
+	display: none;
+}
+
+/* Menu (dropdown) */
+.tec-events-onboarding__form-wrapper .tec-react-select__menu {
+	border: 1px solid #8c8f94;
+	border-radius: 3px;
+	border-top: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	margin-top: -1px;
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__menu-list {
+	max-height: 200px;
+	padding: 0;
+}
+
+/* Group headers (continent names) */
+.tec-events-onboarding__form-wrapper .tec-react-select__group-heading {
+	background-color: #f6f7f7;
+	color: #646970;
+	font-size: var(--tec-font-size-2);
+	font-weight: var(--tec-font-weight-bold);
+	margin: 0;
+	padding: var(--tec-spacer-1) var(--tec-spacer-2);
+	text-transform: none;
+}
+
+/* Options */
+.tec-events-onboarding__form-wrapper .tec-react-select__option {
+	background-color: #fff;
+	color: #2c3338;
+	cursor: pointer;
+	font-size: var(--tec-font-size-2);
+	padding: var(--tec-spacer-1) var(--tec-spacer-4);
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__option:hover,
+.tec-events-onboarding__form-wrapper .tec-react-select__option--is-focused {
+	background-color: var(--tec-wp-core-blue-50);
+	color: #fff;
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__option--is-selected {
+	background-color: #e5f5ff;
+	color: #2c3338;
+}
+
+.tec-events-onboarding__form-wrapper .tec-react-select__option--is-selected:hover,
+.tec-events-onboarding__form-wrapper .tec-react-select__option--is-selected.tec-react-select__option--is-focused {
+	background-color: var(--tec-wp-core-blue-50);
+	color: #fff;
+}
+
+/* No options message */
+.tec-events-onboarding__form-wrapper .tec-react-select__menu-notice {
+	color: #646970;
+	font-size: var(--tec-font-size-2);
+	font-style: italic;
+	padding: var(--tec-spacer-2);
+}
+
+/* Invalid state styling */
+.tec-events-onboarding__form-field.invalid .tec-react-select__control {
+	border-color: var(--tec-color-wp-error) !important;
+	box-shadow: 0 0 0 0.5px var(--tec-color-wp-error) !important;
+}
+
+.tec-events-onboarding__form-field.invalid .tec-react-select__single-value {
+	color: var(--tec-color-wp-error);
+	font-weight: var(--tec-font-weight-bold);
+}
+
+.tec-events-onboarding__form-field.invalid .tec-react-select__control--is-focused {
+	border-color: var(--tec-color-wp-error) !important;
+	box-shadow: 0 0 0 0.5px var(--tec-color-wp-error) !important;
+	outline: 1px solid var(--tec-color-wp-error);
 }
