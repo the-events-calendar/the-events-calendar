@@ -892,8 +892,8 @@
 	border: 1px solid #8c8f94;
 	border-radius: 3px;
 	border-top: none;
-	margin-top: -1px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	margin-top: -1px;
 }
 
 .tec-events-onboarding__form-wrapper .tec-react-select__menu-list {
