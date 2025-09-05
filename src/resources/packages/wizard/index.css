@@ -831,6 +831,10 @@
 	font-size: var(--tec-font-size-2);
 }
 
+.tec-events-onboarding__form-wrapper .tec-react-select__input:focus {
+	box-shadow: none;
+}
+
 /* Control (the main input area) */
 .tec-events-onboarding__form-wrapper .tec-react-select__control {
 	background-color: #fff;
@@ -866,6 +870,7 @@
 .tec-events-onboarding__form-wrapper .tec-react-select__input-container {
 	color: #2c3338;
 	font-size: var(--tec-font-size-2);
+	box-shadow: none;
 }
 
 /* Dropdown indicator */
@@ -889,6 +894,7 @@
 	border-radius: 3px;
 	border-top: none;
 	margin-top: -1px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .tec-events-onboarding__form-wrapper .tec-react-select__menu-list {
