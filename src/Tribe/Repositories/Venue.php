@@ -42,19 +42,20 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		$this->update_fields_aliases = array_merge(
 			$this->update_fields_aliases,
 			[
-				'venue'         => 'post_title',
-				'address'       => '_VenueAddress',
-				'city'          => '_VenueCity',
-				'state'         => '_VenueState',
-				'province'      => '_VenueProvince',
-				'stateprovince' => '_VenueStateProvince',
-				'postal_code'   => '_VenueZip',
-				'zip'           => '_VenueZip',
-				'country'       => '_VenueCountry',
-				'phone'         => '_VenuePhone',
-				'website'       => '_VenueURL',
-				'show_map'      => '_VenueShowMap',
-				'show_map_link' => '_VenueShowMapLink',
+				'venue'          => 'post_title',
+				'address'        => '_VenueAddress',
+				'city'           => '_VenueCity',
+				'state'          => '_VenueState',
+				'province'       => '_VenueProvince',
+				'stateprovince'  => '_VenueStateProvince',
+				'state_province' => '_VenueStateProvince',
+				'postal_code'    => '_VenueZip',
+				'zip'            => '_VenueZip',
+				'country'        => '_VenueCountry',
+				'phone'          => '_VenuePhone',
+				'website'        => '_VenueURL',
+				'show_map'       => '_VenueShowMap',
+				'show_map_link'  => '_VenueShowMapLink',
 			]
 		);
 

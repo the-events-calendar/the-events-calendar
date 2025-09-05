@@ -62,7 +62,7 @@ function getNewStartEndDates(
 	try {
 		switch ( updated ) {
 			case 'startDate':
-				newStartDate.setDate( new Date( newDate ).getDate());
+				newStartDate.setDate( new Date( newDate ).getDate() );
 
 				// If not multiday update end date with original duration.
 				if ( ! isMultiday ) {
@@ -323,7 +323,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		return (
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
-				endDate={ endDate }
+				endDate={ null }
 				highlightTime={ highlightStartTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
@@ -336,17 +336,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				timeFormat={ timeFormat }
 			/>
 		);
-	}, [
-		dateWithYearFormat,
-		endDateIsoString,
-		isAllDayValue,
-		isMultidayValue,
-		isSelectingDate,
-		startDateIsoString,
-		startOfWeek,
-		timeFormat,
-        dates,
-	] );
+	}, [ dateWithYearFormat, isAllDayValue, isMultidayValue, isSelectingDate, startOfWeek, timeFormat, dates ] );
 
 	const endSelector = useMemo( () => {
 		return (
@@ -365,17 +355,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				timeFormat={ timeFormat }
 			/>
 		);
-	}, [
-		dateWithYearFormat,
-		endDateIsoString,
-		isAllDayValue,
-		isMultidayValue,
-		isSelectingDate,
-		startDateIsoString,
-		startOfWeek,
-		timeFormat,
-		dates,
-	] );
+	}, [ dateWithYearFormat, isAllDayValue, isMultidayValue, isSelectingDate, startOfWeek, timeFormat, dates ] );
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {

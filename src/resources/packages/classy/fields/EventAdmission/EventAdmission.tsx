@@ -52,14 +52,10 @@ export default function EventAdmission( props: FieldProps ) {
 				) }
 
 				{ /* Provide a slot for tickets to render their fields. */ }
-				{ isUsingTickets && (
-					<Slot name="tec.classy.fields.tickets" />
-				) }
+				{ isUsingTickets && <Slot name="tec.classy.fields.tickets" /> }
 
 				{ /* When not using tickets, render the EventCost component. */ }
-				{ ! isUsingTickets && (
-					<EventCost />
-				) }
+				{ ! isUsingTickets && <EventCost /> }
 			</div>
 		</div>
 	);

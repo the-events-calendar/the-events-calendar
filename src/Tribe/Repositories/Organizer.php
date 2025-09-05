@@ -113,4 +113,25 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 		);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function format_item( $id ) {
+		$formatted = null === $this->formatter
+			? tribe_get_organizer_object( $id )
+			: $this->formatter->format_item( $id );
+
+		/**
+		 * Filters a single formatted organizer result.
+		 *
+		 * @since 6.15.0
+		 *
+		 * @param mixed|WP_Post                $formatted The formatted event result, usually a post object.
+		 * @param int                          $id        The formatted post ID.
+		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 */
+		$formatted = apply_filters( 'tribe_repository_organizers_format_item', $formatted, $id, $this );
+
+		return $formatted;
+	}
 }

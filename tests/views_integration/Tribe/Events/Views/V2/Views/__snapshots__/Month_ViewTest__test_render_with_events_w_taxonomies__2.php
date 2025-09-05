@@ -205,13 +205,14 @@
 	data-js="tribe-events-view-selector-list-container"
 >
 	<ul class="tribe-events-c-view-selector__list">
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list" >
 	<a
 		href="http://test.tri.be/events/tag/tag-1/list/?tribe-bar-date=2019-01-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in List View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--list tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -241,13 +242,15 @@
 			List		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month tribe-events-c-view-selector__list-item--active" >
 	<a
 		href="http://test.tri.be/events/tag/tag-1/2019-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Month View"
-	>
+				aria-current="true"
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--month tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -261,13 +264,14 @@
 			Month		</span>
 	</a>
 </li>
-					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
+					<li
+	 class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day" >
 	<a
 		href="http://test.tri.be/events/tag/tag-1/day/2019-01-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		aria-label="Display Events in Day View"
-	>
+			>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--day tribe-events-c-view-selector__list-item-icon-svg" 	aria-hidden="true"
@@ -414,9 +418,9 @@
 						Calendar of Events		</h2>
 		<table
 			class="tribe-events-calendar-month"
-			aria-labelledby="tribe-events-calendar-header"
-			aria-readonly="true"
 			data-js="tribe-events-month-grid"
+			aria-readonly="true"
+			role="presentation"
 		>
 
 			<thead class="tribe-events-calendar-month__header">
@@ -424,7 +428,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Monday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -436,7 +439,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Tuesday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -448,7 +450,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Wednesday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -460,7 +461,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Thursday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -472,7 +472,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Friday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -484,7 +483,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Saturday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -496,7 +494,6 @@
 					<th
 				class="tribe-events-calendar-month__header-column"
 				scope="col"
-				aria-label="Sunday"
 			>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
 				<span class="tribe-events-calendar-month__header-column-title-mobile">
@@ -604,6 +601,7 @@
 				href="http://test.tri.be/events/tag/tag-1/day/2019-01-01/"
 				class="tribe-events-calendar-month__day-date-link"
 				data-js="tribe-events-view-link"
+				aria-label="1st January"
 			>
 				1			</a>
 			</time>

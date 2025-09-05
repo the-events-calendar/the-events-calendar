@@ -21,27 +21,34 @@
 			<span>Highlight a category</span>
 			<button class="tec-events-category-color-filter__dropdown-close" aria-label="Close category selection">✕</button>
 		</div>
-		<ul class="tec-events-category-color-filter__dropdown-list">
-							<li class="tec-events-category-color-filter__dropdown-item" role="option">
+		<ul class="tec-events-category-color-filter__dropdown-list"
+			role="listbox"
+			aria-label="Category selection"
+		>
+											<li
+					 class="tribe_events_cat-test-category-1 tec-events-category-color-filter__dropdown-item" 					role="option">
 					<label data-category="test-category-1" >
 													<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
 								aria-label="
 								Highlight events in Test Category 1">
-							<span class="tec-events-category-color-filter__label">Test Category 1</span>
+							<span class="tec-events-category-color-filter__label" aria-hidden="true">Test Category 1</span>
 												<span
-							 class="tec-events-category-color-filter__color-dot tribe_events_cat-test-category-1" 						></span>
+							 class="tec-events-category-color-filter__color-dot tribe_events_cat-test-category-1" 							aria-hidden="true"
+						></span>
 					</label>
 				</li>
-							<li class="tec-events-category-color-filter__dropdown-item" role="option">
+											<li
+					 class="tribe_events_cat-test-category-2 tec-events-category-color-filter__dropdown-item" 					role="option">
 					<label data-category="test-category-2" >
 													<input type="checkbox"
 								class="tec-events-category-color-filter__checkbox"
 								aria-label="
 								Highlight events in Test Category 2">
-							<span class="tec-events-category-color-filter__label">Test Category 2</span>
+							<span class="tec-events-category-color-filter__label" aria-hidden="true">Test Category 2</span>
 												<span
-							 class="tec-events-category-color-filter__color-dot tribe_events_cat-test-category-2" 						></span>
+							 class="tec-events-category-color-filter__color-dot tribe_events_cat-test-category-2" 							aria-hidden="true"
+						></span>
 					</label>
 				</li>
 					</ul>
