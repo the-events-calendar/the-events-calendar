@@ -365,37 +365,48 @@
 /* Class is duplicated, overriding styles in Common that may load later. */
 .tribe_events_page_tec-events-settings .tec-settings-form,
 .tribe_events_page_tec-events-settings #tec-settings-form  {
-	.tec-settings-teaser-pill-wrapper {
-		align-items: center;
-		display: flex;
-		flex-wrap: nowrap;
-
-		@media (min-width: 783px) {
-			margin-top: 12px;
-		}
-
-		label {
+	/* Styling for the "Calendar Display" section. */
+	#tribe-field-tribeEnableViews {
+		label:first-child {
 			margin-top: 0;
 		}
-	}
 
-	.tec-settings-teaser-pill {
-		background-color: transparent;
-		background-image: url(../images/icons/lightning.svg);
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: var(--tec-font-size-4);
-		display: inline-block;
-		min-height: 44px;
-		margin: 0;
-		margin-top: -14px;
-		width: 44px;
-
-		@media (min-width: 783px) {
-			margin-left: 8px;
+		.tooltip.description {
 			margin-top: 0;
-			min-height: 24px;
-			width: 24px;
+		}
+
+		.tec-settings-teaser-pill-wrapper {
+			align-items: center;
+			display: flex;
+			flex-wrap: nowrap;
+
+			@media (min-width: 783px) {
+				margin-top: 12px;
+			}
+
+			label {
+				margin-top: 0;
+			}
+		}
+
+		.tec-settings-teaser-pill {
+			background-color: transparent;
+			background-image: url(../images/icons/lightning.svg);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: var(--tec-font-size-4);
+			display: inline-block;
+			min-height: 44px;
+			margin: 0;
+			margin-top: -14px;
+			width: 44px;
+
+			@media (min-width: 783px) {
+				margin-left: 8px;
+				margin-top: 0;
+				min-height: 24px;
+				width: 24px;
+			}
 		}
 	}
 }
