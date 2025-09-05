@@ -9,32 +9,27 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.pull_request.body, '[skip-lint]')"
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
+      - name: Check skip condition
+        id: check-skip
+        uses: the-events-calendar/actions/.github/actions/check-skip-flag@main
         with:
-          fetch-depth: 1
-          submodules: recursive
-      # ------------------------------------------------------------------------------
-      # Setup Node.
-      # ------------------------------------------------------------------------------
-      - name: Check for .nvmrc file
-        id: check-nvmrc
-        run: |
-          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
+          skip-flag: lint
 
-      - uses: actions/setup-node@v4
-        if: steps.check-nvmrc.outputs.exists == 'true'
+      - name: Setup environment
+        if: steps.check-skip.outputs.should-skip != 'true'
+        uses: the-events-calendar/actions/.github/actions/base-setup@main
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
+          setup-php: 'false'
+          setup-node: 'true'
+
+      # ------------------------------------------------------------------------------
+      # Run linting tasks
+      # ------------------------------------------------------------------------------
       - name: Install node modules
+        if: steps.check-skip.outputs.should-skip != 'true'
         run: npm ci
+
       - name: Run linting tasks
+        if: steps.check-skip.outputs.should-skip != 'true'
         run: npm run lint
