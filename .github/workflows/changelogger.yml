@@ -14,31 +14,34 @@ jobs:
   check-changelog:
     name:    Check changelog
     runs-on: ubuntu-latest
-    if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
     steps:
-      # clone the repository
-      - uses: actions/checkout@v4
+      - name: Check skip condition
+        id: check-skip
+        uses: the-events-calendar/actions/.github/actions/check-skip-flag@main
         with:
-          fetch-depth: 1000
-          submodules: recursive
-      # enable dependencies caching
-      - name: Add composer to cache
-        uses: actions/cache@v4
+          skip-flag: changelog
+
+      # Setup environment using action
+      - name: Setup environment
+        if: steps.check-skip.outputs.should-skip != 'true'
+        uses: the-events-calendar/actions/.github/actions/base-setup@main
         with:
-          path: ~/.cache/composer/
-          key:  ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-      # setup PHP
-      - name: Configure PHP environment
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          tools: composer
-          coverage: none
-      # Install composer packages.
-      - run: composer self-update && composer install --no-progress --ignore-platform-reqs
+          setup-php: 'true'
+          setup-node: 'false'
+          php-version: '7.4'
+          fetch-depth: '1000'
+
+      # Setup composer with caching
+      - name: Setup composer with caching
+        if: steps.check-skip.outputs.should-skip != 'true'
+        uses: the-events-calendar/actions/.github/actions/setup-composer@main
+
       # Fetch the target branch before running the check.
       - name: Fetch the target origin branch
+        if: steps.check-skip.outputs.should-skip != 'true'
         run: git fetch origin $GITHUB_BASE_REF
+
       # Check if any changelog file is added when comparing the current branch vs the target branch.
       - name: Check changelog
+        if: steps.check-skip.outputs.should-skip != 'true'
         run: bash bin/check-changelog.sh origin/$GITHUB_BASE_REF HEAD
