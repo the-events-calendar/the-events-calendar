@@ -1,0 +1,327 @@
+name: "Main Release Orchestration"
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: "The release version for which the action should process the changelog (e.g. 4.5.0) (default: will try to figure it out)"
+        required: true
+        type: string
+        default: 'figure-it-out'
+      release-date:
+        description: "The release date in human-readable format (default: 'today')."
+        required: false
+        default: "today"
+        type: string
+      action-type:
+        description: "Whether this is to amend or generate the changelog entries (default: 'generate')."
+        required: true
+        default: "generate"
+        type: choice
+        options:
+          - amend
+          - generate
+          - amend-version
+      target-branch:
+        description: "Target branch for the workflow"
+        required: false
+        type: string
+        default: "main"
+      release-notes-content:
+        description: "Additional release notes content for the PR"
+        required: false
+        type: string
+        default: ""
+      update-wp-version:
+        description: "Update WordPress version requirements during release"
+        required: false
+        type: choice
+        options:
+          - 'yes'
+          - 'no'
+        default: 'no'
+      wp-tested-version:
+        description: "WordPress tested up to version (only if update-wp-version is yes)"
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  # Job 1: Update WordPress Version (Optional)
+  update-wp-version:
+    name: 🔄 Update WordPress Version
+    runs-on: ubuntu-latest
+    if: inputs.update-wp-version == 'yes'
+    outputs:
+      wp-changes-made: ${{ steps.wp-update.outputs.pull-request-number != '' }}
+      wp-pr-url: ${{ steps.wp-update.outputs.pull-request-url }}
+      wp-tested-version: ${{ steps.wp-update.outputs.tested-version }}
+    steps:
+      - name: Update WordPress version requirements
+        id: wp-update
+        uses: the-events-calendar/actions/.github/actions/update-wp-version@main
+        with:
+          tested-up-to: ${{ inputs.wp-tested-version }}
+          update-min-version: 'yes'
+          gh-bot-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+
+  # Job 2: Sync Translations
+  sync-translations:
+    name: 🔁 Sync Translations
+    runs-on: ubuntu-latest
+    needs: [update-wp-version]
+    if: always() && !cancelled() && !failure()
+    outputs:
+      translation-summary: ${{ steps.sync-translations.outputs.translation-summary }}
+      changes-made: ${{ steps.sync-translations.outputs.changes-made }}
+    steps:
+      - name: Sync translations
+        id: sync-translations
+        uses: the-events-calendar/actions/.github/actions/sync-translations@main
+        with:
+          target-branch: ${{ inputs.target-branch }}
+          translations-deploy-host: ${{ secrets.TRANSLATIONS_DEPLOY_HOST }}
+          translations-deploy-user: ${{ secrets.TRANSLATIONS_DEPLOY_USER }}
+          translations-deploy-ssh-key: ${{ secrets.TRANSLATIONS_DEPLOY_SSH_KEY }}
+          translations-deploy-pot-location: ${{ secrets.TRANSLATIONS_DEPLOY_POT_LOCATION }}
+
+  # Job 3: Analyze Changes
+  analyze-changes:
+    name: "📊 Analyze Changes"
+    runs-on: ubuntu-latest
+    needs: sync-translations
+    outputs:
+      analysis-summary: ${{ steps.analyze-changes.outputs.analysis-summary }}
+      changes-detected: ${{ steps.analyze-changes.outputs.changes-detected }}
+    steps:
+      - name: Analyze changes
+        id: analyze-changes
+        uses: the-events-calendar/actions/.github/actions/analyze-changes@main
+        with:
+          compare-commit: ""
+          output-format: "changelog"
+
+  # Job 4: Process Changelog
+  process-changelog:
+    name: "📝 Process Changelog"
+    runs-on: ubuntu-latest
+    needs: analyze-changes
+    outputs:
+      changelog-content: ${{ steps.process-changelog.outputs.changelog-content }}
+      changes-made: ${{ steps.process-changelog.outputs.changes-made }}
+      current-version: ${{ steps.process-changelog.outputs.current-version }}
+    steps:
+      - name: Process changelog
+        id: process-changelog
+        uses: the-events-calendar/actions/.github/actions/process-changelog@main
+        with:
+          release-version: ${{ inputs.release-version }}
+          release-date: ${{ inputs.release-date }}
+          action-type: ${{ inputs.action-type }}
+          target-branch: ${{ inputs.target-branch }}
+
+  # Job 5: Replace TBD Entries
+  replace-tbd-entries:
+    name: "🔄 Replace TBD Entries"
+    runs-on: ubuntu-latest
+    needs: process-changelog
+    outputs:
+      changes-made: ${{ steps.replace-tbd.outputs.changes-made }}
+      current-version: ${{ steps.replace-tbd.outputs.current-version }}
+    steps:
+      - name: Replace TBD entries
+        id: replace-tbd
+        uses: the-events-calendar/actions/.github/actions/replace-tbd-entries@main
+        with:
+          target-branch: ${{ inputs.target-branch }}
+
+  # Job 6: Create Release PR
+  create-release-pr:
+    name: "🚀 Create Release PR"
+    runs-on: ubuntu-latest
+    needs: [update-wp-version, sync-translations, analyze-changes, process-changelog, replace-tbd-entries]
+    if: always() && !cancelled() && !failure()
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release-pr-url: ${{ steps.create-pr.outputs.pull-request-url }}
+      release-pr-number: ${{ steps.create-pr.outputs.pull-request-number }}
+      release-branch: ${{ steps.create-branch.outputs.branch_name }}
+    steps:
+      - name: Checkout repository
+        uses: the-events-calendar/actions/.github/actions/base-setup@main
+        with:
+          setup-php: 'false'
+          setup-node: 'false'
+          fetch-depth: '0'
+
+      - name: Setup Git configuration
+        uses: the-events-calendar/actions/.github/actions/setup-git@main
+
+      - name: Create release branch
+        id: create-branch
+        shell: bash
+        run: |
+          timestamp=$(date +%Y%m%d-%H%M%S)
+          sha_short=$(git rev-parse --short ${{ github.sha }})
+          version="${{ needs.replace-tbd-entries.outputs.current-version || inputs.release-version }}"
+          branch_name="release/$version-$timestamp-$sha_short"
+
+          echo "## Release Branch" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: \`$branch_name\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: \`$version\`" >> $GITHUB_STEP_SUMMARY
+
+          git checkout -b "$branch_name"
+          git push --set-upstream origin "$branch_name"
+          echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        id: create-pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+          base: ${{ inputs.target-branch }}
+          branch: ${{ steps.create-branch.outputs.branch_name }}
+          title: "[RELEASE] Prepare release ${{ needs.replace-tbd-entries.outputs.current-version || inputs.release-version }}"
+          body: |
+            ## 🚀 Release Preparation PR
+
+            This PR contains all the changes made during the release preparation process for version **${{ needs.replace-tbd-entries.outputs.current-version || inputs.release-version }}**.
+
+            ### 📋 Changes Included:
+
+            ${{ needs.update-wp-version.outputs.wp-changes-made == 'true' && '#### 🔄 WordPress Version Update' || '' }}
+            ${{ needs.update-wp-version.outputs.wp-changes-made == 'true' && format('- Updated tested up to version: `{0}`', needs.update-wp-version.outputs.wp-tested-version) || '' }}
+            ${{ needs.update-wp-version.outputs.wp-changes-made == 'true' && format('- PR: {0}', needs.update-wp-version.outputs.wp-pr-url) || '' }}
+
+            #### 🔁 Translation Sync
+            ${{ needs.sync-translations.outputs.translation-summary }}
+
+            #### 📊 Change Analysis
+            ${{ needs.analyze-changes.outputs.analysis-summary }}
+
+            #### 📝 Changelog Processing
+            ${{ needs.process-changelog.outputs.changelog-content }}
+
+            #### 🔄 TBD Replacement
+            ${{ needs.replace-tbd-entries.outputs.changes-made == 'true' && format('TBD entries have been replaced with version `{0}`', needs.replace-tbd-entries.outputs.current-version) || 'No TBD entries found to replace' }}
+
+            ### 📝 Additional Notes
+            ${{ inputs.release-notes-content }}
+
+            ### 🔗 Related PRs
+            ${{ needs.update-wp-version.outputs.wp-changes-made == 'true' && format('- WordPress Version Update: {0}', needs.update-wp-version.outputs.wp-pr-url) || '' }}
+
+            ---
+            *This PR was automatically generated by the release orchestration workflow.*
+            *Generated by*: [GitHub Action](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          labels: "release,automation"
+          assignees: ${{ github.actor }}
+          reviewers: the-events-calendar/engineers
+          commit-message: |
+            Prepare release ${{ needs.replace-tbd-entries.outputs.current-version || inputs.release-version }}
+
+            - Sync translations: ${{ needs.sync-translations.outputs.changes-made }}
+            - Analyze changes: ${{ needs.analyze-changes.outputs.changes-detected }}
+            - Process changelog: ${{ needs.process-changelog.outputs.changes-made }}
+            - Replace TBD entries: ${{ needs.replace-tbd-entries.outputs.changes-made }}
+            ${{ needs.update-wp-version.outputs.wp-changes-made == 'true' && format('- Update WordPress version: {0}', needs.update-wp-version.outputs.wp-tested-version) || '' }}
+
+            Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+  # Job 7: Generate Workflow Summary
+  generate-summary:
+    name: "📊 Generate Summary"
+    runs-on: ubuntu-latest
+    needs: [update-wp-version, sync-translations, analyze-changes, process-changelog, replace-tbd-entries, create-release-pr]
+    if: always() && !cancelled()
+    steps:
+      - name: Generate comprehensive summary
+        shell: bash
+        run: |
+          echo "# 🚀 Release Preparation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Release Version**: \`${{ needs.replace-tbd-entries.outputs.current-version || inputs.release-version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Target Branch**: \`${{ inputs.target-branch }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Action Type**: \`${{ inputs.action-type }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # WordPress Version Update
+          if [ "${{ needs.update-wp-version.outputs.wp-changes-made }}" == "true" ]; then
+            echo "## 🔄 WordPress Version Update" >> $GITHUB_STEP_SUMMARY
+            echo "✅ **Status**: Updated" >> $GITHUB_STEP_SUMMARY
+            echo "- **Tested Version**: \`${{ needs.update-wp-version.outputs.wp-tested-version }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **PR**: [${{ needs.update-wp-version.outputs.wp-pr-url }}](${{ needs.update-wp-version.outputs.wp-pr-url }})" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ inputs.update-wp-version }}" == "yes" ]; then
+            echo "## 🔄 WordPress Version Update" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **Status**: Failed or No Changes" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## 🔄 WordPress Version Update" >> $GITHUB_STEP_SUMMARY
+            echo "⏭️ **Status**: Skipped" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Translation Sync
+          echo "## 🔁 Translation Sync" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.sync-translations.result }}" == "success" ]; then
+            echo "✅ **Status**: ${{ needs.sync-translations.outputs.changes-made == 'true' && 'Completed with changes' || 'Completed, no changes' }}" >> $GITHUB_STEP_SUMMARY
+            echo "${{ needs.sync-translations.outputs.translation-summary }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Status**: Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Change Analysis
+          echo "## 📊 Change Analysis" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.analyze-changes.result }}" == "success" ]; then
+            echo "✅ **Status**: Completed" >> $GITHUB_STEP_SUMMARY
+            echo "${{ needs.analyze-changes.outputs.analysis-summary }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Status**: Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Changelog Processing
+          echo "## 📝 Changelog Processing" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.process-changelog.result }}" == "success" ]; then
+            echo "✅ **Status**: ${{ needs.process-changelog.outputs.changes-made == 'true' && 'Completed with changes' || 'Completed, no changes' }}" >> $GITHUB_STEP_SUMMARY
+            echo "${{ needs.process-changelog.outputs.changelog-content }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Status**: Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # TBD Replacement
+          echo "## 🔄 TBD Replacement" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.replace-tbd-entries.result }}" == "success" ]; then
+            echo "✅ **Status**: ${{ needs.replace-tbd-entries.outputs.changes-made == 'true' && 'Completed with changes' || 'Completed, no changes' }}" >> $GITHUB_STEP_SUMMARY
+            if [ "${{ needs.replace-tbd-entries.outputs.changes-made }}" == "true" ]; then
+              echo "- **Version Applied**: \`${{ needs.replace-tbd-entries.outputs.current-version }}\`" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "❌ **Status**: Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Release PR
+          echo "## 🚀 Release Pull Request" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.create-release-pr.result }}" == "success" ] && [ -n "${{ needs.create-release-pr.outputs.release-pr-number }}" ]; then
+            echo "✅ **Status**: Created Successfully" >> $GITHUB_STEP_SUMMARY
+            echo "- **PR Number**: [${{ needs.create-release-pr.outputs.release-pr-number }}](${{ needs.create-release-pr.outputs.release-pr-url }})" >> $GITHUB_STEP_SUMMARY
+            echo "- **Release Branch**: \`${{ needs.create-release-pr.outputs.release-branch }}\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Status**: Failed to create PR" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Next Steps
+          echo "## 🎯 Next Steps" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.create-release-pr.outputs.release-pr-number }}" ]; then
+            echo "1. 📋 **Review the release PR**: [${{ needs.create-release-pr.outputs.release-pr-url }}](${{ needs.create-release-pr.outputs.release-pr-url }})" >> $GITHUB_STEP_SUMMARY
+            echo "2. ✅ **Approve and merge** when ready" >> $GITHUB_STEP_SUMMARY
+            echo "3. 🏷️ **Create a git tag** for the release" >> $GITHUB_STEP_SUMMARY
+            echo "4. 📦 **Deploy to production** environment" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Manual intervention required**: Review failed jobs and retry as needed" >> $GITHUB_STEP_SUMMARY
+          fi
