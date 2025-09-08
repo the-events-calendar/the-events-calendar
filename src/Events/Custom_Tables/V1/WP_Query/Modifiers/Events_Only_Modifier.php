@@ -108,15 +108,17 @@ class Events_Only_Modifier extends Base_Modifier {
 		$posts = $query->get_posts();
 
 		// Replace two iterations with one.
-		$ids = array_reduce( $posts, static function( $carry, $post ) {
-			$id = (int) ( $post instanceof WP_Post ? $post->ID : $post );
-
-			if ( $id > 0 ) {
-				$carry[] = $id;
-			}
-
-			return $carry;
-		}, [] );
+		$ids = array_reduce(
+			$posts,
+			static function ( $carry, $post ) {
+				$id = (int) ( $post instanceof WP_Post ? $post->ID : $post );
+				if ( $id > 0 ) {
+					$carry[] = $id;
+				}
+				return $carry;
+			},
+			[]
+		);
 
 		// It's really important for us to Prime the Post cache so we don't have a ton of queries executed one by one.
 		_prime_post_caches( array_unique( $ids ) );
