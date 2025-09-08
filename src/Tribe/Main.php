@@ -3085,6 +3085,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						}
 
 						wp_publish_post( $linked_post_id );
+
+						// Generate a unique slug if missing.
+						if ( empty( get_post_field( 'post_name', $linked_post_id ) ) ) {
+							$title = get_the_title( $linked_post_id );
+
+							// Provide a fallback if title is empty.
+							if ( empty( $title ) ) {
+								$title = $type . '-' . $linked_post_id;
+							}
+
+							$slug = wp_unique_post_slug(
+								sanitize_title( $title ),
+								$linked_post_id,
+								'publish',
+								get_post_type( $linked_post_id ),
+								0
+							);
+
+							wp_update_post(
+								[
+									'ID'        => $linked_post_id,
+									'post_name' => $slug,
+								]
+							);
+						}
 					}
 				}
 			}
