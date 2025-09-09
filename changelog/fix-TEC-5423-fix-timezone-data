@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Fix the process of updating event time zone data. [TEC-5423]
