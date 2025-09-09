@@ -303,8 +303,10 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			setIsSelectingDate( false );
 			setHighlightStartTime( notify.startTime );
 			setHighlightEndTime( notify.endTime );
+
+            setPreviousDates( dates );
 		},
-		[ endDateIsoString, startDateIsoString, editPost ]
+		[ endDateIsoString, startDateIsoString, editPost, isMultidayValue, isAllDayValue ]
 	);
 
 	const onDateInputClick = useCallback(
