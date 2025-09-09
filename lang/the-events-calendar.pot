@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.1\n"
+"Project-Id-Version: The Events Calendar 6.15.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-01T17:34:56+00:00\n"
+"POT-Creation-Date: 2025-09-09T12:44:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -2655,36 +2655,37 @@ msgstr ""
 msgid "Hide the following settings tabs on every site:"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:7
+#: src/admin-views/tribe-options-timezones.php:10
 msgid "Enable Time Zone support"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:9
+#: src/admin-views/tribe-options-timezones.php:16
 msgid "Update Time Zone Data"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:10
+#. Translators: %s - URL pointing to the General Settings page.
+#: src/admin-views/tribe-options-timezones.php:19
 #, php-format
 msgid "Click this button to update your database and take advantage of additional time zone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct time zone before clicking this button!"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:34
+#: src/admin-views/tribe-options-timezones.php:43
 msgid "Show time zone"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:35
+#: src/admin-views/tribe-options-timezones.php:44
 msgid "Appends the time zone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different time zones."
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:44
+#: src/admin-views/tribe-options-timezones.php:53
 msgid "Time zone mode"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:48
+#: src/admin-views/tribe-options-timezones.php:57
 msgid "Use manual time zones for each event"
 msgstr ""
 
-#: src/admin-views/tribe-options-timezones.php:49
+#: src/admin-views/tribe-options-timezones.php:58
 msgid "Use the site-wide time zone everywhere"
 msgstr ""
 
@@ -6320,33 +6321,30 @@ msgctxt "Label for the Map View checkbox."
 msgid "Map"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:664
-msgctxt "The label for the premium view indicator."
-msgid "PRO"
-msgstr ""
-
-#: src/Tribe/Admin/Settings.php:665
+#. translators: %1$s: The name of the view. Translated above.
+#: src/Tribe/Admin/Settings.php:671
+#, php-format
 msgctxt "The title (hover text) for the premium view indicator."
-msgid "Get Events Calendar Pro to use this View."
+msgid "Get Events Calendar Pro to use the %1$s View."
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:783
+#: src/Tribe/Admin/Settings.php:789
 msgid "Upgrade your calendar views"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:808
+#: src/Tribe/Admin/Settings.php:814
 msgid "Upgrade"
 msgstr ""
 
-#: src/Tribe/Admin/Timezone_Updater.php:77
+#: src/Tribe/Admin/Timezone_Updater.php:97
 msgid "Please wait while time zone data is added to your events."
 msgstr ""
 
-#: src/Tribe/Admin/Timezone_Updater.php:78
+#: src/Tribe/Admin/Timezone_Updater.php:98
 msgid "Update complete: time zone data has been added to all events in the database."
 msgstr ""
 
-#: src/Tribe/Admin/Timezone_Updater.php:87
+#: src/Tribe/Admin/Timezone_Updater.php:107
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:59
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:106
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:287
@@ -6354,7 +6352,7 @@ msgstr ""
 msgid "%d%% complete"
 msgstr ""
 
-#: src/Tribe/Admin/Timezone_Updater.php:105
+#: src/Tribe/Admin/Timezone_Updater.php:125
 msgid "A problem stopped the time zone update process from completing. Please refresh and try again."
 msgstr ""
 
@@ -7814,27 +7812,27 @@ msgstr ""
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr ""
 
-#: src/Tribe/Assets.php:734
+#: src/Tribe/Assets.php:720
 msgid "This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:735
+#: src/Tribe/Assets.php:721
 msgid "This event is at %%starttime%% on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:736
+#: src/Tribe/Assets.php:722
 msgid "This event is all day on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:737
+#: src/Tribe/Assets.php:723
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends at %%endtime%% on %%enddatewithyear%%"
 msgstr ""
 
-#: src/Tribe/Assets.php:738
+#: src/Tribe/Assets.php:724
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends on %%enddatewithyear%%"
 msgstr ""
 
-#: src/Tribe/Assets.php:739
+#: src/Tribe/Assets.php:725
 msgid "This event is all day starting on %%startdatenoyear%% and ending on %%enddatewithyear%%."
 msgstr ""
 
