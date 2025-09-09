@@ -2,9 +2,10 @@
 /**
  * Manages the admin settings UI in relation to timezones.
  */
+
 class Tribe__Events__Admin__Timezone_Settings {
 	/**
-	 * Sets up the display of timezone-related settings and listeners to deal with timezone-update
+	 * Sets up the display of timezone-related settings and listeners to deal with timezone update
 	 * requests (which are initiated from within the settings screen).
 	 */
 	public function __construct() {
@@ -17,12 +18,12 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 * Adds timezone settings to the *Display* settings tab.
 	 *
 	 * When it is determined that timezone data still needs to be generated for one or more
-	 * events then only the update tool will be exposed in this area, in all other cases this
-	 * is not exposed and the ordinary timezone settings will be visible.
+	 * events, then only the update tool will be exposed in this area. In all other cases this
+	 * is not exposed, and the ordinary timezone settings will be visible.
 	 *
 	 * @param array $display_settings The settings array for the Display->Date & Time sub-tab.
 	 *
-	 * @return array $display_settings The settings array with timezone settings added
+	 * @return array $display_settings The settings array with timezone settings added.
 	 */
 	public function settings_ui( array $display_settings ) {
 		$updater = new Tribe__Events__Admin__Timezone_Updater;
@@ -31,35 +32,36 @@ class Tribe__Events__Admin__Timezone_Settings {
 		$timezone_settings = $this->get_settings_array();
 
 		// Remove unneeded options: until timezone data has been updated, users should only see the update
-		// button - after that point, they should see the "real" settings but not the update button
+		// button. After that point, they should see the settings but not the update button.
 		if ( $updater->update_needed() ) {
-			unset( $timezone_settings[ 'tribe_events_timezone_mode' ] );
-			unset( $timezone_settings[ 'tribe_events_timezones_show_zone' ] );
+			unset( $timezone_settings['tribe_events_timezone_mode'] );
+			unset( $timezone_settings['tribe_events_timezones_show_zone'] );
 		} else {
-			unset( $timezone_settings[ 'tribe_events_enable_timezones' ] );
+			unset( $timezone_settings['tribe_events_enable_timezones'] );
 		}
 
-		// Add the new section just before the settings form is closed
+		// Add the new section just before the settings form is closed.
 		return $display_settings + $timezone_settings;
 	}
 
 	/**
-	 * Loads the timezone settings from an admin-view file and returns them as an array.
+	 * Loads the time zone settings from an admin-view file and returns them as an array.
 	 *
 	 * @return array
 	 */
 	protected function get_settings_array() {
 		$plugin_path = Tribe__Events__Main::instance()->plugin_path;
+
 		return (array) include $plugin_path . 'src/admin-views/tribe-options-timezones.php';
 	}
 
 	/**
-	 * Accommodates timezone update requests.
+	 * Accommodates time zone update requests.
 	 *
 	 * Usually, the result is that an initial batch of events will be updated and any
-	 * remaining events will be dealt with by an "ajax loop" - however in the event
-	 * of a JS conflict this could actually be called repeatedly (by the user simply
-	 * clicking the "Update Timezone Data" button until it is cleared.
+	 * remaining events will be dealt with by an "ajax loop". However, in the event
+	 * of a JS conflict, this could actually be called repeatedly by the user simply
+	 * clicking the "Update Time Zone Data" button until it is cleared.
 	 */
 	protected function listen() {
 		// Sanity check
@@ -75,7 +77,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	}
 
 	/**
-	 * Facilitates updates of timezone data via an ajax loop.
+	 * Facilitates updates of time zone data via an ajax loop.
 	 *
 	 * This approach helps to avoid potential timeout issues on sites with poor performance
 	 * or large numbers of events, besides facilitating visual feedback as to progress.

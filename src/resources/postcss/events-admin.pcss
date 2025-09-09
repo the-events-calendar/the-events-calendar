@@ -1,7 +1,6 @@
 @custom-media --tablet (max-width: 782px);
 @custom-media --not-phone (min-width: 480px);
 @custom-media --phone (max-width: 480px);
-
 /* = Post Type Listing
 ============================================= */
 .events-cal {
@@ -44,7 +43,7 @@
 	margin-top: -20px;
 
 	td {
-		font-size: 12px;
+		font-size: var(--tec-font-size-1);
 		padding: 0 6px 10px 0;
 		vertical-align: middle;
 
@@ -216,7 +215,7 @@
 	}
 }
 
-/* Apply a grey highlight to 'today' */
+/* Apply a gray highlight to 'today' */
 .ui-datepicker-calendar .ui-datepicker-today {
 
 	a {
@@ -366,11 +365,72 @@
 	display: none;
 }
 
+/* Class is duplicated, overriding styles in Common that may load later. */
+.tribe_events_page_tec-events-settings .tec-settings-form,
+.tribe_events_page_tec-events-settings #tec-settings-form  {
+	/* Styling for the "Calendar Display" section. */
+	#tribe-field-tribeEnableViews .tribe-field-wrap{
+		> label {
+			margin-bottom: 12px;
+
+			&:last-of-type {
+				margin-bottom: 8px;
+			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+
+		.tec-settings-teaser-pill-wrapper {
+			align-items: center;
+			display: flex;
+			flex-wrap: nowrap;
+
+			@media (--tablet) {
+				margin-top: 12px;
+			}
+
+			label {
+				align-items: center;
+				display: flex;
+				margin-top: 0;
+				text-indent: 0;
+			}
+
+			input {
+				margin: 0 8px 0 0;
+			}
+		}
+
+		.tec-settings-teaser-pill {
+			background-color: transparent;
+			background-image: url(../images/icons/lightning.svg);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: var(--tec-font-size-4);
+			display: inline-block;
+			min-height: 24px;
+			margin: 0;
+			width: 24px;
+
+			@media (min-width: 782px) {
+				margin-left: var(--tec-spacer-1);
+				margin-top: 0;
+			}
+		}
+	}
+}
+
 /* Donate link - remove if/when we move this.
 ============================================= */
 #tribe-field-donate-link legend {
 	float: left;
-	font-weight: 700;
+	font-weight: var(--tec-font-weight-bold);
 	margin-right: 1em;
 }
 
@@ -382,11 +442,11 @@
 
 	a,
 	.dashicons {
-		color: #334aff;
+		color: var(--tec-color-accent-primary);
 	}
 
 	h3 {
-		font-size: 24px;
+		font-size: var(--tec-font-size-7);
 		line-height: 1.4em;
 	}
 
@@ -418,19 +478,13 @@
 			display: none;
 		}
 
-		@media (--not-phone) {
+		.tribe-upgrade-absolute-text {
+			bottom: 80px;
+			position: absolute;
+			white-space: nowrap;
+			word-wrap: break-word;
 
-			.tribe-upgrade-absolute-text {
-				bottom: 80px;
-				position: absolute;
-				white-space: nowrap;
-				word-wrap: break-word;
-			}
-		}
-
-		@media (--phone) {
-
-			.tribe-upgrade-absolute-text {
+			@media (--phone) {
 				display: block;
 				margin: 15px 10px;
 			}
@@ -440,13 +494,13 @@
 	#tribe-upgrade-step1 {
 
 		span {
-			color: #334aff;
+			color: var(--tec-color-accent-primary);
 		}
 	}
 
 	.button,
 	button {
-		background: #334aff;
+		background: var(--tec-color-accent-primary);
 		border: 0;
 		border-radius: 0.25rem;
 		box-shadow: 0 2px black;
@@ -583,7 +637,7 @@
 }
 
 #upgrade-button {
-	background: #334aff;
+	background: var(--tec-color-accent-primary);
 	border: 0;
 	border-radius: 0.25rem;
 	box-shadow: 0 2px black;
@@ -950,7 +1004,7 @@ h3.tec-update-notice__title {
 #tec-events-onboarding-wizard-tickets {
 	display: none;
 
-	@media (min-width: 783px) {
+	@media (--tablet) {
 		display: block;
 	}
 }
