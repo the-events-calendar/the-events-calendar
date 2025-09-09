@@ -269,7 +269,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
-	const [ previousDates, setPreviousDates ] = useState< { start: Date; end: Date } | null >( null );
+	const [ previousDates, setPreviousDates ] = useState(dates);
 
 	// Default values: current day with 8:00 AM start and 5:00 PM end.
 	const defaultDates = useRef( {
