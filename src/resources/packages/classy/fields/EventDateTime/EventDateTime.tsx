@@ -360,7 +360,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
 			// Save current state when turning ON
-			if ( newValue ) {
+			if ( newValue && ! isAllDayValue ) {
 				setPreviousDates( { start: startDate, end: endDate } );
 			}
 
