@@ -42,7 +42,8 @@ class Venue extends \WP_UnitTest_Factory_For_Post {
 	function create_object( $args ) {
 		$args['post_type'] = Main::VENUE_POST_TYPE;
 
-		$title = 'Venue' . uniqid();
+		$title = 'Venue' . ( ! empty( $args['use_time_for_generation']) ? microtime() : uniqid() );
+		unset( $args['use_time_for_generation'] );
 		$lc_title = strtolower( $title );
 
 		$defaults = [
