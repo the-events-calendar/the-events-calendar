@@ -18,7 +18,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	/**
 	 * The name of the option used for tracking if a timezone update is needed.
 	 *
-	 * @since TBD
+	 * @since 6.15.2
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * an ajax loop).
 	 *
 	 * @since 4.0 0
-	 * @since TBD Make use of a timed option to determine if an update is needed.
+	 * @since 6.15.2 Make use of a timed option to determine if an update is needed.
 	 *
 	 * @return void
 	 */
