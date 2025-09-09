@@ -403,6 +403,21 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				previousDates
 			);
 
+            if ( isMultidayValue ) {
+                const syncedDates = getMultiDayDates(
+                    isMultidayValue,
+                    newStartDate,
+                    newEndDate,
+                    defaultDates.current.start,
+                    defaultDates.current.end,
+                    previousDates
+                );
+
+                setDates( { start: syncedDates.newStartDate, end: syncedDates.newEndDate } );
+            } else {
+                setDates( { start: newStartDate, end: newEndDate } );
+            }
+
 			editPost( {
 				meta: {
 					[ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, newStartDate ),
@@ -411,7 +426,6 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				},
 			} );
 
-			setDates( { start: newStartDate, end: newEndDate } );
 			setIsAllDayValue( newValue );
 		},
 		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost, isMultidayValue, previousDates ]
