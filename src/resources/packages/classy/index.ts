@@ -1,6 +1,7 @@
 import { addAction, addFilter, didAction, doAction } from '@wordpress/hooks';
 import renderFields from './functions/renderFields';
-import { STORE_NAME, storeConfig } from './store';
+import { storeConfig } from './store';
+import { STORE_NAME } from './constants';
 import { getRegistry } from '@tec/common/classy/store';
 import * as constants from './constants';
 

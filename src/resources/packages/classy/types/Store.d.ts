@@ -4,6 +4,7 @@ import { EventDateTimeDetails } from './EventDateTimeDetails';
 
 export type StoreState = {
 	areTicketsSupported?: boolean;
+	isUsingTickets?: boolean;
 };
 
 /**
@@ -15,14 +16,15 @@ export type StoreState = {
  * ```
  */
 export type StoreSelect = {
-	getSettings: () => TECSettings;
-	getPostMeta: () => EventMeta;
-	getEventDateTimeDetails: () => EventDateTimeDetails;
+	areTicketsSupported: () => boolean;
 	getEditedPostOrganizerIds: () => number[];
 	getEditedPostVenueIds: () => number[];
-	areTicketsSupported: ( state: StoreState ) => boolean;
-	isNewEvent: () => boolean;
+	getEventDateTimeDetails: () => EventDateTimeDetails;
+	getPostMeta: () => EventMeta;
+	getSettings: () => TECSettings;
 	getVenuesLimit: () => number;
+	isNewEvent: () => boolean;
+	isUsingTickets: () => boolean;
 };
 
 /**
@@ -33,4 +35,7 @@ export type StoreSelect = {
  * const tecStore: StoreDispatch = dispatch('tec/classy/events');
  * ```
  */
-export type StoreDispatch = {};
+export type StoreDispatch = {
+	setIsUsingTickets: ( isUsing: boolean ) => void;
+	setTicketsSupported: ( areSupported: boolean ) => void;
+};
