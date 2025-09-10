@@ -7,6 +7,18 @@ import { SETTINGS_STORE_KEY } from '../../../data';
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import GearIcon from './img/gear';
+import Select from 'react-select';
+
+// React-select option types.
+interface OptionType {
+	value: string;
+	label: string;
+}
+
+interface GroupedOptionType {
+	label: string;
+	options: OptionType[];
+}
 
 const dateFormatOptions = [
 	{ label: _x( 'October 29, 2024', 'example date in "F j, Y" format', 'the-events-calendar' ), value: 'F j, Y' },
@@ -48,6 +60,21 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	const [ dateFormat, setDateFormat ] = useState( date_format || dateFormatOptions[ 0 ].value );
 	const [ weekStart, setWeekStart ] = useState( start_of_week || 0 );
 	const [ canContinue, setCanContinue ] = useState( false );
+
+	// Transform currencies into react-select format (simple options).
+	const currencyOptions: OptionType[] = Object.entries( currencies ).map( ( [ key, data ] ) => ( {
+		value: key,
+		label: `${ data.symbol } (${ data.name })`,
+	} ) );
+
+	// Transform timezones into react-select grouped format.
+	const timezoneOptions: GroupedOptionType[] = Object.entries( timezones ).map( ( [ continent, cities ] ) => ( {
+		label: continent,
+		options: Object.entries( cities as { [ key: string ]: string } ).map( ( [ key, city ] ) => ( {
+			value: key,
+			label: city,
+		} ) ),
+	} ) );
 
 	let timeZoneMessage = __( 'Please ensure your time zone is correct.', 'the-events-calendar' );
 
@@ -150,13 +177,15 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						label={ __( 'Currency symbol', 'the-events-calendar' ) }
 						className="tec-events-onboarding__form-field"
 					>
-						<select onChange={ ( e ) => setCurrency( e.target.value ) } defaultValue={ currencyCode }>
-							{ Object.entries( currencies ).map( ( [ key, data ] ) => (
-								<option key={ key } value={ key }>
-									{ data.symbol } ({ data.name })
-								</option>
-							) ) }
-						</select>
+						<Select
+							options={ currencyOptions }
+							isSearchable={ true }
+							placeholder={ __( 'Search for a currency...', 'the-events-calendar' ) }
+							value={ currencyOptions.find( option => option.value === currencyCode ) || null }
+							onChange={ ( selectedOption: OptionType | null ) => setCurrency( selectedOption?.value || '' ) }
+							className="tec-react-select-container"
+							classNamePrefix="tec-react-select"
+						/>
 						<span className="tec-events-onboarding__required-label">
 							{ __( 'Currency symbol is required.', 'the-events-calendar' ) }
 						</span>
@@ -171,25 +200,19 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						label={ __( 'Time zone', 'the-events-calendar' ) }
 						className="tec-events-onboarding__form-field"
 					>
-						<select
-							id="time-zone"
-							onChange={ ( e ) => setTimeZone( e.target.value ) }
-							describedby="time-zone-description"
-							defaultValue={ timeZone }
-						>
-							<option value="">{ __( 'Select a non-UTC timezone.', 'the-events-calendar' ) }</option>
-							{ Object.entries( timezones ).map( ( [ key, cities ] ) => (
-								<optgroup key={ key } className="continent" label={ key }>
-									{ Object.entries( cities as { [ key: string ]: string } ).map(
-										( [ key, city ] ) => (
-											<option key={ key } value={ key }>
-												{ city }
-											</option>
-										)
-									) }
-								</optgroup>
-							) ) }
-						</select>
+						<Select
+							options={ timezoneOptions }
+							isSearchable={ true }
+							placeholder={ __( 'Search for a timezone...', 'the-events-calendar' ) }
+							value={
+								timezoneOptions
+									.flatMap( group => group.options )
+									.find( option => option.value === timeZone ) || null
+							}
+							onChange={ ( selectedOption: OptionType | null ) => setTimeZone( selectedOption?.value || '' ) }
+							className="tec-react-select-container"
+							classNamePrefix="tec-react-select"
+						/>
 						<span id="time-zone-description" className="tec-events-onboarding__field-description">
 							{ timeZoneMessage }
 						</span>
@@ -234,7 +257,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					>
 						<select
 							id="week-starts"
-							onChange={ ( e ) => setWeekStart( e.target.value ) }
+							onChange={ ( e ) => setWeekStart( e.target.value  ) }
 							defaultValue={ weekStart }
 						>
 							{ startDayOptions.map( ( { label, value } ) => (

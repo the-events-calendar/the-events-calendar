@@ -1,5 +1,17 @@
 # Changelog
 
+### [6.15.2] 2025-09-09
+
+* Fix - Corrected path for enqueuing ACF scripts to avoid 404 errors. [TEC-5604]
+* Fix - Fix the process of updating event time zone data. [TEC-5423]
+* Fix - Make sure the user is redirected to the correct settings page after clicking on the "Fix Time Zone Data" button. [TEC-5423]
+* Tweak - Added search capabilities to the currency dropdown in onboarding. [TEC-5580]
+* Tweak - Added search capabilities to the timezone dropdown in onboarding. [TEC-5579]
+* Tweak - Changed views: `blocks/parts/subscribe-list`, `v2/components/subscribe-links/item`.
+* Tweak - Hide unsupported items from the Subscribe to Calendar dropdown for archive pages. [TEC-4242]
+* Tweak - Visual updates to the ECP teaser pill in TEC->Settings->Display.
+* Language - 0 new strings added, 20 updated, 1 fuzzied, and 1 obsoleted.
+
 ### [6.15.1.1] 2025-09-03
 
 * Security - Ensures only known values are accepted for the ORDER BY query clause. [SVUL-19]

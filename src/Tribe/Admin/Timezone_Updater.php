@@ -3,8 +3,9 @@
  * Tool for adding timezone data to events.
  *
  * The application for this is in transitioning any event data created in 3.11.x or
- * earlier that hasn't since been updated, so that it becomes "timezone ready".
+ * earlier that hasn't since been updated, so that it becomes "time zone ready".
  */
+
 class Tribe__Events__Admin__Timezone_Updater {
 	/**
 	 * A count of events in need of updating - used to determine the percentage
@@ -15,6 +16,15 @@ class Tribe__Events__Admin__Timezone_Updater {
 	protected $initial_count = 0;
 
 	/**
+	 * The name of the option used for tracking if a timezone update is needed.
+	 *
+	 * @since 6.15.2
+	 *
+	 * @var string
+	 */
+	protected const TIMED_OPTION_KEY = 'events_timezone_update_needed';
+
+	/**
 	 * Initializes the update process.
 	 *
 	 * Determines if events are still in need of an update and triggers an update of an
@@ -23,6 +33,11 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Once these are processed, notices are set to communicate the state of the update
 	 * back to the user (which also serves as a vehicle for continuing the update via
 	 * an ajax loop).
+	 *
+	 * @since 4.0 0
+	 * @since 6.15.2 Make use of a timed option to determine if an update is needed.
+	 *
+	 * @return void
 	 */
 	public function init_update() {
 		if ( $this->update_needed() ) {
@@ -30,10 +45,15 @@ class Tribe__Events__Admin__Timezone_Updater {
 			 * Provides an opportunity to change the maximum number of events that will be
 			 * updated with timezone data in a single batch.
 			 *
-			 * @param int number of events to be processed in a single batch
+			 * @param int $batch_size Number of events to be processed in a single batch.
 			 */
-			$batch_size = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
+			$batch_size          = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
 			$this->initial_count = $this->count_ids();
+
+			if ( $this->initial_count <= 0 ) {
+				tec_timed_option()->set( self::TIMED_OPTION_KEY, false );
+			}
+
 			$this->process( $batch_size );
 		}
 
@@ -41,7 +61,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	}
 
 	/**
-	 * Setup an admin-notice based progress report along with supporting assets to facilitate
+	 * Set up an admin-notice-based progress report along with supporting assets to facilitate
 	 * an ajax loop for further processing where needed.
 	 */
 	protected function notice_setup() {
@@ -52,22 +72,22 @@ class Tribe__Events__Admin__Timezone_Updater {
 	/**
 	 * Renders the admin notice.
 	 *
-	 * This effectively just wraps notice_inner() - which is independently called to build
+	 * This effectively just wraps notice_inner(), which is independently called to build
 	 * ajax responses.
 	 */
 	public function notice_display() {
 		$update = $this->notice_inner();
-		echo '<div class="tribe-events-timezone-update-msg updated updating"> ' . $update . ' </div>';
+		echo '<div class="tribe-events-timezone-update-msg updated updating">' . wp_kses_post( $update ) . '</div>';
 	}
 
 	/**
-	 * Provides a progress report relating to the status of the timezone data update process.
+	 * Provides a progress report relating to the status of the time zone data update process.
 	 *
 	 * @return string
 	 */
 	public function notice_inner() {
 		$remaining = $this->count_ids();
-		$spinner   = ' <img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
+		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
 
 		$progress = ( 0 < $remaining )
 			? $this->calculate_progress( $remaining )
@@ -77,7 +97,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 			? __( 'Please wait while time zone data is added to your events.', 'the-events-calendar' )
 			: __( 'Update complete: time zone data has been added to all events in the database.', 'the-events-calendar' );
 
-		$update = "<p> $update </p>";
+		$update = "<p>$update</p>";
 
 		if ( 100 === $progress ) {
 			$spinner = '';
@@ -85,14 +105,14 @@ class Tribe__Events__Admin__Timezone_Updater {
 
 		if ( $progress >= 0 ) {
 			$percent = sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress );
-			$update .= '<div class="tribe-update-bar"> <div class="progress" title="' . $percent . '"> <div class="bar" style="width: ' . $progress . '%"></div> </div>' . $spinner . '</div>';
+			$update .= '<div class="tribe-update-bar"><div class="progress" title="' . $percent . '"><div class="bar" style="width: ' . $progress . '%"></div></div>' . $spinner . '</div>';
 		}
 
 		return $update;
 	}
 
 	/**
-	 * Sets up the Javascript needed to facilitate the ajax loop on the frontend.
+	 * Sets up the JavaScript needed to facilitate the ajax loop on the frontend.
 	 */
 	public function notice_assets() {
 		$plugin = Tribe__Events__Main::instance();
@@ -111,13 +131,14 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Returns an integer representing the degree to which the update task has progressed
 	 * as a percentage of events in need of updating.
 	 *
-	 * @param  int $remaining
+	 * @param int $remaining The number of events remaining to be processed.
 	 *
 	 * @return int
 	 */
 	protected function calculate_progress( $remaining ) {
 		if ( $this->initial_count ) {
 			$percentage = ( $this->initial_count - $remaining ) / $this->initial_count;
+
 			return (int) ( $percentage * 100 );
 		}
 
@@ -127,19 +148,19 @@ class Tribe__Events__Admin__Timezone_Updater {
 	/**
 	 * Updates the next batch of non-timezone ready events.
 	 *
-	 * @param int $batch_size (defaults to -1 meaning "update all")
+	 * @param int $batch_size The batch size. Defaults to -1 meaning "update all".
 	 */
 	public function process( $batch_size = -1 ) {
-		$site_timezone      = Tribe__Timezones::wp_timezone_string();
+		$site_timezone = Tribe__Timezones::wp_timezone_string();
 
 		foreach ( $this->get_ids( $batch_size ) as $event_id ) {
 			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$utc_start_time = Tribe__Timezones::to_utc( $local_start_time, $site_timezone );
+			$utc_start_time   = Tribe__Timezones::to_utc( $local_start_time, $site_timezone );
 
 			$local_end_time = tribe_get_end_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$utc_end_time = Tribe__Timezones::to_utc( $local_end_time, $site_timezone );
+			$utc_end_time   = Tribe__Timezones::to_utc( $local_end_time, $site_timezone );
 
-			// The abbreviation needs to be calculated per event as it can vary according to the actual date
+			// The abbreviation needs to be calculated per event as it can vary according to the actual date.
 			$site_timezone_abbr = Tribe__Timezones::wp_timezone_abbr( $local_start_time );
 
 			update_post_meta( $event_id, '_EventTimezone', $site_timezone );
@@ -151,9 +172,9 @@ class Tribe__Events__Admin__Timezone_Updater {
 
 	/**
 	 * Return an array of event IDs for those events that still do not have
-	 * timezone data.
+	 * time zone data.
 	 *
-	 * @param  int $limit
+	 * @param int $limit The number of events to return. Defaults to -1 meaning "all".
 	 *
 	 * @return array
 	 */
@@ -162,7 +183,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	}
 
 	/**
-	 * Get the number of events that still require timezone data.
+	 * Get the number of events that still require time zone data.
 	 *
 	 * @return int
 	 */
@@ -171,18 +192,16 @@ class Tribe__Events__Admin__Timezone_Updater {
 	}
 
 	/**
-	 * Indicates if there are still events that need to be updated
-	 * with timezone data.
+	 * Indicates if there are still events that need to be updated with time zone data.
 	 *
 	 * @return bool
 	 */
 	public function update_needed() {
-		$timed_option_key = 'events_timezone_update_needed';
-		$update_needed = tec_timed_option()->get( $timed_option_key );
+		$update_needed = tec_timed_option()->get( self::TIMED_OPTION_KEY );
 
 		if ( null === $update_needed ) {
 			$update_needed = (bool) $this->find( 1, true );
-			tec_timed_option()->set( $timed_option_key, $update_needed );
+			tec_timed_option()->set( self::TIMED_OPTION_KEY, $update_needed );
 		}
 
 		return $update_needed;
@@ -190,11 +209,11 @@ class Tribe__Events__Admin__Timezone_Updater {
 
 	/**
 	 * Utility function that can return either an array of IDs for all (or the specified
-	 * number) of events without timezone data, or alternatively can return a count of
+	 * number) of events without time zone data, or alternatively can return a count of
 	 * those events.
 	 *
-	 * @param  int        $limit
-	 * @param  bool|false $count
+	 * @param int        $limit The number of events to return. Defaults to -1 meaning "all".
+	 * @param bool|false $count Whether to return an array of IDs (default) or a count of the events.
 	 *
 	 * @return array|int
 	 */
