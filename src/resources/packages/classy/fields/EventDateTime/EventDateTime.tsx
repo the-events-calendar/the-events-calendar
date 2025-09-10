@@ -269,7 +269,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
-	const [ previousDates, setPreviousDates ] = useState< { start: Date; end: Date } | null >( null );
+	const [ previousDates, setPreviousDates ] = useState(dates);
 
 	// Default values: current day with 8:00 AM start and 5:00 PM end.
 	const defaultDates = useRef( {
@@ -303,8 +303,10 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			setIsSelectingDate( false );
 			setHighlightStartTime( notify.startTime );
 			setHighlightEndTime( notify.endTime );
+
+            setPreviousDates( dates );
 		},
-		[ endDateIsoString, startDateIsoString, editPost ]
+		[ endDateIsoString, startDateIsoString, editPost, isMultidayValue, isAllDayValue ]
 	);
 
 	const onDateInputClick = useCallback(
@@ -323,7 +325,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		return (
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
-				endDate={ null }
+				endDate={ endDate }
 				highlightTime={ highlightStartTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
@@ -360,7 +362,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
 			// Save current state when turning ON
-			if ( newValue ) {
+			if ( newValue && ! isAllDayValue ) {
 				setPreviousDates( { start: startDate, end: endDate } );
 			}
 
@@ -403,6 +405,21 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				previousDates
 			);
 
+            if ( isMultidayValue ) {
+                const syncedDates = getMultiDayDates(
+                    isMultidayValue,
+                    newStartDate,
+                    newEndDate,
+                    defaultDates.current.start,
+                    defaultDates.current.end,
+                    previousDates
+                );
+
+                setDates( { start: syncedDates.newStartDate, end: syncedDates.newEndDate } );
+            } else {
+                setDates( { start: newStartDate, end: newEndDate } );
+            }
+
 			editPost( {
 				meta: {
 					[ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, newStartDate ),
@@ -411,7 +428,6 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				},
 			} );
 
-			setDates( { start: newStartDate, end: newEndDate } );
 			setIsAllDayValue( newValue );
 		},
 		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost, isMultidayValue, previousDates ]
