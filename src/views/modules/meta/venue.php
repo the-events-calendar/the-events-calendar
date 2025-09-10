@@ -20,8 +20,6 @@ $phone   = tribe_get_phone();
 $website = tribe_get_venue_website_link();
 $website_title = tribe_events_get_venue_website_title();
 
-$pasword_required = post_password_required( tribe_get_venue_id() );
-
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
@@ -42,7 +40,7 @@ $pasword_required = post_password_required( tribe_get_venue_id() );
 		</dt>
 		<dd class="tribe-venue"> <?php echo wp_kses_post( tribe_get_venue() ); ?> </dd>
 
-		<?php if ( ! $password_required ) : ?>
+		<?php if ( ! post_password_required( tribe_get_venue_id() ) ) : ?>
 			<?php if ( tribe_address_exists() ) : ?>
 				<dt
 					class="tribe-common-a11y-visual-hide"
