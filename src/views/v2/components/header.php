@@ -21,13 +21,12 @@ if ( empty( $disable_event_search ) ) {
 	$header_classes[] = 'tribe-events-header--has-event-search';
 }
 
-$messages = tribe_context()->get( 'single' ) && post_password_required( get_the_ID() ) ? [ 'notice' => [ esc_html__( 'The results are password protected.', 'the-events-calendar' ) ] ] : $messages;
 ?>
 
 <header <?php tec_classes( $header_classes ); ?>>
-	<?php $this->template( 'components/messages', [ 'messages' => $messages, 'attributes' => isset( $attributes ) ? $attributes : [] ] ); ?>
+	<?php $this->template( 'components/messages' ); ?>
 
-	<?php $this->template( 'components/messages', [ 'messages' => $messages, 'classes' => [ 'tribe-events-header__messages--mobile' ], 'attributes' => isset( $attributes ) ? $attributes : [] ] ); ?>
+	<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
 
 	<?php $this->template( 'components/header-title' ); ?>
 
