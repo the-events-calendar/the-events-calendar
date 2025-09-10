@@ -3,16 +3,17 @@ const path = require( 'path' );
 
 module.exports = {
 	verbose: true,
-	setupFiles: [ __dirname + '/jest.setup.ts' ],
+	setupFiles: [ `${ __dirname }/jest.setup.ts` ],
 	testEnvironment: 'jest-environment-jsdom-global',
 	testMatch: [ '**/*.spec.ts', '**/*.spec.tsx' ],
-	resolver: __dirname + '/jest-resolver.js',
+	resolver: `${ __dirname }/jest-resolver.js`,
 	transform: {
-		'^.+.tsx?$': [
+		'^.+\\.tsx?$': [
 			'ts-jest',
 			{
 				tsconfig: {
 					allowJs: true,
+					baseUrl: '.',
 					checkJs: true,
 					target: 'esnext',
 					allowSyntheticDefaultImports: true,
@@ -20,6 +21,10 @@ module.exports = {
 					esModuleInterop: true,
 					jsx: 'react-jsx',
 					sourceMap: true,
+					paths: {
+						'@tec/common/*': [ '../../common/src/resources/packages/*' ],
+						'@tec/events/*': [ '../../src/resources/packages/*' ],
+					},
 				},
 			},
 		],
@@ -33,6 +38,5 @@ module.exports = {
 	moduleDirectories: [ path.resolve( __dirname, '../../node_modules' ) ],
 	moduleNameMapper: {
 		'@tec/common/(.*)$': '<rootDir>/../../common/src/resources/packages/$1',
-		'@tec/common/classy/(.*)$': '<rootDir>/../../common/src/resources/packages/classy/$1',
 	},
 };
