@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Add more robust checking for dates to handle occurrences and similar non-post events.
