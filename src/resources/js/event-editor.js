@@ -1,4 +1,4 @@
-var tribe_events_event_editor = tribe_events_event_editor || {};
+window.tribe_events_event_editor = window.tribe_events_event_editor || {};
 
 /**
  * Implements behaviours that are specific to the event editor.
