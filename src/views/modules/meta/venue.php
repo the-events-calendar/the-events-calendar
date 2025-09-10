@@ -6,10 +6,10 @@
  * [your-theme]/tribe-events/modules/meta/venue.php
  *
  * @since 4.6.19
- * @since TBD Added post password protection.
+ * @since 6.15.3 Added post password protection.
  *
  * @package TribeEventsCalendar
- * @version TBD
+ * @version 6.15.3
  */
 
 if ( ! tribe_get_venue_id() ) {

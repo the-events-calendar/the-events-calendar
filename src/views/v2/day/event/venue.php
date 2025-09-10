@@ -10,9 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @since 6.2.0 Added the `tec_events_view_venue_after_address` action.
- * @since TBD Added post password protection.
+ * @since 6.15.3 Added post password protection.
  *
- * @version TBD
+ * @version 6.15.3
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var string  $slug  The slug of the view.

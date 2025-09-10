@@ -69,7 +69,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Filters out password protected organizer data from the REST API response.
 	 *
-	 * @since TBD
+	 * @since 6.15.3
 	 *
 	 * @param array $entity_data The entity data.
 	 *

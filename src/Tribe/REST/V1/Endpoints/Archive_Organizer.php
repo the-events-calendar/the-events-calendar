@@ -107,7 +107,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		 * @param bool $default_only_with_upcoming
 		 *
 		 * @since 4.6
-		 * @since TBD Added password protection check.
+		 * @since 6.15.3 Added password protection check.
 		 */
 		$default_only_with_upcoming = apply_filters( 'tribe_rest_organizer_default_only_with_upcoming', false );
 
