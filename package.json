@@ -83,10 +83,10 @@
     "npm": "9.6.7"
   },
   "devDependencies": {
-    "@stellarwp/tyson": "*",
-    "@stoplight/spectral-cli": "^6.15.0",
     "@emotion/jest": "^11.13.0",
     "@jest/globals": "^29.7.0",
+    "@stellarwp/tyson": "*",
+    "@stoplight/spectral-cli": "^6.15.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
@@ -159,6 +159,7 @@
     "redux-saga": "^0.16.1",
     "redux-thunk": "^3.1.0",
     "reselect": "^3.0.1",
+    "ts-node": "^10.9.2",
     "uniqid": "^5.0.3",
     "validator": "^13.7.0",
     "whatwg-fetch": "^2.0.4",

@@ -1,4 +1,3 @@
-const { defaults: tsjPreset } = require( 'ts-jest/presets' );
 const path = require( 'path' );
 
 module.exports = {
