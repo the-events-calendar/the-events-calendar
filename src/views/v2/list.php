@@ -10,10 +10,11 @@
  * @link    http://evnt.is/1aiy
  *
  * @since 6.1.4 Changing our nonce verification structures.
- * @since 6.12.0 Add aria-label to events list for improved accessibility.
- *
- * @version 6.2.0
  * @since 6.2.0 Moved the header information into a new components/header.php template.
+ * @since 6.12.0 Add aria-label to events list for improved accessibility.
+ * @since TBD Added post password protection.
+ *
+ * @version TBD
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
@@ -29,6 +30,8 @@ $header_classes = [ 'tribe-events-header' ];
 if ( empty( $disable_event_search ) ) {
 	$header_classes[] = 'tribe-events-header--has-event-search';
 }
+
+$events = post_password_required( get_the_ID() ) ? [] : $events;
 
 ?>
 <div
