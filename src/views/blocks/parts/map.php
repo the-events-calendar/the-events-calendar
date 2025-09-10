@@ -29,6 +29,10 @@ if ( empty( $map ) ) {
 	return;
 }
 
+if ( post_password_required( $venue_id ) ) {
+	return;
+}
+
 ?>
 
 <div class="tribe-block__venue__map">

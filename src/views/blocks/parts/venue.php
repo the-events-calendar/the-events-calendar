@@ -33,23 +33,25 @@ $website = tribe_get_venue_website_link( $venue_id );
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
-	<?php if ( tribe_address_exists( $venue_id ) ) : ?>
-		<address class="tribe-block__venue__address">
-			<?php echo tribe_get_full_address( $venue_id ); ?>
+	<?php if ( ! post_password_required( $venue_id ) ) : ?>
+		<?php if ( tribe_address_exists( $venue_id ) ) : ?>
+			<address class="tribe-block__venue__address">
+				<?php echo tribe_get_full_address( $venue_id ); ?>
 
-			<?php if ( $show_map_link ) : ?>
-				<?php echo tribe_get_map_link_html( $venue_id ); ?>
-			<?php endif; ?>
-		</address>
+				<?php if ( $show_map_link ) : ?>
+					<?php echo tribe_get_map_link_html( $venue_id ); ?>
+				<?php endif; ?>
+			</address>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $phone ) ) : ?>
+			<span class="tribe-block__venue__phone"><?php echo $phone ?></span><br />
+		<?php endif ?>
+
+		<?php if ( ! empty( $website ) ) : ?>
+			<span class="tribe-block__venue__website"><?php echo $website ?></span><br />
+		<?php endif ?>
 	<?php endif; ?>
-
-	<?php if ( ! empty( $phone ) ) : ?>
-		<span class="tribe-block__venue__phone"><?php echo $phone ?></span><br />
-	<?php endif ?>
-
-	<?php if ( ! empty( $website ) ) : ?>
-		<span class="tribe-block__venue__website"><?php echo $website ?></span><br />
-	<?php endif ?>
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_end' ) ?>
 </div>

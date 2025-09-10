@@ -20,7 +20,7 @@ $default_classes = [
 	'tribe-block',
 	'tribe-block__venue',
 	'tribe-clearfix',
-	'tribe-block__venue--has-map' => $show_map,
+	'tribe-block__venue--has-map' => $show_map && ! post_password_required( isset( $venue_id ) ? $venue_id : tribe_get_venue_id() ),
 ];
 
 // Add the custom classes from the block attributes.
