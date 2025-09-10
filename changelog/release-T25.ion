@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Ensures password protected Venues and Organizers have their data protected. [SVUL-19]
