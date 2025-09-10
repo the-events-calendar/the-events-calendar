@@ -25,9 +25,9 @@ $messages = tribe_context()->get( 'single' ) && post_password_required( get_the_
 ?>
 
 <header <?php tec_classes( $header_classes ); ?>>
-	<?php $this->template( 'components/messages', [ 'messages' => $messages, 'attributes' => $attributes ] ); ?>
+	<?php $this->template( 'components/messages', [ 'messages' => $messages, 'attributes' => isset( $attributes ) ? $attributes : [] ] ); ?>
 
-	<?php $this->template( 'components/messages', [ 'messages' => $messages, 'classes' => [ 'tribe-events-header__messages--mobile' ], 'attributes' => $attributes ] ); ?>
+	<?php $this->template( 'components/messages', [ 'messages' => $messages, 'classes' => [ 'tribe-events-header__messages--mobile' ], 'attributes' => isset( $attributes ) ? $attributes : [] ] ); ?>
 
 	<?php $this->template( 'components/header-title' ); ?>
 
