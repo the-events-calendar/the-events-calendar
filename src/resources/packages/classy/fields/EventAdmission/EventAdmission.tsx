@@ -48,7 +48,7 @@ export default function EventAdmission( props: FieldProps ) {
 				} }
 			</Slot>
 		);
-	}
+	};
 
 	return (
 		<div className="classy-field classy-field--event-admission">

@@ -269,7 +269,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 	} );
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
-	const [ previousDates, setPreviousDates ] = useState(dates);
+	const [ previousDates, setPreviousDates ] = useState( dates );
 
 	// Default values: current day with 8:00 AM start and 5:00 PM end.
 	const defaultDates = useRef( {
@@ -304,7 +304,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 			setHighlightStartTime( notify.startTime );
 			setHighlightEndTime( notify.endTime );
 
-            setPreviousDates( dates );
+			setPreviousDates( dates );
 		},
 		[ endDateIsoString, startDateIsoString, editPost, isMultidayValue, isAllDayValue ]
 	);
@@ -405,20 +405,20 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 				previousDates
 			);
 
-            if ( isMultidayValue ) {
-                const syncedDates = getMultiDayDates(
-                    isMultidayValue,
-                    newStartDate,
-                    newEndDate,
-                    defaultDates.current.start,
-                    defaultDates.current.end,
-                    previousDates
-                );
+			if ( isMultidayValue ) {
+				const syncedDates = getMultiDayDates(
+					isMultidayValue,
+					newStartDate,
+					newEndDate,
+					defaultDates.current.start,
+					defaultDates.current.end,
+					previousDates
+				);
 
-                setDates( { start: syncedDates.newStartDate, end: syncedDates.newEndDate } );
-            } else {
-                setDates( { start: newStartDate, end: newEndDate } );
-            }
+				setDates( { start: syncedDates.newStartDate, end: syncedDates.newEndDate } );
+			} else {
+				setDates( { start: newStartDate, end: newEndDate } );
+			}
 
 			editPost( {
 				meta: {

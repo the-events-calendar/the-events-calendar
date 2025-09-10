@@ -1,5 +1,5 @@
 import { Action } from '@tec/common/classy/types/Actions';
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 import { StoreState } from '../types/Store';
 import {
 	SET_IS_USING_TICKETS,
