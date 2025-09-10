@@ -325,7 +325,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 		return (
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
-				endDate={ null }
+				endDate={ endDate }
 				highlightTime={ highlightStartTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
