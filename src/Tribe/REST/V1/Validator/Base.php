@@ -9,7 +9,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	 * The event fields that are password protected when a password is required.
 	 *
 	 * @since 6.8.2.1
-	 * @since TBD Added venue and organizer fields.
+	 * @since 6.15.3 Added venue and organizer fields.
 	 *
 	 * @var array
 	 */

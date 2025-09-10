@@ -6,10 +6,10 @@
  * [your-theme]/tribe-events/modules/meta/map.php
  *
  * @since 4.4
- * @since TBD Added post password protection.
+ * @since 6.15.3 Added post password protection.
  *
  * @package TribeEventsCalendar
- * @version TBD
+ * @version 6.15.3
  */
 
 $map = tribe_get_embedded_map();

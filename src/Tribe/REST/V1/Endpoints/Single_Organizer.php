@@ -18,7 +18,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Added password protection check.
+	 * @since 6.15.3 Added password protection check.
 	 */
 	public function get( WP_REST_Request $request ) {
 		$organizer = get_post( $request['id'] );
