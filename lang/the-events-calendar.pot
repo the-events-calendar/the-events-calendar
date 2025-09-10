@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.2\n"
+"Project-Id-Version: The Events Calendar 6.15.3\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-09T12:44:39+00:00\n"
+"POT-Creation-Date: 2025-09-10T18:12:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -4676,8 +4676,8 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:919
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:603
 #: src/views/blocks/parts/organizer.php:69
-#: src/views/modules/meta/organizer.php:55
-#: src/views/modules/meta/venue.php:65
+#: src/views/modules/meta/organizer.php:58
+#: src/views/modules/meta/venue.php:69
 msgid "Phone"
 msgstr ""
 
@@ -4697,7 +4697,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:736
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:990
 #: src/views/blocks/parts/organizer.php:80
-#: src/views/modules/meta/organizer.php:66
+#: src/views/modules/meta/organizer.php:69
 msgid "Email"
 msgstr ""
 
@@ -5371,21 +5371,21 @@ msgstr ""
 #: src/Events/REST/TEC/V1/Documentation/Venue_Definition.php:63
 #: src/Events/REST/TEC/V1/Documentation/Venue_Request_Body_Definition.php:60
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:94
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:296
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:310
 msgid "The venue address"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Documentation/Venue_Definition.php:70
 #: src/Events/REST/TEC/V1/Documentation/Venue_Request_Body_Definition.php:67
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:102
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:310
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:324
 msgid "The venue country"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Documentation/Venue_Definition.php:77
 #: src/Events/REST/TEC/V1/Documentation/Venue_Request_Body_Definition.php:74
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:98
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:303
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:317
 msgid "The venue city"
 msgstr ""
 
@@ -5397,14 +5397,14 @@ msgstr ""
 #: src/Events/REST/TEC/V1/Documentation/Venue_Definition.php:91
 #: src/Events/REST/TEC/V1/Documentation/Venue_Request_Body_Definition.php:88
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:110
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:324
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:338
 msgid "The venue state"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Documentation/Venue_Definition.php:98
 #: src/Events/REST/TEC/V1/Documentation/Venue_Request_Body_Definition.php:95
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:106
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:317
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:331
 msgid "The venue province"
 msgstr ""
 
@@ -5416,7 +5416,7 @@ msgstr ""
 #: src/Events/REST/TEC/V1/Documentation/Venue_Definition.php:112
 #: src/Events/REST/TEC/V1/Documentation/Venue_Request_Body_Definition.php:109
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:118
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:338
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:352
 msgid "The venue phone number"
 msgstr ""
 
@@ -5569,9 +5569,9 @@ msgstr ""
 #: src/Events/REST/TEC/V1/Endpoints/Venues.php:265
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:113
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:168
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:165
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:180
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:107
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:161
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:175
 msgid "A required parameter is missing or an input parameter is in the wrong format"
 msgstr ""
 
@@ -6174,9 +6174,9 @@ msgid "Venues"
 msgstr ""
 
 #: src/functions/template-tags/venue.php:1035
-#: src/views/v2/day/event/venue.php:25
+#: src/views/v2/day/event/venue.php:27
 #: src/views/v2/latest-past/event/venue.php:23
-#: src/views/v2/list/event/venue.php:25
+#: src/views/v2/list/event/venue.php:27
 msgctxt "Address separator"
 msgid ", "
 msgstr ""
@@ -9348,7 +9348,7 @@ msgid "The URL to the organizer page"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:65
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:259
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:274
 msgid "The organizer name"
 msgstr ""
 
@@ -9365,12 +9365,12 @@ msgid "The organizer slug"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:86
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:281
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:296
 msgid "The organizer phone number"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:90
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:288
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:303
 msgid "The organizer website"
 msgstr ""
 
@@ -9415,7 +9415,7 @@ msgid "The URL to the venue page"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:65
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:263
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:277
 msgid "The venue name"
 msgstr ""
 
@@ -9440,12 +9440,12 @@ msgid "Whether the map link should be shown for the venue or not"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:114
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:331
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:345
 msgid "The venue ZIP code"
 msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:122
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:352
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:366
 msgid "The venue website URL"
 msgstr ""
 
@@ -9542,9 +9542,9 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:97
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:497
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:208
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:222
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:114
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:207
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:221
 msgid "The archive page to return"
 msgstr ""
 
@@ -9694,29 +9694,29 @@ msgstr ""
 msgid "Returns all the organizers matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:216
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:230
 msgid "The number of organizers to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:222
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:236
 msgid "Organizers should contain the specified string in the title, description or custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:228
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:242
 msgid "Organizers should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:233
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:247
 msgid "Organizers should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:238
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:252
 msgid "Organizers should have upcoming events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:247
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:246
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:273
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:261
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:260
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:288
 msgid "The organizer post status"
 msgstr ""
 
@@ -9736,23 +9736,23 @@ msgstr ""
 msgid "Returns all the venues matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:215
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:229
 msgid "The number of venues to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:221
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:235
 msgid "Venues should contain the specified string in the title, description or custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:227
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:241
 msgid "Venues should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:232
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:246
 msgid "Venues should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:237
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:251
 msgid "Venues should have upcoming events associated to them"
 msgstr ""
 
@@ -9966,60 +9966,60 @@ msgstr ""
 msgid "the event post name"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:130
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:145
 msgid "Returns the data of the organizer with the specified post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:140
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:155
 msgid "The organizer post ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:158
 msgid "The organizer with the specified ID is not accessible."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:146
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:161
 msgid "An organizer with the specified event does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:155
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:170
 msgid "Returns the data of the created organizer"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:168
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:183
 msgid "The user is not authorized to create organizers"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:176
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:191
 msgid "Deletes an organizer and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:215
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:230
 msgid "the organizer post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:238
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:253
 msgid "The organizer author ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:245
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:260
 msgid "The organizer publication date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:252
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:267
 msgid "The organizer publication date (UTC time zone)"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:266
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:281
 msgid "The organizer description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:295
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:310
 msgid "The organizer e-mail address"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:302
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:359
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:317
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:373
 msgid "The organizer featured image ID or URL"
 msgstr ""
 
@@ -10087,71 +10087,71 @@ msgstr ""
 msgid "the event tag term ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:107
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:121
 msgid "Returns the data of the venue with the specified post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:120
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:134
 msgid "The venue post ID is missing."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:123
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:137
 msgid "The venue with the specified ID is not accessible."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:129
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:143
 msgid "A venue with the specified post ID does not exist."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:141
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:155
 msgid "Returns the data of the updated venue"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:151
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:165
 msgid "Returns the data of the created venue"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:167
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:181
 msgid "The user is not authorized to create venues"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:175
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:189
 msgid "Deletes a venue and returns its data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:223
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:237
 msgid "the venue post ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:245
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:259
 msgid "The venue author ID"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:251
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:265
 msgid "The venue publication date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:257
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:271
 msgid "The venue publication date (UTC time zone)"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:270
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:284
 msgid "The venue description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:276
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:290
 msgid "The venue post status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:283
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:297
 msgid "Whether events linked to the venue should show a map or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:289
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:303
 msgid "Whether events linked to the venue should show a map link or not"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:345
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:359
 msgid "The venue state and province"
 msgstr ""
 
