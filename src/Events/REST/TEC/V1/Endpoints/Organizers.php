@@ -379,13 +379,13 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * @return bool True if the user can read the post, false otherwise.
 	 */
 	protected function can_read_organizer( WP_Post $post ): bool {
-		// If guest can read, allow it
+		// If guest can read, allow it.
 		if ( $this->guest_can_read() ) {
 			return true;
 		}
 
-		// Check custom capabilities
-		return current_user_can( 'read_tribe_organizer', $post->ID ) || current_user_can( 'read_tribe_organizers' );
+		// Check custom capabilities.
+		return current_user_can( 'read_tribe_organizer', $post->ID ) || current_user_can( 'read_tribe_organizers' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
 	}
 
 	/**
