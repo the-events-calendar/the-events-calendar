@@ -1,4 +1,6 @@
 const path = require( 'path' );
+const commonDir = '../../common/src/resources/packages';
+const eventsDir = '../../src/resources/packages';
 
 module.exports = {
 	verbose: true,
@@ -11,31 +13,34 @@ module.exports = {
 			'ts-jest',
 			{
 				tsconfig: {
+					allowImportingTsExtensions: true,
 					allowJs: true,
-					baseUrl: '.',
-					checkJs: true,
-					target: 'esnext',
 					allowSyntheticDefaultImports: true,
 					allowUmdGlobalAccess: true,
+					alwaysStrict: true,
+					baseUrl: '.',
+					checkJs: true,
 					esModuleInterop: true,
 					jsx: 'react-jsx',
+					moduleResolution: 'node10',
+					noEmit: true,
+					noImplicitReturns: true,
 					sourceMap: true,
+					target: 'esnext',
 					paths: {
-						'@tec/common/*': [ '../../common/src/resources/packages/*' ],
-						'@tec/events/*': [ '../../src/resources/packages/*' ],
+						'@tec/common/*': [ `${commonDir}/*` ],
+						'@tec/events/*': [ `${eventsDir}/*` ],
 					},
 				},
 			},
 		],
-		'^.+\\.js$': 'babel-jest',
 	},
 	transformIgnorePatterns: [ '/node_modules/(?!client-zip|@wordpress/.*)' ],
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
-	// Load modules only from TEC, override default resolution that could lead Common loading from its own `node_modules`.
-	moduleDirectories: [ path.resolve( __dirname, '../../node_modules' ) ],
 	moduleNameMapper: {
-		'@tec/common/(.*)$': '<rootDir>/../../common/src/resources/packages/$1',
+		'@tec/common/(.*)$': `<rootDir>/${commonDir}/$1`,
+		'@tec/events/(.*)$': `<rootDir>/${eventsDir}/$1`,
 	},
 };
