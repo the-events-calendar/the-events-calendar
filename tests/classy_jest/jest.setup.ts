@@ -90,7 +90,9 @@ interface WPGlobalMock {
  */
 declare global {
 	interface Window {
+		// @ts-ignore
 		tinymce: TinyMCEMock;
+		// @ts-ignore
 		wp: WPGlobalMock;
 	}
 }

@@ -4,9 +4,8 @@ import { userEvent } from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { RegistryProvider } from '@wordpress/data';
 import { getRegistry } from '@tec/common/classy/store';
-import EventCost from '../../../../src/resources/packages/classy/fields/EventCost/EventCost';
-import { Currency } from '@tec/common/classy/types/Currency';
-import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
+import EventCost from '@tec/events/classy/fields/EventCost/EventCost';
+import { Currency, CurrencyPosition } from '@tec/common/classy/types/Currency';
 
 // Mock WordPress data store
 jest.mock( '@wordpress/data', () => {
