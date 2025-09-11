@@ -9,7 +9,8 @@ class Organizer extends \WP_UnitTest_Factory_For_Post {
 	function create_object( $args ) {
 		$args['post_type'] = Main::ORGANIZER_POST_TYPE;
 
-		$title = 'Organizer' . uniqid();
+		$title = 'Organizer' . ( ! empty( $args['use_time_for_generation']) ? microtime() : uniqid() );
+		unset( $args['use_time_for_generation'] );
 		$lc_title = strtolower( $title );
 
 		$defaults = [

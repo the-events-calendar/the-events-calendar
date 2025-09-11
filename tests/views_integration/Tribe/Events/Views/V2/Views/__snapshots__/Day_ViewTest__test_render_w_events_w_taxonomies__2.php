@@ -682,7 +682,7 @@
 		<div id="tribe-events-c-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 			<ul class="tribe-events-c-subscribe-dropdown__list">
 									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--gcal">
 	<a
 		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist%26tribe-bar-date%3D2021-07-04"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -692,7 +692,7 @@
 		Google Calendar	</a>
 </li>
 									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--ical">
 	<a
 		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1&#038;eventDisplay=list&#038;tribe-bar-date=2021-07-04"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -702,7 +702,7 @@
 		iCalendar	</a>
 </li>
 									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--outlook-365">
 	<a
 		href="https://outlook.office.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist%26tribe-bar-date%3D2021-07-04&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -712,7 +712,7 @@
 		Outlook 365	</a>
 </li>
 									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--outlook-live">
 	<a
 		href="https://outlook.live.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist%26tribe-bar-date%3D2021-07-04&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -722,7 +722,7 @@
 		Outlook Live	</a>
 </li>
 									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--ics">
 	<a
 		href="http://test.tri.be/events/tag/tag-1/today/?ical=1"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -732,7 +732,7 @@
 		Export .ics file	</a>
 </li>
 									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--outlook-ics">
 	<a
 		href="http://test.tri.be/events/tag/tag-1/today/?outlook-ical=1"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
