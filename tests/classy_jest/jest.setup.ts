@@ -62,7 +62,7 @@ console.warn = ( msg: string | Error ) => {
  * Mocks for the global TinyMCE instance loaded on the `window` object by the `wp-tinymce` dependency.
  */
 interface TinyMCEMock {
-	get: ( id: string ) => {
+	get: () => {
 		initialized: boolean;
 		on: jest.Mock;
 		off: jest.Mock;
@@ -72,6 +72,27 @@ interface TinyMCEMock {
 	EditorManager: {
 		editors: any[];
 	};
+}
+
+/**
+ * Mock for the `wp.oldEditor` global used by the classic editor.
+ */
+interface WPGlobalMock {
+	oldEditor: {
+		remove: jest.Mock;
+		initialize: jest.Mock;
+		getContent: jest.Mock;
+	}
+}
+
+/**
+ * Declare the global `window` properties added by WordPress and TinyMCE.
+ */
+declare global {
+	interface Window {
+		tinymce: TinyMCEMock;
+		wp: WPGlobalMock;
+	}
 }
 
 global.window.tinymce = {
