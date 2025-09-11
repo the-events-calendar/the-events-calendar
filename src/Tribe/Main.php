@@ -3046,6 +3046,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param WP_Post $post    The post object.
 		 *
 		 * @param int     $post_id The post ID.
+		 * @param int     $post    The post.
 		 */
 		public function publishAssociatedTypes( $post_id, $post ) {
 
