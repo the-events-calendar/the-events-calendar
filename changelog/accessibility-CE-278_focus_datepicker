@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Return keyboard focus to the triggering button after closing the datepicker for improved accessibility. [CE-278]
