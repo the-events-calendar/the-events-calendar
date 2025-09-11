@@ -5,8 +5,14 @@ namespace Tribe\Events\REST\V1\Endpoints;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Venue;
 use Tribe__Events__REST__V1__Endpoints__Archive_Venue as Archive;
+use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
+use Tribe\Tests\Traits\With_Clock_Mock;
+use Tribe__Date_Utils as Dates;
 
 class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
+	use With_Clock_Mock;
+	use SnapshotAssertions;
+
 	/**
 	 * @var \Tribe__REST__Messages_Interface
 	 */
@@ -112,6 +118,59 @@ class Archive_VenueTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 5, $response->get_data()['venues'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_hide_password_protected_fields() {
+		$request = new \WP_REST_Request( 'GET', '' );
+		tribe_update_option( 'posts_per_page', 10 );
+		$this->freeze_time( Dates::immutable( '2024-06-13 17:25:00' ) );
+		$venue_ids = $this->factory()->venue->create_many(5, [ 'use_time_for_generation' => true ]);
+
+		$this->assertEquals( '2024-06-13 17:25:00', date( 'Y-m-d H:i:s' ) );
+
+		wp_update_post( [
+			'ID' => $venue_ids[2],
+			'post_password' => 'password',
+		] );
+
+		wp_update_post( [
+			'ID' => $venue_ids[4],
+			'post_password' => 'password',
+		] );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$data = $response->get_data();
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertCount( 5, $data['venues'] );
+
+		$json = wp_json_encode( $data, JSON_PRETTY_PRINT );
+		$json = str_replace(
+			array_map( static fn( $id ) => '"id": ' . $id, $venue_ids ),
+			'"id": "{VENUE_ID}"',
+			$json
+		);
+		$json = str_replace(
+			array_map( static fn( $id ) => '?id=' . $id, $venue_ids ),
+			'?id={VENUE_ID}',
+			$json
+		);
+		$json = str_replace(
+			array_map( static fn( $id ) => '\/venues\/' . $id, $venue_ids ),
+			'\/venues\/{VENUE_ID}',
+			$json
+		);
+		$json = str_replace( $venue_ids, '{VENUE_ID}', $json );
+		$json = preg_replace( '/post-title-[\d]+/', 'post-title-{NUMBER}', $json );
+		$json = preg_replace( '/post-slug-[\d]+/', 'post-slug-{NUMBER}', $json );
+		$json = preg_replace( '/Post title [\d]+/', 'Post title {NUMBER}', $json );
+		$json = preg_replace( '/Post content [\d]+/', 'Post content {NUMBER}', $json );
+		$json = preg_replace( '/Post excerpt [\d]+/', 'Post excerpt {NUMBER}', $json );
+		$this->assertMatchesJsonSnapshot( $json );
 	}
 
 	/**

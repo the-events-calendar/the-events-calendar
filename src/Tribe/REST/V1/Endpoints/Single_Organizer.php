@@ -18,18 +18,33 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
 	 * @since 4.9.4
+	 * @since 6.15.3 Added password protection check.
 	 */
 	public function get( WP_REST_Request $request ) {
 		$organizer = get_post( $request['id'] );
 
 		$cap = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->read_post;
+
 		if ( ! ( 'publish' === $organizer->post_status || current_user_can( $cap, $request['id'] ) ) ) {
 			$message = $this->messages->get_message( 'organizer-not-accessible' );
 
 			return new WP_Error( 'organizer-not-accessible', $message, [ 'status' => 403 ] );
 		}
 
+		$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::ORGANIZER_POST_TYPE );
+
+		$filter_added = false;
+
+		if ( post_password_required( $organizer ) && $rest_controller->can_access_password_content( $organizer, $request ) ) {
+			add_filter( 'post_password_required', '__return_false' );
+			$filter_added = true;
+		}
+
 		$data = $this->post_repository->get_organizer_data( $request['id'], 'single' );
+
+		if ( $filter_added ) {
+			remove_filter( 'post_password_required', '__return_false' );
+		}
 
 		return is_wp_error( $data ) ? $data : new WP_REST_Response( $data );
 	}

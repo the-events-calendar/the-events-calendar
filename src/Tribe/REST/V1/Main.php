@@ -62,6 +62,27 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
 		add_filter( 'tribe_events_register_event_cat_type_args', [ $this, 'filter_taxonomy_args' ] );
 		add_filter( 'tribe_rest_events_archive_data', [ $this, 'filter_out_password_protected_events' ], 100, 2 );
+		add_filter( 'tribe_rest_organizer_data', [ $this, 'filter_out_password_protected_data' ], 100 );
+		add_filter( 'tribe_rest_venue_data', [ $this, 'filter_out_password_protected_data' ], 100 );
+	}
+
+	/**
+	 * Filters out password protected organizer data from the REST API response.
+	 *
+	 * @since 6.15.3
+	 *
+	 * @param array $entity_data The entity data.
+	 *
+	 * @return array The filtered entity data.
+	 */
+	public function filter_out_password_protected_data( $entity_data ): array {
+		if ( ! post_password_required( $entity_data['id'] ) ) {
+			return $entity_data;
+		}
+
+		$validator = tribe( 'tec.rest-v1.validator' );
+
+		return $validator->remove_password_protected_content( $entity_data );
 	}
 
 	/**

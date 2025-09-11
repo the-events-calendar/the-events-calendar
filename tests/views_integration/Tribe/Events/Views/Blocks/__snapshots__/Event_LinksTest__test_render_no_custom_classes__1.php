@@ -28,7 +28,7 @@
 					</div>
 					<div id="tribe-events-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 						<ul class="tribe-events-c-subscribe-dropdown__list">
-															<li class="tribe-events-c-subscribe-dropdown__list-item">
+															<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--gcal">
 									<a
 										href=""
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -37,7 +37,7 @@
 									>
 										Google Calendar									</a>
 								</li>
-															<li class="tribe-events-c-subscribe-dropdown__list-item">
+															<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--ical">
 									<a
 										href=""
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -46,7 +46,7 @@
 									>
 										iCalendar									</a>
 								</li>
-															<li class="tribe-events-c-subscribe-dropdown__list-item">
+															<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--outlook-365">
 									<a
 										href=""
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -55,7 +55,7 @@
 									>
 										Outlook 365									</a>
 								</li>
-															<li class="tribe-events-c-subscribe-dropdown__list-item">
+															<li class="tribe-events-c-subscribe-dropdown__list-item tribe-events-c-subscribe-dropdown__list-item--outlook-live">
 									<a
 										href=""
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
