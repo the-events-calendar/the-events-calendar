@@ -5,8 +5,11 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
+ * @since 4.6.19
+ * @since 6.15.3 Added post password protection.
+ *
  * @package TribeEventsCalendar
- * @version 4.6.19
+ * @version 6.15.3
  */
 
 $organizer_ids = tribe_get_organizer_ids();
@@ -48,7 +51,7 @@ $website_title = tribe_events_get_organizer_website_title();
 			<?php
 		}
 
-		if ( ! $multiple ) { // only show organizer details if there is one
+		if ( ! $multiple && ! post_password_required( $organizer ) ) { // only show organizer details if there is one
 			if ( ! empty( $phone ) ) {
 				?>
 				<dt class="tribe-organizer-tel-label">

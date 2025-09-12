@@ -9,8 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.2.0
  * @since 6.2.0 Added the `tec_events_view_venue_after_address` action.
+ * @since 6.15.3 Added post password protection.
+ *
+ * @version 6.15.3
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var string  $slug  The slug of the view.
@@ -32,10 +34,12 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 		<?php echo wp_kses_post( $venue->post_title ); ?>
 	</span>
 	<span class="tribe-events-calendar-day__event-venue-address">
-		<?php echo esc_html( $address ); ?>
-		<?php if ( $append_after_address ) : ?>
-			<?php echo esc_html( reset( $append_after_address ) ); ?>
-		<?php endif; ?>
+		<?php if ( ! post_password_required( $venue->ID ) ) { ?>
+			<?php echo esc_html( $address ); ?>
+			<?php if ( $append_after_address ) : ?>
+					<?php echo esc_html( reset( $append_after_address ) ); ?>
+				<?php endif; ?>
+		<?php } ?>
 	</span>
 	<?php
 	/**
