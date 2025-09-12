@@ -42,7 +42,3 @@ addListener( Codeception\Events::TEST_AFTER, static function () {
 	// Re-enable foreign key checks.
 	$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 1' );
 } );
-
-// Disable CT1 for the WordPress instance loaded in the tests context.
-putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=1' );
-$_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 1;
