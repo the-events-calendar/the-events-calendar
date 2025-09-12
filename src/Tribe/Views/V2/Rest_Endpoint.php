@@ -8,6 +8,7 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Context;
 use WP_REST_Request as Request;
 use WP_REST_Response as Response;
 use WP_REST_Server as Server;
@@ -46,7 +47,7 @@ class Rest_Endpoint {
 	 *
 	 * @since 6.1.4
 	 * @since 6.11.1 Changed to `tvn2` from `_tec_view_rest_nonce_secondary`.
-	 * 
+	 *
 	 * @var string
 	 */
 	const SECONDARY_NONCE_KEY = 'tvn2';
@@ -416,7 +417,7 @@ class Rest_Endpoint {
 	 * @since 6.11.1
 	 *
 	 * @param Request $request The request object.
-	 * 
+	 *
 	 * @return Response The response object.
 	 */
 	public function send_html( Request $request ) {
@@ -434,11 +435,11 @@ class Rest_Endpoint {
 
 	/**
 	 * Register the endpoint so it will be cached.
-	 * 
+	 *
 	 * @since 6.11.1
-	 * 
+	 *
 	 * @param array $allowed_endpoints The allowed endpoints.
-	 * 
+	 *
 	 * @return array The allowed endpoints.
 	 */
 	public function include_rest_for_caching( $allowed_endpoints ): array {
@@ -454,6 +455,7 @@ class Rest_Endpoint {
 	 * Unshrink the URL components.
 	 *
 	 * @since 6.11.1
+	 * @since TBD Added `merge_u_param_into_request`. [FBAR-351]
 	 *
 	 * @param Request $request The request object.
 	 *
@@ -464,11 +466,148 @@ class Rest_Endpoint {
 		$request->set_param( 'prev_url', $request->get_param( 'pu' ) );
 		$request->set_param( 'should_manage_url', $request->get_param( 'smu' ) );
 
+		$this->merge_u_param_into_request( $request->get_param( 'u' ) );
+
 		$request->set_param( 'u', null );
 		$request->set_param( 'pu', null );
 		$request->set_param( 'smu', null );
 
 		return $request;
+	}
+
+	/**
+	 * Merges query args from the `u` parameter into global request variables
+	 * so `tribe_context()` can see them like a normal page request.
+	 *
+	 * Validation is handled internally using pure helper functions.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $u_param The `u` parameter from the REST request.
+	 */
+	protected function merge_u_param_into_request( ?string $u_param ): void {
+		if ( empty( $u_param ) ) {
+			return;
+		}
+
+		$u_query = wp_parse_url( $u_param, PHP_URL_QUERY );
+		if ( empty( $u_query ) ) {
+			return;
+		}
+
+		parse_str( $u_query, $u_vars );
+
+		if ( empty( $u_vars ) || ! is_array( $u_vars ) ) {
+			return;
+		}
+
+		// Run validation steps.
+		$u_vars = $this->drop_invalid_keys( $u_vars );
+
+		$u_vars = $this->remove_protected_keys( $u_vars );
+
+		// Prevent huge payloads – hard limit for safety.
+		if ( count( $u_vars ) > 50 ) {
+			$u_vars = array_slice( $u_vars, 0, 50 );
+		}
+
+		add_filter(
+			'tribe_context_locations',
+			static function ( array $locations ) use ( $u_vars ) {
+				foreach ( $u_vars as $key => $value ) {
+					if ( isset( $locations[ $key ] ) ) {
+						continue;
+					}
+
+					$sanitized_value = is_array( $value )
+						? array_map( 'sanitize_text_field', $value )
+						: sanitize_text_field( $value );
+
+					$locations[ $key ] = [
+						'read' => [
+							Tribe__Context::FUNC => static function () use ( $sanitized_value ) {
+								return $sanitized_value;
+							},
+						],
+					];
+				}
+
+				return $locations;
+			}
+		);
+	}
+
+	/**
+	 * Filter callback to add validated `u` parameter variables to the context.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $locations Existing context locations.
+	 *
+	 * @return array Modified context locations.
+	 */
+	public function filter_add_u_vars_to_context( array $locations ): array {
+		if ( empty( $this->u_vars ) || ! is_array( $this->u_vars ) ) {
+			return $locations;
+		}
+
+		foreach ( $this->u_vars as $key => $value ) {
+			// Skip if key already exists in request context.
+			if ( isset( $locations[ $key ] ) ) {
+				continue;
+			}
+
+			// Sanitize value(s) — handles both scalars and arrays.
+			$sanitized_value = is_array( $value )
+				? array_map( 'sanitize_text_field', $value )
+				: sanitize_text_field( $value );
+
+			$locations[ $key ] = [
+				'read' => [
+					Tribe__Context::FUNC => static function () use ( $sanitized_value ) {
+						return $sanitized_value;
+					},
+				],
+			];
+		}
+
+		return $locations;
+	}
+
+	/**
+	 * Drop keys that are not strictly alphanumeric, underscore, or brackets.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $vars The parsed query vars.
+	 *
+	 * @return array Filtered query vars.
+	 */
+	protected function drop_invalid_keys( array $vars ): array {
+		return array_filter(
+			$vars,
+			static function ( $key ) {
+				return (bool) preg_match( '/^[a-zA-Z0-9_\[\]]+$/', $key );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+	}
+
+	/**
+	 * Remove keys that should never come from `u` param for security reasons.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $vars The parsed query vars.
+	 *
+	 * @return array Filtered query vars.
+	 */
+	protected function remove_protected_keys( array $vars ): array {
+		$protected_keys = [ '_wpnonce', 'action' ];
+		foreach ( $protected_keys as $protected ) {
+			unset( $vars[ $protected ] );
+		}
+		return $vars;
 	}
 
 	/**
