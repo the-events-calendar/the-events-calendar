@@ -583,6 +583,11 @@ jQuery( function ( $ ) {
 				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( 'getDate' ) );
 
+				// Focus the original element when the datepicker is closed.
+				object.settings.onClose = function(dateText, inst) {
+					inst.input.focus();
+				};
+
 				// allow single datepicker fields to specify a min or max date
 				// using the `data-datapicker-(min|max)Date` attribute
 				if ( undefined !== object.input.data( 'datepicker-min-date' ) ) {
@@ -596,6 +601,33 @@ jQuery( function ( $ ) {
 				// Capture the datepicker div here; it's dynamically generated so best to grab here instead
 				// of elsewhere.
 				$dpDiv = $( object.dpDiv );
+
+				// Make datepicker dialog keyboard accessible
+				$dpDiv.attr('tabindex', '-1');
+				$dpDiv.on('keydown', function (e) {
+					// Trap Tab inside the datepicker
+					const focusableEls = $dpDiv.find('a, button, :input').filter(':visible');
+					const firstEl = focusableEls.first()[0];
+					const lastEl = focusableEls.last()[0];
+
+					if (e.key === 'Tab') {
+						if (e.shiftKey && document.activeElement === firstEl) {
+							e.preventDefault();
+							lastEl.focus();
+						} else if (!e.shiftKey && document.activeElement === lastEl) {
+							e.preventDefault();
+							firstEl.focus();
+						}
+					}
+				});
+
+				// When datepicker opens, focus first day cell
+				setTimeout(() => {
+					const firstDay = $dpDiv.find('td a.ui-state-active')[0] || $dpDiv.find('td a')[0];
+					if (firstDay) {
+						firstDay.focus();
+					}
+				}, 0);
 
 				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere
 				// with other plugins'/themes'.

@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Generator;
 use WP_REST_Request;
 use WP_Screen;
 use WP_User;
@@ -265,5 +266,245 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		$server->serve_request( '/tribe/views/v2/html' );
 
 		$this->assertTrue( $is_logged_in );
+	}
+
+	/**
+	 * Provides multiple `u` param scenarios to test merging into the context.
+	 *
+	 * @return Generator
+	 */
+	public function u_param_url_provider(): \Generator {
+		// 1. Basic single param.
+		yield 'Single custom field' => [
+			'events/list/?tribe__ecp_custom_3[0]=Yes',
+			[ 'tribe__ecp_custom_3' => [ 'Yes' ] ],
+			[],
+		];
+
+		// 2. Multiple params with arrays.
+		yield 'Multiple custom fields' => [
+			'events/list/?tribe__ecp_custom_3[0]=Yes&tribe__ecp_custom_2[0]=no&tribe_organizers[0]=53419',
+			[
+				'tribe__ecp_custom_3' => [ 'Yes' ],
+				'tribe__ecp_custom_2' => [ 'no' ],
+				'tribe_organizers'    => [ '53419' ],
+			],
+			[],
+		];
+
+		// 3. Random characters allowed in values.
+		yield 'Custom field with special characters' => [
+			'events/list/?tribe__ecp_custom_4[0]=' . rawurlencode( '!@#$%^&*(()_+' ),
+			[ 'tribe__ecp_custom_4' => [ '!@#$%^&*(()_+' ] ],
+			[],
+		];
+
+		// 4. Conflicting keys → existing context should win.
+		yield 'Conflicting keys should not overwrite existing ones' => [
+			'events/list/?eventDisplay=month&tribe__ecp_custom_5[0]=edge',
+			[ 'tribe__ecp_custom_5' => [ 'edge' ] ],
+			['eventDisplay' => 'month' ],
+		];
+
+		// 5. Empty `u` param.
+		yield 'Empty u param should do nothing' => [
+			'',
+			[],
+			[],
+		];
+
+		// 6. Malformed query param.
+		yield 'Malformed query string' => [
+			'events/list/?&&&badparam',
+			[],
+			[],
+		];
+
+		// 7. Large payload (truncates after 50 params).
+		yield 'Large payload trimmed after 50 params' => [
+			'events/list/?' . implode(
+				'&',
+				array_map(
+					fn( $i ) => "param{$i}={$i}",
+					range( 1, 60 )
+				)
+			),
+			array_combine(
+				array_map( fn( $i ) => "param{$i}", range( 1, 50 ) ),
+				array_map( fn( $i ) => (string) $i, range( 1, 50 ) )
+			),
+			[],
+		];
+
+		// 8. Malicious key injection (PHP code attempt).
+		yield 'Malicious key injection' => [
+			'events/list/?<?php=bad&safe_key=value',
+			[ 'safe_key' => 'value' ],
+			[],
+		];
+
+		// 9. Script tag injection (encoded XSS attempt).
+		yield 'Script tag injection' => [
+			'events/list/?<script>alert(1)</script>=evil&normal=value',
+			[ 'normal' => 'value' ],
+			[],
+		];
+
+		// 10. Encoded script injection.
+		yield 'Encoded script injection' => [
+			'events/list/?' . rawurlencode('<script>alert(1)</script>') . '=x&safe=yes',
+			[ 'safe' => 'yes' ],
+			[],
+		];
+
+		// 11. Nested bracket keys allowed.
+		yield 'Nested brackets in keys' => [
+			'events/list/?allowed[0][nested]=ok&safe=yes',
+			[ 'safe' => 'yes' ],
+			[],
+		];
+
+		// 12. Keys that look like WP internals should be stripped.
+		yield 'WP internal keys stripped' => [
+			'events/list/?_wpnonce=bad&action=delete&safe_key=value',
+			[ 'safe_key' => 'value' ],
+			[],
+		];
+
+		// 13. Duplicate keys should merge values.
+		yield 'Duplicate keys merge values' => [
+			'events/list/?dup[]=one&dup[]=two',
+			[ 'dup' => [ 'one', 'two' ] ],
+			[],
+		];
+
+		// 14. Nested arrays with multiple layers.
+		yield 'Deeply nested arrays' => [
+			'events/list/?field[0][subkey][inner]=deep&safe=value',
+			[ 'safe' => 'value' ], // Nested keys should be stripped, only `safe` survives.
+			[],
+		];
+
+		// 15. Numeric-only keys.
+		yield 'Numeric keys only' => [
+			'events/list/?123=value&safe=keep',
+			[ 'safe' => 'keep' ], // Numeric-only keys should be dropped, `safe` remains.
+			[],
+		];
+
+		// 16. Encoded malicious values.
+		yield 'Encoded malicious values' => [
+			'events/list/?safe=' . rawurlencode( '<script>alert("bad")</script>' ),
+			[ 'safe' => ''  ], // Values removed.
+			[],
+		];
+
+		// 17. Keys with invalid characters.
+		yield 'Keys with invalid characters stripped' => [
+			'events/list/?bad key=value&ok=value2',
+			[ 'ok' => 'value2' ], // `bad key` invalid due to space, `ok` stays.
+			[],
+		];
+
+		// 18. Duplicate keys preserve order.
+		yield 'Duplicate keys preserve order' => [
+			'events/list/?dup[]=first&dup[]=second&dup[]=third',
+			[ 'dup' => [ 'first', 'second', 'third' ] ], // Ensure order preserved for duplicate values.
+			[],
+		];
+
+		// 19. Mixed good and bad keys in same URL.
+		yield 'Mixed good and bad keys' => [
+			'events/list/?<bad>=1&good=2&another<bad>=3&safe=yes',
+			[
+				'good' => '2',
+				'safe' => 'yes',
+			], // Only valid keys survive.
+			[],
+		];
+
+		// 20. Encoded brackets in keys.
+		yield 'Encoded brackets in keys' => [
+			'events/list/?' . rawurlencode( 'bracket[key]' ) . '=val&normal=ok',
+			[ 'normal' => 'ok' ], // Encoded bracket keys dropped.
+			[],
+		];
+
+	}
+
+	/**
+	 * @before
+	 */
+	public function reset_context_between_sets(): void {
+		// Reset the Context:
+		tribe_context()->refresh();
+		/* Repopulate from the canonical locations file (this drops any dynamic keys
+		that were merged into static::$locations in a previous dataset) */
+		tribe_context()->dangerously_repopulate_locations();
+	}
+
+	/**
+	 * @test
+	 * @dataProvider u_param_url_provider
+	 */
+	public function it_should_merge_u_param_into_context( string $relative_url, array $expected_values, array $existing_context ) {
+		$rest    = $this->make_instance();
+		$request = new WP_REST_Request( 'GET', '/tribe/views/v2/html' );
+
+		// Build full URL dynamically using home_url().
+		$url = $relative_url ? home_url( $relative_url ) : '';
+
+		// Snapshot original context values before merging.
+		$original_context = tribe_context( [], true )->to_array();
+
+		// Add the `u` param to the request.
+		$request->set_param( 'u', $url );
+
+		// Merge URL params into the context via public method.
+		$rest->unshrink_url_components( $request );
+
+		// Get updated context.
+		$context = tribe_context( [], true );
+
+		// Original values should remain untouched for conflicting keys.
+		foreach ( $existing_context as $key => $value ) {
+			$this->assertEquals(
+				$value,
+				$context->get( $key ),
+				"Context value for {$key} should remain unchanged when conflicts exist."
+			);
+		}
+
+		// Expected new values should be available in context.
+		foreach ( $expected_values as $key => $expected_value ) {
+			$this->assertEquals(
+				$expected_value,
+				$context->get( $key ),
+				"Expected context key {$key} to have value " . print_r( $expected_value, true )
+			);
+		}
+
+		// If no expected values, assert nothing unexpected got added.
+		if ( empty( $expected_values ) ) {
+			foreach ( $context->to_array() as $key => $value ) {
+				$this->assertArrayNotHasKey(
+					$key,
+					$expected_values,
+					"Unexpected key {$key} found in context."
+				);
+			}
+		}
+
+		// Confirm all original keys remain unchanged unless explicitly modified.
+		foreach ( $original_context as $key => $original_value ) {
+			// If this key was not in expected_values or existing_context, it should stay the same.
+			if ( ! array_key_exists( $key, $expected_values ) && ! array_key_exists( $key, $existing_context ) ) {
+				$this->assertSame(
+					$original_value,
+					$context->get( $key ),
+					"Original context value for {$key} was unexpectedly modified."
+				);
+			}
+		}
 	}
 }

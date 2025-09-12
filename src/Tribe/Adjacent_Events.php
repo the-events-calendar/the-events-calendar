@@ -1,7 +1,16 @@
 <?php
+/**
+ * Class Tribe__Events__Adjacent_Events
+ *
+ * @since 4.6.12
+ *
+ * @package Tribe\Events\Adjacent_Events
+ */
 
 use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Main as TEC;
+
+// phpcs:disable PEAR.NamingConventions.ValidClassName.Invalid, StellarWP.Classes.ValidClassName.NotSnakeCase
 
 /**
  * Controls getting a previous or next event from the context of a single event being viewed.
@@ -49,7 +58,7 @@ class Tribe__Events__Adjacent_Events {
 	 *
 	 * @since 4.6.12
 	 *
-	 * @param int $event_id The event ID to look on either side of in prev/next methods.
+	 * @return int $event_id The event ID to look on either side of in prev/next methods.
 	 */
 	public function get_current_event_id() {
 		return $this->current_event_id;
@@ -60,11 +69,11 @@ class Tribe__Events__Adjacent_Events {
 	 *
 	 * @since 4.6.12
 	 *
-	 * @param boolean $anchor
+	 * @param boolean $anchor The anchor text.
+	 *
 	 * @return string
 	 */
 	public function get_prev_event_link( $anchor ) {
-
 		if ( empty( $this->previous_event_link ) ) {
 			$this->previous_event_link = $this->get_event_link( 'previous', $anchor );
 		}
@@ -77,11 +86,10 @@ class Tribe__Events__Adjacent_Events {
 	 *
 	 * @since 4.6.12
 	 *
-	 * @param boolean $anchor
+	 * @param boolean $anchor The anchor text.
 	 * @return string
 	 */
 	public function get_next_event_link( $anchor ) {
-
 		if ( empty( $this->next_event_link ) ) {
 			$this->next_event_link = $this->get_event_link( 'next', $anchor );
 		}
@@ -98,84 +106,87 @@ class Tribe__Events__Adjacent_Events {
 	 * @since 4.0.2
 	 * @since 4.6.12 Moved to new Tribe__Events__Adjacent_Events class.
 	 *
-	 * @param string $where_sql WHERE SQL statement
-	 * @param WP_Query $query WP_Query object
+	 * @param string $where_sql WHERE SQL statement.
 	 *
 	 * @return string
 	 */
 	public function get_closest_event_where( $where_sql ) {
-		// if we are in this method, we KNOW there is a section of the SQL that looks like this:
-		//     ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) [<|>] '2015-01-01 00:00:00' )
-		// What we want to do is to extract all the portions of the WHERE BEFORE that section, all the
-		// portions AFTER that section, and then rebuild that section to be flexible enough to include
-		// events that have the SAME datetime as the event we're comparing against.  Sadly, this requires
-		// some regex-fu.
-		//
-		// The end-game is to change the known SQL line (from above) into the following:
-		//
-		//  (
-		//    ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) [<|>] '2015-01-01 00:00:00' )
-		//    OR (
-		//      ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) = '2015-01-01 00:00:00' )
-		//      AND
-		//      table.post_id [<|>] POST_ID
-		//    )
-		//  )
-		//
+		/*
+		 * If we are in this method, we KNOW there is a section of the SQL that looks like this:
+		 *     ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) [<|>] '2015-01-01 00:00:00' )
+		 * What we want to do is to extract all the portions of the WHERE BEFORE that section, all the
+		 * portions AFTER that section, and then rebuild that section to be flexible enough to include
+		 * events that have the SAME datetime as the event we're comparing against. Sadly, this requires
+		 * some regex-fu.
+		 *
+		 * The end-game is to change the known SQL line (from above) into the following:
+		 *
+		 *  (
+		 *    ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) [<|>] '2015-01-01 00:00:00' )
+		 *    OR (
+		 *      ( table.meta_key = '_EventStartDate' AND CAST( table.meta_value AS DATETIME ) = '2015-01-01 00:00:00' )
+		 *      AND
+		 *      table.post_id [<|>] POST_ID
+		 *    )
+		 *  )
+		 *
 
-		// Here's the regex portion that matches the part that we know. From that line, we want to
-		// have a few capture groups.
-		//     1) We need the whole thing
-		//     2) We need the meta table alias
-		//     3) We need the < or > sign
+		 * Here's the regex portion that matches the part that we know. From that line, we want to
+		 * have a few capture groups.
+		 *     1) We need the whole thing
+		 *     2) We need the meta table alias
+		 *     3) We need the < or > sign
+		 */
 
-		// Here's the regex for getting the meta table alias
+		// Here's the regex for getting the meta table alias.
 		$meta_table_regex = '([^\.]+)\.meta_key\s*=\s*';
 
-		// Here's the regex for the middle section of the know line
+		// Here's the regex for the middle section of the know line.
 		$middle_regex = '[\'"]_EventStartDate[\'"]\s+AND\s+CAST[^\)]+AS DATETIME\s*\)\s*';
 
-		// Here's the regex for the < and > sign
+		// Here's the regex for the < and > sign.
 		$gt_lt_regex = '(\<|\>)';
 
 		// Let's put that line together, making sure we are including the wrapping parens and the
 		// characters that make up the rest of the line - spacing in front, non paren characters at
-		// the end
+		// the end.
 		$known_sql_regex = "\(\s*{$meta_table_regex}{$middle_regex}{$gt_lt_regex}[^\)]+\)";
 
-		// The known SQL line will undoubtedly be included amongst other WHERE statements. We need
-		// to generically grab the SQL before and after the known line so we can rebuild our nice new
-		// where statement. Here's the regex that brings it all together.
-		//   Note: We are using the 'm' modifier so that the regex looks over multiple lines as well
-		//         as the 's' modifier so that '.' includes linebreaks
+		/*
+		 * The known SQL line will undoubtedly be included amongst other WHERE statements. We need
+		 * to generically grab the SQL before and after the known line so we can rebuild our nice new
+		 * where statement. Here's the regex that brings it all together.
+		 *   Note: We are using the 'm' modifier so that the regex looks over multiple lines as well
+		 *         as the 's' modifier so that '.' includes linebreaks.
+		 */
 		$full_regex = "/(.*)($known_sql_regex)(.*)/ms";
 
-		// here's a regex to grab the post ID from a portion of the WHERE statement
+		// Here's a regex to grab the post ID from a portion of the WHERE statement.
 		$post_id_regex = '/NOT IN\s*\(([0-9]+)\)/';
 
 		if ( preg_match( $full_regex, $where_sql, $matches ) ) {
-			// place capture groups into vars that are easier to read
+			// Place capture groups into vars that are easier to read.
 			$before = $matches[1];
 			$known  = $matches[2];
 			$alias  = $matches[3];
 			$gt_lt  = $matches[4];
 			$after  = $matches[5];
 
-			// copy the known line but replace the < or > symbol with an =
+			// Copy the known line but replace the < or > symbol with an "=".
 			$equal = preg_replace( '/(\<|\>)/', '=', $known );
 
-			// extract the post ID from the extra "before" or "after" WHERE
+			// Extract the post ID from the extra "before" or "after" WHERE.
 			if (
 				preg_match( $post_id_regex, $before, $post_id )
 				|| preg_match( $post_id_regex, $after, $post_id )
 			) {
 				$post_id = absint( $post_id[1] );
 			} else {
-				// if we can't find the post ID, then let's bail
+				// If we can't find the post ID, then let's bail.
 				return $where_sql;
 			}
 
-			// rebuild the WHERE clause
+			// Rebuild the WHERE clause.
 			$where_sql = "{$before} (
 				{$known}
 				OR (
@@ -194,9 +205,9 @@ class Tribe__Events__Adjacent_Events {
 	 * @since 4.6.12
 	 * @since 6.0.7 Cache the query results.
 	 *
-	 * @param string  $mode Either 'next' or 'previous'.
+	 * @param string $mode Either 'next' or 'previous'.
 	 *
-	 * @return null|WP_Post The closest Event post object, or `null` if no post was found.
+	 * @return ?WP_Post The closest Event post object, or `null` if no post was found.
 	 */
 	public function get_closest_event( $mode = 'next' ) {
 		if ( empty( $this->current_event_id ) ) {
@@ -207,7 +218,8 @@ class Tribe__Events__Adjacent_Events {
 		$cache_key = 'tec_events_closest_event_' . $this->current_event_id . '_' . $mode;
 		// The cached value will be the post ID, or `null`, to avoid pre-fetch issues.
 		$cached = $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST, false );
-		$event = $cached;
+		$event  = $cached;
+
 		if ( ! empty( $cached ) ) {
 			// If not empty, it should be a valid event post ID.
 			$event = get_post( $cached );
@@ -230,13 +242,27 @@ class Tribe__Events__Adjacent_Events {
 				$direction = '>';
 				$mode      = 'next';
 			}
+
+			// Try the object properties first.
+			$event_start_date = $post_obj->_EventStartDate; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
+			if ( empty( $event_start_date ) ) {
+				// Get the event start date using get_post_meta. Note: This allows ECP Occurrences to hook into the query and handle themselves.
+				$event_start_date = get_post_meta( $post_obj->ID, '_EventStartDate', true );
+			}
+
+			// If there's still no start date, we can't build a proper query. Bail.
+			if ( empty( $event_start_date ) ) {
+				return null;
+			}
+
 			$args       = [
 				'posts_per_page' => 1,
 				'post__not_in'   => [ $this->current_event_id ],
 				'meta_query'     => [
 					[
 						'key'     => '_EventStartDate',
-						'value'   => $post_obj->_EventStartDate,
+						'value'   => $event_start_date,
 						'type'    => 'DATETIME',
 						'compare' => $direction,
 					],
@@ -248,6 +274,7 @@ class Tribe__Events__Adjacent_Events {
 				],
 			];
 			$events_orm = tribe_events();
+
 			/**
 			 * Allows the query arguments used when retrieving the next/previous event link
 			 * to be modified.
@@ -258,16 +285,19 @@ class Tribe__Events__Adjacent_Events {
 			 * @param WP_Post $post_obj
 			 */
 			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post_obj );
+
 			$events_orm->order_by( 'event_date', $order );
 			$events_orm->by_args( $args );
-			$query = $events_orm->get_query();// Make sure we are not including same datetime events
-			add_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );// Fetch the posts
-			$query->get_posts();// Remove this filter right after fetching the events
-			remove_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
-			$results = $query->posts;
-			$event = null;
+			$query = $events_orm->get_query(); // Make sure we are not including same datetime events.
 
-			// If we successfully located the next/prev event, we should have precisely one element in $results
+			add_filter( 'posts_where', [ $this, 'get_closest_event_where' ] ); // Fetch the posts.
+			$query->get_posts(); // Remove this filter right after fetching the events.
+			remove_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
+
+			$results = $query->posts;
+			$event   = null;
+
+			// If we successfully located the next/prev event, we should have precisely one element in $results.
 			if ( 1 === count( $results ) ) {
 				$event = reset( $results );
 			}
@@ -278,7 +308,7 @@ class Tribe__Events__Adjacent_Events {
 		}
 
 		/**
-		 * Affords an opportunity to modify the event used to generate the event link (typically for
+		 * Affords an opportunity to modify the found event used to generate the event link (typically for
 		 * the next or previous event in relation to $post).
 		 *
 		 * @since 4.6.12
@@ -294,8 +324,8 @@ class Tribe__Events__Adjacent_Events {
 	 *
 	 * @since 4.6.12
 	 *
-	 * @param string  $mode Either 'next' or 'previous'.
-	 * @param mixed   $anchor
+	 * @param string $mode Either 'next' or 'previous'.
+	 * @param mixed  $anchor The anchor text.
 	 *
 	 * @return string The link (with <a> tags).
 	 */
@@ -303,15 +333,15 @@ class Tribe__Events__Adjacent_Events {
 		$link  = null;
 		$event = $this->get_closest_event( $mode );
 
-		// If we successfully located the next/prev event, we should have precisely one element in $results
+		// If we successfully located the next/prev event, we should have precisely one element in $results.
 		if ( $event ) {
 			if ( ! $anchor ) {
 				$anchor = apply_filters( 'the_title', $event->post_title, $event->ID );
 			} elseif ( strpos( $anchor, '%title%' ) !== false ) {
-				// get the nicely filtered post title
+				// get the nicely filtered post title.
 				$title = apply_filters( 'the_title', $event->post_title, $event->ID );
 
-				// escape special characters used in the second parameter of preg_replace
+				// escape special characters used in the second parameter of preg_replace.
 				$title = str_replace(
 					[
 						'\\',
