@@ -50,11 +50,11 @@ function getNewStartEndDates(
 	endDate: Date,
 	startDate: Date,
 	updated: DateTimeUpdateType,
-	newDate: string
+	newDate: string,
+    isMultiDayEnabled: boolean,
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
-	const isMultiday = ! areDatesOnSameDay( startDate, endDate );
 	// By default, do not move the start date but keep it to the previous value.
 	let newStartDate = startDate;
 	// By default, do not move the end date but keep it to the previous value.
@@ -289,7 +289,7 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onDateChange = useCallback(
 		( updated: DateTimeUpdateType, newDate: string ): void => {
-			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate );
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate, isMultidayValue );
 
 			editPost( {
 				meta: {
