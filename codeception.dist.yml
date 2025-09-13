@@ -17,6 +17,7 @@ params:
 extensions:
     enabled:
       - tad\WPBrowser\Extension\Events
+      - TEC\Common\Tests\Extensions\Suite_Env
     commands:
         - 'Codeception\Command\GenerateWPUnit'
         - 'Codeception\Command\GenerateWPRestApi'
