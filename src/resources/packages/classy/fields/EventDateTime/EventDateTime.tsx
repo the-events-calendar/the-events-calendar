@@ -63,12 +63,13 @@ function getNewStartEndDates(
 
 	try {
 		switch ( updated ) {
-			case 'startDate':
-				newStartDate.setDate( new Date( newDate ).getDate() );
+            case 'startDate':
+				newStartDate = new Date( newDate );
 
 				// If not multiday update end date with original duration.
-					newEndDate.setDate( newStartDate.getDate() );
 				if ( ! isMultiDayEnabled ) {
+					newEndDate = new Date( newDate );
+                    newEndDate.setHours( endDate.getHours(), endDate.getMinutes() );
 				}
 
 				break;
