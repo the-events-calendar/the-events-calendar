@@ -1,15 +1,60 @@
-import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { FetchedOrganizer } from '../types/FetchedOrganizer';
 import { OrganizerData } from '../types/OrganizerData';
+// todo: fix these imports to use @tec/common.
+import { getRoute, fetch } from '../../../../../common/src/resources/packages/classy/api';
+import { PostStatus } from "../../../../../common/src/resources/packages/classy/types/Api";
+
+const baseRoute = getRoute( '/organizers' );
 
 /**
- * Result of an organizer fetch operation.
+ * Formatted result of fetching organizers, including the array of organizers and the total count.
  */
 export type OrganizersFetchResult = {
 	organizers: FetchedOrganizer[];
 	total: number;
 };
+
+/**
+ * The structure of an organizer as returned by the REST API.
+ */
+type OrganizerResponse = {
+	// These are the properties we care about.
+	id: number;
+	link: string;
+	title: {
+		rendered: string;
+	};
+	phone: string;
+	website: string;
+	email: string;
+
+	// The rest of the properties are included for completeness, but not used in the mapping.
+	date: string;
+	date_gmt: string;
+	guid: {
+		rendered: string;
+	};
+	modified: string;
+	modified_gmt: string;
+	slug: string;
+	status: PostStatus;
+	type: string;
+	content: {
+		rendered: string;
+		protected: boolean;
+	};
+	template: string;
+}
+
+type OrganizerUpsertRequest = {
+	title: string;
+	status: PostStatus;
+	content?: string;
+	phone?: string;
+	email?: string;
+	website?: string;
+}
 
 /**
  * Fetches organizers from the REST API.
@@ -27,36 +72,41 @@ export type OrganizersFetchResult = {
  * @throws {Error} Will throw an error if the fetch request fails.
  */
 export const fetchOrganizers = async ( page: number ): Promise< OrganizersFetchResult > => {
-	const results = await apiFetch( {
-		path: addQueryArgs( '/tribe/events/v1/organizers', {
-			page,
-		} ),
+	return new Promise< OrganizersFetchResult >( async ( resolve, reject ): Promise< void > => {
+		await fetch( {
+			path: addQueryArgs( baseRoute, { page } ),
+			parse: false,
+		} )
+			.then( async ( response: Response ) => {
+				if ( ! response.json ) {
+					reject( response );
+				}
+
+				const organizers = await response.json();
+
+				// Check that the results have been returned in an object.
+				if ( ! ( organizers && typeof organizers === 'object' ) ) {
+					reject( new Error( 'Organizers fetch request did not return an object.' ) );
+				}
+
+				// Check that the `organizers` property is an array.
+				if ( ! Array.isArray( organizers ) ) {
+					reject( new Error( 'Organizers fetch request did not return an object.' ) );
+				}
+
+				const total = response.headers.has( 'x-wp-total' )
+					? response.headers.get( 'x-wp-total' )
+					: 0;
+
+				resolve( {
+					organizers: organizers.map( mapOrganizerResponse ),
+					total: total,
+				} as OrganizersFetchResult );
+			} )
+			.catch( ( error ) => {
+				reject( new Error( `Failed to fetch organizer ${error.message}` ) );
+			} );
 	} );
-
-	// Check that the results have been returned in an object.
-	if ( ! ( results && typeof results === 'object' ) ) {
-		throw new Error( 'Organizers fetch request did not return an object.' );
-	}
-
-	// Check that the object has an 'organizers' property.
-	if ( ! ( results.hasOwnProperty( 'organizers' ) && results.hasOwnProperty( 'total' ) ) ) {
-		throw new Error( 'Organizers fetch request did not return an object with organizers and total properties.' );
-	}
-
-	// Check that the `organizers` property is an array.
-	if ( ! Array.isArray( ( results as { organizers: any } ).organizers ) ) {
-		throw new Error( 'Organizers fetch request did not return an array.' );
-	}
-
-	const safeResults = results as {
-		organizers: FetchedOrganizer[];
-		total: number;
-	};
-
-	return {
-		organizers: safeResults.organizers,
-		total: safeResults.total,
-	};
 };
 
 /**
@@ -74,34 +124,49 @@ export const fetchOrganizers = async ( page: number ): Promise< OrganizersFetchR
  * @throws {Error} Will throw an error if the fetch request fails.
  */
 export const upsertOrganizer = async ( organizerData: OrganizerData ): Promise< number > => {
-	let fetchPromise: Promise< FetchedOrganizer >;
+	const isUpdate = Boolean( organizerData.id && organizerData.id > 0 );
+	const fetchParams: OrganizerUpsertRequest = {
+		title: organizerData.name,
+		status: 'publish' as PostStatus,
+		phone: organizerData.phone,
+		email: organizerData.email,
+		website: organizerData.website,
+	};
 
-	if ( organizerData.id ) {
-		// Updating an existing organizer.
-		fetchPromise = apiFetch( {
-			path: `/tribe/events/v1/organizers/${ organizerData.id }`,
-			method: 'PUT',
-			data: {
-				organizer: organizerData.name,
-				phone: organizerData.phone,
-				email: organizerData.email,
-				website: organizerData.website,
-			},
-		} );
-	} else {
-		// Creating a new organizer.
-		fetchPromise = apiFetch( {
-			path: '/tribe/events/v1/organizers',
-			method: 'POST',
-			data: {
-				organizer: organizerData.name,
-				phone: organizerData.phone,
-				email: organizerData.email,
-				website: organizerData.website,
-			},
-		} );
-	}
-
-	const data = await fetchPromise;
-	return data.id;
+	return new Promise< number >( async ( resolve, reject ): Promise< void > => {
+		await fetch( {
+			path: `${baseRoute}${ isUpdate ? `/${ organizerData.id }` : '' }`,
+			method: isUpdate ? 'PUT' : 'POST',
+			data: fetchParams,
+		} )
+			.then( ( response: OrganizerResponse ) => {
+				if ( ! response || typeof response !== 'object' || ! response.id ) {
+					reject( new Error( `Organizer ${ isUpdate ? 'update' : 'creation' } request did not return a valid organizer object.` ) );
+				} else {
+					resolve( response.id );
+				}
+			} )
+			.catch( ( error ) => {
+				reject( new Error( `Failed to ${ isUpdate ? 'update' : 'create' } organizer: ${error.message}` ) );
+			} );
+	} );
 };
+
+/**
+ * Maps an organizer response from the API to the FetchedOrganizer type.
+ *
+ * @since TBD
+ *
+ * @param {OrganizerResponse} organizer The organizer data from the API response.
+ * @return {FetchedOrganizer} The mapped organizer data.
+ */
+const mapOrganizerResponse = ( organizer: OrganizerResponse ): FetchedOrganizer => {
+	return {
+		id: organizer.id,
+		url: organizer.link,
+		organizer: organizer.title.rendered,
+		phone: organizer.phone,
+		email: organizer.email,
+		website: organizer.website,
+	};
+}
