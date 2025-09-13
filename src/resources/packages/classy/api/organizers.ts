@@ -3,7 +3,7 @@ import { FetchedOrganizer } from '../types/FetchedOrganizer';
 import { OrganizerData } from '../types/OrganizerData';
 // todo: fix these imports to use @tec/common.
 import { getRoute, fetch } from '../../../../../common/src/resources/packages/classy/api';
-import { PostStatus } from "../../../../../common/src/resources/packages/classy/types/Api";
+import { PostStatus } from '../../../../../common/src/resources/packages/classy/types/Api';
 
 const baseRoute = getRoute( '/organizers' );
 
@@ -45,7 +45,7 @@ type OrganizerResponse = {
 		protected: boolean;
 	};
 	template: string;
-}
+};
 
 type OrganizerUpsertRequest = {
 	title: string;
@@ -54,7 +54,7 @@ type OrganizerUpsertRequest = {
 	phone?: string;
 	email?: string;
 	website?: string;
-}
+};
 
 /**
  * Fetches organizers from the REST API.
@@ -94,9 +94,7 @@ export const fetchOrganizers = async ( page: number ): Promise< OrganizersFetchR
 					reject( new Error( 'Organizers fetch request did not return an object.' ) );
 				}
 
-				const total = response.headers.has( 'x-wp-total' )
-					? response.headers.get( 'x-wp-total' )
-					: 0;
+				const total = response.headers.has( 'x-wp-total' ) ? response.headers.get( 'x-wp-total' ) : 0;
 
 				resolve( {
 					organizers: organizers.map( mapOrganizerResponse ),
@@ -104,7 +102,7 @@ export const fetchOrganizers = async ( page: number ): Promise< OrganizersFetchR
 				} as OrganizersFetchResult );
 			} )
 			.catch( ( error ) => {
-				reject( new Error( `Failed to fetch organizer ${error.message}` ) );
+				reject( new Error( `Failed to fetch organizer ${ error.message }` ) );
 			} );
 	} );
 };
@@ -125,7 +123,7 @@ export const fetchOrganizers = async ( page: number ): Promise< OrganizersFetchR
  */
 export const upsertOrganizer = async ( organizerData: OrganizerData ): Promise< number > => {
 	const isUpdate = Boolean( organizerData.id && organizerData.id > 0 );
-	const fetchParams: OrganizerUpsertRequest = {
+	const upsertParams: OrganizerUpsertRequest = {
 		title: organizerData.name,
 		status: 'publish' as PostStatus,
 		phone: organizerData.phone,
@@ -135,19 +133,25 @@ export const upsertOrganizer = async ( organizerData: OrganizerData ): Promise< 
 
 	return new Promise< number >( async ( resolve, reject ): Promise< void > => {
 		await fetch( {
-			path: `${baseRoute}${ isUpdate ? `/${ organizerData.id }` : '' }`,
+			path: `${ baseRoute }${ isUpdate ? `/${ organizerData.id }` : '' }`,
 			method: isUpdate ? 'PUT' : 'POST',
-			data: fetchParams,
+			data: upsertParams,
 		} )
 			.then( ( response: OrganizerResponse ) => {
 				if ( ! response || typeof response !== 'object' || ! response.id ) {
-					reject( new Error( `Organizer ${ isUpdate ? 'update' : 'creation' } request did not return a valid organizer object.` ) );
+					reject(
+						new Error(
+							`Organizer ${
+								isUpdate ? 'update' : 'creation'
+							} request did not return a valid organizer object.`
+						)
+					);
 				} else {
 					resolve( response.id );
 				}
 			} )
 			.catch( ( error ) => {
-				reject( new Error( `Failed to ${ isUpdate ? 'update' : 'create' } organizer: ${error.message}` ) );
+				reject( new Error( `Failed to ${ isUpdate ? 'update' : 'create' } organizer: ${ error.message }` ) );
 			} );
 	} );
 };
@@ -169,4 +173,4 @@ const mapOrganizerResponse = ( organizer: OrganizerResponse ): FetchedOrganizer 
 		email: organizer.email,
 		website: organizer.website,
 	};
-}
+};

@@ -82,7 +82,7 @@ interface WPGlobalMock {
 		remove: jest.Mock;
 		initialize: jest.Mock;
 		getContent: jest.Mock;
-	}
+	};
 }
 
 /**

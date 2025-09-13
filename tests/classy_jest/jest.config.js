@@ -28,8 +28,8 @@ module.exports = {
 					sourceMap: true,
 					target: 'esnext',
 					paths: {
-						'@tec/common/*': [ `${commonDir}/*` ],
-						'@tec/events/*': [ `${eventsDir}/*` ],
+						'@tec/common/*': [ `${ commonDir }/*` ],
+						'@tec/events/*': [ `${ eventsDir }/*` ],
 					},
 				},
 			},
@@ -40,7 +40,7 @@ module.exports = {
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
 	moduleNameMapper: {
-		'@tec/common/(.*)$': `<rootDir>/${commonDir}/$1`,
-		'@tec/events/(.*)$': `<rootDir>/${eventsDir}/$1`,
+		'@tec/common/(.*)$': `<rootDir>/${ commonDir }/$1`,
+		'@tec/events/(.*)$': `<rootDir>/${ eventsDir }/$1`,
 	},
 };
