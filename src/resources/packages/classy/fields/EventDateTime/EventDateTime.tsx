@@ -41,6 +41,8 @@ type NewDatesReturn = {
  * @param {Date} startDate The current start date.
  * @param {'start' | 'end'} updated Indicates whether the start or end date was updated.
  * @param {string} newDate The new date string provided by the user.
+ * @param {boolean} isMultiDayEnabled Whether multiday is enabled.
+ *
  * @return {NewDatesReturn} An object defining the new start and end dates, and whether the user needs to be notified
  *     of the implicit change of either.
  */
@@ -65,8 +67,8 @@ function getNewStartEndDates(
 				newStartDate.setDate( new Date( newDate ).getDate() );
 
 				// If not multiday update end date with original duration.
-				if ( ! isMultiday ) {
 					newEndDate.setDate( newStartDate.getDate() );
+				if ( ! isMultiDayEnabled ) {
 				}
 
 				break;
