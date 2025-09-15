@@ -1,11 +1,11 @@
 import { addQueryArgs } from '@wordpress/url';
 import { FetchedOrganizer } from '../types/FetchedOrganizer';
 import { OrganizerData } from '../types/OrganizerData';
-// todo: fix these imports to use @tec/common.
-import { getRoute, fetch } from '../../../../../common/src/resources/packages/classy/api';
-import { PostStatus } from '../../../../../common/src/resources/packages/classy/types/Api';
+import { getTecApiUrl } from '@tec/common/classy/api';
+import { PostStatus } from '@tec/common/classy/types/Api';
+import apiFetch from '@wordpress/api-fetch';
 
-const baseRoute = getRoute( '/organizers' );
+const baseRoute = getTecApiUrl( '/organizers' );
 
 /**
  * Formatted result of fetching organizers, including the array of organizers and the total count.
@@ -73,7 +73,7 @@ type OrganizerUpsertRequest = {
  */
 export const fetchOrganizers = async ( page: number ): Promise< OrganizersFetchResult > => {
 	return new Promise< OrganizersFetchResult >( async ( resolve, reject ): Promise< void > => {
-		await fetch( {
+		await apiFetch( {
 			path: addQueryArgs( baseRoute, { page } ),
 			parse: false,
 		} )
@@ -132,7 +132,7 @@ export const upsertOrganizer = async ( organizerData: OrganizerData ): Promise< 
 	};
 
 	return new Promise< number >( async ( resolve, reject ): Promise< void > => {
-		await fetch( {
+		await apiFetch( {
 			path: `${ baseRoute }${ isUpdate ? `/${ organizerData.id }` : '' }`,
 			method: isUpdate ? 'PUT' : 'POST',
 			data: upsertParams,

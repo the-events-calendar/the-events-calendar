@@ -1,11 +1,11 @@
 import { addQueryArgs } from '@wordpress/url';
 import { FetchedVenue } from '../types/FetchedVenue';
 import { VenueData } from '../types/VenueData';
-// todo: fix these imports to use @tec/common.
-import { getRoute, fetch } from '../../../../../common/src/resources/packages/classy/api';
-import { PostStatus } from '../../../../../common/src/resources/packages/classy/types/Api';
+import { getTecApiUrl } from '@tec/common/classy/api';
+import { PostStatus } from '@tec/common/classy/types/Api';
+import apiFetch from '@wordpress/api-fetch';
 
-const baseRoute = getRoute( '/venues' );
+const baseRoute = getTecApiUrl( '/venues' );
 
 /**
  * Formatted result of fetching venues, including the array of venues and the total count.
@@ -86,7 +86,7 @@ type VenueUpsertRequest = {
  */
 export const fetchVenues = async ( page: number ): Promise< VenuesFetchResult > => {
 	return new Promise< VenuesFetchResult >( async ( resolve, reject ): Promise< void > => {
-		await fetch( {
+		await apiFetch( {
 			path: addQueryArgs( baseRoute, { page } ),
 			parse: false,
 		} )
@@ -152,7 +152,7 @@ export const upsertVenue = async ( venueData: VenueData ): Promise< number > => 
 	};
 
 	return new Promise< number >( async ( resolve, reject ): Promise< void > => {
-		await fetch( {
+		await apiFetch( {
 			path: `${ baseRoute }${ isUpdate ? `/${ venueData.id }` : '' }`,
 			method: isUpdate ? 'PUT' : 'POST',
 			data: upsertParams,
