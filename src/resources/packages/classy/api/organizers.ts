@@ -126,9 +126,9 @@ export const upsertOrganizer = async ( organizerData: OrganizerData ): Promise< 
 	const upsertParams: OrganizerUpsertRequest = {
 		title: organizerData.name,
 		status: 'publish' as PostStatus,
-		phone: organizerData.phone,
-		email: organizerData.email,
-		website: organizerData.website,
+		...( organizerData.phone ? { phone: organizerData.phone } : {} ),
+		...( organizerData.email ? { email: organizerData.email } : {} ),
+		...( organizerData.website ? { website: organizerData.website } : {} ),
 	};
 
 	return new Promise< number >( async ( resolve, reject ): Promise< void > => {
