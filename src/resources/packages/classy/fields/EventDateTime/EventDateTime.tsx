@@ -51,7 +51,7 @@ function getNewStartEndDates(
 	startDate: Date,
 	updated: DateTimeUpdateType,
 	newDate: string,
-    isMultiDayEnabled: boolean,
+	isMultiDayEnabled: boolean
 ): NewDatesReturn {
 	// Milliseconds.
 	const duration = endDate.getTime() - startDate.getTime();
@@ -63,13 +63,13 @@ function getNewStartEndDates(
 
 	try {
 		switch ( updated ) {
-            case 'startDate':
+			case 'startDate':
 				newStartDate = new Date( newDate );
 
 				// If not multiday update end date with original duration.
 				if ( ! isMultiDayEnabled ) {
 					newEndDate = new Date( newDate );
-                    newEndDate.setHours( endDate.getHours(), endDate.getMinutes() );
+					newEndDate.setHours( endDate.getHours(), endDate.getMinutes() );
 				}
 
 				break;
@@ -290,7 +290,13 @@ export default function EventDateTime( props: FieldProps ): JSX.Element {
 
 	const onDateChange = useCallback(
 		( updated: DateTimeUpdateType, newDate: string ): void => {
-			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate, isMultidayValue );
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates(
+				endDate,
+				startDate,
+				updated,
+				newDate,
+				isMultidayValue
+			);
 
 			editPost( {
 				meta: {
