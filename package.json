@@ -73,7 +73,7 @@
     "lint:stylelint": "gulp stylelint",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
     "classy:format": "wp-scripts format src/resources/packages/classy tests/classy_jest && composer run classy:format",
-    "classy:jest": "jest --config tests/classy_jest/jest.config.js tests/classy_jest",
+    "classy:jest": "jest --config tests/classy_jest/jest.config.ts tests/classy_jest",
     "classy:test": "npm run classy:jest && slic run classy_integration",
     "classy:pre-commit": "npm run classy:format && npm run classy:test",
     "test": "jest"

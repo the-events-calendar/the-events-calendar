@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { beforeEach, afterEach, describe, expect, it, jest } from '@jest/globals';
-import renderFields from '../../../src/resources/packages/classy/functions/renderFields.tsx';
+import renderFields from '../../../src/resources/packages/classy/functions/renderFields';
 import { RegistryProvider } from '@wordpress/data';
 import { getRegistry } from '@tec/common/classy/store';
 
