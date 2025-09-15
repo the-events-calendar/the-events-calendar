@@ -34,7 +34,7 @@ Suite_Env::toggle_features( [
 		'active_for_suites'  => [
 			'ct1_integration',
 			'ct1_migration',
-			'ct1_multisite_migration',
+			'ct1_multisite_integration',
 			'ct1_wp_json_api',
 			'classy_integration',
 		],
