@@ -22,6 +22,7 @@ const config: Config = {
 					esModuleInterop: true,
 					jsx: 'react-jsx',
 					sourceMap: true,
+					types: [ 'react', 'jest', '@testing-library/jest-dom' ],
 				},
 			},
 		],
