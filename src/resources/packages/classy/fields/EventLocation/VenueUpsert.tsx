@@ -212,7 +212,7 @@ export default function VenueUpsert( props: {
 				{ isUnitedStates ? (
 					<LabeledInput label={ _x( 'State', 'United Stateslic state input label', 'the-events-calendar' ) }>
 						<CustomSelectControl
-                            __next40pxDefaultSize
+							__next40pxDefaultSize
 							className="classy-field__control classy-field__control--select"
 							label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }
 							hideLabelFromVision={ true }
