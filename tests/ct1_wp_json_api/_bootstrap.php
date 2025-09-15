@@ -6,8 +6,8 @@ use function tad\WPBrowser\addListener;
 
 function enable_ct1_in_database(): void {
 	global $wpdb;
-	if ( $wpdb->query( "insert into $wpdb->options set option_name='tec_custom_tables_v1_active', option_value=1
-                                          on duplicate key update option_value=1" ) === false ) {
+	if ( $wpdb->query( "INSERT INTO $wpdb->options SET option_name='tec_custom_tables_v1_active', option_value=1
+                                          ON DUPLICATE KEY UPDATE option_value=1" ) === false ) {
 		throw new \Exception( 'Failed to set tec_custom_tables_v1_active option to 1: ' . $wpdb->last_error );
 	}
 }
