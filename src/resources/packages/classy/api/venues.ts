@@ -140,15 +140,15 @@ export const upsertVenue = async ( venueData: VenueData ): Promise< number > => 
 	const upsertParams: VenueUpsertRequest = {
 		title: venueData.name,
 		status: 'publish' as PostStatus,
-		address: venueData.address,
-		city: venueData.city,
-		country: venueData.country,
-		state_province: venueData.stateprovince,
-		state: isCountryUs ? venueData.stateprovince : '',
-		province: isCountryUs ? '' : venueData.stateprovince,
-		zip: venueData.zip,
-		phone: venueData.phone,
-		website: venueData.website,
+		...( venueData.address ? { address: venueData.address } : {} ),
+		...( venueData.city ? { city: venueData.city } : {} ),
+		...( venueData.country ? { country: venueData.country } : {} ),
+		...( venueData.stateprovince ? { state_province: venueData.stateprovince } : {} ),
+		...( isCountryUs ? { state: venueData.stateprovince } : {} ),
+		...( ! isCountryUs ? { province: venueData.stateprovince } : {} ),
+		...( venueData.zip ? { zip: venueData.zip } : {} ),
+		...( venueData.phone ? { phone: venueData.phone } : {} ),
+		...( venueData.website ? { website: venueData.website } : {} ),
 	};
 
 	return new Promise< number >( async ( resolve, reject ): Promise< void > => {
