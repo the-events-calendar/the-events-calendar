@@ -50,7 +50,7 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 		eventStart = new Date( eventStartDateString );
 	} else {
 		eventStart = new Date();
-		eventStart.setHours( 8, 0, 0 );
+		eventStart.setHours( 8, 0, 0, 0 );
 	}
 
 	let eventEnd: Date;
@@ -58,7 +58,7 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 		eventEnd = new Date( eventEndDateString );
 	} else {
 		eventEnd = new Date();
-		eventEnd.setHours( 17, 0, 0 );
+		eventEnd.setHours( 17, 0, 0, 0 );
 	}
 	const isMultiday = ! areDatesOnSameDay( eventStart, eventEnd );
 	const isAllDay = meta?._EventAllDay ?? false;
