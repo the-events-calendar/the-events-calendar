@@ -209,9 +209,9 @@ function getAllDayNewDates(
  *
  * @param {FieldProps} props Component properties including title.
  *
- * @return {JSX.Element} The rendered EventDateTime component.
+ * @return {React.JSX.Element} The rendered EventDateTime component.
  */
-export default function EventDateTime( props: FieldProps ): JSX.Element {
+export default function EventDateTime( props: FieldProps ): React.JSX.Element {
 	const {
 		dateWithYearFormat,
 		endOfDayCutoff,

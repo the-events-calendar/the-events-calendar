@@ -12,7 +12,7 @@ import {
 } from '../../constants';
 import { Currency, CurrencyPosition } from '@tec/common/classy/types/Currency';
 
-export default function EventCost(): JSX.Element {
+export default function EventCost(): React.JSX.Element {
 	const meta = useSelect( ( select ) => {
 		const {
 			getEditedPostAttribute,
