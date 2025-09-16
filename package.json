@@ -87,7 +87,7 @@
     "@jest/globals": "^29.7.0",
     "@stellarwp/tyson": "*",
     "@stoplight/spectral-cli": "^6.15.0",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.10",
