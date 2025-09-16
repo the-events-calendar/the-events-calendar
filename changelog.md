@@ -1,5 +1,13 @@
 # Changelog
 
+### [6.15.4] 2025-09-16
+
+* Fix - Add more robust checking for dates to handle occurrences and similar non-post events. [TEC-1052]
+* Fix - Fixed an issue where Venues and Organizers created via Community Events could have missing permalinks when events were published. [CE-330]
+* Tweak - * Tweak - Changed views: `blocks/event-venue`, `blocks/parts/map`, `blocks/parts/venue`, `modules/meta/map`, `modules/meta/organizer`, `modules/meta/venue`, `v2/components/header`, `v2/day/event/venue`, `v2/list`, `v2/list/event/venue`
+* Accessibility - Return keyboard focus to the triggering button after closing the datepicker for improved accessibility. [CE-278]
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.3] 2025-09-10
 
 * Tweak - * Tweak - Changed views: `blocks/event-venue`, `blocks/parts/map`, `blocks/parts/venue`, `modules/meta/map`, `modules/meta/organizer`, `modules/meta/venue`, `v2/components/header`, `v2/day`, `v2/day/event/venue`, `v2/list`, `v2/list/event/venue`
