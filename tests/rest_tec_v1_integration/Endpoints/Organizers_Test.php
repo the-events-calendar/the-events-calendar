@@ -79,4 +79,35 @@ class Organizers_Test extends Organizer_Test {
 
 		$this->assertMatchesJsonSnapshot( $json );
 	}
+
+	/**
+	 * @dataProvider different_user_roles_provider
+	 */
+	public function test_read_archive_response( Closure $fixture ) {
+		[ $venues, $organizers ] = $this->create_test_data();
+		$fixture();
+
+		$response = $this->assert_endpoint( '/organizers' );
+
+		// Count how many published organizers we have.
+		$expected_count = 0;
+		foreach ( $organizers as $organizer_id ) {
+			if ( 'publish' === get_post_status( $organizer_id ) ) {
+				$expected_count++;
+			}
+		}
+
+		// Ensure we have all of the published organizers in the response.
+		$this->assertEquals( $expected_count, count( $response ) );
+
+		// Some organizers aren't published, so also assert that we have less that the total in the response.
+		$this->assertLessThan( count( $organizers ), count( $response ), 'There should be fewer organizers in the response.' );
+
+		// Snapshot the response.
+		$json = wp_json_encode( $response, JSON_SNAPSHOT_OPTIONS );
+		$json = str_replace( $venues, '{VENUE_ID}', $json );
+		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
+
+		$this->assertMatchesJsonSnapshot( $json );
+	}
 }
