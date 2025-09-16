@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.3';
+		const VERSION             = '6.15.4';
 
 		/**
 		 * Min Pro Addon.
@@ -3041,9 +3041,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
-		 * @param int     $post_id The post ID.
-		 * @param WP_Post $post    The post object.
+		 * @since 6.15.4 Added new logic to generate permalinks for Organizer/Venue when the `post_name` is blank.
 		 *
+		 * @param int     $post_id The post ID.
+		 * @param WP_Post $post    The post.
 		 */
 		public function publishAssociatedTypes( $post_id, $post ) {
 
@@ -3085,6 +3086,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						}
 
 						wp_publish_post( $linked_post_id );
+
+						// Generate a unique slug if missing.
+						if ( empty( get_post_field( 'post_name', $linked_post_id ) ) ) {
+							$title = get_the_title( $linked_post_id );
+
+							// Provide a fallback if title is empty.
+							if ( empty( $title ) ) {
+								$title = $type . '-' . $linked_post_id;
+							}
+
+							$slug = wp_unique_post_slug(
+								sanitize_title( $title ),
+								$linked_post_id,
+								'publish',
+								get_post_type( $linked_post_id ),
+								0
+							);
+
+							wp_update_post(
+								[
+									'ID'        => $linked_post_id,
+									'post_name' => $slug,
+								]
+							);
+						}
 					}
 				}
 			}
