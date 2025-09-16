@@ -613,17 +613,17 @@ jQuery( function ( $ ) {
 					if (e.key === 'Escape' || e.key === 'Esc') {
 						e.preventDefault();
 
-						// Close datepicker and temporarily disable auto-open
+						// Close datepicker and temporarily disable auto-open.
 						object.input.datepicker('option', 'showOn', 'manual');
 						$.datepicker._hideDatepicker();
 
-						// Manually hide in case any watchers miss it
+						// Manually hide in case any watchers miss it.
 						$('#ui-datepicker-div').css('display', 'none');
 
-						// Return focus safely
+						// Return focus safely.
 						object.input.focus();
 
-						// Re-enable auto-open after a tick
+						// Re-enable auto-open after a tick.
 						setTimeout(() => {
 							object.input.datepicker('option', 'showOn', 'focus');
 						}, 100);
