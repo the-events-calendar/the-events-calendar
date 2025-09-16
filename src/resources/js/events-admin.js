@@ -659,10 +659,6 @@ jQuery( function ( $ ) {
 				$dpDiv.attrchange( {
 					trackValues: true,
 					callback( attr ) {
-						if (escapeClosing) {
-							// Skip any close handling when Escape triggered it
-							return;
-						}
 						// This is a non-ideal, but very reliable way to look for the closing of the ui-datepicker box,
 						// since onClose method is often occluded by other plugins, including Events Calender PRO.
 						if (
