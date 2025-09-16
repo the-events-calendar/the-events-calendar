@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.3\n"
+"Project-Id-Version: The Events Calendar 6.15.4\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-10T18:12:27+00:00\n"
+"POT-Creation-Date: 2025-09-16T17:44:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -1499,7 +1499,7 @@ msgstr ""
 #: src/admin-views/create-venue-fields.php:195
 #: src/admin-views/organizer-meta-box.php:37
 #: src/admin-views/venue-meta-box.php:185
-#: src/functions/template-tags/link.php:537
+#: src/functions/template-tags/link.php:538
 #: src/views/blocks/parts/details.php:183
 #: src/views/integrations/elementor/widgets/event-website/header.php:20
 #: src/modules/blocks/classic-event-details/template.js:94
@@ -2103,7 +2103,7 @@ msgid "Hide the search field on all views."
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-calendar.php:197
-#: src/Tribe/Main.php:3699
+#: src/Tribe/Main.php:3725
 msgid "Calendar"
 msgstr ""
 
@@ -2699,7 +2699,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-upgrade.php:20
 #: src/Tribe/Admin/Bar/Default_Configurator.php:47
-#: src/Tribe/Main.php:3646
+#: src/Tribe/Main.php:3672
 #: src/Tribe/Views/V2/Views/Widgets/Widget_View.php:61
 msgid "View Calendar"
 msgstr ""
@@ -6048,8 +6048,8 @@ msgstr ""
 
 #: src/functions/template-tags/deprecated.php:22
 #: src/functions/template-tags/deprecated.php:44
-#: src/Tribe/Main.php:3295
-#: src/Tribe/Main.php:3334
+#: src/Tribe/Main.php:3321
+#: src/Tribe/Main.php:3360
 msgid "Date out of range."
 msgstr ""
 
@@ -6205,7 +6205,7 @@ msgstr ""
 #: src/Tribe/Admin/Bar/Default_Configurator.php:91
 #: src/Tribe/Admin/Settings.php:119
 #: src/Tribe/Admin/Settings.php:215
-#: src/Tribe/Main.php:3698
+#: src/Tribe/Main.php:3724
 msgid "Settings"
 msgstr ""
 
@@ -9091,37 +9091,37 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3364
+#: src/Tribe/Main.php:3390
 #, php-format
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3536
+#: src/Tribe/Main.php:3562
 msgid "Support"
 msgstr ""
 
-#: src/Tribe/Main.php:3539
+#: src/Tribe/Main.php:3565
 msgid "View All Add-Ons"
 msgstr ""
 
-#: src/Tribe/Main.php:3561
+#: src/Tribe/Main.php:3587
 msgid "News from The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:3588
+#: src/Tribe/Main.php:3614
 msgid "Additional Functionality"
 msgstr ""
 
-#: src/Tribe/Main.php:3593
+#: src/Tribe/Main.php:3619
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr ""
 
-#: src/Tribe/Main.php:3594
+#: src/Tribe/Main.php:3620
 #, php-format
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
-#: src/Tribe/Main.php:3736
+#: src/Tribe/Main.php:3762
 msgid "Once Every 30 Mins"
 msgstr ""
 

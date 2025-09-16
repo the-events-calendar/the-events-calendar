@@ -610,6 +610,27 @@ jQuery( function ( $ ) {
 					const firstEl = focusableEls.first()[0];
 					const lastEl = focusableEls.last()[0];
 
+					if (e.key === 'Escape' || e.key === 'Esc') {
+						e.preventDefault();
+
+						// Close datepicker and temporarily disable auto-open.
+						object.input.datepicker('option', 'showOn', 'manual');
+						$.datepicker._hideDatepicker();
+
+						// Manually hide in case any watchers miss it.
+						$('#ui-datepicker-div').css('display', 'none');
+
+						// Return focus safely.
+						object.input.focus();
+
+						// Re-enable auto-open after a tick.
+						setTimeout(() => {
+							object.input.datepicker('option', 'showOn', 'focus');
+						}, 100);
+
+						return;
+					}
+
 					if (e.key === 'Tab') {
 						if (e.shiftKey && document.activeElement === firstEl) {
 							e.preventDefault();

@@ -3041,7 +3041,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
-		 * @since TBD Added new logic to generate permalinks for Organizer/Venue when the `post_name` is blank.
+		 * @since 6.15.4 Added new logic to generate permalinks for Organizer/Venue when the `post_name` is blank.
 		 *
 		 * @param int     $post_id The post ID.
 		 * @param WP_Post $post    The post.
