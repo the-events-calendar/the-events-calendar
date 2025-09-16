@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Fixed an issue where Venues and Organizers created via Community Events could have missing permalinks when events were published. [CE-330]
