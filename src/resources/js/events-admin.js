@@ -610,6 +610,20 @@ jQuery( function ( $ ) {
 					const firstEl = focusableEls.first()[0];
 					const lastEl = focusableEls.last()[0];
 
+					if (e.key === 'Escape' || e.key === 'Esc') {
+						e.preventDefault();
+
+						// Trigger datepicker's own close handler cleanly.
+						if ($.datepicker._curInst) {
+							$.datepicker._hideDatepicker();
+							$.datepicker._curInst.input.datepicker('destroy');
+						}
+
+						object.input.focus();
+
+						return;
+					}
+
 					if (e.key === 'Tab') {
 						if (e.shiftKey && document.activeElement === firstEl) {
 							e.preventDefault();
