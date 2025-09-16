@@ -26,6 +26,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "123 Main St",
         "country": "United States",
         "city": "New York",
@@ -64,6 +71,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "456 Ocean Blvd",
         "country": "United States",
         "city": "Miami",
@@ -102,6 +116,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "",
         "country": "",
         "city": "",
@@ -140,6 +161,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "10 Downing Street",
         "country": "United Kingdom",
         "city": "London",
@@ -178,6 +206,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "15 Rue de la Paix",
         "country": "France",
         "city": "Paris",
@@ -216,6 +251,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "999 Innovation Dr",
         "country": "United States",
         "city": "San Jose",
@@ -254,6 +296,14 @@
         "author": 1,
         "featured_media": 0,
         "template": "Password protected",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "post-password-required",
+            "hentry"
+        ],
         "address": "Password protected",
         "country": "Password protected",
         "city": "Password protected",
@@ -292,6 +342,13 @@
         "author": 1,
         "featured_media": 0,
         "template": "",
+        "class_list": [
+            "post-{VENUE_ID}",
+            "tribe_venue",
+            "type-tribe_venue",
+            "status-publish",
+            "hentry"
+        ],
         "address": "777 Event Plaza",
         "country": "United States",
         "city": "Chicago",
