@@ -223,9 +223,12 @@ describe( 'EventLocation', () => {
 	} );
 
 	it( 'should show add another venue button when venues are selected and under limit', async () => {
-		setupMocks( {
-			[ METADATA_EVENT_VENUE_ID ]: [ '1' ],
-		}, 2 );
+		setupMocks(
+			{
+				[ METADATA_EVENT_VENUE_ID ]: [ '1' ],
+			},
+			2
+		);
 		mockFetchVenues.mockResolvedValue( { venues: mockVenues, total: 2 } );
 
 		render(
@@ -243,9 +246,12 @@ describe( 'EventLocation', () => {
 	} );
 
 	it( 'should not show add another venue button when at venue limit', async () => {
-		setupMocks( {
-			[ METADATA_EVENT_VENUE_ID ]: [ '1', '2' ],
-		}, 2 );
+		setupMocks(
+			{
+				[ METADATA_EVENT_VENUE_ID ]: [ '1', '2' ],
+			},
+			2
+		);
 		mockFetchVenues.mockResolvedValue( { venues: mockVenues, total: 2 } );
 
 		render(
@@ -382,9 +388,12 @@ describe( 'EventLocation', () => {
 	} );
 
 	it( 'should show adding state when add another venue is clicked', async () => {
-		setupMocks( {
-			[ METADATA_EVENT_VENUE_ID ]: [ '1' ],
-		}, 2 );
+		setupMocks(
+			{
+				[ METADATA_EVENT_VENUE_ID ]: [ '1' ],
+			},
+			2
+		);
 		mockFetchVenues.mockResolvedValue( { venues: mockVenues, total: 2 } );
 
 		render(
@@ -410,9 +419,12 @@ describe( 'EventLocation', () => {
 	} );
 
 	it( 'should cancel adding state when cancel is clicked', async () => {
-		setupMocks( {
-			[ METADATA_EVENT_VENUE_ID ]: [ '1' ],
-		}, 2 );
+		setupMocks(
+			{
+				[ METADATA_EVENT_VENUE_ID ]: [ '1' ],
+			},
+			2
+		);
 		mockFetchVenues.mockResolvedValue( { venues: mockVenues, total: 2 } );
 
 		render(

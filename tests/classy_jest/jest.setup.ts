@@ -61,7 +61,10 @@ console.warn = ( msg: string | Error ) => {
 
 console.error = ( msg: string | Error ) => {
 	// Suppress act(...) warnings from external component libraries (Ariakit, WordPress components).
-	if ( msg.toString().includes( 'Warning: An update to' ) && msg.toString().includes( 'inside a test was not wrapped in act(...)' ) ) {
+	if (
+		msg.toString().includes( 'Warning: An update to' ) &&
+		msg.toString().includes( 'inside a test was not wrapped in act(...)' )
+	) {
 		return;
 	}
 
