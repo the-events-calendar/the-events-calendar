@@ -6,7 +6,7 @@ import { PostFeaturedImage } from '@wordpress/editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { TinyMceEditor } from '@tec/common/classy/components';
 import { isValidUrl } from '@tec/common/classy/functions';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
 import { METADATA_EVENT_URL } from '../../constants';
 
 export default function EventDetails( props: FieldProps ) {
