@@ -24,6 +24,17 @@ module.exports = ( path, options ) => {
 		conditions.add( 'node' );
 	}
 
+	// If basedir is from common/src, add node_modules to moduleDirectory
+	if ( basedir && basedir.includes( 'common/src' ) ) {
+		const nodePath = require( 'path' );
+		const nodeModulesPath = nodePath.resolve( __dirname, '../../node_modules' );
+		options.moduleDirectory = options.moduleDirectory || [];
+		if ( !Array.isArray( options.moduleDirectory ) ) {
+			options.moduleDirectory = [ options.moduleDirectory ];
+		}
+		options.moduleDirectory.push( nodeModulesPath );
+	}
+
 	return options.defaultResolver( path, {
 		...options,
 		basedir,
