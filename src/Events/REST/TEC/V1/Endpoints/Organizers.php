@@ -367,46 +367,4 @@ class Organizers extends Post_Entity_Endpoint implements Archive_Endpoint {
 
 		throw new InvalidArgumentException( sprintf( 'Invalid operation: %s', $operation ) );
 	}
-
-	/**
-	 * Checks if the current user can read the organizer post.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Post $post The organizer post.
-	 *
-	 * @return bool True if the user can read the post, false otherwise.
-	 */
-	protected function can_read_organizer( WP_Post $post ): bool {
-		// If guest can read, allow it.
-		if ( $this->guest_can_read() ) {
-			return true;
-		}
-
-		// Check custom capabilities.
-		return current_user_can( 'read_tribe_organizer', $post->ID ) || current_user_can( 'read_tribe_organizers' ); // phpcs:ignore WordPress.WP.Capabilities.Unknown
-	}
-
-	/**
-	 * Formats a collection of posts into a collection of post entities.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $posts The posts to format.
-	 *
-	 * @return array The formatted posts.
-	 */
-	protected function format_post_entity_collection( array $posts ): array {
-		$formatted_posts = [];
-
-		foreach ( $posts as $post ) {
-			if ( ! $this->can_read_organizer( $post ) ) {
-				continue;
-			}
-
-			$formatted_posts[] = $this->get_formatted_entity( $post );
-		}
-
-		return $formatted_posts;
-	}
 }
