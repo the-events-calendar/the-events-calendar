@@ -44,6 +44,7 @@ class Controller extends Controller_Contract {
 	 */
 	protected function do_register(): void {
 		$this->container->register( Meta::class );
+		$this->container->register( Legacy_Blocks\Controller::class );
 		add_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
 		add_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 
@@ -69,6 +70,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->container->get( Meta::class )->unregister();
+		$this->container->get( Legacy_Blocks\Controller::class )->unregister();
 		remove_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
 		remove_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
