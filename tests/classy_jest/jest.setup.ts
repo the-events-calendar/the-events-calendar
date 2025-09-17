@@ -49,6 +49,7 @@ window.Element.prototype.scrollIntoView = function () {};
  * be addressed and fixed, not silenced.
  */
 const originalWarn = console.warn;
+const originalError = console.error;
 
 console.warn = ( msg: string | Error ) => {
 	// From the `PostFeaturedImage` component of the `@wordpress/editor` package.
@@ -56,6 +57,20 @@ console.warn = ( msg: string | Error ) => {
 		return;
 	}
 	originalWarn( msg );
+};
+
+console.error = ( msg: string | Error ) => {
+	// Suppress act(...) warnings from external component libraries (Ariakit, WordPress components).
+	if ( msg.toString().includes( 'Warning: An update to' ) && msg.toString().includes( 'inside a test was not wrapped in act(...)' ) ) {
+		return;
+	}
+
+	// Suppress missing key prop warnings from external component libraries.
+	if ( msg.toString().includes( 'Warning: Each child in a list should have a unique "key" prop' ) ) {
+		return;
+	}
+
+	originalError( msg );
 };
 
 /**
