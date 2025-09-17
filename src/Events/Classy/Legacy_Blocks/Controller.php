@@ -8,6 +8,16 @@ declare( strict_types=1 );
 namespace TEC\Events\Classy\Legacy_Blocks;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe__Events__Editor__Blocks__Classic_Event_Details;
+use Tribe__Events__Editor__Blocks__Event_Category;
+use Tribe__Events__Editor__Blocks__Event_Datetime;
+use Tribe__Events__Editor__Blocks__Event_Links;
+use Tribe__Events__Editor__Blocks__Event_Organizer;
+use Tribe__Events__Editor__Blocks__Event_Price;
+use Tribe__Events__Editor__Blocks__Event_Tags;
+use Tribe__Events__Editor__Blocks__Event_Venue;
+use Tribe__Events__Editor__Blocks__Event_Website;
+use Tribe__Events__Editor__Blocks__Featured_Image;
 
 /**
  * Handle Legacy blocks and block templates with classy.
@@ -15,7 +25,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * @since TBD
  */
 class Controller extends Controller_Contract {
-	
+
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
@@ -27,8 +37,20 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite' );
 		tribe( 'events.editor.template.overwrite' )->hook();
+
+		// Register blocks classes.
+		$this->container->singleton( 'events.editor.blocks.classic-event-details', Tribe__Events__Editor__Blocks__Classic_Event_Details::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-datetime', Tribe__Events__Editor__Blocks__Event_Datetime::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-venue', Tribe__Events__Editor__Blocks__Event_Venue::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-organizer', Tribe__Events__Editor__Blocks__Event_Organizer::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-links', Tribe__Events__Editor__Blocks__Event_Links::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-price', Tribe__Events__Editor__Blocks__Event_Price::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-category', Tribe__Events__Editor__Blocks__Event_Category::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-tags', Tribe__Events__Editor__Blocks__Event_Tags::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-website', Tribe__Events__Editor__Blocks__Event_Website::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.featured-image', Tribe__Events__Editor__Blocks__Featured_Image::class, [ 'load' ] );
 	}
-	
+
 	/**
 	 * Un-registers the filters and actions hooks added by the controller.
 	 *
@@ -39,5 +61,17 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		$this->container->get( 'events.editor.template' )->unregister();
 		$this->container->get( 'events.editor.template.overwrite' )->unregister();
+
+		// Unregister the blocks.
+		$this->container->get( 'events.editor.blocks.classic-event-details' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-datetime' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-venue' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-organizer' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-links' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-price' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-category' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-tags' )->unregister();
+		$this->container->get( 'events.editor.blocks.event-website' )->unregister();
+		$this->container->get( 'events.editor.blocks.featured-image' )->unregister();
 	}
 }
