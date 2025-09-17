@@ -4,14 +4,14 @@ import { Button, CustomSelectControl, Slot } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { IconAdd } from '@tec/common/classy/components';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
 import { FetchedVenue } from '../../types/FetchedVenue';
 import { METADATA_EVENT_VENUE_ID } from '../../constants';
 import { VenueData } from '../../types/VenueData';
-import VenueUpsertModal from './VenueUpsertModal.tsx';
+import VenueUpsertModal from './VenueUpsertModal';
 import { fetchVenues, upsertVenue } from '../../api';
 import { StoreSelect } from '../../types/Store';
 
