@@ -95,7 +95,7 @@ const mockOrganizerDataMinimal: OrganizerData = {
 
 const mockExpectedFetchResult = {
 	organizers: mockMappedOrganizers,
-	total: "2",
+	total: '2',
 };
 
 const mockApiResponse = {
@@ -272,7 +272,7 @@ describe( 'Organizer API', () => {
 
 			expect( result ).toEqual( {
 				organizers: [],
-				total: "0",
+				total: '0',
 			} );
 		} );
 
@@ -633,4 +633,3 @@ describe( 'Organizer API', () => {
 		} );
 	} );
 } );
-

@@ -167,7 +167,7 @@ const mockVenueDataMinimal: VenueData = {
 
 const mockExpectedFetchResult = {
 	venues: mockMappedVenues,
-	total: "2",
+	total: '2',
 };
 
 const mockApiResponse = {
@@ -282,9 +282,7 @@ describe( 'Venue API', () => {
 			// @ts-ignore
 			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			await expect( fetchVenues( 1 ) ).rejects.toThrow(
-				'Venues fetch request did not return an object.'
-			);
+			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Venues fetch request did not return an object.' );
 		} );
 
 		test( 'rejects when response is null', async () => {
@@ -298,9 +296,7 @@ describe( 'Venue API', () => {
 			// @ts-ignore
 			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			await expect( fetchVenues( 1 ) ).rejects.toThrow(
-				'Venues fetch request did not return an object.'
-			);
+			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Venues fetch request did not return an object.' );
 		} );
 
 		test( 'rejects when response is undefined', async () => {
@@ -314,9 +310,7 @@ describe( 'Venue API', () => {
 			// @ts-ignore
 			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			await expect( fetchVenues( 1 ) ).rejects.toThrow(
-				'Venues fetch request did not return an object.'
-			);
+			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Venues fetch request did not return an object.' );
 		} );
 
 		test( 'rejects when response is not an array', async () => {
@@ -330,9 +324,7 @@ describe( 'Venue API', () => {
 			// @ts-ignore
 			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			await expect( fetchVenues( 1 ) ).rejects.toThrow(
-				'Venues fetch request did not return an object.'
-			);
+			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Venues fetch request did not return an object.' );
 		} );
 
 		test( 'handles empty venues array', async () => {
@@ -344,7 +336,7 @@ describe( 'Venue API', () => {
 
 			expect( result ).toEqual( {
 				venues: [],
-				total: "0",
+				total: '0',
 			} );
 		} );
 

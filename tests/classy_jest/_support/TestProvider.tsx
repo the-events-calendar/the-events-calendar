@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { createRegistry } from '@wordpress/data';
-import {ProviderComponent} from "@tec/common/classy/components/Provider";
+import { ProviderComponent } from '@tec/common/classy/components/Provider';
 
 /**
  * Test provider component for Classy components in Jest tests.

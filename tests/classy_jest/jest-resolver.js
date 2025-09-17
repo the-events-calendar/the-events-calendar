@@ -29,7 +29,7 @@ module.exports = ( path, options ) => {
 		const nodePath = require( 'path' );
 		const nodeModulesPath = nodePath.resolve( __dirname, '../../node_modules' );
 		options.moduleDirectory = options.moduleDirectory || [];
-		if ( !Array.isArray( options.moduleDirectory ) ) {
+		if ( ! Array.isArray( options.moduleDirectory ) ) {
 			options.moduleDirectory = [ options.moduleDirectory ];
 		}
 		options.moduleDirectory.push( nodeModulesPath );
