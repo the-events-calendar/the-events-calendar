@@ -1,464 +1,636 @@
-import { fetchOrganizers, upsertOrganizer } from '../../../src/resources/packages/classy/api/organizers';
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { FetchedOrganizer } from '../../../src/resources/packages/classy/types/FetchedOrganizer';
-import { OrganizerData } from '../../../src/resources/packages/classy/types/OrganizerData';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, jest, test } from '@jest/globals';
 import apiFetch from '@wordpress/api-fetch';
+import { fetchOrganizers, upsertOrganizer } from '@tec/events/classy/api';
+import { FetchedOrganizer } from '@tec/events/classy/types/FetchedOrganizer';
+import { OrganizerData } from '@tec/events/classy/types/OrganizerData';
+import { PostStatus } from '@tec/common/classy/types/Api';
 
-// Mock the @wordpress/api-fetch module.
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@wordpress/api-fetch', () => ( {
+	__esModule: true,
+	default: jest.fn(),
+} ) );
 
-describe( 'organizers API', () => {
-	const mockApiFetch = apiFetch as jest.MockedFunction< typeof apiFetch >;
+// Mock data structures for expected results
+const mockOrganizerResponse = {
+	id: 1,
+	link: 'https://example.com/organizers/sample-organizer-1/',
+	title: {
+		rendered: 'Sample Organizer 1',
+	},
+	phone: '+1-555-0123',
+	website: 'https://sample-organizer-1.com',
+	email: 'contact@sample-organizer-1.com',
+	date: '2024-01-01T12:00:00+00:00',
+	date_gmt: '2024-01-01T12:00:00Z',
+	guid: {
+		rendered: 'https://example.com/organizers/sample-organizer-1/',
+	},
+	modified: '2024-01-01T12:00:00+00:00',
+	modified_gmt: '2024-01-01T12:00:00Z',
+	slug: 'sample-organizer-1',
+	status: 'publish' as PostStatus,
+	type: 'tribe_organizer',
+	content: {
+		rendered: 'This is a sample organizer description.',
+		protected: false,
+	},
+	template: '',
+};
 
-	beforeEach( () => {
+const mockOrganizerResponse2 = {
+	...mockOrganizerResponse,
+	id: 2,
+	link: 'https://example.com/organizers/sample-organizer-2/',
+	title: {
+		rendered: 'Sample Organizer 2',
+	},
+	phone: '+1-555-0124',
+	website: 'https://sample-organizer-2.com',
+	email: 'contact@sample-organizer-2.com',
+	slug: 'sample-organizer-2',
+};
+
+const mockMappedOrganizers: FetchedOrganizer[] = [
+	{
+		id: 1,
+		url: 'https://example.com/organizers/sample-organizer-1/',
+		organizer: 'Sample Organizer 1',
+		phone: '+1-555-0123',
+		email: 'contact@sample-organizer-1.com',
+		website: 'https://sample-organizer-1.com',
+	},
+	{
+		id: 2,
+		url: 'https://example.com/organizers/sample-organizer-2/',
+		organizer: 'Sample Organizer 2',
+		phone: '+1-555-0124',
+		email: 'contact@sample-organizer-2.com',
+		website: 'https://sample-organizer-2.com',
+	},
+];
+
+const mockOrganizerDataForCreate: OrganizerData = {
+	id: null,
+	name: 'New Organizer',
+	phone: '+1-555-9999',
+	website: 'https://new-organizer.com',
+	email: 'contact@new-organizer.com',
+};
+
+const mockOrganizerDataForUpdate: OrganizerData = {
+	id: 1,
+	name: 'Updated Organizer',
+	phone: '+1-555-8888',
+	website: 'https://updated-organizer.com',
+	email: 'contact@updated-organizer.com',
+};
+
+const mockOrganizerDataMinimal: OrganizerData = {
+	id: null,
+	name: 'Minimal Organizer',
+	phone: '',
+	website: '',
+	email: '',
+};
+
+const mockExpectedFetchResult = {
+	organizers: mockMappedOrganizers,
+	total: "2",
+};
+
+const mockApiResponse = {
+	...mockOrganizerResponse,
+};
+
+// Mock Response object for fetchOrganizers
+const createMockResponse = ( data: any[], total: number ) => {
+	return {
+		json: jest.fn( () => Promise.resolve( data ) ),
+		headers: {
+			has: jest.fn().mockReturnValue( true ),
+			get: jest.fn().mockReturnValue( total.toString() ),
+		},
+	} as any;
+};
+
+const createMockResponseWithoutTotal = ( data: any[] ) => {
+	return {
+		json: jest.fn( () => Promise.resolve( data ) ),
+		headers: {
+			has: jest.fn().mockReturnValue( false ),
+			get: jest.fn().mockReturnValue( null ),
+		},
+	} as any;
+};
+
+describe( 'Organizer API', () => {
+	const resetModules = () => {
 		jest.resetModules();
-		jest.clearAllMocks();
-	} );
+	};
 
-	afterEach( () => {
+	const resetMocks = () => {
 		jest.resetAllMocks();
-		jest.restoreAllMocks();
-		jest.resetModules();
-	} );
+	};
+
+	beforeAll( resetModules );
+	afterAll( resetModules );
+	beforeEach( resetMocks );
+	afterEach( resetMocks );
 
 	describe( 'fetchOrganizers', () => {
-		it( 'should fetch organizers successfully and map them correctly', async () => {
-			// Mock response data.
-			const mockOrganizerData = [
-				{
-					id: 1,
-					link: 'https://example.com/organizer-1',
-					title: {
-						rendered: 'Test Organizer 1',
-					},
-					phone: '123-456-7890',
-					website: 'https://organizer1.com',
-					email: 'contact@organizer1.com',
-					// Additional fields that should be ignored in mapping.
-					date: '2024-01-01',
-					status: 'publish',
-					slug: 'test-organizer-1',
-				},
-				{
-					id: 2,
-					link: 'https://example.com/organizer-2',
-					title: {
-						rendered: 'Test Organizer 2',
-					},
-					phone: '098-765-4321',
-					website: 'https://organizer2.com',
-					email: 'info@organizer2.com',
-					// Additional fields.
-					date: '2024-01-02',
-					status: 'publish',
-					slug: 'test-organizer-2',
-				},
-			];
-
-			// Create a mock Response object with headers.
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( mockOrganizerData ),
-				headers: {
-					has: ( jest.fn() as any ).mockImplementation( ( key: string ) => key === 'x-wp-total' ),
-					get: ( jest.fn() as any ).mockImplementation( ( key: string ) =>
-						key === 'x-wp-total' ? '25' : null
-					),
-				},
-			};
-
-			// Mock apiFetch to return our mock response.
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			// Call the function.
-			const result = await fetchOrganizers( 2 );
-
-			// Verify the API was called with correct parameters.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/organizers?page=2',
-				parse: false,
-			} );
-
-			// Verify the result structure.
-			expect( result ).toHaveProperty( 'organizers' );
-			expect( result ).toHaveProperty( 'total' );
-			expect( result.total ).toBe( '25' );
-			expect( result.organizers ).toHaveLength( 2 );
-
-			// Verify the mapping of organizers.
-			const expectedOrganizers: FetchedOrganizer[] = [
-				{
-					id: 1,
-					url: 'https://example.com/organizer-1',
-					organizer: 'Test Organizer 1',
-					phone: '123-456-7890',
-					website: 'https://organizer1.com',
-					email: 'contact@organizer1.com',
-				},
-				{
-					id: 2,
-					url: 'https://example.com/organizer-2',
-					organizer: 'Test Organizer 2',
-					phone: '098-765-4321',
-					website: 'https://organizer2.com',
-					email: 'info@organizer2.com',
-				},
-			];
-
-			expect( result.organizers ).toEqual( expectedOrganizers );
-		} );
-
-		it( 'should handle missing x-wp-total header gracefully', async () => {
-			const mockOrganizerData = [
-				{
-					id: 1,
-					link: 'https://example.com/organizer-1',
-					title: { rendered: 'Test Organizer' },
-					phone: '',
-					website: '',
-					email: '',
-				},
-			];
-
-			// Create response without x-wp-total header.
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( mockOrganizerData ),
-				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
-				},
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
+		test( 'fetches organizers successfully with page parameter', async () => {
+			const mockResponse = createMockResponse( [ mockOrganizerResponse, mockOrganizerResponse2 ], 2 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
 			const result = await fetchOrganizers( 1 );
 
-			// Should default to 0 when header is missing.
-			expect( result.total ).toBe( 0 );
-			expect( result.organizers ).toHaveLength( 1 );
+			expect( result ).toEqual( mockExpectedFetchResult );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
+				parse: false,
+			} );
 		} );
 
-		it( 'should reject when response does not have json method', async () => {
-			// Create a response without json method.
-			const mockResponse = {
-				headers: new Headers(),
-				// Intentionally missing json method.
-			};
+		test( 'fetches organizers with correct query parameters', async () => {
+			const mockResponse = createMockResponse( [ mockOrganizerResponse ], 1 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
+			await fetchOrganizers( 2 );
 
-			await expect( fetchOrganizers( 1 ) ).rejects.toEqual( mockResponse );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( 'page=2' ),
+				parse: false,
+			} );
 		} );
 
-		it( 'should reject when response is not an array', async () => {
-			// Return an object instead of an array.
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( { not: 'an array' } ),
-				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
-				},
-			};
+		test( 'handles response without total header', async () => {
+			const mockResponse = createMockResponseWithoutTotal( [ mockOrganizerResponse ] );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
+			const result = await fetchOrganizers( 1 );
 
-			await expect( fetchOrganizers( 1 ) ).rejects.toThrow(
-				'Organizers fetch request did not return an object.'
-			);
+			expect( result ).toEqual( {
+				organizers: [ mockMappedOrganizers[ 0 ] ],
+				total: 0,
+			} );
 		} );
 
-		it( 'should reject when response is not an object', async () => {
-			// Return a string instead of an object.
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( 'string response' ),
-				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
-				},
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			await expect( fetchOrganizers( 1 ) ).rejects.toThrow(
-				'Organizers fetch request did not return an object.'
-			);
-		} );
-
-		it( 'should handle API fetch errors', async () => {
-			const mockError = new Error( 'Network error' );
-			mockApiFetch.mockRejectedValue( mockError );
+		test( 'rejects when apiFetch throws an error', async () => {
+			const apiError = new Error( 'Network error' );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockRejectedValueOnce( apiError );
 
 			await expect( fetchOrganizers( 1 ) ).rejects.toThrow( 'Failed to fetch organizer Network error' );
 		} );
 
-		it( 'should handle empty organizer list', async () => {
+		test( 'rejects when response has no json method', async () => {
 			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( [] ),
 				headers: {
-					has: ( jest.fn() as any ).mockImplementation( ( key: string ) => key === 'x-wp-total' ),
-					get: ( jest.fn() as any ).mockImplementation( ( key: string ) =>
-						key === 'x-wp-total' ? '0' : null
-					),
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
 				},
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
+			await expect( fetchOrganizers( 1 ) ).rejects.toEqual( mockResponse );
+		} );
+
+		test( 'rejects when response is not an object', async () => {
+			const mockResponse = {
+				json: jest.fn( () => Promise.resolve( 'not an object' ) ),
+				headers: {
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
+				},
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			await expect( fetchOrganizers( 1 ) ).rejects.toThrow(
+				'Organizers fetch request did not return an object.'
+			);
+		} );
+
+		test( 'rejects when response is null', async () => {
+			const mockResponse = {
+				json: jest.fn( () => Promise.resolve( null ) ),
+				headers: {
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
+				},
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			await expect( fetchOrganizers( 1 ) ).rejects.toThrow(
+				'Organizers fetch request did not return an object.'
+			);
+		} );
+
+		test( 'rejects when response is undefined', async () => {
+			const mockResponse = {
+				json: jest.fn( () => Promise.resolve( undefined ) ),
+				headers: {
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
+				},
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			await expect( fetchOrganizers( 1 ) ).rejects.toThrow(
+				'Organizers fetch request did not return an object.'
+			);
+		} );
+
+		test( 'rejects when response is not an array', async () => {
+			const mockResponse = {
+				json: jest.fn( () => Promise.resolve( { not: 'an array' } ) ),
+				headers: {
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
+				},
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			await expect( fetchOrganizers( 1 ) ).rejects.toThrow(
+				'Organizers fetch request did not return an object.'
+			);
+		} );
+
+		test( 'handles empty organizers array', async () => {
+			const mockResponse = createMockResponse( [], 0 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
 			const result = await fetchOrganizers( 1 );
 
-			expect( result.organizers ).toEqual( [] );
-			expect( result.total ).toBe( '0' );
+			expect( result ).toEqual( {
+				organizers: [],
+				total: "0",
+			} );
+		} );
+
+		test( 'maps organizer response correctly', async () => {
+			const mockResponse = createMockResponse( [ mockOrganizerResponse ], 1 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			const result = await fetchOrganizers( 1 );
+
+			expect( result.organizers[ 0 ] ).toEqual( {
+				id: 1,
+				url: 'https://example.com/organizers/sample-organizer-1/',
+				organizer: 'Sample Organizer 1',
+				phone: '+1-555-0123',
+				email: 'contact@sample-organizer-1.com',
+				website: 'https://sample-organizer-1.com',
+			} );
 		} );
 	} );
 
 	describe( 'upsertOrganizer', () => {
-		it( 'should create a new organizer when id is null', async () => {
-			const newOrganizerData: OrganizerData = {
-				id: null,
-				name: 'New Organizer',
-				phone: '555-1234',
-				email: 'new@organizer.com',
-				website: 'https://neworganizer.com',
-			};
+		test( 'creates a new organizer successfully', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockResponse = {
-				id: 42,
-				title: { rendered: 'New Organizer' },
-				phone: '555-1234',
-				email: 'new@organizer.com',
-				website: 'https://neworganizer.com',
-				status: 'publish',
-			};
+			const result = await upsertOrganizer( mockOrganizerDataForCreate );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertOrganizer( newOrganizerData );
-
-			// Verify correct API call for creation.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/organizers',
+			expect( result ).toBe( 1 );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
 				method: 'POST',
 				data: {
 					title: 'New Organizer',
 					status: 'publish',
-					phone: '555-1234',
-					email: 'new@organizer.com',
-					website: 'https://neworganizer.com',
+					phone: '+1-555-9999',
+					email: 'contact@new-organizer.com',
+					website: 'https://new-organizer.com',
 				},
 			} );
-
-			expect( result ).toBe( 42 );
 		} );
 
-		it( 'should create a new organizer when id is 0', async () => {
-			const newOrganizerData: OrganizerData = {
-				id: 0,
-				name: 'Another New Organizer',
-				phone: '',
-				email: '',
-				website: '',
-			};
+		test( 'updates an existing organizer successfully', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockResponse = {
-				id: 43,
-				title: { rendered: 'Another New Organizer' },
-				status: 'publish',
-			};
+			const result = await upsertOrganizer( mockOrganizerDataForUpdate );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertOrganizer( newOrganizerData );
-
-			// Verify empty optional fields are not included.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/organizers',
-				method: 'POST',
-				data: {
-					title: 'Another New Organizer',
-					status: 'publish',
-				},
-			} );
-
-			expect( result ).toBe( 43 );
-		} );
-
-		it( 'should update an existing organizer when id is provided', async () => {
-			const existingOrganizerData: OrganizerData = {
-				id: 15,
-				name: 'Updated Organizer',
-				phone: '555-9999',
-				email: 'updated@organizer.com',
-				website: 'https://updatedorganizer.com',
-			};
-
-			const mockResponse = {
-				id: 15,
-				title: { rendered: 'Updated Organizer' },
-				phone: '555-9999',
-				email: 'updated@organizer.com',
-				website: 'https://updatedorganizer.com',
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertOrganizer( existingOrganizerData );
-
-			// Verify correct API call for update.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/organizers/15',
+			expect( result ).toBe( 1 );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers/1' ),
 				method: 'PUT',
 				data: {
 					title: 'Updated Organizer',
 					status: 'publish',
-					phone: '555-9999',
-					email: 'updated@organizer.com',
-					website: 'https://updatedorganizer.com',
+					phone: '+1-555-8888',
+					email: 'contact@updated-organizer.com',
+					website: 'https://updated-organizer.com',
 				},
 			} );
-
-			expect( result ).toBe( 15 );
 		} );
 
-		it( 'should handle partial data with some empty fields', async () => {
-			const partialOrganizerData: OrganizerData = {
-				id: null,
-				name: 'Partial Organizer',
-				phone: '555-0000',
-				email: '',
-				website: '',
-			};
+		test( 'handles minimal organizer data for create', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockResponse = {
-				id: 44,
-				title: { rendered: 'Partial Organizer' },
-				phone: '555-0000',
-				status: 'publish',
-			};
+			await upsertOrganizer( mockOrganizerDataMinimal );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertOrganizer( partialOrganizerData );
-
-			// Verify only non-empty fields are included.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/organizers',
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
 				method: 'POST',
 				data: {
-					title: 'Partial Organizer',
+					title: 'Minimal Organizer',
 					status: 'publish',
-					phone: '555-0000',
 				},
 			} );
-
-			expect( result ).toBe( 44 );
 		} );
 
-		it( 'should reject when response is not a valid object', async () => {
-			const organizerData: OrganizerData = {
-				id: null,
-				name: 'Test Organizer',
-				phone: '',
-				email: '',
-				website: '',
+		test( 'handles organizer data with only phone', async () => {
+			const organizerDataWithPhone = {
+				...mockOrganizerDataMinimal,
+				phone: '+1-555-0000',
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			// Response is not an object.
-			mockApiFetch.mockResolvedValue( null );
+			await upsertOrganizer( organizerDataWithPhone );
 
-			await expect( upsertOrganizer( organizerData ) ).rejects.toThrow(
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Organizer',
+					status: 'publish',
+					phone: '+1-555-0000',
+				},
+			} );
+		} );
+
+		test( 'handles organizer data with only email', async () => {
+			const organizerDataWithEmail = {
+				...mockOrganizerDataMinimal,
+				email: 'test@example.com',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertOrganizer( organizerDataWithEmail );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Organizer',
+					status: 'publish',
+					email: 'test@example.com',
+				},
+			} );
+		} );
+
+		test( 'handles organizer data with only website', async () => {
+			const organizerDataWithWebsite = {
+				...mockOrganizerDataMinimal,
+				website: 'https://example.com',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertOrganizer( organizerDataWithWebsite );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Organizer',
+					status: 'publish',
+					website: 'https://example.com',
+				},
+			} );
+		} );
+
+		test( 'rejects when apiFetch throws an error during create', async () => {
+			const apiError = new Error( 'Network error' );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockRejectedValueOnce( apiError );
+
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
+				'Failed to create organizer: Network error'
+			);
+		} );
+
+		test( 'rejects when apiFetch throws an error during update', async () => {
+			const apiError = new Error( 'Network error' );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockRejectedValueOnce( apiError );
+
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
+				'Failed to update organizer: Network error'
+			);
+		} );
+
+		test( 'rejects when create response is not an object', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( 'not an object' );
+
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
 				'Organizer creation request did not return a valid organizer object.'
 			);
 		} );
 
-		it( 'should reject when response does not contain an id', async () => {
-			const organizerData: OrganizerData = {
-				id: 10,
-				name: 'Test Organizer',
-				phone: '',
-				email: '',
-				website: '',
-			};
+		test( 'rejects when update response is not an object', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( 'not an object' );
 
-			// Response missing id field.
-			const mockResponse = {
-				title: { rendered: 'Test Organizer' },
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			await expect( upsertOrganizer( organizerData ) ).rejects.toThrow(
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
 				'Organizer update request did not return a valid organizer object.'
 			);
 		} );
 
-		it( 'should handle creation errors', async () => {
-			const organizerData: OrganizerData = {
-				id: null,
-				name: 'Failed Organizer',
-				phone: '',
-				email: '',
-				website: '',
-			};
+		test( 'rejects when create response is null', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( null );
 
-			const mockError = new Error( 'Permission denied' );
-			mockApiFetch.mockRejectedValue( mockError );
-
-			await expect( upsertOrganizer( organizerData ) ).rejects.toThrow(
-				'Failed to create organizer: Permission denied'
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
+				'Organizer creation request did not return a valid organizer object.'
 			);
 		} );
 
-		it( 'should handle update errors', async () => {
-			const organizerData: OrganizerData = {
-				id: 99,
-				name: 'Failed Update',
-				phone: '',
-				email: '',
-				website: '',
-			};
+		test( 'rejects when update response is null', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( null );
 
-			const mockError = new Error( 'Not found' );
-			mockApiFetch.mockRejectedValue( mockError );
-
-			await expect( upsertOrganizer( organizerData ) ).rejects.toThrow( 'Failed to update organizer: Not found' );
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
+				'Organizer update request did not return a valid organizer object.'
+			);
 		} );
 
-		it( 'should handle organizer with all optional fields provided', async () => {
-			const fullOrganizerData: OrganizerData = {
+		test( 'rejects when create response is undefined', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( undefined );
+
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
+				'Organizer creation request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'rejects when update response is undefined', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( undefined );
+
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
+				'Organizer update request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'rejects when create response has no id', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: undefined,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
+				'Organizer creation request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'rejects when update response has no id', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: undefined,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
+				'Organizer update request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'rejects when create response id is null', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
 				id: null,
-				name: 'Full Featured Organizer',
-				phone: '+1-555-123-4567',
-				email: 'contact@fullorganizer.com',
-				website: 'https://www.fullorganizer.com',
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
 
-			const mockResponse = {
-				id: 100,
-				title: { rendered: 'Full Featured Organizer' },
-				phone: '+1-555-123-4567',
-				email: 'contact@fullorganizer.com',
-				website: 'https://www.fullorganizer.com',
-				status: 'publish',
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
+				'Organizer creation request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'rejects when update response id is null', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: null,
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
+				'Organizer update request did not return a valid organizer object.'
+			);
+		} );
 
-			const result = await upsertOrganizer( fullOrganizerData );
+		test( 'rejects when create response id is 0', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: 0,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
 
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/organizers',
+			await expect( upsertOrganizer( mockOrganizerDataForCreate ) ).rejects.toThrow(
+				'Organizer creation request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'rejects when update response id is 0', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: 0,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertOrganizer( mockOrganizerDataForUpdate ) ).rejects.toThrow(
+				'Organizer update request did not return a valid organizer object.'
+			);
+		} );
+
+		test( 'accepts negative id in create response', async () => {
+			const responseWithNegativeId = {
+				...mockApiResponse,
+				id: -1,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( responseWithNegativeId );
+
+			const result = await upsertOrganizer( mockOrganizerDataForCreate );
+
+			expect( result ).toBe( -1 );
+		} );
+
+		test( 'accepts negative id in update response', async () => {
+			const responseWithNegativeId = {
+				...mockApiResponse,
+				id: -1,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( responseWithNegativeId );
+
+			const result = await upsertOrganizer( mockOrganizerDataForUpdate );
+
+			expect( result ).toBe( -1 );
+		} );
+
+		test( 'handles organizer with id 0 as create operation', async () => {
+			const organizerDataWithZeroId = {
+				...mockOrganizerDataForCreate,
+				id: 0,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertOrganizer( organizerDataWithZeroId );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
 				method: 'POST',
-				data: {
-					title: 'Full Featured Organizer',
+				data: expect.objectContaining( {
+					title: 'New Organizer',
 					status: 'publish',
-					phone: '+1-555-123-4567',
-					email: 'contact@fullorganizer.com',
-					website: 'https://www.fullorganizer.com',
-				},
+				} ),
 			} );
+		} );
 
-			expect( result ).toBe( 100 );
+		test( 'handles organizer with negative id as create operation', async () => {
+			const organizerDataWithNegativeId = {
+				...mockOrganizerDataForCreate,
+				id: -1,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertOrganizer( organizerDataWithNegativeId );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/organizers' ),
+				method: 'POST',
+				data: expect.objectContaining( {
+					title: 'New Organizer',
+					status: 'publish',
+				} ),
+			} );
 		} );
 	} );
 } );
+

@@ -1,722 +1,884 @@
-import { fetchVenues, upsertVenue } from '../../../src/resources/packages/classy/api/venues';
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { FetchedVenue } from '../../../src/resources/packages/classy/types/FetchedVenue';
-import { VenueData } from '../../../src/resources/packages/classy/types/VenueData';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, jest, test } from '@jest/globals';
 import apiFetch from '@wordpress/api-fetch';
+import { fetchVenues, upsertVenue } from '@tec/events/classy/api';
+import { FetchedVenue } from '@tec/events/classy/types/FetchedVenue';
+import { VenueData } from '@tec/events/classy/types/VenueData';
+import { PostStatus } from '@tec/common/classy/types/Api';
 
-// Mock the @wordpress/api-fetch module.
-jest.mock( '@wordpress/api-fetch' );
+jest.mock( '@wordpress/api-fetch', () => ( {
+	__esModule: true,
+	default: jest.fn(),
+} ) );
 
-describe( 'venues API', () => {
-	const mockApiFetch = apiFetch as jest.MockedFunction< typeof apiFetch >;
+// Mock data structures for expected results
+const mockVenueResponse = {
+	id: 1,
+	link: 'https://example.com/venues/sample-venue-1/',
+	title: {
+		rendered: 'Sample Venue 1',
+	},
+	address: '123 Main Street',
+	city: 'New York',
+	country: 'United States',
+	state_province: 'NY',
+	state: 'NY',
+	province: '',
+	zip: '10001',
+	phone: '+1-555-0123',
+	website: 'https://sample-venue-1.com',
+	directions_link: 'https://maps.google.com/sample-venue-1',
+	date: '2024-01-01T12:00:00+00:00',
+	date_gmt: '2024-01-01T12:00:00Z',
+	guid: {
+		rendered: 'https://example.com/venues/sample-venue-1/',
+	},
+	modified: '2024-01-01T12:00:00+00:00',
+	modified_gmt: '2024-01-01T12:00:00Z',
+	slug: 'sample-venue-1',
+	status: 'publish' as PostStatus,
+	type: 'tribe_venue',
+	content: {
+		rendered: 'This is a sample venue description.',
+		protected: false,
+	},
+	template: '',
+};
 
-	beforeEach( () => {
+const mockVenueResponse2 = {
+	...mockVenueResponse,
+	id: 2,
+	link: 'https://example.com/venues/sample-venue-2/',
+	title: {
+		rendered: 'Sample Venue 2',
+	},
+	address: '456 Oak Avenue',
+	city: 'Los Angeles',
+	country: 'United States',
+	state_province: 'CA',
+	state: 'CA',
+	province: '',
+	zip: '90210',
+	phone: '+1-555-0124',
+	website: 'https://sample-venue-2.com',
+	slug: 'sample-venue-2',
+};
+
+const mockVenueResponseInternational = {
+	...mockVenueResponse,
+	id: 3,
+	link: 'https://example.com/venues/sample-venue-3/',
+	title: {
+		rendered: 'Sample International Venue',
+	},
+	address: '789 Maple Street',
+	city: 'Toronto',
+	country: 'Canada',
+	state_province: 'ON',
+	state: '',
+	province: 'ON',
+	zip: 'M5V 3A8',
+	phone: '+1-416-555-0125',
+	website: 'https://sample-venue-3.ca',
+	slug: 'sample-venue-3',
+};
+
+const mockMappedVenues: FetchedVenue[] = [
+	{
+		id: 1,
+		venue: 'Sample Venue 1',
+		address: '123 Main Street',
+		city: 'New York',
+		country: 'United States',
+		province: '',
+		state: 'NY',
+		zip: '10001',
+		phone: '+1-555-0123',
+		website: 'https://sample-venue-1.com',
+	},
+	{
+		id: 2,
+		venue: 'Sample Venue 2',
+		address: '456 Oak Avenue',
+		city: 'Los Angeles',
+		country: 'United States',
+		province: '',
+		state: 'CA',
+		zip: '90210',
+		phone: '+1-555-0124',
+		website: 'https://sample-venue-2.com',
+	},
+];
+
+const mockVenueDataForCreate: VenueData = {
+	id: null,
+	name: 'New Venue',
+	address: '789 Pine Street',
+	city: 'Chicago',
+	country: 'United States',
+	countryCode: 'US',
+	province: '',
+	stateprovince: 'IL',
+	zip: '60601',
+	phone: '+1-312-555-9999',
+	website: 'https://new-venue.com',
+};
+
+const mockVenueDataForUpdate: VenueData = {
+	id: 1,
+	name: 'Updated Venue',
+	address: '321 Elm Street',
+	city: 'Boston',
+	country: 'United States',
+	countryCode: 'US',
+	province: '',
+	stateprovince: 'MA',
+	zip: '02101',
+	phone: '+1-617-555-8888',
+	website: 'https://updated-venue.com',
+};
+
+const mockVenueDataInternational: VenueData = {
+	id: null,
+	name: 'International Venue',
+	address: '555 Queen Street',
+	city: 'Vancouver',
+	country: 'Canada',
+	countryCode: 'CA',
+	province: 'BC',
+	stateprovince: 'BC',
+	zip: 'V6B 1A1',
+	phone: '+1-604-555-7777',
+	website: 'https://international-venue.ca',
+};
+
+const mockVenueDataMinimal: VenueData = {
+	id: null,
+	name: 'Minimal Venue',
+	address: '',
+	city: '',
+	country: '',
+	countryCode: '',
+	province: '',
+	stateprovince: '',
+	zip: '',
+	phone: '',
+	website: '',
+};
+
+const mockExpectedFetchResult = {
+	venues: mockMappedVenues,
+	total: "2",
+};
+
+const mockApiResponse = {
+	...mockVenueResponse,
+};
+
+// Mock Response object for fetchVenues
+const createMockResponse = ( data: any[], total: number ) => {
+	return {
+		json: jest.fn( () => Promise.resolve( data ) ),
+		headers: {
+			has: jest.fn().mockReturnValue( true ),
+			get: jest.fn().mockReturnValue( total.toString() ),
+		},
+	} as any;
+};
+
+const createMockResponseWithoutTotal = ( data: any[] ) => {
+	return {
+		json: jest.fn( () => Promise.resolve( data ) ),
+		headers: {
+			has: jest.fn().mockReturnValue( false ),
+			get: jest.fn().mockReturnValue( null ),
+		},
+	} as any;
+};
+
+describe( 'Venue API', () => {
+	const resetModules = () => {
 		jest.resetModules();
-		jest.clearAllMocks();
-	} );
+	};
 
-	afterEach( () => {
+	const resetMocks = () => {
 		jest.resetAllMocks();
-		jest.restoreAllMocks();
-		jest.resetModules();
-	} );
+	};
+
+	beforeAll( resetModules );
+	afterAll( resetModules );
+	beforeEach( resetMocks );
+	afterEach( resetMocks );
 
 	describe( 'fetchVenues', () => {
-		it( 'should fetch venues successfully and map them correctly', async () => {
-			// Mock response data.
-			const mockVenueData = [
-				{
-					id: 1,
-					link: 'https://example.com/venue-1',
-					title: {
-						rendered: 'Grand Convention Center',
-					},
-					address: '123 Main Street',
-					city: 'New York',
-					country: 'United States',
-					state_province: 'NY',
-					state: 'NY',
-					province: '',
-					zip: '10001',
-					phone: '555-1234',
-					website: 'https://grandconvention.com',
-					directions_link: 'https://maps.example.com',
-					// Additional fields that should be ignored in mapping.
-					date: '2024-01-01',
-					status: 'publish',
-					slug: 'grand-convention-center',
-				},
-				{
-					id: 2,
-					link: 'https://example.com/venue-2',
-					title: {
-						rendered: 'City Hall',
-					},
-					address: '456 Oak Avenue',
-					city: 'Los Angeles',
-					country: 'United States',
-					state_province: 'CA',
-					state: 'CA',
-					province: '',
-					zip: '90001',
-					phone: '555-5678',
-					website: 'https://cityhall.la.gov',
-					directions_link: 'https://maps.example.com',
-					// Additional fields.
-					date: '2024-01-02',
-					status: 'publish',
-					slug: 'city-hall',
-				},
-			];
-
-			// Create a mock Response object with headers.
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( mockVenueData ),
-				headers: {
-					has: ( jest.fn() as any ).mockImplementation( ( key: string ) => key === 'x-wp-total' ),
-					get: ( jest.fn() as any ).mockImplementation( ( key: string ) =>
-						key === 'x-wp-total' ? '50' : null
-					),
-				},
-			};
-
-			// Mock apiFetch to return our mock response.
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			// Call the function.
-			const result = await fetchVenues( 3 );
-
-			// Verify the API was called with correct parameters.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues?page=3',
-				parse: false,
-			} );
-
-			// Verify the result structure.
-			expect( result ).toHaveProperty( 'venues' );
-			expect( result ).toHaveProperty( 'total' );
-			expect( result.total ).toBe( '50' );
-			expect( result.venues ).toHaveLength( 2 );
-
-			// Verify the mapping of venues.
-			const expectedVenues: FetchedVenue[] = [
-				{
-					id: 1,
-					venue: 'Grand Convention Center',
-					address: '123 Main Street',
-					city: 'New York',
-					country: 'United States',
-					province: '',
-					state: 'NY',
-					zip: '10001',
-					phone: '555-1234',
-					website: 'https://grandconvention.com',
-				},
-				{
-					id: 2,
-					venue: 'City Hall',
-					address: '456 Oak Avenue',
-					city: 'Los Angeles',
-					country: 'United States',
-					province: '',
-					state: 'CA',
-					zip: '90001',
-					phone: '555-5678',
-					website: 'https://cityhall.la.gov',
-				},
-			];
-
-			expect( result.venues ).toEqual( expectedVenues );
-		} );
-
-		it( 'should handle missing x-wp-total header gracefully', async () => {
-			const mockVenueData = [
-				{
-					id: 1,
-					link: 'https://example.com/venue-1',
-					title: { rendered: 'Test Venue' },
-					address: '',
-					city: '',
-					country: '',
-					state_province: '',
-					state: '',
-					province: '',
-					zip: '',
-					phone: '',
-					website: '',
-					directions_link: '',
-				},
-			];
-
-			// Create response without x-wp-total header.
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( mockVenueData ),
-				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
-				},
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
+		test( 'fetches venues successfully with page parameter', async () => {
+			const mockResponse = createMockResponse( [ mockVenueResponse, mockVenueResponse2 ], 2 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
 			const result = await fetchVenues( 1 );
 
-			// Should default to 0 when header is missing.
-			expect( result.total ).toBe( 0 );
-			expect( result.venues ).toHaveLength( 1 );
+			expect( result ).toEqual( mockExpectedFetchResult );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				parse: false,
+			} );
 		} );
 
-		it( 'should reject when response does not have json method', async () => {
-			// Create a response without json method.
+		test( 'fetches venues with correct query parameters', async () => {
+			const mockResponse = createMockResponse( [ mockVenueResponse ], 1 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			await fetchVenues( 2 );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( 'page=2' ),
+				parse: false,
+			} );
+		} );
+
+		test( 'handles response without total header', async () => {
+			const mockResponse = createMockResponseWithoutTotal( [ mockVenueResponse ] );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
+
+			const result = await fetchVenues( 1 );
+
+			expect( result ).toEqual( {
+				venues: [ mockMappedVenues[ 0 ] ],
+				total: 0,
+			} );
+		} );
+
+		test( 'rejects when apiFetch throws an error', async () => {
+			const apiError = new Error( 'Network error' );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockRejectedValueOnce( apiError );
+
+			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Failed to fetch venue Network error' );
+		} );
+
+		test( 'rejects when response has no json method', async () => {
 			const mockResponse = {
 				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
 				},
-				// Intentionally missing json method.
 			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
 			await expect( fetchVenues( 1 ) ).rejects.toEqual( mockResponse );
 		} );
 
-		it( 'should reject when response is not an array', async () => {
-			// Return an object instead of an array.
+		test( 'rejects when response is not an object', async () => {
 			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( { not: 'an array' } ),
+				json: jest.fn( () => Promise.resolve( 'not an object' ) ),
 				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
 				},
-			};
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Venues fetch request did not return an object.' );
+			await expect( fetchVenues( 1 ) ).rejects.toThrow(
+				'Venues fetch request did not return an object.'
+			);
 		} );
 
-		it( 'should reject when response is not an object', async () => {
-			// Return a string instead of an object.
+		test( 'rejects when response is null', async () => {
 			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( 'string response' ),
+				json: jest.fn( () => Promise.resolve( null ) ),
 				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
 				},
-			};
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			await expect( fetchVenues( 1 ) ).rejects.toThrow( 'Venues fetch request did not return an object.' );
+			await expect( fetchVenues( 1 ) ).rejects.toThrow(
+				'Venues fetch request did not return an object.'
+			);
 		} );
 
-		it( 'should handle API fetch errors', async () => {
-			const mockError = new Error( 'Network timeout' );
-			mockApiFetch.mockRejectedValue( mockError );
+		test( 'rejects when response is undefined', async () => {
+			const mockResponse = {
+				json: jest.fn( () => Promise.resolve( undefined ) ),
+				headers: {
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
+				},
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			await expect( fetchVenues( 2 ) ).rejects.toThrow( 'Failed to fetch venue Network timeout' );
+			await expect( fetchVenues( 1 ) ).rejects.toThrow(
+				'Venues fetch request did not return an object.'
+			);
 		} );
 
-		it( 'should handle empty venue list', async () => {
+		test( 'rejects when response is not an array', async () => {
 			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( [] ),
+				json: jest.fn( () => Promise.resolve( { not: 'an array' } ) ),
 				headers: {
-					has: ( jest.fn() as any ).mockImplementation( ( key: string ) => key === 'x-wp-total' ),
-					get: ( jest.fn() as any ).mockImplementation( ( key: string ) =>
-						key === 'x-wp-total' ? '0' : null
-					),
+					has: jest.fn().mockReturnValue( true ),
+					get: jest.fn().mockReturnValue( '2' ),
 				},
-			};
+			} as any;
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
+			await expect( fetchVenues( 1 ) ).rejects.toThrow(
+				'Venues fetch request did not return an object.'
+			);
+		} );
+
+		test( 'handles empty venues array', async () => {
+			const mockResponse = createMockResponse( [], 0 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
 			const result = await fetchVenues( 1 );
 
-			expect( result.venues ).toEqual( [] );
-			expect( result.total ).toBe( '0' );
+			expect( result ).toEqual( {
+				venues: [],
+				total: "0",
+			} );
 		} );
 
-		it( 'should correctly map venues with international addresses', async () => {
-			const mockVenueData = [
-				{
-					id: 3,
-					link: 'https://example.com/venue-3',
-					title: {
-						rendered: 'Toronto Conference Centre',
-					},
-					address: '789 Queen Street',
-					city: 'Toronto',
-					country: 'Canada',
-					state_province: 'ON',
-					state: '',
-					province: 'ON',
-					zip: 'M5H 2M9',
-					phone: '+1-416-555-9999',
-					website: 'https://torontocc.ca',
-					directions_link: '',
-				},
-			];
+		test( 'maps venue response correctly', async () => {
+			const mockResponse = createMockResponse( [ mockVenueResponse ], 1 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
-			const mockResponse = {
-				json: ( jest.fn() as any ).mockResolvedValue( mockVenueData ),
-				headers: {
-					has: ( jest.fn() as any ).mockReturnValue( false ),
-					get: ( jest.fn() as any ).mockReturnValue( null ),
-				},
-			};
+			const result = await fetchVenues( 1 );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
+			expect( result.venues[ 0 ] ).toEqual( {
+				id: 1,
+				venue: 'Sample Venue 1',
+				address: '123 Main Street',
+				city: 'New York',
+				country: 'United States',
+				province: '',
+				state: 'NY',
+				zip: '10001',
+				phone: '+1-555-0123',
+				website: 'https://sample-venue-1.com',
+			} );
+		} );
+
+		test( 'maps international venue response correctly', async () => {
+			const mockResponse = createMockResponse( [ mockVenueResponseInternational ], 1 );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockResponse );
 
 			const result = await fetchVenues( 1 );
 
 			expect( result.venues[ 0 ] ).toEqual( {
 				id: 3,
-				venue: 'Toronto Conference Centre',
-				address: '789 Queen Street',
+				venue: 'Sample International Venue',
+				address: '789 Maple Street',
 				city: 'Toronto',
 				country: 'Canada',
 				province: 'ON',
 				state: '',
-				zip: 'M5H 2M9',
-				phone: '+1-416-555-9999',
-				website: 'https://torontocc.ca',
+				zip: 'M5V 3A8',
+				phone: '+1-416-555-0125',
+				website: 'https://sample-venue-3.ca',
 			} );
 		} );
 	} );
 
 	describe( 'upsertVenue', () => {
-		it( 'should create a new venue when id is null', async () => {
-			const newVenueData: VenueData = {
-				id: null,
-				name: 'New Convention Center',
-				address: '100 Park Avenue',
-				city: 'Seattle',
-				country: 'United States',
-				countryCode: 'US',
-				province: '',
-				stateprovince: 'WA',
-				zip: '98101',
-				phone: '206-555-1234',
-				website: 'https://seattlecc.com',
-			};
+		test( 'creates a new venue successfully', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockResponse = {
-				id: 42,
-				title: { rendered: 'New Convention Center' },
-				address: '100 Park Avenue',
-				city: 'Seattle',
-				country: 'United States',
-				state_province: 'WA',
-				state: 'WA',
-				province: '',
-				zip: '98101',
-				phone: '206-555-1234',
-				website: 'https://seattlecc.com',
-				status: 'publish',
-			};
+			const result = await upsertVenue( mockVenueDataForCreate );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( newVenueData );
-
-			// Verify correct API call for creation.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues',
+			expect( result ).toBe( 1 );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
 				method: 'POST',
 				data: {
-					title: 'New Convention Center',
+					title: 'New Venue',
 					status: 'publish',
-					address: '100 Park Avenue',
-					city: 'Seattle',
+					address: '789 Pine Street',
+					city: 'Chicago',
 					country: 'United States',
-					state_province: 'WA',
-					state: 'WA',
-					zip: '98101',
-					phone: '206-555-1234',
-					website: 'https://seattlecc.com',
+					state_province: 'IL',
+					state: 'IL',
+					zip: '60601',
+					phone: '+1-312-555-9999',
+					website: 'https://new-venue.com',
 				},
 			} );
-
-			expect( result ).toBe( 42 );
 		} );
 
-		it( 'should create a new venue when id is 0', async () => {
-			const newVenueData: VenueData = {
-				id: 0,
-				name: 'Another New Venue',
-				address: '',
-				city: '',
-				country: '',
-				countryCode: '',
-				province: '',
-				stateprovince: '',
-				zip: '',
-				phone: '',
-				website: '',
-			};
+		test( 'updates an existing venue successfully', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockResponse = {
-				id: 43,
-				title: { rendered: 'Another New Venue' },
-				status: 'publish',
-			};
+			const result = await upsertVenue( mockVenueDataForUpdate );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( newVenueData );
-
-			// Verify empty optional fields are not included, except province which is set for non-US.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues',
-				method: 'POST',
-				data: {
-					title: 'Another New Venue',
-					status: 'publish',
-					province: '', // Set because countryCode is not 'US'.
-				},
-			} );
-
-			expect( result ).toBe( 43 );
-		} );
-
-		it( 'should update an existing venue when id is provided', async () => {
-			const existingVenueData: VenueData = {
-				id: 15,
-				name: 'Updated Venue',
-				address: '200 Broadway',
-				city: 'Portland',
-				country: 'United States',
-				countryCode: 'US',
-				province: '',
-				stateprovince: 'OR',
-				zip: '97201',
-				phone: '503-555-9999',
-				website: 'https://updatedvenue.com',
-			};
-
-			const mockResponse = {
-				id: 15,
-				title: { rendered: 'Updated Venue' },
-				address: '200 Broadway',
-				city: 'Portland',
-				country: 'United States',
-				state_province: 'OR',
-				state: 'OR',
-				province: '',
-				zip: '97201',
-				phone: '503-555-9999',
-				website: 'https://updatedvenue.com',
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( existingVenueData );
-
-			// Verify correct API call for update.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues/15',
+			expect( result ).toBe( 1 );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues/1' ),
 				method: 'PUT',
 				data: {
 					title: 'Updated Venue',
 					status: 'publish',
-					address: '200 Broadway',
-					city: 'Portland',
-					country: 'United States',
-					state_province: 'OR',
-					state: 'OR',
-					zip: '97201',
-					phone: '503-555-9999',
-					website: 'https://updatedvenue.com',
-				},
-			} );
-
-			expect( result ).toBe( 15 );
-		} );
-
-		it( 'should handle Canadian venues with province instead of state', async () => {
-			const canadianVenueData: VenueData = {
-				id: null,
-				name: 'Montreal Convention Centre',
-				address: '1001 Place Jean-Paul-Riopelle',
-				city: 'Montreal',
-				country: 'Canada',
-				countryCode: 'CA',
-				province: 'QC',
-				stateprovince: 'QC',
-				zip: 'H2Z 1H2',
-				phone: '+1-514-555-1234',
-				website: 'https://montrealcc.com',
-			};
-
-			const mockResponse = {
-				id: 50,
-				title: { rendered: 'Montreal Convention Centre' },
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( canadianVenueData );
-
-			// Verify that for non-US venues, province is set instead of state.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues',
-				method: 'POST',
-				data: {
-					title: 'Montreal Convention Centre',
-					status: 'publish',
-					address: '1001 Place Jean-Paul-Riopelle',
-					city: 'Montreal',
-					country: 'Canada',
-					state_province: 'QC',
-					province: 'QC',
-					zip: 'H2Z 1H2',
-					phone: '+1-514-555-1234',
-					website: 'https://montrealcc.com',
-				},
-			} );
-
-			expect( result ).toBe( 50 );
-		} );
-
-		it( 'should handle partial data with some empty fields', async () => {
-			const partialVenueData: VenueData = {
-				id: null,
-				name: 'Partial Venue',
-				address: '300 Main St',
-				city: 'Boston',
-				country: '',
-				countryCode: '',
-				province: '',
-				stateprovince: '',
-				zip: '',
-				phone: '',
-				website: '',
-			};
-
-			const mockResponse = {
-				id: 44,
-				title: { rendered: 'Partial Venue' },
-				address: '300 Main St',
-				city: 'Boston',
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( partialVenueData );
-
-			// Verify only non-empty fields are included, except province which is set for non-US.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues',
-				method: 'POST',
-				data: {
-					title: 'Partial Venue',
-					status: 'publish',
-					address: '300 Main St',
+					address: '321 Elm Street',
 					city: 'Boston',
-					province: '', // Set because countryCode is not 'US'.
+					country: 'United States',
+					state_province: 'MA',
+					state: 'MA',
+					zip: '02101',
+					phone: '+1-617-555-8888',
+					website: 'https://updated-venue.com',
 				},
 			} );
-
-			expect( result ).toBe( 44 );
 		} );
 
-		it( 'should reject when response is not a valid object', async () => {
-			const venueData: VenueData = {
-				id: null,
-				name: 'Test Venue',
-				address: '',
-				city: '',
-				country: '',
-				countryCode: '',
-				province: '',
-				stateprovince: '',
-				zip: '',
-				phone: '',
-				website: '',
+		test( 'handles US venue with state field', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( mockVenueDataForCreate );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: expect.objectContaining( {
+					state: 'IL',
+					state_province: 'IL',
+				} ),
+			} );
+		} );
+
+		test( 'handles international venue with province field', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( mockVenueDataInternational );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: expect.objectContaining( {
+					province: 'BC',
+					state_province: 'BC',
+				} ),
+			} );
+		} );
+
+		test( 'handles minimal venue data for create', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( mockVenueDataMinimal );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'handles venue data with only address', async () => {
+			const venueDataWithAddress = {
+				...mockVenueDataMinimal,
+				address: '123 Test Street',
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			// Response is not an object.
-			mockApiFetch.mockResolvedValue( null );
+			await upsertVenue( venueDataWithAddress );
 
-			await expect( upsertVenue( venueData ) ).rejects.toThrow(
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					address: '123 Test Street',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'handles venue data with only city', async () => {
+			const venueDataWithCity = {
+				...mockVenueDataMinimal,
+				city: 'Test City',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithCity );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					city: 'Test City',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'handles venue data with only country', async () => {
+			const venueDataWithCountry = {
+				...mockVenueDataMinimal,
+				country: 'Test Country',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithCountry );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					country: 'Test Country',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'handles venue data with only phone', async () => {
+			const venueDataWithPhone = {
+				...mockVenueDataMinimal,
+				phone: '+1-555-0000',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithPhone );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					phone: '+1-555-0000',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'handles venue data with only website', async () => {
+			const venueDataWithWebsite = {
+				...mockVenueDataMinimal,
+				website: 'https://example.com',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithWebsite );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					website: 'https://example.com',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'handles venue data with only zip', async () => {
+			const venueDataWithZip = {
+				...mockVenueDataMinimal,
+				zip: '12345',
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithZip );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: {
+					title: 'Minimal Venue',
+					status: 'publish',
+					zip: '12345',
+					province: '',
+				},
+			} );
+		} );
+
+		test( 'rejects when apiFetch throws an error during create', async () => {
+			const apiError = new Error( 'Network error' );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockRejectedValueOnce( apiError );
+
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
+				'Failed to create venue: Network error'
+			);
+		} );
+
+		test( 'rejects when apiFetch throws an error during update', async () => {
+			const apiError = new Error( 'Network error' );
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockRejectedValueOnce( apiError );
+
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
+				'Failed to update venue: Network error'
+			);
+		} );
+
+		test( 'rejects when create response is not an object', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( 'not an object' );
+
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
 				'Venue creation request did not return a valid venue object.'
 			);
 		} );
 
-		it( 'should reject when response does not contain an id', async () => {
-			const venueData: VenueData = {
-				id: 10,
-				name: 'Test Venue',
-				address: '',
-				city: '',
-				country: '',
-				countryCode: '',
-				province: '',
-				stateprovince: '',
-				zip: '',
-				phone: '',
-				website: '',
-			};
+		test( 'rejects when update response is not an object', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( 'not an object' );
 
-			// Response missing id field.
-			const mockResponse = {
-				title: { rendered: 'Test Venue' },
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			await expect( upsertVenue( venueData ) ).rejects.toThrow(
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
 				'Venue update request did not return a valid venue object.'
 			);
 		} );
 
-		it( 'should handle creation errors', async () => {
-			const venueData: VenueData = {
-				id: null,
-				name: 'Failed Venue',
-				address: '',
-				city: '',
-				country: '',
-				countryCode: '',
-				province: '',
-				stateprovince: '',
-				zip: '',
-				phone: '',
-				website: '',
-			};
+		test( 'rejects when create response is null', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( null );
 
-			const mockError = new Error( 'Insufficient permissions' );
-			mockApiFetch.mockRejectedValue( mockError );
-
-			await expect( upsertVenue( venueData ) ).rejects.toThrow(
-				'Failed to create venue: Insufficient permissions'
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
+				'Venue creation request did not return a valid venue object.'
 			);
 		} );
 
-		it( 'should handle update errors', async () => {
-			const venueData: VenueData = {
-				id: 99,
-				name: 'Failed Update',
-				address: '',
-				city: '',
-				country: '',
+		test( 'rejects when update response is null', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( null );
+
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
+				'Venue update request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when create response is undefined', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( undefined );
+
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
+				'Venue creation request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when update response is undefined', async () => {
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( undefined );
+
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
+				'Venue update request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when create response has no id', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: undefined,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
+				'Venue creation request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when update response has no id', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: undefined,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
+				'Venue update request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when create response id is null', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: null,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
+				'Venue creation request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when update response id is null', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: null,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
+				'Venue update request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when create response id is 0', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: 0,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertVenue( mockVenueDataForCreate ) ).rejects.toThrow(
+				'Venue creation request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'rejects when update response id is 0', async () => {
+			const invalidResponse = {
+				...mockApiResponse,
+				id: 0,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( invalidResponse );
+
+			await expect( upsertVenue( mockVenueDataForUpdate ) ).rejects.toThrow(
+				'Venue update request did not return a valid venue object.'
+			);
+		} );
+
+		test( 'accepts negative id in create response', async () => {
+			const responseWithNegativeId = {
+				...mockApiResponse,
+				id: -1,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( responseWithNegativeId );
+
+			const result = await upsertVenue( mockVenueDataForCreate );
+
+			expect( result ).toBe( -1 );
+		} );
+
+		test( 'accepts negative id in update response', async () => {
+			const responseWithNegativeId = {
+				...mockApiResponse,
+				id: -1,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( responseWithNegativeId );
+
+			const result = await upsertVenue( mockVenueDataForUpdate );
+
+			expect( result ).toBe( -1 );
+		} );
+
+		test( 'handles venue with id 0 as create operation', async () => {
+			const venueDataWithZeroId = {
+				...mockVenueDataForCreate,
+				id: 0,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithZeroId );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: expect.objectContaining( {
+					title: 'New Venue',
+					status: 'publish',
+				} ),
+			} );
+		} );
+
+		test( 'handles venue with negative id as create operation', async () => {
+			const venueDataWithNegativeId = {
+				...mockVenueDataForCreate,
+				id: -1,
+			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
+
+			await upsertVenue( venueDataWithNegativeId );
+
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: expect.objectContaining( {
+					title: 'New Venue',
+					status: 'publish',
+				} ),
+			} );
+		} );
+
+		test( 'handles venue with empty countryCode as non-US', async () => {
+			const venueDataWithEmptyCountryCode = {
+				...mockVenueDataForCreate,
 				countryCode: '',
-				province: '',
-				stateprovince: '',
-				zip: '',
-				phone: '',
-				website: '',
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockError = new Error( 'Venue not found' );
-			mockApiFetch.mockRejectedValue( mockError );
+			await upsertVenue( venueDataWithEmptyCountryCode );
 
-			await expect( upsertVenue( venueData ) ).rejects.toThrow( 'Failed to update venue: Venue not found' );
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
+				method: 'POST',
+				data: expect.objectContaining( {
+					province: 'IL',
+					state_province: 'IL',
+				} ),
+			} );
 		} );
 
-		it( 'should handle US venue with all optional fields provided', async () => {
-			const fullVenueData: VenueData = {
-				id: null,
-				name: 'Full Featured Venue',
-				address: '400 Fifth Avenue',
-				city: 'San Francisco',
-				country: 'United States',
-				countryCode: 'US',
-				province: '',
-				stateprovince: 'CA',
-				zip: '94102',
-				phone: '+1-415-555-1234',
-				website: 'https://www.fullfeaturedvenue.com',
+		test( 'handles venue with non-US countryCode', async () => {
+			const venueDataWithNonUSCountryCode = {
+				...mockVenueDataForCreate,
+				countryCode: 'CA',
 			};
+			// @ts-ignore
+			( apiFetch as jest.Mock ).mockResolvedValueOnce( mockApiResponse );
 
-			const mockResponse = {
-				id: 100,
-				title: { rendered: 'Full Featured Venue' },
-				address: '400 Fifth Avenue',
-				city: 'San Francisco',
-				country: 'United States',
-				state_province: 'CA',
-				state: 'CA',
-				province: '',
-				zip: '94102',
-				phone: '+1-415-555-1234',
-				website: 'https://www.fullfeaturedvenue.com',
-				status: 'publish',
-			};
+			await upsertVenue( venueDataWithNonUSCountryCode );
 
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( fullVenueData );
-
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues',
+			expect( apiFetch ).toHaveBeenCalledWith( {
+				path: expect.stringContaining( '/venues' ),
 				method: 'POST',
-				data: {
-					title: 'Full Featured Venue',
-					status: 'publish',
-					address: '400 Fifth Avenue',
-					city: 'San Francisco',
-					country: 'United States',
-					state_province: 'CA',
-					state: 'CA',
-					zip: '94102',
-					phone: '+1-415-555-1234',
-					website: 'https://www.fullfeaturedvenue.com',
-				},
+				data: expect.objectContaining( {
+					province: 'IL',
+					state_province: 'IL',
+				} ),
 			} );
-
-			expect( result ).toBe( 100 );
-		} );
-
-		it( 'should handle international venue with all fields', async () => {
-			const internationalVenueData: VenueData = {
-				id: null,
-				name: 'London Exhibition Centre',
-				address: '1 Exhibition Road',
-				city: 'London',
-				country: 'United Kingdom',
-				countryCode: 'GB',
-				province: 'Greater London',
-				stateprovince: 'Greater London',
-				zip: 'SW7 2HE',
-				phone: '+44-20-7942-2000',
-				website: 'https://www.londonexhibition.co.uk',
-			};
-
-			const mockResponse = {
-				id: 101,
-				title: { rendered: 'London Exhibition Centre' },
-				status: 'publish',
-			};
-
-			mockApiFetch.mockResolvedValue( mockResponse );
-
-			const result = await upsertVenue( internationalVenueData );
-
-			// Verify that for non-US venues, province is set.
-			expect( mockApiFetch ).toHaveBeenCalledWith( {
-				path: '/tec/v1/venues',
-				method: 'POST',
-				data: {
-					title: 'London Exhibition Centre',
-					status: 'publish',
-					address: '1 Exhibition Road',
-					city: 'London',
-					country: 'United Kingdom',
-					state_province: 'Greater London',
-					province: 'Greater London',
-					zip: 'SW7 2HE',
-					phone: '+44-20-7942-2000',
-					website: 'https://www.londonexhibition.co.uk',
-				},
-			} );
-
-			expect( result ).toBe( 101 );
 		} );
 	} );
 } );

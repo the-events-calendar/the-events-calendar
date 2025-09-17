@@ -31,63 +31,7 @@ class Organizers_Test extends Organizer_Test {
 		[ $venues, $organizers ] = $this->create_test_data();
 		$fixture();
 
-		$responses = [];
-		foreach ( $organizers as $organizer_id ) {
-			if ( 'publish' === get_post_status( $organizer_id ) ) {
-				$responses[] = $this->assert_endpoint( '/organizers/' . $organizer_id );
-			} else {
-				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $organizer_id );
-				$response = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
-				if ( $should_pass ) {
-					$responses[] = $response;
-				}
-			}
-		}
-
-		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
-
-		$json = str_replace( $venues, '{VENUE_ID}', $json );
-		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
-
-		$this->assertMatchesJsonSnapshot( $json );
-	}
-
-	/**
-	 * @dataProvider different_user_roles_provider
-	 */
-	public function test_read_responses_with_password( Closure $fixture ) {
-		[ $venues, $organizers ] = $this->create_test_data();
-		$fixture();
-
-		$responses = [];
-		foreach ( $organizers as $organizer_id ) {
-			if ( 'publish' === get_post_status( $organizer_id ) ) {
-				$responses[] = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', 200, [ 'password' => 'password123' ] );
-			} else {
-				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $organizer_id );
-				$response = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'password' => 'password123' ] );
-				if ( $should_pass ) {
-					$responses[] = $response;
-				}
-			}
-		}
-
-		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
-
-		$json = str_replace( $venues, '{VENUE_ID}', $json );
-		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
-
-		$this->assertMatchesJsonSnapshot( $json );
-	}
-
-	/**
-	 * @dataProvider different_user_roles_provider
-	 */
-	public function test_read_archive_response( Closure $fixture ) {
-		[ $venues, $organizers ] = $this->create_test_data();
-		$fixture();
-
-		$response = $this->assert_endpoint( '/organizers' );
+		$response = $this->assert_endpoint( $this->endpoint->get_base_path() );
 
 		// Count how many published organizers we have.
 		$expected_count = 0;

@@ -47,6 +47,11 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
 		add_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 
+		// Ensure the Event, Venue, and Organizer post types are registered with REST support.
+		add_filter( 'tribe_events_register_event_type_args', [ $this, 'add_rest_support' ] );
+		add_filter( 'tribe_events_register_venue_type_args', [ $this, 'add_rest_support' ] );
+		add_filter( 'tribe_events_register_organizer_type_args', [ $this, 'add_rest_support' ] );
+
 		// Register the main assets entry point.
 		if ( did_action( 'tec_common_assets_loaded' ) ) {
 			$this->register_assets();
@@ -67,6 +72,9 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
 		remove_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
+		remove_filter( 'tribe_events_register_event_type_args', [ $this, 'add_rest_support' ] );
+		remove_filter( 'tribe_events_register_venue_type_args', [ $this, 'add_rest_support' ] );
+		remove_filter( 'tribe_events_register_organizer_type_args', [ $this, 'add_rest_support' ] );
 	}
 
 	/**
@@ -85,6 +93,20 @@ class Controller extends Controller_Contract {
 				$this->get_supported_post_types()
 			)
 		);
+	}
+
+	/**
+	 * Adds REST support to the post types used by the Classy Editor.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args Arguments used to setup the Post Type.
+	 *
+	 * @return array The modified arguments.
+	 */
+	public function add_rest_support( array $args ): array {
+		$args['show_in_rest'] = true;
+		return $args;
 	}
 
 	/**
