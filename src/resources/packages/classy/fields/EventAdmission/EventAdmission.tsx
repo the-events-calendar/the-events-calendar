@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Button, ButtonGroup, Slot } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
 import { EventCost } from '../EventCost';
 import { StoreDispatch, StoreSelect } from '../../types/Store';
 import { STORE_NAME } from '../../constants';
