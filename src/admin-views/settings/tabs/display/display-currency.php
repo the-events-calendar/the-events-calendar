@@ -48,7 +48,7 @@ $tec_events_display_currency = $tec_events_display_currency + [
 ];
 
 // Add the Tickets Plus upsell if the user doesn't have it.
-if ( ! tec_should_hide_upsell() && ! defined( 'EVENT_TICKETS_PLUS_FILE' ) ) {
+if ( ! tec_should_hide_upsell() && ! did_action( 'tec_tickets_fully_loaded' ) ) {
 	$tec_events_display_currency = $tec_events_display_currency + [
 		'tec-tickets-infobox-start'   => [
 			'type' => 'html',
