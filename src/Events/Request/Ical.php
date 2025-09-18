@@ -38,17 +38,6 @@ class Ical extends Abstract_Query_Var {
 	protected bool $should_filter = true;
 
 	/**
-	 * Whether the query var is active.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the query var is active.
-	 */
-	public function is_active(): bool {
-		return true;
-	}
-
-	/**
 	 * Filters if the superglobal is allowed to be filtered for this var.
 	 *
 	 * @since TBD
