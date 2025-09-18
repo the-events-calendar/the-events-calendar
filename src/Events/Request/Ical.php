@@ -42,12 +42,12 @@ class Ical extends Abstract_Query_Var {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $key The query var name.
+	 * @param bool   $allowed     Whether the superglobal is allowed to be filtered for this var.
 	 * @param string $superglobal The superglobal key (GET, POST, REQUEST).
 	 *
 	 * @return string|bool Whether the value is allowed. Returning a string "key" will limit the superglobal modification to that key.
 	 */
-	public function filter_superglobal_allowed( string $key, string $superglobal ) {
+	public function filter_superglobal_allowed( bool $allowed, string $superglobal ) {
 		return true;
 	}
 
