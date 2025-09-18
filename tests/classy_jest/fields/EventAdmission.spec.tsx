@@ -2,10 +2,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import * as React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import mockWpDataModule from '../_support/mockWpDataModule';
 
 import TestProvider from '../_support/TestProvider';
@@ -15,10 +14,9 @@ const { mockSelect, mockUseSelect, mockUseDispatch } = mockWpDataModule();
 import EventAdmission from '../../../src/resources/packages/classy/fields/EventAdmission/EventAdmission';
 import {
 	METADATA_EVENT_COST,
-	METADATA_EVENT_CURRENCY,
 	METADATA_EVENT_CURRENCY_POSITION,
 	METADATA_EVENT_CURRENCY_SYMBOL,
-} from '../../../src/resources/packages/classy/constants';
+} from '@tec/events/classy/constants';
 
 const currencyOptions = [
 	// US Dollar

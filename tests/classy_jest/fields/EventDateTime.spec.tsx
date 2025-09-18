@@ -2,10 +2,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import * as React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { afterEach, beforeEach, describe, expect, it, jest, beforeAll, afterAll } from '@jest/globals';
+import { describe, expect, it, jest, beforeAll, afterAll } from '@jest/globals';
 import mockWpDataModule from '../_support/mockWpDataModule';
 
 import TestProvider from '../_support/TestProvider';
@@ -17,8 +16,7 @@ import {
 	METADATA_EVENT_ALLDAY,
 	METADATA_EVENT_END_DATE,
 	METADATA_EVENT_START_DATE,
-	METADATA_EVENT_TIMEZONE,
-} from '../../../src/resources/packages/classy/constants';
+} from '@tec/events/classy/constants';
 
 describe( 'EventDateTime', () => {
 	let mockEditPost;
