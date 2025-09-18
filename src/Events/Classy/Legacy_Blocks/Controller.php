@@ -34,6 +34,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
+		$this->container->singleton( 'editor', 'Tribe__Editor' );
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite' );
 		tribe( 'events.editor.template.overwrite' )->hook();
