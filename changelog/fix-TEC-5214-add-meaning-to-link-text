@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Add aria-label for day links in week view. [TEC-5214]
