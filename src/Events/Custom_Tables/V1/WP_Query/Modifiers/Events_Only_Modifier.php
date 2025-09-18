@@ -107,14 +107,18 @@ class Events_Only_Modifier extends Base_Modifier {
 
 		$posts = $query->get_posts();
 
-		$posts = array_filter( $posts , static function( $post ) {
-			$id = $post instanceof WP_Post ? $post->ID : $post;
-			return $id > 0;
-		} );
-
-		$ids = array_map( static function( $post ) {
-			return (int) ( $post instanceof WP_Post ? $post->ID : $post );
-		}, $posts );
+		// Replace two iterations with one.
+		$ids = array_reduce(
+			$posts,
+			static function ( $carry, $post ) {
+				$id = (int) ( $post instanceof WP_Post ? $post->ID : $post );
+				if ( $id > 0 ) {
+					$carry[] = $id;
+				}
+				return $carry;
+			},
+			[]
+		);
 
 		// It's really important for us to Prime the Post cache so we don't have a ton of queries executed one by one.
 		_prime_post_caches( array_unique( $ids ) );
@@ -148,8 +152,12 @@ class Events_Only_Modifier extends Base_Modifier {
 	 * {@inheritDoc}
 	 *
 	 * @since 6.0.0
+	 *
+	 * @param WP_Query|null $query A reference to the `WP_Query` instance to check.
+	 *
+	 * @return bool Whether the `WP_Query` instance is the target one or not.
 	 */
-	protected function is_target_query( WP_Query $query = null ) {
+	protected function is_target_query( ?WP_Query $query = null ) {
 		/**
 		 * Filters whether this modifier should modify the query.
 		 *

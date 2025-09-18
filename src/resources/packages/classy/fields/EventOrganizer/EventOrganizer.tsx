@@ -8,7 +8,7 @@ import { Fragment, MouseEventHandler, useRef } from 'react';
 import { IconAdd } from '@tec/common/classy/components';
 import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
 import { FetchedOrganizer } from '../../types/FetchedOrganizer';
 import { METADATA_EVENT_ORGANIZER_ID } from '../../constants';
