@@ -510,9 +510,9 @@ describe( 'EventDetails', () => {
 			fireEvent.change( urlInput, { target: { value } } );
 		} );
 
-		// Ensure it's been called at least 7 times.
-		// The function might be called more times depending on the React render cycle.
-		expect( ( isValidUrl as jest.mock ).mock.calls.length ).toBeGreaterThanOrEqual( 7 );
+		// Should validate each change (may be called more times due to re-renders).
+		const callCount = ( isValidUrl as jest.Mock ).mock.calls.length;
+		expect( callCount ).toBeGreaterThanOrEqual( 7 );
 
 		// Should update meta only for valid URLs.
 		const validCallsCount = mockEditPost.mock.calls.filter(

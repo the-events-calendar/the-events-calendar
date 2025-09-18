@@ -2,98 +2,57 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import * as React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import mockWpDataModule from '../_support/mockWpDataModule';
-
 import TestProvider from '../_support/TestProvider';
+import { METADATA_EVENT_ORGANIZER_ID } from '@tec/events/classy/constants';
 
-const { mockSelect, mockUseSelect, mockUseDispatch } = mockWpDataModule();
+const { mockSelect, mockUseDispatch } = mockWpDataModule();
 
-// Mock the @wordpress/api-fetch module.
-jest.mock( '@wordpress/api-fetch', () => jest.fn() );
-const apiFetch = require( '@wordpress/api-fetch' );
+// Mock the API functions.
+jest.mock( '@tec/events/classy/api/organizers', () => ( {
+	fetchOrganizers: jest.fn(),
+	upsertOrganizer: jest.fn(),
+} ) );
 
-import EventOrganizer from '../../../src/resources/packages/classy/fields/EventOrganizer/EventOrganizer';
-import { METADATA_EVENT_ORGANIZER_ID } from '../../../src/resources/packages/classy/constants';
+// Import the components after mocking the API to ensure the mocks are used.
+import EventOrganizer from '@tec/events/classy/fields/EventOrganizer/EventOrganizer';
+import { fetchOrganizers, upsertOrganizer } from '@tec/events/classy/api/organizers';
 
-// Sample organizer data for testing.
 const mockOrganizers = [
 	{
 		id: 1,
-		url: 'https://example.com/organizer/john-doe',
-		organizer: 'John Doe',
-		phone: '555-0100',
-		email: 'john@example.com',
-		website: 'https://johndoe.com',
+		organizer: 'Sample Organizer 1',
+		phone: '+1-555-0123',
+		email: 'organizer1@example.com',
+		website: 'https://organizer1.com',
+		url: '',
 	},
 	{
 		id: 2,
-		url: 'https://example.com/organizer/jane-smith',
-		organizer: 'Jane Smith',
-		phone: '555-0200',
-		email: 'jane@example.com',
-		website: 'https://janesmith.com',
-	},
-	{
-		id: 3,
-		url: 'https://example.com/organizer/acme-corp',
-		organizer: 'ACME Corporation',
-		phone: '555-0300',
-		email: 'info@acme.com',
-		website: 'https://acme.com',
-	},
-	{
-		id: 4,
-		url: 'https://example.com/organizer/tech-events',
-		organizer: 'Tech Events Inc',
-		phone: '555-0400',
-		email: 'contact@techevents.com',
-		website: 'https://techevents.com',
+		organizer: 'Sample Organizer 2',
+		phone: '+1-555-0124',
+		email: 'organizer2@example.com',
+		website: 'https://organizer2.com',
+		url: '',
 	},
 ];
 
-// Mock API response structure.
-const createMockApiResponse = ( organizers, page = 1, perPage = 10 ) => {
-	const start = ( page - 1 ) * perPage;
-	const end = start + perPage;
-	const paginatedOrganizers = organizers.slice( start, end );
-
-	return {
-		json: async () =>
-			paginatedOrganizers.map( ( org ) => ( {
-				id: org.id,
-				link: org.url,
-				title: { rendered: org.organizer },
-				phone: org.phone,
-				email: org.email,
-				website: org.website,
-				// Include other fields that might be in the API response.
-				date: '2024-01-01T00:00:00',
-				date_gmt: '2024-01-01T00:00:00',
-				guid: { rendered: org.url },
-				modified: '2024-01-01T00:00:00',
-				modified_gmt: '2024-01-01T00:00:00',
-				slug: org.organizer.toLowerCase().replace( /\s+/g, '-' ),
-				status: 'publish',
-				type: 'tribe_organizer',
-				content: { rendered: '', protected: false },
-				template: '',
-			} ) ),
-		headers: {
-			has: ( header ) => header === 'x-wp-total',
-			get: ( header ) => ( header === 'x-wp-total' ? organizers.length.toString() : null ),
-		},
-	};
-};
-
 describe( 'EventOrganizer', () => {
 	let mockEditPost;
+	let mockFetchOrganizers;
+	let mockUpsertOrganizer;
 
-	const setupMocks = ( meta = {}, apiResponses = [] ) => {
+	const setupMocks = ( meta = {} ) => {
 		mockEditPost = jest.fn();
+		mockFetchOrganizers = jest.fn();
+		mockUpsertOrganizer = jest.fn();
+
+		// Mock the API functions.
+		( fetchOrganizers as jest.Mock ).mockImplementation( mockFetchOrganizers );
+		( upsertOrganizer as jest.Mock ).mockImplementation( mockUpsertOrganizer );
 
 		mockSelect.mockImplementation( ( store: string ): any => {
 			if ( store === 'core/editor' ) {
