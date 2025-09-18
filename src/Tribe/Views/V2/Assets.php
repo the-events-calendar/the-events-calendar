@@ -707,11 +707,7 @@ class Assets extends Service_Provider {
 		) {
 			return true;
 		}
-
-		if ( tec_using_classy_editor() ) {
-			return;
-		}
-
+		
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			$should_enqueue = false;
