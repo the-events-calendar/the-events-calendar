@@ -52,5 +52,8 @@ $addons_tab = new Tribe__Settings_Tab(
 	esc_html__( 'Integrations', 'the-events-calendar' ),
 	$addons
 );
+// Create the Imports subtab.
+$imports_tab = require_once __DIR__ . '/settings/tabs/integrations/integrations-import.php';
+$addons_tab->add_child( $imports_tab );
 
 do_action( 'tec_settings_tab_addons', $addons_tab );
