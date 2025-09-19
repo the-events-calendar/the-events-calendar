@@ -52,7 +52,7 @@ $num_events_label = sprintf(
 );
 
 $date_format  = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
-$date_ordinal = date_i18n( $date_format, strtotime( $day['datetime'] ) );
+$date_ordinal = date_i18n( $date_format, strtotime( $day['date'] ) );
 ?>
 
 <div class="tribe-events-calendar-month__day-date tribe-common-h4">
