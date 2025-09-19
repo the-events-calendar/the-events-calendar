@@ -66,9 +66,16 @@ export default function EventCost(): React.JSX.Element {
 
 	// Handle changes to the event cost input.
 	const onCostChange = ( nextValue: string | undefined ): void => {
-		setEventCostValue( nextValue ?? '' );
-		setPreviousCostValue( nextValue ?? '' );
-		editPost( { meta: { [ METADATA_EVENT_COST ]: nextValue } } );
+		const rawValue = nextValue ?? '';
+		// Remove the current currency symbol if present (prefix or postfix).
+		const symbol = currencySymbol ?? '';
+		const escapedSymbol = symbol.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
+		const withoutSymbol = symbol ? rawValue.replace( new RegExp( escapedSymbol, 'g' ), '' ) : rawValue;
+		const cleanedValue = withoutSymbol.trim();
+
+		setEventCostValue( cleanedValue );
+		setPreviousCostValue( cleanedValue );
+		editPost( { meta: { [ METADATA_EVENT_COST ]: cleanedValue } } );
 	};
 
 	// Handle changes to the "is free" toggle.
