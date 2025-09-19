@@ -101,7 +101,11 @@ class Tribe__Events__Meta__Save {
 	 */
 	public function save() {
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
-		if ( tribe( 'editor' )->should_load_blocks() && has_blocks( $this->post_id ) ) {
+		if (
+			tribe()->isBound( 'editor' )
+			&& tribe( 'editor' )->should_load_blocks()
+			&& has_blocks( $this->post_id )
+		) {
 			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
 		}
 
