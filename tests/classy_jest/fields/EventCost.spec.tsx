@@ -268,6 +268,100 @@ describe( 'EventCost', () => {
 		expect( costInput ).toHaveValue( '$35.99' );
 	} );
 
+	it( 'should strip prefix currency symbol from user input', async () => {
+		setupMocks();
+
+		render(
+			<TestProvider>
+				<EventCost />
+			</TestProvider>
+		);
+
+		const costInput = screen.getByRole( 'textbox', { name: /Event cost/i } );
+
+		// User types with the "$" prefix symbol.
+		fireEvent.focus( costInput );
+		fireEvent.change( costInput, { target: { value: '$35.99' } } );
+
+		expect( mockEditPost ).toHaveBeenCalledWith( {
+			meta: { [ METADATA_EVENT_COST ]: '35.99' },
+		} );
+
+        // trigger focus again.
+        fireEvent.blur( costInput );
+        fireEvent.focus( costInput );
+		// While focused, input shows raw value.
+		expect( costInput ).toHaveValue( '35.99' );
+
+		// On blur, value is formatted with the symbol.
+		fireEvent.blur( costInput );
+		expect( costInput ).toHaveValue( '$35.99' );
+	} );
+
+	it( 'should strip postfix currency symbol from user input', async () => {
+		setupMocks( {
+			[ METADATA_EVENT_CURRENCY_SYMBOL ]: '€',
+			[ METADATA_EVENT_CURRENCY_POSITION ]: 'postfix',
+		} );
+
+		render(
+			<TestProvider>
+				<EventCost />
+			</TestProvider>
+		);
+
+		const costInput = screen.getByRole( 'textbox', { name: /Event cost/i } );
+
+		// User types with the "€" postfix symbol.
+		fireEvent.focus( costInput );
+		fireEvent.change( costInput, { target: { value: '35.99€' } } );
+
+		expect( mockEditPost ).toHaveBeenCalledWith( {
+			meta: { [ METADATA_EVENT_COST ]: '35.99' },
+		} );
+
+        // trigger focus again.
+        fireEvent.blur( costInput );
+        fireEvent.focus( costInput );
+
+		// While focused, input shows cleaned value without symbol.
+		expect( costInput ).toHaveValue( '35.99' );
+
+		// On blur, value is formatted with the symbol postfix.
+		fireEvent.blur( costInput );
+		expect( costInput ).toHaveValue( '35.99€' );
+	} );
+
+	it( 'should strip currency symbols in typed ranges', async () => {
+		setupMocks();
+
+		render(
+			<TestProvider>
+				<EventCost />
+			</TestProvider>
+		);
+
+		const costInput = screen.getByRole( 'textbox', { name: /Event cost/i } );
+
+		// User types a range with symbols on both numbers.
+		fireEvent.focus( costInput );
+		fireEvent.change( costInput, { target: { value: '$10 - $20' } } );
+
+		expect( mockEditPost ).toHaveBeenCalledWith( {
+			meta: { [ METADATA_EVENT_COST ]: '10 - 20' },
+		} );
+
+        // trigger focus again.
+        fireEvent.blur( costInput );
+        fireEvent.focus( costInput );
+		// While focused, cleaned range is shown without symbols.
+		expect( costInput ).toHaveValue( '10 - 20' );
+
+		// On blur, formatted range restores symbols.
+		fireEvent.blur( costInput );
+		expect( costInput ).toHaveValue( '$10.00 - $20.00' );
+	} );
+
 	it( 'should format price ranges correctly', () => {
 		setupMocks( {
 			[ METADATA_EVENT_COST ]: '10-20',
