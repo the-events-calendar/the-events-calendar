@@ -1,6 +1,6 @@
 <?php
 /**
- * Create a easy way to hook to the Add-ons Tab Fields
+ * Create an easy way to hook to the Add-ons Tab Fields
  * @var array
  */
 $internal = [];
@@ -42,11 +42,13 @@ $addons = apply_filters(
 	]
 );
 
-// Only create the Add-ons Tab if there is any
+// Only create the Add-ons Tab if there is any.
+// Note, Google Maps API will always be there.
 if ( empty( $internal ) ) {
 	return;
 }
 
+// Create the Integrations tab.
 $addons_tab = new Tribe__Settings_Tab(
 	'addons',
 	esc_html__( 'Integrations', 'the-events-calendar' ),
