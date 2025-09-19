@@ -1,11 +1,17 @@
 <?php
+/**
+ *  Import settings tab.
+ *  Subtab of the Integrations Tab.
+ *
+ * @since TBD
+ *
+ * @version TBD
+ */
 
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Heading;
 use TEC\Common\Admin\Entities\Paragraph;
 use TEC\Common\Admin\Entities\Plain_Text;
-use Tribe\Events\Views\V2\Manager;
-
 use Tribe\Utils\Element_Classes as Classes;
 
 $internal = [];
