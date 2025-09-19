@@ -1,12 +1,23 @@
 <?php
 /**
- * Create an easy way to hook to the Add-ons Tab Fields
- * @var array
+ * Handles the Integration (a.k.a. Add-ons) settings for The Events Calendar.
+ *
+ * @since 4.0.0
+ * @since TBD Restructured to split settings into tabs.
+ *
+ * @version TBD
  */
 $internal = [];
 
 $current_url = tribe( 'tec.main' )->settings()->get_url( [ 'tab' => 'addons' ] );
 
+/**
+ * Filters the integration settings fields for The Events Calendar.
+ *
+ * @since 4.0.0
+ *
+ * @param array $internal Array of integration settings fields.
+ */
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
 
 $info_box = [
@@ -29,10 +40,10 @@ $fields = array_merge(
 );
 
 /**
- * Allow developer to fully filter the Addons Tab contents
- * Following the structure of the arguments for a Tribe__Settings_Tab instance
+ * Allows filtering the Integrations tab contents.
+ * Following the structure of the arguments for a Tribe__Settings_Tab instance.
  *
- * @var array
+ * @param array
  */
 $addons = apply_filters(
 	'tribe_addons_tab',
@@ -42,7 +53,7 @@ $addons = apply_filters(
 	]
 );
 
-// Only create the Add-ons Tab if there is any.
+// Only create the Integrations tab if there are any fields.
 // Note, Google Maps API will always be there.
 if ( empty( $internal ) ) {
 	return;
@@ -57,7 +68,7 @@ $addons_tab = new Tribe__Settings_Tab(
 
 // Create the Google Maps subtab, which is the starting tab.
 $gmaps_tab = new Tribe__Settings_Tab(
-	'gmaps',
+	'google-maps',
 	esc_html__( 'Google Maps', 'the-events-calendar' ),
 	[
 		'priority' => 10,
@@ -70,4 +81,15 @@ $addons_tab->add_child( $gmaps_tab );
 $imports_tab = require_once __DIR__ . '/settings/tabs/integrations/integrations-import.php';
 $addons_tab->add_child( $imports_tab );
 
+
+/**
+ * Fires after the Integrations settings tab has been created.
+ *
+ * Similar to the 'tec_events_settings_tab_display' action, this hook allows you to modify
+ * or extend the Integrations settings tab after it has been created.
+ *
+ * @since 6.7.0
+ *
+ * @param Tribe__Settings_Tab $addons_tab The addons settings tab object.
+ */
 do_action( 'tec_settings_tab_addons', $addons_tab );
