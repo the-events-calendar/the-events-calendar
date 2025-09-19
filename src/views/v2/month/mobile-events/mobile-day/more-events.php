@@ -25,7 +25,7 @@ if ( empty( $more_events ) || empty( $more_url ) ) {
 }
 
 // Get the formatted date for screen reader text.
-$date_format = tribe_get_date_option( 'dateWithYearFormat', get_option( 'date_format' ) );
+$date_format    = tribe_get_date_option( 'dateWithYearFormat', get_option( 'date_format' ) );
 $formatted_date = date_i18n( $date_format, strtotime( $day_date ) );
 ?>
 
@@ -34,7 +34,10 @@ $formatted_date = date_i18n( $date_format, strtotime( $day_date ) );
 		href="<?php echo esc_url( $more_url ); ?>"
 		class="tribe-events-calendar-month-mobile-events__more-events-link tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
 		data-js="tribe-events-view-link"
-		aria-label="<?php echo esc_attr( sprintf( _n( '+ %d More for %s', '+ %d More for %s', $more_events, 'the-events-calendar' ), $more_events, $formatted_date ) ); ?>"
+		aria-label="<?php
+		/* translators: %1$d: number of events, %2$s: formatted date. */
+		echo esc_attr( sprintf( _n( '+ %1$d More for %2$s', '+ %1$d More for %2$s', $more_events, 'the-events-calendar' ), $more_events, $formatted_date ) );
+		?>"
 	>
 		<?php
 		echo esc_html(
