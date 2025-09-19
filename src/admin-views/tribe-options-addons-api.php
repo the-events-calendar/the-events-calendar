@@ -52,6 +52,17 @@ $addons_tab = new Tribe__Settings_Tab(
 	esc_html__( 'Integrations', 'the-events-calendar' ),
 	$addons
 );
+// Create the Google Maps subtab, which is the starting tab.
+$gmaps_tab = new Tribe__Settings_Tab(
+	'gmaps',
+	esc_html__( 'Google Maps', 'the-events-calendar' ),
+	[
+		'priority' => 10,
+		'fields'   => $fields,
+	],
+);
+$addons_tab->add_child( $gmaps_tab );
+
 // Create the Imports subtab.
 $imports_tab = require_once __DIR__ . '/settings/tabs/integrations/integrations-import.php';
 $addons_tab->add_child( $imports_tab );
