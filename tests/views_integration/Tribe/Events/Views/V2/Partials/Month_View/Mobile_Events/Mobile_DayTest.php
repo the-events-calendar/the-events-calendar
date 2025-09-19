@@ -115,6 +115,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'     => '2018',
 				'month_number'    => '06',
 				'day_number'      => '20',
+				'date'            => '2018-06-20',
 				'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 				'events'          => [],
 				'multiday_events' => [ $event ],
@@ -142,6 +143,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'     => '2018',
 				'month_number'    => '06',
 				'day_number'      => '20',
+				'date'            => '2018-06-20',
 				'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 				'events'          => [],
 				'multiday_events' => [
@@ -170,6 +172,7 @@ class Mobile_DayTest extends HtmlPartialTestCase
 				'year_number'     => '2018',
 				'month_number'    => '06',
 				'day_number'      => '20',
+				'date'            => '2018-06-20',
 				'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 				'events'          => [ $event_1 ],
 				'multiday_events' => [ $event_2 ],
