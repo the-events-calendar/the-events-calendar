@@ -77,6 +77,7 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 					'year_number'     => '2018',
 					'month_number'    => '06',
 					'day_number'      => '20',
+					'date'            => '2018-06-20',
 					'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 					'events'          => [],
 					'multiday_events' => [
