@@ -38,7 +38,7 @@ $addons = apply_filters(
 	'tribe_addons_tab',
 	[
 		'priority' => 50,
-		'fields'   => $fields,
+		'fields'   => [],
 	]
 );
 
@@ -52,6 +52,7 @@ $addons_tab = new Tribe__Settings_Tab(
 	esc_html__( 'Integrations', 'the-events-calendar' ),
 	$addons
 );
+
 // Create the Google Maps subtab, which is the starting tab.
 $gmaps_tab = new Tribe__Settings_Tab(
 	'gmaps',
