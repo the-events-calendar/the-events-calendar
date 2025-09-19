@@ -36,10 +36,12 @@ $formatted_date = date_i18n( $date_format, strtotime( $day_date ) );
 		href="<?php echo esc_url( $more_url ); ?>"
 		class="tribe-events-calendar-month__more-events-link tribe-common-h8 tribe-common-h--alt tribe-common-anchor-thin"
 		data-js="tribe-events-view-link"
-		aria-label="<?php
-		/* translators: %1$d: number of events, %2$s: formatted date. */
-		echo esc_attr( sprintf( _n( '+ %1$d More for %2$s', '+ %1$d More for %2$s', $more_events, 'the-events-calendar' ), $more_events, $formatted_date ) );
-		?>"
+		aria-label="
+			<?php
+			/* translators: %1$d: number of events, %2$s: formatted date. */
+			echo esc_attr( sprintf( _n( '+ %1$d More for %2$s', '+ %1$d More for %2$s', $more_events, 'the-events-calendar' ), $more_events, $formatted_date ) );
+			?>
+		"
 	>
 		<?php
 		 echo esc_html(
