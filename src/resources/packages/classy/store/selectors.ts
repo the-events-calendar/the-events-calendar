@@ -124,7 +124,7 @@ export function areTicketsSupported( state: StoreState ): boolean {
  * @return {boolean} Whether the event is using tickets.
  */
 export function isUsingTickets( state: StoreState ): boolean {
-	return state.areTicketsSupported && state.isUsingTickets;
+	return ( state?.areTicketsSupported || false ) && ( state?.isUsingTickets || false );
 }
 
 /**
