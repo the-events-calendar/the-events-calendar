@@ -90,6 +90,6 @@ $addons_tab->add_child( $imports_tab );
  *
  * @since 6.7.0
  *
- * @param Tribe__Settings_Tab $addons_tab The addons settings tab object.
+ * @param Tribe__Settings_Tab $addons_tab The Integrations settings tab object.
  */
 do_action( 'tec_settings_tab_addons', $addons_tab );
