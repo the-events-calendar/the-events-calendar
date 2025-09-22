@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import * as React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { beforeEach, afterEach, describe, expect, it, jest } from '@jest/globals';
 import { Fill, Slot, SlotFillProvider } from '@wordpress/components';

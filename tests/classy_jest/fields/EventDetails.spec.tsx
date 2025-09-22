@@ -2,10 +2,9 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="jest" />
 import * as React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import mockWpDataModule from '../_support/mockWpDataModule';
 
 import TestProvider from '../_support/TestProvider';
@@ -44,7 +43,7 @@ jest.mock( '@tec/common/classy/functions', () => ( {
 } ) );
 
 import EventDetails from '../../../src/resources/packages/classy/fields/EventDetails/EventDetails';
-import { METADATA_EVENT_URL } from '../../../src/resources/packages/classy/constants';
+import { METADATA_EVENT_URL } from '@tec/events/classy/constants';
 import { isValidUrl } from '@tec/common/classy/functions';
 
 describe( 'EventDetails', () => {

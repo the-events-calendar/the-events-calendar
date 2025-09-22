@@ -172,7 +172,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function register_assets() {
 		$post_uses_classy = fn() => $this->container->get( Common_Controller::class )
-													->post_uses_classy( get_post_type() );
+													->is_post_type_supported( get_post_type() );
 
 		Asset::add(
 			'tec-classy-events',
