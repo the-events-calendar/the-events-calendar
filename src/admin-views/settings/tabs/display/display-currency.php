@@ -4,6 +4,7 @@
  * Subtab of the Display Tab.
  *
  * @since 6.7.0
+ * @since TBD Hide Event Tickets upsell when Event Tickets is disabled.
  */
 
 $tec_events_display_currency = [];
