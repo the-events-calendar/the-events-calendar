@@ -8,6 +8,7 @@ declare( strict_types=1 );
 namespace TEC\Events\Classy\Legacy_Blocks;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe__Editor;
 use Tribe__Events__Editor__Blocks__Classic_Event_Details;
 use Tribe__Events__Editor__Blocks__Event_Category;
 use Tribe__Events__Editor__Blocks__Event_Datetime;
@@ -18,6 +19,8 @@ use Tribe__Events__Editor__Blocks__Event_Tags;
 use Tribe__Events__Editor__Blocks__Event_Venue;
 use Tribe__Events__Editor__Blocks__Event_Website;
 use Tribe__Events__Editor__Blocks__Featured_Image;
+use Tribe__Events__Editor__Template;
+use Tribe__Events__Editor__Template__Overwrite;
 
 /**
  * Handle Legacy blocks and block templates with classy.
@@ -71,31 +74,69 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function unregister(): void {
-		$this->container->get( 'events.editor.template' )->unregister();
-		$this->container->get( 'events.editor.template.overwrite' )->unregister();
+
+		if ( $this->container->has( 'editor' ) && $this->container->get( 'editor' ) instanceof Tribe__Editor ) {
+			unset( $this->container['editor'] );
+		}
+
+		if ( $this->container->has( 'events.editor.template' ) && $this->container->get( 'events.editor.template' ) instanceof Tribe__Events__Editor__Template ) {
+			unset( $this->container['events.editor.template'] );
+		}
+
+		if ( $this->container->has( 'events.editor.template.overwrite' ) && $this->container->get( 'events.editor.template.overwrite' ) instanceof Tribe__Events__Editor__Template__Overwrite ) {
+			unset( $this->container['events.editor.template.overwrite'] );
+		}
 
 		// Unregister the blocks.
-		$this->container->get( 'events.editor.blocks.classic-event-details' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-datetime' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-venue' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-organizer' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-links' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-price' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-category' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-tags' )->unregister();
-		$this->container->get( 'events.editor.blocks.event-website' )->unregister();
-		$this->container->get( 'events.editor.blocks.featured-image' )->unregister();
+		if ( $this->container->has( 'events.editor.blocks.classic-event-details' ) && $this->container->get( 'events.editor.blocks.classic-event-details' ) instanceof Tribe__Events__Editor__Blocks__Classic_Event_Details ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.classic-event-details' ),  'register' ] );
+			unset( $this->container['events.editor.blocks.classic-event-details'] );
+		}
 
-		// Remove the actions.
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.classic-event-details' ),  'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-datetime' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-venue' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-organizer' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-links' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-price' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-category' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-tags' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-website' ), 'register' ] );
-		remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.featured-image' ), 'register' ] );
+		if ( $this->container->has( 'events.editor.blocks.event-datetime' ) && $this->container->get( 'events.editor.blocks.event-datetime' ) instanceof Tribe__Events__Editor__Blocks__Event_Datetime ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-datetime' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-datetime'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-venue' ) && $this->container->get( 'events.editor.blocks.event-venue' ) instanceof Tribe__Events__Editor__Blocks__Event_Venue ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-venue' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-venue'] );
+
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-organizer' ) && $this->container->get( 'events.editor.blocks.event-organizer' ) instanceof Tribe__Events__Editor__Blocks__Event_Organizer ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-organizer' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-organizer'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-links' ) && $this->container->get( 'events.editor.blocks.event-links' ) instanceof Tribe__Events__Editor__Blocks__Event_Links ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-links' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-links'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-price' ) && $this->container->get( 'events.editor.blocks.event-price' ) instanceof Tribe__Events__Editor__Blocks__Event_Price ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-price' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-price'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-category' ) && $this->container->get( 'events.editor.blocks.event-category' ) instanceof Tribe__Events__Editor__Blocks__Event_Category ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-category' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-category'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-tags' ) && $this->container->get( 'events.editor.blocks.event-tags' ) instanceof Tribe__Events__Editor__Blocks__Event_Tags ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-tags' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-tags'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.event-website' ) && $this->container->get( 'events.editor.blocks.event-website' ) instanceof Tribe__Events__Editor__Blocks__Event_Website ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-website' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.event-website'] );
+		}
+
+		if ( $this->container->has( 'events.editor.blocks.featured-image' ) && $this->container->get( 'events.editor.blocks.featured-image' ) instanceof Tribe__Events__Editor__Blocks__Featured_Image ) {
+			remove_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.featured-image' ), 'register' ] );
+			unset( $this->container['events.editor.blocks.featured-image'] );
+		}
 	}
 }
