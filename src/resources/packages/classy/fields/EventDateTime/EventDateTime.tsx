@@ -5,7 +5,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { Hours } from '@tec/common/classy/types/Hours';
 import { Minutes } from '@tec/common/classy/types/Minutes';
 import { DateTimeUpdateType, DateUpdateType, FieldProps } from '@tec/common/classy/types/FieldProps';
-import { ToggleControl } from '@wordpress/components';
+import { Slot, ToggleControl } from '@wordpress/components';
 import { _x } from '@wordpress/i18n';
 import {
 	METADATA_EVENT_ALLDAY,
@@ -463,6 +463,9 @@ export default function EventDateTime( props: FieldProps ): React.JSX.Element {
 			</div>
 
 			<div className="classy-field__inputs">
+				{ /* Render additional fields before the default ones. */ }
+				<Slot name="tec.classy.fields.event-date-time.before" />
+
 				<div className="classy-field__group">
 					{ startSelector }
 					{ endSelector }
@@ -489,6 +492,9 @@ export default function EventDateTime( props: FieldProps ): React.JSX.Element {
 						<TimeZone timezone={ timezoneString } onTimezoneChange={ onTimezoneChange } />
 					</div>
 				</div>
+
+				{ /* Render additional fields after the default ones. */ }
+				<Slot name="tec.classy.fields.event-date-time.after" />
 			</div>
 		</div>
 	);
