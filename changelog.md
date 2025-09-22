@@ -2,7 +2,7 @@
 
 ### [6.15.5] 2025-09-23
 
-* Tweak - Added search capabilities to the countries dropdown in onboarding. [TEC-5581]
+* Tweak - Adds search capabilities to the countries dropdown in onboarding. [TEC-5581]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 ### [6.15.4] 2025-09-16
