@@ -28,8 +28,7 @@ trait Supported_Post_Types {
 	 *
 	 * @return array<string> The list of supported post types.
 	 *
-	 * @see   Controller::get_supported_post_types() for the method that is using this trait.
-	 *
+	 * @see Controller::get_supported_post_types() for the method that is using this trait.
 	 */
 	public function get_supported_post_types(): array {
 		return [
