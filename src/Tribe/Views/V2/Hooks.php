@@ -316,6 +316,7 @@ class Hooks extends Service_Provider {
 	 * Redirects to the default view if the current view is not enabled.
 	 *
 	 * @since 6.14.0
+	 * @since TBD Add `tribe_events_views_v2_should_redirect` to disable redirect in certain scenarios.
 	 *
 	 * @return void
 	 */

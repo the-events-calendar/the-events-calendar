@@ -49,6 +49,7 @@ class Tribe__Events__iCal {
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
 	 *
 	 * @since 3.6.0
+	 * @since TBD Add `prevent_redirect_on_ical`.
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );

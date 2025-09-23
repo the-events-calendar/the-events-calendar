@@ -7,6 +7,7 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context as Context;
+use Tribe__Events__iCal;
 
 class HooksTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
@@ -258,5 +259,137 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 
 		// Clean up
 		tribe_update_option( 'tribeEnableViews', [] );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider provide_disabled_views_redirect_scenarios
+	 */
+	public function it_handles_disabled_views_redirects_correctly( array $options, array $query_vars, bool $should_redirect ) {
+		// Set up views option.
+		tribe_update_option( 'tribeEnableViews', $options['enabled_views'] );
+		$ical = tribe( Tribe__Events__iCal::class );
+		$ical->hook();
+
+		global $wp_the_query, $wp_query;
+		$wp_the_query                   = new \WP_Query();
+		$wp_query                       = $wp_the_query;
+		$wp_query->query_vars           = [
+			'eventDisplay' => $query_vars['eventDisplay'] ?? null,
+			'post_type'    => $query_vars['post_type'] ?? null,
+		];
+		$wp_query->tribe_is_event_query = true;
+		$wp_query->is_main_query        = true;
+
+		// Apply to $_GET so prevent_redirect_on_ical sees them.
+		foreach ( $query_vars as $key => $value ) {
+			if ( ! in_array( $key, [ 'eventDisplay', 'post_type' ], true ) ) {
+				$_GET[ $key ] = $value;
+			}
+		}
+
+		tribe_context()->alter(
+			[
+				'event_display'   => $query_vars['eventDisplay'] ?? null,
+				'event_post_type' => true,
+			]
+		)->dangerously_set_global_context();
+
+		// Mock redirect + exit.
+		$store = [];
+		$this->set_fn_return(
+			'wp_safe_redirect',
+			function ( $url ) use ( &$store ) {
+				$store[] = $url;
+
+				return true;
+			},
+			true
+		);
+		$this->set_fn_return( 'tribe_exit', true );
+		$this->set_fn_return( 'is_archive', true );
+
+		// Run the method.
+		$hooks = new Hooks( tribe() );
+		$hooks->disabled_views_redirect();
+
+		// Assert expectations.
+		if ( $should_redirect ) {
+			$this->assertCount( 1, $store, 'Should have attempted one redirect.' );
+			$this->assertStringContainsString( 'tribe_redirected=1', $store[0], 'Should include tribe_redirected flag.' );
+		} else {
+			$this->assertCount( 0, $store, 'Should not redirect.' );
+		}
+
+		// Clean up $_GET.
+		foreach ( array_keys( $query_vars ) as $key ) {
+			unset( $_GET[ $key ] );
+		}
+
+		// Clean up views option.
+		tribe_update_option( 'tribeEnableViews', [] );
+	}
+
+	/**
+	 * Provides scenarios for redirect logic tests.
+	 *
+	 * @return array[]
+	 */
+	public function provide_disabled_views_redirect_scenarios(): array {
+		return [
+			'list enabled - no redirect'                            => [
+				'options'         => [ 'enabled_views' => [ 'list' ] ],
+				'query_vars'      => [
+					'eventDisplay' => 'list',
+					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+				],
+				'should_redirect' => false,
+			],
+			'list disabled - redirect expected'                     => [
+				'options'         => [ 'enabled_views' => [ 'month' ] ],
+				'query_vars'      => [
+					'eventDisplay' => 'list',
+					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+				],
+				'should_redirect' => true,
+			],
+			'ical param set - no redirect'                          => [
+				'options'         => [ 'enabled_views' => [ 'month' ] ],
+				'query_vars'      => [
+					'eventDisplay' => 'list',
+					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'ical'         => 1,
+				],
+				'should_redirect' => false,
+			],
+			'outlook param set - no redirect'                       => [
+				'options'         => [ 'enabled_views' => [ 'month' ] ],
+				'query_vars'      => [
+					'eventDisplay' => 'list',
+					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'outlook_ical' => 1,
+				],
+				'should_redirect' => false,
+			],
+			'both ical and outlook set - no redirect'               => [
+				'options'         => [ 'enabled_views' => [ 'month' ] ],
+				'query_vars'      => [
+					'eventDisplay' => 'list',
+					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'ical'         => 1,
+					'outlook_ical' => 1,
+				],
+				'should_redirect' => false,
+			],
+			'list disabled but unrelated param - redirect expected' => [
+				'options'         => [ 'enabled_views' => [ 'month' ] ],
+				'query_vars'      => [
+					'eventDisplay' => 'list',
+					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'random_param' => 123,
+				],
+				'should_redirect' => true,
+			],
+		];
 	}
 }
