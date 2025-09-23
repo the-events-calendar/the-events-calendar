@@ -4,6 +4,8 @@
 		href="http://theeventscalendar.com"
 		class="tribe-events-calendar-month-mobile-events__more-events-link tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt"
 		data-js="tribe-events-view-link"
+		aria-label="
+		+ 4 More for September 1, 2024		"
 	>
 		+ 4 More	</a>
 </div>
