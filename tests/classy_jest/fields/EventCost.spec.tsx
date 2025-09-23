@@ -287,9 +287,9 @@ describe( 'EventCost', () => {
 			meta: { [ METADATA_EVENT_COST ]: '35.99' },
 		} );
 
-        // trigger focus again.
-        fireEvent.blur( costInput );
-        fireEvent.focus( costInput );
+		// trigger focus again.
+		fireEvent.blur( costInput );
+		fireEvent.focus( costInput );
 		// While focused, input shows raw value.
 		expect( costInput ).toHaveValue( '35.99' );
 
@@ -320,9 +320,9 @@ describe( 'EventCost', () => {
 			meta: { [ METADATA_EVENT_COST ]: '35.99' },
 		} );
 
-        // trigger focus again.
-        fireEvent.blur( costInput );
-        fireEvent.focus( costInput );
+		// trigger focus again.
+		fireEvent.blur( costInput );
+		fireEvent.focus( costInput );
 
 		// While focused, input shows cleaned value without symbol.
 		expect( costInput ).toHaveValue( '35.99' );
@@ -351,9 +351,9 @@ describe( 'EventCost', () => {
 			meta: { [ METADATA_EVENT_COST ]: '10 - 20' },
 		} );
 
-        // trigger focus again.
-        fireEvent.blur( costInput );
-        fireEvent.focus( costInput );
+		// trigger focus again.
+		fireEvent.blur( costInput );
+		fireEvent.focus( costInput );
 		// While focused, cleaned range is shown without symbols.
 		expect( costInput ).toHaveValue( '10 - 20' );
 
