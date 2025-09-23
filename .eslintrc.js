@@ -27,7 +27,7 @@ module.exports = {
 		tribe_js_config: true,
 		tribe_timezone_update: true,
 		tribe_tmpl: true,
-		tribe_upgrade: true,
+		tribe_upgrade_page: true,
 		TribeCalendar: true,
 		tribeDateFormat: true,
 		tribeEventsSingleMap: true,
