@@ -229,4 +229,288 @@ class Meta_Test extends Controller_Test_Case {
 		// The timezone should be the same as the original.
 		$this->assertEquals( 'UTC', get_post_meta( $event_id, '_EventTimezone', true ) );
 	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_returns_value_unchanged_for_non_post_type(): void {
+		$controller = $this->make_controller();
+
+		$value = 'test value';
+		$result = $controller->sanitize_meta_value( $value, '_EventStartDate', 'user', 'subscriber' );
+
+		$this->assertEquals( $value, $result );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_returns_value_unchanged_for_unsupported_post_type(): void {
+		$controller = $this->make_controller();
+
+		$value = 'test value';
+		$result = $controller->sanitize_meta_value( $value, '_EventStartDate', 'post', 'post' );
+
+		$this->assertEquals( $value, $result );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_returns_value_unchanged_for_unknown_meta_key(): void {
+		$controller = $this->make_controller();
+
+		$value = 'test value';
+		$result = $controller->sanitize_meta_value( $value, '_UnknownMetaKey', 'post', TEC::POSTTYPE );
+
+		$this->assertEquals( $value, $result );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_sanitizes_boolean_fields(): void {
+		$controller = $this->make_controller();
+
+		// Test _EventAllDay which is a boolean field.
+		$this->assertTrue( $controller->sanitize_meta_value( true, '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertTrue( $controller->sanitize_meta_value( 'true', '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertTrue( $controller->sanitize_meta_value( '1', '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertTrue( $controller->sanitize_meta_value( 1, '_EventAllDay', 'post', TEC::POSTTYPE ) );
+
+		$this->assertFalse( $controller->sanitize_meta_value( false, '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertFalse( $controller->sanitize_meta_value( 'false', '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertFalse( $controller->sanitize_meta_value( '0', '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertFalse( $controller->sanitize_meta_value( 0, '_EventAllDay', 'post', TEC::POSTTYPE ) );
+		$this->assertFalse( $controller->sanitize_meta_value( '', '_EventAllDay', 'post', TEC::POSTTYPE ) );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_sanitizes_integer_fields(): void {
+		$controller = $this->make_controller();
+
+		// Test _EventOrganizerID which is an integer field.
+		$this->assertEquals( 123, $controller->sanitize_meta_value( 123, '_EventOrganizerID', 'post', TEC::POSTTYPE ) );
+		$this->assertEquals( 123, $controller->sanitize_meta_value( '123', '_EventOrganizerID', 'post', TEC::POSTTYPE ) );
+		$this->assertEquals( 123, $controller->sanitize_meta_value( -123, '_EventOrganizerID', 'post', TEC::POSTTYPE ) );
+		$this->assertEquals( 0, $controller->sanitize_meta_value( 'not-a-number', '_EventOrganizerID', 'post', TEC::POSTTYPE ) );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_sanitizes_text_fields(): void {
+		/** @var Meta $controller */
+		$controller = $this->make_controller();
+
+		// Test _EventCost which is a text field (default type).
+		$input = '<script>alert("XSS")</script>Some text';
+		$expected = 'Some text';
+		$result = $controller->sanitize_meta_value( $input, '_EventCost', 'post', TEC::POSTTYPE );
+
+		$this->assertEquals( $expected, $result );
+
+		// Test that regular text is preserved.
+		$regular_text = 'Regular event cost: $50';
+		$this->assertEquals( $regular_text, $controller->sanitize_meta_value( $regular_text, '_EventCost', 'post', TEC::POSTTYPE ) );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_sanitizes_url_fields(): void {
+		/** @var Meta $controller */
+		$controller = $this->make_controller();
+
+		// Test _EventURL which should be treated as URL.
+		$valid_url = 'https://example.com/event';
+		$this->assertEquals( $valid_url, $controller->sanitize_meta_value( $valid_url, '_EventURL', 'post', TEC::POSTTYPE ) );
+
+		// Test that javascript URLs are sanitized.
+		$js_url = '<script>javascript:alert("XSS")</script>';
+		$this->assertEquals( '', $controller->sanitize_meta_value( $js_url, '_EventURL', 'post', TEC::POSTTYPE ) );
+
+		// Test URL with special characters.
+		$url_with_params = 'https://example.com/event?id=123&name=test';
+		$this->assertEquals( $url_with_params, $controller->sanitize_meta_value( $url_with_params, '_EventURL', 'post', TEC::POSTTYPE ) );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::sanitize_meta_value
+	 */
+	public function test_sanitize_meta_value_sanitizes_separator_fields(): void {
+		$controller = $this->make_controller();
+
+		// Test _EventDateTimeSeparator which is a separator field.
+		$input = '<script>alert("XSS")</script> @ ';
+		$result = $controller->sanitize_meta_value( $input, '_EventDateTimeSeparator', 'post', TEC::POSTTYPE );
+
+		// The separator field uses tec_sanitize_string which should escape HTML.
+		$this->assertStringNotContainsString( '<script>', $result );
+		$this->assertStringContainsString( '@', $result );
+
+		// Test normal separator.
+		$normal_separator = ' @ ';
+		$this->assertEquals( $normal_separator, $controller->sanitize_meta_value( $normal_separator, '_EventDateTimeSeparator', 'post', TEC::POSTTYPE ) );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::user_can_edit_meta
+	 */
+	public function test_user_can_edit_meta_returns_original_for_unknown_meta_key(): void {
+		$controller = $this->make_controller();
+
+		// Create a user with edit capabilities.
+		$user_id = static::factory()->user->create( [ 'role' => 'editor' ] );
+		$post_id = static::factory()->post->create( [ 'post_type' => TEC::POSTTYPE ] );
+
+		// Test with unknown meta key.
+		$allowed = true;
+		$result = $controller->user_can_edit_meta( $allowed, '_UnknownMetaKey', $post_id, $user_id );
+		$this->assertTrue( $result );
+
+		$allowed = false;
+		$result = $controller->user_can_edit_meta( $allowed, '_UnknownMetaKey', $post_id, $user_id );
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::user_can_edit_meta
+	 */
+	public function test_user_can_edit_meta_returns_false_for_invalid_post_type(): void {
+		$controller = $this->make_controller();
+
+		// Create a user with edit capabilities.
+		$user_id = static::factory()->user->create( [ 'role' => 'editor' ] );
+
+		// Test with invalid post ID.
+		$result = $controller->user_can_edit_meta( false, '_EventStartDate', 999999, $user_id );
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::user_can_edit_meta
+	 */
+	public function test_user_can_edit_meta_checks_user_capabilities(): void {
+		$controller = $this->make_controller();
+		$this->make_controller()->register();
+
+		// Create an event.
+		$event_id = tribe_events()->set_args(
+			[
+				'title'      => 'Test Event',
+				'status'     => 'publish',
+				'start_date' => '2020-01-01 00:00:00',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+			]
+		)->create()->ID;
+
+		// Create users with different roles.
+		$admin_id = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		$editor_id = static::factory()->user->create( [ 'role' => 'editor' ] );
+		$author_id = static::factory()->user->create( [ 'role' => 'author' ] );
+		$contributor_id = static::factory()->user->create( [ 'role' => 'contributor' ] );
+		$subscriber_id = static::factory()->user->create( [ 'role' => 'subscriber' ] );
+
+		// Test that admin can edit meta.
+		$this->assertTrue( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $admin_id ) );
+
+		// Test that editor can edit meta.
+		$this->assertTrue( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $editor_id ) );
+
+		// Test that author can edit their own event.
+		wp_update_post( [ 'ID' => $event_id, 'post_author' => $author_id ] );
+		$this->assertTrue( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $author_id ) );
+
+		// Test that contributor cannot edit published events.
+		$this->assertFalse( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $contributor_id ) );
+
+		// Test that subscriber cannot edit meta.
+		$this->assertFalse( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $subscriber_id ) );
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::user_can_edit_meta
+	 */
+	public function test_user_can_edit_meta_respects_different_meta_keys(): void {
+		$controller = $this->make_controller();
+		$this->make_controller()->register();
+
+		// Create an event.
+		$event_id = tribe_events()->set_args(
+			[
+				'title'      => 'Test Event',
+				'status'     => 'publish',
+				'start_date' => '2020-01-01 00:00:00',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+			]
+		)->create()->ID;
+
+		$editor_id = static::factory()->user->create( [ 'role' => 'editor' ] );
+
+		// Test various meta keys that are in the META constant.
+		$meta_keys = [
+			'_EventStartDate',
+			'_EventEndDate',
+			'_EventAllDay',
+			'_EventCost',
+			'_EventURL',
+			'_EventTimezone',
+			'_VenueAddress',
+			'_OrganizerEmail',
+		];
+
+		foreach ( $meta_keys as $meta_key ) {
+			$this->assertTrue(
+				$controller->user_can_edit_meta( true, $meta_key, $event_id, $editor_id ),
+				"Editor should be able to edit meta key: {$meta_key}."
+			);
+		}
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Classy\Meta_Methods::user_can_edit_meta
+	 */
+	public function test_user_can_edit_meta_with_draft_post(): void {
+		$controller = $this->make_controller();
+		$this->make_controller()->register();
+
+		// Create a draft event.
+		$event_id = tribe_events()->set_args(
+			[
+				'title'      => 'Draft Event',
+				'status'     => 'draft',
+				'start_date' => '2020-01-01 00:00:00',
+				'duration'   => 2 * HOUR_IN_SECONDS,
+			]
+		)->create()->ID;
+
+		// Create a contributor user.
+		$contributor_id = static::factory()->user->create( [ 'role' => 'contributor' ] );
+
+		// Make the contributor the author of the draft.
+		wp_update_post( [ 'ID' => $event_id, 'post_author' => $contributor_id ] );
+
+		// Contributors can edit their own drafts.
+		$this->assertTrue( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $contributor_id ) );
+
+		// But not someone else's draft.
+		$other_contributor_id = static::factory()->user->create( [ 'role' => 'contributor' ] );
+		$this->assertFalse( $controller->user_can_edit_meta( true, '_EventStartDate', $event_id, $other_contributor_id ) );
+	}
 }
