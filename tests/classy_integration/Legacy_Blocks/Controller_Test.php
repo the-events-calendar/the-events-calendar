@@ -17,8 +17,8 @@ class Controller_Test extends Controller_Test_Case {
 			[
 				'title'      => 'Test Event',
 				'status'     => 'publish',
-				'start_date' => '2020-01-01 09:00:00',
-				'end_date'   => '2020-01-01 11:30:00',
+				'start_date' => '+2 days 14:00:00',
+				'duration'   => HOUR_IN_SECONDS,
 			]
 		)->create();
 
@@ -26,29 +26,18 @@ class Controller_Test extends Controller_Test_Case {
 		$wpdb->update( $wpdb->posts, [ 'post_content' => 'Test description <!-- wp:' ], [ 'ID' => $event->ID ], '%s', '%d' );
 		clean_post_cache( $event->ID );
 
-		$event = tribe_get_event( $event->ID );
-
-//		$context = tribe_context()->alter(
-//			[
-//				'post_id'         => $event->ID,
-//				'single'          => true,
-//				'event_post_type' => true,
-//			]
-//		);
-
 		global $post;
-		$post = $event;
-		
-		setup_postdata( $event );
+		$post = tribe_get_event( $event->ID );
 		
 		add_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_true' );
 		
-		$controller = $this->make_controller();
+		$this->make_controller()->register();
 		
 		$html = tribe( Template_Bootstrap::class )->get_view_html();
 		
-		$this->assertTrue( str_contains( $html, 'tec-block__single-event' ) );
+		$this->assertTrue( str_contains( $html, 'tribe-events-single tribe-blocks-editor' ) );
 
 		remove_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_true' );
+		wp_reset_postdata();
 	}
 }
