@@ -46,10 +46,15 @@ import EventDetails from '../../../src/resources/packages/classy/fields/EventDet
 import { METADATA_EVENT_URL } from '@tec/events/classy/constants';
 import { isValidUrl } from '@tec/common/classy/functions';
 
+type mockDisabledDetails = {
+	contentDisabled?: boolean;
+	contentDisabledReason?: string | null;
+};
+
 describe( 'EventDetails', () => {
 	let mockEditPost;
 
-	const setupMocks = ( postContent = '', meta = {} ) => {
+	const setupMocks = ( postContent = '', meta = {}, disabledDetails: mockDisabledDetails = {} ) => {
 		mockEditPost = jest.fn();
 
 		mockSelect.mockImplementation( ( store: string ): any => {
@@ -59,6 +64,13 @@ describe( 'EventDetails', () => {
 					getEditedPostAttribute: ( attribute: string ): any => {
 						return attribute === 'meta' ? meta : null;
 					},
+				};
+			}
+
+			if ( store === 'tec/classy/events' ) {
+				return {
+					isContentDisabled: () => disabledDetails?.contentDisabled || false,
+					getContentDisabledReason: () => disabledDetails?.contentDisabledReason || null,
 				};
 			}
 
@@ -173,6 +185,42 @@ describe( 'EventDetails', () => {
 		expect( mockEditPost ).toHaveBeenCalledWith( {
 			content: '',
 		} );
+	} );
+
+	it( 'should disable description editor when content is disabled', () => {
+		setupMocks(
+			'Some content',
+			{},
+			{ contentDisabled: true, contentDisabledReason: 'Content editing is disabled.' }
+		);
+
+		render(
+			<TestProvider>
+				<EventDetails title="Event details" />
+			</TestProvider>
+		);
+
+		// Check that the disabled message is shown.
+		expect( screen.getByText( 'Content editing is disabled.' ) ).toBeInTheDocument();
+
+		// Check that the description editor is not in the document.
+		expect( screen.queryByTestId( 'classy-event-details-description-editor' ) ).not.toBeInTheDocument();
+	} );
+
+	it( 'should use the default description disabled message when no message is provided', () => {
+		setupMocks( 'Some content', {}, { contentDisabled: true } );
+
+		render(
+			<TestProvider>
+				<EventDetails title="Event details" />
+			</TestProvider>
+		);
+
+		// Check that the default disabled message is shown.
+		expect( screen.getByText( 'The content editor is disabled for this event.' ) ).toBeInTheDocument();
+
+		// Check that the description editor is not in the document.
+		expect( screen.queryByTestId( 'classy-event-details-description-editor' ) ).not.toBeInTheDocument();
 	} );
 
 	it( 'should display existing event URL from meta', () => {

@@ -151,3 +151,27 @@ export function getVenuesLimit(): number {
 	const { venuesLimit = 1 } = getSettings() as TECSettings;
 	return Math.max( 0, venuesLimit );
 }
+
+/**
+ * Returns whether the content is disabled from the settings.
+ *
+ * @since TBD
+ *
+ * @return {boolean} Whether the content is disabled.
+ */
+export function isContentDisabled(): boolean {
+	const { disableContent = false } = getSettings() as TECSettings;
+	return disableContent;
+}
+
+/**
+ * Returns the reason for content being disabled from the settings.
+ *
+ * @since TBD
+ *
+ * @return {string|null} The reason for content being disabled, or null if not set.
+ */
+export function getContentDisabledReason(): string | null {
+	const { disableContentReason = null } = getSettings() as TECSettings;
+	return disableContentReason;
+}

@@ -7,18 +7,26 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { TinyMceEditor } from '@tec/common/classy/components';
 import { isValidUrl } from '@tec/common/classy/functions';
 import { FieldProps } from '@tec/common/classy/types/FieldProps';
+import { CoreEditorSelect } from '@tec/common/classy/types/Store';
+import { StoreSelect } from '@tec/events/classy/types/Store';
 import { METADATA_EVENT_URL } from '../../constants';
 
+const defaultContentDisabledReason: string = _x(
+	'The content editor is disabled for this event.',
+	'Default reason for content editor being disabled',
+	'the-events-calendar'
+);
+
 export default function EventDetails( props: FieldProps ) {
-	const { postContent, meta } = useSelect( ( select ) => {
-		const store: {
-			getEditedPostContent: () => string;
-			getEditedPostAttribute: ( attribute: string ) => any;
-		} = select( 'core/editor' );
+	const { contentDisabled, contentDisabledReason, postContent, meta } = useSelect( ( select ) => {
+		const coreEditor: CoreEditorSelect = select( 'core/editor' );
+		const eventsStore: StoreSelect = select( 'tec/classy/events' );
 
 		return {
-			postContent: store.getEditedPostContent() || '',
-			meta: store.getEditedPostAttribute( 'meta' ) || null,
+			contentDisabled: eventsStore.isContentDisabled(),
+			contentDisabledReason: eventsStore.getContentDisabledReason(),
+			postContent: coreEditor.getEditedPostContent() || '',
+			meta: coreEditor.getEditedPostAttribute( 'meta' ) || null,
 		};
 	}, [] );
 	const { editPost } = useDispatch( 'core/editor' );
@@ -66,17 +74,29 @@ export default function EventDetails( props: FieldProps ) {
 						<h4>{ _x( 'Description', 'Event details description input title', 'the-events-calendar' ) }</h4>
 					</div>
 
-					<div className="classy-field__control classy-field__control--tinymce-editor">
-						<TinyMceEditor
-							content={ description }
-							onChange={ onDescriptionChange }
-							id="classy-event-details-description-editor"
-						/>
-					</div>
+					{ contentDisabled ? (
+						<div className="classy-field__control classy-field__control--disabled">
+							<p>{ contentDisabledReason || defaultContentDisabledReason }</p>
+						</div>
+					) : (
+						<React.Fragment>
+							<div className="classy-field__control classy-field__control--tinymce-editor">
+								<TinyMceEditor
+									content={ description }
+									onChange={ onDescriptionChange }
+									id="classy-event-details-description-editor"
+								/>
+							</div>
 
-					<div className="classy-field__input-note">
-						{ _x( 'Describe your event', 'Event description placeholder text', 'the-events-calendar' ) }
-					</div>
+							<div className="classy-field__input-note">
+								{ _x(
+									'Describe your event',
+									'Event description placeholder text',
+									'the-events-calendar'
+								) }
+							</div>
+						</React.Fragment>
+					) }
 				</div>
 
 				<div className="classy-field__input">

@@ -17,12 +17,14 @@ export type StoreState = {
  */
 export type StoreSelect = {
 	areTicketsSupported: () => boolean;
+	getContentDisabledReason: () => string | null;
 	getEditedPostOrganizerIds: () => number[];
 	getEditedPostVenueIds: () => number[];
 	getEventDateTimeDetails: () => EventDateTimeDetails;
 	getPostMeta: () => EventMeta;
 	getSettings: () => TECSettings;
 	getVenuesLimit: () => number;
+	isContentDisabled: () => boolean;
 	isNewEvent: () => boolean;
 	isUsingTickets: () => boolean;
 };
