@@ -9,16 +9,16 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use Elementor\Core\Base\Document;
 use Elementor\Elements_Manager;
-use WP_Post;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Template_Controller;
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use Elementor\Core\Base\Document;
-use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Revisions__Preview;
+use Tribe__Events__Revisions__Preview as Preview;
+use Tribe__Template as Template;
+use WP_Post;
 
 /**
  * Class Controller
@@ -35,7 +35,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since 6.4.0
 	 *
-	 * @var Tribe_Template
+	 * @var Template
 	 */
 	protected $template;
 
@@ -418,6 +418,6 @@ class Controller extends Integration_Abstract {
 			return;
 		}
 
-		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
+		remove_action( 'template_redirect', [ Preview::instance(), 'hook' ] );
 	}
 }
