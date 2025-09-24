@@ -761,9 +761,6 @@ class Event_Venue extends Abstract_Widget {
 			'venue_map_content_options',
 			[
 				'label'     => esc_html__( 'Map', 'the-events-calendar' ),
-				'condition' => [
-					$this->should_show_mock_data() => 'yes',
-				],
 			]
 		);
 
