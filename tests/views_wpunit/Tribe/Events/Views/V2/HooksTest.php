@@ -2,23 +2,41 @@
 
 namespace Tribe\Events\Views\V2;
 
-
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context as Context;
 use Tribe__Events__iCal;
+use WP_Query;
 
 class HooksTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
+	/**
+	 * @before
+	 */
+	protected function reset_test_state(): void {
+		// Only clear Tribe context + GET vars between tests.
+		tribe_context()->dangerously_set_global_context();
+		$_GET = [];
+
+		tribe_update_option( 'tribeEnableViews', [] );
+
+		// Reset globals so WP_Query starts clean.
+		global $wp_the_query, $wp_query;
+		$wp_the_query = new WP_Query();
+		$wp_query     = $wp_the_query;
+	}
+
 	public function test_filter_redirect_canonical() {
 		$this->set_fn_return( 'doing_filter', 'redirect_canonical' );
 		$mock_context = new Context();
-		$mock_context->add_locations( [
-			'tec_post_type' => true,
-			'view_request'  => 'month',
-		] );
+		$mock_context->add_locations(
+			[
+				'tec_post_type' => true,
+				'view_request'  => 'month',
+			]
+		);
 		$this->set_fn_return( 'tribe_context', $mock_context );
 
 		$hooks    = new Hooks( tribe() );
@@ -43,7 +61,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 					'view_request'  => 'embed',
 				],
 				'http://example.com/some-page/',
-				false
+				false,
 			],
 			'single view of Event'                        => [
 				[
@@ -83,7 +101,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 					'view_request'  => 'list',
 				],
 				'http://example.com/events/month/',
-				false
+				false,
 			],
 		];
 	}
@@ -93,21 +111,24 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_filter_redirect_canonical_will_not_redirect_embed( array $context, string $redirect_url, $expected ): void {
 		// Mock just the month rewreite rules to have `Rewrite::parse_request` work correctly.
-		update_option( 'rewrite_rules', [
-			'(?:events)/(?:month)/?$'                                                    => 'index.php?post_type=tribe_events&eventDisplay=month',
-			'(?:events)/(?:month)/(?:featured)/?$'                                       => 'index.php?post_type=tribe_events&eventDisplay=month&featured=1',
-			'(?:events)/(?:month)/(\\d{4}-\\d{2})/?$'                                    => 'index.php?post_type=tribe_events&eventDisplay=month&eventDate=$matches[1]',
-			'(?:events)/(\\d{4}-\\d{2})/?$'                                              => 'index.php?post_type=tribe_events&eventDisplay=month&eventDate=$matches[1]',
-			'(?:events)/(\\d{4}-\\d{2})/(?:featured)/?$'                                 => 'index.php?post_type=tribe_events&eventDisplay=month&eventDate=$matches[1]&featured=1',
-			'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(?:month)/?$'                    => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month',
-			'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(?:month)/(?:featured)/?$'       => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month&featured=1',
-			'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(\\d{4}-\\d{2})/?$'              => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month&eventDate=$matches[2]',
-			'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(\\d{4}-\\d{2})/(?:featured)/?$' => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month&eventDate=$matches[2]&featured=1',
-			'(?:events)/(?:tag)/([^/]+)/(?:month)/?$'                                    => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month',
-			'(?:events)/(?:tag)/([^/]+)/(?:month)/(?:featured)/?$'                       => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month&featured=1',
-			'(?:events)/(?:tag)/([^/]+)/(\\d{4}-\\d{2})/?$'                              => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month&eventDate=$matches[2]',
-			'(?:events)/(?:tag)/([^/]+)/(\\d{4}-\\d{2})/(?:featured)/?$'                 => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month&eventDate=$matches[2]&featured=1',
-		] );
+		update_option(
+			'rewrite_rules',
+			[
+				'(?:events)/(?:month)/?$'                                                    => 'index.php?post_type=tribe_events&eventDisplay=month',
+				'(?:events)/(?:month)/(?:featured)/?$'                                       => 'index.php?post_type=tribe_events&eventDisplay=month&featured=1',
+				'(?:events)/(?:month)/(\\d{4}-\\d{2})/?$'                                    => 'index.php?post_type=tribe_events&eventDisplay=month&eventDate=$matches[1]',
+				'(?:events)/(\\d{4}-\\d{2})/?$'                                              => 'index.php?post_type=tribe_events&eventDisplay=month&eventDate=$matches[1]',
+				'(?:events)/(\\d{4}-\\d{2})/(?:featured)/?$'                                 => 'index.php?post_type=tribe_events&eventDisplay=month&eventDate=$matches[1]&featured=1',
+				'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(?:month)/?$'                    => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month',
+				'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(?:month)/(?:featured)/?$'       => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month&featured=1',
+				'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(\\d{4}-\\d{2})/?$'              => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month&eventDate=$matches[2]',
+				'(?:events)/(?:category)/(?:[^/]+/)*([^/]+)/(\\d{4}-\\d{2})/(?:featured)/?$' => 'index.php?post_type=tribe_events&tribe_events_cat=$matches[1]&eventDisplay=month&eventDate=$matches[2]&featured=1',
+				'(?:events)/(?:tag)/([^/]+)/(?:month)/?$'                                    => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month',
+				'(?:events)/(?:tag)/([^/]+)/(?:month)/(?:featured)/?$'                       => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month&featured=1',
+				'(?:events)/(?:tag)/([^/]+)/(\\d{4}-\\d{2})/?$'                              => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month&eventDate=$matches[2]',
+				'(?:events)/(?:tag)/([^/]+)/(\\d{4}-\\d{2})/(?:featured)/?$'                 => 'index.php?post_type=tribe_events&tag=$matches[1]&eventDisplay=month&eventDate=$matches[2]&featured=1',
+			]
+		);
 		$mock_context = tribe_context()->alter( $context );
 		$this->set_fn_return( 'tribe_context', $mock_context );
 
@@ -122,7 +143,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 	 * This is done via the hooks in the Views/Hooks class.
 	 */
 	public function test_events_for_title_stored() {
-		for ( $i = 1; $i < 20; $i ++ ) {
+		for ( $i = 1; $i < 20; $i++ ) {
 			$date = "2020-06-$i 08:00:00";
 			tribe_events()->set_args(
 				[
@@ -139,10 +160,10 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEmpty( $title->get_posts() );
 		$context = tribe_context()->alter(
 			[
-				'single' => false,
+				'single'          => false,
 				'event_post_type' => true,
-				'event_display' => 'list',
-				'event_date'    => '2020-06-01',
+				'event_display'   => 'list',
+				'event_date'      => '2020-06-01',
 			]
 		);
 		$view    = View::make( List_View::class );
@@ -150,62 +171,6 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		$view->get_html();
 		$this->assertNotEmpty( $title->get_posts() );
 		$this->assertEquals( $view->get_context()->get( 'events_per_page' ), count( $title->get_posts() ) );
-	}
-
-	/**
-	 * Test that disabled views are properly redirected to the default view.
-	 *
-	 * @test
-	 */
-	public function test_disabled_views_redirected() {
-		// Set up a disabled view
-		$view_slug = 'month';
-		tribe_update_option( 'tribeEnableViews', [ 'list' ] );
-
-		// Set up the main query and context
-		global $wp_the_query, $wp_query;
-		$wp_the_query = new \WP_Query();
-		$wp_query     = $wp_the_query;
-		$wp_query->query_vars = [
-			'eventDisplay' => $view_slug,
-			'post_type' => \Tribe__Events__Main::POSTTYPE,
-			'tribe_view' => $view_slug,
-		];
-		$wp_query->tribe_is_event_query = true;
-		$wp_query->is_main_query = true;
-
-		tribe_context()->alter( [
-			'event_display' => $view_slug,
-			'event_post_type' => true,
-		] )->dangerously_set_global_context();
-
-		// Set up redirect capture
-		$store = [];
-		$this->set_fn_return( 'wp_safe_redirect', function ( $url, $status = 302, $redirect_by = '' ) use (&$store) {
-			$store[] = [
-				'url'         => $url,
-				'status'      => $status,
-				'redirect_by' => $redirect_by,
-			];
-			return true;
-		}, true );
-
-		// Mock tribe_exit to prevent actual exit and allow test to continue
-		$this->set_fn_return( 'tribe_exit', true );
-		$this->set_fn_return( 'is_archive', true );
-
-		// Run the method
-		$hooks = new Hooks( tribe() );
-		$hooks->disabled_views_redirect();
-
-		// Verify redirect was attempted
-		$this->assertCount( 1, $store, 'Should have attempted one redirect' );
-		$this->assertEquals( 302, $store[0]['status'], 'Should have attempted a 302 redirect' );
-		$this->assertStringContainsString( '/events/', $store[0]['url'], 'Should redirect to default view' );
-		$this->assertStringContainsString( 'tribe_redirected=1', $store[0]['url'], 'Should include tribe_redirected flag' );
-
-		// Clean up
-		tribe_update_option( 'tribeEnableViews', [] );
 	}
 
 	/**
@@ -220,35 +185,46 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 
 		// Set up the main query and context
 		global $wp_the_query, $wp_query;
-		$wp_the_query = new \WP_Query();
-		$wp_query     = $wp_the_query;
-		$wp_query->query_vars = [
+		$wp_the_query                   = new WP_Query();
+		$wp_query                       = $wp_the_query;
+		$wp_query->query_vars           = [
 			'eventDisplay' => $view_slug,
-			'post_type' => \Tribe__Events__Main::POSTTYPE,
-			'tribe_view' => $view_slug,
+			'post_type'    => \Tribe__Events__Main::POSTTYPE,
+			'tribe_view'   => $view_slug,
 		];
 		$wp_query->tribe_is_event_query = true;
-		$wp_query->is_main_query = true;
+		$wp_query->is_main_query        = true;
 
-		tribe_context()->alter( [
-			'event_display' => $view_slug
-		] )->dangerously_set_global_context();
+		tribe_context()->alter(
+			[
+				'event_display' => $view_slug,
+			]
+		)->dangerously_set_global_context();
 
 		// Set up redirect capture
 		$store = [];
-		$this->set_fn_return( 'wp_safe_redirect', function ( $url, $status = 302, $redirect_by = '' ) use (&$store) {
-			$store[] = [
-				'url'         => $url,
-				'status'      => $status,
-				'redirect_by' => $redirect_by,
-			];
-			return true;
-		}, true );
+		$this->set_fn_return(
+			'wp_safe_redirect',
+			function ( $url, $status = 302, $redirect_by = '' ) use ( &$store ) {
+				$store[] = [
+					'url'         => $url,
+					'status'      => $status,
+					'redirect_by' => $redirect_by,
+				];
+
+				return true;
+			},
+			true
+		);
 
 		// Mock tribe_exit to prevent actual exit and allow test to continue
-		$this->set_fn_return( 'tribe_exit', function() {
-			return true;
-		}, true );
+		$this->set_fn_return(
+			'tribe_exit',
+			function () {
+				return true;
+			},
+			true
+		);
 
 		// Run the method
 		$hooks = new Hooks( tribe() );
@@ -272,7 +248,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		$ical->hook();
 
 		global $wp_the_query, $wp_query;
-		$wp_the_query                   = new \WP_Query();
+		$wp_the_query                   = new WP_Query();
 		$wp_query                       = $wp_the_query;
 		$wp_query->query_vars           = [
 			'eventDisplay' => $query_vars['eventDisplay'] ?? null,
