@@ -6,7 +6,7 @@ use Tribe__Events__Main as TEC;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Elementor_Template_Controller;
 use Tribe\Tests\Traits\With_Uopz;
 
-class ControllerTest extends \Codeception\TestCase\WPTestCase {
+class TemplateControllerTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
