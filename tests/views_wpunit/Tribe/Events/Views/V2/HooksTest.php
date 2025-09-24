@@ -7,6 +7,7 @@ use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context as Context;
 use Tribe__Events__iCal;
+use Tribe__Events__Main;
 use WP_Query;
 
 class HooksTest extends \Codeception\TestCase\WPTestCase {
@@ -189,7 +190,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		$wp_query                       = $wp_the_query;
 		$wp_query->query_vars           = [
 			'eventDisplay' => $view_slug,
-			'post_type'    => \Tribe__Events__Main::POSTTYPE,
+			'post_type'    => Tribe__Events__Main::POSTTYPE,
 			'tribe_view'   => $view_slug,
 		];
 		$wp_query->tribe_is_event_query = true;
@@ -317,7 +318,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 				'options'         => [ 'enabled_views' => [ 'list' ] ],
 				'query_vars'      => [
 					'eventDisplay' => 'list',
-					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
 				],
 				'should_redirect' => false,
 			],
@@ -325,7 +326,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 				'options'         => [ 'enabled_views' => [ 'month' ] ],
 				'query_vars'      => [
 					'eventDisplay' => 'list',
-					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
 				],
 				'should_redirect' => true,
 			],
@@ -333,7 +334,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 				'options'         => [ 'enabled_views' => [ 'month' ] ],
 				'query_vars'      => [
 					'eventDisplay' => 'list',
-					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
 					'ical'         => 1,
 				],
 				'should_redirect' => false,
@@ -342,7 +343,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 				'options'         => [ 'enabled_views' => [ 'month' ] ],
 				'query_vars'      => [
 					'eventDisplay' => 'list',
-					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
 					'outlook_ical' => 1,
 				],
 				'should_redirect' => false,
@@ -351,7 +352,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 				'options'         => [ 'enabled_views' => [ 'month' ] ],
 				'query_vars'      => [
 					'eventDisplay' => 'list',
-					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
 					'ical'         => 1,
 					'outlook_ical' => 1,
 				],
@@ -361,7 +362,7 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 				'options'         => [ 'enabled_views' => [ 'month' ] ],
 				'query_vars'      => [
 					'eventDisplay' => 'list',
-					'post_type'    => \Tribe__Events__Main::POSTTYPE,
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
 					'random_param' => 123,
 				],
 				'should_redirect' => true,
