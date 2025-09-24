@@ -760,7 +760,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_map_content_options',
 			[
-				'label'     => esc_html__( 'Map', 'the-events-calendar' ),
+				'label' => esc_html__( 'Map', 'the-events-calendar' ),
 			]
 		);
 
