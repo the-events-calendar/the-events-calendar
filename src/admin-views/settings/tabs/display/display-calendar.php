@@ -20,6 +20,7 @@ use Tribe\Utils\Element_Classes as Classes;
  * Filter to determine if the Events Templates should be displayed in the settings.
  *
  * @since 6.4.0
+ * @since TBD Added logic to hide the "Default Page Template" option if Elementor Pro is active.
  *
  * @param bool $should_display Whether the Events Templates should be displayed.
  */
@@ -32,6 +33,17 @@ $template_options = [
 	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
+
+// Remove "Default Page Template" option if Elementor Pro is active to prevent conflicts.
+if ( class_exists( '\ElementorPro\Plugin' ) ) {
+	unset( $template_options['default'] );
+
+	// Auto-switch existing users from "default" to "Default Events Template".
+	$current_template = tribe_get_option( 'tribeEventsTemplate', 'default' );
+	if ( 'default' === $current_template ) {
+		tribe_update_option( 'tribeEventsTemplate', '' );
+	}
+}
 
 $templates = get_page_templates();
 ksort( $templates );
