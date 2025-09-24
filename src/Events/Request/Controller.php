@@ -21,17 +21,6 @@ use TEC\Events\Request\Ical;
  */
 class Controller extends Controller_Contract {
 	/**
-	 * Whether the controller is active.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool
-	 */
-	public function is_active(): bool {
-		return true;
-	}
-
-	/**
 	 * Register the controller.
 	 *
 	 * @since TBD
@@ -50,10 +39,6 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function unregister(): void {
-		if ( ! $this->container->isBound( Ical::class ) ) {
-			return;
-		}
-
 		$this->container->get( Ical::class )->unregister();
 	}
 }
