@@ -37,6 +37,10 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
+		if ( ! tribe_context()->doing_php_initial_state() ) {
+			return;
+		}
+		
 		$this->container->singleton( 'editor', 'Tribe__Editor' );
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
 		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite' );
