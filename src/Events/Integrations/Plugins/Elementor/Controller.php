@@ -98,6 +98,7 @@ class Controller extends Integration_Abstract {
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
 		add_action( 'template_redirect', [ $this, 'action_remove_revision_metadata_modifier' ], 1 );
+		add_filter( 'tec_classy_localized_data', [ $this, 'add_classy_localized_data' ], 20 );
 	}
 
 	/**
@@ -419,5 +420,24 @@ class Controller extends Integration_Abstract {
 		}
 
 		remove_action( 'template_redirect', [ Preview::instance(), 'hook' ] );
+	}
+
+	/**
+	 * Filters the data sent to Classy to add our own settings.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The data passed to the Classy application.
+	 *
+	 * @return array The modified data.
+	 */
+	public function add_classy_localized_data( array $data ) {
+		$data['settings'] ??= [];
+
+		// If the post is built with Elementor, disable the content editor in Classy.
+		$data['settings']['disableContent']       = $this->built_with_elementor();
+		$data['settings']['disableContentReason'] = __( 'The content editor is disabled because this event is being edited with Elementor.', 'the-events-calendar' );
+
+		return $data;
 	}
 }
