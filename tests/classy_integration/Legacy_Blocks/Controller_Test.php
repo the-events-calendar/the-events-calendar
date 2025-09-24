@@ -40,4 +40,31 @@ class Controller_Test extends Controller_Test_Case {
 		remove_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_true' );
 		wp_reset_postdata();
 	}
+
+	public function test_should_render_regular_event_without_blocks() {
+		$this->make_controller()->register();
+		
+		$event = tribe_events()->set_args(
+			[
+				'title'        => 'Test Event',
+				'status'       => 'publish',
+				'start_date'   => '+2 days 14:00:00',
+				'duration'     => HOUR_IN_SECONDS,
+				'post_content' => 'Test description withtout blocks',
+			]
+		)->create();
+
+		global $post;
+		$post = $event;
+
+		add_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_true' );
+
+		$html = tribe( Template_Bootstrap::class )->get_view_html();
+
+		$this->assertTrue( str_contains( $html, 'tribe-events-single' ) );
+		$this->assertFalse( str_contains( $html, 'tribe-blocks-editor' ) );
+
+		remove_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_true' );
+		wp_reset_postdata();
+	}
 }
