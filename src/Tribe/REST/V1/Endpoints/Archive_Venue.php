@@ -80,6 +80,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
 	 * @since 4.6
+	 * @since 6.15.3 Added password protection check.
 	 */
 	public function get( WP_REST_Request $request ) {
 		$args = array(
@@ -148,8 +149,21 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 			$data = array( 'venues' => array() );
 
+			$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::VENUE_POST_TYPE );
+
 			foreach ( $ids as $venue_id ) {
+				$filter_added = false;
+
+				if ( post_password_required( $venue_id ) && $rest_controller->can_access_password_content( get_post( $venue_id ), $request ) ) {
+					add_filter( 'post_password_required', '__return_false' );
+					$filter_added = true;
+				}
+
 				$venue = $this->repository->get_venue_data( $venue_id );
+
+				if ( $filter_added ) {
+					remove_filter( 'post_password_required', '__return_false' );
+				}
 
 				if ( $venue && ! is_wp_error( $venue ) ) {
 					$data['venues'][] = $venue;

@@ -107,6 +107,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		 * @param bool $default_only_with_upcoming
 		 *
 		 * @since 4.6
+		 * @since 6.15.3 Added password protection check.
 		 */
 		$default_only_with_upcoming = apply_filters( 'tribe_rest_organizer_default_only_with_upcoming', false );
 
@@ -149,8 +150,21 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 
 			$data = [ 'organizers' => [] ];
 
+			$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::ORGANIZER_POST_TYPE );
+
 			foreach ( $ids as $organizer_id ) {
+				$filter_added = false;
+
+				if ( post_password_required( $organizer_id ) && $rest_controller->can_access_password_content( get_post( $organizer_id ), $request ) ) {
+					add_filter( 'post_password_required', '__return_false' );
+					$filter_added = true;
+				}
+
 				$organizer = $this->repository->get_organizer_data( $organizer_id );
+
+				if ( $filter_added ) {
+					remove_filter( 'post_password_required', '__return_false' );
+				}
 
 				if ( $organizer && ! is_wp_error( $organizer ) ) {
 					$data['organizers'][] = $organizer;

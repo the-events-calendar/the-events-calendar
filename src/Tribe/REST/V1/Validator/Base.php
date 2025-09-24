@@ -9,6 +9,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	 * The event fields that are password protected when a password is required.
 	 *
 	 * @since 6.8.2.1
+	 * @since 6.15.3 Added venue and organizer fields.
 	 *
 	 * @var array
 	 */
@@ -43,6 +44,18 @@ class Tribe__Events__REST__V1__Validator__Base
 			'checked_in'      => 'null',
 			'not_checked_in'  => 'null',
 		],
+		'custom_fields'        => [],
+		'email'                => '',
+		'phone'                => '',
+		'website'              => '',
+		'geo_lat'              => 0,
+		'geo_lng'              => 0,
+		'stateprovince'        => '',
+		'zip'                  => '',
+		'province'             => '',
+		'country'              => '',
+		'city'                 => '',
+		'address'              => '',
 	];
 
 	/**

@@ -20,6 +20,7 @@ $header_classes = [ 'tribe-events-header' ];
 if ( empty( $disable_event_search ) ) {
 	$header_classes[] = 'tribe-events-header--has-event-search';
 }
+
 ?>
 
 <header <?php tec_classes( $header_classes ); ?>>
