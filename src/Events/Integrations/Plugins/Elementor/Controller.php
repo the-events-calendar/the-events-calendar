@@ -98,6 +98,7 @@ class Controller extends Integration_Abstract {
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
 		add_action( 'template_redirect', [ $this, 'action_remove_revision_metadata_modifier' ], 1 );
+		add_action( 'elementor_pro/init', [ $this, 'action_handle_elementor_pro_init' ] );
 	}
 
 	/**
@@ -419,5 +420,18 @@ class Controller extends Integration_Abstract {
 		}
 
 		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
+	}
+
+	/**
+	 * Handles Elementor Pro initialization to automatically reset template settings.
+	 *
+	 * @since TBD
+	 */
+	public function action_handle_elementor_pro_init(): void {
+		// Auto-switch existing users from "default" to "Default Events Template".
+		$current_template = tribe_get_option( 'tribeEventsTemplate', 'default' );
+		if ( 'default' === $current_template ) {
+			tribe_update_option( 'tribeEventsTemplate', '' );
+		}
 	}
 }
