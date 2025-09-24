@@ -2,15 +2,12 @@
 
 namespace TEC\Tests\Events\Classy\Legacy_Blocks;
 
-use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\Classy\Legacy_Blocks\Controller;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 class Controller_Test extends Controller_Test_Case {
 	protected $controller_class = Controller::class;
-
-	use SnapshotAssertions;
 
 	public function test_should_render_block_events_with_blocks() {
 		$event = tribe_events()->set_args(
