@@ -96,17 +96,8 @@ jobs:
           ${SLIC_BIN} info
           ${SLIC_BIN} config
       # ------------------------------------------------------------------------------
-      # Set TEC branch
+      # TEC branch logic removed - testing current repository
       # ------------------------------------------------------------------------------
-      - name: Set TEC with head branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome == 'success'
-        run: echo "TEC_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-      - name: Set TEC with base branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome == 'success'
-        run: echo "TEC_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set TEC with main branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
-        run: echo "TEC_BRANCH=main" >> $GITHUB_ENV
       # ------------------------------------------------------------------------------
       # Clone and init TEC
       # ------------------------------------------------------------------------------
