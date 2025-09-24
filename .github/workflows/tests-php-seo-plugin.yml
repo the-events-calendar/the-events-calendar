@@ -49,7 +49,6 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Checkout slic
         uses: actions/checkout@v4
-        if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
           ref: main
