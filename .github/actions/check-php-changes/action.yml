@@ -1,0 +1,25 @@
+name: 'Check PHP File Changes'
+description: 'Checks out repository and determines if any PHP files have changed in the PR'
+
+outputs:
+  php_files_changed:
+    description: "Whether PHP files have changed (boolean true/false)"
+    value: ${{ steps.check_changes.outputs.value }}
+
+runs:
+  using: "composite"
+  steps:
+    # ------------------------------------------------------------------------------
+    # Check if any PHP files have changed
+    # ------------------------------------------------------------------------------
+    - name: Check for changed PHP files
+      id: check_changes
+      shell: bash
+      run: |
+        if ! git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} HEAD | grep -q "\.php$"; then
+          echo "value=false" >> $GITHUB_OUTPUT
+          echo "## No PHP files changed, skipping tests." >> $GITHUB_STEP_SUMMARY
+        else
+          echo "value=true" >> $GITHUB_OUTPUT
+          echo "## PHP files changed, running tests." >> $GITHUB_STEP_SUMMARY
+        fi
