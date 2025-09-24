@@ -1131,7 +1131,7 @@ class Event_Venue extends Abstract_Widget {
 			[
 				'label'       => esc_html__( 'Venue Map', 'the-events-calendar' ),
 				'tab'         => Controls_Manager::TAB_STYLE,
-				'conditional' => [
+				'condition' => [
 					'show_venue_map' => 'yes',
 				],
 			]
