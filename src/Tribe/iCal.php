@@ -635,9 +635,23 @@ class Tribe__Events__iCal {
 			$start_year = date( 'Y', reset( $ordered['start'] ) );
 			$end_year   = date( 'Y', reset( $ordered['end'] ) );
 
-			// Extend the range by 3 years in each direction
-			$extended_start = strtotime( 'first day of january ' . ( $start_year - 3 ) );
-			$extended_end   = strtotime( 'last day of december ' . ( $end_year + 3 ) );
+			/**
+			 * Filters the number of years to extend timezone transitions in each direction.
+			 *
+			 * @since TBD
+			 *
+			 * @param int    $years    The number of years to extend before and after event years. Default 3.
+			 * @param string $timezone The timezone identifier (e.g., 'Europe/Berlin').
+			 * @param array  $events   The events being processed for this timezone.
+			 */
+			$extend_years = apply_filters( 'tec_events_ical_timezone_extend_years', 3, $timezone->getName(), $row['events'] );
+
+			// Ensure we have a valid positive integer.
+			$extend_years = max( 1, (int) $extend_years );
+
+			// Extend the range by the specified number of years in each direction
+			$extended_start = strtotime( 'first day of january ' . ( $start_year - $extend_years ) );
+			$extended_end   = strtotime( 'last day of december ' . ( $end_year + $extend_years ) );
 
 			$start = $extended_start;
 			$end   = $extended_end;
