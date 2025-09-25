@@ -34,8 +34,24 @@ $template_options = [
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
 
-// Allow integrations to modify template options.
-$template_options = apply_filters( 'tec_events_template_options', $template_options );
+/**
+ * Allow integrations to modify template options.
+ *
+ * This filter enables third-party plugins and integrations to modify the available
+ * template options for events. This is particularly useful for page builders and
+ * theme integrations that need to hide or modify certain template choices to prevent
+ * conflicts or provide better user experience.
+ *
+ * @since TBD
+ *
+ * @param array $template_options Array of template options in 'value' => 'label' format.
+ *                               Default options include:
+ *                               - '' => 'Default Events Template'
+ *                               - 'default' => 'Default Page Template'
+ *
+ * @return array Modified template options array.
+ */
+$template_options = apply_filters( 'tec_events_settings_display_calendar_template_options', $template_options );
 
 $templates = get_page_templates();
 ksort( $templates );
