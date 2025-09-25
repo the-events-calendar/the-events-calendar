@@ -34,16 +34,8 @@ $template_options = [
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
 
-// Remove "Default Page Template" option if Elementor Pro is active to prevent conflicts.
-if ( class_exists( '\ElementorPro\Plugin' ) ) {
-	unset( $template_options['default'] );
-
-	// Auto-switch existing users from "default" to "Default Events Template".
-	$current_template = tribe_get_option( 'tribeEventsTemplate', 'default' );
-	if ( 'default' === $current_template ) {
-		tribe_update_option( 'tribeEventsTemplate', '' );
-	}
-}
+// Allow integrations to modify template options.
+$template_options = apply_filters( 'tec_events_template_options', $template_options );
 
 $templates = get_page_templates();
 ksort( $templates );
