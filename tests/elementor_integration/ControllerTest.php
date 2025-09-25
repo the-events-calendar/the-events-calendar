@@ -33,4 +33,57 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		// Verify the setting has been reset to empty string (Default Events Template).
 		$this->assertEquals( '', tribe_get_option( 'tribeEventsTemplate' ) );
 	}
+
+	/**
+	 * It should not affect template setting when using a custom page template.
+	 *
+	 * @test
+	 */
+	public function should_not_affect_template_setting_when_using_custom_template(): void {
+		// Clear the options cache to ensure fresh values.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+
+		// Set the template to a custom page template.
+		tribe_update_option( 'tribeEventsTemplate', 'custom-template.php' );
+
+		// Clear cache again after setting to ensure the new value is used.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+
+		// Verify the setting is set to the custom template by checking the raw option value.
+		$options = get_option( Tribe__Main::OPTIONNAME, [] );
+		$this->assertEquals( 'custom-template.php', $options['tribeEventsTemplate'] );
+
+		// Simulate Elementor Pro initialization.
+		do_action( 'elementor_pro/init' );
+
+		// Verify the setting remains unchanged.
+		$updated_options = get_option( Tribe__Main::OPTIONNAME, [] );
+		$this->assertEquals( 'custom-template.php', $updated_options['tribeEventsTemplate'] );
+	}
+
+	/**
+	 * It should not affect template setting when already using Default Events Template.
+	 *
+	 * @test
+	 */
+	public function should_not_affect_template_setting_when_already_default_events_template(): void {
+		// Clear the options cache to ensure fresh values.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+
+		// Set the template to empty string (Default Events Template).
+		tribe_update_option( 'tribeEventsTemplate', '' );
+
+		// Clear cache again after setting to ensure the new value is used.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, null );
+
+		// Verify the setting is set to empty string by checking the raw option value.
+		$options = get_option( Tribe__Main::OPTIONNAME, [] );
+		$this->assertEquals( '', $options['tribeEventsTemplate'] );
+
+		// Simulate Elementor Pro initialization.
+		do_action( 'elementor_pro/init' );
+
+		// Verify the setting remains unchanged.
+		$this->assertEquals( '', tribe_get_option( 'tribeEventsTemplate' ) );
+	}
 }
