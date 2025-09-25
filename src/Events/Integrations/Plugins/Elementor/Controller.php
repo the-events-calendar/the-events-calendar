@@ -127,7 +127,7 @@ class Controller extends Integration_Abstract {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
 		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
-		add_filter( 'tec_events_template_options', [ $this, 'filter_template_options' ], 10, 1 );
+		add_filter( 'tec_events_settings_display_calendar_template_options', [ $this, 'filter_template_options' ], 10, 1 );
 	}
 
 	/**
@@ -428,9 +428,9 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $template_options The template options array.
+	 * @param array<string,mixed> $template_options The template options array.
 	 *
-	 * @return array The filtered template options.
+	 * @return array<string,mixed>  The filtered template options.
 	 */
 	public function filter_template_options( array $template_options ): array {
 		// Only modify options if Elementor Pro is active.
@@ -440,12 +440,6 @@ class Controller extends Integration_Abstract {
 
 		// Remove "Default Page Template" option to prevent conflicts.
 		unset( $template_options['default'] );
-
-		// Auto-switch existing users from "default" to "Default Events Template".
-		$current_template = tribe_get_option( 'tribeEventsTemplate', 'default' );
-		if ( 'default' === $current_template ) {
-			tribe_update_option( 'tribeEventsTemplate', '' );
-		}
 
 		return $template_options;
 	}
