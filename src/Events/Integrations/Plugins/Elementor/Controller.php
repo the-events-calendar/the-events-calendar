@@ -127,6 +127,7 @@ class Controller extends Integration_Abstract {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
 		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
+		add_filter( 'tec_events_template_options', [ $this, 'filter_template_options' ], 10, 1 );
 	}
 
 	/**
@@ -423,7 +424,37 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
+	 * Filters template options to remove "Default Page Template" when Elementor Pro is active.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $template_options The template options array.
+	 *
+	 * @return array The filtered template options.
+	 */
+	public function filter_template_options( array $template_options ): array {
+		// Only modify options if Elementor Pro is active.
+		if ( ! $this->is_elementor_pro_active() ) {
+			return $template_options;
+		}
+
+		// Remove "Default Page Template" option to prevent conflicts.
+		unset( $template_options['default'] );
+
+		// Auto-switch existing users from "default" to "Default Events Template".
+		$current_template = tribe_get_option( 'tribeEventsTemplate', 'default' );
+		if ( 'default' === $current_template ) {
+			tribe_update_option( 'tribeEventsTemplate', '' );
+		}
+
+		return $template_options;
+	}
+
+	/**
 	 * Handles Elementor Pro initialization to automatically reset template settings.
+	 *
+	 * This is to handle the use case where the user has set the template to "Default Page Template"
+	 * and then activates Elementor Pro without going back to the settings page.
 	 *
 	 * @since TBD
 	 */

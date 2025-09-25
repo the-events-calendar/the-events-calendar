@@ -25,12 +25,12 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 
 		// Verify the setting is set to 'default' by checking the raw option value.
 		$options = get_option( Tribe__Main::OPTIONNAME, [] );
-		$this->assertEquals( 'default', $options['tribeEventsTemplate'] ?? '' );
+		$this->assertEquals( 'default', $options['tribeEventsTemplate'] );
 
 		// Simulate Elementor Pro initialization.
 		do_action( 'elementor_pro/init' );
 
 		// Verify the setting has been reset to empty string (Default Events Template).
-		$this->assertEquals( '', tribe_get_option( 'tribeEventsTemplate', 'default' ) );
+		$this->assertEquals( '', tribe_get_option( 'tribeEventsTemplate' ) );
 	}
 }
