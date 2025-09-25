@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       forward-branch:
-        description: 'Name of the branch to merge into (e.g. release/T25.adamwarlock, master)'
+        description: 'Name of the branch to merge into (e.g. release/T25.adamwarlock, main)'
         default: release/T25.name
         required: true
 
