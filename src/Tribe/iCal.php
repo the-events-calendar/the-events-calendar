@@ -644,7 +644,7 @@ class Tribe__Events__iCal {
 			 * @param string $timezone The timezone identifier (e.g., 'Europe/Berlin').
 			 * @param array  $events   The events being processed for this timezone.
 			 */
-			$extend_years = apply_filters( 'tec_events_ical_timezone_extend_years', 3, $timezone->getName(), $row['events'] );
+			$extend_years = apply_filters( 'tec_events_ical_timezone_extend_years', 1, $timezone->getName(), $row['events'] );
 
 			// Ensure we have a valid positive integer.
 			$extend_years = max( 1, (int) $extend_years );
