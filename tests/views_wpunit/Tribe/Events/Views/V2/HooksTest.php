@@ -220,7 +220,6 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 
 		// Mock tribe_exit to prevent actual exit and allow test to continue
 		$this->set_fn_return( 'tribe_exit', fn() => true, true );
-
 		// Run the method
 		$hooks = new Hooks( tribe() );
 		$hooks->disabled_views_redirect();
@@ -272,12 +271,14 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 			'wp_safe_redirect',
 			function ( $url ) use ( &$store ) {
 				$store[] = $url;
+				codecept_debug('Running ----');
 
 				return true;
 			},
 			true
 		);
 		$this->set_fn_return( 'tribe_exit', true );
+		$this->set_fn_return( 'is_archive', true );
 
 		// Run the method.
 		$hooks = new Hooks( tribe() );
