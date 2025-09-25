@@ -632,8 +632,15 @@ class Tribe__Events__iCal {
 			$ordered['start'] = array_values( $ordered['start'] );
 			$ordered['end']   = array_values( $ordered['end'] );
 
-			$start = reset( $ordered['start'] );
-			$end   = reset( $ordered['end'] );
+			$start_year = date( 'Y', reset( $ordered['start'] ) );
+			$end_year   = date( 'Y', reset( $ordered['end'] ) );
+
+			// Extend the range by 3 years in each direction
+			$extended_start = strtotime( 'first day of january ' . ( $start_year - 3 ) );
+			$extended_end   = strtotime( 'last day of december ' . ( $end_year + 3 ) );
+
+			$start = $extended_start;
+			$end   = $extended_end;
 
 			if ( empty( $start ) || empty( $end ) ) {
 				continue;
