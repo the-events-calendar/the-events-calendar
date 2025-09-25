@@ -632,8 +632,8 @@ class Tribe__Events__iCal {
 			$ordered['start'] = array_values( $ordered['start'] );
 			$ordered['end']   = array_values( $ordered['end'] );
 
-			$start_year = date( 'Y', reset( $ordered['start'] ) );
-			$end_year   = date( 'Y', reset( $ordered['end'] ) );
+			$start_year = date( 'Y', reset( $ordered['start'] ) );  // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+			$end_year   = date( 'Y', reset( $ordered['end'] ) );  // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 
 			/**
 			 * Filters the number of years to extend timezone transitions in each direction.
@@ -649,7 +649,7 @@ class Tribe__Events__iCal {
 			// Ensure we have a valid positive integer.
 			$extend_years = max( 1, (int) $extend_years );
 
-			// Extend the range by the specified number of years in each direction
+			// Extend the range by the specified number of years in each direction.
 			$extended_start = strtotime( 'first day of january ' . ( $start_year - $extend_years ) );
 			$extended_end   = strtotime( 'last day of december ' . ( $end_year + $extend_years ) );
 
