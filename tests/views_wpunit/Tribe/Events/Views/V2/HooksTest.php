@@ -271,8 +271,6 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 			'wp_safe_redirect',
 			function ( $url ) use ( &$store ) {
 				$store[] = $url;
-				codecept_debug('Running ----');
-
 				return true;
 			},
 			true
