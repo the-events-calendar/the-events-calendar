@@ -49,6 +49,7 @@ class Tribe__Events__iCal {
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
 	 *
 	 * @since 3.6.0
+	 * @since TBD Add `prevent_redirect_on_ical`.
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
@@ -56,6 +57,7 @@ class Tribe__Events__iCal {
 		add_action( 'template_redirect', [ $this, 'do_ical_template' ] );
 		add_filter( 'tribe_get_ical_link', [ $this, 'day_view_ical_link' ], 20, 1 );
 		add_action( 'wp_head', [ $this, 'set_feed_link' ], 2, 0 );
+		add_filter( 'tec_events_views_v2_should_redirect', [ $this, 'prevent_redirect_on_ical' ] );
 	}
 
 	/**
@@ -1097,5 +1099,26 @@ class Tribe__Events__iCal {
 	 */
 	public function set_feed_default_export_count( $count ) {
 		$this->feed_default_export_count = $count;
+	}
+
+	/**
+	 * Prevent Views V2 from redirecting when exporting iCal or Outlook ICS feeds.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $should_redirect Whether the request should redirect.
+	 *
+	 * @return bool Whether the redirect should occur.
+	 */
+	public function prevent_redirect_on_ical( $should_redirect ) {
+		$is_ical_request         = (bool) tec_get_request_var( 'ical', false );
+		$is_outlook_ical_request = (bool) tec_get_request_var( 'outlook_ical', false );
+
+		// Bail early if exporting iCal or Outlook ICS feeds to prevent redirect.
+		if ( $is_ical_request || $is_outlook_ical_request ) {
+			return false;
+		}
+
+		return $should_redirect;
 	}
 }
