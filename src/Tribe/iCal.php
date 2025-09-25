@@ -57,7 +57,7 @@ class Tribe__Events__iCal {
 		add_action( 'template_redirect', [ $this, 'do_ical_template' ] );
 		add_filter( 'tribe_get_ical_link', [ $this, 'day_view_ical_link' ], 20, 1 );
 		add_action( 'wp_head', [ $this, 'set_feed_link' ], 2, 0 );
-		add_filter( 'tribe_events_views_v2_should_redirect', [ $this, 'prevent_redirect_on_ical' ] );
+		add_filter( 'tec_events_views_v2_should_redirect', [ $this, 'prevent_redirect_on_ical' ] );
 	}
 
 	/**
