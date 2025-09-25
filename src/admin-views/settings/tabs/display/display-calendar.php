@@ -20,7 +20,6 @@ use Tribe\Utils\Element_Classes as Classes;
  * Filter to determine if the Events Templates should be displayed in the settings.
  *
  * @since 6.4.0
- * @since TBD Added logic to hide the "Default Page Template" option if Elementor Pro is active.
  *
  * @param bool $should_display Whether the Events Templates should be displayed.
  */
@@ -33,25 +32,6 @@ $template_options = [
 	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
-
-/**
- * Allow integrations to modify template options.
- *
- * This filter enables third-party plugins and integrations to modify the available
- * template options for events. This is particularly useful for page builders and
- * theme integrations that need to hide or modify certain template choices to prevent
- * conflicts or provide better user experience.
- *
- * @since TBD
- *
- * @param array $template_options Array of template options in 'value' => 'label' format.
- *                               Default options include:
- *                               - '' => 'Default Events Template'
- *                               - 'default' => 'Default Page Template'
- *
- * @return array Modified template options array.
- */
-$template_options = apply_filters( 'tec_events_settings_display_calendar_template_options', $template_options );
 
 $templates = get_page_templates();
 ksort( $templates );

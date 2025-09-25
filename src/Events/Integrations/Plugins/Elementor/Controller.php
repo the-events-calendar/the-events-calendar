@@ -127,7 +127,7 @@ class Controller extends Integration_Abstract {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
 		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
-		add_filter( 'tec_events_settings_display_calendar_template_options', [ $this, 'filter_template_options' ], 10, 1 );
+		add_filter( 'tec_events_settings_display_calendar_section', [ $this, 'filter_display_calendar_section' ], 10, 1 );
 	}
 
 	/**
@@ -424,33 +424,16 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Filters template options to remove "Default Page Template" when Elementor Pro is active.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string,mixed> $template_options The template options array.
-	 *
-	 * @return array<string,mixed>  The filtered template options.
-	 */
-	public function filter_template_options( array $template_options ): array {
-		// Only modify options if Elementor Pro is active.
-		if ( ! $this->is_elementor_pro_active() ) {
-			return $template_options;
-		}
-
-		// Remove "Default Page Template" option to prevent conflicts.
-		unset( $template_options['default'] );
-
-		return $template_options;
-	}
-
-	/**
 	 * Handles Elementor Pro initialization to automatically reset template settings.
 	 *
-	 * This is to handle the use case where the user has set the template to "Default Page Template"
-	 * and then activates Elementor Pro without going back to the settings page.
+	 * This method is triggered when Elementor Pro initializes and automatically switches
+	 * users from "Default Page Template" to "Default Events Template" to prevent conflicts.
+	 * This handles the use case where a user has set the template to "Default Page Template"
+	 * and then activates Elementor Pro without visiting the settings page.
 	 *
 	 * @since TBD
+	 *
+	 * @return void Template setting is updated if needed.
 	 */
 	public function action_handle_elementor_pro_init(): void {
 		// Auto-switch existing users from "default" to "Default Events Template".
@@ -458,5 +441,26 @@ class Controller extends Integration_Abstract {
 		if ( 'default' === $current_template ) {
 			tribe_update_option( 'tribeEventsTemplate', '' );
 		}
+	}
+
+	/**
+	 * Filters the display calendar section to remove "Default Page Template" when Elementor Pro is active.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $display_calendar_section The display calendar section configuration array.
+	 *
+	 * @return array<string,mixed> The filtered display calendar section array.
+	 */
+	public function filter_display_calendar_section( array $display_calendar_section ): array {
+		// Only modify the section if Elementor Pro is active.
+		if ( ! $this->is_elementor_pro_active() ) {
+			return $display_calendar_section;
+		}
+
+		// Remove "Default Page Template" option to prevent conflicts.
+		unset( $display_calendar_section['tribeEventsTemplate']['options']['default'] );
+
+		return $display_calendar_section;
 	}
 }
