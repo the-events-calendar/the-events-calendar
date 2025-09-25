@@ -18,7 +18,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Elementor\Core\Base\Document;
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
-use Tribe__Utils__Array;
+use TEC\Common\StellarWP\Installer\Utils\Array_Utils;
 use Tribe__Events__Revisions__Preview;
 
 /**
@@ -460,10 +460,10 @@ class Controller extends Integration_Abstract {
 		}
 
 		// Grab the template options.
-		$template_options = Tribe__Utils__Array::get_in_any( [ $display_calendar_section ], [ 'tribeEventsTemplate', 'options' ] );
+		$template_options = Array_Utils::get_in_any( [ $display_calendar_section ], [ 'tribeEventsTemplate', 'options' ] );
 
 		// Only proceed if template options exist and contain the 'default' option.
-		if ( $template_options && Tribe__Utils__Array::get_in_any( [ $template_options ], [ 'default' ] ) ) {
+		if ( $template_options && Array_Utils::get_in_any( [ $template_options ], [ 'default' ] ) ) {
 			unset( $template_options['default'] );
 			$display_calendar_section['tribeEventsTemplate']['options'] = $template_options;
 		}
