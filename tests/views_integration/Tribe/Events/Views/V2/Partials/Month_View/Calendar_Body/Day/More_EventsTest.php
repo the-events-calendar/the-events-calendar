@@ -16,6 +16,7 @@ class More_EventsTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'more_events' => 0,
 			'more_url'    => '',
+			'day_date'    => '2024-09-01',
 		] ) );
 	}
 
@@ -26,6 +27,7 @@ class More_EventsTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'more_events' => 2,
 			'more_url'    => '',
+			'day_date'    => '2024-09-01',
 		] ) );
 	}
 
@@ -36,6 +38,7 @@ class More_EventsTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'more_events' => 0,
 			'more_url'    => 'http://test.tri.be',
+			'day_date'    => '2024-09-01',
 		] ) );
 	}
 	/**
@@ -45,6 +48,7 @@ class More_EventsTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'more_events' => 2,
 			'more_url'    => 'http://test.tri.be',
+			'day_date'    => '2024-09-01',
 		] ) );
 	}
 }

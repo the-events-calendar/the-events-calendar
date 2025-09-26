@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Hide the Event Tickets upsell on the currency page when Event Tickets is enabled. [TEC-5585]
