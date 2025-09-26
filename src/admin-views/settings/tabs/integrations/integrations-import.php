@@ -28,7 +28,7 @@ $tec_events_integrations_import = [
 			( new Paragraph( new Classes( [ 'tec-settings-form__section-description' ] ) ) )->add_child(
 				new Plain_Text(
 					__(
-						'Below you can set up the authentication for different calendar services, in order to be able to import events from them. You need a valid Event Aggregator license key to be able to use this feature.',
+						'Below you can set up the authentication for different calendar services, in order to be able to import events from them.',
 						'the-events-calendar'
 					)
 				)
