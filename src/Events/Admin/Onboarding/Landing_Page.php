@@ -590,7 +590,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		 *
 		 * @return bool
 		 */
-		$force = apply_filters( 'tec_events_onboarding_wizard_force_display', false );
+		$force = apply_filters( 'tec_events_onboarding_wizard_force_display', true );
 
 		if ( $force ) {
 			return true;

@@ -163,7 +163,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @return bool
 		 */
-		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
+		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', true );
 
 		// Do not redirect if the target is not The Events Calendar-related admin pages.
 		$post_type = tec_get_request_var( 'post_type' );
