@@ -131,7 +131,11 @@ class Controller extends Controller_Contract {
 	 *              position: string
 	 *          },
 	 *          venuesLimit: int
-	 *     }
+	 *     },
+	 *     endOfDayCutoff:{
+	 *          hours: int,
+	 *          minutes: int
+	 *     },
 	 * } The filtered data passed to the Classy application.
 	 */
 	public function filter_data( array $data ): array {
