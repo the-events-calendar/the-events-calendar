@@ -6,7 +6,6 @@ import { useEffect, useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from '../../data';
 import { API_ENDPOINT } from '../../data/settings/constants';
-import { getVisitedFields } from '../../data/settings/selectors';
 
 const NextButton = ( { disabled, moveToNextTab, tabSettings } ) => {
 	const completeTab = useDispatch( SETTINGS_STORE_KEY ).completeTab;
