@@ -14,10 +14,10 @@ const NextButton = ( { disabled, moveToNextTab, tabSettings } ) => {
 	const actionNonce = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSetting( 'action_nonce' ), [] );
 	const wpNonce = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSetting( '_wpnonce' ), [] );
 	const updateSettings = useDispatch( SETTINGS_STORE_KEY ).updateSettings;
-	const getSettings = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSettings );
-	const getCompletedTabs = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getCompletedTabs );
-	const getSkippedTabs = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSkippedTabs );
-	const getVisitedFields = useSelect( SETTINGS_STORE_KEY ).getVisitedFields;
+	const getSettings = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSettings, [] );
+	const getCompletedTabs = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getCompletedTabs, [] );
+	const getSkippedTabs = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSkippedTabs, [] );
+	const getVisitedFields = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getVisitedFields, [] );
 
 	const [ isSaving, setSaving ] = useState( false );
 	const [ isClicked, setClicked ] = useState( false );
