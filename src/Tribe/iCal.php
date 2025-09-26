@@ -606,6 +606,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 4.9.4
 	 * @since 6.10.2 Make sure that each time zone definition has its own group.
+	 * @since TBD Adjust the time zone definition to include the DST transitions for a year before and after.
 	 *
 	 * @param array $events An array with all the events.
 	 *
@@ -634,8 +635,29 @@ class Tribe__Events__iCal {
 			$ordered['start'] = array_values( $ordered['start'] );
 			$ordered['end']   = array_values( $ordered['end'] );
 
-			$start = reset( $ordered['start'] );
-			$end   = reset( $ordered['end'] );
+			$start_year = date( 'Y', reset( $ordered['start'] ) );  // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+			$end_year   = date( 'Y', reset( $ordered['end'] ) );  // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+
+			/**
+			 * Filters the number of years to extend timezone transitions in each direction.
+			 *
+			 * @since TBD
+			 *
+			 * @param int    $years    The number of years to extend before and after event years. Default 1.
+			 * @param string $timezone The timezone identifier (e.g., 'Europe/Berlin').
+			 * @param array  $events   The events being processed for this timezone.
+			 */
+			$extend_years = (int) apply_filters( 'tec_events_ical_timezone_extend_years', 1, $timezone->getName(), $row['events'] );
+
+			// Ensure we have a valid positive integer.
+			$extend_years = max( 1, $extend_years );
+
+			// Extend the range by the specified number of years in each direction.
+			$extended_start = strtotime( 'first day of january ' . ( $start_year - $extend_years ) );
+			$extended_end   = strtotime( 'last day of december ' . ( $end_year + $extend_years ) );
+
+			$start = $extended_start;
+			$end   = $extended_end;
 
 			if ( empty( $start ) || empty( $end ) ) {
 				continue;
