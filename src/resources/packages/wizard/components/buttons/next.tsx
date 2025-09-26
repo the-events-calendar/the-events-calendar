@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { Button, Spinner } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from '../../data';
 import { API_ENDPOINT } from '../../data/settings/constants';
@@ -20,40 +20,28 @@ const NextButton = ( { disabled, moveToNextTab, tabSettings } ) => {
 	const getVisitedFields = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getVisitedFields, [] );
 
 	const [ isSaving, setSaving ] = useState( false );
-	const [ isClicked, setClicked ] = useState( false );
 
-	// Reset isSaving state when any field in tabSettings changes
-	useEffect(() => {
-		if (tabSettings && !isSaving) {
-			// If the user changes any field, we reset the saving state
-			setSaving( false );
-			// and the button clicked state.
-			setClicked( false );
+	const handleClick = async () => {
+		setSaving( true );
+
+		if ( tabSettings.currentTab === 5 ) {
+			// If we're on the last tab, we need to set the finished state to true.
+			tabSettings.finished = true;
 		}
-	}, [ tabSettings ] );
 
-	useEffect( () => {
-		const handleTabChange = async () => {
-			// Set the saving state.
-			setSaving( true );
+		// Add our action nonce.
+		tabSettings.action_nonce = actionNonce;
 
-			if ( tabSettings.currentTab === 5 ) {
-				// If we're on the last tab, we need to set the finished state to true.
-				tabSettings.finished = true;
-			}
+		// Mark the tab as completed.
+		completeTab( tabSettings.currentTab );
 
-			// Add our action nonce.
-			tabSettings.action_nonce = actionNonce;
+		// Update settings Store for the current tab.
+		updateSettings( tabSettings );
 
-			// Mark the tab as completed.
-			completeTab( tabSettings.currentTab );
+		// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
+		apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );
 
-			// Update settings Store for the current tab.
-			updateSettings( tabSettings );
-
-			// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
-			apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );
-
+		try {
 			const result = await apiFetch( {
 				method: 'POST',
 				data: {
@@ -75,15 +63,14 @@ const NextButton = ( { disabled, moveToNextTab, tabSettings } ) => {
 					stepIndicator.classList.add( 'tec-admin-page__onboarding-step--completed' );
 				} );
 
-				// Reset the saving state.
-				setSaving( false );
-
 				// Move to the next tab.
 				if ( tabSettings.currentTab === 5 ) {
 					setTimeout( () => {
+						setSaving( false );
 						closeModal();
 					}, 1000 );
 				} else {
+					setSaving( false );
 					moveToNextTab();
 				}
 			} else if ( tabSettings.currentTab === 5 ) {
@@ -93,21 +80,17 @@ const NextButton = ( { disabled, moveToNextTab, tabSettings } ) => {
 					closeModal();
 				}, 1000 );
 			}
-
+		} catch ( error ) {
 			setSaving( false );
-		};
-
-		if ( isClicked ) {
-			handleTabChange();
 		}
-	}, [ isClicked ] );
+	};
 
 	return (
 		<>
 			<Button
 				variant="primary"
 				disabled={ disabled || isSaving }
-				onClick={ () => setClicked( true ) }
+				onClick={ handleClick }
 				className="tec-events-onboarding__button tec-events-onboarding__button--next"
 			>
 				{ isSaving && __( 'Saving…', 'the-events-calendar' ) }
