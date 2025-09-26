@@ -9,16 +9,16 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use Elementor\Core\Base\Document;
 use Elementor\Elements_Manager;
-use WP_Post;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Template_Controller;
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use Elementor\Core\Base\Document;
-use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
-use Tribe__Events__Revisions__Preview;
+use Tribe__Events__Revisions__Preview as Preview;
+use Tribe__Template as Template;
+use WP_Post;
 
 /**
  * Class Controller
@@ -35,7 +35,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since 6.4.0
 	 *
-	 * @var Tribe_Template
+	 * @var Template
 	 */
 	protected $template;
 
@@ -98,6 +98,7 @@ class Controller extends Integration_Abstract {
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
 		add_action( 'template_redirect', [ $this, 'action_remove_revision_metadata_modifier' ], 1 );
+		add_filter( 'tec_classy_localized_data', [ $this, 'add_classy_localized_data' ], 20 );
 	}
 
 	/**
@@ -418,6 +419,25 @@ class Controller extends Integration_Abstract {
 			return;
 		}
 
-		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
+		remove_action( 'template_redirect', [ Preview::instance(), 'hook' ] );
+	}
+
+	/**
+	 * Filters the data sent to Classy to add our own settings.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The data passed to the Classy application.
+	 *
+	 * @return array The modified data.
+	 */
+	public function add_classy_localized_data( array $data ) {
+		$data['settings'] ??= [];
+
+		// If the post is built with Elementor, disable the content editor in Classy.
+		$data['settings']['disableContent']       = $this->built_with_elementor();
+		$data['settings']['disableContentReason'] = __( 'The content editor is disabled because this event is being edited with Elementor.', 'the-events-calendar' );
+
+		return $data;
 	}
 }

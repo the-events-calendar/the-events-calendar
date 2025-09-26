@@ -11,33 +11,32 @@ declare( strict_types=1 );
 
 namespace TEC\Events\REST\TEC\V1\Endpoints;
 
+use InvalidArgumentException;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
-use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
-use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
-use Tribe__Events__Main as Events_Main;
-use Tribe__Events__Validator__Base as Event_Validator;
-use Tribe\Events\Models\Post_Types\Event as Event_Model;
-use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
-use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
-use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
 use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Contracts\Archive_Endpoint;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
 use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Date_Time;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
 use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
+use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Event_Request_Body_Definition;
-use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Events\REST\TEC\V1\Traits\With_Events_ORM;
 use TEC\Events\REST\TEC\V1\Traits\With_Transform_Organizers_And_Venues;
-use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
-use InvalidArgumentException;
+use Tribe\Events\Models\Post_Types\Event as Event_Model;
+use Tribe__Events__Main as Events_Main;
+use Tribe__Events__Validator__Base as Event_Validator;
 
 /**
  * Archive events endpoint for the TEC REST API V1.
@@ -46,7 +45,7 @@ use InvalidArgumentException;
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
-class Events extends Post_Entity_Endpoint implements Readable_Endpoint, Creatable_Endpoint {
+class Events extends Post_Entity_Endpoint implements Archive_Endpoint {
 	use Read_Archive_Response;
 	use Create_Entity_Response;
 	use With_Events_ORM;
