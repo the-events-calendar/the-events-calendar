@@ -1,6 +1,7 @@
 {
 	"build": [
 		"cd common && composer -- pup build",
+		"rm -rf build",
 		"composer pup",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
@@ -8,6 +9,7 @@
 	],
 	"build_dev": [
 		"cd common && composer -- pup build",
+		"rm -rf build",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build"
