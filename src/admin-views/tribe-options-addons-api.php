@@ -77,9 +77,15 @@ $gmaps_tab = new Tribe__Settings_Tab(
 );
 $addons_tab->add_child( $gmaps_tab );
 
-// Create the Imports subtab.
-$imports_tab = require_once __DIR__ . '/settings/tabs/integrations/integrations-import.php';
-$addons_tab->add_child( $imports_tab );
+/**
+ * Create the Imports subtab if any of the below are true:
+ * - An Event Aggregator license key is present.
+ * - The Eventbrite plugin is active.
+ */
+if ( get_option( 'pue_install_key_event_aggregator' ) || class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+	$imports_tab = require_once __DIR__ . '/settings/tabs/integrations/integrations-import.php';
+	$addons_tab->add_child( $imports_tab );
+}
 
 
 /**
