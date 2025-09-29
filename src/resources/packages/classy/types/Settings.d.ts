@@ -1,6 +1,6 @@
-import {LocalizedData, Settings} from '@tec/common/classy/types/LocalizedData';
-import {Minutes} from "@tec/common/classy/types/Minutes";
-import {Hours} from "@tec/common/classy/types/Hours";
+import { LocalizedData, Settings } from '@tec/common/classy/types/LocalizedData';
+import { Minutes } from '@tec/common/classy/types/Minutes';
+import { Hours } from '@tec/common/classy/types/Hours';
 
 export type TECSettings = {
 	venuesLimit: number;
@@ -11,7 +11,9 @@ export type TECSettings = {
 export type EndOfDayCutoff = {
 	hours: Hours;
 	minutes: Minutes;
-}
+	endHours: Hours;
+	endMinutes: Minutes;
+};
 
 export type TECLocalizedData = {
 	endOfDayCutoff: EndOfDayCutoff;

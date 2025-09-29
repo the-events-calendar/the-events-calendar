@@ -45,6 +45,8 @@ class Controller_Test extends Controller_Test_Case {
 				[
 					'hours'   => 0,
 					'minutes' => 0,
+					'endHours'   => 23,
+					'endMinutes' => 59,
 				],
 		], $data );
 
@@ -73,6 +75,8 @@ class Controller_Test extends Controller_Test_Case {
 				[
 					'hours'   => 2,
 					'minutes' => 30,
+					'endHours'   => 2,
+					'endMinutes' => 29,
 				],
 		], $data );
 	}

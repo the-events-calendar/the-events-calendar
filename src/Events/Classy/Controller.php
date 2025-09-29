@@ -9,11 +9,13 @@
 
 namespace TEC\Events\Classy;
 
+use DateInterval;
 use TEC\Common\Classy\Controller as Common_Controller;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Traits\Can_Edit_Events;
 use Tribe__Events__Main as TEC;
+use Tribe__Date_Utils as Dates;
 
 /**
  * Class Controller.
@@ -124,6 +126,8 @@ class Controller extends Controller_Contract {
 	 *          endOfDayCutoff:{
 	 *              hours: int,
 	 *              minutes: int
+	 *              endHours: int,
+	 *              endMinutes: int
 	 *          },
 	 *          defaultCurrency: array{
 	 *              code: string,
@@ -158,10 +162,17 @@ class Controller extends Controller_Contract {
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
 		);
+		// Localize this information to spare the JS code the need to run this calculation over and over.
+		$cutoff_end_hours_minutes                  = Dates::immutable( "2020-12-31 {$cutoff_hours}:{$cutoff_minutes}:00" )
+										->sub( new DateInterval( ( 'PT1S' ) ) )
+										->format( 'H:i' );
+		[ $cutoff_end_hours, $cutoff_end_minutes ] = explode( ':', $cutoff_end_hours_minutes );
 
 		$data['endOfDayCutoff'] = [
-			'hours'   => (int) $cutoff_hours,
-			'minutes' => (int) $cutoff_minutes,
+			'hours'      => (int) $cutoff_hours,
+			'minutes'    => (int) $cutoff_minutes,
+			'endHours'   => (int) $cutoff_end_hours,
+			'endMinutes' => (int) $cutoff_end_minutes,
 		];
 
 		return $data;
