@@ -290,7 +290,7 @@ class Controller extends Controller_Contract {
 	 * @return bool|null
 	 */
 	public function filter_telemetry_modal_status( $should_show ) {
-		$data = $this->container->make( Data::class );
+		$data            = $this->container->make( Data::class );
 		$onboarding_data = $data->get_wizard_settings();
 
 		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
