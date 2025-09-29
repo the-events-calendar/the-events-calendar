@@ -81,6 +81,7 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['venue'], 'handle' ], 13, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['tickets'], 'handle' ], 14, 2 );
 		add_filter( 'tec_telemetry_is_tec_admin_page', [ $this, 'hide_telemetry_on_onboarding_page' ], 10, 1 );
+		add_filter( 'tec_telemetry_should_show_modal', [ $this, 'filter_telemetry_modal_status' ], 10, 1 );
 	}
 
 	/**
@@ -111,6 +112,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['venue'], 'handle' ], 13 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['tickets'], 'handle' ], 14 );
 		remove_filter( 'tec_telemetry_is_tec_admin_page', [ $this, 'hide_telemetry_on_onboarding_page' ], 10 );
+		remove_filter( 'tec_telemetry_should_show_modal', [ $this, 'filter_telemetry_modal_status' ], 10 );
 	}
 
 	/**
@@ -276,5 +278,27 @@ class Controller extends Controller_Contract {
 		}
 
 		return $is_tec_admin_page;
+	}
+
+	/**
+	 * Filter the telemetry modal status based on onboarding wizard completion.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool|null $should_show Whether the telemetry modal should show. Return null to continue with default logic.
+	 *
+	 * @return bool|null
+	 */
+	public function filter_telemetry_modal_status( $should_show ) {
+		$data = $this->container->make( Data::class );
+		$onboarding_data = $data->get_wizard_settings();
+
+		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
+		// If that's the case, we should still show the modal, otherwise we skip it.
+		if ( tribe_is_truthy( $onboarding_data['finished'] ) && $onboarding_data['completed_tabs'] !== [ 0 ] ) {
+			$should_show = false;
+		}
+
+		return $should_show;
 	}
 }

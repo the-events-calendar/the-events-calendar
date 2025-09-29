@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Add logic to not show the Telemetry modal if the onboarding wizard was completed. [TEC-5583]
