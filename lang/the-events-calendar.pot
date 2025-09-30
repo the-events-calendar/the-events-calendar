@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.5\n"
+"Project-Id-Version: The Events Calendar 6.15.6\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-22T17:35:26+00:00\n"
+"POT-Creation-Date: 2025-09-30T16:06:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. translators: %s: The Events Calendar Link element.
 #: the-events-calendar.php
 #: src/admin-views/admin-welcome-message.php:31
-#: src/Events/Integrations/Plugins/Elementor/Controller.php:114
+#: src/Events/Integrations/Plugins/Elementor/Controller.php:116
 #: src/Events/Site_Health/Info_Section.php:73
 #: src/functions/template-tags/general.php:1520
 #: src/Tribe/Main.php:990
@@ -860,7 +860,7 @@ msgstr ""
 #: src/admin-views/tribe-options-imports.php:534
 #: src/admin-views/tribe-options-imports.php:597
 #: src/admin-views/tribe-options-imports.php:644
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:775
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:772
 msgid "Show Map"
 msgstr ""
 
@@ -1014,7 +1014,7 @@ msgid "When importing from a website that uses The Events Calendar, the REST API
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:476
-#: src/admin-views/settings/tabs/display/display-currency.php:71
+#: src/admin-views/settings/tabs/display/display-currency.php:72
 #: src/admin-views/settings/tabs/general/general-editing.php:40
 #: src/Tribe/REST/V1/EA_Messages.php:40
 msgid "Learn more."
@@ -1085,7 +1085,7 @@ msgstr ""
 #: src/Tribe/Aggregator/API/Origins.php:57
 #: src/Tribe/Aggregator/Record/gCal.php:14
 #: src/Tribe/Editor/Blocks/Event_Links.php:26
-#: src/Tribe/iCal.php:154
+#: src/Tribe/iCal.php:156
 #: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:55
 #: src/modules/blocks/event-links/index.js:38
 #: src/modules/blocks/event-links/template.js:27
@@ -1095,7 +1095,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:628
 #: src/admin-views/aggregator/status.php:210
-#: src/admin-views/tribe-options-addons-api.php:45
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:75
 #: src/Tribe/Aggregator/API/Origins.php:75
 #: src/Tribe/Aggregator/Record/Meetup.php:40
 msgid "Meetup"
@@ -1107,7 +1107,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:636
 #: src/admin-views/aggregator/status.php:183
-#: src/admin-views/tribe-options-addons-api.php:94
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:120
 #: src/Tribe/Aggregator/API/Origins.php:51
 #: src/Tribe/Aggregator/Record/Eventbrite.php:88
 msgid "Eventbrite"
@@ -1363,6 +1363,7 @@ msgid "Category:"
 msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:307
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:135
 #: src/Tribe/Admin/Bar/Default_Configurator.php:75
 #: src/Tribe/Aggregator/Page.php:396
 msgid "Import"
@@ -1524,7 +1525,7 @@ msgid "Address:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:82
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:967
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:964
 #: src/Tribe/Importer/Column_Mapper.php:144
 msgid "Venue Address"
 msgstr ""
@@ -1574,7 +1575,7 @@ msgid "Venue Zip Code"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:190
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:894
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:891
 #: src/Tribe/Importer/Column_Mapper.php:149
 msgid "Venue Phone"
 msgstr ""
@@ -2107,49 +2108,49 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:15
+#: src/admin-views/settings/tabs/display/display-currency.php:16
 msgctxt "Currency settings section header"
 msgid "Currency"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:22
+#: src/admin-views/settings/tabs/display/display-currency.php:23
 msgid "Default currency symbol"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:23
+#: src/admin-views/settings/tabs/display/display-currency.php:24
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:30
+#: src/admin-views/settings/tabs/display/display-currency.php:31
 msgid "Default currency code"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:31
+#: src/admin-views/settings/tabs/display/display-currency.php:32
 msgid "Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:38
+#: src/admin-views/settings/tabs/display/display-currency.php:39
 #: src/modules/data/blocks/price/reducer.js:25
 msgid "USD"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:43
+#: src/admin-views/settings/tabs/display/display-currency.php:44
 msgid "Currency symbol follows value"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:44
+#: src/admin-views/settings/tabs/display/display-currency.php:45
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:63
+#: src/admin-views/settings/tabs/display/display-currency.php:64
 msgid "Start selling tickets to your events"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:67
+#: src/admin-views/settings/tabs/display/display-currency.php:68
 msgid "Get Event Tickets to manage attendee registration and ticket sales to your events, for free."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:83
+#: src/admin-views/settings/tabs/display/display-currency.php:84
 #: src/Events/Admin/Onboarding/Landing_Page.php:249
 msgid "Currency"
 msgstr ""
@@ -2374,7 +2375,7 @@ msgstr ""
 
 #: src/admin-views/settings/tabs/general/general-maintenance.php:41
 #: src/admin-views/settings/tabs/general/general-maintenance.php:59
-#: src/Tribe/Views/V2/Hooks.php:1343
+#: src/Tribe/Views/V2/Hooks.php:1359
 msgid "Disabled"
 msgstr ""
 
@@ -2504,66 +2505,79 @@ msgstr ""
 msgid "Viewing"
 msgstr ""
 
-#: src/admin-views/settings/upsells/community.php:20
-msgid "Community"
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:24
+msgctxt "Calendar display settings header"
+msgid "Import"
 msgstr ""
 
-#: src/admin-views/settings/upsells/community.php:24
-msgid "Offer visitors the ability to contribute to your event listings without needing backend access."
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:30
+msgid "Below you can set up the authentication for different calendar services, in order to be able to import events from them."
 msgstr ""
 
-#: src/admin-views/settings/upsells/community.php:27
-msgid "Check out our Community add-on"
-msgstr ""
-
-#: src/admin-views/tribe-options-addons-api.php:19
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:50
 msgid "Meetup Authentication"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:23
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:54
 msgid "You need to connect to Meetup for Event Aggregator to work properly"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:24
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:55
 msgid "Connect to Meetup"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:26
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:57
 msgid "Refresh your connection to Meetup"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:27
-#: src/admin-views/tribe-options-addons-api.php:77
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:58
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:104
 msgid "Disconnect"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:69
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:96
 msgid "Eventbrite Authentication"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:73
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:100
 msgid "You need to connect to Eventbrite for Event Aggregator to work properly"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:74
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:101
 msgid "Connect to Eventbrite"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:76
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:103
 msgid "Refresh your connection to Eventbrite"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:114
+#: src/admin-views/settings/upsells/community.php:21
+msgid "Community"
+msgstr ""
+
+#: src/admin-views/settings/upsells/community.php:25
+msgid "Offer visitors the ability to contribute to your event listings without needing backend access."
+msgstr ""
+
+#: src/admin-views/settings/upsells/community.php:28
+msgid "Check out our Community add-on"
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:28
 msgctxt "Integrations section header"
 msgid "Integrations"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:117
+#: src/admin-views/tribe-options-addons-api.php:31
 msgid "The Events Calendar, Event Tickets and their add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations."
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:149
+#: src/admin-views/tribe-options-addons-api.php:65
 msgid "Integrations"
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:72
+msgid "Google Maps"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:14
@@ -2822,22 +2836,22 @@ msgstr ""
 msgid "Invalid Facebook URL"
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:422
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:420
 #, php-format
 msgid "We hope you love %1$s"
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:427
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:425
 #, php-format
 msgid "Hi, %1$s! This is an invitation to help our %2$s community. If you opt-in, some data about your usage of %2$s will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on events management, WordPress, and our products from time to time."
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:431
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:429
 #, php-format
 msgid "And if you skip this, that's okay! %1$s will still work just fine."
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:435
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:433
 msgid "Powered by"
 msgstr ""
 
@@ -4518,7 +4532,7 @@ msgid "Right"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:243
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1146
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1143
 msgid "Width"
 msgstr ""
 
@@ -4527,7 +4541,7 @@ msgid "Max Width"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:313
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1184
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1181
 msgid "Height"
 msgstr ""
 
@@ -4616,7 +4630,7 @@ msgid "Hover Animation"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:486
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1219
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1216
 msgid "Border Radius"
 msgstr ""
 
@@ -4732,7 +4746,7 @@ msgid "Header"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:931
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:906
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:903
 msgid "Phone Header"
 msgstr ""
 
@@ -4749,12 +4763,12 @@ msgid "Email Text"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1073
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1074
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1071
 msgid "Website Header"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1097
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1101
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1098
 msgid "Website Url"
 msgstr ""
 
@@ -4984,42 +4998,42 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:790
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:787
 msgid "Mock Data"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:798
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:795
 msgid "Show Two Venues"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:817
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:814
 msgid "Venue Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:855
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:852
 #: src/Tribe/Importer/Column_Mapper.php:141
 msgid "Venue Name"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:933
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:981
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:930
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:978
 msgid "Phone Number"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1008
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1005
 msgid "Address Text"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1024
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1021
 msgid "Map Link"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1062
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1059
 #: src/Tribe/Importer/Column_Mapper.php:150
 msgid "Venue Website"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1135
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1132
 msgid "Venue Map"
 msgstr ""
 
@@ -8145,46 +8159,46 @@ msgstr ""
 msgid "Looks like you are using Gutenberg on this WordPress installation. %1$s"
 msgstr ""
 
-#: src/Tribe/iCal.php:70
+#: src/Tribe/iCal.php:72
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr ""
 
-#: src/Tribe/iCal.php:71
+#: src/Tribe/iCal.php:73
 #, php-format
 msgid "%1$s %2$s iCal Feed"
 msgstr ""
 
-#: src/Tribe/iCal.php:154
+#: src/Tribe/iCal.php:156
 #: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:62
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: src/Tribe/iCal.php:155
+#: src/Tribe/iCal.php:157
 msgid "Download .ics file"
 msgstr ""
 
-#: src/Tribe/iCal.php:155
+#: src/Tribe/iCal.php:157
 #: src/Tribe/Views/V2/iCalendar/Links/iCal.php:48
 msgid "Add to iCalendar"
 msgstr ""
 
-#: src/Tribe/iCal.php:217
+#: src/Tribe/iCal.php:219
 msgid "Export Events"
 msgstr ""
 
-#: src/Tribe/iCal.php:218
+#: src/Tribe/iCal.php:220
 #: src/Tribe/Views/V2/Views/Traits/iCal_Data.php:87
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 msgstr ""
 
-#: src/Tribe/iCal.php:590
+#: src/Tribe/iCal.php:592
 #, php-format
 msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:875
+#: src/Tribe/iCal.php:899
 msgctxt "Description in iCal content for events with hidden/protected content."
 msgid "Content is protected."
 msgstr ""
@@ -10651,47 +10665,47 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:666
+#: src/Tribe/Views/V2/Hooks.php:682
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:753
+#: src/Tribe/Views/V2/Hooks.php:769
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:768
+#: src/Tribe/Views/V2/Hooks.php:784
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1084
+#: src/Tribe/Views/V2/Hooks.php:1100
 #, php-format
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1112
+#: src/Tribe/Views/V2/Hooks.php:1128
 #, php-format
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1140
+#: src/Tribe/Views/V2/Hooks.php:1156
 #, php-format
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1204
+#: src/Tribe/Views/V2/Hooks.php:1220
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1224
+#: src/Tribe/Views/V2/Hooks.php:1240
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1343
+#: src/Tribe/Views/V2/Hooks.php:1359
 msgid "Enabled"
 msgstr ""
 
@@ -11307,7 +11321,7 @@ msgid "Calendar of %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural).
-#: src/views/v2/month/calendar-body/day/cell-title.php:47
+#: src/views/v2/month/calendar-body/day/cell-title.php:48
 #, php-format
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
@@ -11328,8 +11342,17 @@ msgid_plural "has %1$s %3$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/views/v2/month/calendar-body/day/more-events.php:35
-#: src/views/v2/month/mobile-events/mobile-day/more-events.php:33
+#. translators: %1$d: number of events, %2$s: formatted date.
+#: src/views/v2/month/calendar-body/day/more-events.php:42
+#: src/views/v2/month/mobile-events/mobile-day/more-events.php:40
+#, php-format
+msgid "+ %1$d More for %2$s"
+msgid_plural "+ %1$d More for %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/views/v2/month/calendar-body/day/more-events.php:49
+#: src/views/v2/month/mobile-events/mobile-day/more-events.php:47
 #, php-format
 msgid "+ %d More"
 msgid_plural "+ %d More"
