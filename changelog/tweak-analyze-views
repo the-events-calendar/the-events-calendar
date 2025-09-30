@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Changed views: `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/cell`, `v2/month/calendar-body/day/more-events`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/more-events`
