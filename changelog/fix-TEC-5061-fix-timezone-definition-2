@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Enhanced iCal feed timezone definitions to include extended DST transition data for better calendar compatibility. [TEC-5061]

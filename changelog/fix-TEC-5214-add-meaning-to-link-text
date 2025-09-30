@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Adjust aria-label for month view day link to use formatting from TEC settings. [TEC-5214]
