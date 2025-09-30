@@ -178,7 +178,7 @@ class Controller extends Controller_Contract {
 		 *                       than an empty string, it will prevent the use of the provided Elementor templates.
 		 * @param string $option The original value, or an empty string signifying the default events template.
 		 */
-		return apply_filters( 'tec_events_filter_tribe_get_single_option', '', $option );
+		return (string) apply_filters( 'tec_events_filter_tribe_get_single_option', '', $option );
 	}
 
 	/**
