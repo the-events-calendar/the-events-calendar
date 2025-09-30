@@ -16,8 +16,9 @@
  * @version 4.9.10
  *
  */
+
 ?>
-<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
+<nav class="tribe-events-calendar-list-nav tribe-events-c-nav" aria-label="<?php echo esc_attr__( 'Event list page navigation', 'the-events-calendar' ); ?>">
 	<ul class="tribe-events-c-nav__list">
 		<?php
 		if ( ! empty( $prev_url ) ) {
