@@ -18,14 +18,14 @@
  * @version TBD
  */
 
-$arial_label = sprintf(
-	/* translators: %s: Event label singular */
-	__( '%s list top navigation', 'the-events-calendar' ),
-	tribe_get_event_label_singular()
+$aria_label = sprintf(
+	/* translators: %s: Event label plural */
+	__( 'Top %s list pagination', 'the-events-calendar' ),
+	tribe_get_event_label_plural_lowercase()
 );
 
 ?>
-<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="<?php echo esc_attr( $arial_label ); ?>">
+<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="<?php echo esc_attr( $aria_label ); ?>">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<?php
 		if ( ! empty( $prev_url ) ) {
