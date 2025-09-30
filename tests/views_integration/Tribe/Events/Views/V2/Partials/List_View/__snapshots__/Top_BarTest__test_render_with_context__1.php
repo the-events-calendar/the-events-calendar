@@ -1,6 +1,6 @@
 <?php return '<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
-	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Event list top navigation">
+	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Top events list pagination">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
