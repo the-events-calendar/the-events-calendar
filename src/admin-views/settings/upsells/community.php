@@ -3,7 +3,7 @@
  * Community upsell banner.
  *
  * @since 6.7.0
- * @since TBD Updated Community Addon link to go to the proper upsell page. [TEC-5586]
+ * @since 6.15.6 Updated Community Addon link to go to the proper upsell page. [TEC-5586]
  */
 
 $main = Tribe__Events__Main::instance();

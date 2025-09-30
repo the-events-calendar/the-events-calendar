@@ -9,10 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.6
  *
  * @since 4.9.8
- * @since TBD Added aria-label to more events link.
+ * @since 6.15.6 Added aria-label to more events link.
  *
  * @var int $more_events The number of events that's not showing in the day cell or in the multi-day stack.
  * @var string $more_url A string with the URL for more events on that day

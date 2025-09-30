@@ -3,9 +3,9 @@
  * Handles the Integration (a.k.a. Add-ons) settings for The Events Calendar.
  *
  * @since 4.0.0
- * @since TBD Restructured to split settings into tabs.
+ * @since 6.15.6 Restructured to split settings into tabs.
  *
- * @version TBD
+ * @version 6.15.6
  */
 $internal = [];
 

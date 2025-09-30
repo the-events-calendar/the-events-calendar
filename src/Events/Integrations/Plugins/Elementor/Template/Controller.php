@@ -113,7 +113,7 @@ class Controller extends Controller_Contract {
 	 * Force the correct Single Event template object for Elementor theme.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Cast return as string.
+	 * @since 6.15.6 Cast return as string.
 	 *
 	 * @param string $option The value of the option.
 	 *
