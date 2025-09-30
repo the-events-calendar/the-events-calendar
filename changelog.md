@@ -2,6 +2,7 @@
 
 ### [6.15.6] 2025-09-30
 
+* Version - The Events Calendar 6.15.6 is only compatible with Events Pro 7.7.6 and higher.
 * Fix - Elementor Venue widget now shows the map show or hide option with proper styling options. [TEC-5092]
 * Fix - Enhanced iCal feed timezone definitions to include extended DST transition data for better calendar compatibility. [TEC-5061]
 * Fix - Onboarding wizard now shows loading spinner properly while waiting for Event Tickets installation. [TEC-5584]
