@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Prevent ICS download from redirecting when List view is disabled. [TEC-5609]

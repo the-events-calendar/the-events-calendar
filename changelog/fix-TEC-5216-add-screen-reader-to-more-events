@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Add aria-label for the more events link in month view. [TEC-5216]

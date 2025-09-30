@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Onboarding wizard now shows loading spinner properly while waiting for Event Tickets installation. [TEC-5584]

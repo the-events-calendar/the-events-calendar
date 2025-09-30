@@ -1,4 +1,0 @@
-Significance: patch
-Type: compatibility
-
-Conditionally remove template option if Elementor Pro is active to avoid conflicts. [TEC-5610]
