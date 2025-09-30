@@ -9,10 +9,13 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.1
- *
  * @var string $prev_url The URL to the previous page, if any, or an empty string.
  * @var string $next_url The URL to the next page, if any, or an empty string.
+ *
+ * @since 5.0.1
+ * @since TBD Added aria-label attribute to nav.
+ *
+ * @version TBD
  */
 
 $arial_label = sprintf(

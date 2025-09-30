@@ -13,8 +13,10 @@
  * @var string $next_url The URL to the next page, if any, or an empty string.
  * @var string $today_url The URL to the today page, if any, or an empty string.
  *
- * @version 4.9.10
+ * @since 4.9.10
+ * @since TBD Added aria-label attribute to nav.
  *
+ * @version TBD
  */
 
 $arial_label = sprintf(
