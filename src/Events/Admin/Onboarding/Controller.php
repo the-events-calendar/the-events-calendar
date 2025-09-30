@@ -295,7 +295,12 @@ class Controller extends Controller_Contract {
 
 		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
 		// If that's the case, we should still show the modal, otherwise we skip it.
-		if ( tribe_is_truthy( $onboarding_data['finished'] ) && $onboarding_data['completed_tabs'] !== [ 0 ] ) {
+		if (
+			isset( $onboarding_data['finished'] ) &&
+			tribe_is_truthy( $onboarding_data['finished'] ) &&
+			isset( $onboarding_data['completed_tabs'] ) &&
+			$onboarding_data['completed_tabs'] !== [ 0 ]
+		) {
 			$should_show = false;
 		}
 
