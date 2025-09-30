@@ -432,7 +432,7 @@ class Controller extends Integration_Abstract {
 	 * This handles the use case where a user has set the template to "Default Page Template"
 	 * and then activates Elementor Pro without visiting the settings page.
 	 *
-	 * @since TBD
+	 * @since 6.15.6
 	 *
 	 * @return void Template setting is updated if needed.
 	 */
@@ -447,7 +447,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Filters the display calendar section to remove "Default Page Template" when Elementor Pro is active.
 	 *
-	 * @since TBD
+	 * @since 6.15.6
 	 *
 	 * @param array<string,mixed> $display_calendar_section The display calendar section configuration array.
 	 *

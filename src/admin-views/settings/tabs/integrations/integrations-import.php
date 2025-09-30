@@ -3,9 +3,9 @@
  *  Import settings tab.
  *  Subtab of the Integrations Tab.
  *
- * @since TBD
+ * @since 6.15.6
  *
- * @version TBD
+ * @version 6.15.6
  */
 
 use TEC\Common\Admin\Entities\Div;

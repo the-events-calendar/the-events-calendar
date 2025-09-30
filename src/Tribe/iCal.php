@@ -49,7 +49,7 @@ class Tribe__Events__iCal {
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
 	 *
 	 * @since 3.6.0
-	 * @since TBD Add `prevent_redirect_on_ical`.
+	 * @since 6.15.6 Add `prevent_redirect_on_ical`.
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
@@ -606,7 +606,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 4.9.4
 	 * @since 6.10.2 Make sure that each time zone definition has its own group.
-	 * @since TBD Adjust the time zone definition to include the DST transitions for a year before and after.
+	 * @since 6.15.6 Adjust the time zone definition to include the DST transitions for a year before and after.
 	 *
 	 * @param array $events An array with all the events.
 	 *
@@ -641,7 +641,7 @@ class Tribe__Events__iCal {
 			/**
 			 * Filters the number of years to extend timezone transitions in each direction.
 			 *
-			 * @since TBD
+			 * @since 6.15.6
 			 *
 			 * @param int    $years    The number of years to extend before and after event years. Default 1.
 			 * @param string $timezone The timezone identifier (e.g., 'Europe/Berlin').
@@ -1126,7 +1126,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Prevent Views V2 from redirecting when exporting iCal or Outlook ICS feeds.
 	 *
-	 * @since TBD
+	 * @since 6.15.6
 	 *
 	 * @param bool $should_redirect Whether the request should redirect.
 	 *

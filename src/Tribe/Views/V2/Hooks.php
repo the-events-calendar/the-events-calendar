@@ -316,7 +316,7 @@ class Hooks extends Service_Provider {
 	 * Redirects to the default view if the current view is not enabled.
 	 *
 	 * @since 6.14.0
-	 * @since TBD Add `tec_events_views_v2_should_redirect` to disable redirect in certain scenarios.
+	 * @since 6.15.6 Add `tec_events_views_v2_should_redirect` to disable redirect in certain scenarios.
 	 *
 	 * @return void
 	 */
@@ -326,7 +326,7 @@ class Hooks extends Service_Provider {
 		 *
 		 * Returning false here will prevent the redirect entirely.
 		 *
-		 * @since TBD
+		 * @since 6.15.6
 		 *
 		 * @param bool $should_redirect Whether the redirect should occur. Default true.
 		 */
