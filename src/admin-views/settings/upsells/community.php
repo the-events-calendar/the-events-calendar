@@ -3,6 +3,7 @@
  * Community upsell banner.
  *
  * @since 6.7.0
+ * @since 6.15.6 Updated Community Addon link to go to the proper upsell page. [TEC-5586]
  */
 
 $main = Tribe__Events__Main::instance();
@@ -23,7 +24,7 @@ $main = Tribe__Events__Main::instance();
 		<p>
 			<?php esc_html_e( 'Offer visitors the ability to contribute to your event listings without needing backend access.', 'the-events-calendar' ); ?>
 		</p>
-		<a href="https://evnt.is/1b31" class="tec-settings-form__upsell-btn" target="_blank" rel="noopener noreferrer">
+		<a href="https://evnt.is/community" class="tec-settings-form__upsell-btn" target="_blank" rel="noopener noreferrer">
 			<?php esc_html_e( 'Check out our Community add-on', 'the-events-calendar' ); ?>
 		</a>
 	</div>

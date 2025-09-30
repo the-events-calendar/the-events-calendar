@@ -601,7 +601,7 @@
 				href="http://test.tri.be/events/tag/tag-1/day/2019-01-01/"
 				class="tribe-events-calendar-month__day-date-link"
 				data-js="tribe-events-view-link"
-				aria-label="1st January"
+				aria-label="January 1"
 			>
 				1			</a>
 			</time>
