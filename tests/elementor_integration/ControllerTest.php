@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 use Tribe__Main;
+use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Elementor_Controller;
 
 class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	/**
@@ -86,4 +87,34 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		// Verify the setting remains unchanged.
 		$this->assertEquals( '', tribe_get_option( 'tribeEventsTemplate' ) );
 	}
+
+	/**
+	 * Provides different option values to test normalization and casting.
+	 *
+	 * @return \Generator
+	 */
+	public function provider_option_values(): \Generator {
+		yield 'string option remains unchanged' => [ 'default-template', 'default-template' ];
+		yield 'empty string remains unchanged'  => [ '', '' ];
+		yield 'null becomes empty string'       => [ null, '' ];
+		yield 'integer is cast to string'       => [ 123, '123' ];
+	}
+
+	/**
+	 * It should always return a string regardless of the input type.
+	 *
+	 * @test
+	 * @dataProvider provider_option_values
+	 *
+	 * @param mixed  $input    Input option value.
+	 * @param string $expected Expected normalized string output.
+	 */
+	public function it_always_returns_a_string_from_filter_events_template_setting_option( $input, string $expected ) {
+		$controller = tribe( Elementor_Controller::class );
+
+		$result = $controller->filter_events_template_setting_option( $input );
+
+		$this->assertSame( $expected, $result );
+	}
+
 }
