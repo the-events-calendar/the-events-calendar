@@ -17,8 +17,14 @@
  *
  */
 
+$arial_label = sprintf(
+	/* translators: %s: Event label singular */
+	__( '%s list page navigation', 'the-events-calendar' ),
+	tribe_get_event_label_singular()
+);
+
 ?>
-<nav class="tribe-events-calendar-list-nav tribe-events-c-nav" aria-label="<?php echo esc_attr__( 'Event list page navigation', 'the-events-calendar' ); ?>">
+<nav class="tribe-events-calendar-list-nav tribe-events-c-nav" aria-label="<?php echo esc_attr( $arial_label ); ?>">
 	<ul class="tribe-events-c-nav__list">
 		<?php
 		if ( ! empty( $prev_url ) ) {
