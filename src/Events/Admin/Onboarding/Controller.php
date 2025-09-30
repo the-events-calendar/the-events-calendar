@@ -293,12 +293,18 @@ class Controller extends Controller_Contract {
 		$data            = $this->container->make( Data::class );
 		$onboarding_data = $data->get_wizard_settings();
 
-		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
-		// If that's the case, we should still show the modal, otherwise we skip it.
-		if ( tribe_is_truthy( $onboarding_data['finished'] ) && $onboarding_data['completed_tabs'] !== [ 0 ] ) {
-			$should_show = false;
+		// If the wizard wasn't finished, continue with default logic.
+		if ( ! tribe_is_truthy( $onboarding_data['finished'] ) ) {
+			return $should_show;
 		}
 
-		return $should_show;
+		// If the wizard was finished but only tab 0 is completed, user likely skipped the wizard.
+		// Show the modal in this case.
+		if ( $onboarding_data['completed_tabs'] === [ 0 ] ) {
+			return true;
+		}
+
+		// Wizard was completed properly, don't show the modal.
+		return false;
 	}
 }
