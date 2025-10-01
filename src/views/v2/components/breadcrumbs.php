@@ -7,9 +7,11 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
  *
- * @version 4.9.11
+ * @version TBD
+ *
+ * @since TBD Switched to `nav` element, added Aria labels to make more accessible.
  *
  * @var array $breadcrumbs An array of data for breadcrumbs.
  */
@@ -19,9 +21,10 @@ if ( empty( $breadcrumbs ) ) {
 }
 
 ?>
-<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
+<nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'the-events-calendar' ); ?>">
 	<ol class="tribe-events-c-breadcrumbs__list">
-		<?php foreach ( $breadcrumbs as $breadcrumb ) : ?>
+		<?php
+		foreach ( $breadcrumbs as $breadcrumb ) : ?>
 
 			<?php if ( ! empty( $breadcrumb['link'] ) ) : ?>
 				<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
@@ -31,4 +34,4 @@ if ( empty( $breadcrumbs ) ) {
 
 		<?php endforeach; ?>
 	</ol>
-</div>
+</nav>

@@ -2230,8 +2230,9 @@ class View implements View_Interface {
 	 * Returns the breadcrumbs data the View will display on the front-end.
 	 *
 	 * @since 4.9.11
+	 * @since TBD Add is_last property to each breadcrumb after filters are applied.
 	 *
-	 * @return array
+	 * @return array<int,array{link:string,label:string,is_last:bool}>
 	 */
 	protected function get_breadcrumbs() {
 		$context     = $this->context;
@@ -2303,6 +2304,20 @@ class View implements View_Interface {
 		 * @param View  $this        The current View instance being rendered.
 		 */
 		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breadcrumbs", $breadcrumbs, $this );
+
+		// After filters are applied.
+		$last_index = array_key_last( $breadcrumbs );
+
+		$breadcrumbs = array_map(
+			static function ( $crumb, $index ) use ( $last_index ) {
+				$crumb['is_last'] = ( $index === $last_index );
+
+				return $crumb;
+			},
+			$breadcrumbs,
+			array_keys( $breadcrumbs )
+		);
+
 
 		return $breadcrumbs;
 	}
