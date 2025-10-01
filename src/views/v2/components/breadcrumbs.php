@@ -24,7 +24,8 @@ if ( empty( $breadcrumbs ) ) {
 <nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'the-events-calendar' ); ?>">
 	<ol class="tribe-events-c-breadcrumbs__list">
 		<?php
-		foreach ( $breadcrumbs as $breadcrumb ) : ?>
+		foreach ( $breadcrumbs as $breadcrumb ) :
+			?>
 
 			<?php if ( ! empty( $breadcrumb['link'] ) ) : ?>
 				<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
