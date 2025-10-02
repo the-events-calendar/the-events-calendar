@@ -21,6 +21,6 @@ if ( empty( $backlink['url'] ) || empty( $backlink['label'] ) ) {
 ?>
 <nav class="tribe-events-back" aria-label="<?php esc_attr_e( 'Back link', 'the-events-calendar' ); ?>">
 	<a href="<?php echo esc_url( $backlink['url'] ); ?>" class="tribe-events-c-back-link tribe-common-anchor">
-		&larr; <?php echo esc_html( $backlink['label'] ); ?>
+		&laquo; <?php echo esc_html( $backlink['label'] ); ?>
 	</a>
 </nav>

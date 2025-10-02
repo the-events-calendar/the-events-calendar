@@ -31,19 +31,17 @@ if ( empty( $breadcrumb['label'] ) || empty( $breadcrumb['link'] ) ) {
 }
 
 $crumb_title = Arr::get( $breadcrumb, 'title', '' );
-$crumb_link  = $breadcrumb['link'];
-$crumb_label = $breadcrumb['label'];
 $is_last     = $breadcrumb['is_last'] ?? false;
 ?>
 <li class="tribe-events-c-breadcrumbs__list-item">
 	<a
-		href="<?php echo esc_url( $crumb_link ); ?>"
+		href="<?php echo esc_url( $breadcrumb['link'] ); ?>"
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
 		title="<?php echo esc_attr( $crumb_title ); ?>"
 		<?php echo $is_last ? 'aria-current="page"' : ''; ?>
 		data-js="tribe-events-view-link"
 	>
-		<?php echo esc_html( $crumb_label ); ?>
+		<?php echo esc_html( $breadcrumb['label'] ); ?>
 	</a>
 	<?php if ( ! $is_last ) : ?>
 		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-breadcrumbs__list-item-icon-svg' ] ] ); ?>
