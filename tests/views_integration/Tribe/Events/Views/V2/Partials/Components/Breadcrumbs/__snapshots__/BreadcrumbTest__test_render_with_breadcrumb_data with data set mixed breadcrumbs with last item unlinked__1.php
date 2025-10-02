@@ -1,7 +1,7 @@
 <?php return '<nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="Breadcrumb">
 	<ol class="tribe-events-c-breadcrumbs__list">
 		
-							<li class="tribe-events-c-breadcrumbs__list-item">
+						<li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="https://test.tri.be/events/list"
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
@@ -17,9 +17,9 @@
 	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
 </svg>
 	</li>
-			
 		
-							<li class="tribe-events-c-breadcrumbs__list-item">
+		
+						<li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="https://test.tri.be/events/category/virtual"
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
@@ -35,15 +35,15 @@
 	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
 </svg>
 	</li>
-			
 		
-							<li class="tribe-events-c-breadcrumbs__list-item">
+		
+						<li class="tribe-events-c-breadcrumbs__list-item">
 	<span
 		class="tribe-events-c-breadcrumbs__list-item-text"
 		aria-current="page"	>
 		Current Event	</span>
 	</li>
-			
+		
 			</ol>
 </nav>
 ';

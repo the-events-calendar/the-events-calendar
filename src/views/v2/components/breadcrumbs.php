@@ -20,6 +20,18 @@ if ( empty( $breadcrumbs ) ) {
 	return;
 }
 
+$last_index = array_key_last( $breadcrumbs );
+
+$breadcrumbs = array_map(
+	static function ( $crumb, $index ) use ( $last_index ) {
+		$crumb['is_last'] = ( $index === $last_index );
+
+		return $crumb;
+	},
+	$breadcrumbs,
+	array_keys( $breadcrumbs )
+);
+
 ?>
 <nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumb', 'the-events-calendar' ); ?>">
 	<ol class="tribe-events-c-breadcrumbs__list">
@@ -28,10 +40,10 @@ if ( empty( $breadcrumbs ) ) {
 			?>
 
 			<?php if ( ! empty( $breadcrumb['link'] ) ) : ?>
-				<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
-			<?php else : ?>
-				<?php $this->template( 'components/breadcrumbs/breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
-			<?php endif; ?>
+			<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
+		<?php else : ?>
+			<?php $this->template( 'components/breadcrumbs/breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
+		<?php endif; ?>
 
 		<?php endforeach; ?>
 	</ol>

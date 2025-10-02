@@ -1,7 +1,7 @@
 <?php return '<nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="Breadcrumb">
 	<ol class="tribe-events-c-breadcrumbs__list">
 		
-							<li class="tribe-events-c-breadcrumbs__list-item">
+						<li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="https://test.tri.be/events/list"
 		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
@@ -10,7 +10,7 @@
 	>
 		Events	</a>
 	</li>
-			
+		
 			</ol>
 </nav>
 ';

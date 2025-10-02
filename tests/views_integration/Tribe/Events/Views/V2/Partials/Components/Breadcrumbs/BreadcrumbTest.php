@@ -213,22 +213,22 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 
 		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
 
-		// Verify the last item has aria-current="page"
+		// Verify the last item has aria-current="page".
 		$this->assertStringContainsString( 'aria-current="page"', $result );
 
-		// Verify only the last item has aria-current="page"
+		// Verify only the last item has aria-current="page".
 		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
 
-		// Verify there are caret icons for non-last items (should be 2 for the first two items)
+		// Verify there are caret icons for non-last items (should be 2 for the first two items).
 		$this->assertEquals( 2, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
 	}
 
 	/**
-	 * Test that non-last breadcrumb items don't have aria-current.
+	 * Test that the last breadcrumb is automatically marked as current even when explicitly set to false.
 	 *
 	 * @since TBD
 	 */
-	public function test_non_last_breadcrumb_has_no_aria_current() {
+	public function test_last_breadcrumb_automatically_marked_current() {
 		$breadcrumbs = [
 			[
 				'link'    => 'https://test.tri.be/events/list',
@@ -237,42 +237,48 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 			],
 			[
 				'label'   => 'Category',
-				'is_last' => false,
+				'is_last' => false, // This will be overridden to true by the template.
 			],
 		];
 
 		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
 
-		// Verify no breadcrumb has aria-current="page"
-		$this->assertStringNotContainsString( 'aria-current="page"', $result );
+		// Verify the last breadcrumb has aria-current="page" (automatically set).
+		$this->assertStringContainsString( 'aria-current="page"', $result );
 
-		// Verify all items have caret icons (since none are last)
-		$this->assertStringContainsString( 'tribe-events-c-breadcrumbs__list-item-icon-svg', $result );
+		// Verify only one breadcrumb has aria-current="page".
+		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
+
+		// Verify only the first item has a caret icon (last item won't have one).
+		$this->assertEquals( 1, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
 	}
 
 	/**
-	 * Test breadcrumb without is_last flag defaults to non-current.
+	 * Test that the last breadcrumb is automatically marked as current when no is_last flags are set.
 	 *
 	 * @since TBD
 	 */
-	public function test_breadcrumb_without_is_last_flag() {
+	public function test_breadcrumb_without_is_last_flag_automatically_marked() {
 		$breadcrumbs = [
 			[
 				'link'  => 'https://test.tri.be/events/list',
 				'label' => 'Events',
 			],
 			[
-				'label' => 'Category',
+				'label' => 'Category', // This will be automatically marked as last.
 			],
 		];
 
 		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
 
-		// Verify no breadcrumb has aria-current="page"
-		$this->assertStringNotContainsString( 'aria-current="page"', $result );
+		// Verify the last breadcrumb has aria-current="page" (automatically set).
+		$this->assertStringContainsString( 'aria-current="page"', $result );
 
-		// Verify all items have caret icons (since is_last defaults to false)
-		$this->assertStringContainsString( 'tribe-events-c-breadcrumbs__list-item-icon-svg', $result );
+		// Verify only one breadcrumb has aria-current="page".
+		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
+
+		// Verify only the first item has a caret icon (last item won't have one).
+		$this->assertEquals( 1, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
 	}
 
 	/**
@@ -306,13 +312,13 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 
 		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
 
-		// Verify only one breadcrumb has aria-current="page"
+		// Verify only one breadcrumb has aria-current="page".
 		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
 
-		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs)
+		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs).
 		$this->assertEquals( 3, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
 
-		// Verify the last item specifically has aria-current="page"
+		// Verify the last item specifically has aria-current="page".
 		$this->assertStringContainsString( 'aria-current="page"', $result );
 	}
 
@@ -346,13 +352,13 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 
 		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
 
-		// Verify only one breadcrumb has aria-current="page"
+		// Verify only one breadcrumb has aria-current="page".
 		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
 
-		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs)
+		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs).
 		$this->assertEquals( 3, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
 
-		// Verify the last item specifically has aria-current="page"
+		// Verify the last item specifically has aria-current="page".
 		$this->assertStringContainsString( 'aria-current="page"', $result );
 	}
 
@@ -386,13 +392,13 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 
 		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
 
-		// Verify only one breadcrumb has aria-current="page"
+		// Verify only one breadcrumb has aria-current="page".
 		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
 
-		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs)
+		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs).
 		$this->assertEquals( 3, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
 
-		// Verify the last item specifically has aria-current="page"
+		// Verify the last item specifically has aria-current="page".
 		$this->assertStringContainsString( 'aria-current="page"', $result );
 	}
 }
