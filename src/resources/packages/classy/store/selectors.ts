@@ -6,6 +6,7 @@ import { StoreState } from '../types/Store';
 import { TECSettings } from '../types/Settings';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 import { areDatesOnSameDay } from '@tec/common/classy/functions';
+import {createSelector} from '@wordpress/data';
 
 /**
  * Retrieves the post meta from the editor.
@@ -30,48 +31,76 @@ export function getSettings(): Settings {
 }
 
 /**
- * Returns the event date and time details, read from its meta. If the meta is not set,
- * it will return default values.
+ * Retrieves comprehensive event date and time details from post meta and settings.
+ *
+ * This is a memoized selector that combines event date/time information from the WordPress
+ * editor meta and Classy store settings. It processes raw date strings into Date objects,
+ * determines multiday and all-day status, and returns a complete EventDateTimeDetails object.
+ *
+ * When event start or end dates are not set (i.e., for new events), the selector provides
+ * sensible defaults: start time defaults to 8:00 AM and end time defaults to 5:00 PM on the
+ * current date. The timezone is retrieved from meta or falls back to the settings timezone.
+ *
+ * The selector is memoized using createSelector from @wordpress/data and only recalculates
+ * when the relevant meta fields (_EventStartDate, _EventEndDate, _EventTimezone, _EventAllDay)
+ * or settings (timezoneString) change.
  *
  * @since TBD
  *
- * @returns {EventDateTimeDetails} The event date and time details.
+ * @return {EventDateTimeDetails} Object containing eventStart and eventEnd as ISO strings,
+ *                                isMultiday flag, isAllDay flag, eventTimezone string, and
+ *                                all settings from the Classy store.
  */
-export function getEventDateTimeDetails(): EventDateTimeDetails {
-	const meta = getPostMeta();
-	const settings = getSettings();
+export const getEventDateTimeDetails = createSelector(
+	(): EventDateTimeDetails => {
+		const meta = getPostMeta();
+		const settings = getSettings();
 
-	const eventStartDateString = meta?._EventStartDate ?? '';
-	const eventEndDateString = meta?._EventEndDate ?? '';
-	const eventTimezone = meta?._EventTimezone || settings.timezoneString;
+		const eventStartDateString = meta?._EventStartDate ?? '';
+		const eventEndDateString = meta?._EventEndDate ?? '';
+		const eventTimezone = meta?._EventTimezone || settings.timezoneString;
 
-	let eventStart: Date;
-	if ( eventStartDateString ) {
-		eventStart = new Date( eventStartDateString );
-	} else {
-		eventStart = new Date();
-		eventStart.setHours( 8, 0, 0, 0 );
+		let eventStart: Date;
+		if (eventStartDateString) {
+			eventStart = new Date(eventStartDateString);
+		} else {
+			eventStart = new Date();
+			eventStart.setHours(8, 0, 0, 0);
+		}
+
+		let eventEnd: Date;
+		if (eventEndDateString) {
+			eventEnd = new Date(eventEndDateString);
+		} else {
+			eventEnd = new Date();
+			eventEnd.setHours(17, 0, 0, 0);
+		}
+		const isMultiday = !areDatesOnSameDay(eventStart, eventEnd);
+		const isAllDay = meta?._EventAllDay ?? false;
+
+		return {
+			eventStart: eventStart.toISOString(),
+			eventEnd: eventEnd.toISOString(),
+			isMultiday,
+			isAllDay,
+			eventTimezone,
+			...settings,
+		} as EventDateTimeDetails;
+	},
+	() => {
+		const meta = getPostMeta();
+		const settings = getSettings();
+
+		return [
+			meta?._EventStartDate,
+			meta?._EventEndDate,
+			meta?._EventTimezone,
+			meta?._EventAllDay,
+			settings.timezoneString,
+			settings,
+		];
 	}
-
-	let eventEnd: Date;
-	if ( eventEndDateString ) {
-		eventEnd = new Date( eventEndDateString );
-	} else {
-		eventEnd = new Date();
-		eventEnd.setHours( 17, 0, 0, 0 );
-	}
-	const isMultiday = ! areDatesOnSameDay( eventStart, eventEnd );
-	const isAllDay = meta?._EventAllDay ?? false;
-
-	return {
-		eventStart: eventStart.toISOString(),
-		eventEnd: eventEnd.toISOString(),
-		isMultiday,
-		isAllDay,
-		eventTimezone,
-		...settings,
-	} as EventDateTimeDetails;
-}
+);
 
 /**
  * Returns the current Event post Organizer IDs.
