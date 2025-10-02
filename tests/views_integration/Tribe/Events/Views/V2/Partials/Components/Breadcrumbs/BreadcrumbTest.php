@@ -2,22 +2,397 @@
 
 namespace Tribe\Events\Views\V2\Partials\Components\Breadcrumb;
 
+use Generator;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
-class BreadcrumbTest extends HtmlPartialTestCase
-{
+class BreadcrumbTest extends HtmlPartialTestCase {
 
-	protected $partial_path = 'components/breadcrumbs/breadcrumb';
+	protected $partial_path = 'components/breadcrumbs';
 
 	/**
-	 * Test render with breadcrumb.
+	 * Data provider for breadcrumb rendering tests.
+	 *
+	 * @since TBD
+	 *
+	 * @return Generator
 	 */
-	public function test_render_with_breadcrumb() {
-		$breadcrumb = [
-			'link'  => '',
-			'label' => 'Category',
+	public function breadcrumb_data_provider() {
+		yield 'empty breadcrumbs array' => [
+			[],
+			false,
 		];
 
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'breadcrumb' => $breadcrumb ] ) );
+		yield 'single linked breadcrumb' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'single unlinked breadcrumb' => [
+			[
+				[
+					'label'   => 'Current Page',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'mixed breadcrumbs with last item unlinked' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'is_last' => false,
+				],
+				[
+					'link'    => 'https://test.tri.be/events/category/virtual',
+					'label'   => 'Virtual Events',
+					'is_last' => false,
+				],
+				[
+					'label'   => 'Current Event',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'all linked breadcrumbs with last item marked' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'is_last' => false,
+				],
+				[
+					'link'    => 'https://test.tri.be/events/category/virtual',
+					'label'   => 'Virtual Events',
+					'is_last' => false,
+				],
+				[
+					'link'    => 'https://test.tri.be/events/123',
+					'label'   => 'Current Event',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'breadcrumbs with title attributes' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'title'   => 'View all events',
+					'is_last' => false,
+				],
+				[
+					'label'   => 'Current Page',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'breadcrumbs with empty label (should skip)' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'is_last' => false,
+				],
+				[
+					'label'   => '',
+					'is_last' => false,
+				],
+				[
+					'label'   => 'Current Page',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'breadcrumbs with empty link (should render as unlinked)' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'is_last' => false,
+				],
+				[
+					'link'    => '',
+					'label'   => 'Virtual Events',
+					'is_last' => false,
+				],
+				[
+					'label'   => 'Current Page',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'breadcrumbs with whitespace labels' => [
+			[
+				[
+					'link'    => 'https://test.tri.be/events/list',
+					'label'   => 'Events',
+					'is_last' => false,
+				],
+				[
+					'label'   => '   ',
+					'is_last' => false,
+				],
+				[
+					'label'   => 'Current Page',
+					'is_last' => true,
+				],
+			],
+			true,
+		];
+
+		yield 'single breadcrumb without is_last flag' => [
+			[
+				[
+					'link'  => 'https://test.tri.be/events/list',
+					'label' => 'Events',
+				],
+			],
+			true,
+		];
+	}
+
+	/**
+	 * Test render with various breadcrumb data scenarios.
+	 *
+	 * @dataProvider breadcrumb_data_provider
+	 * @since TBD
+	 *
+	 * @param array $breadcrumb_data The breadcrumb data to test.
+	 * @param bool  $should_render   Whether the breadcrumbs should render.
+	 */
+	public function test_render_with_breadcrumb_data( $breadcrumb_data, $should_render ) {
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumb_data ] );
+
+		if ( $should_render ) {
+			$this->assertMatchesSnapshot( $result );
+		} else {
+			$this->assertSame( '', $result );
+		}
+	}
+
+	/**
+	 * Test that the last breadcrumb item is properly marked as current.
+	 *
+	 * @since TBD
+	 */
+	public function test_last_breadcrumb_is_current() {
+		$breadcrumbs = [
+			[
+				'link'    => 'https://test.tri.be/events/list',
+				'label'   => 'Events',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/category/virtual',
+				'label'   => 'Virtual Events',
+				'is_last' => false,
+			],
+			[
+				'label'   => 'Current Page',
+				'is_last' => true,
+			],
+		];
+
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
+
+		// Verify the last item has aria-current="page"
+		$this->assertStringContainsString( 'aria-current="page"', $result );
+
+		// Verify only the last item has aria-current="page"
+		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
+
+		// Verify there are caret icons for non-last items (should be 2 for the first two items)
+		$this->assertEquals( 2, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
+	}
+
+	/**
+	 * Test that non-last breadcrumb items don't have aria-current.
+	 *
+	 * @since TBD
+	 */
+	public function test_non_last_breadcrumb_has_no_aria_current() {
+		$breadcrumbs = [
+			[
+				'link'    => 'https://test.tri.be/events/list',
+				'label'   => 'Events',
+				'is_last' => false,
+			],
+			[
+				'label'   => 'Category',
+				'is_last' => false,
+			],
+		];
+
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
+
+		// Verify no breadcrumb has aria-current="page"
+		$this->assertStringNotContainsString( 'aria-current="page"', $result );
+
+		// Verify all items have caret icons (since none are last)
+		$this->assertStringContainsString( 'tribe-events-c-breadcrumbs__list-item-icon-svg', $result );
+	}
+
+	/**
+	 * Test breadcrumb without is_last flag defaults to non-current.
+	 *
+	 * @since TBD
+	 */
+	public function test_breadcrumb_without_is_last_flag() {
+		$breadcrumbs = [
+			[
+				'link'  => 'https://test.tri.be/events/list',
+				'label' => 'Events',
+			],
+			[
+				'label' => 'Category',
+			],
+		];
+
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
+
+		// Verify no breadcrumb has aria-current="page"
+		$this->assertStringNotContainsString( 'aria-current="page"', $result );
+
+		// Verify all items have caret icons (since is_last defaults to false)
+		$this->assertStringContainsString( 'tribe-events-c-breadcrumbs__list-item-icon-svg', $result );
+	}
+
+	/**
+	 * Test that the last breadcrumb is always marked as current with multiple breadcrumbs.
+	 *
+	 * @since TBD
+	 */
+	public function test_last_breadcrumb_always_current_with_multiple_items() {
+		$breadcrumbs = [
+			[
+				'link'    => 'https://test.tri.be/events/list',
+				'label'   => 'Events',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/category/virtual',
+				'label'   => 'Virtual Events',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/category/virtual/workshops',
+				'label'   => 'Workshops',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/123',
+				'label'   => 'Current Event',
+				'is_last' => true,
+			],
+		];
+
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
+
+		// Verify only one breadcrumb has aria-current="page"
+		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
+
+		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs)
+		$this->assertEquals( 3, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
+
+		// Verify the last item specifically has aria-current="page"
+		$this->assertStringContainsString( 'aria-current="page"', $result );
+	}
+
+	/**
+	 * Test that the last breadcrumb is always marked as current even when it's unlinked.
+	 *
+	 * @since TBD
+	 */
+	public function test_last_breadcrumb_always_current_when_unlinked() {
+		$breadcrumbs = [
+			[
+				'link'    => 'https://test.tri.be/events/list',
+				'label'   => 'Events',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/category/virtual',
+				'label'   => 'Virtual Events',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/category/virtual/workshops',
+				'label'   => 'Workshops',
+				'is_last' => false,
+			],
+			[
+				'label'   => 'Current Page (No Link)',
+				'is_last' => true,
+			],
+		];
+
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
+
+		// Verify only one breadcrumb has aria-current="page"
+		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
+
+		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs)
+		$this->assertEquals( 3, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
+
+		// Verify the last item specifically has aria-current="page"
+		$this->assertStringContainsString( 'aria-current="page"', $result );
+	}
+
+	/**
+	 * Test that the last breadcrumb is always marked as current with mixed link types.
+	 *
+	 * @since TBD
+	 */
+	public function test_last_breadcrumb_always_current_with_mixed_links() {
+		$breadcrumbs = [
+			[
+				'link'    => 'https://test.tri.be/events/list',
+				'label'   => 'Events',
+				'is_last' => false,
+			],
+			[
+				'link'    => '',
+				'label'   => 'Virtual Events (Empty Link)',
+				'is_last' => false,
+			],
+			[
+				'link'    => 'https://test.tri.be/events/category/virtual/workshops',
+				'label'   => 'Workshops',
+				'is_last' => false,
+			],
+			[
+				'label'   => 'Current Page (No Link)',
+				'is_last' => true,
+			],
+		];
+
+		$result = $this->get_partial_html( [ 'breadcrumbs' => $breadcrumbs ] );
+
+		// Verify only one breadcrumb has aria-current="page"
+		$this->assertEquals( 1, substr_count( $result, 'aria-current="page"' ) );
+
+		// Verify caret icons appear exactly 3 times (one less than total breadcrumbs)
+		$this->assertEquals( 3, substr_count( $result, 'tribe-events-c-breadcrumbs__list-item-icon-svg' ) );
+
+		// Verify the last item specifically has aria-current="page"
+		$this->assertStringContainsString( 'aria-current="page"', $result );
 	}
 }
