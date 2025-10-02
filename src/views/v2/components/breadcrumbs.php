@@ -40,7 +40,7 @@ $breadcrumbs = array_map(
 			?>
 
 			<?php if ( ! empty( $breadcrumb['link'] ) ) : ?>
-			<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
+				<?php $this->template( 'components/breadcrumbs/linked-breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
 		<?php else : ?>
 			<?php $this->template( 'components/breadcrumbs/breadcrumb', [ 'breadcrumb' => $breadcrumb ] ); ?>
 		<?php endif; ?>
