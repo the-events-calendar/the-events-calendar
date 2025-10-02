@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Change default opt-in status to prevent false positives in checks when the value is not set. [TEC-5583]
