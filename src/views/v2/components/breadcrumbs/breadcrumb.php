@@ -31,7 +31,7 @@ $is_last = $breadcrumb['is_last'] ?? false;
 <li class="tribe-events-c-breadcrumbs__list-item">
 	<span
 		class="tribe-events-c-breadcrumbs__list-item-text"
-		<?php echo $is_last ? ' aria-current="page"' : ''; ?>
+		<?php echo $is_last ? 'aria-current="page"' : ''; ?>
 	>
 		<?php echo esc_html( $label ); ?>
 	</span>

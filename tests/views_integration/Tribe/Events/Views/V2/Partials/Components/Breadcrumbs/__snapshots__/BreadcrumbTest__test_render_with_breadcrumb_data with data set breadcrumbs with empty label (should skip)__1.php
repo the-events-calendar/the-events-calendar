@@ -24,7 +24,7 @@
 							<li class="tribe-events-c-breadcrumbs__list-item">
 	<span
 		class="tribe-events-c-breadcrumbs__list-item-text"
-		 aria-current="page"	>
+		aria-current="page"	>
 		Current Page	</span>
 	</li>
 			
