@@ -68,17 +68,18 @@
 }
 
 /* Datetime block */
-.tribe-events-schedule p {
+.tribe-events-schedule {
+	.tribe-events-schedule__datetime {
+		@mixin heading;
+		@mixin mobile-heading-6;
 
-	@mixin heading;
-	@mixin mobile-heading-6;
+		color: var(--tec-color-text-event-date);
+		font-weight: var(--tec-font-weight-regular);
 
-	color: var(--tec-color-text-event-date);
-	font-weight: var(--tec-font-weight-regular);
+		@media (--viewport-medium) {
 
-	@media (--viewport-medium) {
-
-		@mixin desktop-heading-6;
+			@mixin desktop-heading-6;
+		}
 	}
 }
 
