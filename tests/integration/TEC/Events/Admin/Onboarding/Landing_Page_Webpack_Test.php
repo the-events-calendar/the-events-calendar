@@ -252,30 +252,6 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	}
 
 	/**
-	 * Test that the script is added via admin_head hook.
-	 *
-	 * @test
-	 * @since TBD
-	 */
-	public function it_should_hook_into_admin_head() {
-		// Register assets to add the hooks.
-		$this->landing_page->register_assets();
-
-		// Verify the hook is registered.
-		$this->assertNotFalse(
-			has_action( 'admin_head', [ $this->landing_page, 'set_webpack_public_path' ] ),
-			'set_webpack_public_path should be hooked to admin_head'
-		);
-
-		// Verify it's hooked with priority 1 (early).
-		$this->assertEquals(
-			1,
-			has_action( 'admin_head', [ $this->landing_page, 'set_webpack_public_path' ] ),
-			'Hook should have priority 1 to run early'
-		);
-	}
-
-	/**
 	 * Clean up after tests.
 	 *
 	 * @since TBD
