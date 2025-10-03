@@ -1,4 +1,4 @@
-# Webpack Public Pathgit st
+# Webpack Public Path
 
 ## webpack-public-path.js
 
