@@ -60,7 +60,7 @@ export default function EventDateTime( props: FieldProps ): React.JSX.Element {
 				}
 
 				// Remove the function for this event, it will not be required anymore.
-				removeFilter( 'editor.preSavePost', 'tec.classy.events', filterPreSavePost );
+				removeFilter( 'editor.preSavePost', 'tec.classy.events' );
 
 				// Add the start date, end date and timezone information to the payload sent to the backend.
 				edits.meta = edits?.meta || {};
