@@ -36,9 +36,4 @@ if ( didAction( 'tec.classy.initialized' ) ) {
 addFilter( 'tec.classy.render', 'tec.classy.events', renderFields );
 
 // Export constants and functions to allow their reference in other packages.
-export {
-	constants,
-	getNewStartEndDates,
-	getAllDayNewDates,
-	getMultiDayDates,
-};
+export { constants, getNewStartEndDates, getAllDayNewDates, getMultiDayDates };

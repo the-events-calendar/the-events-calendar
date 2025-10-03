@@ -6,7 +6,7 @@ import { StoreState } from '../types/Store';
 import { TECSettings } from '../types/Settings';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 import { areDatesOnSameDay } from '@tec/common/classy/functions';
-import {createSelector} from '@wordpress/data';
+import { createSelector } from '@wordpress/data';
 
 /**
  * Retrieves the post meta from the editor.
@@ -61,21 +61,21 @@ export const getEventDateTimeDetails = createSelector(
 		const eventTimezone = meta?._EventTimezone || settings.timezoneString;
 
 		let eventStart: Date;
-		if (eventStartDateString) {
-			eventStart = new Date(eventStartDateString);
+		if ( eventStartDateString ) {
+			eventStart = new Date( eventStartDateString );
 		} else {
 			eventStart = new Date();
-			eventStart.setHours(8, 0, 0, 0);
+			eventStart.setHours( 8, 0, 0, 0 );
 		}
 
 		let eventEnd: Date;
-		if (eventEndDateString) {
-			eventEnd = new Date(eventEndDateString);
+		if ( eventEndDateString ) {
+			eventEnd = new Date( eventEndDateString );
 		} else {
 			eventEnd = new Date();
-			eventEnd.setHours(17, 0, 0, 0);
+			eventEnd.setHours( 17, 0, 0, 0 );
 		}
-		const isMultiday = !areDatesOnSameDay(eventStart, eventEnd);
+		const isMultiday = ! areDatesOnSameDay( eventStart, eventEnd );
 		const isAllDay = meta?._EventAllDay ?? false;
 
 		return {
