@@ -641,5 +641,36 @@ class Landing_Page extends Abstract_Admin_Page {
 			->set_dependencies( 'wp-components' )
 			->use_asset_file( false ) // Do not use the asset file: it would use the JS file one.
 			->register();
+
+		// Set the webpack public path for dynamic asset loading.
+		// Hook to admin_head to output before scripts load.
+		add_action( 'admin_head', [ $this, 'set_webpack_public_path' ], 1 );
+	}
+
+	/**
+	 * Sets the webpack public path for dynamic asset loading.
+	 *
+	 * This ensures that webpack can correctly resolve asset URLs (images, fonts, etc.)
+	 * regardless of the WordPress install location or folder structure.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function set_webpack_public_path(): void {
+		if ( ! self::is_on_page() ) {
+			return;
+		}
+
+		// Get the absolute URL to the build directory.
+		$public_url = trailingslashit( plugins_url( 'build/', TEC::instance()->plugin_file ) );
+
+		// Output the webpack public path directly in a script tag.
+		// This must run before webpack initializes.
+		?>
+		<script type="text/javascript">
+			var __webpack_public_path__ = <?php echo wp_json_encode( $public_url ); ?>;
+		</script>
+		<?php
 	}
 }
