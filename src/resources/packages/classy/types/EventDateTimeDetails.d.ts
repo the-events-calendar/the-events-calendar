@@ -7,3 +7,14 @@ export type EventDateTimeDetails = {
 	isAllDay: boolean;
 	eventTimezone: string;
 } & Settings;
+
+export type NewDatesReturn = {
+	newStartDate: Date;
+	newEndDate: Date;
+	notify: {
+		startDate: boolean;
+		startTime: boolean;
+		endDate: boolean;
+		endTime: boolean;
+	};
+};
