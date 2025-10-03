@@ -23,8 +23,9 @@ output.log
 codeception.yml
 tests/*.suite.yml
 
-# Tests - local output files
+# Tests - local output and generated files
 tests/_output
+tests/_support/_generated
 .env.testing
 
 # General Purpose Ignored Files
