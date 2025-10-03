@@ -670,7 +670,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		// Use a namespaced variable to avoid polluting the global namespace.
 		?>
 		<script type="text/javascript">
-			window.tecWebpackPublicPath = <?php echo wp_json_encode( $public_url ); ?>;
+			window.tecWebpackPublicPath = '<?php echo esc_js( rawurlencode( $public_url ) ); ?>';
 		</script>
 		<?php
 	}
