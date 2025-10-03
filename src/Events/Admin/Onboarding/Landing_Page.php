@@ -643,35 +643,10 @@ class Landing_Page extends Abstract_Admin_Page {
 			->register();
 
 		// Set the webpack public path for dynamic asset loading.
-		// Hook to admin_head to output before scripts load.
-		add_action( 'admin_head', [ $this, 'set_webpack_public_path' ], 1 );
-	}
-
-	/**
-	 * Sets the webpack public path for dynamic asset loading.
-	 *
-	 * This ensures that webpack can correctly resolve asset URLs (images, fonts, etc.)
-	 * regardless of the WordPress install location or folder structure.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function set_webpack_public_path(): void {
-		if ( ! self::is_on_page() ) {
-			return;
-		}
-
-		// Get the absolute URL to the build directory.
-		$public_url = trailingslashit( plugins_url( 'build/', TEC::instance()->plugin_file ) );
-
-		// Output the webpack public path directly in a script tag.
-		// This must run before webpack initializes.
-		// Use a namespaced variable to avoid polluting the global namespace.
-		?>
-		<script type="text/javascript">
-			window.tecWebpackPublicPath = '<?php echo esc_js( rawurlencode( $public_url ) ); ?>';
-		</script>
-		<?php
+		// This ensures that webpack can correctly resolve asset URLs (images, fonts, etc.)
+		// regardless of the WordPress install location or folder structure.
+		$public_url    = trailingslashit( plugins_url( 'build/', TEC::instance()->plugin_file ) );
+		$inline_script = sprintf( 'window.tecWebpackPublicPath = %s;', wp_json_encode( $public_url ) );
+		wp_add_inline_script( 'tec-events-onboarding-wizard-script', $inline_script, 'before' );
 	}
 }
