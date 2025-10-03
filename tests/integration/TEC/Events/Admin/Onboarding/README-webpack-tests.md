@@ -12,6 +12,13 @@ These tests verify that the dynamic webpack public path configuration works corr
 ### JavaScript Unit Tests
 - `src/resources/packages/__tests__/webpack-public-path.test.js` - Unit tests for the webpack-public-path.js module
 
+## Requirements
+
+### PHP Tests
+- **uopz PHP extension**: Required for tests that redefine WordPress constants (like `WP_CONTENT_DIR`)
+- The `With_Uopz` trait from `tribe-common` handles constant redefinition
+- Tests will be skipped if uopz is not available (with a clear message)
+
 ## Running the Tests
 
 ### PHP Integration Tests
@@ -45,7 +52,7 @@ npm test -- --watch webpack-public-path
    - `it_should_not_output_when_not_on_landing_page` - Only outputs on correct page
 
 3. **Custom WordPress Configurations** ⭐
-   - `it_should_work_with_custom_wp_content_dir` - Tests with custom `WP_CONTENT_DIR`
+   - `it_should_work_with_custom_wp_content_dir` - Tests with custom `WP_CONTENT_DIR` (uses uopz to redefine constants)
    - `it_should_handle_symlinked_plugin_directories` - Tests symlinked plugins
 
 4. **Security**

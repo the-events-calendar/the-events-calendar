@@ -9,6 +9,8 @@
 namespace TEC\Events\Admin\Onboarding;
 
 use Tribe__Events__Main as TEC;
+use Tribe\Tests\Traits\With_Uopz;
+use Codeception\TestCase\WPTestCase;
 
 /**
  * Class Landing_Page_Webpack_Test
@@ -19,7 +21,8 @@ use Tribe__Events__Main as TEC;
  *
  * @since TBD
  */
-class Landing_Page_Webpack_Test extends \Codeception\TestCase\WPTestCase {
+class Landing_Page_Webpack_Test extends WPTestCase {
+	use With_Uopz;
 
 	/**
 	 * The Landing_Page instance.
@@ -168,17 +171,14 @@ class Landing_Page_Webpack_Test extends \Codeception\TestCase\WPTestCase {
 	public function it_should_work_with_custom_wp_content_dir() {
 		$_GET['page'] = 'tec-events-onboarding';
 
-		// Backup original constants.
-		$original_content_dir = defined( 'WP_CONTENT_DIR' ) ? WP_CONTENT_DIR : null;
-		$original_content_url = defined( 'WP_CONTENT_URL' ) ? WP_CONTENT_URL : null;
+		// Use uopz to temporarily redefine the WP constants.
+		// This properly handles already-defined constants in the test environment.
+		$this->set_const_value( 'WP_CONTENT_DIR', '/custom/path/to/content' );
+		$this->set_const_value( 'WP_CONTENT_URL', 'https://example.com/custom-content' );
 
-		// Simulate custom wp-content directory.
-		if ( ! defined( 'WP_CONTENT_DIR' ) ) {
-			define( 'WP_CONTENT_DIR', '/custom/path/to/content' );
-		}
-		if ( ! defined( 'WP_CONTENT_URL' ) ) {
-			define( 'WP_CONTENT_URL', 'https://example.com/custom-content' );
-		}
+		// Verify constants were set.
+		$this->assertEquals( '/custom/path/to/content', WP_CONTENT_DIR );
+		$this->assertEquals( 'https://example.com/custom-content', WP_CONTENT_URL );
 
 		ob_start();
 		$this->landing_page->set_webpack_public_path();
