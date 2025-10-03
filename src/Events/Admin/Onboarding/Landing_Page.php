@@ -667,9 +667,10 @@ class Landing_Page extends Abstract_Admin_Page {
 
 		// Output the webpack public path directly in a script tag.
 		// This must run before webpack initializes.
+		// Use a namespaced variable to avoid polluting the global namespace.
 		?>
 		<script type="text/javascript">
-			var __webpack_public_path__ = <?php echo wp_json_encode( $public_url ); ?>;
+			window.tecWebpackPublicPath = <?php echo wp_json_encode( $public_url ); ?>;
 		</script>
 		<?php
 	}

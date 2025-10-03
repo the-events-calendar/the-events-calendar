@@ -5,13 +5,14 @@
  * or loads assets (images, fonts, etc.) at runtime.
  *
  * Usage in your entry point:
- *   import '../../../js/webpack-public-path';
+ *   import '../webpack-public-path';
  *
  * @since TBD
  */
 
-// Check if the public path was set by PHP (via wp_head).
-if ( typeof window.__webpack_public_path__ !== 'undefined' ) {
+// Check if the public path was set by PHP (via admin_head hook).
+// Use our namespaced variable to avoid conflicts.
+if ( typeof window.tecWebpackPublicPath !== 'undefined' ) {
 	// eslint-disable-next-line camelcase, no-undef
-	__webpack_public_path__ = window.__webpack_public_path__;
+	__webpack_public_path__ = window.tecWebpackPublicPath;
 }
