@@ -388,19 +388,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$common_version = $matches[1];
 
-			/**
-			 * If we don't have a version of Common or a Older version of the Lib
-			 * overwrite what should be loaded by the auto-loader
-			 */
-			if (
-				empty( $GLOBALS['tribe-common-info'] )
-				|| version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
-			) {
-				$GLOBALS['tribe-common-info'] = [
-					'dir'     => "{$this->plugin_path}common/src/Tribe",
-					'version' => $common_version,
-				];
-			}
+		/**
+		 * If we don't have a version of Common or a Older version of the Lib
+		 * overwrite what should be loaded by the auto-loader
+		 */
+		if (
+			empty( $GLOBALS['tribe-common-info'] )
+			|| version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
+		) {
+			$GLOBALS['tribe-common-info'] = [
+				'dir'     => "{$this->plugin_path}common/src/Tribe",
+				'version' => $common_version,
+			];
+		}
 		}
 
 		/**
