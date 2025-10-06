@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Changed views: `blocks/event-datetime`, `v2/components/backlink`, `v2/components/breadcrumbs`, `v2/components/breadcrumbs/breadcrumb`, `v2/components/breadcrumbs/linked-breadcrumb`, `v2/components/header`, `v2/list/nav`, `v2/list/top-bar/nav`
