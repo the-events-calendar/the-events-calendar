@@ -162,14 +162,19 @@ class Telemetry {
 	}
 
 	/**
-	 * Adds The Events Calendar to the list of plugins
-	 * to be opted in/out alongside tribe-common.
+	 * Adds The Events Calendar to the telemetry plugin suite.
+	 *
+	 * Registers this plugin with the TEC telemetry suite via the tec_telemetry_slugs filter.
+	 * This ensures that when users opt in/out of telemetry, all TEC suite plugins are
+	 * handled together using the StellarWP Telemetry library's native suite handling.
 	 *
 	 * @since 6.1.0
+	 * @since TBD Improved documentation about suite handling.
 	 *
 	 * @param array<string,string> $slugs The default array of slugs in the format  [ 'plugin_slug' => 'plugin_path' ]
 	 *
 	 * @see \TEC\Common\Telemetry\Telemetry::get_tec_telemetry_slugs()
+	 * @see \TEC\Common\Telemetry\Telemetry::register_tec_telemetry_plugins()
 	 *
 	 * @return array<string,string> $slugs The same array with The Events Calendar added to it.
 	 */
