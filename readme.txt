@@ -232,6 +232,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.15.7] 2025-10-07 =
+
+* Fix - Added aria labels to nav tags to make page landmarks unique. [TEC-5208]
+* Fix - Event Date time block structure updated to improve accessibility. [TEC-5531]
+* Tweak - Change default opt-in status to prevent false positives in checks when the value is not set. [TEC-5583]
+* Accessibility - Add ARIA landmark roles and aria-current attributes to breadcrumbs to improve screen reader support. [TEC-5205]
+* Accessibility - Replace breadcrumbs with a "Back to Events" link on Venue and Organizer single pages for clearer navigation and improved accessibility.[TEC-5207][TEC-5205]
+* Language - 4 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted.
+
 = [6.15.6] 2025-09-30 =
 
 * Version - The Events Calendar 6.15.6 is only compatible with Events Pro 7.7.6 and higher.
