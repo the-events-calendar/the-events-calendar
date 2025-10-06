@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.7
  *
- * @since TBD Switched to `nav` element, added Aria labels to make more accessible.
+ * @since 6.15.7 Switched to `nav` element, added Aria labels to make more accessible.
  *
  * @var array $breadcrumbs An array of data for breadcrumbs.
  */

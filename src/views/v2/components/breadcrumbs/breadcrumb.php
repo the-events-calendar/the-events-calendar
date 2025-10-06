@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.7
  *
- * @since TBD Added W3C ARIA breadcrumb attributes for accessibility.
+ * @since 6.15.7 Added W3C ARIA breadcrumb attributes for accessibility.
  *
  * @var array   $breadcrumb {
  *                          Breadcrumb data.

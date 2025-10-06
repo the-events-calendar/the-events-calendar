@@ -1608,7 +1608,7 @@ class View implements View_Interface {
 	 * @since 4.9.4
 	 * @since 5.2.1 Add the `rest_method` to the template variables.
 	 * @since 6.14.0 Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
-	 * @since TBD Added `backlink` support to template variables, allowing views to display a back link instead of breadcrumbs.
+	 * @since 6.15.7 Added `backlink` support to template variables, allowing views to display a back link instead of breadcrumbs.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1793,7 +1793,7 @@ class View implements View_Interface {
 	/**
 	 * Decide whether to show breadcrumbs or a back link.
 	 *
-	 * @since TBD
+	 * @since 6.15.7
 	 *
 	 * @param array $breadcrumbs The breadcrumbs array (may be empty).
 	 *
@@ -1810,7 +1810,7 @@ class View implements View_Interface {
 		 * Return false to show breadcrumbs, or return an array with 'url' and 'label'
 		 * to show a back link instead.
 		 *
-		 * @since TBD
+		 * @since 6.15.7
 		 *
 		 * @param array|false $back_link   Default false. Return array to show back link.
 		 * @param array       $breadcrumbs The breadcrumbs array (may be empty).
@@ -1831,7 +1831,7 @@ class View implements View_Interface {
 		 * Return false to show breadcrumbs, or return an array with 'url' and 'label'
 		 * to show a back link instead.
 		 *
-		 * @since TBD
+		 * @since 6.15.7
 		 *
 		 * @param array|false $back_link   Default false. Return array to show back link.
 		 * @param array       $breadcrumbs The breadcrumbs array (may be empty).
@@ -2287,7 +2287,7 @@ class View implements View_Interface {
 	 * Returns the breadcrumbs data the View will display on the front-end.
 	 *
 	 * @since 4.9.11
-	 * @since TBD Add is_last property to each breadcrumb after filters are applied.
+	 * @since 6.15.7 Add is_last property to each breadcrumb after filters are applied.
 	 *
 	 * @return array<int,array{link:string,label:string,is_last:bool}>
 	 */

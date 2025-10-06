@@ -9,9 +9,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.7
  * @since   6.2.0
- * @since TBD Add support for displaying either breadcrumbs or a back link in the header.
+ * @since 6.15.7 Add support for displaying either breadcrumbs or a back link in the header.
  *
  * @var \Tribe\Events\Views\V2\Template $this                 Template Engine instance rendering.
  * @var bool                            $disable_event_search Boolean on whether to disable the event search.
