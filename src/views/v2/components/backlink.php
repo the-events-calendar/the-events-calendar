@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.7
  *
  * @var array $backlink An array of data for breadcrumbs.
  */

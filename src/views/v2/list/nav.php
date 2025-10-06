@@ -14,9 +14,9 @@
  * @var string $today_url The URL to the today page, if any, or an empty string.
  *
  * @since 4.9.10
- * @since TBD Added aria-label attribute to nav.
+ * @since 6.15.7 Added aria-label attribute to nav.
  *
- * @version TBD
+ * @version 6.15.7
  */
 
 $aria_label = sprintf(

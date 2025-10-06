@@ -12,9 +12,9 @@ use Tribe__Utils__Array as Arr;
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.7
  * @since 6.2.0 Added classes and title attribute to the anchor tags.
- * @since TBD Added W3C ARIA breadcrumb attributes for accessibility.
+ * @since 6.15.7 Added W3C ARIA breadcrumb attributes for accessibility.
  *
  * @var array $breadcrumb {
  *                        *     Breadcrumb data.

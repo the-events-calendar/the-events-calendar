@@ -35,7 +35,7 @@ class Optin extends Abstract_Step {
 	 * Process the optin data.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Change default opt-in status to null to prevent false positives in checks when the value is not set.
+	 * @since 6.15.7 Change default opt-in status to null to prevent false positives in checks when the value is not set.
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.

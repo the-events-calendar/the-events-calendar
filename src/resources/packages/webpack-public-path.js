@@ -7,7 +7,7 @@
  * Usage in your entry point:
  *   import '../webpack-public-path';
  *
- * @since TBD
+ * @since 6.15.7
  */
 
 // Check if the public path was set by PHP (via admin_head hook).
