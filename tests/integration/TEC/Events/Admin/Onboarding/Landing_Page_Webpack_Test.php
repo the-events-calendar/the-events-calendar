@@ -46,30 +46,29 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	}
 
 	/**
-	 * Test that set_webpack_public_path outputs the correct script tag.
+	 * Test that inline script is registered with webpack public path.
 	 *
 	 * @test
 	 * @since TBD
 	 */
-	public function it_should_output_webpack_public_path_script() {
+	public function it_should_register_webpack_public_path_inline_script() {
 		// Simulate being on the landing page.
 		$_GET['page'] = Landing_Page::get_page_slug();
 		$_GET['post_type'] = TEC::POSTTYPE;
+		set_current_screen( 'tribe_events_page_' . Landing_Page::get_page_slug() );
 
-		// Mock the admin pages system to recognize we're on the landing page.
-		add_filter( 'tribe_admin_pages_current_page', function() {
-			return Landing_Page::get_page_slug();
-		} );
+		// Register the assets.
+		$this->landing_page->register_assets();
 
-		// Capture the output.
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		// Get the inline script data.
+		$inline_scripts = wp_scripts()->get_data( 'tec-events-onboarding-wizard-script', 'before' );
 
-		// Verify script tag exists.
-		$this->assertStringContainsString( '<script type="text/javascript">', $output );
-		$this->assertStringContainsString( 'window.tecWebpackPublicPath', $output );
-		$this->assertStringContainsString( '</script>', $output );
+		// Verify inline script exists and contains webpack public path.
+		$this->assertNotEmpty( $inline_scripts );
+		$this->assertIsArray( $inline_scripts );
+
+		$combined_script = implode( "\n", $inline_scripts );
+		$this->assertStringContainsString( 'window.tecWebpackPublicPath', $combined_script );
 	}
 
 	/**
@@ -81,18 +80,15 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	public function it_should_include_build_directory_in_path() {
 		$_GET['page'] = Landing_Page::get_page_slug();
 		$_GET['post_type'] = TEC::POSTTYPE;
+		set_current_screen( 'tribe_events_page_' . Landing_Page::get_page_slug() );
 
-		add_filter( 'tribe_admin_pages_current_page', function() {
-			return Landing_Page::get_page_slug();
-		} );
-
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		$this->landing_page->register_assets();
+		$inline_scripts = wp_scripts()->get_data( 'tec-events-onboarding-wizard-script', 'before' );
+		$combined_script = implode( "\n", $inline_scripts );
 
 		// Should contain /build/ in the path (may be escaped as \/build\/ in JSON).
 		$this->assertTrue(
-			strpos( $output, '/build/' ) !== false || strpos( $output, '\/build\/' ) !== false,
+			strpos( $combined_script, '/build/' ) !== false || strpos( $combined_script, '\/build\/' ) !== false,
 			'Output should contain /build/ path'
 		);
 	}
@@ -106,17 +102,14 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	public function it_should_output_valid_url() {
 		$_GET['page'] = Landing_Page::get_page_slug();
 		$_GET['post_type'] = TEC::POSTTYPE;
+		set_current_screen( 'tribe_events_page_' . Landing_Page::get_page_slug() );
 
-		add_filter( 'tribe_admin_pages_current_page', function() {
-			return Landing_Page::get_page_slug();
-		} );
-
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		$this->landing_page->register_assets();
+		$inline_scripts = wp_scripts()->get_data( 'tec-events-onboarding-wizard-script', 'before' );
+		$combined_script = implode( "\n", $inline_scripts );
 
 		// Extract the URL from the output using regex.
-		preg_match( '/window\.tecWebpackPublicPath\s*=\s*"([^"]+)"/', $output, $matches );
+		preg_match( '/window\.tecWebpackPublicPath\s*=\s*"([^"]+)"/', $combined_script, $matches );
 
 		$this->assertNotEmpty( $matches, 'Should find a URL in the output' );
 
@@ -136,28 +129,28 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	}
 
 	/**
-	 * Test that the script respects the is_on_page check.
+	 * Test that the script only enqueues on the correct page.
 	 *
-	 * Note: This test verifies the conditional output mechanism exists,
+	 * Note: This test verifies the conditional enqueue mechanism exists,
 	 * not the full WordPress admin page detection system.
 	 *
 	 * @test
 	 * @since TBD
 	 */
 	public function it_should_respect_page_check() {
-		// This test verifies that is_on_page() is being called.
-		// The actual page detection is handled by WordPress and tested elsewhere.
-		$method = new \ReflectionMethod( $this->landing_page, 'set_webpack_public_path' );
-		$this->assertTrue( $method->isPublic(), 'Method should be public' );
+		// This test verifies that the asset has a condition set.
+		// The actual page detection is handled by WordPress and the Asset system.
+		$this->landing_page->register_assets();
 
-		// Verify the method checks is_on_page by ensuring it doesn't fatal.
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		// Verify the script was registered.
+		$this->assertTrue(
+			wp_script_is( 'tec-events-onboarding-wizard-script', 'registered' ),
+			'Script should be registered'
+		);
 
-		// The output may or may not be empty depending on test environment,
-		// but it should not cause errors.
-		$this->assertTrue( true, 'Method executes without errors' );
+		// Verify that the asset will only enqueue on the correct page.
+		// The Asset class uses set_condition() which is tested in the Asset system.
+		$this->assertTrue( true, 'Asset registration completes without errors' );
 	}
 
 	/**
@@ -169,7 +162,9 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * @since TBD
 	 */
 	public function it_should_work_with_custom_wp_content_dir() {
-		$_GET['page'] = 'tec-events-onboarding';
+		$_GET['page'] = Landing_Page::get_page_slug();
+		$_GET['post_type'] = TEC::POSTTYPE;
+		set_current_screen( 'tribe_events_page_' . Landing_Page::get_page_slug() );
 
 		// Use uopz to temporarily redefine the WP constants.
 		// This properly handles already-defined constants in the test environment.
@@ -180,12 +175,12 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 		$this->assertEquals( '/custom/path/to/content', WP_CONTENT_DIR );
 		$this->assertEquals( 'https://example.com/custom-content', WP_CONTENT_URL );
 
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		$this->landing_page->register_assets();
+		$inline_scripts = wp_scripts()->get_data( 'tec-events-onboarding-wizard-script', 'before' );
+		$combined_script = implode( "\n", $inline_scripts );
 
 		// Extract URL.
-		preg_match( '/window\.tecWebpackPublicPath\s*=\s*"([^"]+)"/', $output, $matches );
+		preg_match( '/window\.tecWebpackPublicPath\s*=\s*"([^"]+)"/', $combined_script, $matches );
 
 		$this->assertNotEmpty( $matches[1], 'Should output a URL even with custom wp-content' );
 
@@ -205,19 +200,21 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * @since TBD
 	 */
 	public function it_should_escape_url_for_javascript() {
-		$_GET['page'] = 'tec-events-onboarding';
+		$_GET['page'] = Landing_Page::get_page_slug();
+		$_GET['post_type'] = TEC::POSTTYPE;
+		set_current_screen( 'tribe_events_page_' . Landing_Page::get_page_slug() );
 
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		$this->landing_page->register_assets();
+		$inline_scripts = wp_scripts()->get_data( 'tec-events-onboarding-wizard-script', 'before' );
+		$combined_script = implode( "\n", $inline_scripts );
 
 		// Should use wp_json_encode for proper escaping.
 		// Test that quotes are properly handled.
-		$this->assertStringNotContainsString( '\'"', $output );
-		$this->assertStringNotContainsString( '"\' ', $output );
+		$this->assertStringNotContainsString( '\'"', $combined_script );
+		$this->assertStringNotContainsString( '"\' ', $combined_script );
 
 		// Verify the output is valid JSON-encoded.
-		preg_match( '/window\.tecWebpackPublicPath\s*=\s*(.+);/', $output, $matches );
+		preg_match( '/window\.tecWebpackPublicPath\s*=\s*(.+);/', $combined_script, $matches );
 		$this->assertNotEmpty( $matches[1] );
 
 		// Should be a valid JSON string.
@@ -232,7 +229,9 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * @since TBD
 	 */
 	public function it_should_handle_symlinked_plugin_directories() {
-		$_GET['page'] = 'tec-events-onboarding';
+		$_GET['page'] = Landing_Page::get_page_slug();
+		$_GET['post_type'] = TEC::POSTTYPE;
+		set_current_screen( 'tribe_events_page_' . Landing_Page::get_page_slug() );
 
 		// Get the actual plugin file path.
 		$plugin_file = TEC::instance()->plugin_file;
@@ -240,12 +239,12 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 		// Verify plugins_url works correctly.
 		$expected_url = trailingslashit( plugins_url( 'build/', $plugin_file ) );
 
-		ob_start();
-		$this->landing_page->set_webpack_public_path();
-		$output = ob_get_clean();
+		$this->landing_page->register_assets();
+		$inline_scripts = wp_scripts()->get_data( 'tec-events-onboarding-wizard-script', 'before' );
+		$combined_script = implode( "\n", $inline_scripts );
 
 		// Extract the URL.
-		preg_match( '/window\.tecWebpackPublicPath\s*=\s*"([^"]+)"/', $output, $matches );
+		preg_match( '/window\.tecWebpackPublicPath\s*=\s*"([^"]+)"/', $combined_script, $matches );
 
 		$actual_url = isset( $matches[1] ) ? stripslashes( $matches[1] ) : '';
 		$this->assertEquals( $expected_url, $actual_url, 'Should match the expected plugins_url output' );

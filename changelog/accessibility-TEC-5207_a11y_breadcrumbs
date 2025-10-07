@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Add ARIA landmark roles and aria-current attributes to breadcrumbs to improve screen reader support. [TEC-5205]
