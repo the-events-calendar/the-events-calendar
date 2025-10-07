@@ -6,6 +6,11 @@ use Wp_json_apiTester as Tester;
 class Events_ArchiveCest {
 	use WP_JSON_API_Information;
 
+	public function _before( Tester $I ): void {
+		// Login as admin before the tests: users that cannot manage options cannot see the Event post type in the REST API.
+		$I->loginAsAdmin();
+	}
+
 	/**
 	 * It should return an empty array when there are no events in the site
 	 *

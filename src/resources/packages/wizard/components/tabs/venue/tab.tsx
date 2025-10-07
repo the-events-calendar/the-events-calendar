@@ -5,8 +5,20 @@ import { useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { SETTINGS_STORE_KEY } from '../../../data';
 import NextButton from '../../buttons/next';
+import Select from 'react-select';
 import SkipButton from '../../buttons/skip';
 import VenueIcon from './img/venue';
+
+// React-select option types.
+interface OptionType {
+	value: string;
+	label: string;
+}
+
+interface GroupedOptionType {
+	label: string;
+	options: OptionType[];
+}
 
 interface Venue {
 	venueId: number;
@@ -38,6 +50,16 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [country, setCountry] = useState(venue.country || 'US');
 	const [phone, setPhone] = useState(venue.phone || '');
 	const [website, setWebsite] = useState(venue.website || '');
+
+	// Transform countries into react-select grouped format.
+	const countryOptions: GroupedOptionType[] = countries ? Object.entries( countries ).map( ( [ continent, continentCountries ] ) => ( {
+		label: continent,
+		options: Object.entries( continentCountries as { [ key: string ]: string } ).map( ( [ key, countryName ] ) => ( {
+			value: key,
+			label: countryName,
+		} ) ),
+	} ) ) : [];
+
 	const [showWebsite, setShowWebsite] = useState(!!venue.venueId ||!!venue.website || false);
 	const [showPhone, setShowPhone] = useState(!!venue.venueId || !!venue.phone || false);
 	const [canContinue, setCanContinue] = useState(false);
@@ -439,24 +461,21 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 						className="tec-events-onboarding__form-field"
 						label={ __( 'Country', 'the-events-calendar' ) }
 					>
-						<select
-							onChange={ ( e ) => setCountry( e.target.value ) }
-							defaultValue={ country }
-							disabled={ disabled }
-							id="venue-country"
-						>
-							{ Object.entries( countries ).map( ( [ key, continents ] ) => (
-								<optgroup key={ key } className="continent" label={ key }>
-									{ Object.entries( continents as { [ key: string ]: string } ).map(
-										( [ key, country ] ) => (
-											<option key={ key } value={ key }>
-												{ country }
-											</option>
-										)
-									) }
-								</optgroup>
-							) ) }
-						</select>
+						<Select
+							options={ countryOptions }
+							isSearchable={ true }
+							placeholder={ __( 'Search for a country...', 'the-events-calendar' ) }
+							value={
+								countryOptions
+									.flatMap( group => group.options )
+									.find( option => option.value === country ) || null
+							}
+							onChange={ ( selectedOption: OptionType | null ) => setCountry( selectedOption?.value || '' ) }
+							className="tec-react-select-container"
+							classNamePrefix="tec-react-select"
+							isDisabled={ disabled }
+							isClearable={ false }
+						/>
 					</BaseControl>
 					<span className="tec-events-onboarding__required-label">
 						{ __( 'Venue country is required.', 'the-events-calendar' ) }

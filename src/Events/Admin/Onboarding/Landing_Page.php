@@ -641,5 +641,12 @@ class Landing_Page extends Abstract_Admin_Page {
 			->set_dependencies( 'wp-components' )
 			->use_asset_file( false ) // Do not use the asset file: it would use the JS file one.
 			->register();
+
+		// Set the webpack public path for dynamic asset loading.
+		// This ensures that webpack can correctly resolve asset URLs (images, fonts, etc.)
+		// regardless of the WordPress install location or folder structure.
+		$public_url    = trailingslashit( plugins_url( 'build/', TEC::instance()->plugin_file ) );
+		$inline_script = sprintf( 'window.tecWebpackPublicPath = %s;', wp_json_encode( $public_url ) );
+		wp_add_inline_script( 'tec-events-onboarding-wizard-script', $inline_script, 'before' );
 	}
 }

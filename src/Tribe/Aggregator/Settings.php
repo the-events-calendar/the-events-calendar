@@ -48,7 +48,7 @@ class Tribe__Events__Aggregator__Settings {
 			return;
 		}
 
-		if ( ! isset( $_GET['tab'] ) || 'addons' !== $_GET['tab'] ) {
+		if ( ! isset( $_GET['tab'] ) || 'integrations-import-tab' !== $_GET['tab'] ) {
 			return;
 		}
 
@@ -66,7 +66,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_eb_credentials();
 
 		wp_redirect(
-			tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] )
+			tribe( Settings::class )->get_url( [ 'tab' => 'integrations-import-tab' ] )
 		);
 		die;
 	}
@@ -191,7 +191,7 @@ class Tribe__Events__Aggregator__Settings {
 			return;
 		}
 
-		if ( tribe_get_request_var( 'tab', false ) !== 'addons' ) {
+		if ( tribe_get_request_var( 'tab', false ) !== 'integrations-import-tab' ) {
 			return;
 		}
 
@@ -205,7 +205,7 @@ class Tribe__Events__Aggregator__Settings {
 		$this->clear_meetup_credentials();
 
 		wp_redirect(
-			tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] )
+			tribe( Settings::class )->get_url( [ 'tab' => 'integrations-import-tab' ] )
 		);
 		die;
 	}

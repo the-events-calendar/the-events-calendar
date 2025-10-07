@@ -1,3 +1,6 @@
+// Set webpack public path FIRST before any other imports.
+import '../webpack-public-path';
+
 import React, { useState } from 'react';
 import domReady from '@wordpress/dom-ready';
 import ReactDOM from 'react-dom';
