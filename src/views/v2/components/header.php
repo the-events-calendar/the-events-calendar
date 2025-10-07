@@ -9,8 +9,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version 6.2.0
+ * @version 6.15.7
  * @since   6.2.0
+ * @since 6.15.7 Add support for displaying either breadcrumbs or a back link in the header.
  *
  * @var \Tribe\Events\Views\V2\Template $this                 Template Engine instance rendering.
  * @var bool                            $disable_event_search Boolean on whether to disable the event search.
@@ -20,7 +21,6 @@ $header_classes = [ 'tribe-events-header' ];
 if ( empty( $disable_event_search ) ) {
 	$header_classes[] = 'tribe-events-header--has-event-search';
 }
-
 ?>
 
 <header <?php tec_classes( $header_classes ); ?>>
@@ -30,7 +30,13 @@ if ( empty( $disable_event_search ) ) {
 
 	<?php $this->template( 'components/header-title' ); ?>
 
-	<?php $this->template( 'components/breadcrumbs' ); ?>
+	<?php
+	if ( ! empty( $backlink ) ) {
+		$this->template( 'components/backlink' );
+	} elseif ( ! empty( $breadcrumbs ) ) {
+		$this->template( 'components/breadcrumbs' );
+	}
+	?>
 
 	<?php $this->template( 'components/events-bar' ); ?>
 

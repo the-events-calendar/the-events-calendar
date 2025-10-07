@@ -18,6 +18,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Elementor\Core\Base\Document;
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
+use TEC\Common\StellarWP\Installer\Utils\Array_Utils;
 use Tribe__Events__Revisions__Preview;
 
 /**
@@ -98,6 +99,7 @@ class Controller extends Integration_Abstract {
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
 		add_action( 'template_redirect', [ $this, 'action_remove_revision_metadata_modifier' ], 1 );
+		add_action( 'elementor_pro/init', [ $this, 'action_handle_elementor_pro_init' ] );
 	}
 
 	/**
@@ -126,6 +128,7 @@ class Controller extends Integration_Abstract {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
 		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
+		add_filter( 'tec_events_settings_display_calendar_section', [ $this, 'filter_display_calendar_section' ], 10, 1 );
 	}
 
 	/**
@@ -419,5 +422,52 @@ class Controller extends Integration_Abstract {
 		}
 
 		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
+	}
+
+	/**
+	 * Handles Elementor Pro initialization to automatically reset template settings.
+	 *
+	 * This method is triggered when Elementor Pro initializes and automatically switches
+	 * users from "Default Page Template" to "Default Events Template" to prevent conflicts.
+	 * This handles the use case where a user has set the template to "Default Page Template"
+	 * and then activates Elementor Pro without visiting the settings page.
+	 *
+	 * @since 6.15.6
+	 *
+	 * @return void Template setting is updated if needed.
+	 */
+	public function action_handle_elementor_pro_init(): void {
+		// Auto-switch existing users from "default" to "Default Events Template".
+		$current_template = tribe_get_option( 'tribeEventsTemplate', 'default' );
+		if ( 'default' === $current_template ) {
+			tribe_update_option( 'tribeEventsTemplate', '' );
+		}
+	}
+
+	/**
+	 * Filters the display calendar section to remove "Default Page Template" when Elementor Pro is active.
+	 *
+	 * @since 6.15.6
+	 *
+	 * @param array<string,mixed> $display_calendar_section The display calendar section configuration array.
+	 *
+	 * @return array<string,mixed> The filtered display calendar section array.
+	 */
+	public function filter_display_calendar_section( array $display_calendar_section ): array {
+		// Only modify the section if Elementor Pro is active.
+		if ( ! $this->is_elementor_pro_active() ) {
+			return $display_calendar_section;
+		}
+
+		// Grab the template options.
+		$template_options = Array_Utils::get_in_any( [ $display_calendar_section ], [ 'tribeEventsTemplate', 'options' ] );
+
+		// Only proceed if template options exist and contain the 'default' option.
+		if ( $template_options && Array_Utils::get_in_any( [ $template_options ], [ 'default' ] ) ) {
+			unset( $template_options['default'] );
+			$display_calendar_section['tribeEventsTemplate']['options'] = $template_options;
+		}
+
+		return $display_calendar_section;
 	}
 }
