@@ -142,6 +142,13 @@ export default function OrganizerUpsert( props: {
 						placeholder=""
 						__next40pxDefaultSize
 					/>
+					<div className="classy-field__input-note">
+						{ _x(
+							'The email address will be obfuscated on this site to avoid being harvested by spammers.',
+							'Email input obfuscation note',
+							'the-events-calendar'
+						) }
+					</div>
 				</LabeledInput>
 			</section>
 
