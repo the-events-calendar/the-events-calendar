@@ -86,7 +86,7 @@ export default function OrganizerUpsert( props: {
 						value={ decodeEntities( currentValues.name ) }
 						onChange={ ( value ) => {
 							const newValue = value || '';
-							setConfirmEnabled( newValue !== '' );
+							setConfirmEnabled( newValue.trim() !== '' );
 
 							return setValues( {
 								...currentValues,
