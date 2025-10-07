@@ -145,6 +145,70 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
+	 * Utility: detect Escape key presses
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event Keyboard event
+	 *
+	 * @return {boolean}
+	 */
+	obj.isEscapeKey = function ( event ) {
+		return (
+			event.key === 'Escape' ||
+			event.key === 'Esc' ||
+			event.which === 27 ||
+			event.keyCode === 27
+		);
+	};
+
+	/**
+	 * Handle ESC on tooltip content: close and return focus to origin
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event Keyboard event
+	 *
+	 * @return {void}
+	 */
+	obj.handleTooltipKeydown = function ( event ) {
+		if ( ! obj.isEscapeKey( event ) ) {
+			return;
+		}
+
+		const $origin = event.data.origin;
+		const $tooltip = event.data.target;
+
+		// remove hover classes so close guard does not block ESC-initiated close
+		$origin.removeClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() );
+		$tooltip.removeClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
+
+		$origin.tooltipster( 'close' );
+		$origin.focus();
+		event.preventDefault();
+	};
+
+	/**
+	 * Handle ESC on origin/trigger: close tooltip (like blur)
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event Keyboard event
+	 *
+	 * @return {void}
+	 */
+	obj.handleOriginKeydown = function ( event ) {
+		if ( ! obj.isEscapeKey( event ) ) {
+			return;
+		}
+
+		// emulate blur-close behavior
+		event.data.target.blur();
+		event.data.target.tooltipster( 'close' );
+		event.preventDefault();
+	};
+
+	/**
 	 * Handle tooltip instance closing event
 	 *
 	 * @since 4.9.10
@@ -179,7 +243,8 @@ tribe.events.views.tooltip = {};
 	obj.handleInstanceClosing = function ( event ) {
 		$( event.tooltip )
 			.off( 'mouseenter touchstart', obj.handleTooltipHoverIn )
-			.off( 'mouseleave touchleave', obj.handleTooltipHoverOut );
+			.off( 'mouseleave touchleave', obj.handleTooltipHoverOut )
+			.off( 'keydown', obj.handleTooltipKeydown );
 	};
 
 	/**
@@ -199,8 +264,9 @@ tribe.events.views.tooltip = {};
 			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
 			.on( 'blur', { target: $origin }, obj.handleOriginBlur )
 			.on( 'mouseenter touchstart', { target: $origin }, obj.handleOriginHoverIn )
-			.on( 'mouseleave touchleave', { target: $origin }, obj.handleOriginHoverOut );
-		instance
+			.on( 'mouseleave touchleave', { target: $origin }, obj.handleOriginHoverOut )
+			.on( 'keydown', { target: $origin }, obj.handleOriginKeydown );
+			instance
 			.on( 'close', { origin: $origin }, obj.handleInstanceClose )
 			.on( 'closing', { origin: $origin }, obj.handleInstanceClosing );
 	};
@@ -220,7 +286,8 @@ tribe.events.views.tooltip = {};
 		const $tooltip = $( helper.tooltip );
 		$tooltip
 			.on( 'mouseenter touchstart', { target: $tooltip }, obj.handleTooltipHoverIn )
-			.on( 'mouseleave touchleave', { target: $tooltip }, obj.handleTooltipHoverOut );
+			.on( 'mouseleave touchleave', { target: $tooltip }, obj.handleTooltipHoverOut )
+			.on( 'keydown', { target: $tooltip, origin: $( helper.origin ) }, obj.handleTooltipKeydown );
 	};
 
 	/**
