@@ -42,8 +42,7 @@ abstract class Tables_Test_Case extends \CT1_Migration_Test_Case {
 		$pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 		// Add  SQL modes that will cause issues with the dates.
 		$sql_mode = $pdo->query( 'SELECT @@SESSION.sql_mode' )->fetchColumn();
-		// Debug the current sql_mode before the update.
-		codecept_debug( 'sql_mode before update:' . $sql_mode );
+
 		foreach (
 			[
 				'NO_ZERO_IN_DATE',
@@ -58,9 +57,6 @@ abstract class Tables_Test_Case extends \CT1_Migration_Test_Case {
 		if ( $pdo->query( 'SET @@SESSION.sql_mode="' . $sql_mode . '"' ) === false ) {
 			$this->fail( 'Could not set PDO sql_mode to ' . $sql_mode );
 		}
-		// Debug the current sql_mode.
-		$sql_mode = $pdo->query( 'SELECT @@SESSION.sql_mode' )->fetchColumn();
-		codecept_debug( 'sql_mode after update: ' . $sql_mode );
 
 		// Insert a record in the Occurrences table using PDO, this should not fail.
 		$data         = (object) array_merge( [

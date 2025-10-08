@@ -58,7 +58,7 @@ class Tribe__Events__QueryTest extends \Codeception\TestCase\WPTestCase {
 				'duration'   => 2 * HOUR_IN_SECONDS,
 				'status'     => 'publish',
 			] )->create();
-			codecept_debug( "Created event {$created->ID} with post date {$post_date} and start date {$date}" );
+
 			$by_post_date_ids[$created->ID]    = $post_date;
 			$by_start_date_ids[ $created->ID ] = $date;
 			// Space out the post date by 1 second.
