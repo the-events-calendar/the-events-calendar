@@ -84,10 +84,12 @@ class Provider extends Integration_Abstract {
 		if ( ! $this->is_avada_setup_correctly() ) {
 			return;
 		}
-		$settings = Avada()->settings;
 
-		if ( ! $settings->get( 'css_combine_third_party_assets' ) ) {
-			return; // Early bail if already off.
+		$settings = Avada()->settings ?? null;
+
+		if ( ! $settings || ! is_object( $settings ) || ! $settings->get( 'css_combine_third_party_assets' ) ) {
+			// Early bail if already off or we can't access it for some reason.
+			return;
 		}
 
 		$settings->set( 'css_combine_third_party_assets', false );
@@ -113,7 +115,7 @@ class Provider extends Integration_Abstract {
 		$field =& $sections['performance']['fields']['css_combine_third_party_assets'];
 
 		$note_text = sprintf(
-		/* translators: %s: Plugin name */
+			/* translators: %s: Plugin name */
 			'<br><strong>%1$s</strong> %2$s',
 			esc_html__( 'Note:', 'the-events-calendar' ),
 			esc_html__( 'This option is automatically disabled when The Events Calendar is active for compatibility.', 'the-events-calendar' )
