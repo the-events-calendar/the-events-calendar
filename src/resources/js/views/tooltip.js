@@ -154,38 +154,7 @@ tribe.events.views.tooltip = {};
 	 * @return {boolean}
 	 */
 	obj.isEscapeKey = function ( event ) {
-		return (
-			event.key === 'Escape' ||
-			event.key === 'Esc' ||
-			event.which === 27 ||
-			event.keyCode === 27
-		);
-	};
-
-	/**
-	 * Handle ESC on tooltip content: close and return focus to origin
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event Keyboard event
-	 *
-	 * @return {void}
-	 */
-	obj.handleTooltipKeydown = function ( event ) {
-		if ( ! obj.isEscapeKey( event ) ) {
-			return;
-		}
-
-		const $origin = event.data.origin;
-		const $tooltip = event.data.target;
-
-		// remove hover classes so close guard does not block ESC-initiated close
-		$origin.removeClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() );
-		$tooltip.removeClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
-
-		$origin.tooltipster( 'close' );
-		$origin.focus();
-		event.preventDefault();
+		return event.keyCode === 27 || event.key === 'Esc';
 	};
 
 	/**
@@ -243,8 +212,7 @@ tribe.events.views.tooltip = {};
 	obj.handleInstanceClosing = function ( event ) {
 		$( event.tooltip )
 			.off( 'mouseenter touchstart', obj.handleTooltipHoverIn )
-			.off( 'mouseleave touchleave', obj.handleTooltipHoverOut )
-			.off( 'keydown', obj.handleTooltipKeydown );
+			.off( 'mouseleave touchleave', obj.handleTooltipHoverOut );
 	};
 
 	/**
@@ -286,8 +254,7 @@ tribe.events.views.tooltip = {};
 		const $tooltip = $( helper.tooltip );
 		$tooltip
 			.on( 'mouseenter touchstart', { target: $tooltip }, obj.handleTooltipHoverIn )
-			.on( 'mouseleave touchleave', { target: $tooltip }, obj.handleTooltipHoverOut )
-			.on( 'keydown', { target: $tooltip, origin: $( helper.origin ) }, obj.handleTooltipKeydown );
+			.on( 'mouseleave touchleave', { target: $tooltip }, obj.handleTooltipHoverOut );
 	};
 
 	/**
