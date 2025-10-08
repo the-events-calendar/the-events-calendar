@@ -55,7 +55,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 		$this->get_vars = $_GET;
 
 		global $current_screen;
-		$this->original_screen = $current_screen;
+		$this->original_screen = $current_screen ?? null;
 
 		// Set up current user as admin.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
