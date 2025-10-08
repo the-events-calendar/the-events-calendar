@@ -279,6 +279,6 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 		global $current_screen;
 		remove_all_filters( 'tribe_admin_pages_current_page' );
 		$_GET           = $this->get_vars;
-		$current_screen = $this->original_screen ?: null;
+		$current_screen = $this->original_screen ?? null;
 	}
 }
