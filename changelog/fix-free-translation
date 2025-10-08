@@ -1,0 +1,4 @@
+Significance: patch
+Type: language
+
+Moved 'Free' string to TEC text domain for improved i18n. [TEC-5603]
