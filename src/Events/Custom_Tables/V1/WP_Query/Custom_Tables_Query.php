@@ -2,7 +2,7 @@
 /**
  * An extension of the base WordPress WP_Query to redirect queries to the plugin custom tables.
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -20,7 +20,7 @@ use WP_Query;
 /**
  * Class Custom_Tables_Query
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
@@ -48,22 +48,22 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  WP_Query                  $wp_query       A reference to the `WP_Query` instance that
+	 * @param WP_Query             $wp_query       A reference to the `WP_Query` instance that
 	 *                                                   should be used as a model to build an instance
 	 *                                                   of this class.
-	 * @param  array<string,mixed>|null  $override_args  An array of query arguments to override
+	 * @param ?array<string,mixed> $override_args  An array of query arguments to override
 	 *                                                   the ones set from the original query.
 	 *
 	 * @return Custom_Tables_Query An instance of the class, built using the input `WP_Query`
 	 *                             instance as a model.
 	 */
-	public static function from_wp_query( WP_Query $wp_query, array $override_args = null ) {
+	public static function from_wp_query( WP_Query $wp_query, ?array $override_args = null ) {
 		// Initialize a new instance of the query.
 		$ct_query = new self();
 		$ct_query->init();
-		$filtered_query = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
-		$ct_query->query = $filtered_query;
-		$filtered_query_vars = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query_vars ) );
+		$filtered_query       = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
+		$ct_query->query      = $filtered_query;
+		$filtered_query_vars  = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query_vars ) );
 		$ct_query->query_vars = $filtered_query_vars;
 
 		// Keep a reference to the original `WP_Query` instance.
@@ -80,7 +80,7 @@ class Custom_Tables_Query extends WP_Query {
 			 * to the Custom Tables query and set them up to avoid duplicated JOIN issues.
 			 *
 			 * @var Custom_Tables_Query_Filters $query_filters
-		     */
+			 */
 			$query_filters = $wp_query->builder->filter_query;
 			$query_filters->set_query( $ct_query );
 		}
@@ -96,7 +96,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param $query_vars array<string,mixed> The query variables, as created by WordPress or previous filtering
+	 * @param array<string,mixed> $query_vars The query variables, as created by WordPress or previous filtering
 	 *                                        methods.
 	 *
 	 * @return array<string,mixed> The filtered query variables.
@@ -195,7 +195,7 @@ class Custom_Tables_Query extends WP_Query {
 			add_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0, 2 );
 		} else {
 			$this->set( 'cache_results', false );
-			// When not calculating found_posts, hydrate via posts_results instead
+			// When not calculating found_posts, hydrate via posts_results instead.
 			add_filter( 'posts_results', [ $this, 'hydrate_posts_via_posts_results' ], 10, 2 );
 		}
 
@@ -220,7 +220,7 @@ class Custom_Tables_Query extends WP_Query {
 			if ( $set_found_rows ) {
 				// Avoid `SELECT FOUND_ROWS()` running twice. See #ECP-1360.
 				add_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ], 10, 2 );
-				$this->wp_query->found_posts = $this->found_posts;
+				$this->wp_query->found_posts   = $this->found_posts;
 				$this->wp_query->max_num_pages = $this->max_num_pages;
 			}
 
@@ -229,7 +229,7 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		return $results;
-    }
+	}
 
 	/**
 	 * Replaces the `WP_Meta_Query` instance built in the `WP_Query::get_posts` method with an instance of
@@ -240,9 +240,9 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  string    $search    The WHERE clause as produced by the `WP_Query` instance.
-	 * @param  WP_Query  $wp_query  A reference to the `WP_Query` instance whose search WHERE clause is currently being
-	 *                              filtered.
+	 * @param string   $search    The WHERE clause as produced by the `WP_Query` instance.
+	 * @param WP_Query $wp_query  A reference to the `WP_Query` instance whose search WHERE clause is currently being
+	 *                            filtered.
 	 *
 	 * @return string The WHERE clause as produced by the `WP_Query` instance, untouched by the method.
 	 */
@@ -270,7 +270,7 @@ class Custom_Tables_Query extends WP_Query {
 			return $search;
 		}
 
-		$meta_queries = isset( $source_query->meta_query->queries ) ? $source_query->meta_query->queries : [];
+		$meta_queries = $source_query->meta_query->queries ?? [];
 
 		$this->meta_query = new Custom_Tables_Meta_Query( $meta_queries );
 
@@ -282,9 +282,9 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  string        $request_fields The original `SELECT` SQL.
-	 * @param  WP_Query|null $query          A reference to the `WP_Query` instance currently being
-	 *                                 filtered.
+	 * @param string    $request_fields The original `SELECT` SQL.
+	 * @param ?WP_Query $query          A reference to the `WP_Query` instance currently being
+	 *                                      filtered.
 	 *
 	 * @return string The filtered `SELECT` clause.
 	 */
@@ -314,8 +314,8 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  string         $groupby  The original `GROUP BY` SQL clause.
-	 * @param  WP_Query|null  $query    A reference to the `WP_Query` instance currently being filtered.
+	 * @param string    $groupby  The original `GROUP BY` SQL clause.
+	 * @param ?WP_Query $query    A reference to the `WP_Query` instance currently being filtered.
 	 *
 	 * @return string The updated `GROUP BY` SQL clause.
 	 */
@@ -343,7 +343,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string|false The redirected `ORDER BY` field, `false` on failure.
 	 */
-	protected function parse_orderby( $orderby ){
+	protected function parse_orderby( $orderby ) {
 		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 
@@ -374,12 +374,11 @@ class Custom_Tables_Query extends WP_Query {
 			case 'ID':
 			case $wpdb->posts . '.ID':
 				// If the order is by post ID, order by post ID and occurrence ID.
-				$original_order_by = $this->query_vars['orderby'] ?? [];
+				$original_order_by   = $this->query_vars['orderby'] ?? [];
 				$normalized_order_by = tribe_normalize_orderby( $original_order_by );
-				$occurrences = Occurrences::table_name( true );
-				$order = $normalized_order_by['ID'] ?? $normalized_order_by[ $wpdb->posts . '.ID' ] ?? 'DESC';
-
-				$order = $this->sanitize_order( $order );
+				$occurrences         = Occurrences::table_name( true );
+				$order               = $normalized_order_by['ID'] ?? $normalized_order_by[ $wpdb->posts . '.ID' ] ?? 'DESC';
+				$order               = $this->sanitize_order( $order );
 
 				// The second `order` is omitted: it will be added by the following `parse_order` call.
 				$parsed = "ID $order, $occurrences.occurrence_id";
@@ -407,7 +406,7 @@ class Custom_Tables_Query extends WP_Query {
 			if ( ! $meta_query_orderby && isset( reset( $meta_query_clauses )['original_meta_key'] ) ) {
 				$meta_query_orderby = reset( $meta_query_clauses )['original_meta_key'];
 			}
-		} else if ( isset( $meta_query_clauses[ $orderby ]['original_meta_key'] ) ) {
+		} elseif ( isset( $meta_query_clauses[ $orderby ]['original_meta_key'] ) ) {
 			// Handle the case where the order is by the meta query key.
 			$meta_query_orderby = $meta_query_clauses[ $orderby ]['original_meta_key'];
 		}
@@ -549,17 +548,17 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		$date_conditions = $this->build_date_conditions_from_meta_query( $query );
 
-		// Check for List View via eventDisplay parameter
+		// Check for List View via eventDisplay parameter.
 		$event_display = $this->get( 'eventDisplay', false );
 
 		// For List View, when no date conditions are in meta_query, apply a future events filter
-		// This ensures we select the first future occurrence, not the globally earliest one
+		// This ensures we select the first future occurrence, not the globally earliest one.
 		if ( $event_display === 'list' && empty( $date_conditions ) ) {
-			$current_time = current_time( 'mysql' );
+			$current_time    = current_time( 'mysql' );
 			$date_conditions = " AND occ.end_date > '{$current_time}'";
 		}
 
-		// Store the date conditions in the query object so hydration can use them
+		// Store the date conditions in the query object so hydration can use them.
 		$this->set( '_tec_occurrence_date_conditions', $date_conditions );
 
 		/**
@@ -568,7 +567,7 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		$use_simple_limit = empty( $date_conditions );
 
-		// Store whether we're using simple limit so hydration knows whether to apply date filtering
+		// Store whether we're using simple limit so hydration knows whether to apply date filtering.
 		$this->set( '_tec_used_simple_limit', $use_simple_limit );
 
 		/**
@@ -586,14 +585,14 @@ class Custom_Tables_Query extends WP_Query {
 		if ( $use_simple_limit ) {
 			// Simple limit: Get the earliest occurrence per post_id that matches the main WHERE clause
 			// We need to incorporate the date filtering from the main WHERE clause into the subquery
-			// Extract date conditions from the current WHERE clause
+			// Extract date conditions from the current WHERE clause.
 			$where_date_conditions = '';
 			if ( preg_match( '/wp_tec_occurrences\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where, $matches ) ) {
-				// Extract all date conditions that reference wp_tec_occurrences table
+				// Extract all date conditions that reference wp_tec_occurrences table.
 				preg_match_all( '/wp_tec_occurrences\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where, $all_matches );
 				if ( ! empty( $all_matches[0] ) ) {
 					foreach ( $all_matches[0] as $condition ) {
-						// Convert wp_tec_occurrences to o1/o2 aliases
+						// Convert wp_tec_occurrences to o1/o2 aliases.
 						$where_date_conditions .= ' AND ' . str_replace( 'wp_tec_occurrences', 'o1', $condition );
 					}
 				}
@@ -609,8 +608,8 @@ class Custom_Tables_Query extends WP_Query {
 				{$where_date_conditions}
 			)";
 		} else {
-			// Date-aware limit: include date conditions in the subquery to select the right occurrence
-			// This ensures that for queries like "events after now", we get the first future occurrence
+			// Date-aware limit: include date conditions in the subquery to select the right occurrence.
+			// This ensures that for queries like "events after now", we get the first future occurrence.
 			$o1_date_conditions = str_replace( 'occ.', 'o1.', $date_conditions );
 			$o2_date_conditions = str_replace( 'occ.', 'o2.', $date_conditions );
 
@@ -646,10 +645,9 @@ class Custom_Tables_Query extends WP_Query {
 			return '';
 		}
 
-		$occurrences = Occurrences::table_name( true );
 		$date_conditions = '';
 
-		// Map meta keys to occurrence table columns
+		// Map meta keys to occurrence table columns.
 		$meta_key_map = [
 			'_EventStartDate'    => 'start_date',
 			'_EventEndDate'      => 'end_date',
@@ -657,7 +655,7 @@ class Custom_Tables_Query extends WP_Query {
 			'_EventEndDateUTC'   => 'end_date_utc',
 		];
 
-		// Extract conditions from meta_query
+		// Extract conditions from meta_query.
 		$queries = $query->meta_query->queries;
 
 		foreach ( $queries as $query_key => $query_item ) {
@@ -665,31 +663,31 @@ class Custom_Tables_Query extends WP_Query {
 				continue;
 			}
 
-			// Check if this is the actual query or metadata (like 'relation')
+			// Check if this is the actual query or metadata (like 'relation').
 			if ( $query_key === 'relation' ) {
 				continue;
 			}
 
-			// Get the meta key - check both 'original_meta_key' (set by Custom Tables) and 'key'
+			// Get the meta key - check both 'original_meta_key' (set by Custom Tables) and 'key'.
 			$meta_key = $query_item['original_meta_key'] ?? $query_item['key'] ?? null;
 
 			if ( ! $meta_key ) {
 				continue;
 			}
 
-			// Only process date-related meta keys
+			// Only process date-related meta keys.
 			if ( ! isset( $meta_key_map[ $meta_key ] ) ) {
 				continue;
 			}
 
-			$column = $meta_key_map[ $meta_key ];
+			$column  = $meta_key_map[ $meta_key ];
 			$compare = $query_item['compare'] ?? '=';
-			$value = $query_item['value'] ?? '';
+			$value   = $query_item['value'] ?? '';
 
-			// Sanitize and escape the value
+			// Sanitize and escape the value.
 			$value = esc_sql( $value );
 
-			// Build the condition
+			// Build the condition.
 			$date_conditions .= " AND occ.{$column} {$compare} '{$value}'";
 		}
 
@@ -746,7 +744,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return bool Whether a property is set on this object or not.
 	 */
-	public function __isset( $name ) {
+	public function __isset( $name ) { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod.Found
 		return parent::__isset( $name );
 	}
 
@@ -773,10 +771,10 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.4
 	 *
-	 * @param string $found_posts_query The SQL query that would run to fill in the `found_posts` property of the
-	 *                                  `WP_Query` instance.
-	 * @param        $query             WP_Query The `WP_Query` instance that is currently filtering its `found_posts`
-	 *                                  property.
+	 * @param string   $found_posts_query The SQL query that would run to fill in the `found_posts` property of the
+	 *                                    `WP_Query` instance.
+	 * @param WP_Query $query             The `WP_Query` instance that is currently filtering its `found_posts`
+	 *                                    property.
 	 *
 	 * @return string The filtered SQL query that will run to fill in the `found_posts` property of the `WP_Query`
 	 *                instance.
@@ -900,9 +898,9 @@ class Custom_Tables_Query extends WP_Query {
 		 * @param array               $posts The posts that will be hydrated by the Custom Tables Query.
 		 * @param Custom_Tables_Query $this  The Custom Tables Query instance.
 		 */
-		// Pass $this instead of $query, because $this has the date conditions stored
 		$posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $posts, $this );
 
+		// Pass $this instead of $query, because $this has the date conditions stored.
 		return $posts;
 	}
 
@@ -932,7 +930,8 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		$redirected_orderbys = '';
-		$orderbys = explode( ',', $posts_orderby );
+		$orderbys            = explode( ',', $posts_orderby );
+
 		foreach ( $orderbys as $orderby_frag ) {
 			// Fast-track the `rand` order, no need to redirect anything.
 			if ( stripos( $orderby_frag, 'rand' ) === 0 ) {
@@ -947,7 +946,7 @@ class Custom_Tables_Query extends WP_Query {
 			} else {
 				// Follow the WordPress default and use DESC if no order is specified.
 				$orderby = $orderby_frag;
-				$order = 'DESC';
+				$order   = 'DESC';
 			}
 
 			if ( strpos( $redirected_orderbys, $orderby ) !== false ) {
