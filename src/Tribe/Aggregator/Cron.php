@@ -815,6 +815,8 @@ class Tribe__Events__Aggregator__Cron {
 			tribe( 'logger' )->log_error( 'Failed to delete expired records comments using direct delete: ' . $wpdb->last_error, 'EA Cron' );
 		}
 
+		/*
+		 * let's only run this when we need it.
 		codecept_debug(
 			$wpdb->prepare(
 				'DELETE FROM %1$s
@@ -833,6 +835,7 @@ class Tribe__Events__Aggregator__Cron {
 				$batch_size
 			)
 		);
+		*/
 
 		// Use a sub-query to avoid running into the max_allowed_packet limit.
 		if (

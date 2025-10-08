@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Automatically disabled Avada’s “Combine Third Party CSS Files” option when The Events Calendar is active to prevent stylesheet conflicts.  [TEC-5682]
