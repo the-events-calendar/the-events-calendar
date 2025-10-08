@@ -46,10 +46,8 @@ class Provider extends Integration_Abstract {
 		$theme       = wp_get_theme();
 		$parent_name = $theme->parent() ? $theme->parent()->get( 'Name' ) : '';
 
-		$is_avada_theme = in_array( 'Avada', [ $theme->get( 'Name' ), $parent_name ], true );
-
 		// We only need Avada active, not fully initialized yet.
-		return $is_avada_theme;
+		return in_array( 'Avada', [ $theme->get( 'Name' ), $parent_name ], true );
 	}
 
 	/**
