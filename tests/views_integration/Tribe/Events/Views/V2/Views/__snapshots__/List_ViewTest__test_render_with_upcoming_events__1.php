@@ -387,22 +387,22 @@
 </header>
 
 		
-		<div
+		<ul
 			class="tribe-events-calendar-list"
 			aria-label="
 			List of Events			"
 		>
 
 							
-				<h2 class="tribe-events-calendar-list__month-separator">
+				<li class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
 		datetime="2019-06"
 	>
 		June 2019	</time>
-</h2>
+</li>
 
-				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
+				<li  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
 	<div  class="tribe-events-calendar-list__event-date-tag tribe-common-g-col post-7 tribe_events type-tribe_events status-publish hentry"  >
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20" aria-hidden="true">
@@ -450,11 +450,11 @@
 		</article>
 	</div>
 
-</div>
+</li>
 
 							
 				
-				<div  class="tribe-common-g-row tribe-events-calendar-list__event-row" >
+				<li  class="tribe-common-g-row tribe-events-calendar-list__event-row" >
 
 	<div  class="tribe-events-calendar-list__event-date-tag tribe-common-g-col post-8 tribe_events type-tribe_events status-publish hentry"  >
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20" aria-hidden="true">
@@ -491,10 +491,10 @@
 		</article>
 	</div>
 
-</div>
+</li>
 
 			
-		</div>
+		</ul>
 
 		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav" aria-label="Bottom events list pagination">
 	<ul class="tribe-events-c-nav__list">
