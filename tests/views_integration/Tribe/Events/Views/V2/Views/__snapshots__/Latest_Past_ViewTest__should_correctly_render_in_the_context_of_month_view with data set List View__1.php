@@ -399,14 +399,14 @@
 </header>
 
 		
-		<div
+		<ul
 			class="tribe-events-calendar-list"
 			aria-label="
 			List of Events			"
 		>
 
 			
-		</div>
+		</ul>
 
 		
 		<div class="tribe-events-calendar-latest-past">

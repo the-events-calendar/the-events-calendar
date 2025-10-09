@@ -405,14 +405,14 @@
 </header>
 
 		
-		<div
+		<ul
 			class="tribe-events-calendar-list"
 			aria-label="
 			List of Events			"
 		>
 
 			
-		</div>
+		</ul>
 
 		<nav class="tribe-events-calendar-list-nav tribe-events-c-nav" aria-label="Bottom events list pagination">
 	<ul class="tribe-events-c-nav__list">
