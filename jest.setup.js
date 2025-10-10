@@ -6,19 +6,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import $ from 'jquery';
 
-// Try to configure Enzyme, but don't fail if it's not available
-try {
-	const Enzyme = require( 'enzyme' );
-	const Adapter = require( 'enzyme-adapter-react-16' );
-	Enzyme.configure( { adapter: new Adapter() } );
-
-	global.shallow = Enzyme.shallow;
-	global.render = Enzyme.render;
-	global.mount = Enzyme.mount;
-} catch ( e ) {
-	// Enzyme not available or has dependency issues, skip it
-}
-
 global.jQuery = $;
 global.$ = $;
 global.wp = {
@@ -29,7 +16,16 @@ global.wp = {
 	data: {},
 	blockEditor: {},
 	editor: {},
-	hooks: {},
+	hooks: {
+		addAction: jest.fn(),
+		addFilter: jest.fn(),
+		removeAction: jest.fn(),
+		removeFilter: jest.fn(),
+		doAction: jest.fn(),
+		applyFilters: jest.fn( ( tag, value ) => value ),
+		hasAction: jest.fn( () => false ),
+		hasFilter: jest.fn( () => false ),
+	},
 };
 global.renderer = renderer;
 global.console = {

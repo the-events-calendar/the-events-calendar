@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Price reducer Should return the default state to meta map 1`] = `
-Object {
+{
   "code": "_EventCurrencyCode",
   "cost": "_EventCost",
   "position": "_EventCurrencyPosition",
@@ -10,7 +10,7 @@ Object {
 `;
 
 exports[`[STORE] - Price reducer Should set the cost 1`] = `
-Object {
+{
   "code": "USD",
   "cost": 10,
   "position": "prefix",
@@ -19,7 +19,7 @@ Object {
 `;
 
 exports[`[STORE] - Price reducer Should set the cost code 1`] = `
-Object {
+{
   "code": "EUR",
   "cost": "",
   "position": "prefix",
@@ -28,7 +28,7 @@ Object {
 `;
 
 exports[`[STORE] - Price reducer Should set the cost symbol 1`] = `
-Object {
+{
   "code": "USD",
   "cost": "",
   "position": "prefix",
@@ -37,7 +37,7 @@ Object {
 `;
 
 exports[`[STORE] - Price reducer Should set the initial state 1`] = `
-Object {
+{
   "code": "EUR",
   "cost": "15",
   "position": "prefix",
@@ -46,7 +46,7 @@ Object {
 `;
 
 exports[`[STORE] - Price reducer Should set the symbol position 1`] = `
-Object {
+{
   "code": "USD",
   "cost": "",
   "position": "prefix",
