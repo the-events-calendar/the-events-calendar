@@ -5,10 +5,19 @@ import moment from 'moment-timezone';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import $ from 'jquery';
-import Enzyme, { shallow, render, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure( { adapter: new Adapter() } );
+// Try to configure Enzyme, but don't fail if it's not available
+try {
+	const Enzyme = require( 'enzyme' );
+	const Adapter = require( 'enzyme-adapter-react-16' );
+	Enzyme.configure( { adapter: new Adapter() } );
+
+	global.shallow = Enzyme.shallow;
+	global.render = Enzyme.render;
+	global.mount = Enzyme.mount;
+} catch ( e ) {
+	// Enzyme not available or has dependency issues, skip it
+}
 
 global.jQuery = $;
 global.$ = $;
@@ -22,9 +31,6 @@ global.wp = {
 	editor: {},
 	hooks: {},
 };
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
 global.renderer = renderer;
 global.console = {
 	error: jest.fn(),
@@ -33,3 +39,6 @@ global.console = {
 };
 
 moment.tz.setDefault( 'UTC' );
+
+// Mock webpack public path global for tests.
+global.__webpack_public_path__ = '';
