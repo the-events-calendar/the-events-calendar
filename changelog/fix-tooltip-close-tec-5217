@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Make Tooltips on calendar view dismissable with `esc` key. [TEC-5217]
