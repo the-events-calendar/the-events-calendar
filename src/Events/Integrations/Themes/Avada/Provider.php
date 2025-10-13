@@ -7,7 +7,7 @@
  * option to prevent stylesheet dependency issues, and appends a contextual note
  * to the Avada Global Options panel explaining the behavior.
  *
- * @since TBD
+ * @since 6.15.8
  *
  * @package TheEventsCalendar\Events\Integrations\Themes\Avada
  */
@@ -22,7 +22,7 @@ use TEC\Common\Integrations\Traits\Theme_Integration;
  *
  * Handles compatibility between The Events Calendar and the Avada theme.
  *
- * @since TBD
+ * @since 6.15.8
  *
  * @package TEC\Events\Integrations\Themes\Avada
  */
@@ -65,7 +65,7 @@ class Provider extends Integration_Abstract {
 	 * Used to ensure Avada's global function and class exist before attempting
 	 * to access its settings or modify theme options.
 	 *
-	 * @since TBD
+	 * @since 6.15.8
 	 *
 	 * @return bool True if Avada is initialized and safe to use, false otherwise.
 	 */
@@ -76,7 +76,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Disables Avada’s “Combine Third Party CSS Files” option for compatibility.
 	 *
-	 * @since TBD
+	 * @since 6.15.8
 	 *
 	 * @return void
 	 */
@@ -98,7 +98,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Appends a compatibility note to Avada’s Global Options description.
 	 *
-	 * @since TBD
+	 * @since 6.15.8
 	 *
 	 * @param array $sections Existing Avada options sections.
 	 *

@@ -147,7 +147,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Utility: detect Escape key presses
 	 *
-	 * @since TBD
+	 * @since 6.15.8
 	 *
 	 * @param {Event} event Keyboard event
 	 *
@@ -160,7 +160,7 @@ tribe.events.views.tooltip = {};
 	/**
 	 * Handle ESC on origin/trigger: close tooltip (like blur)
 	 *
-	 * @since TBD
+	 * @since 6.15.8
 	 *
 	 * @param {Event} event Keyboard event
 	 *

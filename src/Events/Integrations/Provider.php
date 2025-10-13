@@ -15,7 +15,7 @@ use TEC\Common\Contracts\Service_Provider;
  * Class Provider
  *
  * @since   6.0.4
- * @since TBD Added Avada Provider.
+ * @since 6.15.8 Added Avada Provider.
  *
  * @package TEC\Events\Integrations
  */
