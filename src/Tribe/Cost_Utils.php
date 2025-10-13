@@ -193,7 +193,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 	/**
 	 * If the cost is "0", call it "Free". Overriding this method to use TEC text domain instead of common.
 	 *
-	 * @since TBD
+	 * @since 6.15.8
 	 *
 	 * @param int|float|string $cost The cost value.
 	 *
