@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Events list view structure updated to use proper list HTML. [TEC-5210]
