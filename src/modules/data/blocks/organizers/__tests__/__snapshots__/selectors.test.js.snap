@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Organizers selectors Should return the classic organizers 1`] = `
-Array [
+[
   98,
   99,
   100,
@@ -9,16 +9,16 @@ Array [
 `;
 
 exports[`[STORE] - Organizers selectors Should return the mapped organizers 1`] = `
-Array [
-  Object {
+[
+  {
     "block": false,
     "id": 98,
   },
-  Object {
+  {
     "block": false,
     "id": 99,
   },
-  Object {
+  {
     "block": true,
     "id": 100,
   },
@@ -26,13 +26,13 @@ Array [
 `;
 
 exports[`[STORE] - Organizers selectors Should return the organizer by clientId 1`] = `
-Object {
+{
   "organizer": 100,
 }
 `;
 
 exports[`[STORE] - Organizers selectors Should return the organizer by clientId 2`] = `
-Object {
+{
   "organizer": 101,
 }
 `;
@@ -40,7 +40,7 @@ Object {
 exports[`[STORE] - Organizers selectors Should return the organizer by clientId 3`] = `undefined`;
 
 exports[`[STORE] - Organizers selectors Should return the organizers in a block 1`] = `
-Array [
+[
   100,
   101,
 ]
