@@ -39,7 +39,7 @@ class Events_Pagination {
 	 * @return void
 	 */
 	public function register(): void {
-		add_filter( 'template_redirect', [ $this, 'maybe_disable_yoast_pagination' ], 5 );
+		add_action( 'template_redirect', [ $this, 'disable_yoast_pagination' ], 5 );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Events_Pagination {
 	 *
 	 * @return void
 	 */
-	public function maybe_disable_yoast_pagination(): void {
+	public function disable_yoast_pagination(): void {
 		// Bail if this is not an Events Calendar query.
 		if ( ! function_exists( 'tribe_is_event_query' ) || ! tribe_is_event_query() ) {
 			return;
