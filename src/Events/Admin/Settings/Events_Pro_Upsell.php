@@ -11,6 +11,7 @@ namespace TEC\Events\Admin\Settings;
 
 use TEC\Common\Contracts\Service_Provider;
 use Tribe__Template;
+use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
 
 /**
  * Class Events_Pro_Upsell
@@ -18,6 +19,7 @@ use Tribe__Template;
  * @since TBD
  */
 class Events_Pro_Upsell extends Service_Provider {
+	use Dismissible_Trait;
 
 	/**
 	 * The slug of the upsell tab.
@@ -26,7 +28,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	protected string $slug = 'events-pro';
+	protected string $slug = 'recurrence-upsell';
 
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the elements.
@@ -36,6 +38,17 @@ class Events_Pro_Upsell extends Service_Provider {
 	 * @var Tribe__Template
 	 */
 	protected $template;
+
+	/**
+	 * Get the slug used for dismissal and identification.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_slug(): string {
+		return $this->slug;
+	}
 
 	/**
 	 * Binds and sets up implementations.
@@ -63,6 +76,8 @@ class Events_Pro_Upsell extends Service_Provider {
 	 */
 	public function add_actions(): void {
 		add_action( 'tribe_events_date_display', [ $this, 'render_recurrence_banner' ], 18 );
+		// AJAX dismiss handler.
+		add_action( 'wp_ajax_tec_conditional_content_dismiss', [ $this, 'handle_dismiss' ] );
 	}
 
 	/**
@@ -79,7 +94,21 @@ class Events_Pro_Upsell extends Service_Provider {
 	 * @since TBD
 	 */
 	public function render_recurrence_banner(): void {
-		$this->get_template()->template( 'recurrence-banner' );
+		// Do not render if user already dismissed.
+		if ( $this->has_user_dismissed() ) {
+			return;
+		}
+
+		// Ensure conditional-content JS is available.
+		do_action( 'tec_conditional_content_assets' );
+		
+		$this->get_template()->template(
+			'recurrence-banner',
+			[
+				'nonce' => $this->get_nonce(),
+				'slug'  => $this->get_slug(),
+			]
+		);
 	}
 
 	/**
