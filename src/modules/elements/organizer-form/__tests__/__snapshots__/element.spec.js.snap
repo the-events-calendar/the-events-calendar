@@ -1,14 +1,151 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OrganizerForm should show a spinner while creating 1`] = `
+exports[`OrganizerForm should render the form 1`] = `
 <div
   className="tribe-editor__organizer__form"
-  key="tribe-organizer-form"
 >
-  <Component
-    key="placeholder"
+  <h3>
+    Create Organizer
+  </h3>
+  <p
+    className="description"
   >
-    <Spinner />
-  </Component>
+    The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.
+  </p>
+  <dl>
+    <dt>
+      Name:
+    </dt>
+    <dd>
+      <input
+        name="organizer[name]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="text"
+        validate={true}
+      />
+    </dd>
+    <dt>
+      Phone:
+    </dt>
+    <dd>
+      <input
+        data-testid="organizer-form-input-phone"
+        name="organizer[phone]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="phone"
+        validate={true}
+      />
+    </dd>
+    <dt>
+      Website:
+    </dt>
+    <dd>
+      <input
+        name="organizer[website]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="url"
+        validate={true}
+      />
+    </dd>
+    <dt>
+      Email:
+    </dt>
+    <dd>
+      <input
+        name="organizer[email]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="email"
+        validate={true}
+      />
+    </dd>
+  </dl>
+  <button
+    className="button-secondary"
+    data-testid="organizer-form-button-create"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Create Organizer
+  </button>
+</div>
+`;
+
+exports[`OrganizerForm should render with custom post type 1`] = `
+<div
+  className="tribe-editor__organizer__form"
+>
+  <h3>
+    Create Organizer
+  </h3>
+  <p
+    className="description"
+  >
+    The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers.
+  </p>
+  <dl>
+    <dt>
+      Name:
+    </dt>
+    <dd>
+      <input
+        name="organizer[name]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="text"
+        validate={true}
+      />
+    </dd>
+    <dt>
+      Phone:
+    </dt>
+    <dd>
+      <input
+        data-testid="organizer-form-input-phone"
+        name="organizer[phone]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="phone"
+        validate={true}
+      />
+    </dd>
+    <dt>
+      Website:
+    </dt>
+    <dd>
+      <input
+        name="organizer[website]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="url"
+        validate={true}
+      />
+    </dd>
+    <dt>
+      Email:
+    </dt>
+    <dd>
+      <input
+        name="organizer[email]"
+        onChange={[Function]}
+        onComplete={[Function]}
+        type="email"
+        validate={true}
+      />
+    </dd>
+  </dl>
+  <button
+    className="button-secondary"
+    data-testid="organizer-form-button-create"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Create Organizer
+  </button>
 </div>
 `;

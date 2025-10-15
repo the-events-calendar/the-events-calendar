@@ -21,7 +21,7 @@
 
 use Tribe\Events\Views\V2\Utils;
 
-if ( empty( $is_past ) && ! empty ( $request_date ) ) {
+if ( empty( $is_past ) && ! empty( $request_date ) ) {
 	$should_have_month_separator = Utils\Separators::should_have_month( $this->get( 'events' ), $event, $request_date );
 } else {
 	$should_have_month_separator = Utils\Separators::should_have_month( $this->get( 'events' ), $event );
@@ -40,12 +40,11 @@ $sep_date = empty( $is_past ) && ! empty( $request_date )
 	? max( $event->dates->start_display, $request_date )
 	: $event->dates->start_display;
 ?>
-<h2 class="tribe-events-calendar-list__month-separator">
+<li class="tribe-events-calendar-list__month-separator">
 	<time
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
-		datetime="<?php
-		echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
+		datetime="<?php echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
 	>
 		<?php echo esc_html( $sep_date->format_i18n( 'F Y' ) ); ?>
 	</time>
-</h2>
+</li>

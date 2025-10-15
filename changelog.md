@@ -1,5 +1,42 @@
 # Changelog
 
+### [6.15.8] 2025-10-14
+
+* Fix - Tweak a few style rules to ensure Kadence overrides work. [TEC-5504]
+* Tweak - Automatically disabled Avada’s “Combine Third Party CSS Files” option when The Events Calendar is active to prevent stylesheet conflicts.  [TEC-5682]
+* Tweak - Events list view structure updated to use proper list HTML. [TEC-5210]
+* Tweak - Make Tooltips on calendar view dismissable with `esc` key. [TEC-5217]
+* Language - 7 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted.
+* Language - Fixed text domains and improved string translations across multiple components for better internationalization support.
+* Language - Move 'Free' string to TEC text domain for improved i18n. [TEC-5603]
+
+### [6.15.7] 2025-10-07
+
+* Tweak - Added `aria-label` to nav tags to make page landmarks unique. [TEC-5208]
+* Tweak - Event Date time block structure updated to improve accessibility. [TEC-5531]
+* Tweak - Add ARIA landmark roles and `aria-current` attributes to breadcrumbs to improve screen reader support. [TEC-5205]
+* Tweak - Replace breadcrumbs with a "Back to Events" link on Venue and Organizer single pages for clearer navigation and improved accessibility.[TEC-5207][TEC-5205]
+* Tweak - Change default opt-in status to prevent false positives in checks when the value is not set. [TEC-5583]
+* Tweak - Changed views: `blocks/event-datetime`, `v2/components/backlink`, `v2/components/breadcrumbs`, `v2/components/breadcrumbs/breadcrumb`, `v2/components/breadcrumbs/linked-breadcrumb`, `v2/components/header`, `v2/list/nav`, `v2/list/top-bar/nav`
+* Language - 4 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.6] 2025-09-30
+
+* Version - The Events Calendar 6.15.6 is only compatible with Events Pro 7.7.6 and higher.
+* Fix - Elementor Venue widget now shows the map show or hide option with proper styling options. [TEC-5092]
+* Fix - Enhanced iCal feed timezone definitions to include extended DST transition data for better calendar compatibility. [TEC-5061]
+* Fix - Onboarding wizard now shows loading spinner properly while waiting for Event Tickets installation. [TEC-5584]
+* Fix - Prevent ICS download from redirecting when List view is disabled. [TEC-5609]
+* Tweak - Added filters: `tec_events_views_v2_should_redirect`, `tec_events_ical_timezone_extend_years`
+* Tweak - Changed views: `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/cell`, `v2/month/calendar-body/day/more-events`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/more-events`
+* Tweak - Hide the Event Tickets upsell on the currency page when Event Tickets is enabled. [TEC-5585]
+* Tweak - Introduce subtabs for the Integration settings for better organization. [TEC-5681]
+* Tweak - Updated Community Addon upsell link to go to the proper page. [TEC-5586]
+* Accessibility - Add aria-label for the more events link in month view. [TEC-5216]
+* Accessibility - Adjust aria-label for month view day link to use formatting from TEC settings. [TEC-5214]
+* Compatibility - Conditionally remove template option if Elementor Pro is active to avoid conflicts. [TEC-5610]
+* Language - 4 new strings added, 75 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.5] 2025-09-23
 
 * Tweak - Adds search capabilities to the countries dropdown in onboarding. [TEC-5581]

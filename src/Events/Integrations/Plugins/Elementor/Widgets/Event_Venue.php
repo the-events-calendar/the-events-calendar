@@ -760,10 +760,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_map_content_options',
 			[
-				'label'     => esc_html__( 'Map', 'the-events-calendar' ),
-				'condition' => [
-					$this->should_show_mock_data() => 'yes',
-				],
+				'label' => esc_html__( 'Map', 'the-events-calendar' ),
 			]
 		);
 
@@ -1134,7 +1131,7 @@ class Event_Venue extends Abstract_Widget {
 			[
 				'label'       => esc_html__( 'Venue Map', 'the-events-calendar' ),
 				'tab'         => Controls_Manager::TAB_STYLE,
-				'conditional' => [
+				'condition' => [
 					'show_venue_map' => 'yes',
 				],
 			]

@@ -82,15 +82,17 @@
 }
 
 /* Datetime block */
-.tribe-events-schedule h2 {
-	margin-bottom: var(--tec-spacer-1);
-	margin-right: var(--tec-spacer-1);
-	order: 0;
-	width: 100%;
+.tribe-events-schedule {
+	.tribe-events-schedule__datetime {
+		margin-bottom: var(--tec-spacer-1);
+		margin-right: var(--tec-spacer-1);
+		order: 0;
+		width: 100%;
 
-	@media (--viewport-medium) {
-		margin-bottom: 0;
-		width: auto;
+		@media (--viewport-medium) {
+			margin-bottom: 0;
+			width: auto;
+		}
 	}
 }
 
@@ -562,11 +564,6 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe-theme-twentytwenty {
-
-	.tribe-events-schedule h2 {
-		margin-left: 0;
-	}
-
 	.tribe-events-content {
 
 		h2,

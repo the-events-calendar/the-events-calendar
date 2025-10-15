@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Details actions Disable isLoading action 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "id": "events",
     "isLoading": false,
   },
@@ -11,8 +11,8 @@ Object {
 `;
 
 exports[`[STORE] - Details actions Enable isLoading action 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "id": "events",
     "isLoading": true,
   },
@@ -21,9 +21,9 @@ Object {
 `;
 
 exports[`[STORE] - Details actions Set details actions 1`] = `
-Object {
-  "payload": Object {
-    "details": Object {
+{
+  "payload": {
+    "details": {
       "id": 20,
       "title": "Modern Tribe",
     },
@@ -34,8 +34,8 @@ Object {
 `;
 
 exports[`[STORE] - Details actions Set post type action 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "id": "events",
     "postType": "tribe_events",
   },

@@ -316,10 +316,26 @@ class Hooks extends Service_Provider {
 	 * Redirects to the default view if the current view is not enabled.
 	 *
 	 * @since 6.14.0
+	 * @since 6.15.6 Add `tec_events_views_v2_should_redirect` to disable redirect in certain scenarios.
 	 *
 	 * @return void
 	 */
 	public function disabled_views_redirect() {
+		/**
+		 * Filters whether the redirect to the default view should occur.
+		 *
+		 * Returning false here will prevent the redirect entirely.
+		 *
+		 * @since 6.15.6
+		 *
+		 * @param bool $should_redirect Whether the redirect should occur. Default true.
+		 */
+		$should_redirect = (bool) apply_filters( 'tec_events_views_v2_should_redirect', true );
+
+		if ( false === $should_redirect ) {
+			return;
+		}
+
 		$context = tribe_context();
 
 		if ( ! ( $context->get( 'event_post_type' ) && is_archive( TEC::POSTTYPE ) ) ) {

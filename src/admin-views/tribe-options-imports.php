@@ -657,7 +657,7 @@ $wrap_fields(
 			'tooltip'         => esc_html__(
 				'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.',
 				'the-events-calendar'
-			) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' ), esc_html( 'Learn more.' ) ),
+			) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' ), esc_html__( 'Learn more.', 'the-events-calendar' ) ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => tribe( 'events-aggregator.settings' )->get_import_range_default(),

@@ -35,6 +35,7 @@ class Optin extends Abstract_Step {
 	 * Process the optin data.
 	 *
 	 * @since 6.8.4
+	 * @since 6.15.7 Change default opt-in status to null to prevent false positives in checks when the value is not set.
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
@@ -42,8 +43,8 @@ class Optin extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public function process( $response, $request ): WP_REST_Response {
-		$current_optin = tribe_get_option( 'opt-in-status', false );
-		$optin         = $request->get_param( 'optin' );
+		$current_optin = tribe_get_option( 'opt-in-status', null );
+		$optin         = (bool) $request->get_param( 'optin' );
 
 		if ( $current_optin === $optin ) {
 			return $this->add_message( $response, __( 'Opt-in status is already set to the requested value.', 'the-events-calendar' ) );
