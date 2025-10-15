@@ -180,6 +180,8 @@ class Provider extends Integration_Abstract {
 	 * @return void
 	 */
 	private function register_events_pagination(): void {
+		$this->container->bind( Events_Pagination::class, Events_Pagination::class );
+		
 		$events_pagination = tribe( Events_Pagination::class );
 		$events_pagination->register();
 	}
