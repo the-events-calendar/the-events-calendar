@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Revert automatic CSS combination handling for Avada to restore default behavior. [TEC-5682]
