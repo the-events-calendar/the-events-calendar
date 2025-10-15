@@ -56,9 +56,9 @@ class Provider extends Integration_Abstract {
 	protected function load(): void {
 		// Hook to run after Avada initializes.
 
-		// Temporarily disabling automatic Avada CSS handling until further review. [TEC-5682]
-		//add_action( 'after_setup_theme', [ $this, 'disable_combined_css_option' ], 50 );
-		//add_filter( 'avada_options_sections', [ $this, 'append_settings_notice' ], 20 );
+		// [TEC-5682] Temporarily disabling automatic Avada CSS handling until further review.
+		// add_action( 'after_setup_theme', [ $this, 'disable_combined_css_option' ], 50 );
+		// add_filter( 'avada_options_sections', [ $this, 'append_settings_notice' ], 20 );
 	}
 
 	/**
