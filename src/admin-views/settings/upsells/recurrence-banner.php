@@ -18,6 +18,7 @@ $main = Tribe__Events__Main::instance();
 	<td colspan="2">
 		<div class="tec-settings-form">
 			<div class="tec-settings-infobox is-dismissible recurrence-upsell-banner">
+				<h4 class="tec-settings-infobox-title">Need Recurring Events?</h4>
 				<button
 					class="dismiss-button"
 					data-tec-conditional-content-dismiss-button
@@ -37,14 +38,19 @@ $main = Tribe__Events__Main::instance();
 			<p>
 				<?php esc_html_e( 'Schedule multiple events in daily, weekly, monthly, or custom patterns with Events Calendar Pro.', 'the-events-calendar' ); ?>
 			</p>
-			<p>
+			<p class="tec-settings-infobox__button_wrap">
 				<a href="https://evnt.is/ecp" class="button" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'Find out more about Events Calendar Pro', 'the-events-calendar' ); ?>
+					<?php
+					printf(
+						/* translators: %1$s: opening span tag, contents not show on smaller screens %2$s: closing span tag */
+						esc_html__( 'Find out more %1$s about Events Calendar Pro%2$s', 'the-events-calendar' ),
+						'<span class="tec-visually-hidden-md">',
+						'</span>'
+					);
+					?>
 				</a>
 			</p>
 			</div>
 		</div>
 	</td>
 </tr>
-
-
