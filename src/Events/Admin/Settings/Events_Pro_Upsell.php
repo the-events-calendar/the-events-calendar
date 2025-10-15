@@ -62,7 +62,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	 * @since TBD
 	 */
 	public function add_actions(): void {
-	
+		add_action( 'tribe_events_date_display', [ $this, 'render_recurrence_banner' ], 18 );
 	}
 
 	/**
@@ -71,7 +71,15 @@ class Events_Pro_Upsell extends Service_Provider {
 	 * @since TBD
 	 */
 	public function add_filters(): void {
-	
+	}
+
+	/**
+	 * Render the Recurrence banner inside Classic Editor.
+	 *
+	 * @since TBD
+	 */
+	public function render_recurrence_banner(): void {
+		$this->get_template()->template( 'recurrence-banner' );
 	}
 
 	/**
@@ -93,5 +101,3 @@ class Events_Pro_Upsell extends Service_Provider {
 		return $this->template;
 	}
 }
-
-
