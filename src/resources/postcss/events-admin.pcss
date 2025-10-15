@@ -1012,5 +1012,25 @@ h3.tec-update-notice__title {
 .tec-settings-form {
 	.tec-settings-infobox.recurrence-upsell-banner {
 		margin: 0;
+
+		/* Position container for dismiss button */
+		position: relative;
+
+		/* Dismiss button styles */
+		.dismiss-button {
+			position: absolute;
+			right: var(--tec-spacer-2);
+			top: var(--tec-spacer-2);
+			background: transparent;
+			border: 0;
+			cursor: pointer;
+			padding: 0;
+			line-height: 1;
+			color: var(--tec-admin-core-grey-700);
+		}
+
+		.dismiss-button:hover {
+			color: var(--tec-color-link-primary);
+		}
 	}
 }
