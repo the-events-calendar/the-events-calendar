@@ -1008,3 +1008,55 @@ h3.tec-update-notice__title {
 		display: block;
 	}
 }
+
+
+.tec-settings-infobox.recurrence-upsell-banner {
+	margin: var(--tec-spacer-3) 0 0 0;
+	/* Position container for dismiss button */
+	position: relative;
+
+	@media (--viewport-medium) {
+		grid-template-columns: auto 1fr 1fr;
+	}
+
+	/* Dismiss button styles */
+	.dismiss-button {
+		background: transparent;
+		border: 0;
+		color: var(--tec-admin-core-grey-700);
+		cursor: pointer;
+		line-height: 1;
+		padding: 0;
+		position: absolute;
+		right: var(--tec-spacer-2);
+		top: var(--tec-spacer-2);
+	}
+
+	.dismiss-button:hover {
+		color: var(--tec-color-link-primary);
+	}
+
+	.tec-settings-infobox__button_wrap {
+		grid-column-end: 3;
+	}
+
+	.tec-settings-infobox-title {
+		grid-row: 1;
+		grid-column: 2;
+	}
+
+	.tec-settings-infobox-logo {
+		grid-column: 1;
+		grid-row: 1/span 2;
+	}
+
+	@media (--tablet) {
+		display: block;
+
+		.tec-settings-infobox-logo {
+			float: left;
+			margin-bottom: var(--tec-spacer-2);
+			margin-right: var(--tec-spacer-2);
+		}
+	}
+}
