@@ -196,24 +196,24 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 						],
 					],
 					'400' => [
-						'description' => __( 'The venue post ID is missing or does not exist.', 'the-venues-calendar' ),
+						'description' => __( 'The venue post ID is missing or does not exist.', 'the-events-calendar' ),
 					],
 					'403' => [
 						'description' => __(
 							'The current user cannot delete the venue with the specified ID.',
-							'the-venues-calendar'
+							'the-events-calendar'
 						),
 					],
 					'410' => [
 						'description' => __(
 							'The venue with the specified ID has been deleted already.',
-							'the-venues-calendar'
+							'the-events-calendar'
 						),
 					],
 					'500' => [
 						'description' => __(
 							'The venue with the specified ID could not be deleted.',
-							'the-venues-calendar'
+							'the-events-calendar'
 						),
 					],
 				],

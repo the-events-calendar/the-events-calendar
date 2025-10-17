@@ -32,12 +32,30 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	protected $landing_page;
 
 	/**
+	 * Store the original $_GET variables.
+	 * @var array
+	 */
+	protected $get_vars = [];
+
+	/**
+	 * Store the original screen.
+	 *
+	 * @var mixed
+	 */
+	protected $original_screen;
+
+	/**
 	 * Set up test environment.
+	 *
+	 * @before
 	 *
 	 * @since TBD
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function before() {
+		$this->get_vars = $_GET;
+
+		global $current_screen;
+		$this->original_screen = $current_screen ?? null;
 
 		// Set up current user as admin.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
@@ -253,11 +271,14 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	/**
 	 * Clean up after tests.
 	 *
+	 * @after
+	 *
 	 * @since TBD
 	 */
-	public function tearDown() {
-		unset( $_GET['page'], $_GET['post_type'] );
+	public function after() {
+		global $current_screen;
 		remove_all_filters( 'tribe_admin_pages_current_page' );
-		parent::tearDown();
+		$_GET           = $this->get_vars;
+		$current_screen = $this->original_screen ?? null;
 	}
 }

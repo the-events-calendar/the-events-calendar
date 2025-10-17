@@ -1,5 +1,15 @@
 # Changelog
 
+### [6.15.8] 2025-10-14
+
+* Fix - Tweak a few style rules to ensure Kadence overrides work. [TEC-5504]
+* Tweak - Automatically disabled Avada’s “Combine Third Party CSS Files” option when The Events Calendar is active to prevent stylesheet conflicts.  [TEC-5682]
+* Tweak - Events list view structure updated to use proper list HTML. [TEC-5210]
+* Tweak - Make Tooltips on calendar view dismissable with `esc` key. [TEC-5217]
+* Language - 7 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted.
+* Language - Fixed text domains and improved string translations across multiple components for better internationalization support.
+* Language - Move 'Free' string to TEC text domain for improved i18n. [TEC-5603]
+
 ### [6.15.7] 2025-10-07
 
 * Tweak - Added `aria-label` to nav tags to make page landmarks unique. [TEC-5208]
