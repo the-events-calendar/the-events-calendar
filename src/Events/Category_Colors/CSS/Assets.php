@@ -93,7 +93,7 @@ class Assets {
 		$css = get_option( $this->generator->get_option_key(), '' );
 
 		// Add inline styles if available.
-		if ( ! empty( $css ) ) {
+		if ( ! empty( $css ) && $this->should_enqueue_frontend_styles() ) {
 			wp_add_inline_style( 'tec-category-colors-frontend-styles', $css );
 		}
 	}
@@ -106,6 +106,7 @@ class Assets {
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
+		$should_enqueue = ! is_single() && ( tec_is_view() || tribe_is_frontend() );
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.
 		 *
@@ -116,7 +117,7 @@ class Assets {
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_styles',
-			true,
+			$should_enqueue,
 			$this
 		);
 	}
