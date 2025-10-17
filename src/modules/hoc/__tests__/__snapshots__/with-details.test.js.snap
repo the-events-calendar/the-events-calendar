@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HOC - With Details Should match the dispatched actions 1`] = `
-Array [
-  Object {
-    "payload": Object {
+[
+  {
+    "payload": {
       "id": "event",
       "postType": undefined,
     },
     "type": "@@MT/EVENTS/SET_DETAILS_POST_TYPE",
   },
-  Object {
-    "meta": Object {
-      "actions": Object {
+  {
+    "meta": {
+      "actions": {
         "error": [Function],
         "start": [Function],
         "success": [Function],

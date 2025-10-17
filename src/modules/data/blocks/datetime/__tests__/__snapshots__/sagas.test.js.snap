@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Event Date time Block sagas handleDateRangeChange should update date range 1`] = `
-Object {
+{
   "@@redux-saga/IO": true,
-  "ALL": Object {
-    "end": Object {
+  "ALL": {
+    "end": {
       "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [
+      "CALL": {
+        "args": [
           undefined,
           null,
         ],
@@ -15,10 +15,10 @@ Object {
         "fn": [Function],
       },
     },
-    "start": Object {
+    "start": {
       "@@redux-saga/IO": true,
-      "CALL": Object {
-        "args": Array [
+      "CALL": {
+        "args": [
           undefined,
           null,
         ],

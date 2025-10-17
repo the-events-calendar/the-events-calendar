@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "6.15.7",
+  "version": "6.15.8",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -48,6 +48,7 @@
     ],
     "jest": [
       "src/modules/**/__tests__/**/*.js",
+      "src/resources/packages/**/__tests__/**/*.js",
       "!src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
     ]
   },
@@ -77,9 +78,9 @@
     "@wordpress/hooks": "^1.3.2",
     "@wordpress/scripts": "^30.7.0",
     "cross-env": "^5.2.0",
-    "enzyme-to-json": "^3.6.1",
     "file-loader": "^6.2.0",
     "gettext-parser": "1.3.0",
+    "identity-obj-proxy": "^3.0.0",
     "postcss-custom-media": "^11.0.5",
     "postcss-import": "^16.1.0",
     "postcss-mixins": "^11.0.3",

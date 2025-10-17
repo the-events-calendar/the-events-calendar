@@ -30,7 +30,7 @@ $website_title = tribe_events_get_venue_website_title();
 			class="tribe-common-a11y-visual-hide"
 			aria-label="<?php echo sprintf(
 				/* Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue". */
-				esc_html_x( '%1$s name: This represents the name of the %2$s %3$s.', 'the-events-calendar' ),
+				esc_html__( '%1$s name: This represents the name of the %2$s %3$s.', 'the-events-calendar' ),
 				tribe_get_venue_label_singular(),
 				tribe_get_event_label_singular_lowercase(),
 				tribe_get_venue_label_singular_lowercase()
@@ -46,7 +46,7 @@ $website_title = tribe_events_get_venue_website_title();
 					class="tribe-common-a11y-visual-hide"
 					aria-label="<?php echo sprintf(
 						/* Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue". */
-						esc_html_x( '%1$s address: This represents the address of the %2$s %3$s.', 'the-events-calendar' ),
+						esc_html__( '%1$s address: This represents the address of the %2$s %3$s.', 'the-events-calendar' ),
 						tribe_get_venue_label_singular(),
 						tribe_get_event_label_singular_lowercase(),
 						tribe_get_venue_label_singular_lowercase()
@@ -78,7 +78,7 @@ $website_title = tribe_events_get_venue_website_title();
 						class="tribe-common-a11y-visual-hide"
 						aria-label="<?php echo sprintf(
 							/* Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue". */
-							esc_html_x( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
+							esc_html__( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
 							tribe_get_venue_label_singular(),
 							tribe_get_event_label_singular_lowercase(),
 							tribe_get_venue_label_singular_lowercase()
