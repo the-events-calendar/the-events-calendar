@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Alter logic so category colors CSS is ony enqueued on event archive pages. [TEC-5419]

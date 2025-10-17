@@ -50,12 +50,12 @@ class Assets_Test extends WPTestCase {
 	 */
 	public function tear_down(): void {
 		parent::tearDown();
-		
+
 		// Clean up any filters we added
 		remove_all_filters( 'tec_events_category_colors_should_enqueue_frontend_styles' );
 		remove_all_filters( 'tec_events_category_colors_should_enqueue_frontend_legend' );
 		remove_all_filters( 'tec_events_category_colors_show_frontend_ui' );
-		
+
 		// Bust cache to ensure clean state
 		$this->dropdown_provider->bust_dropdown_categories_cache();
 	}
@@ -83,7 +83,7 @@ class Assets_Test extends WPTestCase {
 
 		// This should not throw any errors
 		$this->assets->enqueue_frontend_scripts();
-		
+
 		// Verify the method completed successfully
 		$this->assertTrue( true );
 	}
@@ -96,7 +96,7 @@ class Assets_Test extends WPTestCase {
 
 		// This should not throw any errors
 		$this->assets->enqueue_frontend_scripts();
-		
+
 		// Verify the method completed successfully
 		$this->assertTrue( true );
 	}
@@ -104,7 +104,20 @@ class Assets_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_return_true_for_should_enqueue_frontend_styles_by_default() {
+	public function should_return_false_for_should_enqueue_frontend_styles_when_on_single_page() {
+		$this->set_fn_return( 'is_single', true );
+		$this->set_fn_return( 'tec_is_view', true );
+		$this->set_fn_return( 'tribe_is_frontend', true );
+		$result = $this->assets->should_enqueue_frontend_styles();
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_return_true_for_should_enqueue_frontend_styles_when_on_event_archive_page() {
+		$this->set_fn_return( 'is_single', false );
+		$this->set_fn_return( 'tec_is_view', true );
 		$result = $this->assets->should_enqueue_frontend_styles();
 		$this->assertTrue( $result );
 	}
@@ -112,9 +125,31 @@ class Assets_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
+	public function should_return_true_for_should_enqueue_frontend_styles_when_on_frontend() {
+		$this->set_fn_return( 'is_single', false );
+		$this->set_fn_return( 'tec_is_view', false );
+		$this->set_fn_return( 'tribe_is_frontend', true );
+		$result = $this->assets->should_enqueue_frontend_styles();
+		$this->assertTrue( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_return_false_for_should_enqueue_frontend_styles_when_on_frontend_and_tec_is_view_and_tribe_is_frontend_are_false() {
+		$this->set_fn_return( 'is_single', false );
+		$this->set_fn_return( 'tec_is_view', false );
+		$this->set_fn_return( 'tribe_is_frontend', false );
+		$result = $this->assets->should_enqueue_frontend_styles();
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 */
 	public function should_return_false_for_should_enqueue_frontend_styles_when_filtered() {
 		add_filter( 'tec_events_category_colors_should_enqueue_frontend_styles', '__return_false' );
-		
+
 		$result = $this->assets->should_enqueue_frontend_styles();
 		$this->assertFalse( $result );
 	}
@@ -125,7 +160,7 @@ class Assets_Test extends WPTestCase {
 	public function should_return_true_for_should_enqueue_frontend_legend_by_default() {
 		// Mock tribe_get_option to return false for custom CSS
 		$this->set_fn_return( 'tribe_get_option', false );
-		
+
 		$result = $this->assets->should_enqueue_frontend_legend();
 		$this->assertTrue( $result );
 	}
@@ -136,7 +171,7 @@ class Assets_Test extends WPTestCase {
 	public function should_return_false_for_should_enqueue_frontend_legend_when_custom_css_enabled() {
 		// Mock tribe_get_option to return true for custom CSS
 		$this->set_fn_return( 'tribe_get_option', true );
-		
+
 		$result = $this->assets->should_enqueue_frontend_legend();
 		$this->assertFalse( $result );
 	}
@@ -147,9 +182,9 @@ class Assets_Test extends WPTestCase {
 	public function should_return_false_for_should_enqueue_frontend_legend_when_filtered() {
 		// Mock tribe_get_option to return false for custom CSS
 		$this->set_fn_return( 'tribe_get_option', false );
-		
+
 		add_filter( 'tec_events_category_colors_should_enqueue_frontend_legend', '__return_false' );
-		
+
 		$result = $this->assets->should_enqueue_frontend_legend();
 		$this->assertFalse( $result );
 	}
@@ -180,7 +215,7 @@ class Assets_Test extends WPTestCase {
 
 		// This should not throw any errors and should return early
 		$this->assets->enqueue_frontend_scripts();
-		
+
 		// Verify the method completed successfully
 		$this->assertTrue( true );
 	}
@@ -216,7 +251,7 @@ class Assets_Test extends WPTestCase {
 
 		// This should not call wp_add_inline_style
 		$this->assets->enqueue_frontend_scripts();
-		
+
 		// Verify wp_add_inline_style was not called
 		$this->assertFalse( $inline_style_called );
 	}
