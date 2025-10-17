@@ -44,6 +44,7 @@ class Assets {
 	 * Enqueues frontend styles and inline category color CSS.
 	 *
 	 * @since 6.14.0
+	 * @since TBD - Added more robust conditional for inline styles.
 	 */
 	public function enqueue_frontend_scripts(): void {
 		// Early bail if frontend UI should not be displayed.
@@ -102,6 +103,7 @@ class Assets {
 	 * Determines whether to enqueue the frontend styles for category colors.
 	 *
 	 * @since 6.14.0
+	 * @since TBD - Add logic to only enqueue on event archive pages.
 	 *
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
