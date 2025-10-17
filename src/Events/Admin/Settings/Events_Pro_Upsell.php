@@ -11,7 +11,7 @@ namespace TEC\Events\Admin\Settings;
 
 use TEC\Common\Contracts\Service_Provider;
 use Tribe__Template;
-use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
+use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible;
 
 /**
  * Class Events_Pro_Upsell
@@ -19,7 +19,7 @@ use TEC\Common\Admin\Conditional_Content\Dismissible_Trait;
  * @since TBD
  */
 class Events_Pro_Upsell extends Service_Provider {
-	use Dismissible_Trait;
+	use Is_Dismissible;
 
 	/**
 	 * The slug of the upsell tab.
@@ -101,7 +101,7 @@ class Events_Pro_Upsell extends Service_Provider {
 
 		// Ensure conditional-content JS is available.
 		do_action( 'tec_conditional_content_assets' );
-		
+
 		$this->get_template()->template(
 			'recurrence-banner',
 			[
