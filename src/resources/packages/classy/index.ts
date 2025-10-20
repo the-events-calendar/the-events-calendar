@@ -4,7 +4,7 @@ import { storeConfig } from './store';
 import { STORE_NAME } from './constants';
 import { getRegistry } from '@tec/common/classy/store';
 import * as constants from './constants';
-import { getNewStartEndDates, getAllDayNewDates, getMultiDayDates } from './functions/events';
+export * as functions from './functions';
 
 /**
  * Hook on the Classy application initialization to add TEC store to the Classy registry.
@@ -36,4 +36,4 @@ if ( didAction( 'tec.classy.initialized' ) ) {
 addFilter( 'tec.classy.render', 'tec.classy.events', renderFields );
 
 // Export constants and functions to allow their reference in other packages.
-export { constants, getNewStartEndDates, getAllDayNewDates, getMultiDayDates };
+export { constants };
