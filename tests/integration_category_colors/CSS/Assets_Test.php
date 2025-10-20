@@ -138,7 +138,7 @@ class Assets_Test extends WPTestCase {
 	 */
 	public function should_return_false_for_should_enqueue_frontend_styles_when_on_frontend_and_tec_is_view_and_tribe_is_frontend_are_false() {
 		$this->set_fn_return( 'is_single', false );
-		$this->set_fn_return( 'tec_is_view', false );
+		$this->set_fn_return( 'tec_is_valid_view', false );
 		$this->set_fn_return( 'tribe_is_frontend', false );
 		$result = $this->assets->should_enqueue_frontend_styles();
 		$this->assertFalse( $result );

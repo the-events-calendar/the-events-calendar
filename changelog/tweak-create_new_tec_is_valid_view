@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Add `tec_is_valid_view()` helper to check whether the current context represents a valid registered view. [TEC-5419]
