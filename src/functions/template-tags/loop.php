@@ -565,26 +565,31 @@ function tec_is_valid_view( $context = null ): bool {
 		return false;
 	}
 
-	$current_view = strtolower( (string) $context->get( 'view', 'default' ) );
+	$current_view = strtolower( (string) $context->get( 'view', '' ) );
 
-	// Early bail for default or empty view.
-	if ( '' === $current_view || 'default' === $current_view ) {
+	// Early bail if empty.
+	if ( '' === $current_view ) {
 		return false;
 	}
 
-	// Retrieve registered views.
+	// Retrieve the views manager.
 	$views_manager = tribe( Manager::class );
 
 	if ( ! $views_manager || ! method_exists( $views_manager, 'get_registered_views' ) ) {
 		return false;
 	}
 
-	$registered_views = array_keys( (array) $views_manager->get_registered_views() );
+	// Handle "default" explicitly via the manager's default view option.
+	if ( 'default' === $current_view ) {
+		$current_view = (string) $views_manager->get_default_view_option();
 
-	// Explicit check: only return true for registered slugs.
-	if ( ! in_array( $current_view, $registered_views, true ) ) {
-		return false;
+		// If the default view option is empty, bail early.
+		if ( '' === $current_view ) {
+			return false;
+		}
 	}
 
-	return true;
+	$registered_views = array_keys( (array) $views_manager->get_registered_views() );
+
+	return in_array( $current_view, $registered_views, true );
 }

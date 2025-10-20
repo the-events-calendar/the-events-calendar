@@ -52,7 +52,10 @@ class loopTest extends WPTestCase {
 		}
 
 		// Also test invalid / edge cases.
-		yield 'default is not valid' => [ 'default', false ];
+		yield 'default view defers to manager default' => [
+			'default',
+			true,
+		];
 		yield 'empty is not valid' => [ '', false ];
 		yield 'unknown is not valid' => [ 'foobar', false ];
 	}
