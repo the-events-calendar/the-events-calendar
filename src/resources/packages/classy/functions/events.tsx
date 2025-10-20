@@ -3,6 +3,7 @@ import { DateTimeUpdateType } from '@tec/common/classy/types/FieldProps';
 import { Hours } from '@tec/common/classy/types/Hours';
 import { Minutes } from '@tec/common/classy/types/Minutes';
 import { NewDatesReturn } from '../types/EventDateTimeDetails';
+import { getDurationInDaysForCutoff } from '../functions/date';
 
 /**
  * Calculates new dates for multiday toggle.
@@ -67,10 +68,11 @@ export function getAllDayNewDates(
 	if ( newValue ) {
 		// Enable all-day: set to full day.
 		const newStartDate = new Date( startDate );
-		newStartDate.setHours( 0, 0, 0, 0 );
-
-		const newEndDate = new Date( endDate );
-		newEndDate.setHours( endOfDayCutoff.hours, endOfDayCutoff.minutes );
+		newStartDate.setHours( endOfDayCutoff.hours, endOfDayCutoff.minutes, 0, 0 );
+		const durationInDays = getDurationInDaysForCutoff( endOfDayCutoff, startDate, endDate );
+		// The event will last at least one day and the cutoff minus one second.
+		const duration = ( durationInDays + 1 ) * 24 * 60 * 60 * 1000 - 1;
+		const newEndDate = new Date( newStartDate.getTime() + duration );
 
 		return { newStartDate, newEndDate };
 	} else {
