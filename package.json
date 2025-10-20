@@ -92,8 +92,6 @@
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
     "@wordpress/block-editor": "^14.15.0",
     "@wordpress/components": "^29.6.0",
     "@wordpress/compose": "^7.21.0",
