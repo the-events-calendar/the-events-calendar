@@ -109,6 +109,7 @@ class Assets {
 	 */
 	public function should_enqueue_frontend_styles(): bool {
 		$should_enqueue = ! is_single() && ( tec_is_valid_view() || tribe_is_frontend() );
+
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.
 		 *
@@ -133,7 +134,7 @@ class Assets {
 	 */
 	public function should_enqueue_frontend_legend(): bool {
 		// Only enqueue legend styles if custom CSS is not enabled.
-		$should_enqueue = ! tribe_get_option( 'category-color-custom-css', false );
+		$should_enqueue = ! tribe_get_option( 'category-color-custom-css', false ) && $this->should_enqueue_frontend_styles();
 
 		/**
 		 * Filter whether the category colors frontend legend styles should be enqueued.
