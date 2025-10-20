@@ -108,7 +108,7 @@ class Assets {
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
-		$should_enqueue = ! is_single() && ( tec_is_view() || tribe_is_frontend() );
+		$should_enqueue = ! is_single() && ( tec_is_valid_view() || tribe_is_frontend() );
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.
 		 *

@@ -5,6 +5,7 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use Tribe\Events\Views\V2\Manager;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -541,3 +542,50 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	 */
 	return (bool) apply_filters( "tec_is_{$view_slug}_view", $is_view, $context );
 }
+
+/**
+ * Check whether the current request is a valid TEC view.
+ *
+ * Returns true when the current context identifies a registered Events Calendar view
+ * (e.g., list, month, day, map, week, etc.).
+ *
+ * @since TBD
+ *
+ * @param Tribe__Context|null $context Optional. A context instance to use. Defaults to tribe_context().
+ *
+ * @return bool True if currently on a valid TEC view, false otherwise.
+ */
+function tec_is_valid_view( $context = null ): bool {
+	if ( ! $context instanceof Tribe__Context ) {
+		$context = tribe_context();
+	}
+
+	// Early bail if not in an Events context.
+	if ( ! $context->is( 'tec_post_type' ) && ! $context->is( 'view' ) ) {
+		return false;
+	}
+
+	$current_view = strtolower( (string) $context->get( 'view', 'default' ) );
+
+	// Early bail for default or empty view.
+	if ( '' === $current_view || 'default' === $current_view ) {
+		return false;
+	}
+
+	// Retrieve registered views.
+	$views_manager = tribe( Manager::class );
+
+	if ( ! $views_manager || ! method_exists( $views_manager, 'get_registered_views' ) ) {
+		return false;
+	}
+
+	$registered_views = array_keys( (array) $views_manager->get_registered_views() );
+
+	// Explicit check: only return true for registered slugs.
+	if ( ! in_array( $current_view, $registered_views, true ) ) {
+		return false;
+	}
+
+	return true;
+}
+
