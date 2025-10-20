@@ -588,4 +588,3 @@ function tec_is_valid_view( $context = null ): bool {
 
 	return true;
 }
-
