@@ -5,7 +5,7 @@
  * @var string $slug The slug of the upsell banner.
  * @var string $nonce The nonce of the upsell banner.
  *
- * @since TBD
+ * @since 6.15.9
  */
 
 $main = Tribe__Events__Main::instance();

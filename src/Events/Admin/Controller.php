@@ -3,7 +3,7 @@
  * Controller for the Events admin pages.
  *
  * @package TEC\Events\Admin
- * @since TBD
+ * @since 6.15.9
  */
 
 namespace TEC\Events\Admin;
@@ -13,14 +13,14 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Controller for the Events admin pages.
  *
- * @since TBD
+ * @since 6.15.9
  */
 class Controller extends Controller_Contract {
 
 	/**
 	 * Registers the filters and actions hooks for the controller.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return void Filters and actions hooks for the controller are registered.
 	 */
@@ -31,7 +31,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregisters the filters and actions hooks for the controller.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return void Filters and actions hooks for the controller are unregistered.
 	 */
@@ -42,7 +42,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Filters the admin region to return 'events' on TEC admin pages.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @param string $region The current admin region.
 	 * @return string The admin region.

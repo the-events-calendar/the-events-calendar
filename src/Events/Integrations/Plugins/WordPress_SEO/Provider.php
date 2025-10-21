@@ -175,7 +175,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Register the pagination disabler for TEC views.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return void
 	 */

@@ -11,7 +11,7 @@
  * lifecycle to override Yoast’s links safely, this integration simply disables
  * them on event-related queries.
  *
- * @since TBD
+ * @since 6.15.9
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -24,7 +24,7 @@ namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
  * Disables Yoast SEO pagination meta tags (`rel="next"` and `rel="prev"`)
  * when viewing Events Calendar pages.
  *
- * @since TBD
+ * @since 6.15.9
  */
 class Events_Pagination {
 
@@ -34,7 +34,7 @@ class Events_Pagination {
 	 * Hooks into `template_redirect` early enough in the WordPress lifecycle
 	 * to ensure Yoast’s filters are applied before its `wp_head` output runs.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return void
 	 */
@@ -50,7 +50,7 @@ class Events_Pagination {
 	 * are disabled using the `wpseo_next_rel_link` and `wpseo_prev_rel_link`
 	 * filters.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return void
 	 */
