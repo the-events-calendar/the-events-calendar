@@ -24,7 +24,7 @@ const config: Config = {
 			},
 		],
 	},
-	transformIgnorePatterns: [ '/node_modules/(?!client-zip|@wordpress/.*)' ],
+	transformIgnorePatterns: [ '/node_modules/(?!client-zip|@wordpress/.*|uuid|nanoid)' ],
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
@@ -33,6 +33,8 @@ const config: Config = {
 		'@tec/common/(.*)$': '<rootDir>/../../common/src/resources/packages/$1',
 		// Map @tec/events to the events directory.
 		'@tec/events/(.*)$': '<rootDir>/../../src/resources/packages/$1',
+		// Map uuid to CommonJS version
+		'^uuid$': '<rootDir>/../../node_modules/uuid/dist/index.js',
 	},
 };
 
