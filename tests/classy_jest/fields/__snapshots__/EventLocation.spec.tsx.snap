@@ -393,6 +393,7 @@ exports[`EventLocation should render the event location component with default s
   align-items: center;
   -webkit-margin-start: calc(4px * 2);
   margin-inline-start: calc(4px * 2);
+  fill: currentColor;
   -webkit-align-self: start;
   -ms-flex-item-align: start;
   align-self: start;
