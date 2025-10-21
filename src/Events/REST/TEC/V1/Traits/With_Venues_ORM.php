@@ -25,6 +25,7 @@ trait With_Venues_ORM {
 	 * Returns the ORM for the endpoint.
 	 *
 	 * @since 6.15.0
+	 * @since TBD Updated the return type to Repository_Interface.
 	 *
 	 * @return Repository_Interface
 	 */
