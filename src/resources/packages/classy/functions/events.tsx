@@ -149,9 +149,9 @@ export function getNewStartEndDates(
 				// The user has updated the end date.
 				newEndDate = new Date( newDate );
 
-				if ( newEndDate.getTime() <= startDate.getTime() ) {
+				if ( newEndDate.getTime() < startDate.getTime() ) {
 					// For time updates, pull start time to previous interval.
-					newStartDate = new Date( newEndDate );
+					newStartDate = new Date( newEndDate.getTime() - duration );
 				}
 				break;
 		}
