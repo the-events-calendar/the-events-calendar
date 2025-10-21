@@ -108,7 +108,11 @@ class Assets {
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
-		$should_enqueue = ! is_single() && ( tec_is_valid_view() || tribe_is_frontend() );
+		/*
+		Allow enqueueing on valid TEC views or frontend pages (e.g., venues),
+		but prevent it on single event or recurring event instance pages.
+		 */
+		$should_enqueue = ( ! is_singular( Tribe__Events__Main::POSTTYPE ) && ( tec_is_valid_view() || tribe_is_frontend() ) );
 
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.

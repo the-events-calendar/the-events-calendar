@@ -556,6 +556,11 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
  * @return bool True if currently on a valid TEC view, false otherwise.
  */
 function tec_is_valid_view( $context = null ): bool {
+	// Prevent false positives when viewing a single event or recurring instance.
+	if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+		return false;
+	}
+
 	if ( ! $context instanceof Tribe__Context ) {
 		$context = tribe_context();
 	}
