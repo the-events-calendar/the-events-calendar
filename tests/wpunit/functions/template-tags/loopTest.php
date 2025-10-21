@@ -7,6 +7,7 @@ use Generator;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context;
 use Tribe\Events\Views\V2\Manager;
+use Tribe__Events__Main;
 
 class loopTest extends WPTestCase {
 
@@ -76,6 +77,61 @@ class loopTest extends WPTestCase {
 			$expected,
 			$result,
 			sprintf( 'Expected %s for view "%s".', var_export( $expected, true ), $view_slug )
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_returns_false_when_viewing_single_event_page(): void {
+		// Simulate being on a single event page.
+		$this->set_fn_return(
+			'is_singular',
+			function ( $post_type = '' ) {
+				return Tribe__Events__Main::POSTTYPE === $post_type;
+			},
+			true
+		);
+
+		$context = tribe_context()->alter(
+			[
+				'view'          => 'list',
+				'tec_post_type' => true,
+			]
+		);
+
+		$result = tec_is_valid_view( $context );
+
+		$this->assertFalse(
+			$result,
+			'Expected false when on a single event page, even if the context reports a valid view.'
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_returns_true_for_valid_registered_views_when_not_singular(): void {
+		$this->set_fn_return(
+			'is_singular',
+			function () {
+				return false;
+			},
+			true
+		);
+
+		$context = tribe_context()->alter(
+			[
+				'view'          => 'list',
+				'tec_post_type' => true,
+			]
+		);
+
+		$result = tec_is_valid_view( $context );
+
+		$this->assertTrue(
+			$result,
+			'Expected true when viewing a valid registered view and not on a single event page.'
 		);
 	}
 }

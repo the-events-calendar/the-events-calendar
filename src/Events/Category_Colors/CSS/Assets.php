@@ -113,7 +113,7 @@ class Assets {
 		but prevent it on single event or recurring event instance pages.
 		 */
 		$should_enqueue = ( tec_is_valid_view() || tribe_is_frontend() )
-						&& ! ( is_singular( 'tribe_events' ) );
+						&& ! ( is_singular( Tribe__Events__Main::POSTTYPE ) );
 
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.
