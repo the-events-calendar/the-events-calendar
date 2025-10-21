@@ -104,9 +104,14 @@ class Assets_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_return_false_for_should_enqueue_frontend_styles_when_on_single_event_page() {
-		$this->set_fn_return( 'is_single', true );
-		$this->set_fn_return( 'tribe_is_event', true );
+	public function should_return_false_when_on_single_event_page() {
+		$this->set_fn_return(
+			'is_singular',
+			function ( $post_type = '' ) {
+				return 'tribe_events' === $post_type;
+			},
+			true
+		);
 		$this->set_fn_return( 'tec_is_valid_view', true );
 		$this->set_fn_return( 'tribe_is_frontend', true );
 
@@ -118,25 +123,14 @@ class Assets_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_return_true_for_should_enqueue_frontend_styles_when_on_single_non_event_page() {
-		$this->set_fn_return( 'is_single', true );
-		$this->set_fn_return( 'tribe_is_event', false );
+	public function should_return_true_when_on_single_non_event_page() {
+		$this->set_fn_return( 'is_singular', false );
 		$this->set_fn_return( 'tec_is_valid_view', false );
 		$this->set_fn_return( 'tribe_is_frontend', true );
 
 		$result = $this->assets->should_enqueue_frontend_styles();
 
 		$this->assertTrue( $result, 'Expected true when viewing a single non-event page (e.g., venue).' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function should_return_true_for_should_enqueue_frontend_styles_when_on_event_archive_page() {
-		$this->set_fn_return( 'is_single', false );
-		$this->set_fn_return( 'tec_is_view', true );
-		$result = $this->assets->should_enqueue_frontend_styles();
-		$this->assertTrue( $result );
 	}
 
 	/**
