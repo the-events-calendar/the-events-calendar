@@ -1,5 +1,15 @@
 # Changelog
 
+### [6.15.9] 2025-10-21
+
+* Fix - Alter logic so category colors CSS is ony enqueued on event archive pages. [TEC-5419]
+* Tweak - Added actions: `tec_conditional_content_assets`
+* Tweak - Add upsell banner for recurrence functionality in classic editor. [TEC-5589]
+* Tweak - Add `tec_is_valid_view()` helper to check whether the current context represents a valid registered view. [TEC-5419]
+* Tweak - Disable Yoast SEO pagination meta tags on Events Calendar views to prevent invalid rel=next/prev links. [TEC-5000]
+* Tweak - Revert automatic CSS combination handling for Avada to restore default behavior. [TEC-5682]
+* Language - 3 new strings added, 8 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.8] 2025-10-14
 
 * Fix - Tweak a few style rules to ensure Kadence overrides work. [TEC-5504]

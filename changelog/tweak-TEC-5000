@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Disable Yoast SEO pagination meta tags on Events Calendar views to prevent invalid rel=next/prev links. [TEC-5000]
