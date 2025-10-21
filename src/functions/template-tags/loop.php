@@ -549,7 +549,7 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
  * Returns true when the current context identifies a registered Events Calendar view
  * (e.g., list, month, day, map, week, etc.).
  *
- * @since TBD
+ * @since 6.15.9
  *
  * @param Tribe__Context|null $context Optional. A context instance to use. Defaults to tribe_context().
  *

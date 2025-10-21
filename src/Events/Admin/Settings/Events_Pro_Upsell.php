@@ -2,7 +2,7 @@
 /**
  * Service Provider for Events Calendar Pro upsell/settings.
  *
- * @since TBD
+ * @since 6.15.9
  *
  * @package TEC\Events\Admin\Settings
  */
@@ -16,7 +16,7 @@ use TEC\Common\Admin\Conditional_Content\Traits\Is_Dismissible;
 /**
  * Class Events_Pro_Upsell
  *
- * @since TBD
+ * @since 6.15.9
  */
 class Events_Pro_Upsell extends Service_Provider {
 	use Is_Dismissible;
@@ -24,7 +24,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * The slug of the upsell tab.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the elements.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @var Tribe__Template
 	 */
@@ -42,7 +42,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Get the slug used for dismissal and identification.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return string
 	 */
@@ -53,7 +53,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 */
 	public function register(): void {
 		if ( tec_should_hide_upsell() ) {
@@ -72,7 +72,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Add actions.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 */
 	public function add_actions(): void {
 		add_action( 'tribe_events_date_display', [ $this, 'render_recurrence_banner' ], 18 );
@@ -83,7 +83,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Add filters.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 */
 	public function add_filters(): void {
 	}
@@ -91,7 +91,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Render the Recurrence banner inside Classic Editor.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 */
 	public function render_recurrence_banner(): void {
 		// Do not render if user already dismissed.
@@ -114,7 +114,7 @@ class Events_Pro_Upsell extends Service_Provider {
 	/**
 	 * Gets the template instance used to setup the rendering html.
 	 *
-	 * @since TBD
+	 * @since 6.15.9
 	 *
 	 * @return Tribe__Template
 	 */
