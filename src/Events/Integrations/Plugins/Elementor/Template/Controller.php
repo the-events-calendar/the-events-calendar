@@ -113,6 +113,7 @@ class Controller extends Controller_Contract {
 	 * Force the correct Single Event template object for Elementor theme.
 	 *
 	 * @since 6.4.0
+	 * @since 6.15.6 Cast return as string.
 	 *
 	 * @param string $option The value of the option.
 	 *
@@ -121,12 +122,12 @@ class Controller extends Controller_Contract {
 	public function filter_events_template_setting_option( $option ): string {
 		// Only for events.
 		if ( ! is_singular( TEC::POSTTYPE ) ) {
-			return $option;
+			return (string) $option;
 		}
 
 		// Only for single events.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
-			return $option;
+			return (string) $option;
 		}
 
 		/**
@@ -138,7 +139,7 @@ class Controller extends Controller_Contract {
 		 *                       it will prevent the use of the provided Elementor templates.
 		 * @param string $option The original value, or an empty string signifying the default events template.
 		 */
-		return apply_filters( 'tec_events_filter_events_template_setting_option', '', $option );
+		return (string) apply_filters( 'tec_events_filter_events_template_setting_option', '', $option );
 	}
 
 	/**
@@ -153,7 +154,7 @@ class Controller extends Controller_Contract {
 	 * @return mixed results of option query.
 	 */
 	public function filter_tribe_get_single_option( $option, $default_value, $option_name ) {
-		// ONly this option.
+		// Only this option.
 		if ( 'tribeEventsTemplate' !== $option_name ) {
 			return $option;
 		}
@@ -177,7 +178,7 @@ class Controller extends Controller_Contract {
 		 *                       than an empty string, it will prevent the use of the provided Elementor templates.
 		 * @param string $option The original value, or an empty string signifying the default events template.
 		 */
-		return apply_filters( 'tec_events_filter_tribe_get_single_option', '', $option );
+		return (string) apply_filters( 'tec_events_filter_tribe_get_single_option', '', $option );
 	}
 
 	/**

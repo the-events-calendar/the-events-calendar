@@ -5,10 +5,6 @@ import moment from 'moment-timezone';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import $ from 'jquery';
-import Enzyme, { shallow, render, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure( { adapter: new Adapter() } );
 
 global.jQuery = $;
 global.$ = $;
@@ -20,11 +16,17 @@ global.wp = {
 	data: {},
 	blockEditor: {},
 	editor: {},
-	hooks: {},
+	hooks: {
+		addAction: jest.fn(),
+		addFilter: jest.fn(),
+		removeAction: jest.fn(),
+		removeFilter: jest.fn(),
+		doAction: jest.fn(),
+		applyFilters: jest.fn( ( tag, value ) => value ),
+		hasAction: jest.fn( () => false ),
+		hasFilter: jest.fn( () => false ),
+	},
 };
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
 global.renderer = renderer;
 global.console = {
 	error: jest.fn(),
@@ -33,3 +35,6 @@ global.console = {
 };
 
 moment.tz.setDefault( 'UTC' );
+
+// Mock webpack public path global for tests.
+global.__webpack_public_path__ = '';

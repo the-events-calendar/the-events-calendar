@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Website actions Should set the website URL 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "url": "https://tri.be/",
   },
   "type": "@@MT/EVENTS/SET_WEBSITE_URL",

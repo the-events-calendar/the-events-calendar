@@ -5,7 +5,7 @@ exports[`[STORE] - Datetime selectors Should return is same start end 1`] = `fal
 exports[`[STORE] - Datetime selectors Should return the all day 1`] = `false`;
 
 exports[`[STORE] - Datetime selectors Should return the block 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",

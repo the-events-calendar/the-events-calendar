@@ -19,6 +19,16 @@ jest.mock( '@moderntribe/common/utils/globals', () => ( {
 	mapsAPI: () => ( {
 		embed: true,
 	} ),
+	wpHooks: {
+		addAction: jest.fn(),
+		addFilter: jest.fn(),
+		removeAction: jest.fn(),
+		removeFilter: jest.fn(),
+		doAction: jest.fn(),
+		applyFilters: jest.fn( ( tag, value ) => value ),
+		hasAction: jest.fn( () => false ),
+		hasFilter: jest.fn( () => false ),
+	},
 } ) );
 
 describe( '[STORE] - Venue reducer', () => {

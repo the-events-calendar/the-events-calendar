@@ -2,7 +2,7 @@
 
 exports[`[STORE] - Venue selectors Should return the map embed config 1`] = `true`;
 
-exports[`[STORE] - Venue selectors Should return the venue block 1`] = `Object {}`;
+exports[`[STORE] - Venue selectors Should return the venue block 1`] = `{}`;
 
 exports[`[STORE] - Venue selectors Should select the showMap 1`] = `undefined`;
 

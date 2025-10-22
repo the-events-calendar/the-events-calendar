@@ -39,12 +39,14 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 					'year_number'  => '2018',
 					'month_number' => '06',
 					'day_number'   => '01',
+					'date'         => '2018-06-01',
 					'found_events' => 0,
 				],
 				'2018-06-02' => [
 					'year_number'  => '2018',
 					'month_number' => '06',
 					'day_number'   => '02',
+					'date'         => '2018-06-02',
 					'found_events' => 0,
 				],
 			],
@@ -75,6 +77,7 @@ class Mobile_EventsTest extends HtmlPartialTestCase
 					'year_number'     => '2018',
 					'month_number'    => '06',
 					'day_number'      => '20',
+					'date'            => '2018-06-20',
 					'day_url'         => 'http://test.tri.be/events/2018-06-20/',
 					'events'          => [],
 					'multiday_events' => [

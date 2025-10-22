@@ -13,11 +13,20 @@
  * @var string $next_url The URL to the next page, if any, or an empty string.
  * @var string $today_url The URL to the today page, if any, or an empty string.
  *
- * @version 4.9.10
+ * @since 4.9.10
+ * @since 6.15.7 Added aria-label attribute to nav.
  *
+ * @version 6.15.7
  */
+
+$aria_label = sprintf(
+	/* translators: %s: Event label plural */
+	__( 'Bottom %s list pagination', 'the-events-calendar' ),
+	tribe_get_event_label_plural_lowercase()
+);
+
 ?>
-<nav class="tribe-events-calendar-list-nav tribe-events-c-nav">
+<nav class="tribe-events-calendar-list-nav tribe-events-c-nav" aria-label="<?php echo esc_attr( $aria_label ); ?>">
 	<ul class="tribe-events-c-nav__list">
 		<?php
 		if ( ! empty( $prev_url ) ) {

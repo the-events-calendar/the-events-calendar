@@ -2,11 +2,10 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
-use Tribe__Events__Main as TEC;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Elementor_Template_Controller;
 use Tribe\Tests\Traits\With_Uopz;
 
-class ControllerTest extends \Codeception\TestCase\WPTestCase {
+class TemplateControllerTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
@@ -34,8 +33,10 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		$is_overridden = $controller->is_override();
 
 		// Assertions.
-		$this->assertFalse( $is_overridden ); // Since we returned true to bypassing the function, we expect it not to be overridden.
-		$this->assertTrue( $called ); // This confirms that the filter was applied because the callback function changed the variable.
+		// Since we returned true to bypassing the function, we expect it not to be overridden.
+		$this->assertFalse( $is_overridden );
+		// This confirms that the filter was applied because the callback function changed the variable.
+		$this->assertTrue( $called );
 
 		// Clean up.
 		remove_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );

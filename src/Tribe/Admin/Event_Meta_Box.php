@@ -414,6 +414,10 @@ class Tribe__Events__Admin__Event_Meta_Box {
 			return;
 		}
 
+		if ( tec_using_classy_editor() ) {
+			return;
+		}
+
 		$show_box = tribe_get_option( 'disable_metabox_custom_fields' );
 
 		if ( ! tribe_is_truthy( $show_box ) ) {

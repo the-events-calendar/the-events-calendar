@@ -17,35 +17,35 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create test venues for relationships
 		$venue_1 = tribe_venues()->set_args(
 			[
-				'title' => 'Test Venue for Organizers',
-				'status' => 'publish',
-				'address' => '123 Event St',
-				'city' => 'Event City',
+				'title'          => 'Test Venue for Organizers',
+				'status'         => 'publish',
+				'address'        => '123 Event St',
+				'city'           => 'Event City',
 				'state_province' => 'EC',
-				'zip' => '12345',
-				'country' => 'United States',
+				'zip'            => '12345',
+				'country'        => 'United States',
 			]
 		)->create();
 
 		// Create standard organizers
 		$organizer_1 = tribe_organizers()->set_args(
 			[
-				'title' => 'Professional Events Company',
-				'status' => 'publish',
-				'email' => 'info@proevents.example.com',
-				'phone' => '+1-555-123-4567',
-				'website' => 'https://proevents.example.com',
+				'title'       => 'Professional Events Company',
+				'status'      => 'publish',
+				'email'       => 'info@proevents.example.com',
+				'phone'       => '+1-555-123-4567',
+				'website'     => 'https://proevents.example.com',
 				'description' => 'We organize professional conferences and workshops.',
 			]
 		)->create();
 
 		$organizer_2 = tribe_organizers()->set_args(
 			[
-				'title' => 'Community Arts Foundation',
-				'status' => 'publish',
-				'email' => 'contact@artsorg.example.org',
-				'phone' => '+1-555-987-6543',
-				'website' => 'https://communityarts.example.org',
+				'title'       => 'Community Arts Foundation',
+				'status'      => 'publish',
+				'email'       => 'contact@artsorg.example.org',
+				'phone'       => '+1-555-987-6543',
+				'website'     => 'https://communityarts.example.org',
 				'description' => 'Supporting local artists and cultural events.',
 			]
 		)->create();
@@ -53,7 +53,7 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create organizer with minimal data
 		$minimal_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Simple Organizer',
+				'title'  => 'Simple Organizer',
 				'status' => 'publish',
 			]
 		)->create();
@@ -61,19 +61,19 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create private organizer
 		$private_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Private Event Planning LLC',
+				'title'  => 'Private Event Planning LLC',
 				'status' => 'private',
-				'email' => 'private@eventplanning.example.com',
-				'phone' => '+1-555-PRIVATE',
+				'email'  => 'private@eventplanning.example.com',
+				'phone'  => '+1-555-PRIVATE',
 			]
 		)->create();
 
 		// Create draft organizer
 		$draft_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'New Event Company (Coming Soon)',
-				'status' => 'draft',
-				'email' => 'info@neweventco.example.com',
+				'title'       => 'New Event Company (Coming Soon)',
+				'status'      => 'draft',
+				'email'       => 'info@neweventco.example.com',
 				'description' => 'Launching our event services soon!',
 			]
 		)->create();
@@ -81,11 +81,11 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create international organizer
 		$intl_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Global Events International',
-				'status' => 'publish',
-				'email' => 'info@globalevents.example.eu',
-				'phone' => '+44 20 7946 0958',
-				'website' => 'https://globalevents.example.eu',
+				'title'       => 'Global Events International',
+				'status'      => 'publish',
+				'email'       => 'info@globalevents.example.eu',
+				'phone'       => '+44 20 7946 0958',
+				'website'     => 'https://globalevents.example.eu',
 				'description' => 'Organizing events across Europe and beyond.',
 			]
 		)->create();
@@ -93,10 +93,10 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create organizer with special characters
 		$special_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Société d\'Événements "Lumière & Son"',
-				'status' => 'publish',
-				'email' => 'contact@lumiere-son.example.fr',
-				'phone' => '+33 1 42 86 82 00',
+				'title'       => 'Société d\'Événements "Lumière & Son"',
+				'status'      => 'publish',
+				'email'       => 'contact@lumiere-son.example.fr',
+				'phone'       => '+33 1 42 86 82 00',
 				'description' => 'Spécialistes en événements audiovisuels.',
 			]
 		)->create();
@@ -104,10 +104,10 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create organizer with HTML in description
 		$html_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Tech Events & Conferences',
-				'status' => 'publish',
-				'email' => 'hello@techevents.example.com',
-				'website' => 'https://techevents.example.com',
+				'title'       => 'Tech Events & Conferences',
+				'status'      => 'publish',
+				'email'       => 'hello@techevents.example.com',
+				'website'     => 'https://techevents.example.com',
 				'description' => '<h3>What We Do</h3><p>We specialize in:</p><ul><li>Developer conferences</li><li>Tech workshops</li><li>Hackathons</li><li>Product launches</li></ul><p><strong>Contact us for your next tech event!</strong></p>',
 			]
 		)->create();
@@ -115,51 +115,55 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 		// Create password-protected organizer
 		$password_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Password Exclusive Events Management',
-				'status' => 'publish',
+				'title'         => 'Password Exclusive Events Management',
+				'status'        => 'publish',
 				'post_password' => 'password123',
-				'email' => 'exclusive@vipevents.example.com',
-				'phone' => '+1-555-VIP-ONLY',
-				'description' => 'Managing exclusive events for select clients.',
+				'email'         => 'exclusive@vipevents.example.com',
+				'phone'         => '+1-555-VIP-ONLY',
+				'description'   => 'Managing exclusive events for select clients.',
 			]
 		)->create();
 
 		// Create organizer with events
 		$organizer_with_events = tribe_organizers()->set_args(
 			[
-				'title' => 'Active Event Productions',
-				'status' => 'publish',
-				'email' => 'bookings@activeevents.example.com',
-				'phone' => '+1-555-BOOK-NOW',
+				'title'   => 'Active Event Productions',
+				'status'  => 'publish',
+				'email'   => 'bookings@activeevents.example.com',
+				'phone'   => '+1-555-BOOK-NOW',
 				'website' => 'https://activeproductions.example.com',
 			]
 		)->create();
 
 		// Create some events by this organizer
-		tribe_events()->set_args( [
-			'title'      => 'Test Event by Organizer',
-			'start_date' => date( 'Y-m-d H:i:s', strtotime( '+1 week' ) ),
-			'end_date'   => date( 'Y-m-d H:i:s', strtotime( '+1 week +2 hours' ) ),
-			'status'     => 'publish',
-			'venue'      => $venue_1->ID,
-			'organizer'  => [ $organizer_with_events->ID ],
-		] )->create();
+		tribe_events()->set_args(
+			[
+				'title'      => 'Test Event by Organizer',
+				'start_date' => date( 'Y-m-d H:i:s', strtotime( '+1 week' ) ),
+				'end_date'   => date( 'Y-m-d H:i:s', strtotime( '+1 week +2 hours' ) ),
+				'status'     => 'publish',
+				'venue'      => $venue_1->ID,
+				'organizer'  => [ $organizer_with_events->ID ],
+			] 
+		)->create();
 
-		tribe_events()->set_args( [
-			'title'      => 'Another Event by Organizer',
-			'start_date' => date( 'Y-m-d H:i:s', strtotime( '+2 weeks' ) ),
-			'end_date'   => date( 'Y-m-d H:i:s', strtotime( '+2 weeks +3 hours' ) ),
-			'status'     => 'publish',
-			'organizer'  => [ $organizer_with_events->ID ],
-		] )->create();
+		tribe_events()->set_args(
+			[
+				'title'      => 'Another Event by Organizer',
+				'start_date' => date( 'Y-m-d H:i:s', strtotime( '+2 weeks' ) ),
+				'end_date'   => date( 'Y-m-d H:i:s', strtotime( '+2 weeks +3 hours' ) ),
+				'status'     => 'publish',
+				'organizer'  => [ $organizer_with_events->ID ],
+			] 
+		)->create();
 
 		// Create organizer with multiple email formats
 		$email_formats_organizer = tribe_organizers()->set_args(
 			[
-				'title' => 'Multi-Contact Organization',
-				'status' => 'publish',
-				'email' => 'info@multi-contact.example.com, support@multi-contact.example.com',
-				'phone' => '+1-555-1234, +1-555-5678',
+				'title'   => 'Multi-Contact Organization',
+				'status'  => 'publish',
+				'email'   => 'info@multi-contact.example.com, support@multi-contact.example.com',
+				'phone'   => '+1-555-1234, +1-555-5678',
 				'website' => 'https://multicontact.example.com',
 			]
 		)->create();
@@ -180,7 +184,7 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 				$password_organizer->ID,
 				$organizer_with_events->ID,
 				$email_formats_organizer->ID,
-			]
+			],
 		];
 	}
 
@@ -189,7 +193,14 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 
 		$data = [];
 		foreach ( $organizers as $organizer ) {
-			$data[] = $this->endpoint->get_formatted_entity( $this->endpoint->get_orm()->by_args( [ 'id' => $organizer, 'status' => 'any' ] )->first() );
+			$data[] = $this->endpoint->get_formatted_entity(
+				$this->endpoint->get_orm()->by_args(
+					[
+						'id'     => $organizer,
+						'status' => 'any',
+					] 
+				)->first() 
+			);
 		}
 
 		$json = wp_json_encode( $data, JSON_SNAPSHOT_OPTIONS );
@@ -225,7 +236,7 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 				$responses[] = $this->assert_endpoint( '/organizers/' . $organizer_id );
 			} else {
 				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $organizer_id );
-				$response = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
+				$response    = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
 				if ( $should_pass ) {
 					$responses[] = $response;
 				}
@@ -257,7 +268,7 @@ class Organizer_Test extends Post_Entity_REST_Test_Case {
 				$responses[] = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', 200, [ 'password' => 'password123' ] );
 			} else {
 				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $organizer_id );
-				$response = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'password' => 'password123' ] );
+				$response    = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'password' => 'password123' ] );
 				if ( $should_pass ) {
 					$responses[] = $response;
 				}

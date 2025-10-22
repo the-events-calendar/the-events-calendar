@@ -400,14 +400,16 @@ ul.tribe-events-sub-nav,
 }
 
 /* Event Schedule Detail Styling */
-.tribe-events-schedule h2 {
-	color: var(--tec-color-text-event-date);
-	display: inline-block;
-	font-size: 1.2em;
-	font-style: normal;
-	font-weight: 700;
-	line-height: normal;
-	margin-bottom: 0;
+.tribe-events-schedule {
+	.tribe-events-schedule__datetime {
+		color: var(--tec-color-text-event-date);
+		display: inline-block;
+		font-size: 1.2em;
+		font-style: normal;
+		font-weight: 700;
+		line-height: normal;
+		margin-bottom: 0;
+	}
 }
 
 .tribe-events-event-schedule-details {
@@ -2300,10 +2302,12 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 				padding-top: 0;
 			}
 
-			.tribe-events-schedule h2 {
-				display: inline-block;
-				font-size: 1.2em;
-				margin: 0;
+			.tribe-events-schedule {
+				.tribe-events-schedule__datetime {
+					display: inline-block;
+					font-size: 1.2em;
+					margin: 0;
+				}
 			}
 
 			p a {
@@ -2467,7 +2471,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	h1.tribe-events-page-title::before,
 	h2.tribe-events-list-separator-month::before,
 	h2.tribe-events-day-time-slot-heading::before,
-	.tribe-events-schedule h2::before,
 	.tribe-events-tooltip h3.entry-title::before {
 		content: none;
 	}
