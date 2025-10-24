@@ -79,6 +79,7 @@ class Provider extends Integration_Abstract {
 
 		$this->register_custom_variables();
 		$this->register_assets();
+		$this->register_events_pagination();
 	}
 
 	/**
@@ -169,5 +170,19 @@ class Provider extends Integration_Abstract {
 
 		$pieces[] = new Events_Schema( $context );
 		return $pieces;
+	}
+
+	/**
+	 * Register the pagination disabler for TEC views.
+	 *
+	 * @since 6.15.9
+	 *
+	 * @return void
+	 */
+	private function register_events_pagination(): void {
+		$this->container->bind( Events_Pagination::class, Events_Pagination::class );
+		
+		$events_pagination = tribe( Events_Pagination::class );
+		$events_pagination->register();
 	}
 }

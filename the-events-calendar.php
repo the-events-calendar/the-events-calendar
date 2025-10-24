@@ -2,7 +2,7 @@
 /**
  * Plugin Name: The Events Calendar
  * Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
- * Version: 6.15.8
+ * Version: 6.15.9
  * Requires at least: 6.6
  * Requires PHP: 7.4
  * Author: The Events Calendar
