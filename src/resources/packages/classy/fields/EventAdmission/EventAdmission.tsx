@@ -31,7 +31,7 @@ export default function EventAdmission( props: FieldProps ) {
 					}
 
 					return (
-						<div className="class-field__inputs-section classy-field__inputs-section--row">
+						<div className="classy-field__inputs-section classy-field__inputs-section--row">
 							<ButtonGroup className="components-button-group--classy">
 								{ fills }
 								<Button
@@ -59,7 +59,7 @@ export default function EventAdmission( props: FieldProps ) {
 			<div className="classy-field__inputs">
 				{ /* If tickets are supported and we are using tickets, render the ticket mode slot. */ }
 				{ areTicketsSupported && ! isUsingTickets && ticketModeSlot() }
-				<div className="class-field__inputs-section classy-field__inputs-section--row"></div>
+				<div className="classy-field__inputs-section classy-field__inputs-section--row"></div>
 
 				{ /* Provide a slot for tickets to render their fields. */ }
 				<Slot name="tec.classy.fields.tickets" />

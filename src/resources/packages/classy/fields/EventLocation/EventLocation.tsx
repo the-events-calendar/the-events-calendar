@@ -280,7 +280,7 @@ export default function EventLocation( props: FieldProps ) {
 					</div>
 				) }
 
-				{ isAdding && hasVenues && <span className="classy_section-separator"></span> }
+				{ isAdding && hasVenues && <span className="classy-section-separator"></span> }
 
 				{ currentVenueIds.length < venuesLimit && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
