@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
-import { IconNew, LabeledInput } from '@tec/common/classy/components';
+import { LabeledInput } from '@tec/common/classy/components';
 import { isValidUrl } from '@tec/common/classy/functions';
 import { OrganizerData } from '../../types/OrganizerData';
 import { decodeEntities } from '@wordpress/html-entities';
@@ -66,17 +66,6 @@ export default function OrganizerUpsert( props: {
 
 	return (
 		<div className="classy-root">
-			<header className="classy-modal__header classy-modal__header--organizer">
-				<IconNew />
-				<h4 className="classy-modal__header-title">
-					{ isUpdate
-						? _x( 'Update Organizer', 'Update organizer modal header title', 'the-events-calendar' )
-						: _x( 'New Organizer', 'Insert organizer modal header title', 'the-events-calendar' ) }
-				</h4>
-			</header>
-
-			<span className="classy-section-separator"></span>
-
 			<section className="classy-modal__content classy-modal__content--organizer classy-field__inputs classy-field__inputs--unboxed">
 				<LabeledInput label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }>
 					<InputControl
