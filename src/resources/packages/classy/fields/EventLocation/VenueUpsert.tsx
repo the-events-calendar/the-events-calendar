@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { __experimentalInputControl as InputControl, Button, CustomSelectControl } from '@wordpress/components';
-import { CenteredSpinner, IconNew, LabeledInput } from '@tec/common/classy/components';
+import { CenteredSpinner, LabeledInput } from '@tec/common/classy/components';
 import { isValidUrl } from '@tec/common/classy/functions';
 import { VenueData } from '../../types/VenueData';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
@@ -143,17 +143,6 @@ export default function VenueUpsert( props: {
 
 	return (
 		<div className="classy-root">
-			<header className="classy-modal__header classy-modal__header--venue">
-				<IconNew />
-				<h4 className="classy-modal__header-title">
-					{ isUpdate
-						? _x( 'Update Venue', 'Update venue modal header title', 'the-events-calendar' )
-						: _x( 'New Venue', 'Insert venue modal header title', 'the-events-calendar' ) }
-				</h4>
-			</header>
-
-			<span className="classy-section-separator"></span>
-
 			<section className="classy-modal__content classy-modal__content--venue classy-field__inputs classy-field__inputs--unboxed">
 				<LabeledInput label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }>
 					<InputControl
