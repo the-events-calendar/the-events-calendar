@@ -62,7 +62,6 @@ $num_events_label = sprintf(
 	aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
 	<?php tec_classes( $day_button_classes ); ?>
 	data-js="tribe-events-calendar-month-day-cell-mobile"
-	tabindex="-1"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">

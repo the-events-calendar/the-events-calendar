@@ -112,6 +112,9 @@ tribe.events.views.monthMobileEvents = {};
 
 		$header.addClass( obj.selectors.calendarDaySelectedClass.className() );
 		$content.addClass( obj.selectors.mobileEventsMobileDayShowClass.className() );
+
+		obj.focusPanel( $content );
+		obj.setupTabExit( $header, $content );
 	};
 
 	/**
@@ -125,7 +128,6 @@ tribe.events.views.monthMobileEvents = {};
 	 * @return {void}
 	 */
 	obj.closeMobileEvents = function ( $header, $content ) {
-		// only perform accordion actions if $header has aria-controls attribute.
 		const contentId = $header.attr( 'aria-controls' );
 		if ( contentId ) {
 			tribe.events.views.accordion.closeAccordion( $header, $content );
@@ -133,6 +135,9 @@ tribe.events.views.monthMobileEvents = {};
 
 		$header.removeClass( obj.selectors.calendarDaySelectedClass.className() );
 		$content.removeClass( obj.selectors.mobileEventsMobileDayShowClass.className() );
+
+		// Cleanup event listeners to avoid stacking
+		$content.find('*').off('keydown.tribeEvents');
 	};
 
 	/**
@@ -259,6 +264,82 @@ tribe.events.views.monthMobileEvents = {};
 		}
 
 		$mobileEvents.data( 'tribeEventsState', state );
+	};
+
+	/**
+	 * Focuses the mobile day content panel and scrolls it into view.
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $content jQuery object of the active mobile events container.
+	 *
+	 * @return {void}
+	 */
+	obj.focusPanel = function ( $content ) {
+		if ( ! $content.length ) {
+			return;
+		}
+
+		if ( ! $content.attr( 'tabindex' ) ) {
+			$content.attr( 'tabindex', '-1' );
+		}
+
+		requestAnimationFrame( function() {
+			try {
+				$content[0].focus({ preventScroll: true });
+			} catch ( e ) {
+				$content.trigger( 'focus' );
+			}
+
+			if ( $content[0] && $content[0].scrollIntoView ) {
+				$content[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+			}
+		});
+	};
+
+	/**
+	 * Focuses the next calendar day button in the grid.
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $header jQuery object for the current date button.
+	 *
+	 * @return {void}
+	 */
+	obj.focusNextDay = function ( $header ) {
+		const $allDays = $header.closest( obj.selectors.calendar ).find( obj.selectors.calendarDay );
+		const index = $allDays.index( $header );
+		const $next = $allDays.eq( index + 1 );
+
+		if ( $next.length ) {
+			$next.focus();
+		} else {
+			document.activeElement.blur();
+		}
+	};
+
+	/**
+	 * Ensures that when the user tabs past the last tabbable element in the event list,
+	 * focus returns to the next date in the calendar grid.
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $header  Current date button
+	 * @param {jQuery} $content Panel container
+	 *
+	 * @return {void}
+	 */
+	obj.setupTabExit = function ( $header, $content ) {
+		const tabbableSelectors = 'a, button, [tabindex]:not([tabindex="-1"])';
+		const $tabbables = $content.find( tabbableSelectors );
+		const $last = $tabbables.length ? $( $tabbables.get( $tabbables.length - 1 ) ) : $content;
+
+		$last.off( 'keydown.tribeEvents' ).on( 'keydown.tribeEvents', function ( e ) {
+			if ( e.key === 'Tab' && ! e.shiftKey ) {
+				e.preventDefault();
+				obj.focusNextDay( $header );
+			}
+		});
 	};
 
 	/**
