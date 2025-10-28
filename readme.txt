@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.15.10] 2025-10-28 =
+
+* Security - Improve authorization checks in QR codes. [SVUL-28]
+* Security - Improve `ORDER BY` clause validation. [SVUL-26]
+
 = [6.15.9] 2025-10-21 =
 
 * Fix - Alter logic so category colors CSS is ony enqueued on event archive pages. [TEC-5419]
