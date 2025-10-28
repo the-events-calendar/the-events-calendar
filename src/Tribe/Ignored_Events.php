@@ -568,7 +568,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Gets all ids for events that have been ignored.
 		 *
-		 * @param null|array $data Array of event IDs/objects/data to check.
+		 * @param null|array $args Array of event IDs/objects/data to check.
 		 *
 		 * @return WP_Query
 		 */
