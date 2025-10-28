@@ -182,16 +182,14 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			return Tribe__Admin__Notices::instance()->render( 'legacy-ignored-events', $html );
 		}
 
-		/**
-		 * Action to Restore Events on the Single Page
-		 *
-		 * @since TBD Moved check on action to earlier in the function to prevent warning from being logged.
-		 *
-		 * @param  WP_Screen $screen Which WP Screen we are currently in.
-		 *
-		 * @return void|Redirect
-		 */
-		public function action_restore_events() {
+	/**
+	 * Action to Restore Events on the Single Page
+	 *
+	 * @since TBD Moved check on action to earlier in the function to prevent warning from being logged.
+	 *
+	 * @return void|Redirect
+	 */
+	public function action_restore_events() {
 			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
