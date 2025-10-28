@@ -185,16 +185,18 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Action to Restore Events on the Single Page
 		 *
-		 * @param  WP_Screen $screen Which WP Screen we are currently in
+		 * @since TBD Moved check on action to earlier in the function to prevent warning from being logged.
+		 *
+		 * @param  WP_Screen $screen Which WP Screen we are currently in.
 		 *
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if ( ! wp_verify_nonce( tribe_get_request_var( '_wpnonce', '' ), 'restore-post_' . tribe_get_request_var( 'post', '' ) ) ) {
+			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
 
-			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
+			if ( ! wp_verify_nonce( tribe_get_request_var( '_wpnonce', '' ), 'restore-post_' . tribe_get_request_var( 'post', '' ) ) ) {
 				return;
 			}
 
