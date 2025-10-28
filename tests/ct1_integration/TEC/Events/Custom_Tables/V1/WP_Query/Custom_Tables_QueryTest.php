@@ -382,4 +382,152 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertCount( 1, $posts, "Should find our post with meta order by query." );
 		$this->assertContains( $post_id, $posts, "The first event created should be found due to order by query." );
 	}
+
+	/**
+	 * Data provider for SQL injection via search parameter tests.
+	 *
+	 * @return \Generator
+	 */
+	public function sql_injection_via_search_provider(): \Generator {
+		// CVE-2025-12197: Sleep PoC
+		yield 'SLEEP injection via rand()' => [
+			's' => 'a,rand()*(SELECT(0)FROM(SELECT(SLEEP(5)))a)#,a',
+			'malicious_pattern' => 'SLEEP',
+		];
+
+		// Additional SQL injection attempts via rand()
+		yield 'SELECT injection via rand()' => [
+			's' => 'a,rand()*(SELECT user_pass FROM wp_users)#,a',
+			'malicious_pattern' => 'user_pass',
+		];
+
+		yield 'UNION injection via rand()' => [
+			's' => 'a,rand() UNION SELECT NULL,NULL,NULL#,a',
+			'malicious_pattern' => 'UNION',
+		];
+
+		yield 'Complex payload with rand prefix' => [
+			's' => 'test,rand()*IF(1=1,SLEEP(5),0)#,test',
+			'malicious_pattern' => 'IF(1=1',
+		];
+
+		yield 'rand with nested SELECT' => [
+			's' => 'x,rand()+(SELECT 1 FROM(SELECT COUNT(*),CONCAT(0x3a,(SELECT version()),0x3a,FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a)#,x',
+			'malicious_pattern' => 'information_schema',
+		];
+	}
+
+	/**
+	 * Test that SQL injection via search parameter with rand() is prevented.
+	 *
+	 * This tests the fix for CVE-2025-12197 where attackers could inject SQL via the search parameter
+	 * by crafting payloads that start with 'rand' to bypass sanitization in redirect_posts_orderby.
+	 *
+	 * @test
+	 * @dataProvider sql_injection_via_search_provider
+	 */
+	public function should_prevent_sql_injection_via_search_rand_parameter( string $search, string $malicious_pattern ) {
+		// Create some test events
+		tribe_events()->set_args( [
+			'post_title'  => 'Test Event 1',
+			'post_status' => 'publish',
+			'start_date'  => 'tomorrow 10 am',
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create();
+
+		tribe_events()->set_args( [
+			'post_title'  => 'Test Event 2',
+			'post_status' => 'publish',
+			'start_date'  => 'tomorrow 2 pm',
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create();
+
+		global $wpdb;
+		$wpdb->last_error = '';
+
+		// Perform the query with the malicious search parameter
+		$query = new \WP_Query( [
+			'post_type'      => TEC::POSTTYPE,
+			'post_status'    => 'publish',
+			's'              => $search,
+			'posts_per_page' => 10,
+		] );
+
+		$request = $query->request;
+
+		// Assert no database errors occurred (no SQL syntax errors from injection)
+		$this->assertEmpty( $wpdb->last_error, 'SQL injection attempt should not cause database errors' );
+
+		// Assert the malicious payload is not present in the SQL query
+		$this->assertStringNotContainsStringIgnoringCase(
+			$malicious_pattern,
+			$request,
+			'Malicious SQL pattern should not appear in the query'
+		);
+
+		// Assert that if rand is present, it's only the safe RAND() function
+		if ( stripos( $request, 'rand' ) !== false ) {
+			// Check that any occurrence of 'rand' is followed by '()' only
+			$this->assertMatchesRegularExpression(
+				'/rand\s*\(\s*\)/i',
+				$request,
+				'Only RAND() function should be allowed in ORDER BY'
+			);
+
+			// Ensure no additional SQL follows RAND()
+			$this->assertDoesNotMatchRegularExpression(
+				'/rand\s*\([^)]*[^)]+\)/i',
+				$request,
+				'RAND() should not have any parameters or additional SQL'
+			);
+		}
+	}
+
+	/**
+	 * Test that legitimate RAND() orderby still works after the fix.
+	 *
+	 * @test
+	 */
+	public function should_allow_legitimate_rand_orderby() {
+		// Create test events
+		tribe_events()->set_args( [
+			'post_title'  => 'Random Event 1',
+			'post_status' => 'publish',
+			'start_date'  => 'tomorrow 10 am',
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create();
+
+		tribe_events()->set_args( [
+			'post_title'  => 'Random Event 2',
+			'post_status' => 'publish',
+			'start_date'  => 'tomorrow 2 pm',
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create();
+
+		global $wpdb;
+		$wpdb->last_error = '';
+
+		// Test with legitimate rand orderby
+		$query = new \WP_Query( [
+			'post_type'      => TEC::POSTTYPE,
+			'post_status'    => 'publish',
+			'orderby'        => 'rand',
+			'posts_per_page' => 10,
+		] );
+
+		$request = $query->request;
+
+		// Assert no errors
+		$this->assertEmpty( $wpdb->last_error, 'Legitimate RAND() orderby should not cause errors' );
+
+		// Assert RAND() is present in the query
+		$this->assertStringContainsStringIgnoringCase(
+			'RAND()',
+			$request,
+			'Legitimate RAND() should be present in ORDER BY'
+		);
+
+		// Assert we got results
+		$this->assertGreaterThan( 0, $query->found_posts, 'Query should return results' );
+	}
 }

@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Improve authorization checks in QR codes. [SVUL-28]

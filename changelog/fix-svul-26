@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Improve `ORDER BY` clause validation. [SVUL-26]
