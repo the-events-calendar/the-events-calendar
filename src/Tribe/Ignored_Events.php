@@ -201,7 +201,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
+			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== sanitize_text_field( $_GET['action'] ) ) {
 				return;
 			}
 
@@ -209,7 +209,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return;
 			}
 
-			$event = get_post( absint( $_GET['post'] ) );
+			$event = get_post( absint( tribe_get_request_var( 'post', '' ) ) );
 
 			if ( ! $event instanceof WP_Post ) {
 				return;
