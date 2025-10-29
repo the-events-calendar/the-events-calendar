@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Remove the presentational role from the Month View table. [TEC-5719]

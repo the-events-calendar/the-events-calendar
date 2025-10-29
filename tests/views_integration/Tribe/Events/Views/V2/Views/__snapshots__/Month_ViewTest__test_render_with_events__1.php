@@ -380,7 +380,6 @@
 			class="tribe-events-calendar-month"
 			data-js="tribe-events-month-grid"
 			aria-readonly="true"
-			role="presentation"
 		>
 
 			<thead class="tribe-events-calendar-month__header">
