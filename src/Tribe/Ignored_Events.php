@@ -201,7 +201,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== sanitize_text_field( $_GET['action'] ) ) {
+			if ( 'tribe-restore' !== tribe_get_request_var( 'action', '' ) ) {
 				return;
 			}
 
