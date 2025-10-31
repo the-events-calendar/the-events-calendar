@@ -7,9 +7,9 @@
  *
  * @version TBD
  *
- * @since   4.6.19
- * @since   6.15.3 Added post password protection.
- * @since   TBD Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
+ * @since 4.6.19
+ * @since 6.15.3 Added post password protection.
+ * @since TBD Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
  *
  * @package TribeEventsCalendar
  */
@@ -46,7 +46,7 @@ $website_title = tribe_events_get_organizer_website_title();
 				?>
 				<li class="tribe-events-meta-item">
 					<span class="tribe-organizer-tel-label tribe-events-meta-label">
-						<?php esc_html_e( 'Phone', 'the-events-calendar' ) ?>
+						<?php esc_html_e( 'Phone', 'the-events-calendar' ); ?>
 					</span>
 					<span class="tribe-organizer-tel tribe-events-meta-value">
 						<?php echo esc_html( $phone ); ?>
@@ -59,7 +59,7 @@ $website_title = tribe_events_get_organizer_website_title();
 				?>
 				<li class="tribe-events-meta-item">
 					<span class="tribe-organizer-email-label tribe-events-meta-label">
-						<?php esc_html_e( 'Email', 'the-events-calendar' ) ?>
+						<?php esc_html_e( 'Email', 'the-events-calendar' ); ?>
 					</span>
 					<span class="tribe-organizer-email tribe-events-meta-value">
 						<?php echo esc_html( $email ); ?>
@@ -71,13 +71,13 @@ $website_title = tribe_events_get_organizer_website_title();
 			if ( ! empty( $website ) ) {
 				?>
 				<li class="tribe-events-meta-item">
-					<?php if ( ! empty( $website_title ) ): ?>
+					<?php if ( ! empty( $website_title ) ) : ?>
 						<span class="tribe-organizer-url-label tribe-events-meta-label">
-							<?php echo esc_html( $website_title ) ?>
+							<?php echo esc_html( $website_title ); ?>
 						</span>
 					<?php endif; ?>
 					<span class="tribe-organizer-url tribe-events-meta-value">
-						<?php echo $website; ?>
+						<?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 					</span>
 				</li>
 				<?php

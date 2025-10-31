@@ -7,9 +7,9 @@
  *
  * @version TBD
  *
- * @since   4.6.19
- * @since   6.15.3 Added post password protection.
- * @since   TBD Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
+ * @since 4.6.19
+ * @since 6.15.3 Added post password protection.
+ * @since TBD Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
  *
  * @package TribeEventsCalendar
  */
@@ -45,17 +45,17 @@ $website_title = tribe_events_get_venue_website_title();
 
 			<?php if ( ! empty( $phone ) ): ?>
 				<li class="tribe-events-meta-item">
-					<span class="tribe-venue-tel-label tribe-events-meta-label"><?php esc_html_e( 'Phone', 'the-events-calendar' ) ?></span>
-					<span class="tribe-venue-tel tribe-events-meta-value"> <?php echo $phone ?> </span>
+					<span class="tribe-venue-tel-label tribe-events-meta-label"><?php esc_html_e( 'Phone', 'the-events-calendar' ); ?></span>
+					<span class="tribe-venue-tel tribe-events-meta-value"> <?php echo $phone; ?> </span>
 				</li>
 			<?php endif ?>
 
-			<?php if ( ! empty( $website ) ): ?>
+			<?php if ( ! empty( $website ) ) : ?>
 				<li class="tribe-events-meta-item">
 					<?php if ( ! empty( $website_title ) ): ?>
-						<span class="tribe-venue-url-label tribe-events-meta-label"><?php echo esc_html( $website_title ) ?></span>
-					<?php endif ?>
-					<span class="tribe-venue-url tribe-events-meta-value"> <?php echo $website ?> </span>
+						<span class="tribe-venue-url-label tribe-events-meta-label"><?php echo esc_html( $website_title ); ?></span>
+					<?php endif; ?>
+					<span class="tribe-venue-url tribe-events-meta-value"> <?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?> </span>
 				</li>
 			<?php endif ?>
 		<?php endif; ?>

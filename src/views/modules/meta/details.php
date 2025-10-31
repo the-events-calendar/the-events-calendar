@@ -9,8 +9,8 @@
  *
  * @version TBD
  *
- * @since   4.6.19
- * @since   TBD Replaced definition list markup with unordered list for improved accessibility.
+ * @since 4.6.19
+ * @since TBD Replaced definition list markup with unordered list for improved accessibility.
  *
  * @package TribeEventsCalendar
  */
@@ -139,7 +139,7 @@ $website_title = tribe_events_get_event_website_title();
 				<span class="tribe-events-start-time-label tribe-events-meta-label"><?php echo esc_html( $time_title ); ?></span>
 				<span class="tribe-events-meta-value">
 					<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
-						<?php echo $time_formatted; ?>
+						<?php echo $time_formatted; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 						<?php if ( $show_time_zone ) : ?>
 							<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
 						<?php endif; ?>
@@ -200,10 +200,10 @@ $website_title = tribe_events_get_event_website_title();
 		// Event Website
 		if ( ! empty( $website ) ) : ?>
 			<li class="tribe-events-meta-item">
-				<?php if ( ! empty( $website_title ) ): ?>
+				<?php if ( ! empty( $website_title ) ) : ?>
 					<span class="tribe-events-event-url-label tribe-events-meta-label"><?php echo esc_html( $website_title ); ?></span>
 				<?php endif; ?>
-				<span class="tribe-events-event-url tribe-events-meta-value"> <?php echo $website; ?> </span>
+				<span class="tribe-events-event-url tribe-events-meta-value"> <?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?> </span>
 			</li>
 		<?php endif ?>
 
