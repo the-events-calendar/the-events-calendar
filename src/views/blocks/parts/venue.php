@@ -9,8 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.2.0
+ * @version TBD
+ *
  * @since 6.2.0 Be specific about which venue to render.
+ * @since TBD Added proper escaping for phone output.
  *
  * @var bool $show_map_link Whether to show the map link or not.
  * @var ?int $venue_id The ID of the venue to display.
@@ -45,12 +47,12 @@ $website = tribe_get_venue_website_link( $venue_id );
 		<?php endif; ?>
 
 		<?php if ( ! empty( $phone ) ) : ?>
-			<span class="tribe-block__venue__phone"><?php echo $phone ?></span><br />
-		<?php endif ?>
+			<span class="tribe-block__venue__phone"><?php echo esc_html( $phone ); ?></span><br />
+		<?php endif; ?>
 
 		<?php if ( ! empty( $website ) ) : ?>
-			<span class="tribe-block__venue__website"><?php echo $website ?></span><br />
-		<?php endif ?>
+			<span class="tribe-block__venue__website"><?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?></span><br />
+		<?php endif; ?>
 	<?php endif; ?>
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_end' ) ?>
