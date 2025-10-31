@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Add JavaScript logic to move keyboard focus to expanded date content and announce event counts for screen reader users in month view mobile calendar [TEC-5231]
