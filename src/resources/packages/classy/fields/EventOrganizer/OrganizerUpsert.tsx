@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
-import { LabeledInput } from '@tec/common/classy/components';
 import { isValidUrl } from '@tec/common/classy/functions';
 import { OrganizerData } from '../../types/OrganizerData';
 import { decodeEntities } from '@wordpress/html-entities';
@@ -67,78 +66,66 @@ export default function OrganizerUpsert( props: {
 	return (
 		<div className="classy-root">
 			<section className="classy-modal__content classy-modal__content--organizer classy-field__inputs classy-field__inputs--unboxed">
-				<LabeledInput label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.name ) }
-						onChange={ ( value ) => {
-							const newValue = value || '';
-							setConfirmEnabled( newValue.trim() !== '' );
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.name ) }
+					onChange={ ( value ) => {
+						const newValue = value || '';
+						setConfirmEnabled( newValue.trim() !== '' );
 
-							return setValues( {
-								...currentValues,
-								name: newValue,
-							} );
-						} }
-						required
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+						return setValues( {
+							...currentValues,
+							name: newValue,
+						} );
+					} }
+					required
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.phone ) }
-						onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
-						type="tel"
-						placeholder=""
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.phone ) }
+					onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
+					type="tel"
+					placeholder=""
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
-					<InputControl
-						className={ `classy-field__control classy-field__control--input${
-							! hasValidUrl ? ' classy-field__control--invalid' : ''
-						}` }
-						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.website ) }
-						onChange={ onWebsiteChange }
-						type="url"
-						placeholder=""
-						__next40pxDefaultSize
-					/>
-					{ ! hasValidUrl && (
-						<div className="classy-field__input-note classy-field__input-note--error">
-							{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
-						</div>
-					) }
-				</LabeledInput>
-
-				<LabeledInput label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.email ) }
-						onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
-						type="email"
-						placeholder=""
-						__next40pxDefaultSize
-					/>
-					<div className="classy-field__input-note">
-						{ _x(
-							'The email address will be obfuscated on this site to avoid being harvested by spammers.',
-							'Email input obfuscation note',
-							'the-events-calendar'
-						) }
+				<InputControl
+					className={ `classy-field__control classy-field__control--input${
+						! hasValidUrl ? ' classy-field__control--invalid' : ''
+					}` }
+					label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.website ) }
+					onChange={ onWebsiteChange }
+					type="url"
+					placeholder=""
+					__next40pxDefaultSize
+				/>
+				{ ! hasValidUrl && (
+					<div className="classy-field__input-note classy-field__input-note--error">
+						{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
 					</div>
-				</LabeledInput>
+				) }
+
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.email ) }
+					onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
+					type="email"
+					placeholder=""
+					__next40pxDefaultSize
+				/>
+				<div className="classy-field__input-note">
+					{ _x(
+						'The email address will be obfuscated on this site to avoid being harvested by spammers.',
+						'Email input obfuscation note',
+						'the-events-calendar'
+					) }
+				</div>
 			</section>
 
 			<footer className="classy-modal__footer classy-modal__footer--organizer">

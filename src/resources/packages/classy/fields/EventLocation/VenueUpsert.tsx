@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { __experimentalInputControl as InputControl, Button, CustomSelectControl } from '@wordpress/components';
-import { CenteredSpinner, LabeledInput } from '@tec/common/classy/components';
+import { CenteredSpinner } from '@tec/common/classy/components';
 import { isValidUrl } from '@tec/common/classy/functions';
 import { VenueData } from '../../types/VenueData';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
@@ -144,138 +144,105 @@ export default function VenueUpsert( props: {
 	return (
 		<div className="classy-root">
 			<section className="classy-modal__content classy-modal__content--venue classy-field__inputs classy-field__inputs--unboxed">
-				<LabeledInput label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.name ) }
-						onChange={ ( value ) => {
-							const newValue = value || '';
-							setConfirmEnabled( newValue.trim() !== '' );
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.name ) }
+					onChange={ ( value ) => {
+						const newValue = value || '';
+						setConfirmEnabled( newValue.trim() !== '' );
 
-							return setCurrentValues( {
-								...currentValues,
-								name: newValue,
-							} );
-						} }
-						required
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+						return setCurrentValues( {
+							...currentValues,
+							name: newValue,
+						} );
+					} }
+					required
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.address ) }
-						onChange={ ( value ) => setCurrentValues( { ...currentValues, address: value || '' } ) }
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.address ) }
+					onChange={ ( value ) => setCurrentValues( { ...currentValues, address: value || '' } ) }
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.city ) }
-						onChange={ ( value ) => setCurrentValues( { ...currentValues, city: value || '' } ) }
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.city ) }
+					onChange={ ( value ) => setCurrentValues( { ...currentValues, city: value || '' } ) }
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }>
-					<CustomSelectControl
-						__next40pxDefaultSize
-						hideLabelFromVision={ true }
-						className="classy-field__control classy-field__control--select"
-						label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }
-						onChange={ onCountryChange }
-						options={ countryOptions }
-						value={ countryOption }
-					/>
-				</LabeledInput>
+				<CustomSelectControl
+					__next40pxDefaultSize
+					className="classy-field__control classy-field__control--select"
+					label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }
+					onChange={ onCountryChange }
+					options={ countryOptions }
+					value={ countryOption }
+				/>
 
 				{ isUnitedStates ? (
-					<LabeledInput label={ _x( 'State', 'United Stateslic state input label', 'the-events-calendar' ) }>
-						<CustomSelectControl
-							__next40pxDefaultSize
-							className="classy-field__control classy-field__control--select"
-							label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }
-							hideLabelFromVision={ true }
-							value={ usStateOption }
-							onChange={ onUsStateChange }
-							options={ usStatesOptions }
-						/>
-					</LabeledInput>
+					<CustomSelectControl
+						__next40pxDefaultSize
+						className="classy-field__control classy-field__control--select"
+						label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }
+						value={ usStateOption }
+						onChange={ onUsStateChange }
+						options={ usStatesOptions }
+					/>
 				) : (
-					<LabeledInput
+					<InputControl
+						className="classy-field__control classy-field__control--input"
 						label={ _x(
 							'State or Province',
 							'State input label; used if the country is not the US',
 							'the-events-calendar'
 						) }
-					>
-						<InputControl
-							className="classy-field__control classy-field__control--input"
-							label={ _x(
-								'State or Province',
-								'State input label; used if the country is not the US',
-								'the-events-calendar'
-							) }
-							hideLabelFromVision={ true }
-							value={ decodeEntities( currentValues.stateprovince ) }
-							onChange={ ( newValue ) => {
-								setCurrentValues( { ...currentValues, stateprovince: newValue } );
-							} }
-							__next40pxDefaultSize
-						/>
-					</LabeledInput>
+						value={ decodeEntities( currentValues.stateprovince ) }
+						onChange={ ( newValue ) => {
+							setCurrentValues( { ...currentValues, stateprovince: newValue } );
+						} }
+						__next40pxDefaultSize
+					/>
 				) }
 
-				<LabeledInput label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.zip ) }
-						onChange={ ( value ) => setCurrentValues( { ...currentValues, zip: value || '' } ) }
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.zip ) }
+					onChange={ ( value ) => setCurrentValues( { ...currentValues, zip: value || '' } ) }
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }>
-					<InputControl
-						className="classy-field__control classy-field__control--input"
-						label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.phone ) }
-						onChange={ ( value ) => setCurrentValues( { ...currentValues, phone: value || '' } ) }
-						type="tel"
-						__next40pxDefaultSize
-					/>
-				</LabeledInput>
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.phone ) }
+					onChange={ ( value ) => setCurrentValues( { ...currentValues, phone: value || '' } ) }
+					type="tel"
+					__next40pxDefaultSize
+				/>
 
-				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
-					<InputControl
-						className={ `classy-field__control classy-field__control--input${
-							! hasValidUrl ? ' classy-field__control--invalid' : ''
-						}` }
-						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
-						hideLabelFromVision={ true }
-						value={ decodeEntities( currentValues.website ) }
-						onChange={ onWebsiteChange }
-						type="url"
-						__next40pxDefaultSize
-					/>
-					{ ! hasValidUrl && (
-						<div className="classy-field__input-note classy-field__input-note--error">
-							{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
-						</div>
-					) }
-				</LabeledInput>
+				<InputControl
+					className={ `classy-field__control classy-field__control--input${
+						! hasValidUrl ? ' classy-field__control--invalid' : ''
+					}` }
+					label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
+					value={ decodeEntities( currentValues.website ) }
+					onChange={ onWebsiteChange }
+					type="url"
+					__next40pxDefaultSize
+				/>
+				{ ! hasValidUrl && (
+					<div className="classy-field__input-note classy-field__input-note--error">
+						{ _x( 'Must be a valid URL', 'Website input error message', 'the-events-calendar' ) }
+					</div>
+				) }
 			</section>
 
 			<footer className="classy-modal__footer classy-modal__footer--venue">
