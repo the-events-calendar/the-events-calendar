@@ -62,7 +62,6 @@ if ( empty( $disable_event_search ) ) {
 		<table
 			class="tribe-events-calendar-month"
 			data-js="tribe-events-month-grid"
-			aria-readonly="true"
 		>
 
 			<?php $this->template( 'month/calendar-header' ); ?>
