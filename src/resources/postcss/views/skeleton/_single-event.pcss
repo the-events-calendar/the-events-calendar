@@ -274,6 +274,26 @@
 		margin-top: 0;
 	}
 
+	/* Equivalent spacing for new list-based structure. */
+	.tribe-events-meta-list {
+		margin-top: var(--tec-spacer-1);
+	}
+
+	.tribe-events-meta-label,
+	.tribe-events-meta-value {
+		margin: 0 0 var(--tec-spacer-0) 0;
+		padding: 0;
+	}
+
+	.tribe-events-meta-label:not(:first-child),
+	.tribe-events-meta-value[class$="url"] {
+		margin-top: var(--tec-spacer-3);
+	}
+
+	.tribe-events-meta-label[class*="url"] + .tribe-events-meta-value {
+		margin-top: 0;
+	}
+
 	.tribe-events-address {
 		margin: 0;
 	}
@@ -371,6 +391,17 @@
 
 	.tribe-events-single-section-title {
 		margin-bottom: var(--tec-spacer-1);
+	}
+
+	/* Styles for new list-based meta structure. */
+	.tribe-events-meta-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.tribe-events-meta-item {
+		list-style: none;
 	}
 }
 
