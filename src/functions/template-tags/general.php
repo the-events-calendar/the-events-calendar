@@ -1048,13 +1048,49 @@ function tribe_events_admin_show_cost_field() {
  * @category Cost
  */
 function tribe_get_cost( $post_id = null, $with_currency_symbol = false ) {
-	$tribe_ecp = Tribe__Events__Main::instance();
+	/**
+	 * Filters the event cost before it is returned.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $cost                 The event cost.
+	 * @param int|null    $post_id              The event post ID.
+	 * @param bool        $with_currency_symbol Whether to include the currency symbol.
+	 */
+	$pre_cost = apply_filters( 'tec_events_pre_get_cost', null, $post_id, $with_currency_symbol );
+	if ( null !== $pre_cost ) {
+		return $pre_cost;
+	}
+
 	$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
 
 	$cost_utils = tribe( 'tec.cost-utils' );
 	$cost       = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
 
-	return apply_filters( 'tribe_get_cost', $cost, $post_id, $with_currency_symbol );
+	/**
+	 * Filters the event cost before it is returned.
+	 *
+	 * @since 3.0.0
+	 * @deprecated TBD Use `tec_events_get_cost` instead.
+	 *
+	 * @param string|null $cost                 The event cost.
+	 * @param int|null    $post_id              The event post ID.
+	 * @param bool        $with_currency_symbol Whether to include the currency symbol.
+	 */
+	$cost = apply_filters( 'tribe_get_cost', $cost, $post_id, $with_currency_symbol );
+
+	/**
+	 * Filters the event cost before it is returned.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $cost                 The event cost.
+	 * @param int|null    $post_id              The event post ID.
+	 * @param bool        $with_currency_symbol Whether to include the currency symbol.
+	 */
+	$cost = apply_filters( 'tec_events_get_cost', $cost, $post_id, $with_currency_symbol );
+
+	return $cost;
 }
 
 /**

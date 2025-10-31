@@ -1,0 +1,4 @@
+Significance: patch
+Type: performance
+
+Implement cost caching filters in The Events Calendar to work with Event Tickets caching system. [ETP-1021]
