@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Improve screen reader accessibility for weekday headers in month view calendar. [TEC-5719]
