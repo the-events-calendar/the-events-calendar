@@ -1,8 +1,8 @@
-<?php return '<li class="tribe-events-c-top-bar__nav-list-item">
+<?php return '
+<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next month"
-		title="Next month"
+		aria-label="Next month&#039;s Events"
 		disabled
 	>
 		<svg

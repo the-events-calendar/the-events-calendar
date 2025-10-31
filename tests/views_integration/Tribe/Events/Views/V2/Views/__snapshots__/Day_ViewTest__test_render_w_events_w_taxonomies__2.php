@@ -300,8 +300,7 @@
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous day"
-		title="Previous day"
+		aria-label="Previous day&#039;s Events"
 		disabled
 	>
 		<svg
@@ -318,8 +317,7 @@
 	<a
 		href="http://test.tri.be/events/tag/tag-1/day/2019-01-02/"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next day"
-		title="Next day"
+		aria-label="Next day&#039;s Events"
 		data-js="tribe-events-view-link"
 		rel="noindex"
 	>
@@ -622,11 +620,11 @@
 
 		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
 	<ul class="tribe-events-c-nav__list">
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
+		
+<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="Previous Day"
-		title="Previous Day"
+		aria-label="Previous day&#039;s Events"
 		disabled
 	>
 		<svg
@@ -639,14 +637,14 @@
 		Previous Day	</button>
 </li>
 
-		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
+		
+<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<a
 		href="http://test.tri.be/events/tag/tag-1/day/2019-01-02/"
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-		aria-label="Next Day"
-		title="Next Day"
+		aria-label="Next day&#039;s Events"
 		rel="noindex"
 	>
 		Next Day		<svg

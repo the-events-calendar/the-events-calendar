@@ -10,14 +10,18 @@
  * @link http://evnt.is/1aiy
  *
  * @version 5.3.0
- *
  */
+
+$events_label_plural = tribe_get_event_label_plural();
+
+// Translators: %s: Events label plural.
+$previous_month_label = sprintf( __( 'Previous month\'s %s', 'the-events-calendar' ), $events_label_plural );
 ?>
+
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Previous month', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $previous_month_label ); ?>"
 		disabled
 	>
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
