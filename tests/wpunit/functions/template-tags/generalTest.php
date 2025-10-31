@@ -365,7 +365,7 @@ HTML;
 		$this->assertEquals( '', tribe_meta_event_archive_tags( null, null, false ) );
 	}
 
-	public function test_tribe_meta_event_archive_tags_with_bad_terms():void{
+	public function test_tribe_meta_event_archive_tags_with_bad_terms(): void {
 		$good_term = static::factory()->term->create_and_get( [
 			'name'     => 'Test Cat',
 			'taxonomy' => TEC::TAXONOMY,
@@ -388,9 +388,8 @@ HTML;
 			'status'     => 'publish',
 		] )->create()->ID;
 
-		$expected = '<dt class="tribe-event-tags-label">Tags:</dt><dd class="tribe-event-tags">' .
-		            '<a href="http://wordpress.test/events/tag/(%5B/%5D+)/" rel="tag">Test Cat</a>' .
-		            '</dd>';
-		$this->assertEquals( $expected, tribe_meta_event_archive_tags( null, null, false ) );
+		$html = tribe_meta_event_archive_tags( null, null, false );
+
+		$this->assertMatchesSnapshot( $html );
 	}
 }
