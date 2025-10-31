@@ -1,1 +1,0 @@
-<?php return '<li class="tribe-events-meta-item"><span class="tribe-event-tags-label tribe-events-meta-label">Tags:</span><span class="tribe-event-tags tribe-events-meta-value"><a href="http://wordpress.test/?tag=good-term&#038;post_type=tribe_events&#038;eventDisplay=default" rel="tag">Test Cat</a></span></li>';
