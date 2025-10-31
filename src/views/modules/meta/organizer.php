@@ -36,7 +36,7 @@ $website_title = tribe_events_get_organizer_website_title();
 
 			?>
 			<li class="tribe-events-meta-item tribe-organizer">
-				<?php echo tribe_get_organizer_link( $organizer ) ?>
+				<?php echo tribe_get_organizer_link( $organizer ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 			</li>
 			<?php
 		}

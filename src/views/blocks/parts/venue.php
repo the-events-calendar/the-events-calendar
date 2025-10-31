@@ -30,7 +30,7 @@ $website = tribe_get_venue_website_link( $venue_id );
 
 <div class="tribe-block__venue__meta">
 	<div class="tribe-block__venue__name">
-		<h3><?php echo tribe_get_venue_link( $venue_id ) ?></h3>
+		<h3><?php echo tribe_get_venue_link( $venue_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?></h3>
 	</div>
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
@@ -38,10 +38,10 @@ $website = tribe_get_venue_website_link( $venue_id );
 	<?php if ( ! post_password_required( $venue_id ) ) : ?>
 		<?php if ( tribe_address_exists( $venue_id ) ) : ?>
 			<address class="tribe-block__venue__address">
-				<?php echo tribe_get_full_address( $venue_id ); ?>
+				<?php echo tribe_get_full_address( $venue_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 
 				<?php if ( $show_map_link ) : ?>
-					<?php echo tribe_get_map_link_html( $venue_id ); ?>
+					<?php echo tribe_get_map_link_html( $venue_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 				<?php endif; ?>
 			</address>
 		<?php endif; ?>

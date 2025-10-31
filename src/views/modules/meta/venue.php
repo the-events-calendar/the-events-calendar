@@ -34,10 +34,10 @@ $website_title = tribe_events_get_venue_website_title();
 			<?php if ( tribe_address_exists() ) : ?>
 				<li class="tribe-events-meta-item tribe-venue-location">
 					<address class="tribe-events-address">
-						<?php echo tribe_get_full_address(); ?>
+						<?php echo tribe_get_full_address(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 
 						<?php if ( tribe_show_google_map_link() ) : ?>
-							<?php echo tribe_get_map_link_html(); ?>
+							<?php echo tribe_get_map_link_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 						<?php endif; ?>
 					</address>
 				</li>

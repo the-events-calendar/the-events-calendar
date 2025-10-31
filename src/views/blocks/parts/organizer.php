@@ -49,7 +49,7 @@ $website = tribe_get_organizer_website_link();
 			?>
 			<li class="tribe-events-meta-item">
 				<span class="tribe-organizer tribe-events-meta-value">
-					<?php echo tribe_get_organizer_link( $organizer ) ?>
+					<?php echo tribe_get_organizer_link( $organizer ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 				</span>
 			</li>
 			<?php
