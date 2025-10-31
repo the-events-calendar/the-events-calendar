@@ -1,7 +1,7 @@
 import { addQueryArgs } from '@wordpress/url';
 import { FetchedVenue } from '../types/FetchedVenue';
 import { VenueData } from '../types/VenueData';
-import { getTecApiUrl } from '@tec/common/classy/api';
+import { getTecApiUrl } from '@tec/common/tecApi';
 import { PostStatus } from '@tec/common/classy/types/Api';
 import apiFetch from '@wordpress/api-fetch';
 

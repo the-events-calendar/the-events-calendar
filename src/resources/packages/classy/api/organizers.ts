@@ -1,7 +1,7 @@
 import { addQueryArgs } from '@wordpress/url';
 import { FetchedOrganizer } from '../types/FetchedOrganizer';
 import { OrganizerData } from '../types/OrganizerData';
-import { getTecApiUrl } from '@tec/common/classy/api';
+import { getTecApiUrl } from '@tec/common/tecApi';
 import { PostStatus } from '@tec/common/classy/types/Api';
 import apiFetch from '@wordpress/api-fetch';
 
