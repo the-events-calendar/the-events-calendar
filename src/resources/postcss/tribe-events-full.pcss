@@ -1133,6 +1133,31 @@ select.tribe-events-dropdown {
 				margin: 0 0 10px 0;
 				padding: 0;
 			}
+
+			/* Styles for new list-based meta structure. */
+			.tribe-events-meta-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.tribe-events-meta-item {
+				list-style: none;
+				margin: 0 0 10px 0;
+				padding: 0;
+			}
+
+			.tribe-events-meta-label {
+				clear: left;
+				display: block;
+				font-weight: 700;
+				line-height: 1;
+			}
+
+			.tribe-events-meta-value {
+				display: block;
+				line-height: 1.5;
+			}
 		}
 	}
 }
@@ -2494,6 +2519,11 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 			border: 0 none;
 
 			dt {
+				font-family: var(--tec-twentynineteen-font--heading);
+			}
+
+			/* Equivalent style for new list-based meta structure. */
+			.tribe-events-meta-label {
 				font-family: var(--tec-twentynineteen-font--heading);
 			}
 
