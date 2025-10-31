@@ -5,9 +5,8 @@
  *
  * @type {PlainObject}
  */
-window.tribe = window.tribe || {};
-window.tribe.events = window.tribe.events || {};
-window.tribe.events.admin = window.tribe.events.admin || {};
+tribe.events = tribe.events || {};
+tribe.events.admin = tribe.events.admin || {};
 
 /**
  * Configures admin manager Object in the Global Tribe variable
@@ -16,7 +15,7 @@ window.tribe.events.admin = window.tribe.events.admin || {};
  *
  * @type {PlainObject}
  */
-window.tribe.events.admin.noticeInstall = {};
+tribe.events.admin.noticeInstall = {};
 
 /**
  * Initializes in a Strict env the code that manages the Events admin notice.
@@ -66,4 +65,4 @@ window.tribe.events.admin.noticeInstall = {};
 
 	// Configure on document ready.
 	$document.ready( obj.ready );
-} )( jQuery, window.underscore || window._, window.tribe.events.admin.noticeInstall );
+} )( jQuery, window.underscore || window._, tribe.events.admin.noticeInstall );
