@@ -66,7 +66,6 @@ class Ical extends Abstract_Query_Var {
 	 * @return int|null `1` when truthy, `null` when not.
 	 */
 	public function filter_query_var( $value, array $query_vars ) {
-		// Handle valueless params first (like ?ical).
 		$value = parent::filter_query_var( $value, $query_vars );
 
 		if ( is_array( $value ) ) {
@@ -75,18 +74,4 @@ class Ical extends Abstract_Query_Var {
 
 		return tribe_is_truthy( $value ) ? 1 : null;
 	}
-
-	/**
-	 * Example of flexible superglobal filtering.
-	 *
-	 * Uncomment to only filter $_GET superglobal using flexible format.
-	 * Supported formats: "get", "GET", "_GET", "_get" all resolve to "_GET".
-	 *
-	 * @since TBD
-	 *
-	 * @return bool|string
-	 */
-	// public function filter_superglobal_allowed() {
-	//     return 'get'; // Only filter $_GET, using flexible format.
-	// }
 }
