@@ -20,7 +20,6 @@ use TEC\Events\Request\Ical;
  * @package TEC\Events\Request
  */
 class Controller extends Controller_Contract {
-
 	/**
 	 * The action registration action for the events request controller.
 	 *
@@ -29,6 +28,7 @@ class Controller extends Controller_Contract {
 	 * @var string
 	 */
 	public static string $registration_action = 'tec_events_request_controller_registered';
+
 	/**
 	 * Register the controller.
 	 *
