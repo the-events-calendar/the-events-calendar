@@ -211,9 +211,17 @@ class QR_Code {
 	 * @return void
 	 */
 	public function render_modal(): void {
+		// Verify nonce for CSRF protection.
+		check_ajax_referer( 'tec_qr_code_modal', '_wpnonce' );
+
 		$post = get_post( tec_get_request_var( 'post_id' ) );
 		if ( ! $post ) {
 			wp_die( esc_html__( 'No post found.', 'the-events-calendar' ) );
+		}
+
+		// Verify user has permission to edit this post.
+		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
+			wp_die( esc_html__( 'You do not have permission to access this content.', 'the-events-calendar' ), 403 );
 		}
 
 		$allowed_types = [ TEC::POSTTYPE ];

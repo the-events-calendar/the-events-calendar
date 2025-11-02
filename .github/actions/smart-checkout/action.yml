@@ -1,0 +1,48 @@
+name: 'Smart Checkout'
+description: 'Checks out a repository using a fallback branch strategy (PR -> base -> default).'
+
+inputs:
+  other_repo:
+    description: 'The other repository to check out (e.g., owner/repo)'
+    required: true
+  path:
+    description: 'The local path to check the repo out to'
+    required: true
+  token:
+    description: 'GitHub token for authentication'
+    required: true
+    default: ${{ github.token }}
+
+outputs:
+  checked_out_ref:
+    description: "The actual ref (branch or commit) that was checked out"
+    value: ${{ steps.checkout_step.outputs.ref }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Determine Branch to Checkout
+      id: determine_ref
+      shell: bash
+      run: |
+        PR_BRANCH="${{ github.head_ref }}"
+        BASE_BRANCH="${{ github.base_ref }}"
+        REPO="https://x-access-token:${{ inputs.token }}@github.com/${{ inputs.other_repo }}.git"
+
+        if [[ -n "$PR_BRANCH" ]] && git ls-remote --exit-code --heads "$REPO" "$PR_BRANCH"; then
+          echo "ref_to_use=$PR_BRANCH" >> "$GITHUB_OUTPUT"
+        elif [[ -n "$BASE_BRANCH" ]] && git ls-remote --exit-code --heads "$REPO" "$BASE_BRANCH"; then
+          echo "ref_to_use=$BASE_BRANCH" >> "$GITHUB_OUTPUT"
+        else
+          echo "ref_to_use=" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Checkout Other Repo
+      id: checkout_step
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.other_repo }}
+        path: ${{ inputs.path }}
+        ref: ${{ steps.determine_ref.outputs.ref_to_use }}
+        token: ${{ inputs.token }}
+        submodules: 'recursive'

@@ -11,6 +11,7 @@
  *
  * @since 5.9.0
  * @since 6.14.2 Improved accessibility for calendar view [TEC-5212].
+ * @since 6.15.6 Adjusted aria-label to use date format from TEC settings.
  *
  * @version 6.14.2
  *
@@ -50,7 +51,8 @@ $num_events_label = sprintf(
 	$events_label_plural
 );
 
-$date_ordinal = date_i18n( 'jS F', strtotime( $day['date'] ) );
+$date_format  = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
+$date_ordinal = date_i18n( $date_format, strtotime( $day['date'] ) );
 ?>
 
 <div class="tribe-events-calendar-month__day-date tribe-common-h4">

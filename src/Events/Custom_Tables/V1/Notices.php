@@ -67,7 +67,7 @@ class Notices {
 		add_action( 'admin_notices', static function () use ( $error ) {
 			?>
 			<div class="notice notice-error is-dismissible">
-				<h4><?php esc_html_e( 'The Events Calendar: Custom Tables v1 - error' ); ?></h4>
+				<h4><?php esc_html_e( 'The Events Calendar: Custom Tables v1 - error', 'the-events-calendar' ); ?></h4>
 
 				<p><?php _e( $error->getMessage(), 'the-events-calendar' ); ?></p>
 

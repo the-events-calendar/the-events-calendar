@@ -255,7 +255,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-ea-field-post_status"
 				data-hide-search
 			>
-				<option value=""><?php esc_html__( '(do not override)', 'the-events-calendar' ); ?></option>
+				<option value=""><?php esc_html_e( '(do not override)', 'the-events-calendar' ); ?></option>
 				<?php foreach ( $eventbrite_post_statuses as $slug => $post_status ) : ?>
 					<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $default_post_status, $slug ); ?>><?php echo esc_html( $post_status ); ?></option>
 				<?php endforeach; ?>

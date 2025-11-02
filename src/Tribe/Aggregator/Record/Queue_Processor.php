@@ -341,7 +341,7 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 				return new Tribe__Events__Aggregator__Record__Void_Queue( $record );
 			}
 
-			return new Tribe__Events__Aggregator__Record__Void_Queue( __( 'There was an error building the record queue: ' . print_r( $record, true ) ) );
+			return new Tribe__Events__Aggregator__Record__Void_Queue( __( 'There was an error building the record queue: ', 'the-events-calendar' ) . print_r( $record, true ) );
 		}
 
 		/** @var Tribe__Events__Aggregator__Settings $settings */

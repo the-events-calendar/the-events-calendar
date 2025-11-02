@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.5';
+		const VERSION             = '6.15.11';
 
 		/**
 		 * Min Pro Addon.
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * In the past we used to parse `common/src/Tribe/Main.php` for the Common Lib version.
 		 *
-		 * @link https://github.com/moderntribe/tribe-common
+		 * @link https://github.com/the-events-calendar/tribe-common
 		 * @see  self::init_autoloading
 		 *
 		 * @return void

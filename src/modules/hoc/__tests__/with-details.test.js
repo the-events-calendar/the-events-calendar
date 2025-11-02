@@ -4,7 +4,7 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 
 /**
  * Internal dependencies
@@ -62,4 +62,3 @@ describe( 'HOC - With Details', () => {
 		expect( store.getActions() ).toMatchSnapshot();
 	} );
 } );
-

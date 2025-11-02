@@ -5,6 +5,7 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
+use Tribe\Events\Views\V2\Manager;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -540,4 +541,60 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	 * @param Tribe__Context $context The global context object.
 	 */
 	return (bool) apply_filters( "tec_is_{$view_slug}_view", $is_view, $context );
+}
+
+/**
+ * Check whether the current request is a valid TEC view.
+ *
+ * Returns true when the current context identifies a registered Events Calendar view
+ * (e.g., list, month, day, map, week, etc.).
+ *
+ * @since 6.15.9
+ *
+ * @param Tribe__Context|null $context Optional. A context instance to use. Defaults to tribe_context().
+ *
+ * @return bool True if currently on a valid TEC view, false otherwise.
+ */
+function tec_is_valid_view( $context = null ): bool {
+	// Prevent false positives when viewing a single event or recurring instance.
+	if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+		return false;
+	}
+
+	if ( ! $context instanceof Tribe__Context ) {
+		$context = tribe_context();
+	}
+
+	// Early bail if not in an Events context.
+	if ( ! $context->is( 'tec_post_type' ) && ! $context->is( 'view' ) ) {
+		return false;
+	}
+
+	$current_view = strtolower( (string) $context->get( 'view', '' ) );
+
+	// Early bail if empty.
+	if ( '' === $current_view ) {
+		return false;
+	}
+
+	// Retrieve the views manager.
+	$views_manager = tribe( Manager::class );
+
+	if ( ! $views_manager || ! method_exists( $views_manager, 'get_registered_views' ) ) {
+		return false;
+	}
+
+	// Handle "default" explicitly via the manager's default view option.
+	if ( 'default' === $current_view ) {
+		$current_view = (string) $views_manager->get_default_view_option();
+
+		// If the default view option is empty, bail early.
+		if ( '' === $current_view ) {
+			return false;
+		}
+	}
+
+	$registered_views = array_keys( (array) $views_manager->get_registered_views() );
+
+	return in_array( $current_view, $registered_views, true );
 }

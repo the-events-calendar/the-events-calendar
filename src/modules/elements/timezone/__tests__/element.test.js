@@ -32,8 +32,15 @@ describe( 'TimeZone element', () => {
 
 	it( 'Should trigger the onChange event', () => {
 		const onChange = jest.fn();
-		const component = mount( <TimeZone value="Modern Tribe" onChange={ onChange } /> );
-		component.find( 'input' ).simulate( 'change' );
+		const component = renderer.create( <TimeZone value="Modern Tribe" onChange={ onChange } /> );
+		const tree = component.toJSON();
+
+		// Find the input element and trigger its onChange handler with a synthetic event
+		const input = tree.children.find( ( child ) => child.type === 'input' );
+		if ( input && input.props.onChange ) {
+			input.props.onChange( { target: { value: 'Modern Tribe' } } );
+		}
+
 		expect( onChange ).toHaveBeenCalled();
 		expect( onChange ).toHaveBeenCalledWith( 'Modern Tribe' );
 	} );

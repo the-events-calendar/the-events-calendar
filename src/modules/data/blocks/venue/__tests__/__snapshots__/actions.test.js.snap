@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Venue actions action to set the showMap 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "showMap": false,
   },
   "type": "@@MT/EVENTS/SET_VENUE_MAP",
@@ -10,8 +10,8 @@ Object {
 `;
 
 exports[`[STORE] - Venue actions action to set the showMap 2`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "showMap": true,
   },
   "type": "@@MT/EVENTS/SET_VENUE_MAP",
@@ -19,8 +19,8 @@ Object {
 `;
 
 exports[`[STORE] - Venue actions action to set the showMapLink 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "showMapLink": true,
   },
   "type": "@@MT/EVENTS/SET_VENUE_MAP_LINK",
@@ -28,8 +28,8 @@ Object {
 `;
 
 exports[`[STORE] - Venue actions action to set the showMapLink 2`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "showMapLink": false,
   },
   "type": "@@MT/EVENTS/SET_VENUE_MAP_LINK",
@@ -37,8 +37,8 @@ Object {
 `;
 
 exports[`[STORE] - Venue actions action to set the venue 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "venue": 99,
   },
   "type": "@@MT/EVENTS/SET_VENUE",
@@ -46,8 +46,8 @@ Object {
 `;
 
 exports[`[STORE] - Venue actions action to set the venue removal 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "venue": 0,
   },
   "type": "@@MT/EVENTS/SET_VENUE",
