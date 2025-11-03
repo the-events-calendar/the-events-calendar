@@ -41,10 +41,9 @@ $sep_date = empty( $is_past ) && ! empty( $request_date )
 	: $event->dates->start_display;
 ?>
 <li class="tribe-events-calendar-list__month-separator">
-	<time
+	<h3
 		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
-		datetime="<?php echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
 	>
 		<?php echo esc_html( $sep_date->format_i18n( 'F Y' ) ); ?>
-	</time>
+	</h3>
 </li>

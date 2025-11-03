@@ -22,7 +22,7 @@ if ( empty( $content_title ) ) {
 ?>
 
 <div class="tribe-events-header__content-title">
-	<span class="tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt">
+	<h2 class="tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt">
 		<?php echo esc_html( $content_title ); ?>
-	</span>
+	</h2>
 </div>
