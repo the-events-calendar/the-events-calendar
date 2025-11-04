@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.9\n"
+"Project-Id-Version: The Events Calendar 6.15.11\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-21T15:33:35+00:00\n"
+"POT-Creation-Date: 2025-11-04T15:32:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: src/admin-views/admin-welcome-message.php:31
 #: src/Events/Integrations/Plugins/Elementor/Controller.php:116
 #: src/Events/Site_Health/Info_Section.php:73
-#: src/functions/template-tags/general.php:1520
+#: src/functions/template-tags/general.php:1523
 #: src/Tribe/Main.php:990
 #: src/Tribe/Main.php:1444
 #: src/Tribe/Privacy.php:29
@@ -301,8 +301,8 @@ msgid "Origin:"
 msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:5
-#: src/Tribe/Ignored_Events.php:366
-#: src/Tribe/Ignored_Events.php:368
+#: src/Tribe/Ignored_Events.php:377
+#: src/Tribe/Ignored_Events.php:379
 msgid "Source:"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgid "Last Import:"
 msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:14
-#: src/Tribe/Ignored_Events.php:335
+#: src/Tribe/Ignored_Events.php:346
 msgid "The last time this event was imported and/or updated via import."
 msgstr ""
 
@@ -1502,7 +1502,7 @@ msgstr ""
 #: src/admin-views/organizer-meta-box.php:37
 #: src/admin-views/venue-meta-box.php:185
 #: src/functions/template-tags/link.php:538
-#: src/views/blocks/parts/details.php:183
+#: src/views/blocks/parts/details.php:201
 #: src/views/integrations/elementor/widgets/event-website/header.php:20
 #: src/modules/blocks/classic-event-details/template.js:94
 #: src/modules/elements/organizer-form/element.js:167
@@ -1668,8 +1668,8 @@ msgid "ISO Currency Code:"
 msgstr ""
 
 #: src/admin-views/events-meta-box.php:261
-#: src/views/blocks/parts/details.php:145
-#: src/views/modules/meta/details.php:148
+#: src/views/blocks/parts/details.php:161
+#: src/views/modules/meta/details.php:166
 msgid "Cost:"
 msgstr ""
 
@@ -4712,9 +4712,9 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:678
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:919
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:603
-#: src/views/blocks/parts/organizer.php:69
-#: src/views/modules/meta/organizer.php:58
-#: src/views/modules/meta/venue.php:69
+#: src/views/blocks/parts/organizer.php:63
+#: src/views/modules/meta/organizer.php:49
+#: src/views/modules/meta/venue.php:48
 msgid "Phone"
 msgstr ""
 
@@ -4733,8 +4733,8 @@ msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:736
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:990
-#: src/views/blocks/parts/organizer.php:80
-#: src/views/modules/meta/organizer.php:69
+#: src/views/blocks/parts/organizer.php:76
+#: src/views/modules/meta/organizer.php:62
 msgid "Email"
 msgstr ""
 
@@ -4755,7 +4755,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:715
 #: src/functions/template-tags/organizer.php:514
 #: src/functions/template-tags/venue.php:938
-#: src/views/blocks/parts/organizer.php:91
+#: src/views/blocks/parts/organizer.php:89
 msgid "Website"
 msgstr ""
 
@@ -4938,8 +4938,8 @@ msgstr ""
 
 #. Translators: %s is the singular lowercase label for an event, e.g., "event".
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:152
-#: src/functions/template-tags/general.php:642
-#: src/functions/template-tags/general.php:732
+#: src/functions/template-tags/general.php:644
+#: src/functions/template-tags/general.php:735
 msgid "Tags:"
 msgstr ""
 
@@ -5228,20 +5228,24 @@ msgstr ""
 msgid "Generate QR Code"
 msgstr ""
 
-#: src/Events/QR/QR_Code.php:216
+#: src/Events/QR/QR_Code.php:219
 msgid "No post found."
 msgstr ""
 
-#: src/Events/QR/QR_Code.php:231
+#: src/Events/QR/QR_Code.php:224
+msgid "You do not have permission to access this content."
+msgstr ""
+
+#: src/Events/QR/QR_Code.php:239
 msgid "Not a supported post type."
 msgstr ""
 
-#: src/Events/QR/QR_Code.php:235
+#: src/Events/QR/QR_Code.php:243
 msgid "Error generating QR code."
 msgstr ""
 
 #. translators: %s: The event title or type of QR code
-#: src/Events/QR/QR_Code.php:263
+#: src/Events/QR/QR_Code.php:271
 #: src/Events/QR/Shortcode.php:92
 #, php-format
 msgid "QR Code for %s"
@@ -6122,19 +6126,19 @@ msgid_plural "%s Categories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/functions/template-tags/general.php:852
+#: src/functions/template-tags/general.php:855
 #, php-format
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1415
+#: src/functions/template-tags/general.php:1418
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
 #. translators: %s: The Events Calendar Link element.
-#: src/functions/template-tags/general.php:1520
+#: src/functions/template-tags/general.php:1523
 #, php-format
 msgid "Calendar powered by %s"
 msgstr ""
@@ -6432,7 +6436,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator.php:622
 #: src/Tribe/Aggregator/Record/List_Table.php:618
-#: src/Tribe/Ignored_Events.php:380
+#: src/Tribe/Ignored_Events.php:391
 #, php-format
 msgctxt "human readable time ago"
 msgid "about %s ago"
@@ -6440,7 +6444,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator.php:624
 #: src/Tribe/Aggregator/Record/List_Table.php:620
-#: src/Tribe/Ignored_Events.php:382
+#: src/Tribe/Ignored_Events.php:393
 #, php-format
 msgctxt "in human readable time"
 msgid "in about %s"
@@ -6921,7 +6925,7 @@ msgid "Import preview"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:515
-#: src/Tribe/Ignored_Events.php:362
+#: src/Tribe/Ignored_Events.php:373
 msgctxt "record via origin"
 msgid "via "
 msgstr ""
@@ -6935,10 +6939,10 @@ msgid "Keywords:"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:548
-#: src/views/blocks/parts/details.php:78
-#: src/views/blocks/parts/details.php:104
-#: src/views/modules/meta/details.php:72
-#: src/views/modules/meta/details.php:97
+#: src/views/blocks/parts/details.php:81
+#: src/views/blocks/parts/details.php:112
+#: src/views/modules/meta/details.php:76
+#: src/views/modules/meta/details.php:107
 #: src/modules/blocks/classic-event-details/template.js:54
 msgid "Start:"
 msgstr ""
@@ -8248,155 +8252,159 @@ msgctxt "Description in iCal content for events with hidden/protected content."
 msgid "Content is protected."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:43
-#: src/Tribe/Ignored_Events.php:59
-#: src/Tribe/Ignored_Events.php:460
+#: src/Tribe/Ignored_Events.php:51
+#: src/Tribe/Ignored_Events.php:67
+#: src/Tribe/Ignored_Events.php:471
 msgid "Delete Permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:44
+#: src/Tribe/Ignored_Events.php:52
 msgid "Ignored events that are deleted will be removed permanently. They can be recreated via import."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:47
-#: src/Tribe/Ignored_Events.php:493
-#: src/Tribe/Ignored_Events.php:769
+#: src/Tribe/Ignored_Events.php:55
+#: src/Tribe/Ignored_Events.php:504
+#: src/Tribe/Ignored_Events.php:784
 msgid "Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:51
-#: src/Tribe/Ignored_Events.php:423
+#: src/Tribe/Ignored_Events.php:59
+#: src/Tribe/Ignored_Events.php:434
 msgid "Hide & Ignore"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:52
-#: src/Tribe/Ignored_Events.php:422
+#: src/Tribe/Ignored_Events.php:60
+#: src/Tribe/Ignored_Events.php:433
 msgid "Ignored events do not show on the calendar but can be updated with future imports"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:140
+#. translators: %s: Number of posts moved to ignored status.
+#: src/Tribe/Ignored_Events.php:149
 msgid "post moved to Ignored."
 msgid_plural "posts moved to Ignored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:143
+#. translators: %s: Number of posts moved to the trash.
+#: src/Tribe/Ignored_Events.php:153
 #, php-format
 msgid "%s post moved to the Trash"
 msgid_plural "%s posts moved to the Trash"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:144
+#. translators: %s: Number of posts moved to ignored status.
+#: src/Tribe/Ignored_Events.php:155
 #, php-format
 msgid "and %s post moved to Ignored."
 msgid_plural "and %s posts moved to Ignored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:155
+#: src/Tribe/Ignored_Events.php:166
 msgid "Undo"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:178
+#: src/Tribe/Ignored_Events.php:189
 msgid "Event Aggregator includes a new, better system for removing unwanted imported events from your calendar. Click the button below to transition previously deleted events. This process will remove unwanted records from your database and include recent or upcoming trashed events in your Ignored archive."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:179
+#: src/Tribe/Ignored_Events.php:190
 msgctxt "link to knowlegebase article"
 msgid "Read more about Ignored Events."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:180
+#: src/Tribe/Ignored_Events.php:191
 msgid "Migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:238
-#: src/Tribe/Ignored_Events.php:280
+#: src/Tribe/Ignored_Events.php:249
+#: src/Tribe/Ignored_Events.php:291
 msgid "You do not have permission to restore this post."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:242
-#: src/Tribe/Ignored_Events.php:286
+#: src/Tribe/Ignored_Events.php:253
+#: src/Tribe/Ignored_Events.php:297
 msgid "Error restoring from Ignored Events."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:294
+#: src/Tribe/Ignored_Events.php:305
 #, php-format
 msgid "%s post restored."
 msgid_plural "%s posts restored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:332
+#: src/Tribe/Ignored_Events.php:343
 msgid "Source"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:339
+#: src/Tribe/Ignored_Events.php:350
 msgid "Last Import"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:421
+#: src/Tribe/Ignored_Events.php:432
 #, php-format
 msgid "Hide and Ignore &#8220;%s&#8221;"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:451
+#: src/Tribe/Ignored_Events.php:462
 #, php-format
 msgid "Restore &#8220;%s&#8221; from the Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:452
+#: src/Tribe/Ignored_Events.php:463
 msgid "Restore"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:459
+#: src/Tribe/Ignored_Events.php:470
 #, php-format
 msgid "Delete &#8220;%s&#8221; permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:770
+#: src/Tribe/Ignored_Events.php:785
 #, php-format
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:889
+#: src/Tribe/Ignored_Events.php:904
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:899
+#: src/Tribe/Ignored_Events.php:914
 msgid "You do not have permission to migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:906
+#: src/Tribe/Ignored_Events.php:921
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:930
+#: src/Tribe/Ignored_Events.php:945
 #, php-format
-msgid "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen."
-msgid_plural "Migration: %d Legacy Ignored Posts were migrated but %d failed. To see the migrated events you will first need to refresh this screen."
+msgid "Migration: %1$d Legacy Ignored Post was migrated but %2$d failed. To see the migrated event you will first need to refresh this screen."
+msgid_plural "Migration: %1$d Legacy Ignored Posts were migrated but %2$d failed. To see the migrated events you will first need to refresh this screen."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:942
+#: src/Tribe/Ignored_Events.php:957
 #, php-format
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:954
+#. translators: 1: Event ID, 2: Error message.
+#: src/Tribe/Ignored_Events.php:970
 #, php-format
-msgid "Event %d: %s"
+msgid "Event %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:961
+#: src/Tribe/Ignored_Events.php:977
 #, php-format
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
@@ -11106,8 +11114,8 @@ msgid "Event ID:"
 msgstr ""
 
 #: src/views/blocks/classic-event-details.php:52
-#: src/views/blocks/parts/details.php:54
-#: src/views/modules/meta/details.php:54
+#: src/views/blocks/parts/details.php:56
+#: src/views/modules/meta/details.php:57
 msgid "Time:"
 msgstr ""
 
@@ -11116,41 +11124,32 @@ msgstr ""
 msgid "All day"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:63
-#: src/views/modules/meta/details.php:62
+#: src/views/blocks/parts/details.php:65
+#: src/views/modules/meta/details.php:65
 #: src/modules/blocks/classic-event-details/template.js:39
 msgid "Details"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:84
-#: src/views/blocks/parts/details.php:112
-#: src/views/modules/meta/details.php:77
-#: src/views/modules/meta/details.php:105
+#: src/views/blocks/parts/details.php:88
+#: src/views/blocks/parts/details.php:122
+#: src/views/modules/meta/details.php:83
+#: src/views/modules/meta/details.php:117
 #: src/modules/blocks/classic-event-details/template.js:76
 msgid "End:"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:94
-#: src/views/blocks/parts/details.php:125
-#: src/views/modules/meta/details.php:87
-#: src/views/modules/meta/details.php:118
+#: src/views/blocks/parts/details.php:100
+#: src/views/blocks/parts/details.php:137
+#: src/views/modules/meta/details.php:95
+#: src/views/modules/meta/details.php:132
 msgid "Date:"
 msgstr ""
 
 #. Translators: %s: Event (singular)
-#: src/views/blocks/parts/details.php:176
-#: src/views/modules/meta/details.php:172
+#: src/views/blocks/parts/details.php:193
+#: src/views/modules/meta/details.php:191
 #, php-format
 msgid "%s Tags:"
-msgstr ""
-
-#. Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer".
-#. Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue".
-#: src/views/blocks/parts/organizer.php:51
-#: src/views/modules/meta/organizer.php:40
-#: src/views/modules/meta/venue.php:33
-#, php-format
-msgid "%1$s name: This represents the name of the %2$s %3$s."
 msgstr ""
 
 #: src/views/blocks/parts/subscribe-list.php:41
@@ -11232,20 +11231,6 @@ msgstr ""
 
 #: src/views/modules/map-basic.php:33
 msgid "Venue location map"
-msgstr ""
-
-#. Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer".
-#. Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue".
-#: src/views/modules/meta/organizer.php:88
-#: src/views/modules/meta/venue.php:81
-#, php-format
-msgid "%1$s website title: This represents the website title of the %2$s %3$s."
-msgstr ""
-
-#. Translators: %1$s is the customizable venue term, e.g. "Venue". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable venue term in lowercase, e.g. "venue".
-#: src/views/modules/meta/venue.php:49
-#, php-format
-msgid "%1$s address: This represents the address of the %2$s %3$s."
 msgstr ""
 
 #: src/views/single-event.php:78
@@ -11487,12 +11472,18 @@ msgid "has featured %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). This is for screen readers, and will be read just after the date number.
-#: src/views/v2/month/calendar-body/day/date.php:53
+#: src/views/v2/month/calendar-body/day/date.php:56
 #, php-format
 msgid "has %1$s %2$s"
 msgid_plural "has %1$s %3$s"
 msgstr[0] ""
 msgstr[1] ""
+
+#. translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
+#: src/views/v2/month/calendar-body/day/date.php:64
+#, php-format
+msgid "%1$s, %2$s"
+msgstr ""
 
 #. translators: %1$d: number of events, %2$s: formatted date.
 #: src/views/v2/month/calendar-body/day/more-events.php:42
