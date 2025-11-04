@@ -196,7 +196,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Action to Restore Events on the Single Page.
 		 *
-		 * @since TBD Moved check on action to earlier in the function to prevent warning from being logged.
+		 * @since 6.15.11 Moved check on action to earlier in the function to prevent warning from being logged.
 		 *
 		 * @return void|Redirect
 		 */

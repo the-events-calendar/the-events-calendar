@@ -7,10 +7,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.11
  *
  * @since 4.6.19
- * @since TBD Replaced definition list markup with unordered list for improved accessibility.
+ * @since 6.15.11 Replaced definition list markup with unordered list for improved accessibility.
  *
  * @package TribeEventsCalendar
  */

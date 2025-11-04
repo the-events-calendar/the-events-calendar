@@ -11,9 +11,9 @@
  *
  * @since 4.9.10
  * @since 6.14.2 Improved accessibility for calendar view [TEC-5211].
- * @since TBD Improved accessibility by adding better screen reader text. [TEC-5719]
+ * @since 6.15.11 Improved accessibility by adding better screen reader text. [TEC-5719]
  *
- * @version TBD
+ * @version 6.15.11
  */
 
 global $wp_locale;
