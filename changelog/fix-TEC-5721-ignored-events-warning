@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Avoid logging a warning when bulk deleting events. [TEC-5721]

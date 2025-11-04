@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Improve accessibility in the mini calendar by replacing <em> elements used for event dots with semantic <span>s and removing redundant aria-label and title attributes [TEC-5228]

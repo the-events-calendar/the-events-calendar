@@ -232,6 +232,17 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.15.11] 2025-11-04 =
+
+* Tweak - Add JavaScript logic to move keyboard focus to expanded date content and announce event counts for screen reader users in month view mobile calendar [TEC-5231]
+* Tweak - Avoid logging a warning when bulk deleting events. [TEC-5721]
+* Tweak - Changed views: `blocks/parts/details`, `blocks/parts/organizer`, `blocks/parts/venue`, `modules/meta/details`, `modules/meta/organizer`, `modules/meta/venue`, `v2/month`, `v2/month/calendar-body/day/date-extras`, `v2/month/calendar-body/day/date`, `v2/month/calendar-header`
+* Tweak - Improve accessibility in the mini calendar by replacing <em> elements used for event dots with semantic <span>s and removing redundant aria-label and title attributes [TEC-5228]
+* Accessibility - Improve screen reader accessibility for weekday headers in month view calendar. [TEC-5719]
+* Accessibility - Remove the presentational role from the Month View table. [TEC-5719]
+* Accessibility - Replace misuse of definition list (`<dl>/<dt>/<dd>`) tags with semantic unordered lists (`<ul>/<li>`) in event details, organizer, and venue meta sections to improve screen reader accessibility and reduce confusion.[TEC-5224]
+* Language - 3 new strings added, 53 updated, 1 fuzzied, and 4 obsoleted.
+
 = [6.15.10] 2025-10-28 =
 
 * Security - Improve authorization checks in QR codes. [SVUL-28]
