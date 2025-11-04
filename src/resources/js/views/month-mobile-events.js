@@ -269,7 +269,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Focuses the mobile day content panel and scrolls it into view.
 	 *
-	 * @since TBD
+	 * @since 6.15.11
 	 *
 	 * @param {jQuery} $content jQuery object of the active mobile events container.
 	 *
@@ -300,7 +300,7 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Focuses the next calendar day button in the grid.
 	 *
-	 * @since TBD
+	 * @since 6.15.11
 	 *
 	 * @param {jQuery} $header jQuery object for the current date button.
 	 *
@@ -322,7 +322,7 @@ tribe.events.views.monthMobileEvents = {};
 	 * Ensures that when the user tabs past the last tabbable element in the event list,
 	 * focus returns to the next date in the calendar grid.
 	 *
-	 * @since TBD
+	 * @since 6.15.11
 	 *
 	 * @param {jQuery} $header  Current date button
 	 * @param {jQuery} $content Panel container

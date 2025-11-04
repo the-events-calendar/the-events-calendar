@@ -628,7 +628,7 @@ function tribe_get_event_categories( $post_id = null, $args = [] ) {
  *
  * Display the event tags.
  *
- * @since TBD Changed HTML output from definition list to list item structure for improved accessibility.
+ * @since 6.15.11 Changed HTML output from definition list to list item structure for improved accessibility.
  *
  * @param null|string $label     The label for the tags.
  * @param string      $separator The delimiter for the tags.
@@ -710,7 +710,7 @@ if ( ! function_exists( 'tribe_meta_event_archive_tags' ) ) {
 	 * Display the event tags in a list with links to the event tag archive.
 	 *
 	 * @since 5.16.0
-	 * @since TBD Changed HTML output from definition list to list item structure for improved accessibility.
+	 * @since 6.15.11 Changed HTML output from definition list to list item structure for improved accessibility.
 	 *
 	 * @param null|string $label     The label for the term list.
 	 * @param string      $separator The separator of each term.

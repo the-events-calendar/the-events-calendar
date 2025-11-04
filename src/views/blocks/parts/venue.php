@@ -9,10 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.11
  *
  * @since 6.2.0 Be specific about which venue to render.
- * @since TBD Added proper escaping for phone output.
+ * @since 6.15.11 Added proper escaping for phone output.
  *
  * @var bool $show_map_link Whether to show the map link or not.
  * @var ?int $venue_id The ID of the venue to display.
