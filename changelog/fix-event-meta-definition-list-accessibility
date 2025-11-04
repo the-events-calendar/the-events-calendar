@@ -1,4 +1,0 @@
-Significance: patch
-Type: accessibility
-
-Replace misuse of definition list (`<dl>/<dt>/<dd>`) tags with semantic unordered lists (`<ul>/<li>`) in event details, organizer, and venue meta sections to improve screen reader accessibility and reduce confusion.[TEC-5224]
