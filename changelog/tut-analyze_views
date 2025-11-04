@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Changed views: `blocks/parts/details`, `blocks/parts/organizer`, `blocks/parts/venue`, `modules/meta/details`, `modules/meta/organizer`, `modules/meta/venue`, `v2/month`, `v2/month/calendar-body/day/date-extras`, `v2/month/calendar-body/day/date`, `v2/month/calendar-header`
