@@ -5,11 +5,13 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
+ * @version 6.15.11
+ *
  * @since 4.6.19
  * @since 6.15.3 Added post password protection.
+ * @since 6.15.11 Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
  *
  * @package TribeEventsCalendar
- * @version 6.15.3
  */
 
 $organizer_ids = tribe_get_organizer_ids();
@@ -23,7 +25,7 @@ $website_title = tribe_events_get_organizer_website_title();
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
 	<h2 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h2>
-	<dl>
+	<ul class="tribe-events-meta-list">
 		<?php
 		do_action( 'tribe_events_single_meta_organizer_section_start' );
 
@@ -33,75 +35,56 @@ $website_title = tribe_events_get_organizer_website_title();
 			}
 
 			?>
-			<dt
-				class="tribe-common-a11y-visual-hide"
-				aria-label="<?php echo sprintf(
-					/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
-					esc_html__( '%1$s name: This represents the name of the %2$s %3$s.', 'the-events-calendar' ),
-					tribe_get_organizer_label_singular(),
-					tribe_get_event_label_singular_lowercase(),
-					tribe_get_organizer_label_singular_lowercase()
-				) ; ?>"
-			>
-				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
-			</dt>
-			<dd class="tribe-organizer">
-				<?php echo tribe_get_organizer_link( $organizer ) ?>
-			</dd>
+			<li class="tribe-events-meta-item tribe-organizer">
+				<?php echo tribe_get_organizer_link( $organizer ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
+			</li>
 			<?php
 		}
 
 		if ( ! $multiple && ! post_password_required( $organizer ) ) { // only show organizer details if there is one
 			if ( ! empty( $phone ) ) {
 				?>
-				<dt class="tribe-organizer-tel-label">
-					<?php esc_html_e( 'Phone', 'the-events-calendar' ) ?>
-				</dt>
-				<dd class="tribe-organizer-tel">
-					<?php echo esc_html( $phone ); ?>
-				</dd>
+				<li class="tribe-events-meta-item">
+					<span class="tribe-organizer-tel-label tribe-events-meta-label">
+						<?php esc_html_e( 'Phone', 'the-events-calendar' ); ?>
+					</span>
+					<span class="tribe-organizer-tel tribe-events-meta-value">
+						<?php echo esc_html( $phone ); ?>
+					</span>
+				</li>
 				<?php
 			}//end if
 
 			if ( ! empty( $email ) ) {
 				?>
-				<dt class="tribe-organizer-email-label">
-					<?php esc_html_e( 'Email', 'the-events-calendar' ) ?>
-				</dt>
-				<dd class="tribe-organizer-email">
-					<?php echo esc_html( $email ); ?>
-				</dd>
+				<li class="tribe-events-meta-item">
+					<span class="tribe-organizer-email-label tribe-events-meta-label">
+						<?php esc_html_e( 'Email', 'the-events-calendar' ); ?>
+					</span>
+					<span class="tribe-organizer-email tribe-events-meta-value">
+						<?php echo esc_html( $email ); ?>
+					</span>
+				</li>
 				<?php
 			}//end if
 
 			if ( ! empty( $website ) ) {
 				?>
-				<?php if ( ! empty( $website_title ) ): ?>
-					<dt class="tribe-organizer-url-label">
-						<?php echo esc_html( $website_title ) ?>
-					</dt>
-				<?php else: ?>
-					<dt
-						class="tribe-common-a11y-visual-hide"
-						aria-label="<?php echo sprintf(
-							/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
-							esc_html__( '%1$s website title: This represents the website title of the %2$s %3$s.', 'the-events-calendar' ),
-							tribe_get_organizer_label_singular(),
-							tribe_get_event_label_singular_lowercase(),
-							tribe_get_organizer_label_singular_lowercase()
-						) ; ?>"
-					>
-						<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
-					</dt>
-				<?php endif; ?>
-				<dd class="tribe-organizer-url">
-					<?php echo $website; ?>
-				</dd>
+				<li class="tribe-events-meta-item">
+					<?php if ( ! empty( $website_title ) ) : ?>
+						<span class="tribe-organizer-url-label tribe-events-meta-label">
+							<?php echo esc_html( $website_title ); ?>
+						</span>
+					<?php endif; ?>
+					<span class="tribe-organizer-url tribe-events-meta-value">
+						<?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
+					</span>
+				</li>
 				<?php
 			}//end if
 		}//end if
 
 		do_action( 'tribe_events_single_meta_organizer_section_end' );
 		?>
-	</dl>
+	</ul>
 </div>

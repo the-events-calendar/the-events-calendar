@@ -11,28 +11,34 @@
  *
  * @since 4.9.10
  * @since 6.14.2 Improved accessibility for calendar view [TEC-5211].
+ * @since 6.15.11 Improved accessibility by adding better screen reader text. [TEC-5719]
  *
- * @version 6.14.2
+ * @version 6.15.11
  */
 
 global $wp_locale;
 ?>
 <thead class="tribe-events-calendar-month__header">
-	<tr>
-		<?php foreach ( tribe_events_get_days_of_week() as $day ) : ?>
-			<th
-				class="tribe-events-calendar-month__header-column"
-				scope="col"
-			>
+<tr>
+	<?php
+	foreach ( tribe_events_get_days_of_week() as $day ) :
+		$day_abbrev  = $wp_locale->get_weekday_abbrev( $day );
+		$day_initial = $wp_locale->get_weekday_initial( $day );
+		?>
+		<th
+			class="tribe-events-calendar-month__header-column"
+			scope="col"
+			abbr="<?php echo esc_attr( $day_abbrev ); ?>"
+		>
 			<div class="tribe-events-calendar-month__header-column-title tribe-common-b3">
-				<span class="tribe-events-calendar-month__header-column-title-mobile">
-					<?php echo esc_html( $wp_locale->get_weekday_initial( $day ) ); ?>
-				</span>
-				<span class="tribe-events-calendar-month__header-column-title-desktop tribe-common-a11y-hidden">
-					<?php echo esc_html( $wp_locale->get_weekday_abbrev( $day ) ); ?>
-				</span>
+					<span aria-hidden="true">
+						<?php echo esc_html( $day_initial ); ?>
+					</span>
+				<span class="screen-reader-text">
+						<?php echo esc_html( $day ); ?>
+					</span>
 			</div>
 		</th>
-		<?php endforeach; ?>
-	</tr>
+	<?php endforeach; ?>
+</tr>
 </thead>
