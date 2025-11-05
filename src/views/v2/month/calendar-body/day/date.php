@@ -43,7 +43,7 @@ $day_button_classes = [
 ];
 
 // Determine day state for ARIA context.
-$today_date    = isset( $today_date ) ? $today_date : '';
+$today_date  ??= $today_date;
 $day_date      = $day['date'];
 $day_number    = $day['day_number'];
 $expanded      = 'false';
@@ -66,12 +66,13 @@ if ( $today_date === $day_date ) {
 	$state_label = __( 'upcoming day', 'the-events-calendar' );
 }
 
-// Translators: %1$s = number of events, %2$s = singular label, %3$s = plural label.
 $num_events_label = sprintf(
-	_n( '%1$s %2$s', '%1$s %3$s', $day['found_events'], 'the-events-calendar' ),
+// Translators: %1$s = number of events, %2$s = event label (singular or plural).
+	_n( '%1$s %2$s', '%1$s %2$s', $day['found_events'], 'the-events-calendar' ),
 	number_format_i18n( $day['found_events'] ),
-	tribe_get_event_label_singular_lowercase(),
-	tribe_get_event_label_plural_lowercase()
+	1 === (int) $day['found_events']
+		? tribe_get_event_label_singular_lowercase()
+		: tribe_get_event_label_plural_lowercase()
 );
 
 $day_label = sprintf(

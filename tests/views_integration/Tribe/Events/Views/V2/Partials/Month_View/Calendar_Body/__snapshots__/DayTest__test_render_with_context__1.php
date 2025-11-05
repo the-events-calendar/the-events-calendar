@@ -2,17 +2,15 @@
 	 class="tribe-events-calendar-month__day tribe-events-calendar-month__day--current" 	aria-labelledby="tribe-events-calendar-day-2019-07-01"
 	data-js="tribe-events-month-grid-cell"
 >
-	
-<button
+	<button
 	aria-expanded="true"
 	aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
+	aria-label="July 1, 6 events"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 	data-js="tribe-events-calendar-month-day-cell-mobile"
-	tabindex="-1"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
-			has 6 events,
-		</span>
+			6 events		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="2019-07-01"
