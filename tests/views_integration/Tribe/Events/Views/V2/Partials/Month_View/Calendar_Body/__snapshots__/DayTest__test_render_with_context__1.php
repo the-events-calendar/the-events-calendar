@@ -18,7 +18,7 @@
 			1		</time>
 	</div>
 	
-		<em class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured" >
+		<span class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--featured" >
 		<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--featured tribe-events-calendar-month__mobile-events-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 8 10"
@@ -26,7 +26,7 @@
 >
 	<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h8v10L4.049 7.439 0 10V0z"/>
 </svg>
-	</em>
+	</span>
 	<span class="tribe-events-calendar-month__mobile-events-icon-text tribe-common-a11y-visual-hide">
 		has featured events	</span>
 </button>
