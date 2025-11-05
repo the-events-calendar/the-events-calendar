@@ -9,10 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.11
  *
  * @since 5.9.0
- * @since TBD Made event date area more accessible.
+ * @since 6.15.11 Made event date area more accessible.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
