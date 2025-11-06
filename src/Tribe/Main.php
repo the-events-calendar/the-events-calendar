@@ -11,6 +11,8 @@ use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 
+// Hello there - added to cause PHP tests to run.
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
