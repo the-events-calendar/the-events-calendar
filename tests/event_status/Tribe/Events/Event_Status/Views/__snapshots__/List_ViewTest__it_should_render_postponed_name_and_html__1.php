@@ -1,4 +1,4 @@
-<?php return '<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium"><span class="tribe-events-status-label">
+<?php return '<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium"><span class="tribe-events-status-label">
 	<span class="tribe-events-status-label__text tribe-events-status-label__text--postponed">
 	Postponed</span>
 </span>
@@ -10,5 +10,5 @@
 		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 1	</a>
-</h3>
+</h4>
 ';
