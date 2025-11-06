@@ -9,8 +9,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version 6.2.0
- * @since   6.2.0
+ * @version TBD
+ * @since 6.2.0
+ * @since TBD Changed `span` to `h2`. [TEC-5636]
  *
  * @var \Tribe\Events\Views\V2\Template $this          Template Engine instance rendering.
  * @var string                          $content_title The title to display.

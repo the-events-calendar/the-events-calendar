@@ -9,7 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @version TBD
+ *
+ * @since 5.0.0
+ * @since TBD  Updated `h3` element to `h4`
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
