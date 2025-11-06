@@ -593,14 +593,12 @@ class Template_Bootstrap {
 		$main_id = apply_filters( 'tec_events_main_container_id', 'main' );
 
 		// Wrap the HTML in a main landmark.
-		$wrapped_html = sprintf(
+		return sprintf(
 			'<main id="%s" class="tec-events-main-content" tabindex="-1" role="main" aria-label="%s">%s</main>',
 			esc_attr( $main_id ),
 			esc_attr__( 'Main content', 'the-events-calendar' ),
 			$html
 		);
-
-		return $wrapped_html;
 	}
 
 }
