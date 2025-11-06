@@ -269,7 +269,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 
 		$this->redirect();
 
-		$fields = $this->post_id_to_occurrence_id( $fields );
+		$fields = $this->post_id_to_occurrence_id( $fields, $query );
 
 		return parent::filter_posts_fields( $fields, $query );
 	}
@@ -278,14 +278,16 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * Replaces references to `wp_posts.ID` with references to `Occurrences.occurrence_id`.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Pass the query instance as a second argument.
 	 *
 	 * @param  string|array<string>  $input  Either a single string to make the replacement
 	 *                                       in or a set of strings.
+	 * @param WP_Query $query A reference to the `WP_Query` object that is currently running.
 	 *
 	 * @return string|array<string> Either a string if the input value was a string, or an
 	 *                              array of strings if the input value was an array of strings.
 	 */
-	private function post_id_to_occurrence_id( $input ) {
+	private function post_id_to_occurrence_id( $input, WP_Query $query ) {
 		// Do not get the `ID` column from the `posts` table, but the `occurrence_id` column from the Occurrences table.
 		global $wpdb;
 
@@ -295,7 +297,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		 * @since 6.0.0
 		 * @see   Custom_Tables_Query::redirect_posts_fields() for this filter documentation.
 		 */
-		$select_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $wp_post_fields, 'ids' );
+		$select_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $wp_post_fields, $query );
 
 
 		return str_replace( $wp_post_fields, $select_fields, $input );
