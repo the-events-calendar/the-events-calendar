@@ -316,9 +316,9 @@ class Page {
 	 *
 	 * @todo  Integrate with Template + Context classes
 	 *
-	 * @since [5.11.0] Now running do_shortcode() on content returned, since we are inserting our output in lieu of the_content results
-	 *
 	 * @since  4.9.2
+	 * @since 5.11.0 Now running do_shortcode() on content returned, since we are inserting our output in lieu of the_content results.
+	 * @since TBD Added filter for adding the main landmark wrapper around the TEC view output.
 	 *
 	 * @param  string $content Default content of the page we hijacked
 	 *
@@ -333,7 +333,27 @@ class Page {
 
 		$this->prevent_page_looping();
 
-		return do_shortcode( $html );
+		/**
+		 * Filters the ID attribute for the main content container on TEC pages.
+		 *
+		 * This allows themes to customize the main container ID to match their skip link targets.
+		 * Common values: 'main', 'content', 'primary'.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $main_id The ID attribute for the main content container. Default 'main'.
+		 */
+		$main_id = apply_filters( 'tec_events_main_container_id', 'main' );
+
+		// Wrap the HTML in a main landmark for accessibility.
+		$wrapped_html = sprintf(
+			'<main id="%s" class="tec-events-main-content" tabindex="-1" role="main" aria-label="%s">%s</main>',
+			esc_attr( $main_id ),
+			esc_attr__( 'Main content', 'the-events-calendar' ),
+			$html
+		);
+
+		return do_shortcode( $wrapped_html );
 	}
 
 	/**
