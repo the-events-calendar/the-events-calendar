@@ -298,10 +298,12 @@ class Custom_Tables_Query extends WP_Query {
 		 * of a Custom Tables Query.
 		 *
 		 * @since 6.0.0
+		 * @since TBD Passing the query instance as a second argument.
 		 *
 		 * @param string $request_fields The Query fields request, e.g. `ids`.
+		 * @param WP_Query|null $query A reference to the `WP_Query` instance currently being filtered.
 		 */
-		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields );
+		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields, $query );
 
 		return $request_fields;
 	}
@@ -310,6 +312,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Changes the `GROUP BY` clause for posts to avoid the collapse of results on the post ID.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Evaluate the `tec-dont-select-occurrence-ids` query var.
 	 *
 	 * @param  string         $groupby  The original `GROUP BY` SQL clause.
 	 * @param  WP_Query|null  $query    A reference to the `WP_Query` instance currently being filtered.
@@ -318,6 +321,10 @@ class Custom_Tables_Query extends WP_Query {
 	 */
 	public function group_posts_by_occurrence_id( $groupby, $query = null ) {
 		if ( $this !== $query ) {
+			return $groupby;
+		}
+
+		if ( $query && $query->get( 'tec-dont-select-occurrence-ids' ) ) {
 			return $groupby;
 		}
 
@@ -335,12 +342,17 @@ class Custom_Tables_Query extends WP_Query {
 	 * if required.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Evaluate the `tec-dont-select-occurrence-ids` query var.
 	 *
 	 * @param string $orderby The original `ORDER BY` SQL clause.
 	 *
 	 * @return string|false The redirected `ORDER BY` field, `false` on failure.
 	 */
 	protected function parse_orderby( $orderby ){
+		if ( $this->get( 'tec-dont-select-occurrence-ids' ) ) {
+			return parent::parse_orderby( $orderby );
+		}
+
 		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 
@@ -511,6 +523,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Tables Meta Query did not do that already.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Evaluate the `tec-skip-join-occurrences-table` query var.
 	 *
 	 * @param string   $join   The input JOIN query, as parsed and built by the WordPress
 	 *                         Query.
@@ -521,6 +534,10 @@ class Custom_Tables_Query extends WP_Query {
 	 */
 	public function join_occurrences_table( $join, $query ) {
 		if ( $this !== $query ) {
+			return $join;
+		}
+
+		if ( $query->get( 'tec-skip-join-occurrences-table' ) ) {
 			return $join;
 		}
 
@@ -686,6 +703,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * further.
 	 *
 	 * @since 6.0.4
+	 * @since TBD Evaluate the `tec-dont-select-occurrence-ids` query var.
 	 *
 	 * @param string   $posts_orderby The `ORDER` section of the query.
 	 * @param WP_Query $query         The `WP_Query` instance that is currently filtering its `posts_orderby` property.
@@ -694,6 +712,10 @@ class Custom_Tables_Query extends WP_Query {
 	 */
 	public function redirect_posts_orderby( $posts_orderby, $query ) {
 		if ( $query !== $this ) {
+			return $posts_orderby;
+		}
+
+		if ( $query->get( 'tec-dont-select-occurrence-ids' ) ) {
 			return $posts_orderby;
 		}
 
