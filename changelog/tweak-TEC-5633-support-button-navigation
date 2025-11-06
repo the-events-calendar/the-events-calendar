@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Update AJAX navigation handler to support button elements with data-url attributes while maintaining backwards compatibility with anchor tags. [TEC-5633]

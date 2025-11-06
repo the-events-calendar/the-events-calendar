@@ -334,7 +334,7 @@ tribe.events.views.manager = {};
     var containerData = obj.getContainerData($container);
 
     var $link = $(this);
-    var url = $link.attr("href");
+    var url = $link.data("url") || $link.attr("href");
     var prevUrl = containerData.prev_url;
     var shouldManageUrl = obj.shouldManageUrl($container);
     var shortcodeId = $container.data("view-shortcode");
