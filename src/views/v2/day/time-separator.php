@@ -12,7 +12,7 @@
  * @version TBD
  *
  * @since 4.9.11
- * @since TBD
+ * @since TBD Wrap time element in an H2 to improve accessibility. [TEC-5627]
  *
  */
 
