@@ -319,6 +319,7 @@ tribe.events.views.manager = {};
    * Hijacks the link click and passes the URL as param for REST API
    *
    * @since 4.9.2
+   * @since TBD Allow the url to be passed as an href or data-url attribute on the link.
    *
    * @param  {Event} event DOM Event related to the Click action
    *
