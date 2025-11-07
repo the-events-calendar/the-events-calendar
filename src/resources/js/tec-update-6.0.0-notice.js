@@ -8,11 +8,11 @@
 		.createNotice( 'warning', `<b>${ obj.data.title }</b><p>${ obj.data.description }</p>`, {
 			__unstableHTML: true,
 			isDismissible: true,
-		actions: [
-			{
-				url: obj.data.upgrade_link,
-				/* translators: %1$s: plural form of "events" (e.g., "events", "événements") */
-				label: sprintf( __( 'Upgrade your %1$s', 'the-events-calendar' ), obj.data.events_plural_lower ),
+			actions: [
+				{
+					url: obj.data.upgrade_link,
+					/* translators: %1$s: plural form of "events" (e.g., "events", "événements") */
+					label: sprintf( __( 'Upgrade your %1$s', 'the-events-calendar' ), obj.data.events_plural_lower ),
 				},
 				{
 					url: obj.data.learn_link,
