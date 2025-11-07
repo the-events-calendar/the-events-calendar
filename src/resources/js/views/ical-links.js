@@ -3,7 +3,7 @@
  *
  * @since 5.12.0
  *
- * @type  {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 5.12.0
  *
- * @type  {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.icalLinks = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.icalLinks = {};
  *
  * @since 5.12.0
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.icalLinks
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.icalLinks
  *
  * @return {void}
  */
@@ -35,7 +35,7 @@ tribe.events.views.icalLinks = {};
 	 *
 	 * @since 5.12.0
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		icalLinks: '.tribe-events-c-subscribe-dropdown',
@@ -198,8 +198,8 @@ tribe.events.views.icalLinks = {};
 	 * @since 5.12.0
 	 *
 	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Object}       jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -216,7 +216,7 @@ tribe.events.views.icalLinks = {};
 	 * @since 5.12.0
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery}  $container jQuery object of links container
 	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *

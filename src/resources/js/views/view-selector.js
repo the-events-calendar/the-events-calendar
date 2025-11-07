@@ -3,7 +3,7 @@
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.viewSelector = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.viewSelector = {};
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.viewSelector
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.viewSelector
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.viewSelector = {};
 	 *
 	 * @since 4.9.7
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		viewSelector: '[data-js="tribe-events-view-selector"]',
@@ -284,8 +284,8 @@ tribe.events.views.viewSelector = {};
 	 * @since 4.9.7
 	 *
 	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Object}       jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -303,7 +303,7 @@ tribe.events.views.viewSelector = {};
 	 * @since 4.9.8
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery}  $container jQuery object of view container
 	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *

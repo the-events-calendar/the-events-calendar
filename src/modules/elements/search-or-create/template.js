@@ -79,7 +79,7 @@ class SearchOrCreate extends Component {
 		const { rendered = '' } = title;
 
 		/**
-		 * @todo: Set onClick to a button, not li.
+		 * @todo Set onClick to a button, not li.
 		 */
 		return (
 			<li // eslint-disable-line
@@ -107,7 +107,7 @@ class SearchOrCreate extends Component {
 		}
 
 		/**
-		 * @todo: Set onClick to a button, not li.
+		 * @todo Set onClick to a button, not li.
 		 */
 		return (
 			<ul className="tribe-editor__soc__results">

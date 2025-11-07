@@ -15,17 +15,8 @@ import { Component } from '@wordpress/element';
  * Internal dependencies
  */
 import { Input } from '@moderntribe/events/elements';
-import list, {
-	getCountries,
-	getStates,
-	getCountryCode,
-	getStateCode,
-} from '@moderntribe/events/editor/utils/geo-data';
-import {
-	setDefault,
-	getVenueCountry,
-	getVenueStateProvince,
-} from '@moderntribe/events/data/blocks/venue/utils';
+import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
+import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
 import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
@@ -34,24 +25,12 @@ const { RichText } = wpEditor;
 export function toFields( venue ) {
 	const title = get( venue, 'title', {} );
 	const meta = get( venue, 'meta', {} );
-	const address = setDefault(
-		get( meta, '_VenueAddress', '' ),
-		editorDefaults().venueAddress
-	);
-	const city = setDefault(
-		get( meta, '_VenueCity', '' ),
-		editorDefaults().venueCity
-	);
+	const address = setDefault( get( meta, '_VenueAddress', '' ), editorDefaults().venueAddress );
+	const city = setDefault( get( meta, '_VenueCity', '' ), editorDefaults().venueCity );
 	const country = getVenueCountry( meta );
 	const stateProvince = getVenueStateProvince( meta );
-	const zip = setDefault(
-		get( meta, '_VenueZip', '' ),
-		editorDefaults().venueZip
-	);
-	const phone = setDefault(
-		get( meta, '_VenuePhone', '' ),
-		editorDefaults().venuePhone
-	);
+	const zip = setDefault( get( meta, '_VenueZip', '' ), editorDefaults().venueZip );
+	const phone = setDefault( get( meta, '_VenuePhone', '' ), editorDefaults().venuePhone );
 	const url = get( meta, '_VenueURL', '' );
 
 	const countryCode = getCountryCode( country );
@@ -68,8 +47,7 @@ export function toFields( venue ) {
 }
 
 export function toVenue( fields ) {
-	const { title, address, city, country, zip, phone, url, stateProvince } =
-		fields;
+	const { title, address, city, country, zip, phone, url, stateProvince } = fields;
 
 	return {
 		title,
@@ -117,22 +95,10 @@ export default class VenueForm extends Component {
 	}
 
 	componentWillUnmount() {
-		const FIELDS = [
-			'title',
-			'address',
-			'city',
-			'country',
-			'zip',
-			'phone',
-			'url',
-			'stateProvince',
-		];
+		const FIELDS = [ 'title', 'address', 'city', 'country', 'zip', 'phone', 'url', 'stateProvince' ];
 		const fields = pick( this.state, FIELDS );
-		fields.country =
-			get( list.countries, fields.country, '' ) || fields.country;
-		fields.stateProvince =
-			get( list.us_states, fields.stateProvince, '' ) ||
-			fields.stateProvince;
+		fields.country = get( list.countries, fields.country, '' ) || fields.country;
+		fields.stateProvince = get( list.us_states, fields.stateProvince, '' ) || fields.stateProvince;
 		this.props.onSubmit( fields );
 	}
 
@@ -165,16 +131,14 @@ export default class VenueForm extends Component {
 		);
 
 		/**
-		 * @todo: figure out what to do about onChange event (accessibility).
+		 * @todo Figure out what to do about onChange event (accessibility).
 		 */
 
 		return (
 			<select // eslint-disable-line
 				value={ country }
 				className="small tribe-editor__venue__select"
-				onChange={ ( event ) =>
-					this.setState( { country: event.target.value } )
-				}
+				onChange={ ( event ) => this.setState( { country: event.target.value } ) }
 			>
 				{ placeholder }
 				{ getCountries().map( this.renderOption ) }
@@ -202,15 +166,13 @@ export default class VenueForm extends Component {
 		delete this.fields[ 'venue[stateProvince]' ];
 
 		/**
-		 * @todo: figure out what to do about onChange event (accessibility).
+		 * @todo Figure out what to do about onChange event (accessibility).
 		 */
 
 		return (
 			<select // eslint-disable-line
 				value={ stateProvince }
-				onChange={ ( event ) =>
-					this.setState( { stateProvince: event.target.value } )
-				}
+				onChange={ ( event ) => this.setState( { stateProvince: event.target.value } ) }
 				className="medium tribe-editor__venue__select"
 			>
 				{ states.map( this.renderOption ) }
@@ -219,14 +181,7 @@ export default class VenueForm extends Component {
 	}
 
 	render() {
-		const {
-			title = '',
-			address = '',
-			city = '',
-			zip = '',
-			phone = '',
-			url = '',
-		} = this.state;
+		const { title = '', address = '', city = '', zip = '', phone = '', url = '' } = this.state;
 
 		return (
 			<div className="tribe-editor__venue__form" key="tribe-venue-form">

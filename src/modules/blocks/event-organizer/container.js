@@ -45,7 +45,7 @@ const onFormCompleted =
 
 const mapStateToProps = ( state, ownProps ) => ( {
 	/**
-	 * @todo: the organizer prop is needed for withDetails, remove this if we fix it
+	 * @todo The organizer prop is needed for withDetails, remove this if we fix it.
 	 */
 	organizer: ownProps.attributes.organizer,
 	organizers: selectors.getOrganizersInBlock( state ),
@@ -113,8 +113,8 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 /**
  * Our Event Organizer blocks container. This is responsible for managing the state passed down to the template.
  *
- * @param  props The props with the organizer and `setAttributes` function, that will be passed down to the
- *               EventOrganizer component.
+ * @param {Object} props The props with the organizer and `setAttributes` function, that will be passed down to the
+ *                       EventOrganizer component.
  * @return {JSX.IntrinsicElements} Returns the EventOrganizer component.
  * @class
  */

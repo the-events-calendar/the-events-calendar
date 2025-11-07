@@ -25,10 +25,6 @@ class FeaturedImage extends Component {
 		image: PropTypes.object,
 	};
 
-	constructor() {
-		super( ...arguments );
-	}
-
 	render() {
 		return [ this.renderUI() ];
 	}

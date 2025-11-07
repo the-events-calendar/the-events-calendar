@@ -3,7 +3,7 @@
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 4.9.4
  *
- * @type  {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.multidayEvents = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.multidayEvents = {};
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.multidayEvents
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.multidayEvents
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {};
 
@@ -45,7 +45,7 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectorPrefixes = {
 		month: '.tribe-events-calendar-month__',
@@ -56,7 +56,7 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectorSuffixes = {
 		multidayEvent: 'multiday-event',
@@ -186,8 +186,8 @@ tribe.events.views.multidayEvents = {};
 	 * @since 4.9.5
 	 *
 	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Object}       jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -246,7 +246,7 @@ tribe.events.views.multidayEvents = {};
 	 * @since 4.9.9
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param {jQuery}  $container jQuery object of view container.
 	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event.
 	 *

@@ -190,9 +190,9 @@ jQuery( function ( $ ) {
 	 * Setup Datepicker
 	 */
 	let $date_format = $( '[data-datepicker_format]' ),
-		$view_select = $( '.tribe-field-dropdown_select2 select' ),
+		_$view_select = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML = $( document.getElementById( 'view-calendar-link-div' ) ).html(),
-		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
+		_$template_select = $( 'select[name="tribeEventsTemplate"]' ),
 		$event_pickers = $( document.getElementById( 'tribe-event-datepickers' ) ),
 		is_community_edit = $( 'body' ).is( '.tribe_community_edit' ),
 		datepicker_format = 0;
@@ -464,9 +464,9 @@ jQuery( function ( $ ) {
 		const postType = $select.data( 'postType' );
 		const $wrapper = $select.parents( `#event_${ postType }` ).eq( 0 );
 		const $groups = $wrapper.find( 'tbody' );
-		const linkedPostCount = $groups.length;
+		const _linkedPostCount = $groups.length;
 		const $group = $select.closest( 'tbody' );
-		const currentGroupPosition = $groups.index( $group ) + 1;
+		const _currentGroupPosition = $groups.index( $group ) + 1;
 		const $edit = $group.find( '.edit-linked-post-link a' );
 		const value = $select.val();
 		const $selected = $select.find( ':selected' );
@@ -562,10 +562,10 @@ jQuery( function ( $ ) {
 			return Math.floor( ( utc2 - utc1 ) / _MS_PER_DAY );
 		}
 
-		let startofweek = 0;
+		let _startofweek = 0;
 
 		if ( $event_pickers.length ) {
-			startofweek = $event_pickers.data( 'startofweek' );
+			_startofweek = $event_pickers.data( 'startofweek' );
 		}
 
 		const $start_date = $( document.getElementById( 'EventStartDate' ) );
@@ -584,7 +584,7 @@ jQuery( function ( $ ) {
 				object.input.data( 'prevDate', object.input.datepicker( 'getDate' ) );
 
 				// Focus the original element when the datepicker is closed.
-				object.settings.onClose = function(dateText, inst) {
+				object.settings.onClose = function ( dateText, inst ) {
 					inst.input.focus();
 				};
 
@@ -603,52 +603,52 @@ jQuery( function ( $ ) {
 				$dpDiv = $( object.dpDiv );
 
 				// Make datepicker dialog keyboard accessible
-				$dpDiv.attr('tabindex', '-1');
-				$dpDiv.on('keydown', function (e) {
+				$dpDiv.attr( 'tabindex', '-1' );
+				$dpDiv.on( 'keydown', function ( e ) {
 					// Trap Tab inside the datepicker
-					const focusableEls = $dpDiv.find('a, button, :input').filter(':visible');
-					const firstEl = focusableEls.first()[0];
-					const lastEl = focusableEls.last()[0];
+					const focusableEls = $dpDiv.find( 'a, button, :input' ).filter( ':visible' );
+					const firstEl = focusableEls.first()[ 0 ];
+					const lastEl = focusableEls.last()[ 0 ];
 
-					if (e.key === 'Escape' || e.key === 'Esc') {
+					if ( e.key === 'Escape' || e.key === 'Esc' ) {
 						e.preventDefault();
 
 						// Close datepicker and temporarily disable auto-open.
-						object.input.datepicker('option', 'showOn', 'manual');
+						object.input.datepicker( 'option', 'showOn', 'manual' );
 						$.datepicker._hideDatepicker();
 
 						// Manually hide in case any watchers miss it.
-						$('#ui-datepicker-div').css('display', 'none');
+						$( '#ui-datepicker-div' ).css( 'display', 'none' );
 
 						// Return focus safely.
 						object.input.focus();
 
 						// Re-enable auto-open after a tick.
-						setTimeout(() => {
-							object.input.datepicker('option', 'showOn', 'focus');
-						}, 100);
+						setTimeout( () => {
+							object.input.datepicker( 'option', 'showOn', 'focus' );
+						}, 100 );
 
 						return;
 					}
 
-					if (e.key === 'Tab') {
-						if (e.shiftKey && document.activeElement === firstEl) {
+					if ( e.key === 'Tab' ) {
+						if ( e.shiftKey && document.activeElement === firstEl ) {
 							e.preventDefault();
 							lastEl.focus();
-						} else if (!e.shiftKey && document.activeElement === lastEl) {
+						} else if ( ! e.shiftKey && document.activeElement === lastEl ) {
 							e.preventDefault();
 							firstEl.focus();
 						}
 					}
-				});
+				} );
 
 				// When datepicker opens, focus first day cell
-				setTimeout(() => {
-					const firstDay = $dpDiv.find('td a.ui-state-active')[0] || $dpDiv.find('td a')[0];
-					if (firstDay) {
+				setTimeout( () => {
+					const firstDay = $dpDiv.find( 'td a.ui-state-active' )[ 0 ] || $dpDiv.find( 'td a' )[ 0 ];
+					if ( firstDay ) {
 						firstDay.focus();
 					}
-				}, 0);
+				}, 0 );
 
 				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere
 				// with other plugins'/themes'.
@@ -702,7 +702,7 @@ jQuery( function ( $ ) {
 
 		window.tribe_datepicker_opts = tribe_datepicker_opts;
 
-		const dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+		const _dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		const $start_end_month = $( 'select[name="EventStartMonth"], select[name="EventEndMonth"]' );
 		const $start_month = $( 'select[name="EventStartMonth"]' );
 		const $end_month = $( 'select[name="EventEndMonth"]' );

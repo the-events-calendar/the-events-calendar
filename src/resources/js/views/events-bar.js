@@ -3,7 +3,7 @@
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.eventsBar = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.eventsBar = {};
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.eventsBar
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.eventsBar
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		eventsBar: '[data-js="tribe-events-events-bar"]',
@@ -50,7 +50,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.keyCode = {
 		END: 35,
@@ -277,8 +277,8 @@ tribe.events.views.eventsBar = {};
 	 * @since 4.9.4
 	 *
 	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Object}       jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -296,7 +296,7 @@ tribe.events.views.eventsBar = {};
 	 * @since  4.9.8
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
 	 * @param {jQuery}  $container jQuery object of view container
 	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
@@ -338,57 +338,59 @@ tribe.events.views.eventsBar = {};
 		ariaExpanded: 'aria-expanded',
 	};
 
-	obj.closeViewSelector = function($container) {
-		const $button = $container.find(obj.viewSelector.button);
-		const $list = $container.find(obj.viewSelector.listContainer);
-		$button.removeClass(obj.viewSelector.activeClass);
-		$button.attr(obj.viewSelector.ariaExpanded, 'false');
-		$list.hide().attr('aria-hidden', 'true');
+	obj.closeViewSelector = function ( $container ) {
+		const $button = $container.find( obj.viewSelector.button );
+		const $list = $container.find( obj.viewSelector.listContainer );
+		$button.removeClass( obj.viewSelector.activeClass );
+		$button.attr( obj.viewSelector.ariaExpanded, 'false' );
+		$list.hide().attr( 'aria-hidden', 'true' );
 	};
 
-	obj.openViewSelector = function($container) {
-		const $button = $container.find(obj.viewSelector.button);
-		const $list = $container.find(obj.viewSelector.listContainer);
-		$button.addClass(obj.viewSelector.activeClass);
-		$button.attr(obj.viewSelector.ariaExpanded, 'true');
-		$list.show().attr('aria-hidden', 'false');
+	obj.openViewSelector = function ( $container ) {
+		const $button = $container.find( obj.viewSelector.button );
+		const $list = $container.find( obj.viewSelector.listContainer );
+		$button.addClass( obj.viewSelector.activeClass );
+		$button.attr( obj.viewSelector.ariaExpanded, 'true' );
+		$list.show().attr( 'aria-hidden', 'false' );
 	};
 
-	obj.initViewSelectorA11y = function() {
-		const $viewSelector = $(obj.viewSelector.container);
-		if (!$viewSelector.length) return;
-		const $button = $viewSelector.find(obj.viewSelector.button);
-		const $list = $viewSelector.find(obj.viewSelector.listContainer);
+	obj.initViewSelectorA11y = function () {
+		const $viewSelector = $( obj.viewSelector.container );
+		if ( ! $viewSelector.length ) {
+			return;
+		}
+		const $button = $viewSelector.find( obj.viewSelector.button );
+		const $list = $viewSelector.find( obj.viewSelector.listContainer );
 
-		$viewSelector.on('keydown', function(e) {
-			if (e.key === 'Escape' || e.keyCode === 27) {
-				obj.closeViewSelector($viewSelector);
+		$viewSelector.on( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' || e.keyCode === 27 ) {
+				obj.closeViewSelector( $viewSelector );
 				$button.focus();
 			}
-		});
+		} );
 
-		$list.on('focusout', function(e) {
-			setTimeout(function() {
+		$list.on( 'focusout', function ( e ) {
+			setTimeout( function () {
 				const focused = document.activeElement;
-				if (!$list[0].contains(focused) && focused !== $button[0]) {
-					obj.closeViewSelector($viewSelector);
+				if ( ! $list[ 0 ].contains( focused ) && focused !== $button[ 0 ] ) {
+					obj.closeViewSelector( $viewSelector );
 				}
-			}, 10);
-		});
+			}, 10 );
+		} );
 
-		$list.on('keydown', function(e) {
-			if (e.key === 'Tab' || e.keyCode === 9) {
-				const $focusables = $list.find('a:visible');
-				const first = $focusables[0];
-				const last = $focusables[$focusables.length - 1];
-				if (!e.shiftKey && document.activeElement === last) {
-					obj.closeViewSelector($viewSelector);
+		$list.on( 'keydown', function ( e ) {
+			if ( e.key === 'Tab' || e.keyCode === 9 ) {
+				const $focusables = $list.find( 'a:visible' );
+				const first = $focusables[ 0 ];
+				const last = $focusables[ $focusables.length - 1 ];
+				if ( ! e.shiftKey && document.activeElement === last ) {
+					obj.closeViewSelector( $viewSelector );
 				}
-				if (e.shiftKey && document.activeElement === first) {
-					obj.closeViewSelector($viewSelector);
+				if ( e.shiftKey && document.activeElement === first ) {
+					obj.closeViewSelector( $viewSelector );
 				}
 			}
-		});
+		} );
 	};
 
 	$( obj.initViewSelectorA11y );

@@ -3,7 +3,7 @@
  *
  * @since  4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since  4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.tooltip = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.tooltip = {};
  *
  * @since  4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.tooltip
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.tooltip
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.10
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.config = {
 		delayHoverIn: 300,
@@ -48,7 +48,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.10
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		tooltipTrigger: '[data-js~="tribe-events-tooltip"]',
@@ -221,8 +221,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Tooltipster} instance instance of Tooltipster
-	 * @param {PlainObject} helper   helper object with tooltip origin
+	 * @param {Object} instance instance of Tooltipster
+	 * @param {Object} helper   helper object with tooltip origin
 	 *
 	 * @return {void}
 	 */
@@ -234,7 +234,7 @@ tribe.events.views.tooltip = {};
 			.on( 'mouseenter touchstart', { target: $origin }, obj.handleOriginHoverIn )
 			.on( 'mouseleave touchleave', { target: $origin }, obj.handleOriginHoverOut )
 			.on( 'keydown', { target: $origin }, obj.handleOriginKeydown );
-			instance
+		instance
 			.on( 'close', { origin: $origin }, obj.handleInstanceClose )
 			.on( 'closing', { origin: $origin }, obj.handleInstanceClosing );
 	};
@@ -245,8 +245,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Tooltipster} instance instance of Tooltipster
-	 * @param {PlainObject} helper   helper object with tooltip origin
+	 * @param {Object} instance instance of Tooltipster
+	 * @param {Object} helper   helper object with tooltip origin
 	 *
 	 * @return {void}
 	 */
@@ -325,8 +325,8 @@ tribe.events.views.tooltip = {};
 	 * @since 4.9.5
 	 *
 	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Object}       jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -343,7 +343,7 @@ tribe.events.views.tooltip = {};
 	 * @since 4.9.5
 	 *
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param {jQuery}  $container jQuery object of view container.
 	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
