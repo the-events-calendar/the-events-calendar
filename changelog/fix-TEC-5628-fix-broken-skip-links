@@ -1,0 +1,4 @@
+Significance: patch
+Type: accessibility
+
+Add filter to wrap event content in a main landmark if needed, which allows for the 'Skip to Content' button to work. [TEC-5628]
