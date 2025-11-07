@@ -39,7 +39,6 @@ module.exports = {
 			rules: {
 				/**
 				 * Allows snake_case for legacy WP/TEC vars.
-				 * This is reasonable — TEC & WP globals use underscores.
 				 */
 				camelcase: [
 					'error',
@@ -50,11 +49,10 @@ module.exports = {
 						ignoreGlobals: true,
 						allow: [ '^tribe_', '^TRIBE_', '[a-z]+_[a-z]+' ],
 					},
-				], // ✅ Keep as-is. Priority: 7 (reasonable flexibility for legacy WP code)
+				],
 
 				/**
 				 * Flags unused vars. Current config allows _var ignores.
-				 * That’s fine for intentionally unused vars (React hooks, etc.)
 				 */
 				'no-unused-vars': [
 					'error',
@@ -64,7 +62,7 @@ module.exports = {
 						varsIgnorePattern: '^_',
 						argsIgnorePattern: '^_',
 					},
-				], // ✅ Keep. Priority: 8 (standard practice, already WP-like)
+				],
 				'no-console': 'warn',
 			},
 		},
