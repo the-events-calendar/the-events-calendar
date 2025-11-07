@@ -1,4 +1,4 @@
-var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ignore_events : {};
+const tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ignore_events : {};
 
 ( function ( $, data ) {
 	'use strict';
@@ -21,8 +21,7 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 				data: {
 					action: 'tribe_convert_legacy_ignored_events',
 				},
-				success( response, status ) {
-					// eslint-disable-line no-unused-vars
+				success( response ) {
 					if ( response.status ) {
 						$container.html( response.text );
 						setTimeout( function () {

@@ -62,7 +62,8 @@ tribe.events.admin.categoryColors = {};
 	 * @param {jQuery} $input The input element to check.
 	 * @return {boolean} Whether the picker is initialized.
 	 */
-	const _isColorPickerInitialized = ( $input ) => $input.hasClass( selectors.initializedClass );
+	// Reserved for future use.
+	// const isColorPickerInitialized = ( $input ) => $input.hasClass( selectors.initializedClass );
 
 	/**
 	 * Gets all color inputs within a scope.

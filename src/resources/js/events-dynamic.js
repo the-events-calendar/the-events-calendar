@@ -3,7 +3,7 @@
  *
  * @member object tribe_dynamic_helper_text
  */
-var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
+const tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
 ( function ( $, obj ) {
 	'use strict';

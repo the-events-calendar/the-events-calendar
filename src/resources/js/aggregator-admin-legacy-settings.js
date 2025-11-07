@@ -7,11 +7,11 @@
 	 */
 	$( function () {
 		$( '#tribe-migrate-ical-settings' ).on( 'click', function () {
-			let $this = $( this ),
-				$spinner = $this.next( '.spinner' ),
-				$dismiss = $this.parents( '.notice' ).eq( 0 ).find( '.notice-dismiss' ),
-				$container = $this.parent(),
-				action;
+			const $this = $( this );
+			const $spinner = $this.next( '.spinner' );
+			const $dismiss = $this.parents( '.notice' ).eq( 0 ).find( '.notice-dismiss' );
+			const $container = $this.parent();
+			let action;
 
 			if ( 'tribe-migrate-ical-settings' === $this.attr( 'id' ) ) {
 				action = 'tribe_convert_legacy_ical_settings';
@@ -25,8 +25,7 @@
 				data: {
 					action,
 				},
-				success( response, status ) {
-					// eslint-disable-line no-unused-vars
+				success( response ) {
 					if ( response.status ) {
 						$container.html( response.text );
 						setTimeout( function () {

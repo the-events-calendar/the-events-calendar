@@ -37,6 +37,10 @@ module.exports = {
 				MutationObserver: 'readonly',
 			},
 			rules: {
+				/**
+				 * Allows snake_case for legacy WP/TEC vars.
+				 * This is reasonable — TEC & WP globals use underscores.
+				 */
 				camelcase: [
 					'error',
 					{
@@ -44,37 +48,91 @@ module.exports = {
 						ignoreDestructuring: true,
 						ignoreImports: true,
 						ignoreGlobals: true,
-						allow: [
-							'^tribe_',
-							'^TRIBE_',
-							'[a-z]+_[a-z]+',
-						],
+						allow: [ '^tribe_', '^TRIBE_', '[a-z]+_[a-z]+' ],
 					},
-				],
-				'no-var': 'off',
-				eqeqeq: 'off',
-				'no-bitwise': 'off',
+				], // ✅ Keep as-is. Priority: 7 (reasonable flexibility for legacy WP code)
+
+
+				/**
+				 * Enforces strict equality (===).
+				 * WordPress core enforces this. Keeping it off encourages type coercion bugs.
+				 */
+				eqeqeq: 'off', // ❌ Remove. Priority: 9 (must be ON for consistency)
+
+				/**
+				 * Prevents obscure bitwise operations (e.g., & | ^).
+				 * Rarely used intentionally — turning off opens potential confusion.
+				 */
+				'no-bitwise': 'off', // ❌ Remove. Priority: 8 (keep ON)
+
+				/**
+				 * Flags unused vars. Current config allows _var ignores.
+				 * That’s fine for intentionally unused vars (React hooks, etc.)
+				 */
 				'no-unused-vars': [
 					'error',
 					{
-						args: 'none', // Don't check unused function arguments.
+						args: 'none',
 						vars: 'all',
 						varsIgnorePattern: '^_',
 						argsIgnorePattern: '^_',
 					},
-				],
-				'jsdoc/require-returns-description': 'off',
-				'jsdoc/require-param-type': 'off',
-				'jsdoc/check-line-alignment': 'off',
-				'no-unused-expressions': 'off',
-				'no-shadow': 'off',
-				'prefer-const': 'off',
-				'no-redeclare': 'off',
-				'react-hooks/rules-of-hooks': 'off',
-				'@wordpress/no-unused-vars-before-return': 'off',
-				'@wordpress/no-global-active-element': 'off',
-				'no-console': 'off',
+				], // ✅ Keep. Priority: 8 (standard practice, already WP-like)
+
+				/**
+				 * Documentation alignment nitpickers — not crucial.
+				 * Turning these off is fine; doesn’t affect behavior.
+				 */
+				'jsdoc/require-returns-description': 'off', // 🟡 Optional. Priority: 3 (fine to leave off)
+				'jsdoc/require-param-type': 'off', // 🟡 Optional. Priority: 4 (fine to leave off until JS→TS someday)
+				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
+
+				/**
+				 * Disabling this allows expressions like a && b() that do nothing.
+				 * Should stay ON; often hides logic mistakes.
+				 */
+				'no-unused-expressions': 'off', // ❌ Remove. Priority: 8 (keep ON)
+
+				/**
+				 * Prevents variable shadowing (e.g., reusing var names in nested scopes).
+				 * Off = risky. Leave ON.
+				 */
+				'no-shadow': 'off', // ❌ Remove. Priority: 8 (important readability/safety rule)
+
+				/**
+				 * Encourages const when possible — better readability and intent.
+				 */
+				'prefer-const': 'off', // ❌ Remove. Priority: 9 (best practice, harmless to enforce)
+
+				/**
+				 * Prevents redeclaring identifiers in the same scope.
+				 * Disabling this is dangerous (can break code unexpectedly).
+				 */
+				'no-redeclare': 'off', // ❌ Remove. Priority: 10 (critical safety rule)
+
+				/**
+				 * Enforces correct React hook usage.
+				 * Turning this off is a big footgun if you’re using hooks anywhere.
+				 */
+				'react-hooks/rules-of-hooks': 'off', // ❌ Remove. Priority: 10 (React breakage risk)
+
+				/**
+				 * WP-specific rule. Could trigger on legacy patterns but should generally stay on.
+				 */
+				'@wordpress/no-unused-vars-before-return': 'off', // ⚠️ Consider re-enabling later. Priority: 6
+
+				/**
+				 * Another WP-specific DOM safety rule. Off is fine for now if legacy DOM manipulations exist.
+				 */
+				'@wordpress/no-global-active-element': 'off', // 🟡 Optional. Priority: 4
+
+				/**
+				 * Console logs are fine in dev, but should be warned (not disabled).
+				 * Use "warn" instead of "off".
+				 */
+				'no-console': 'off', // 🔧 Change to 'warn'. Priority: 7 (keep awareness, allow dev logs)
 			},
+
 		},
 	],
 

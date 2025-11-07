@@ -8,7 +8,7 @@
  * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
 
-var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
+const tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
 
 ( function ( $, api, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
@@ -428,9 +428,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 			if ( 'custom' === to ) {
 				backgroundColor = api( obj.selectors.eventsBarBackgroundColor ).get();
 			} else if ( 'global_background' === to ) {
-				const globalBackgroundColorChoice = api(
-					obj.selectors.globalBackgroundColorChoice
-				).get(); /* eslint-disable-line max-len */
+				const globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
 				if ( 'transparent' !== globalBackgroundColorChoice ) {
 					backgroundColor = api( obj.selectors.globalBackgroundColor ).get();
 				}
@@ -458,11 +456,10 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 	// Events Bar View Selector Background Color Choice
 	api( obj.selectors.eventsBarViewSelectorBackgroundColorChoice, function ( value ) {
 		value.bind( function ( to ) {
-			let backgroundColor = api( obj.selectors.eventsBarBackgroundColor ).get();
-
-			if ( 'custom' === to ) {
-				backgroundColor = api( obj.selectors.eventsBarViewSelectorBackgroundColor ).get();
-			}
+			const backgroundColor =
+				'custom' === to
+					? api( obj.selectors.eventsBarViewSelectorBackgroundColor ).get()
+					: api( obj.selectors.eventsBarBackgroundColor ).get();
 
 			obj.root.forEach( function ( tribeElement ) {
 				tribeElement.style.setProperty( obj.customProps.eventsBarViewSelectorBackgroundColor, backgroundColor );
@@ -645,17 +642,15 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 	// Tooltip Background Color
 	api( obj.selectors.monthTooltipBackgroundColor, function ( value ) {
 		value.bind( function ( to ) {
-			let tooltipBackgroundColor = '#fff';
 			const monthBackgroundColorChoice = api( obj.selectors.monthGridBackgroundColorChoice ).get();
 			const globalBackgroundColorChoice = api( obj.selectors.globalBackgroundColorChoice ).get();
 
-			if (
+			const tooltipBackgroundColor =
 				'event' === to &&
 				'transparent' === monthBackgroundColorChoice &&
 				'transparent' !== globalBackgroundColorChoice
-			) {
-				tooltipBackgroundColor = api( obj.selectors.globalBackgroundColor ).get();
-			}
+					? api( obj.selectors.globalBackgroundColor ).get()
+					: '#fff';
 
 			// Tooltips are appended to the body and are not inside a .tribe-events or .tribe-common element!
 			document.documentElement.style.setProperty(

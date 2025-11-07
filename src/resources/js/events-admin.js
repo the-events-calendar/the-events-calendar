@@ -13,7 +13,7 @@
  * todo: now used in multiple places, lets consolidate. Also, should events-admin really be powering community fe form?
  */
 
-var tribeDateFormat = ( function () {
+const tribeDateFormat = ( function () {
 	const token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
 		timezone =
 			/\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -397,7 +397,7 @@ jQuery( function ( $ ) {
 			}
 
 			// Populate the fields with any sticky data then add them to the page
-			for ( var post_type in tribe_events_linked_posts.post_types ) {
+			for ( const post_type in tribe_events_linked_posts.post_types ) {
 				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( post_type ) ) {
 					continue;
 				}
@@ -459,7 +459,7 @@ jQuery( function ( $ ) {
 		section.find( 'select.linked-post-dropdown' ).trigger( 'change' );
 	};
 
-	var toggle_linked_post_fields = function ( event ) {
+	const toggle_linked_post_fields = function ( event ) {
 		const $select = $( this );
 		const postType = $select.data( 'postType' );
 		const $wrapper = $select.parents( `#event_${ postType }` ).eq( 0 );
@@ -926,20 +926,20 @@ jQuery( function ( $ ) {
 			);
 
 			// ...if it is, keep it as the default (else switch to the first available remaining option)
-			if ( $prev_default_option.val() == $this.val() ) {
+			if ( $prev_default_option.val() === $this.val() ) {
 				$prev_default_option.attr( 'selected', 'selected' );
 			} else {
-				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				const $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
 				$default_view_select
 					.find( 'option' )
 					.find( "option[value='" + $default_reset + "']" )
 					.attr( 'selected', 'selected' );
 			}
 
-			if ( $prev_default_mobile_option.val() == $this.val() ) {
+			if ( $prev_default_mobile_option.val() === $this.val() ) {
 				$prev_default_mobile_option.attr( 'selected', 'selected' );
 			} else {
-				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				const $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
 				$default_mobile_view_select
 					.find( 'option' )
 					.find( "option[value='" + $default_reset + "']" )

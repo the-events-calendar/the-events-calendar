@@ -8,7 +8,7 @@
  * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
 
-var tribe_customizer_controls = tribe_customizer_controls || {};
+const tribe_customizer_controls = tribe_customizer_controls || {};
 
 ( function ( $, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
@@ -58,7 +58,11 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		wp.customize( parent, function ( setting ) {
 			wp.customize.control( child, function ( control ) {
 				const slideFunction = function () {
-					'custom' === setting.get() ? control.container.slideDown( 180 ) : control.container.slideUp( 180 );
+					if ( 'custom' === setting.get() ) {
+						control.container.slideDown( 180 );
+					} else {
+						control.container.slideUp( 180 );
+					}
 				};
 
 				slideFunction();
@@ -79,7 +83,11 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		wp.customize( parent, function ( setting ) {
 			wp.customize.control( child, function ( control ) {
 				const slideFunction = function () {
-					'custom' !== setting.get() ? control.container.slideDown( 180 ) : control.container.slideUp( 180 );
+					if ( 'custom' !== setting.get() ) {
+						control.container.slideDown( 180 );
+					} else {
+						control.container.slideUp( 180 );
+					}
 				};
 
 				slideFunction();

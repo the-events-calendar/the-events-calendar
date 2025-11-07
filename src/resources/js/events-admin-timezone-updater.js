@@ -19,8 +19,7 @@ jQuery( function ( $ ) {
 		}
 
 		// "Soft failure"?
-		if ( 0 == response ) {
-			// eslint-disable-line eqeqeq
+		if ( 0 === response ) {
 			failure();
 			return;
 		}
@@ -48,9 +47,9 @@ jQuery( function ( $ ) {
 		admin_notice.html( '<p>' + failure_msg + '</p>' );
 	}
 
-	var admin_notice = $( '.tribe-events-timezone-update-msg' );
-	var failure_msg = tribe_timezone_update.failure_msg;
-	var check_value = tribe_timezone_update.check;
+	const admin_notice = $( '.tribe-events-timezone-update-msg' );
+	const failure_msg = tribe_timezone_update.failure_msg;
+	const check_value = tribe_timezone_update.check;
 
 	if ( tribe_timezone_update.continue ) {
 		update( tribe_timezone_update );
