@@ -52,13 +52,6 @@ module.exports = {
 					},
 				], // ✅ Keep as-is. Priority: 7 (reasonable flexibility for legacy WP code)
 
-
-				/**
-				 * Enforces strict equality (===).
-				 * WordPress core enforces this. Keeping it off encourages type coercion bugs.
-				 */
-				eqeqeq: 'off', // ❌ Remove. Priority: 9 (must be ON for consistency)
-
 				/**
 				 * Prevents obscure bitwise operations (e.g., & | ^).
 				 * Rarely used intentionally — turning off opens potential confusion.
