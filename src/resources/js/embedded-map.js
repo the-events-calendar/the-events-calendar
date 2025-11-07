@@ -37,8 +37,7 @@ if ( 'function' === typeof jQuery ) {
 			const geocoder = new google.maps.Geocoder();
 
 			geocoder.geocode( { address: venueAddress }, function ( results, status ) {
-				if ( status == google.maps.GeocoderStatus.OK ) {
-					// eslint-disable-line eqeqeq
+				if ( status === google.maps.GeocoderStatus.OK ) {
 					position = results[ 0 ].geometry.location;
 					initialize();
 				}

@@ -87,28 +87,22 @@ const tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Determine Message to Use based on Date and Time
 	 */
 	obj.msg_logic = function () {
-		if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		if ( obj.start_date === obj.end_date && ! obj.all_day && obj.start_time !== obj.end_time ) {
 			//single date, different start and end time
 			obj.dynamic_text = obj.text[ 0 ];
-		} else if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		} else if ( obj.start_date === obj.end_date && ! obj.all_day && obj.start_time === obj.end_time ) {
 			//single date, same start and end time
 			obj.dynamic_text = obj.text[ 1 ];
-		} else if ( obj.start_date == obj.end_date && obj.all_day ) {
-			// eslint-disable-line eqeqeq
+		} else if ( obj.start_date === obj.end_date && obj.all_day ) {
 			//single date, all day
 			obj.dynamic_text = obj.text[ 2 ];
-		} else if ( obj.start_date != obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		} else if ( obj.start_date !== obj.end_date && ! obj.all_day && obj.start_time !== obj.end_time ) {
 			//different date, different start and end time
 			obj.dynamic_text = obj.text[ 3 ];
-		} else if ( obj.start_date != obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		} else if ( obj.start_date !== obj.end_date && ! obj.all_day && obj.start_time === obj.end_time ) {
 			//different date, same start and end time
 			obj.dynamic_text = obj.text[ 4 ];
-		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
-			// eslint-disable-line eqeqeq
+		} else if ( obj.start_date !== obj.end_date && obj.all_day ) {
 			//different date, all day
 			obj.dynamic_text = obj.text[ 5 ];
 		}

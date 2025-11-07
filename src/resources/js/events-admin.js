@@ -33,8 +33,8 @@ const tribeDateFormat = ( function () {
 
 		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
 		if (
-			arguments.length == 1 &&
-			Object.prototype.toString.call( date ) == '[object String]' &&
+			arguments.length === 1 &&
+			Object.prototype.toString.call( date ) === '[object String]' &&
 			! /\d/.test( date )
 		) {
 			mask = date;
@@ -54,7 +54,7 @@ const tribeDateFormat = ( function () {
 		mask = String( dF.masks[ mask ] || mask || dF.masks.default );
 
 		// Allow setting the utc argument via the mask
-		if ( mask.slice( 0, 4 ) == 'UTC:' ) {
+		if ( mask.slice( 0, 4 ) === 'UTC:' ) {
 			mask = mask.slice( 4 );
 			utc = true;
 		}
@@ -96,7 +96,7 @@ const tribeDateFormat = ( function () {
 				TT: H < 12 ? 'AM' : 'PM',
 				Z: utc ? 'UTC' : ( String( date ).match( timezone ) || [ '' ] ).pop().replace( timezoneClip, '' ),
 				o: ( o > 0 ? '-' : '+' ) + pad( Math.floor( Math.abs( o ) / 60 ) * 100 + ( Math.abs( o ) % 60 ), 4 ),
-				S: [ 'th', 'st', 'nd', 'rd' ][ d % 10 > 3 ? 0 : ( ( ( d % 100 ) - ( d % 10 ) != 10 ) * d ) % 10 ],
+				S: [ 'th', 'st', 'nd', 'rd' ][ d % 10 > 3 ? 0 : ( ( ( d % 100 ) - ( d % 10 ) !== 10 ) * d ) % 10 ],
 			};
 
 		return mask.replace( token, function ( $0 ) {
@@ -684,7 +684,9 @@ jQuery( function ( $ ) {
 				if ( this.id === 'EventStartDate' ) {
 					const start_date = $( document.getElementById( 'EventStartDate' ) ).data( 'prevDate' );
 					const date_diff =
-						null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
+						start_date === null || start_date === undefined
+							? 0
+							: date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
 					const end_date = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
@@ -741,26 +743,26 @@ jQuery( function ( $ ) {
 			const t = $( this );
 			let startEnd = t.attr( 'name' );
 			// get changed select field
-			if ( startEnd == 'EventStartMonth' ) {
+			if ( startEnd === 'EventStartMonth' ) {
 				startEnd = 'Start';
 			} else {
 				startEnd = 'End';
 			}
 			// show/hide date lists according to month
 			let chosenMonth = t.attr( 'value' );
-			if ( chosenMonth.charAt( 0 ) == '0' ) {
+			if ( chosenMonth.charAt( 0 ) === '0' ) {
 				chosenMonth = chosenMonth.replace( '0', '' );
 			}
 			// leap year
 			const remainder = $( 'select[name="Event' + startEnd + 'Year"]' ).attr( 'value' ) % 4;
-			if ( chosenMonth == 2 && remainder == 0 ) {
+			if ( chosenMonth === '2' && remainder === 0 ) {
 				chosenMonth = 0;
 			}
 			// preserve selected option
 			const currentDateField = $( 'select[name="Event' + startEnd + 'Day"]' );
 
 			$( '.event' + startEnd + 'DateField' ).remove();
-			if ( startEnd == 'Start' ) {
+			if ( startEnd === 'Start' ) {
 				selectObject = tribeStartDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
 				$start_month.after( selectObject );
@@ -812,7 +814,7 @@ jQuery( function ( $ ) {
 			const $state_text = $container.find( '#StateProvinceText' );
 			const country = $( this ).val();
 
-			if ( country == 'US' || country == 'United States' ) {
+			if ( country === 'US' || country === 'United States' ) {
 				$state_text.hide();
 				$state_select.hide();
 				$state_dropdown.show();

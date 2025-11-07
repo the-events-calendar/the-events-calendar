@@ -5,16 +5,14 @@ jQuery( function ( $ ) {
 			.on( {
 				focus() {
 					const input = $( this );
-					if ( input.val() == input.attr( 'placeholder' ) ) {
-						// eslint-disable-line eqeqeq
+					if ( input.val() === input.attr( 'placeholder' ) ) {
 						input.val( '' );
 						input.removeClass( 'placeholder' );
 					}
 				},
 				blur() {
 					const input = $( this );
-					if ( input.val() == '' || input.val() == input.attr( 'placeholder' ) ) {
-						// eslint-disable-line eqeqeq,max-len
+					if ( input.val() === '' || input.val() === input.attr( 'placeholder' ) ) {
 						input.addClass( 'placeholder' );
 						input.val( input.attr( 'placeholder' ) );
 					}
@@ -27,8 +25,7 @@ jQuery( function ( $ ) {
 					.find( '[placeholder]' )
 					.each( function () {
 						const input = $( this );
-						if ( input.val() == input.attr( 'placeholder' ) ) {
-							// eslint-disable-line eqeqeq
+						if ( input.val() === input.attr( 'placeholder' ) ) {
 							input.val( '' );
 						}
 					} );
