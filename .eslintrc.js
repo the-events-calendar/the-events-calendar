@@ -53,12 +53,6 @@ module.exports = {
 				], // ✅ Keep as-is. Priority: 7 (reasonable flexibility for legacy WP code)
 
 				/**
-				 * Prevents obscure bitwise operations (e.g., & | ^).
-				 * Rarely used intentionally — turning off opens potential confusion.
-				 */
-				'no-bitwise': 'off', // ❌ Remove. Priority: 8 (keep ON)
-
-				/**
 				 * Flags unused vars. Current config allows _var ignores.
 				 * That’s fine for intentionally unused vars (React hooks, etc.)
 				 */
