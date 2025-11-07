@@ -769,7 +769,7 @@ class Builder {
 				$this->invalid = true;
 				continue;
 			}
-			[ $data, $format ] = $model->format();
+			list( $data, $format ) = $model->format();
 			if ( empty( $data ) || empty( $data[ $column ] ) ) {
 				$this->invalid = true;
 				continue;
@@ -1571,7 +1571,7 @@ class Builder {
 	 *
 	 * @return array<Model> An array with the models with the raw results.
 	 */
-	private function create_collection( array $raw = null ) {
+	private function create_collection( ?array $raw = null ) {
 		if ( $raw === null ) {
 			return [];
 		}
