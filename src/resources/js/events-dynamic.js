@@ -27,7 +27,12 @@ const tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	obj.datepicker_format = tribe_dynamic_help_text.datepicker_format;
 
 	// Setup object variables
-	obj.dynamic_text, obj.start_date, obj.start_time, obj.end_date, obj.end_time, ( obj.all_day = '' );
+	obj.dynamic_text = '';
+	obj.start_date = '';
+	obj.start_time = '';
+	obj.end_date = '';
+	obj.end_time = '';
+	obj.all_day = '';
 
 	/**
 	 * Setup Dynamic Text on Load

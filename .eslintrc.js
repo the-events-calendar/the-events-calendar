@@ -75,12 +75,6 @@ module.exports = {
 				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
 
 				/**
-				 * Disabling this allows expressions like a && b() that do nothing.
-				 * Should stay ON; often hides logic mistakes.
-				 */
-				'no-unused-expressions': 'off', // ❌ Remove. Priority: 8 (keep ON)
-
-				/**
 				 * Prevents variable shadowing (e.g., reusing var names in nested scopes).
 				 * Off = risky. Leave ON.
 				 */

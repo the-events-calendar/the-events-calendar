@@ -193,7 +193,8 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.submitRequest = function ( $container, value ) {
 		const viewData = {};
-		( viewData[ 'tribe-bar-date' ] = value ), obj.request( viewData, $container );
+		viewData[ 'tribe-bar-date' ] = value;
+		obj.request( viewData, $container );
 	};
 
 	/**
@@ -681,14 +682,27 @@ tribe.events.views.datepicker = {};
 		const tribeL10nDatatables = window.tribe_l10n_datatables || {};
 		const datepickerI18n = tribeL10nDatatables.datepicker || {};
 
-		datepickerI18n.dayNames && ( $.fn.bootstrapDatepicker.dates.en.days = datepickerI18n.dayNames );
-		datepickerI18n.dayNamesShort && ( $.fn.bootstrapDatepicker.dates.en.daysShort = datepickerI18n.dayNamesShort );
-		datepickerI18n.dayNamesMin && ( $.fn.bootstrapDatepicker.dates.en.daysMin = datepickerI18n.dayNamesMin );
-		datepickerI18n.monthNames && ( $.fn.bootstrapDatepicker.dates.en.months = datepickerI18n.monthNames );
-		datepickerI18n.monthNamesMin &&
-			( $.fn.bootstrapDatepicker.dates.en.monthsShort = datepickerI18n.monthNamesMin );
-		datepickerI18n.today && ( $.fn.bootstrapDatepicker.dates.en.today = datepickerI18n.today );
-		datepickerI18n.clear && ( $.fn.bootstrapDatepicker.dates.en.clear = datepickerI18n.clear );
+		if ( datepickerI18n.dayNames ) {
+			$.fn.bootstrapDatepicker.dates.en.days = datepickerI18n.dayNames;
+		}
+		if ( datepickerI18n.dayNamesShort ) {
+			$.fn.bootstrapDatepicker.dates.en.daysShort = datepickerI18n.dayNamesShort;
+		}
+		if ( datepickerI18n.dayNamesMin ) {
+			$.fn.bootstrapDatepicker.dates.en.daysMin = datepickerI18n.dayNamesMin;
+		}
+		if ( datepickerI18n.monthNames ) {
+			$.fn.bootstrapDatepicker.dates.en.months = datepickerI18n.monthNames;
+		}
+		if ( datepickerI18n.monthNamesMin ) {
+			$.fn.bootstrapDatepicker.dates.en.monthsShort = datepickerI18n.monthNamesMin;
+		}
+		if ( datepickerI18n.today ) {
+			$.fn.bootstrapDatepicker.dates.en.today = datepickerI18n.today;
+		}
+		if ( datepickerI18n.clear ) {
+			$.fn.bootstrapDatepicker.dates.en.clear = datepickerI18n.clear;
+		}
 	};
 
 	/**

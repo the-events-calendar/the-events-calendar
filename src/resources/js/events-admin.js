@@ -691,7 +691,7 @@ jQuery( function ( $ ) {
 
 					$end_date
 						.datepicker( 'option', 'minDate', $start_date.datepicker( 'getDate' ) )
-						.datepicker( 'setDate', end_date ).datepicker_format;
+						.datepicker( 'setDate', end_date );
 				}
 
 				// fire the change and blur handlers on the field
@@ -718,7 +718,9 @@ jQuery( function ( $ ) {
 
 			$.each( $els, function ( i, el ) {
 				const $el = $( el );
-				'' !== $el.val() && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+				if ( '' !== $el.val() ) {
+					$el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+				}
 			} );
 		}
 
