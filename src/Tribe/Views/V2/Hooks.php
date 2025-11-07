@@ -1397,7 +1397,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string          $html      The HTML to be displayed.
+	 * @param string         $html      The HTML to be displayed.
 	 * @param Tribe__Context $context   Tribe context used to setup the view.
 	 * @param string         $view_slug The slug of the View that we've built.
 	 * @param WP_Query       $query     The current WP Query object.
