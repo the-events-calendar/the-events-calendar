@@ -333,27 +333,7 @@ class Page {
 
 		$this->prevent_page_looping();
 
-		/**
-		 * Filters the ID attribute for the main content container on TEC pages.
-		 *
-		 * This allows themes to customize the main container ID to match their skip link targets.
-		 * Common values: 'main', 'content', 'primary'.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $main_id The ID attribute for the main content container. Default 'main'.
-		 */
-		$main_id = apply_filters( 'tec_events_main_container_id', 'main' );
-
-		// Wrap the HTML in a main landmark for accessibility.
-		$wrapped_html = sprintf(
-			'<main id="%s" class="tec-events-main-content" tabindex="-1" role="main" aria-label="%s">%s</main>',
-			esc_attr( $main_id ),
-			esc_attr__( 'Main content', 'the-events-calendar' ),
-			$html
-		);
-
-		return do_shortcode( $wrapped_html );
+		return do_shortcode( $html );
 	}
 
 	/**
