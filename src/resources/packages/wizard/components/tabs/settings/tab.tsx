@@ -38,23 +38,34 @@ const startDayOptions = [
 	{ label: __( 'Saturday', 'the-events-calendar' ), value: '6' },
 ];
 
-const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
-	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
-	const { currency, timezone_string, date_format, start_of_week, timezones, currencies }: { currency: string, timezone_string: string, date_format: string, start_of_week: number, timezones: Record<string, Record<string, string>>, currencies: Record<string, { symbol: string, name: string }> } = useSelect(
-		(select) => {
-			const store = select(SETTINGS_STORE_KEY);
-			return {
-				currency: store.getSetting('currency'),
-				timezone_string: store.getSetting('timezone_string'),
-				date_format: store.getSetting('date_format'),
-				start_of_week: store.getSetting('start_of_week'),
-				timezones: store.getSetting('timezones'),
-				currencies: store.getSetting('currencies'),
-			};
-		},
-		[]
-	);
+const SettingsContent = ( { moveToNextTab, skipToNextTab } ) => {
+	const visitedFields = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getVisitedFields() );
+	const setVisitedField = useDispatch( SETTINGS_STORE_KEY ).setVisitedField;
+	const {
+		currency,
+		timezone_string,
+		date_format,
+		start_of_week,
+		timezones,
+		currencies,
+	}: {
+		currency: string;
+		timezone_string: string;
+		date_format: string;
+		start_of_week: number;
+		timezones: Record< string, Record< string, string > >;
+		currencies: Record< string, { symbol: string; name: string } >;
+	} = useSelect( ( select ) => {
+		const store = select( SETTINGS_STORE_KEY );
+		return {
+			currency: store.getSetting( 'currency' ),
+			timezone_string: store.getSetting( 'timezone_string' ),
+			date_format: store.getSetting( 'date_format' ),
+			start_of_week: store.getSetting( 'start_of_week' ),
+			timezones: store.getSetting( 'timezones' ),
+			currencies: store.getSetting( 'currencies' ),
+		};
+	}, [] );
 	const [ currencyCode, setCurrency ] = useState( currency );
 	const [ timeZone, setTimeZone ] = useState( timezone_string );
 	const [ dateFormat, setDateFormat ] = useState( date_format || dateFormatOptions[ 0 ].value );
@@ -180,9 +191,11 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						<Select
 							options={ currencyOptions }
 							isSearchable={ true }
-							placeholder={ __( 'Search for a currency...', 'the-events-calendar' ) }
-							value={ currencyOptions.find( option => option.value === currencyCode ) || null }
-							onChange={ ( selectedOption: OptionType | null ) => setCurrency( selectedOption?.value || '' ) }
+							placeholder={ __( 'Search for a currency…', 'the-events-calendar' ) }
+							value={ currencyOptions.find( ( option ) => option.value === currencyCode ) || null }
+							onChange={ ( selectedOption: OptionType | null ) =>
+								setCurrency( selectedOption?.value || '' )
+							}
 							className="tec-react-select-container"
 							classNamePrefix="tec-react-select"
 						/>
@@ -203,13 +216,15 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						<Select
 							options={ timezoneOptions }
 							isSearchable={ true }
-							placeholder={ __( 'Search for a timezone...', 'the-events-calendar' ) }
+							placeholder={ __( 'Search for a timezone…', 'the-events-calendar' ) }
 							value={
 								timezoneOptions
-									.flatMap( group => group.options )
-									.find( option => option.value === timeZone ) || null
+									.flatMap( ( group ) => group.options )
+									.find( ( option ) => option.value === timeZone ) || null
 							}
-							onChange={ ( selectedOption: OptionType | null ) => setTimeZone( selectedOption?.value || '' ) }
+							onChange={ ( selectedOption: OptionType | null ) =>
+								setTimeZone( selectedOption?.value || '' )
+							}
 							className="tec-react-select-container"
 							classNamePrefix="tec-react-select"
 						/>
@@ -257,7 +272,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					>
 						<select
 							id="week-starts"
-							onChange={ ( e ) => setWeekStart( e.target.value  ) }
+							onChange={ ( e ) => setWeekStart( e.target.value ) }
 							defaultValue={ weekStart }
 						>
 							{ startDayOptions.map( ( { label, value } ) => (

@@ -73,12 +73,14 @@ domReady( () => {
 	const bootData = trigger.dataset.wizardBootData;
 
 	if ( ! containerId || ! bootData ) {
+		// eslint-disable-next-line no-console -- Intentional debug logging for development.
 		console.warn( 'Container element or boot data is missing.' );
 		return;
 	}
 
 	const rootContainer = document.getElementById( containerId );
 	if ( ! rootContainer ) {
+		// eslint-disable-next-line no-console -- Intentional debug logging for development.
 		console.warn( `Container with ID '${ containerId }' not found.` );
 		return;
 	}
@@ -87,6 +89,7 @@ domReady( () => {
 	try {
 		parsedBootData = JSON.parse( bootData );
 	} catch ( error ) {
+		// eslint-disable-next-line no-console -- Intentional debug logging for development.
 		console.error( 'Failed to parse bootData:', error );
 		return;
 	}

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useSelect } from '@wordpress/data';
 import SetupButton from '../../buttons/setup';
 import ExitButton from '../../buttons/exit';
 import OptInCheckbox from './inputs/opt-in';
 import Illustration from './img/wizard-welcome-img.png';
 import { SETTINGS_STORE_KEY } from '../../../data';
 
-const WelcomeContent = ( { moveToNextTab, skipToNextTab } ) => {
+const WelcomeContent = ( { moveToNextTab } ) => {
 	const optin = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSetting( 'optin' ) || false, [] );
-	const [ originalValue, setOriginalValue ] = useState( optin );
 	const [ optinValue, setOptinValue ] = useState( optin ); // Store the updated optin value
 
 	useEffect( () => {
@@ -40,7 +39,7 @@ const WelcomeContent = ( { moveToNextTab, skipToNextTab } ) => {
 				</h1>
 				<p className="tec-events-onboarding__tab-subheader">
 					{ __(
-						'Congratulations on installing the best event management solution for WordPress. Let\'s tailor your experience to your needs.',
+						"Congratulations on installing the best event management solution for WordPress. Let's tailor your experience to your needs.",
 						'the-events-calendar'
 					) }
 				</p>

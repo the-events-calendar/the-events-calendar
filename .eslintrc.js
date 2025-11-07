@@ -68,6 +68,21 @@ module.exports = {
 				'no-console': 'warn',
 			},
 		},
+		{
+			files: [ 'src/resources/packages/**/*.{ts,tsx}' ],
+			rules: {
+				camelcase: [
+					'error',
+					{
+						properties: 'never',
+						ignoreDestructuring: true,
+						ignoreImports: true,
+						ignoreGlobals: true,
+						allow: [ '^tribe_', '^TRIBE_', '^wp_', 'timezone_string', 'date_format', 'start_of_week' ],
+					},
+				],
+			},
+		},
 	],
 
 	globals: {

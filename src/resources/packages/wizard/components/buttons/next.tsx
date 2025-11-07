@@ -59,7 +59,7 @@ const NextButton = ( { disabled, moveToNextTab, tabSettings } ) => {
 					document.getElementsByClassName( `tec-events-onboarding-step-${ tabSettings.currentTab }` )
 				);
 
-				stepIndicators.map( ( stepIndicator: Element ) => {
+				stepIndicators.forEach( ( stepIndicator: Element ) => {
 					stepIndicator.classList.add( 'tec-admin-page__onboarding-step--completed' );
 				} );
 
