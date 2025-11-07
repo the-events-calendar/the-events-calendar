@@ -72,18 +72,7 @@ module.exports = {
 				 */
 				'jsdoc/require-returns-description': 'off', // 🟡 Optional. Priority: 3 (fine to leave off)
 				'jsdoc/require-param-type': 'off', // 🟡 Optional. Priority: 4 (fine to leave off until JS→TS someday)
-				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
-
-				/**
-				 * Encourages const when possible — better readability and intent.
-				 */
-				'prefer-const': 'off', // ❌ Remove. Priority: 9 (best practice, harmless to enforce)
-
-				/**
-				 * Prevents redeclaring identifiers in the same scope.
-				 * Disabling this is dangerous (can break code unexpectedly).
-				 */
-				'no-redeclare': 'off', // ❌ Remove. Priority: 10 (critical safety rule)
+			'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
 
 				/**
 				 * Enforces correct React hook usage.

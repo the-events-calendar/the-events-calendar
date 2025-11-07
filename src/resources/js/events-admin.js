@@ -189,13 +189,13 @@ jQuery( function ( $ ) {
 	/**
 	 * Setup Datepicker
 	 */
-	let $date_format = $( '[data-datepicker_format]' ),
-		_$view_select = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML = $( document.getElementById( 'view-calendar-link-div' ) ).html(),
-		_$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( document.getElementById( 'tribe-event-datepickers' ) ),
-		is_community_edit = $( 'body' ).is( '.tribe_community_edit' ),
-		datepicker_format = 0;
+	const $date_format = $( '[data-datepicker_format]' );
+	const _$view_select = $( '.tribe-field-dropdown_select2 select' );
+	const viewCalLinkHTML = $( document.getElementById( 'view-calendar-link-div' ) ).html();
+	const _$template_select = $( 'select[name="tribeEventsTemplate"]' );
+	const $event_pickers = $( document.getElementById( 'tribe-event-datepickers' ) );
+	const is_community_edit = $( 'body' ).is( '.tribe_community_edit' );
+	let datepicker_format = 0;
 
 	// Modified from tribe_ev.data to match jQuery UI formatting.
 	const datepicker_formats = {
