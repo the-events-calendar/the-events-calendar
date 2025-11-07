@@ -72,14 +72,7 @@ module.exports = {
 				 */
 				'jsdoc/require-returns-description': 'off', // 🟡 Optional. Priority: 3 (fine to leave off)
 				'jsdoc/require-param-type': 'off', // 🟡 Optional. Priority: 4 (fine to leave off until JS→TS someday)
-			'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
-
-				/**
-				 * Enforces correct React hook usage.
-				 * Turning this off is a big footgun if you’re using hooks anywhere.
-				 */
-				'react-hooks/rules-of-hooks': 'off', // ❌ Remove. Priority: 10 (React breakage risk)
-
+				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
 				/**
 				 * WP-specific rule. Could trigger on legacy patterns but should generally stay on.
 				 */
