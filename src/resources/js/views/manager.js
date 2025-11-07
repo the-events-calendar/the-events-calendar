@@ -396,7 +396,6 @@ tribe.events.views.manager = {};
 	obj.onPopState = async function ( event ) {
 		const target = event.originalEvent.target;
 		const url = target.location.href;
-		const $container = obj.getLastContainer();
 
 		// We are at the same URL + path as before so not really a change on the
 		// actual URL happen, it might be just a hash change which shouldn't
@@ -408,6 +407,8 @@ tribe.events.views.manager = {};
 		) {
 			return false;
 		}
+
+		const $container = obj.getLastContainer();
 
 		obj.lastLocation.pathname = document.location.pathname;
 		obj.lastLocation.origin = document.location.origin;

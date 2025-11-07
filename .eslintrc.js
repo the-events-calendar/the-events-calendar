@@ -74,11 +74,6 @@ module.exports = {
 				'jsdoc/require-param-type': 'off', // 🟡 Optional. Priority: 4 (fine to leave off until JS→TS someday)
 				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
 				/**
-				 * WP-specific rule. Could trigger on legacy patterns but should generally stay on.
-				 */
-				'@wordpress/no-unused-vars-before-return': 'off', // ⚠️ Consider re-enabling later. Priority: 6
-
-				/**
 				 * Another WP-specific DOM safety rule. Off is fine for now if legacy DOM manipulations exist.
 				 */
 				'@wordpress/no-global-active-element': 'off', // 🟡 Optional. Priority: 4

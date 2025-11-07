@@ -344,7 +344,6 @@ tribe.events.views.datepicker = {};
 	obj.handleClick = function ( event ) {
 		const $input = event.data.input;
 		const $datepickerButton = event.data.target;
-		const state = $datepickerButton.data( 'tribeEventsState' );
 		const method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
 		const tapHide = $datepickerButton.data( 'tribeTapHide' );
 
@@ -352,6 +351,7 @@ tribe.events.views.datepicker = {};
 			return;
 		}
 
+		const state = $datepickerButton.data( 'tribeEventsState' );
 		state.isTarget = false;
 
 		$datepickerButton.data( 'tribeEventsState', state );

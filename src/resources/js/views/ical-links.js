@@ -89,11 +89,12 @@ tribe.events.views.icalLinks = {};
 	 */
 	obj.handleAccordionToggle = function ( event ) {
 		const $button = $( event.target ).closest( obj.selectors.icalLinksButton );
-		const $buttonText = $button.find( obj.selectors.icalLinksButtonText );
 
 		if ( ! $button ) {
 			return;
 		}
+
+		const $buttonText = $button.find( obj.selectors.icalLinksButtonText );
 
 		if ( ! $buttonText ) {
 			return;
