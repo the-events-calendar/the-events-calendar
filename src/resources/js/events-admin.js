@@ -325,15 +325,15 @@ jQuery( function ( $ ) {
 		 * Populates the linked post type fields with previously submitted data to
 		 * give them sticky form qualities.
 		 *
-		 * @param post_type
+		 * @param linkedPostType
 		 * @param container
 		 * @param fields
 		 */
-		function add_sticky_linked_post_data( post_type, container, fields ) {
+		function add_sticky_linked_post_data( linkedPostType, container, fields ) {
 			// Bail if expected global sticky data array is not set
 			if (
-				'undefined' === typeof window[ 'tribe_sticky_' + post_type + '_fields' ] ||
-				! Array.isArray( window[ 'tribe_sticky_' + post_type + '_fields' ] )
+				'undefined' === typeof window[ 'tribe_sticky_' + linkedPostType + '_fields' ] ||
+				! Array.isArray( window[ 'tribe_sticky_' + linkedPostType + '_fields' ] )
 			) {
 				return;
 			}
@@ -348,7 +348,7 @@ jQuery( function ( $ ) {
 
 			// The linked post type fields also need sticky field behavior: populate
 			// them if we've been provided with the necessary data to do so
-			const sticky_data = window[ 'tribe_sticky_' + post_type + '_fields' ].shift();
+			const sticky_data = window[ 'tribe_sticky_' + linkedPostType + '_fields' ].shift();
 			let sticky_data_added = false;
 
 			if ( 'object' === typeof sticky_data ) {
@@ -397,12 +397,16 @@ jQuery( function ( $ ) {
 			}
 
 			// Populate the fields with any sticky data then add them to the page
-			for ( const post_type in tribe_events_linked_posts.post_types ) {
-				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( post_type ) ) {
+			for ( const postTypeName in tribe_events_linked_posts.post_types ) {
+				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( postTypeName ) ) {
 					continue;
 				}
 
-				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
+				add_sticky_linked_post_data(
+					postTypeName,
+					tribe_events_linked_posts.post_types[ postTypeName ],
+					fields
+				);
 			}
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
@@ -913,10 +917,10 @@ jQuery( function ( $ ) {
 			$default_mobile_view_select.find( 'option' ).remove();
 
 			$view_inputs.each( function () {
-				const $this = $( this );
+				const $checkbox = $( this );
 
-				if ( $this.is( ':checked' ) ) {
-					const value = $this.val();
+				if ( $checkbox.is( ':checked' ) ) {
+					const value = $checkbox.val();
 					const label = value.substr( 0, 1 ).toUpperCase() + value.substr( 1 );
 					$default_view_select.append( '<option value="' + value + '">' + label + '</option>' );
 					$default_mobile_view_select.append( '<option value="' + value + '">' + label + '</option>' );

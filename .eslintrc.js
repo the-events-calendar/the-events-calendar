@@ -75,12 +75,6 @@ module.exports = {
 				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
 
 				/**
-				 * Prevents variable shadowing (e.g., reusing var names in nested scopes).
-				 * Off = risky. Leave ON.
-				 */
-				'no-shadow': 'off', // ❌ Remove. Priority: 8 (important readability/safety rule)
-
-				/**
 				 * Encourages const when possible — better readability and intent.
 				 */
 				'prefer-const': 'off', // ❌ Remove. Priority: 9 (best practice, harmless to enforce)
