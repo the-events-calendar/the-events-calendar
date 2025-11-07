@@ -1565,7 +1565,7 @@ class Builder {
 	 * Create an array of model instances to get the benefits of a model.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Mark $data as nullable.
+	 * @since TBD Mark $raw as nullable.
 	 *
 	 * @param array|null $raw The result from a `$wpdb->get_results` call.
 	 *
