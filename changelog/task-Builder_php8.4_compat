@@ -1,0 +1,4 @@
+Significance: minor
+Type: compatibility
+
+Make method signatures in Builder explicitly nullable to resolve PHP 8.4 deprecation warnings.
