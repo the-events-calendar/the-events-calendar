@@ -238,7 +238,7 @@ jQuery( function ( $ ) {
 	 * Returns the number of months to display in
 	 * the datepicker based on the viewport width
 	 *
-	 * @return {number}
+	 * @return {number} Number of months to display.
 	 */
 	function get_datepicker_num_months() {
 		const window_width = $( window ).width();
@@ -325,9 +325,9 @@ jQuery( function ( $ ) {
 		 * Populates the linked post type fields with previously submitted data to
 		 * give them sticky form qualities.
 		 *
-		 * @param linkedPostType
-		 * @param container
-		 * @param fields
+		 * @param {string} linkedPostType Post type identifier.
+		 * @param {string} container      Container identifier.
+		 * @param {jQuery} fields         jQuery collection of field elements.
 		 */
 		function add_sticky_linked_post_data( linkedPostType, container, fields ) {
 			// Bail if expected global sticky data array is not set
@@ -636,10 +636,10 @@ jQuery( function ( $ ) {
 					}
 
 					if ( e.key === 'Tab' ) {
-						if ( e.shiftKey && document.activeElement === firstEl ) {
+						if ( e.shiftKey && firstEl.ownerDocument.activeElement === firstEl ) {
 							e.preventDefault();
 							lastEl.focus();
-						} else if ( ! e.shiftKey && document.activeElement === lastEl ) {
+						} else if ( ! e.shiftKey && lastEl.ownerDocument.activeElement === lastEl ) {
 							e.preventDefault();
 							firstEl.focus();
 						}

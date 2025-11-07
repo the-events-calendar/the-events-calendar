@@ -79,8 +79,8 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Handle the display state of the default "No events found in month" messages.
 	 *
-	 * @param {jQuery} $container         jQuery object of view container
-	 * @param {boolean}   showDefaultNotices Whether to show or hide the default notices, if no day is selected.
+	 * @param {jQuery}  $container         jQuery object of view container
+	 * @param {boolean} showDefaultNotices Whether to show or hide the default notices, if no day is selected.
 	 */
 	obj.handleMobileDayClick = function ( $container, showDefaultNotices ) {
 		const $defaultNotices = $container.find( obj.selectors.mobileEventsDefaultNotices );
@@ -314,7 +314,8 @@ tribe.events.views.monthMobileEvents = {};
 		if ( $next.length ) {
 			$next.focus();
 		} else {
-			document.activeElement.blur();
+			const activeElement = $header[ 0 ].ownerDocument.activeElement;
+			activeElement.blur();
 		}
 	};
 
@@ -347,8 +348,8 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {Object}       jqXHR    Request object
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
@@ -365,10 +366,10 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */

@@ -168,7 +168,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @param {string} value string representation of the date value
 	 *
-	 * @return {jQuery}
+	 * @return {jQuery} Date input object.
 	 */
 	obj.createDateInputObj = function ( value ) {
 		const $input = $( '<input>' );
@@ -370,7 +370,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @param {Object} data data object to be passed for use in handler
 	 *
-	 * @return {Function}
+	 * @return {Function} Handler function for mutations.
 	 */
 	obj.handleMutation = function ( data ) {
 		const $container = data.container;
@@ -428,7 +428,7 @@ tribe.events.views.datepicker = {};
 	 * @param {Date}   date Date object representing the date being compared
 	 * @param {string} unit Unit to compare dates to
 	 *
-	 * @return {boolean}
+	 * @return {boolean} True if date matches today for the specified unit.
 	 */
 	obj.isSameAsToday = function ( date, unit ) {
 		switch ( unit ) {
@@ -453,7 +453,7 @@ tribe.events.views.datepicker = {};
 	 * @param {Date}   date Date object representing the date being compared
 	 * @param {string} unit Unit to compare dates to
 	 *
-	 * @return {boolean}
+	 * @return {boolean} True if date is before today for the specified unit.
 	 */
 	obj.isBeforeToday = function ( date, unit ) {
 		switch ( unit ) {
@@ -477,10 +477,10 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker day cells
 	 *
-	 * @param  date
+	 * @param {Date} date Date object for the cell.
 	 * @since 4.9.13
 	 *
-	 * @return {string|void}
+	 * @return {string|void} CSS class string or void.
 	 */
 	obj.filterDayCells = function ( date ) {
 		if ( obj.isBeforeToday( date, 'day' ) ) {
@@ -493,10 +493,10 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker month cells
 	 *
-	 * @param  date
+	 * @param {Date} date Date object for the cell.
 	 * @since 4.9.13
 	 *
-	 * @return {string|void}
+	 * @return {string|void} CSS class string or void.
 	 */
 	obj.filterMonthCells = function ( date ) {
 		if ( obj.isBeforeToday( date, 'month' ) ) {
@@ -509,10 +509,10 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker year cells
 	 *
-	 * @param  date
+	 * @param {Date} date Date object for the cell.
 	 * @since 4.9.13
 	 *
-	 * @return {string|void}
+	 * @return {string|void} CSS class string or void.
 	 */
 	obj.filterYearCells = function ( date ) {
 		if ( obj.isBeforeToday( date, 'year' ) ) {
@@ -529,7 +529,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @param {string} dateFormat datepicker date format in PHP format.
 	 *
-	 * @return {string}
+	 * @return {string} Converted date format for JavaScript.
 	 */
 	obj.convertDateFormat = function ( dateFormat ) {
 		let convertedDateFormat = dateFormat;
@@ -562,7 +562,7 @@ tribe.events.views.datepicker = {};
 	 * @since  4.9.5
 	 *
 	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {Object}  jqXHR    Request object
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
@@ -587,10 +587,10 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since  4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */

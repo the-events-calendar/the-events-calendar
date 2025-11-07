@@ -276,8 +276,8 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {Object}       jqXHR    Request object
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
@@ -295,10 +295,10 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since  4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
@@ -371,7 +371,7 @@ tribe.events.views.eventsBar = {};
 
 		$list.on( 'focusout', function ( e ) {
 			setTimeout( function () {
-				const focused = document.activeElement;
+				const focused = $list[ 0 ].ownerDocument.activeElement;
 				if ( ! $list[ 0 ].contains( focused ) && focused !== $button[ 0 ] ) {
 					obj.closeViewSelector( $viewSelector );
 				}
@@ -383,10 +383,10 @@ tribe.events.views.eventsBar = {};
 				const $focusables = $list.find( 'a:visible' );
 				const first = $focusables[ 0 ];
 				const last = $focusables[ $focusables.length - 1 ];
-				if ( ! e.shiftKey && document.activeElement === last ) {
+				if ( ! e.shiftKey && first.ownerDocument.activeElement === last ) {
 					obj.closeViewSelector( $viewSelector );
 				}
-				if ( e.shiftKey && document.activeElement === first ) {
+				if ( e.shiftKey && first.ownerDocument.activeElement === first ) {
 					obj.closeViewSelector( $viewSelector );
 				}
 			}

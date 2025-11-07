@@ -148,7 +148,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
-	 * @param {number}        index     jQuery.each index param
+	 * @param {number}         index     jQuery.each index param
 	 * @param {Element|jQuery} container Which element we are going to setup
 	 *
 	 * @return {void}
@@ -190,7 +190,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param {Element|jQuery} element Which element we getting the container from
 	 *
-	 * @return {jQuery}
+	 * @return {jQuery} The view container element.
 	 */
 	obj.getContainer = function ( element ) {
 		const $element = $( element );
@@ -209,7 +209,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param {jQuery} $container Which element we getting the data from.
 	 *
-	 * @return {*}
+	 * @return {*} Parsed data from the container's data script.
 	 */
 	obj.getContainerData = function ( $container ) {
 		const $data = $container.find( obj.selectors.dataScript );
@@ -231,7 +231,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param {Element|jQuery} $container Which element we are using as the container.
 	 *
-	 * @return {boolean}
+	 * @return {boolean} True if URL management is enabled for this container.
 	 */
 	obj.shouldManageUrl = function ( $container ) {
 		let shouldManageUrl = $container.data( 'view-manage-url' );
@@ -314,7 +314,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param {Event} event DOM Event related to the Click action
 	 *
-	 * @return {boolean}
+	 * @return {boolean} Always returns false to prevent default action.
 	 */
 	obj.onLinkClick = async function ( event ) {
 		const $container = obj.getContainer( this );
@@ -357,7 +357,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param {Event} event DOM Event related to the Click action
 	 *
-	 * @return {boolean}
+	 * @return {boolean} Always returns false to prevent default action.
 	 */
 	obj.onSubmit = async function ( event ) {
 		const $container = obj.getContainer( this );
@@ -578,7 +578,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @param {Element|jQuery} $container Which container we are dealing with
 	 *
-	 * @return {Object}
+	 * @return {Object} AJAX settings object.
 	 */
 	obj.getAjaxSettings = function ( $container ) {
 		const ajaxSettings = {
@@ -603,7 +603,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param {Object}  jqXHR    Request object
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request will be made with
 	 *
 	 * @return {void}
@@ -737,7 +737,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param {Object}  jqXHR    Request object
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}

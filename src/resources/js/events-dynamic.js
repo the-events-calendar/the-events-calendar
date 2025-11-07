@@ -142,10 +142,10 @@ const tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	/**
 	 * Format Date using DateFormatter library enabling PHP date-time formats
 	 *
-	 * @param  date
-	 * @param  datepicker
-	 * @param  dateformat
-	 * @return {*}
+	 * @param {string} date       Date string to format.
+	 * @param {string} datepicker Datepicker format.
+	 * @param {string} dateformat Target date format.
+	 * @return {*} Formatted date string.
 	 */
 	obj.date_formatter = function ( date, datepicker, dateformat ) {
 		return obj.date_fmt.formatDate( obj.date_fmt.parseDate( date, datepicker ), dateformat );

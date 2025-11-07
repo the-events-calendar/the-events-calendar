@@ -183,7 +183,7 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {number}     index  jQuery.each index param
+	 * @param {number}      index  jQuery.each index param
 	 * @param {HTMLElement} header header element from which to remove event
 	 *
 	 * @return {void}
@@ -209,7 +209,7 @@ tribe.events.views.accordion = {};
 		 * @since 4.9.4
 		 * @since 6.12.0 Bind keydown event to handle both Enter and Space keys to improve accessibility.
 		 *
-		 * @param {number}     index  jQuery.each index param
+		 * @param {number}      index  jQuery.each index param
 		 * @param {HTMLElement} header header element from which to remove event
 		 *
 		 * @return {void}
@@ -266,8 +266,8 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since  4.9.5
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {Object}       jqXHR    Request object
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
@@ -284,10 +284,10 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since  4.9.5
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */

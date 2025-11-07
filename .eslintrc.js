@@ -65,10 +65,8 @@ module.exports = {
 						argsIgnorePattern: '^_',
 					},
 				], // ✅ Keep. Priority: 8 (standard practice, already WP-like)
-				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
 				'no-console': 'warn',
 			},
-
 		},
 	],
 

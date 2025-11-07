@@ -10,7 +10,7 @@ jQuery( function ( $ ) {
 	/**
 	 * Controls the update loop.
 	 *
-	 * @param response
+	 * @param {Object} response AJAX response object.
 	 */
 	function update( response ) {
 		// Refresh the admin notice

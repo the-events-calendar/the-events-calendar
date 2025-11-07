@@ -34,7 +34,7 @@ tribe.events.views.navigationScroll = {};
 	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {string} html       HTML sent from the REST API
 	 * @param {string} textStatus Status for the request
-	 * @param {Object}  qXHR       Request object
+	 * @param {Object} qXHR       Request object
 	 *
 	 * @return {void}
 	 */

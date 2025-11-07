@@ -198,8 +198,8 @@ tribe.events.views.icalLinks = {};
 	 *
 	 * @since 5.12.0
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {Object}       jqXHR    Request object
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
@@ -216,10 +216,10 @@ tribe.events.views.icalLinks = {};
 	 *
 	 * @since 5.12.0
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of links container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of links container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
