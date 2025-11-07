@@ -695,6 +695,7 @@ const tribe_events_customizer_live_preview_js_config = tribe_events_customizer_l
 	 */
 	obj.hexToRGB = function ( hex ) {
 		hex = parseInt( hex.indexOf( '#' ) > -1 ? hex.substring( 1 ) : hex, 16 );
+		// eslint-disable-next-line no-bitwise -- Intentional use: extracting RGB components from hex color value using bit shift and masking
 		return { r: hex >> 16, g: ( hex & 0x00ff00 ) >> 8, b: hex & 0x0000ff };
 	};
 
