@@ -30,6 +30,8 @@ use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Context;
+use WP_Query;
 
 
 /**
@@ -1396,9 +1398,9 @@ class Hooks extends Service_Provider {
 	 * @since TBD
 	 *
 	 * @param string          $html      The HTML to be displayed.
-	 * @param \Tribe__Context $context   Tribe context used to setup the view.
-	 * @param string          $view_slug The slug of the View that we've built.
-	 * @param \WP_Query       $query     The current WP Query object.
+	 * @param Tribe__Context $context   Tribe context used to setup the view.
+	 * @param string         $view_slug The slug of the View that we've built.
+	 * @param WP_Query       $query     The current WP Query object.
 	 *
 	 * @return string The filtered HTML with main landmark wrapper if needed.
 	 */
