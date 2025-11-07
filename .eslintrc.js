@@ -65,24 +65,8 @@ module.exports = {
 						argsIgnorePattern: '^_',
 					},
 				], // ✅ Keep. Priority: 8 (standard practice, already WP-like)
-
-				/**
-				 * Documentation alignment nitpickers — not crucial.
-				 * Turning these off is fine; doesn’t affect behavior.
-				 */
-				'jsdoc/require-returns-description': 'off', // 🟡 Optional. Priority: 3 (fine to leave off)
-				'jsdoc/require-param-type': 'off', // 🟡 Optional. Priority: 4 (fine to leave off until JS→TS someday)
 				'jsdoc/check-line-alignment': 'off', // ✅ Keep off. Priority: 2 (only affects formatting, low ROI)
-				/**
-				 * Another WP-specific DOM safety rule. Off is fine for now if legacy DOM manipulations exist.
-				 */
-				'@wordpress/no-global-active-element': 'off', // 🟡 Optional. Priority: 4
-
-				/**
-				 * Console logs are fine in dev, but should be warned (not disabled).
-				 * Use "warn" instead of "off".
-				 */
-				'no-console': 'off', // 🔧 Change to 'warn'. Priority: 7 (keep awareness, allow dev logs)
+				'no-console': 'warn',
 			},
 
 		},
