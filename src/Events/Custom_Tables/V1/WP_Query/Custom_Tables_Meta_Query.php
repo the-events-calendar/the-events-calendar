@@ -201,11 +201,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 * @return array<string,array<string>> Array containing JOIN and WHERE SQL clauses to append to a first-order query.
 	 */
 	public function get_sql_for_clause( &$clause, $parent_query, $clause_key = '' ) {
-		if (! isset(
-			$clause['original_meta_key'],
-			$clause['key'],
-			$this->meta_key_redirection_map[ $clause['original_meta_key'] ]['table']
-		) ) {
+		if ( ! isset( $clause['original_meta_key'], $clause['key'], $this->meta_key_redirection_map[ $clause['original_meta_key'] ]['table'] ) ) {
 			return parent::get_sql_for_clause( $clause, $parent_query, $clause_key );
 		}
 
