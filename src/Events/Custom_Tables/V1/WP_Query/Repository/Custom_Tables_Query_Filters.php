@@ -280,9 +280,8 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * @since 6.0.0
 	 * @since TBD Pass the query instance as a second argument.
 	 *
-	 * @param  string|array<string>  $input  Either a single string to make the replacement
-	 *                                       in or a set of strings.
-	 * @param WP_Query $query A reference to the `WP_Query` object that is currently running.
+	 * @param string|array<string>  $input Either a single string to make the replacement in or a set of strings.
+	 * @param WP_Query              $query A reference to the `WP_Query` object that is currently running.
 	 *
 	 * @return string|array<string> Either a string if the input value was a string, or an
 	 *                              array of strings if the input value was an array of strings.
