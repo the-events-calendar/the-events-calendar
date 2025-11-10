@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Introduces `tec-dont-select-occurrence-ids` query var which can be used to skip JOINs with the Occurences table.
