@@ -341,6 +341,25 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should skip occurrence ids selection when the tec-dont-select-occurrence-ids query var is set
+	 *
+	 * @test
+	 */
+	public function should_not_select_occurrence_ids_but_select_post_ids(): void {
+		add_filter( 'tec_events_query_current_moment', static function () {
+			return '2022-10-01 08:00:00';
+		} );
+
+		$query = new \WP_Query( [
+			'post_type'                      => TEC::POSTTYPE,
+			'tec-dont-select-occurrence-ids' => true,
+			'tribe_suppress_query_filters'   => true,
+		] );
+		$request = $query->request;
+		$this->assertMatchesSnapshot( $request );
+	}
+
+	/**
 	 * Test that we can convert a meta_value order by, into the CT1 equivalent and retrieve expected result.
 	 *
 	 * @test

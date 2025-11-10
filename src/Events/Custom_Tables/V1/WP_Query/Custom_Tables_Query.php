@@ -523,7 +523,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Tables Meta Query did not do that already.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Evaluate the `tec-skip-join-occurrences-table` query var.
+	 * @since TBD Evaluate the `tec-dont-select-occurrence-ids` query var.
 	 *
 	 * @param string   $join   The input JOIN query, as parsed and built by the WordPress
 	 *                         Query.
@@ -537,7 +537,7 @@ class Custom_Tables_Query extends WP_Query {
 			return $join;
 		}
 
-		if ( $query->get( 'tec-skip-join-occurrences-table' ) ) {
+		if ( $query->get( 'tec-dont-select-occurrence-ids' ) ) {
 			return $join;
 		}
 
