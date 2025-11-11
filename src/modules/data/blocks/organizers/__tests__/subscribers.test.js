@@ -33,6 +33,16 @@ jest.mock( '@moderntribe/common/utils', () => {
 				select: jest.fn( key => selectModule ),
 				subscribe: jest.fn( ( listener ) => {} ),
 			},
+			wpHooks: {
+				addAction: jest.fn(),
+				addFilter: jest.fn(),
+				removeAction: jest.fn(),
+				removeFilter: jest.fn(),
+				doAction: jest.fn(),
+				applyFilters: jest.fn( ( tag, value ) => value ),
+				hasAction: jest.fn( () => false ),
+				hasFilter: jest.fn( () => false ),
+			},
 		},
 	};
 } );

@@ -92,24 +92,24 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 			),
 			'could-not-delete-event'           => __( 'The event could not be deleted', 'the-events-calendar' ),
 			'event-is-in-trash'                => __( 'The event is already trashed', 'the-events-calendar' ),
-			'could-not-delete-venue'           => __( 'The venue could not be deleted', 'the-venues-calendar' ),
-			'venue-is-in-trash'                => __( 'The venue is already trashed', 'the-venues-calendar' ),
-			'could-not-delete-organizer'       => __( 'The organizer could not be deleted', 'the-organizers-calendar' ),
-			'organizer-is-in-trash'            => __( 'The organizer is already trashed', 'the-organizers-calendar' ),
+			'could-not-delete-venue'           => __( 'The venue could not be deleted', 'the-events-calendar' ),
+			'venue-is-in-trash'                => __( 'The venue is already trashed', 'the-events-calendar' ),
+			'could-not-delete-organizer'       => __( 'The organizer could not be deleted', 'the-events-calendar' ),
+			'organizer-is-in-trash'            => __( 'The organizer is already trashed', 'the-events-calendar' ),
 			'could-not-update-event'           => __( 'The event could not be updated', 'the-events-calendar' ),
-			'could-not-update-venue'           => __( 'The venue could not be updated', 'the-venues-calendar' ),
-			'could-not-update-organizer'       => __( 'The organizer could not be updated', 'the-organizers-calendar' ),
+			'could-not-update-venue'           => __( 'The venue could not be updated', 'the-events-calendar' ),
+			'could-not-update-organizer'       => __( 'The organizer could not be updated', 'the-events-calendar' ),
 			'venue-archive-page-not-found'     => __(
 				'The requested venue archive page does not exist',
-				'the-venues-calendar'
+				'the-events-calendar'
 			),
 			'organizer-archive-page-not-found' => __(
 				'The requested organizer archive page does not exist',
-				'the-organizers-calendar'
+				'the-events-calendar'
 			),
 			'archive-bad-search-string'        => __(
 				"The 'search' parameter must be a string",
-				'the-venues-calendar'
+				'the-events-calendar'
 			),
 			'term-archive-page-not-found'      => __(
 				'The requested event term archive page does not exist',

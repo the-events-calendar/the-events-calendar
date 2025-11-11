@@ -9,7 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.9.0
+ * @version 6.15.11
+ *
+ * @since 5.9.0
+ * @since 6.15.11 Made event date area more accessible.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -55,19 +58,22 @@ $num_events_label = sprintf(
 	tribe_get_event_label_singular_lowercase(),
 	tribe_get_event_label_plural_lowercase()
 );
-?>
 
+$day_label = sprintf(
+	// translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
+	__( '%1$s, %2$s', 'the-events-calendar' ),
+	tribe_format_date( $day['date'], false, 'F j' ),
+	$num_events_label
+);
+?>
 <button
 	aria-expanded="<?php echo esc_attr( $expanded ); ?>"
 	aria-controls="<?php echo esc_attr( $mobile_day_id ); ?>"
+	aria-label="<?php echo esc_attr( $day_label ); ?>"
 	<?php tec_classes( $day_button_classes ); ?>
 	data-js="tribe-events-calendar-month-day-cell-mobile"
-	tabindex="-1"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
-		<span class="tribe-common-a11y-visual-hide">
-			<?php echo esc_html( $num_events_label ); ?>,
-		</span>
 		<time
 			class="tribe-events-calendar-month__day-date-daynum"
 			datetime="<?php echo esc_attr( $day['date'] ); ?>"

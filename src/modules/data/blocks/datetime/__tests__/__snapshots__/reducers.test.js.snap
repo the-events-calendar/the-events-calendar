@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Datetime reducer Should return the default state to meta map 1`] = `
-Object {
+{
   "allDay": "_EventAllDay",
   "dateTimeSeparator": "_EventDateTimeSeparator",
   "end": "_EventEndDate",
@@ -12,7 +12,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the all day 1`] = `
-Object {
+{
   "allDay": true,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -29,7 +29,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the all day 2`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -46,7 +46,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the default state 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -63,7 +63,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the editability 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -80,7 +80,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the editability 2`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -97,7 +97,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the end 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "June 25, 2018 4:00 pm",
@@ -114,7 +114,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the end time input 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -131,7 +131,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the initial state 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "at",
   "end": "2018-04-01 12:15:00",
@@ -148,7 +148,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the multi day 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -165,7 +165,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the multi day 2`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -182,7 +182,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the natural language label 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -199,7 +199,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the separator date 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": " > ",
   "end": "2018-07-19 17:00:00",
@@ -216,7 +216,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the separator time 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -233,7 +233,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the start 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -250,7 +250,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the start time input 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -267,7 +267,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the timezone 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -284,7 +284,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the visibility of the timezone 1`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
@@ -301,7 +301,7 @@ Object {
 `;
 
 exports[`[STORE] - Datetime reducer Should set the visibility of the timezone 2`] = `
-Object {
+{
   "allDay": false,
   "dateTimeSeparator": "@",
   "end": "2018-07-19 17:00:00",
