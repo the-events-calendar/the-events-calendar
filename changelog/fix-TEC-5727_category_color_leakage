@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Prevent category data from persisting between events when some have colored categories and others do not. Props to @deltragon. [TEC-5622]
