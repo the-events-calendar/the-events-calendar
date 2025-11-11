@@ -1,9 +1,9 @@
-var tribe_events_event_editor = tribe_events_event_editor || {};
+const tribe_events_event_editor = tribe_events_event_editor || {};
 
 /**
  * Implements behaviours that are specific to the event editor.
- * @param $
- * @param obj
+ * @param {jQuery} $   jQuery object.
+ * @param {Object} obj Event editor object.
  */
 ( function ( $, obj ) {
 	'use strict';

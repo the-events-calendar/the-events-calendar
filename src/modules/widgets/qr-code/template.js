@@ -15,11 +15,6 @@ const QR_CODE_TEMPLATE = [
 	],
 ];
 
-const QrCode = () => (
-	<InnerBlocks
-		template={ QR_CODE_TEMPLATE }
-		templateLock="all"
-	/>
-);
+const QrCode = () => <InnerBlocks template={ QR_CODE_TEMPLATE } templateLock="all" />;
 
 export default QrCode;

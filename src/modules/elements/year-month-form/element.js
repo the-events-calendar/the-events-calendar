@@ -27,7 +27,7 @@ const YearMonthForm = ( { today, date, localeUtils, onChange } ) => {
 	};
 
 	/**
-	 * @todo: figure out what to do about onChange event (accessibility).
+	 * @todo Figure out what to do about onChange event (accessibility).
 	 */
 	return (
 		<form className="tribe-editor__year-month-form">

@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { CheckboxControl } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { SETTINGS_STORE_KEY } from '../../../data';
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
@@ -43,12 +43,7 @@ const TicketsContent = ( { moveToNextTab, skipToNextTab } ) => {
 			</div>
 			<div className="tec-events-onboarding__tab-content">
 				{ ! eventTicketsActive && (
-					<div
-						alignment="top"
-						justify="center"
-						spacing={ 0 }
-						className="tec-events-onboarding__checkbox tec-events-onboarding__checkbox--tickets"
-					>
+					<div className="tec-events-onboarding__checkbox tec-events-onboarding__checkbox--tickets">
 						<CheckboxControl
 							__nextHasNoMarginBottom
 							aria-describedby="tec-events-onboarding__checkbox-description"
@@ -63,7 +58,11 @@ const TicketsContent = ( { moveToNextTab, skipToNextTab } ) => {
 					</div>
 				) }
 				<NextButton tabSettings={ tabSettings } moveToNextTab={ moveToNextTab } disabled={ false } />
-				<SkipButton skipToNextTab={ skipToNextTab } currentTab={ 5 } buttonText={__("Skip and finish setup", "the-events-calendar")} />
+				<SkipButton
+					skipToNextTab={ skipToNextTab }
+					currentTab={ 5 }
+					buttonText={ __( 'Skip and finish setup', 'the-events-calendar' ) }
+				/>
 			</div>
 		</>
 	);

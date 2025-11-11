@@ -16,7 +16,7 @@ const ViewCheckbox = ( { view, isChecked, onChange, icon } ) => {
 				__nextHasNoMarginBottom
 				aria-describedby={ `tec-events-onboarding__checkbox-label-${ view }` }
 				checked={ isChecked }
-				onChange={ ( isChecked ) => onChange( view, isChecked ) } // Pass the view and new checked state to parent
+				onChange={ ( checked ) => onChange( view, checked ) } // Pass the view and new checked state to parent
 				id={ `tec-events-onboarding__checkbox-input-${ view }` }
 				className="tec-events-onboarding__checkbox-input"
 				value={ view }

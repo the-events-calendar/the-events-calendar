@@ -78,7 +78,7 @@ export default class VenueDetails extends Component {
 		const { beforeTitle, afterTitle, maybeEdit } = this.props;
 
 		/**
-		 * @todo: Set onClick to a button, not h3.
+		 * @todo Set onClick to a button, not h3.
 		 */
 		return (
 			<div className="tribe-editor__venue__name">

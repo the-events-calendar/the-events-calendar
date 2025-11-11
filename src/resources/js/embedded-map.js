@@ -16,16 +16,16 @@ if ( 'function' === typeof jQuery ) {
 		 */
 		function prepare() {
 			if ( false !== venueCoords ) {
-				useCoords();
+				setupWithCoords();
 			} else {
-				useAddress();
+				setupWithAddress();
 			}
 		}
 
 		/**
 		 * Use long/lat coordinates to position the pin marker.
 		 */
-		function useCoords() {
+		function setupWithCoords() {
 			position = new google.maps.LatLng( venueCoords[ 0 ], venueCoords[ 1 ] );
 			initialize();
 		}
@@ -33,12 +33,11 @@ if ( 'function' === typeof jQuery ) {
 		/**
 		 * Use a street address and Google's geocoder to position the pin marker.
 		 */
-		function useAddress() {
+		function setupWithAddress() {
 			const geocoder = new google.maps.Geocoder();
 
 			geocoder.geocode( { address: venueAddress }, function ( results, status ) {
-				if ( status == google.maps.GeocoderStatus.OK ) {
-					// eslint-disable-line eqeqeq
+				if ( status === google.maps.GeocoderStatus.OK ) {
 					position = results[ 0 ].geometry.location;
 					initialize();
 				}

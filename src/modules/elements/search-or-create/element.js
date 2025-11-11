@@ -15,7 +15,7 @@ import SearchOrCreate from './template';
  */
 
 const setFocus = ( isSelected ) => ( inputRef ) => {
-	if ( isSelected && inputRef.current && document.activeElement !== inputRef.current ) {
+	if ( isSelected && inputRef.current && inputRef.current.ownerDocument.activeElement !== inputRef.current ) {
 		inputRef.current.focus();
 	}
 };

@@ -3,7 +3,7 @@
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.monthMobileEvents = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.monthMobileEvents = {};
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.monthMobileEvents
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.monthMobileEvents
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		calendar: '[data-js="tribe-events-month-grid"]',
@@ -79,8 +79,8 @@ tribe.events.views.monthMobileEvents = {};
 	/**
 	 * Handle the display state of the default "No events found in month" messages.
 	 *
-	 * @param {jQuery} $container         jQuery object of view container
-	 * @param {bool}   showDefaultNotices Whether to show or hide the default notices, if no day is selected.
+	 * @param {jQuery}  $container         jQuery object of view container
+	 * @param {boolean} showDefaultNotices Whether to show or hide the default notices, if no day is selected.
 	 */
 	obj.handleMobileDayClick = function ( $container, showDefaultNotices ) {
 		const $defaultNotices = $container.find( obj.selectors.mobileEventsDefaultNotices );
@@ -137,7 +137,7 @@ tribe.events.views.monthMobileEvents = {};
 		$content.removeClass( obj.selectors.mobileEventsMobileDayShowClass.className() );
 
 		// Cleanup event listeners to avoid stacking
-		$content.find('*').off('keydown.tribeEvents');
+		$content.find( '*' ).off( 'keydown.tribeEvents' );
 	};
 
 	/**
@@ -284,17 +284,17 @@ tribe.events.views.monthMobileEvents = {};
 			$content.attr( 'tabindex', '-1' );
 		}
 
-		requestAnimationFrame( function() {
+		requestAnimationFrame( function () {
 			try {
-				$content[0].focus({ preventScroll: true });
+				$content[ 0 ].focus( { preventScroll: true } );
 			} catch ( e ) {
 				$content.trigger( 'focus' );
 			}
 
-			if ( $content[0] && $content[0].scrollIntoView ) {
-				$content[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+			if ( $content[ 0 ] && $content[ 0 ].scrollIntoView ) {
+				$content[ 0 ].scrollIntoView( { behavior: 'smooth', block: 'start' } );
 			}
-		});
+		} );
 	};
 
 	/**
@@ -314,7 +314,8 @@ tribe.events.views.monthMobileEvents = {};
 		if ( $next.length ) {
 			$next.focus();
 		} else {
-			document.activeElement.blur();
+			const activeElement = $header[ 0 ].ownerDocument.activeElement;
+			activeElement.blur();
 		}
 	};
 
@@ -339,7 +340,7 @@ tribe.events.views.monthMobileEvents = {};
 				e.preventDefault();
 				obj.focusNextDay( $header );
 			}
-		});
+		} );
 	};
 
 	/**
@@ -347,9 +348,9 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -365,10 +366,10 @@ tribe.events.views.monthMobileEvents = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */

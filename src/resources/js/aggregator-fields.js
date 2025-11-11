@@ -233,14 +233,14 @@ window.tribe_aggregator = window.tribe_aggregator || {};
 						return;
 					}
 
-					origin = key;
-				} );
+				origin = key;
+			} );
 
-				if ( null == origin ) {
-					return;
-				}
+			if ( origin === null ) {
+				return;
+			}
 
-				var $origin = $( ea.fields.selector.origin_field );
+			var $origin = $( ea.fields.selector.origin_field );
 
 				// Prevent Changing when dealing with Non-Existent Origin
 				if ( ! $origin.find( 'option[value="' + origin + '"]' ).length ) {
@@ -897,13 +897,13 @@ window.tribe_aggregator = window.tribe_aggregator || {};
 
 		if ( 'undefined' !== typeof e.id ){
 			id = e.id;
-		} else if ( 'undefined' !== typeof e.ID ){
-			id = e.ID;
-		} else if ( 'undefined' !== typeof e.value ){
-			id = e.value;
-		}
-		return e == undefined ? null : id;
-	};
+	} else if ( 'undefined' !== typeof e.ID ){
+		id = e.ID;
+	} else if ( 'undefined' !== typeof e.value ){
+		id = e.value;
+	}
+	return e === undefined ? null : id;
+};
 
 	/**
 	 * Configure the Drop Down Fields

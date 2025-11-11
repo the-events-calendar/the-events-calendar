@@ -7,10 +7,7 @@ import './style.pcss';
 
 const { registerBlockType } = wp.blocks;
 
-const blocks = [
-	EventsList,
-	QrCode,
-];
+const blocks = [ EventsList, QrCode ];
 
 blocks.forEach( ( block ) => {
 	const blockName = `tribe/${ block.id }`;

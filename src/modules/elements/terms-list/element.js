@@ -176,8 +176,6 @@ TaxonomiesElement.propTypes = {
 };
 
 const applySelect = withSelect( ( select, props ) => {
-	const { getEntityRecords } = select( 'core' );
-	const { isResolving } = select( 'core/data' );
 	const { slug } = props;
 	// post_tags are stored as 'tags' in the editor attributes
 	const attributeName = slug === 'post_tag' ? 'tags' : slug;
@@ -186,6 +184,9 @@ const applySelect = withSelect( ( select, props ) => {
 	if ( ! ids || ids.length === 0 ) {
 		return { terms: [], isRequesting: false };
 	}
+
+	const { getEntityRecords } = select( 'core' );
+	const { isResolving } = select( 'core/data' );
 
 	const query = {
 		orderby: 'count',

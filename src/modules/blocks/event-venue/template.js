@@ -336,7 +336,7 @@ class EventVenue extends Component {
 	 * Given how withDetails is currently tightly coupled with the state, this cannot
 	 * be moved to the container. withDetails should be decoupled from state.
 	 *
-	 * @return {boolean}
+	 * @return {boolean} True if venue exists and has valid ID.
 	 */
 	hasVenue() {
 		const details = this.getVenueDetails();

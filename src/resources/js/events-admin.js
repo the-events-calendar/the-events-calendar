@@ -13,7 +13,7 @@
  * todo: now used in multiple places, lets consolidate. Also, should events-admin really be powering community fe form?
  */
 
-var tribeDateFormat = ( function () {
+const tribeDateFormat = ( function () {
 	const token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
 		timezone =
 			/\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -33,8 +33,8 @@ var tribeDateFormat = ( function () {
 
 		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
 		if (
-			arguments.length == 1 &&
-			Object.prototype.toString.call( date ) == '[object String]' &&
+			arguments.length === 1 &&
+			Object.prototype.toString.call( date ) === '[object String]' &&
 			! /\d/.test( date )
 		) {
 			mask = date;
@@ -54,7 +54,7 @@ var tribeDateFormat = ( function () {
 		mask = String( dF.masks[ mask ] || mask || dF.masks.default );
 
 		// Allow setting the utc argument via the mask
-		if ( mask.slice( 0, 4 ) == 'UTC:' ) {
+		if ( mask.slice( 0, 4 ) === 'UTC:' ) {
 			mask = mask.slice( 4 );
 			utc = true;
 		}
@@ -96,7 +96,7 @@ var tribeDateFormat = ( function () {
 				TT: H < 12 ? 'AM' : 'PM',
 				Z: utc ? 'UTC' : ( String( date ).match( timezone ) || [ '' ] ).pop().replace( timezoneClip, '' ),
 				o: ( o > 0 ? '-' : '+' ) + pad( Math.floor( Math.abs( o ) / 60 ) * 100 + ( Math.abs( o ) % 60 ), 4 ),
-				S: [ 'th', 'st', 'nd', 'rd' ][ d % 10 > 3 ? 0 : ( ( ( d % 100 ) - ( d % 10 ) != 10 ) * d ) % 10 ],
+				S: [ 'th', 'st', 'nd', 'rd' ][ d % 10 > 3 ? 0 : ( ( ( d % 100 ) - ( d % 10 ) !== 10 ) * d ) % 10 ],
 			};
 
 		return mask.replace( token, function ( $0 ) {
@@ -189,13 +189,13 @@ jQuery( function ( $ ) {
 	/**
 	 * Setup Datepicker
 	 */
-	let $date_format = $( '[data-datepicker_format]' ),
-		$view_select = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML = $( document.getElementById( 'view-calendar-link-div' ) ).html(),
-		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( document.getElementById( 'tribe-event-datepickers' ) ),
-		is_community_edit = $( 'body' ).is( '.tribe_community_edit' ),
-		datepicker_format = 0;
+	const $date_format = $( '[data-datepicker_format]' );
+	const _$view_select = $( '.tribe-field-dropdown_select2 select' );
+	const viewCalLinkHTML = $( document.getElementById( 'view-calendar-link-div' ) ).html();
+	const _$template_select = $( 'select[name="tribeEventsTemplate"]' );
+	const $event_pickers = $( document.getElementById( 'tribe-event-datepickers' ) );
+	const is_community_edit = $( 'body' ).is( '.tribe_community_edit' );
+	let datepicker_format = 0;
 
 	// Modified from tribe_ev.data to match jQuery UI formatting.
 	const datepicker_formats = {
@@ -238,7 +238,7 @@ jQuery( function ( $ ) {
 	 * Returns the number of months to display in
 	 * the datepicker based on the viewport width
 	 *
-	 * @return {number}
+	 * @return {number} Number of months to display.
 	 */
 	function get_datepicker_num_months() {
 		const window_width = $( window ).width();
@@ -325,15 +325,15 @@ jQuery( function ( $ ) {
 		 * Populates the linked post type fields with previously submitted data to
 		 * give them sticky form qualities.
 		 *
-		 * @param post_type
-		 * @param container
-		 * @param fields
+		 * @param {string} linkedPostType Post type identifier.
+		 * @param {string} container      Container identifier.
+		 * @param {jQuery} fields         jQuery collection of field elements.
 		 */
-		function add_sticky_linked_post_data( post_type, container, fields ) {
+		function add_sticky_linked_post_data( linkedPostType, container, fields ) {
 			// Bail if expected global sticky data array is not set
 			if (
-				'undefined' === typeof window[ 'tribe_sticky_' + post_type + '_fields' ] ||
-				! Array.isArray( window[ 'tribe_sticky_' + post_type + '_fields' ] )
+				'undefined' === typeof window[ 'tribe_sticky_' + linkedPostType + '_fields' ] ||
+				! Array.isArray( window[ 'tribe_sticky_' + linkedPostType + '_fields' ] )
 			) {
 				return;
 			}
@@ -348,7 +348,7 @@ jQuery( function ( $ ) {
 
 			// The linked post type fields also need sticky field behavior: populate
 			// them if we've been provided with the necessary data to do so
-			const sticky_data = window[ 'tribe_sticky_' + post_type + '_fields' ].shift();
+			const sticky_data = window[ 'tribe_sticky_' + linkedPostType + '_fields' ].shift();
 			let sticky_data_added = false;
 
 			if ( 'object' === typeof sticky_data ) {
@@ -397,12 +397,16 @@ jQuery( function ( $ ) {
 			}
 
 			// Populate the fields with any sticky data then add them to the page
-			for ( var post_type in tribe_events_linked_posts.post_types ) {
-				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( post_type ) ) {
+			for ( const postTypeName in tribe_events_linked_posts.post_types ) {
+				if ( ! tribe_events_linked_posts.post_types.hasOwnProperty( postTypeName ) ) {
 					continue;
 				}
 
-				add_sticky_linked_post_data( post_type, tribe_events_linked_posts.post_types[ post_type ], fields );
+				add_sticky_linked_post_data(
+					postTypeName,
+					tribe_events_linked_posts.post_types[ postTypeName ],
+					fields
+				);
 			}
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
@@ -459,14 +463,14 @@ jQuery( function ( $ ) {
 		section.find( 'select.linked-post-dropdown' ).trigger( 'change' );
 	};
 
-	var toggle_linked_post_fields = function ( event ) {
+	const toggle_linked_post_fields = function ( event ) {
 		const $select = $( this );
 		const postType = $select.data( 'postType' );
 		const $wrapper = $select.parents( `#event_${ postType }` ).eq( 0 );
 		const $groups = $wrapper.find( 'tbody' );
-		const linkedPostCount = $groups.length;
+		const _linkedPostCount = $groups.length;
 		const $group = $select.closest( 'tbody' );
-		const currentGroupPosition = $groups.index( $group ) + 1;
+		const _currentGroupPosition = $groups.index( $group ) + 1;
 		const $edit = $group.find( '.edit-linked-post-link a' );
 		const value = $select.val();
 		const $selected = $select.find( ':selected' );
@@ -562,10 +566,10 @@ jQuery( function ( $ ) {
 			return Math.floor( ( utc2 - utc1 ) / _MS_PER_DAY );
 		}
 
-		let startofweek = 0;
+		let _startofweek = 0;
 
 		if ( $event_pickers.length ) {
-			startofweek = $event_pickers.data( 'startofweek' );
+			_startofweek = $event_pickers.data( 'startofweek' );
 		}
 
 		const $start_date = $( document.getElementById( 'EventStartDate' ) );
@@ -584,7 +588,7 @@ jQuery( function ( $ ) {
 				object.input.data( 'prevDate', object.input.datepicker( 'getDate' ) );
 
 				// Focus the original element when the datepicker is closed.
-				object.settings.onClose = function(dateText, inst) {
+				object.settings.onClose = function ( dateText, inst ) {
 					inst.input.focus();
 				};
 
@@ -603,52 +607,52 @@ jQuery( function ( $ ) {
 				$dpDiv = $( object.dpDiv );
 
 				// Make datepicker dialog keyboard accessible
-				$dpDiv.attr('tabindex', '-1');
-				$dpDiv.on('keydown', function (e) {
+				$dpDiv.attr( 'tabindex', '-1' );
+				$dpDiv.on( 'keydown', function ( e ) {
 					// Trap Tab inside the datepicker
-					const focusableEls = $dpDiv.find('a, button, :input').filter(':visible');
-					const firstEl = focusableEls.first()[0];
-					const lastEl = focusableEls.last()[0];
+					const focusableEls = $dpDiv.find( 'a, button, :input' ).filter( ':visible' );
+					const firstEl = focusableEls.first()[ 0 ];
+					const lastEl = focusableEls.last()[ 0 ];
 
-					if (e.key === 'Escape' || e.key === 'Esc') {
+					if ( e.key === 'Escape' || e.key === 'Esc' ) {
 						e.preventDefault();
 
 						// Close datepicker and temporarily disable auto-open.
-						object.input.datepicker('option', 'showOn', 'manual');
+						object.input.datepicker( 'option', 'showOn', 'manual' );
 						$.datepicker._hideDatepicker();
 
 						// Manually hide in case any watchers miss it.
-						$('#ui-datepicker-div').css('display', 'none');
+						$( '#ui-datepicker-div' ).css( 'display', 'none' );
 
 						// Return focus safely.
 						object.input.focus();
 
 						// Re-enable auto-open after a tick.
-						setTimeout(() => {
-							object.input.datepicker('option', 'showOn', 'focus');
-						}, 100);
+						setTimeout( () => {
+							object.input.datepicker( 'option', 'showOn', 'focus' );
+						}, 100 );
 
 						return;
 					}
 
-					if (e.key === 'Tab') {
-						if (e.shiftKey && document.activeElement === firstEl) {
+					if ( e.key === 'Tab' ) {
+						if ( e.shiftKey && firstEl.ownerDocument.activeElement === firstEl ) {
 							e.preventDefault();
 							lastEl.focus();
-						} else if (!e.shiftKey && document.activeElement === lastEl) {
+						} else if ( ! e.shiftKey && lastEl.ownerDocument.activeElement === lastEl ) {
 							e.preventDefault();
 							firstEl.focus();
 						}
 					}
-				});
+				} );
 
 				// When datepicker opens, focus first day cell
-				setTimeout(() => {
-					const firstDay = $dpDiv.find('td a.ui-state-active')[0] || $dpDiv.find('td a')[0];
-					if (firstDay) {
+				setTimeout( () => {
+					const firstDay = $dpDiv.find( 'td a.ui-state-active' )[ 0 ] || $dpDiv.find( 'td a' )[ 0 ];
+					if ( firstDay ) {
 						firstDay.focus();
 					}
-				}, 0);
+				}, 0 );
 
 				// "Namespace" our CSS a bit so that our custom jquery-ui-datepicker styles don't interfere
 				// with other plugins'/themes'.
@@ -684,12 +688,14 @@ jQuery( function ( $ ) {
 				if ( this.id === 'EventStartDate' ) {
 					const start_date = $( document.getElementById( 'EventStartDate' ) ).data( 'prevDate' );
 					const date_diff =
-						null == start_date ? 0 : date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
+						start_date === null || start_date === undefined
+							? 0
+							: date_diff_in_days( start_date, $end_date.datepicker( 'getDate' ) );
 					const end_date = new Date( date.setDate( date.getDate() + date_diff ) );
 
 					$end_date
 						.datepicker( 'option', 'minDate', $start_date.datepicker( 'getDate' ) )
-						.datepicker( 'setDate', end_date ).datepicker_format;
+						.datepicker( 'setDate', end_date );
 				}
 
 				// fire the change and blur handlers on the field
@@ -702,7 +708,7 @@ jQuery( function ( $ ) {
 
 		window.tribe_datepicker_opts = tribe_datepicker_opts;
 
-		const dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+		const _dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
 		const $start_end_month = $( 'select[name="EventStartMonth"], select[name="EventEndMonth"]' );
 		const $start_month = $( 'select[name="EventStartMonth"]' );
 		const $end_month = $( 'select[name="EventEndMonth"]' );
@@ -716,7 +722,9 @@ jQuery( function ( $ ) {
 
 			$.each( $els, function ( i, el ) {
 				const $el = $( el );
-				'' !== $el.val() && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+				if ( '' !== $el.val() ) {
+					$el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+				}
 			} );
 		}
 
@@ -741,26 +749,26 @@ jQuery( function ( $ ) {
 			const t = $( this );
 			let startEnd = t.attr( 'name' );
 			// get changed select field
-			if ( startEnd == 'EventStartMonth' ) {
+			if ( startEnd === 'EventStartMonth' ) {
 				startEnd = 'Start';
 			} else {
 				startEnd = 'End';
 			}
 			// show/hide date lists according to month
 			let chosenMonth = t.attr( 'value' );
-			if ( chosenMonth.charAt( 0 ) == '0' ) {
+			if ( chosenMonth.charAt( 0 ) === '0' ) {
 				chosenMonth = chosenMonth.replace( '0', '' );
 			}
 			// leap year
 			const remainder = $( 'select[name="Event' + startEnd + 'Year"]' ).attr( 'value' ) % 4;
-			if ( chosenMonth == 2 && remainder == 0 ) {
+			if ( chosenMonth === '2' && remainder === 0 ) {
 				chosenMonth = 0;
 			}
 			// preserve selected option
 			const currentDateField = $( 'select[name="Event' + startEnd + 'Day"]' );
 
 			$( '.event' + startEnd + 'DateField' ).remove();
-			if ( startEnd == 'Start' ) {
+			if ( startEnd === 'Start' ) {
 				selectObject = tribeStartDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
 				$start_month.after( selectObject );
@@ -812,7 +820,7 @@ jQuery( function ( $ ) {
 			const $state_text = $container.find( '#StateProvinceText' );
 			const country = $( this ).val();
 
-			if ( country == 'US' || country == 'United States' ) {
+			if ( country === 'US' || country === 'United States' ) {
 				$state_text.hide();
 				$state_select.hide();
 				$state_dropdown.show();
@@ -909,10 +917,10 @@ jQuery( function ( $ ) {
 			$default_mobile_view_select.find( 'option' ).remove();
 
 			$view_inputs.each( function () {
-				const $this = $( this );
+				const $checkbox = $( this );
 
-				if ( $this.is( ':checked' ) ) {
-					const value = $this.val();
+				if ( $checkbox.is( ':checked' ) ) {
+					const value = $checkbox.val();
 					const label = value.substr( 0, 1 ).toUpperCase() + value.substr( 1 );
 					$default_view_select.append( '<option value="' + value + '">' + label + '</option>' );
 					$default_mobile_view_select.append( '<option value="' + value + '">' + label + '</option>' );
@@ -926,20 +934,20 @@ jQuery( function ( $ ) {
 			);
 
 			// ...if it is, keep it as the default (else switch to the first available remaining option)
-			if ( $prev_default_option.val() == $this.val() ) {
+			if ( $prev_default_option.val() === $this.val() ) {
 				$prev_default_option.attr( 'selected', 'selected' );
 			} else {
-				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				const $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
 				$default_view_select
 					.find( 'option' )
 					.find( "option[value='" + $default_reset + "']" )
 					.attr( 'selected', 'selected' );
 			}
 
-			if ( $prev_default_mobile_option.val() == $this.val() ) {
+			if ( $prev_default_mobile_option.val() === $this.val() ) {
 				$prev_default_mobile_option.attr( 'selected', 'selected' );
 			} else {
-				var $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
+				const $default_reset = $tribe_views.find( 'checkbox:checked' ).first().val();
 				$default_mobile_view_select
 					.find( 'option' )
 					.find( "option[value='" + $default_reset + "']" )

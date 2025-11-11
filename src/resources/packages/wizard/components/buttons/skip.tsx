@@ -7,7 +7,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { MODAL_STORE_KEY, SETTINGS_STORE_KEY } from '../../data';
 import { API_ENDPOINT } from '../../data/settings/constants';
 
-const SkipButton = ( { skipToNextTab, currentTab, buttonText=__("Skip step", "the-events-calendar") } ) => {
+const SkipButton = ( { skipToNextTab, currentTab, buttonText = __( 'Skip step', 'the-events-calendar' ) } ) => {
 	const skipTab = useDispatch( SETTINGS_STORE_KEY ).skipTab;
 	const closeModal = useDispatch( MODAL_STORE_KEY ).closeModal;
 

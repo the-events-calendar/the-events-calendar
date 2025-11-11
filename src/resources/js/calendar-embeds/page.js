@@ -7,8 +7,8 @@ window.tec = window.tec || {};
 window.tec.main = window.tec.main || {};
 window.tec.main.ece = window.tec.main.ece || {};
 
-(function($,obj){
-	const $document = $(document);
+( function ( $, obj ) {
+	const $document = $( document );
 
 	/**
 	 * Selectors used to attach listeners.
@@ -54,7 +54,9 @@ window.tec.main.ece = window.tec.main.ece || {};
 		}
 
 		// Remove the AJAX handler from the more link.
-		$( obj.selectors.container ).find( selector ).off( 'click.tribeEvents', tribe.events.views.manager.onLinkClick );
+		$( obj.selectors.container )
+			.find( selector )
+			.off( 'click.tribeEvents', tribe.events.views.manager.onLinkClick );
 
 		// Add the new handler to the more link.
 		moreLinkTargets.each( ( index, element ) => {
@@ -96,4 +98,4 @@ window.tec.main.ece = window.tec.main.ece || {};
 
 	// Init on dom ready.
 	$( obj.ready() );
-})(jQuery, window.tec.main.ece);
+} )( jQuery, window.tec.main.ece );

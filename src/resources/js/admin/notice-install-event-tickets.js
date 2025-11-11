@@ -3,7 +3,7 @@
  *
  * @since 6.0.9
  *
- * @type {PlainObject}
+ * @type {Object}
  */
 window.tribe = window.tribe || {};
 window.tribe.events = window.tribe.events || {};
@@ -14,7 +14,7 @@ window.tribe.events.admin = window.tribe.events.admin || {};
  *
  * @since 6.0.9
  *
- * @type {PlainObject}
+ * @type {Object}
  */
 window.tribe.events.admin.noticeInstall = {};
 
@@ -23,9 +23,9 @@ window.tribe.events.admin.noticeInstall = {};
  *
  * @since 6.0.9
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} _   Underscore.js
- * @param {PlainObject} obj tribe.events.admin.noticeInstall
+ * @param {Object} $   jQuery
+ * @param {Object} _   Underscore.js
+ * @param {Object} obj tribe.events.admin.noticeInstall
  *
  * @return {void}
  */
@@ -38,7 +38,7 @@ window.tribe.events.admin.noticeInstall = {};
 	 *
 	 * @since 6.0.9
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		noticeDescription: '.tec-admin__notice-install-content-description',

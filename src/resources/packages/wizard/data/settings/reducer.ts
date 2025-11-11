@@ -19,15 +19,6 @@ interface Setting {
 	value: any;
 }
 
-interface State {
-	settings: { [ key: string ]: any }; // This should be an object, not an array
-	isSaving: boolean;
-	error: any;
-	visitedFields: [];
-	completedTabs: [];
-	skippedTabs: [];
-}
-
 const initialState = {
 	settings: {},
 	isSaving: false,

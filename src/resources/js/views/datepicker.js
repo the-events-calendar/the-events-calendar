@@ -133,7 +133,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {integer} number number to pad with extra 0
+	 * @param {number} number number to pad with extra 0
 	 *
 	 * @return {string} string representation of padded number
 	 */
@@ -168,7 +168,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @param {string} value string representation of the date value
 	 *
-	 * @return {jQuery}
+	 * @return {jQuery} Date input object.
 	 */
 	obj.createDateInputObj = function ( value ) {
 		const $input = $( '<input>' );
@@ -193,7 +193,8 @@ tribe.events.views.datepicker = {};
 	 */
 	obj.submitRequest = function ( $container, value ) {
 		const viewData = {};
-		( viewData[ 'tribe-bar-date' ] = value ), obj.request( viewData, $container );
+		viewData[ 'tribe-bar-date' ] = value;
+		obj.request( viewData, $container );
 	};
 
 	/**
@@ -343,7 +344,6 @@ tribe.events.views.datepicker = {};
 	obj.handleClick = function ( event ) {
 		const $input = event.data.input;
 		const $datepickerButton = event.data.target;
-		const state = $datepickerButton.data( 'tribeEventsState' );
 		const method = $datepickerButton.hasClass( obj.selectors.buttonOpenClass.className() ) ? 'hide' : 'show';
 		const tapHide = $datepickerButton.data( 'tribeTapHide' );
 
@@ -351,6 +351,7 @@ tribe.events.views.datepicker = {};
 			return;
 		}
 
+		const state = $datepickerButton.data( 'tribeEventsState' );
 		state.isTarget = false;
 
 		$datepickerButton.data( 'tribeEventsState', state );
@@ -369,7 +370,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @param {Object} data data object to be passed for use in handler
 	 *
-	 * @return {Function}
+	 * @return {Function} Handler function for mutations.
 	 */
 	obj.handleMutation = function ( data ) {
 		const $container = data.container;
@@ -427,7 +428,7 @@ tribe.events.views.datepicker = {};
 	 * @param {Date}   date Date object representing the date being compared
 	 * @param {string} unit Unit to compare dates to
 	 *
-	 * @return {bool}
+	 * @return {boolean} True if date matches today for the specified unit.
 	 */
 	obj.isSameAsToday = function ( date, unit ) {
 		switch ( unit ) {
@@ -452,7 +453,7 @@ tribe.events.views.datepicker = {};
 	 * @param {Date}   date Date object representing the date being compared
 	 * @param {string} unit Unit to compare dates to
 	 *
-	 * @return {bool}
+	 * @return {boolean} True if date is before today for the specified unit.
 	 */
 	obj.isBeforeToday = function ( date, unit ) {
 		switch ( unit ) {
@@ -476,10 +477,10 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker day cells
 	 *
-	 * @param  date
+	 * @param {Date} date Date object for the cell.
 	 * @since 4.9.13
 	 *
-	 * @return {string|void}
+	 * @return {string|void} CSS class string or void.
 	 */
 	obj.filterDayCells = function ( date ) {
 		if ( obj.isBeforeToday( date, 'day' ) ) {
@@ -492,10 +493,10 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker month cells
 	 *
-	 * @param  date
+	 * @param {Date} date Date object for the cell.
 	 * @since 4.9.13
 	 *
-	 * @return {string|void}
+	 * @return {string|void} CSS class string or void.
 	 */
 	obj.filterMonthCells = function ( date ) {
 		if ( obj.isBeforeToday( date, 'month' ) ) {
@@ -508,10 +509,10 @@ tribe.events.views.datepicker = {};
 	/**
 	 * Filter datepicker year cells
 	 *
-	 * @param  date
+	 * @param {Date} date Date object for the cell.
 	 * @since 4.9.13
 	 *
-	 * @return {string|void}
+	 * @return {string|void} CSS class string or void.
 	 */
 	obj.filterYearCells = function ( date ) {
 		if ( obj.isBeforeToday( date, 'year' ) ) {
@@ -528,7 +529,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @param {string} dateFormat datepicker date format in PHP format.
 	 *
-	 * @return {string}
+	 * @return {string} Converted date format for JavaScript.
 	 */
 	obj.convertDateFormat = function ( dateFormat ) {
 		let convertedDateFormat = dateFormat;
@@ -561,7 +562,7 @@ tribe.events.views.datepicker = {};
 	 * @since  4.9.5
 	 *
 	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}  jqXHR    Request object
+	 * @param {Object} jqXHR    Request object
 	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
@@ -586,10 +587,10 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since  4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
@@ -681,14 +682,27 @@ tribe.events.views.datepicker = {};
 		const tribeL10nDatatables = window.tribe_l10n_datatables || {};
 		const datepickerI18n = tribeL10nDatatables.datepicker || {};
 
-		datepickerI18n.dayNames && ( $.fn.bootstrapDatepicker.dates.en.days = datepickerI18n.dayNames );
-		datepickerI18n.dayNamesShort && ( $.fn.bootstrapDatepicker.dates.en.daysShort = datepickerI18n.dayNamesShort );
-		datepickerI18n.dayNamesMin && ( $.fn.bootstrapDatepicker.dates.en.daysMin = datepickerI18n.dayNamesMin );
-		datepickerI18n.monthNames && ( $.fn.bootstrapDatepicker.dates.en.months = datepickerI18n.monthNames );
-		datepickerI18n.monthNamesMin &&
-			( $.fn.bootstrapDatepicker.dates.en.monthsShort = datepickerI18n.monthNamesMin );
-		datepickerI18n.today && ( $.fn.bootstrapDatepicker.dates.en.today = datepickerI18n.today );
-		datepickerI18n.clear && ( $.fn.bootstrapDatepicker.dates.en.clear = datepickerI18n.clear );
+		if ( datepickerI18n.dayNames ) {
+			$.fn.bootstrapDatepicker.dates.en.days = datepickerI18n.dayNames;
+		}
+		if ( datepickerI18n.dayNamesShort ) {
+			$.fn.bootstrapDatepicker.dates.en.daysShort = datepickerI18n.dayNamesShort;
+		}
+		if ( datepickerI18n.dayNamesMin ) {
+			$.fn.bootstrapDatepicker.dates.en.daysMin = datepickerI18n.dayNamesMin;
+		}
+		if ( datepickerI18n.monthNames ) {
+			$.fn.bootstrapDatepicker.dates.en.months = datepickerI18n.monthNames;
+		}
+		if ( datepickerI18n.monthNamesMin ) {
+			$.fn.bootstrapDatepicker.dates.en.monthsShort = datepickerI18n.monthNamesMin;
+		}
+		if ( datepickerI18n.today ) {
+			$.fn.bootstrapDatepicker.dates.en.today = datepickerI18n.today;
+		}
+		if ( datepickerI18n.clear ) {
+			$.fn.bootstrapDatepicker.dates.en.clear = datepickerI18n.clear;
+		}
 	};
 
 	/**
@@ -726,69 +740,75 @@ tribe.events.views.datepicker = {};
 	 * Adds role, tabindex, aria-label, and keyboard handlers to prev, next, and month switch buttons.
 	 */
 	function enhanceDatepickerA11yForAll() {
-		$('.datepicker:visible').each(function() {
-			var $datepicker = $(this);
+		$( '.datepicker:visible' ).each( function () {
+			const $datepicker = $( this );
 
-			$datepicker.find('th.prev')
-				.attr('role', 'button')
-				.attr('tabindex', '0')
-				.attr('aria-label', 'Previous month')
-				.off('keydown.a11y')
-				.on('keydown.a11y', function(e) {
-					if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
-						$(this).trigger('click');
+			$datepicker
+				.find( 'th.prev' )
+				.attr( 'role', 'button' )
+				.attr( 'tabindex', '0' )
+				.attr( 'aria-label', 'Previous month' )
+				.off( 'keydown.a11y' )
+				.on( 'keydown.a11y', function ( e ) {
+					if ( e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32 ) {
+						$( this ).trigger( 'click' );
 						e.preventDefault();
 					}
-				});
+				} );
 
-			$datepicker.find('th.next')
-				.attr('role', 'button')
-				.attr('tabindex', '0')
-				.attr('aria-label', 'Next month')
-				.off('keydown.a11y')
-				.on('keydown.a11y', function(e) {
-					if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
-						$(this).trigger('click');
+			$datepicker
+				.find( 'th.next' )
+				.attr( 'role', 'button' )
+				.attr( 'tabindex', '0' )
+				.attr( 'aria-label', 'Next month' )
+				.off( 'keydown.a11y' )
+				.on( 'keydown.a11y', function ( e ) {
+					if ( e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32 ) {
+						$( this ).trigger( 'click' );
 						e.preventDefault();
 					}
-				});
+				} );
 
-			$datepicker.find('th.datepicker-switch')
-				.attr('role', 'button')
-				.attr('tabindex', '0')
-				.attr('aria-label', 'Select month')
-				.off('keydown.a11y')
-				.on('keydown.a11y', function(e) {
-					if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
-						$(this).trigger('click');
+			$datepicker
+				.find( 'th.datepicker-switch' )
+				.attr( 'role', 'button' )
+				.attr( 'tabindex', '0' )
+				.attr( 'aria-label', 'Select month' )
+				.off( 'keydown.a11y' )
+				.on( 'keydown.a11y', function ( e ) {
+					if ( e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32 ) {
+						$( this ).trigger( 'click' );
 						e.preventDefault();
 					}
-				});
-		});
+				} );
+		} );
 	}
 
 	// Set up a MutationObserver on the body for any new or updated .datepicker elements
-	const datepickerObserver = new MutationObserver(function(mutationsList) {
-		for (const mutation of mutationsList) {
-			if (mutation.type === 'childList' || mutation.type === 'subtree') {
+	const datepickerObserver = new MutationObserver( function ( mutationsList ) {
+		for ( const mutation of mutationsList ) {
+			if ( mutation.type === 'childList' || mutation.type === 'subtree' ) {
 				// Check if any added nodes are or contain a .datepicker
-				$(mutation.addedNodes).each(function() {
-					if ($(this).hasClass && $(this).hasClass('datepicker') || $(this).find && $(this).find('.datepicker').length) {
+				$( mutation.addedNodes ).each( function () {
+					if (
+						( $( this ).hasClass && $( this ).hasClass( 'datepicker' ) ) ||
+						( $( this ).find && $( this ).find( '.datepicker' ).length )
+					) {
 						enhanceDatepickerA11yForAll();
 					}
-				});
+				} );
 			}
 			// Also check for attribute changes in case the datepicker is updated in place
-			if (mutation.type === 'attributes' && $(mutation.target).hasClass('datepicker')) {
+			if ( mutation.type === 'attributes' && $( mutation.target ).hasClass( 'datepicker' ) ) {
 				enhanceDatepickerA11yForAll();
 			}
 		}
-	});
+	} );
 
-	datepickerObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
+	datepickerObserver.observe( document.body, { childList: true, subtree: true, attributes: true } );
 
 	// Run once on page load in case datepicker is already present
-	$(document).ready(function() {
+	$( document ).ready( function () {
 		enhanceDatepickerA11yForAll();
-	});
+	} );
 } )( jQuery, tribe.events.views.datepicker );

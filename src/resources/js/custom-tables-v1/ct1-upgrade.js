@@ -1,6 +1,8 @@
-let upgradeBoxElement = null;
+/* global XMLHttpRequest, tecCt1Upgrade, confirm */
+
+let _upgradeBoxElement = null;
 let localizedData = null;
-let ajaxUrl = null;
+let _ajaxUrl = null;
 let pollInterval = 5000;
 let pollTimeoutId = null;
 let currentViewState = {
@@ -36,7 +38,7 @@ export const buildQueryString = ( data = {} ) => {
 
 	if ( 'string' === typeof data ) {
 		const extractedData = {};
-		data.split( '&' ).map( ( keyAndValue ) => {
+		data.split( '&' ).forEach( ( keyAndValue ) => {
 			const [ key, value ] = keyAndValue.split( '=', 2 );
 			extractedData[ key ] = value;
 		} );
@@ -85,18 +87,24 @@ export const ajaxGet = ( url, data = {}, onSuccess, onFailure, onError ) => {
 			const status = request.status;
 			if ( status === 0 || ( status >= 200 && status < 400 ) ) {
 				try {
-					onSuccess && onSuccess( JSON.parse( this.response ) );
+					if ( onSuccess ) {
+						onSuccess( JSON.parse( this.response ) );
+					}
 				} catch ( e ) {
-					onError && onError( this.response );
+					if ( onError ) {
+						onError( this.response );
+					}
 				}
-			} else {
-				onFailure && onFailure( this.response );
+			} else if ( onFailure ) {
+				onFailure( this.response );
 			}
 		}
 	};
 
 	request.onerror = function () {
-		onError && onError();
+		if ( onError ) {
+			onError();
+		}
 	};
 
 	request.send();
@@ -107,7 +115,7 @@ export const ajaxGet = ( url, data = {}, onSuccess, onFailure, onError ) => {
  *
  * @since 6.0.0
  *
- * @param {boolean} refresh Fetch from cache of the node or reselect it.
+ * @return {Element|null} The upgrade box element.
  */
 export const getUpgradeBoxElement = () => {
 	return document.getElementById( selectors.upgradeBox.substr( 1 ) );
@@ -267,18 +275,18 @@ const handlePaginateClick = ( node ) => ( e ) => {
 			_ajax_nonce: tecCt1Upgrade.nonce,
 		},
 		( { html, append, prepend, has_more } ) => {
-			const element = document.querySelector( `.tec-ct1-upgrade-events-category-${ category }` );
+			const categoryElement = document.querySelector( `.tec-ct1-upgrade-events-category-${ category }` );
 			if ( prepend ) {
-				element.innerHTML = html + element.innerHTML;
+				categoryElement.innerHTML = html + categoryElement.innerHTML;
 			} else if ( append ) {
-				element.innerHTML = element.innerHTML + html;
+				categoryElement.innerHTML = categoryElement.innerHTML + html;
 			} else {
-				element.innerHTML = html;
+				categoryElement.innerHTML = html;
 			}
 			if ( ! has_more ) {
-				const element = document.querySelector( '.tec-ct1-upgrade-migration-pagination-separator' );
-				if ( element ) {
-					element.remove();
+				const separatorElement = document.querySelector( '.tec-ct1-upgrade-migration-pagination-separator' );
+				if ( separatorElement ) {
+					separatorElement.remove();
 				}
 				e.target.remove();
 			}
@@ -291,10 +299,11 @@ const handlePaginateClick = ( node ) => ( e ) => {
  *
  * @since 6.0.0
  *
- * @param {Event} e
+ * @param {Event} e Click event.
  */
 export const handleCancelMigration = ( e ) => {
 	e.preventDefault();
+	// eslint-disable-next-line no-alert -- Intentional user confirmation for canceling migration.
 	if ( confirm( tecCt1Upgrade.text_dictionary.confirm_cancel_migration ) ) {
 		e.target.setAttribute( 'disabled', 'disabled' );
 		e.target.removeEventListener( 'click', handleCancelMigration );
@@ -310,10 +319,11 @@ export const handleCancelMigration = ( e ) => {
  *
  * @since 6.0.0
  *
- * @param {Event} e
+ * @param {Event} e Click event.
  */
 export const handleRevertMigration = ( e ) => {
 	e.preventDefault();
+	// eslint-disable-next-line no-alert -- Intentional user confirmation for reverting migration.
 	if ( confirm( tecCt1Upgrade.text_dictionary.confirm_revert_migration ) ) {
 		e.target.setAttribute( 'disabled', 'disabled' );
 		e.target.removeEventListener( 'click', handleRevertMigration );
@@ -326,7 +336,7 @@ export const handleRevertMigration = ( e ) => {
 
 /**
  * Handles the AJAX call to cancel/revert.
- * @param action
+ * @param {string} action Action name for the AJAX request.
  */
 export const undoMigration = ( action ) => {
 	cancelReportPoll();
@@ -349,7 +359,7 @@ export const undoMigration = ( action ) => {
  *
  * @since 6.0.0
  *
- * @param {Event} e
+ * @param {Event} e Click event.
  */
 export const handleStartMigrationWithPreview = ( e ) => {
 	e.preventDefault();
@@ -362,9 +372,8 @@ export const handleStartMigrationWithPreview = ( e ) => {
  * Handle the start migration click event.
  *
  * @since 6.0.0
- * @param         e
  *
- * @param {Event}
+ * @param {Event} e Click event.
  */
 export const handleStartMigration = ( e ) => {
 	e.preventDefault();
@@ -373,6 +382,7 @@ export const handleStartMigration = ( e ) => {
 		' ' +
 		tecCt1Upgrade.text_dictionary.migration_prompt_plugin_state_addendum;
 	// @todo Move these confirm boxes to the preferred TEC dialog library.
+	// eslint-disable-next-line no-alert -- Intentional user confirmation for starting migration.
 	if ( confirm( message ) ) {
 		e.target.setAttribute( 'disabled', 'disabled' );
 		e.target.removeEventListener( 'click', handleStartMigration );
@@ -488,8 +498,8 @@ export const init = () => {
 		return;
 	}
 
-	upgradeBoxElement = getUpgradeBoxElement( true );
-	ajaxUrl = localizedData.ajaxUrl;
+	_upgradeBoxElement = getUpgradeBoxElement( true );
+	_ajaxUrl = localizedData.ajaxUrl;
 	pollInterval = localizedData.pollInterval || pollInterval;
 
 	if ( pollInterval === 0 ) {

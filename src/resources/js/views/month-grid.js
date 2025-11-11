@@ -3,7 +3,7 @@
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 4.9.4
  *
- * @type  {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.monthGrid = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.monthGrid = {};
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.monthGrid
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.monthGrid
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		grid: '[data-js="tribe-events-month-grid"]',
@@ -51,7 +51,7 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.keyCode = {
 		END: 35,
@@ -67,9 +67,9 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Array}   grid 2-dimensional array of grid
-	 * @param {integer} row  row number of cell, 0 index
-	 * @param {integer} col  column number of cell, 0 index
+	 * @param {Array}  grid 2-dimensional array of grid
+	 * @param {number} row  row number of cell, 0 index
+	 * @param {number} col  column number of cell, 0 index
 	 *
 	 * @return {boolean} true if cell is valid, false otherwise
 	 */
@@ -91,13 +91,13 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Array}   grid       2-dimensional array of grid
-	 * @param {integer} currentRow index of current row
-	 * @param {integer} currentCol index of current column
-	 * @param {integer} directionX number of steps to take in the X direction
-	 * @param {integer} directionY number of steps to take in the Y direction
+	 * @param {Array}  grid       2-dimensional array of grid
+	 * @param {number} currentRow index of current row
+	 * @param {number} currentCol index of current column
+	 * @param {number} directionX number of steps to take in the X direction
+	 * @param {number} directionY number of steps to take in the Y direction
 	 *
-	 * @return {PlainObject} object containing next row and column indices
+	 * @return {Object} object containing next row and column indices
 	 */
 	obj.getNextCell = function ( grid, currentRow, currentCol, directionX, directionY ) {
 		const row = currentRow + directionY;
@@ -121,9 +121,9 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery}  $grid jQuery object of grid
-	 * @param {integer} row   index of row
-	 * @param {integer} col   index of column
+	 * @param {jQuery} $grid jQuery object of grid
+	 * @param {number} row   index of row
+	 * @param {number} col   index of column
 	 *
 	 * @return {boolean} boolean of whether focus pointer was set or not
 	 */
@@ -149,9 +149,9 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery}  $grid jQuery object of grid
-	 * @param {integer} row   index of row
-	 * @param {integer} col   index of column
+	 * @param {jQuery} $grid jQuery object of grid
+	 * @param {number} row   index of row
+	 * @param {number} col   index of column
 	 *
 	 * @return {void}
 	 */
@@ -350,9 +350,9 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -369,10 +369,10 @@ tribe.events.views.monthGrid = {};
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event}   event      JS event triggered.
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
-	 * @param {jQuery}  $container jQuery object of view container.
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {Event}  event      JS event triggered.
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */

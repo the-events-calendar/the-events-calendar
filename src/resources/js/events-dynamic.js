@@ -3,7 +3,7 @@
  *
  * @member object tribe_dynamic_helper_text
  */
-var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
+const tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
 ( function ( $, obj ) {
 	'use strict';
@@ -27,7 +27,12 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	obj.datepicker_format = tribe_dynamic_help_text.datepicker_format;
 
 	// Setup object variables
-	obj.dynamic_text, obj.start_date, obj.start_time, obj.end_date, obj.end_time, ( obj.all_day = '' );
+	obj.dynamic_text = '';
+	obj.start_date = '';
+	obj.start_time = '';
+	obj.end_date = '';
+	obj.end_time = '';
+	obj.all_day = '';
 
 	/**
 	 * Setup Dynamic Text on Load
@@ -87,28 +92,22 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	 * Determine Message to Use based on Date and Time
 	 */
 	obj.msg_logic = function () {
-		if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		if ( obj.start_date === obj.end_date && ! obj.all_day && obj.start_time !== obj.end_time ) {
 			//single date, different start and end time
 			obj.dynamic_text = obj.text[ 0 ];
-		} else if ( obj.start_date == obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		} else if ( obj.start_date === obj.end_date && ! obj.all_day && obj.start_time === obj.end_time ) {
 			//single date, same start and end time
 			obj.dynamic_text = obj.text[ 1 ];
-		} else if ( obj.start_date == obj.end_date && obj.all_day ) {
-			// eslint-disable-line eqeqeq
+		} else if ( obj.start_date === obj.end_date && obj.all_day ) {
 			//single date, all day
 			obj.dynamic_text = obj.text[ 2 ];
-		} else if ( obj.start_date != obj.end_date && ! obj.all_day && obj.start_time != obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		} else if ( obj.start_date !== obj.end_date && ! obj.all_day && obj.start_time !== obj.end_time ) {
 			//different date, different start and end time
 			obj.dynamic_text = obj.text[ 3 ];
-		} else if ( obj.start_date != obj.end_date && ! obj.all_day && obj.start_time == obj.end_time ) {
-			// eslint-disable-line eqeqeq,max-len
+		} else if ( obj.start_date !== obj.end_date && ! obj.all_day && obj.start_time === obj.end_time ) {
 			//different date, same start and end time
 			obj.dynamic_text = obj.text[ 4 ];
-		} else if ( obj.start_date != obj.end_date && obj.all_day ) {
-			// eslint-disable-line eqeqeq
+		} else if ( obj.start_date !== obj.end_date && obj.all_day ) {
 			//different date, all day
 			obj.dynamic_text = obj.text[ 5 ];
 		}
@@ -143,10 +142,10 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 	/**
 	 * Format Date using DateFormatter library enabling PHP date-time formats
 	 *
-	 * @param  date
-	 * @param  datepicker
-	 * @param  dateformat
-	 * @return {*}
+	 * @param {string} date       Date string to format.
+	 * @param {string} datepicker Datepicker format.
+	 * @param {string} dateformat Target date format.
+	 * @return {*} Formatted date string.
 	 */
 	obj.date_formatter = function ( date, datepicker, dateformat ) {
 		return obj.date_fmt.formatDate( obj.date_fmt.parseDate( date, datepicker ), dateformat );

@@ -3,7 +3,7 @@
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events = tribe.events || {};
 tribe.events.views = tribe.events.views || {};
@@ -13,7 +13,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since 4.9.4
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.accordion = {};
 
@@ -22,8 +22,8 @@ tribe.events.views.accordion = {};
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.accordion
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.accordion
  *
  * @return {void}
  */
@@ -36,7 +36,7 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @type {PlainObject}
+	 * @type {Object}
 	 */
 	obj.selectors = {
 		accordionTrigger: '[data-js~="tribe-events-accordion-trigger"]',
@@ -131,15 +131,15 @@ tribe.events.views.accordion = {};
 	 *
 	 * @return {void}
 	 */
-	obj.toggleAccordion = function( event ) {
+	obj.toggleAccordion = function ( event ) {
 		// Prevent default action (form submission) when triggered by keyboard events.
 		event.preventDefault();
 		event.stopPropagation();
 
-		var $container = event.data.container;
-		var $header = $( event.data.target );
-		var contentId = $header.attr( 'aria-controls' );
-		var $content = $container.find( '#' + contentId );
+		const $container = event.data.container;
+		const $header = $( event.data.target );
+		const contentId = $header.attr( 'aria-controls' );
+		const $content = $container.find( '#' + contentId );
 
 		if ( 'true' === $header.attr( 'aria-expanded' ) ) {
 			obj.closeAccordion( $header, $content );
@@ -183,7 +183,7 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {integer}     index  jQuery.each index param
+	 * @param {number}      index  jQuery.each index param
 	 * @param {HTMLElement} header header element from which to remove event
 	 *
 	 * @return {void}
@@ -209,28 +209,28 @@ tribe.events.views.accordion = {};
 		 * @since 4.9.4
 		 * @since 6.12.0 Bind keydown event to handle both Enter and Space keys to improve accessibility.
 		 *
-		 * @param {integer}     index  jQuery.each index param
+		 * @param {number}      index  jQuery.each index param
 		 * @param {HTMLElement} header header element from which to remove event
 		 *
 		 * @return {void}
 		 */
-		return function( index, header ) {
+		return function ( index, header ) {
 			// Bind click event for header click handling.
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 
 			// Handle both Enter and Space keys for accessibility.
-			$( header ).on( 'keydown', function( event ) {
+			$( header ).on( 'keydown', function ( event ) {
 				// 13 = Enter, 32 = Space
 				if ( event.keyCode === 13 || event.keyCode === 32 ) {
 					event.preventDefault();
 					event.stopPropagation();
 					$( header ).trigger( 'click' );
 				}
-			});
+			} );
 
 			// Ensure the header is focusable with keyboard.
-			if (!$( header ).attr('tabindex')) {
-				$( header ).attr('tabindex', '0');
+			if ( ! $( header ).attr( 'tabindex' ) ) {
+				$( header ).attr( 'tabindex', '0' );
 			}
 		};
 	};
@@ -266,9 +266,9 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since  4.9.5
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {Object} jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
@@ -284,10 +284,10 @@ tribe.events.views.accordion = {};
 	 *
 	 * @since  4.9.5
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
+	 * @param {number} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */

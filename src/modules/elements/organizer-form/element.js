@@ -94,6 +94,7 @@ class OrganizerForm extends Component {
 		request
 			.done( ( newPost ) => {
 				if ( ! newPost.id ) {
+					// eslint-disable-next-line no-console
 					console.warning( 'Invalid creation of organizer:', newPost );
 				}
 
@@ -101,6 +102,7 @@ class OrganizerForm extends Component {
 				this.props.onClose();
 			} )
 			.fail( ( err ) => {
+				// eslint-disable-next-line no-console
 				console.error( err );
 			} );
 	};

@@ -27,18 +27,19 @@ jQuery( function ( $ ) {
 			return false;
 		}
 
-		const $container = $( '#tribe-field-toggle_blocks_editor' );
 		const $hiddenContainer = $( '#tribe-field-toggle_blocks_editor_hidden_field' );
-		const $field = $container.find( '#tribe-blocks-editor-toggle-field' );
 		const $hiddenField = $hiddenContainer.find( '#tribe-blocks-editor-toggle-hidden-field' );
 
-		const isFieldChecked = $field.is( ':checked' );
 		const isHiddenFieldChecked = $hiddenField.is( ':checked' );
 
 		// Once this field is check we bail forever
 		if ( isHiddenFieldChecked ) {
 			return;
 		}
+
+		const $container = $( '#tribe-field-toggle_blocks_editor' );
+		const $field = $container.find( '#tribe-blocks-editor-toggle-field' );
+		const isFieldChecked = $field.is( ':checked' );
 
 		// Only check the hidden field when we change the Field was checked
 		if ( isFieldChecked ) {

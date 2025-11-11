@@ -1,36 +1,7 @@
 /* Dispatch actions for the reducers to handle */
 import TYPES from './action-types';
-import { API_ENDPOINT } from './constants';
-import { apiFetch } from '@wordpress/data';
 
-const {
-	CREATE,
-	INITIALIZE,
-	IS_SAVING,
-	SAVE_SETTINGS_ERROR,
-	SAVE_SETTINGS_REQUEST,
-	SAVE_SETTINGS_SUCCESS,
-	UPDATE,
-	SET_VISITED_FIELDS,
-	SKIP_TAB,
-	COMPLETE_TAB,
-} = TYPES;
-
-interface Settings {
-	[ key: string ]: any;
-}
-
-interface Setting {
-	[ key: string ]: any;
-}
-
-interface Action {
-	type: string;
-	settings?: Settings;
-	setting?: Setting;
-	payload?: any;
-	error?: any;
-}
+const { CREATE, INITIALIZE, IS_SAVING, UPDATE, SET_VISITED_FIELDS, SKIP_TAB, COMPLETE_TAB } = TYPES;
 
 export function initializeSettings( settings ) {
 	return {

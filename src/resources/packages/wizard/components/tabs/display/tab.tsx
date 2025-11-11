@@ -144,15 +144,15 @@ const DisplayContent: React.FC = ( { moveToNextTab, skipToNextTab } ) => {
 					</div>
 				) }
 
-				{!isAnyChecked && (
+				{ ! isAnyChecked && (
 					<p className="tec-events-onboarding__view_required_notice">
-						{__("Please select at least one view to continue.", "the-events-calendar")}
+						{ __( 'Please select at least one view to continue.', 'the-events-calendar' ) }
 					</p>
-				)}
+				) }
 
-				<NextButton disabled={!isAnyChecked} moveToNextTab={moveToNextTab} tabSettings={tabSettings} />
+				<NextButton disabled={ ! isAnyChecked } moveToNextTab={ moveToNextTab } tabSettings={ tabSettings } />
 
-				<SkipButton skipToNextTab={skipToNextTab} currentTab={1} />
+				<SkipButton skipToNextTab={ skipToNextTab } currentTab={ 1 } />
 			</div>
 		</>
 	);

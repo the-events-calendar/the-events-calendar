@@ -6,7 +6,7 @@ tribe.events.views = tribe.events.views || {};
  *
  * @since  4.9.8
  *
- * @type   {PlainObject}
+ * @type {Object}
  */
 tribe.events.views.navigationScroll = {};
 
@@ -16,8 +16,8 @@ tribe.events.views.navigationScroll = {};
  *
  * @since  4.9.8
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.navigationScroll
+ * @param {Object} $   jQuery
+ * @param {Object} obj tribe.events.views.navigationScroll
  *
  * @return {void}
  */
@@ -34,7 +34,7 @@ tribe.events.views.navigationScroll = {};
 	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
 	 * @param {string} html       HTML sent from the REST API
 	 * @param {string} textStatus Status for the request
-	 * @param {jqXHR}  qXHR       Request object
+	 * @param {Object} qXHR       Request object
 	 *
 	 * @return {void}
 	 */

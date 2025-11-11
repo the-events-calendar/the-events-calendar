@@ -61,7 +61,7 @@ const renderLabel = ( props ) => {
 	);
 
 	/**
-	 * @todo: Change div to button.
+	 * @todo Change div to button.
 	 */
 	return (
 		<div // eslint-disable-line

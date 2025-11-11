@@ -1,4 +1,4 @@
-/* global jQuery, YoastSEO */
+/* global YoastSEO */
 
 class EventsReplaceVarPlugin {
 	static PLUGIN_NAME = 'eventsVariablePlugin';
@@ -32,6 +32,7 @@ class EventsReplaceVarPlugin {
 		const ReplaceVar = window.YoastReplaceVarPlugin?.ReplaceVar;
 		if ( ! ReplaceVar ) {
 			if ( window.tecYoastEvents?.debug ) {
+				// eslint-disable-next-line no-console -- Intentional debug logging for development.
 				console.log( 'Replacing Event variables in the Snippet Window requires Yoast SEO >= 5.3.' );
 			}
 			return false;

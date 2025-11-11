@@ -9,24 +9,24 @@ import React, { useEffect } from 'react';
 import QrCode from './template';
 import { QrCode as QrCodeIcon } from '@moderntribe/events/icons';
 
+/* global MutationObserver */
+
 const { __ } = wp.i18n;
 const { InnerBlocks } = wp.blockEditor;
 
 /**
  * QR Code Widget Edit Component
  *
- * @param {Object} props Component props
- * @param {Object} props.attributes Block attributes
+ * @param {Object}   props               Component props
+ * @param {Object}   props.attributes    Block attributes
  * @param {Function} props.setAttributes Function to update block attributes
- * @returns {React.ReactElement} The QR Code edit component
+ * @return {React.ReactElement} The QR Code edit component
  */
 const QRCodeEdit = ( props ) => {
 	// Handle dependent dropdown visibility
 	useEffect( () => {
 		const handleDependentDropdowns = () => {
-			const dependents = document.querySelectorAll(
-				'.tribe-widget-form-control--dropdown[data-depends]',
-			);
+			const dependents = document.querySelectorAll( '.tribe-widget-form-control--dropdown[data-depends]' );
 
 			dependents.forEach( ( dependent ) => {
 				const dependsOn = dependent.dataset.depends;
@@ -61,16 +61,12 @@ const QRCodeEdit = ( props ) => {
 			mutations.forEach( ( mutation ) => {
 				if ( mutation.addedNodes.length ) {
 					// Check if any of the added nodes contain our dependent dropdowns
-					const hasDependentDropdowns = Array.from( mutation.addedNodes ).some(
-						( node ) => {
-							if ( node.querySelector ) {
-								return node.querySelector(
-									'.tribe-widget-form-control--dropdown[data-depends]',
-								);
-							}
-							return false;
-						},
-					);
+					const hasDependentDropdowns = Array.from( mutation.addedNodes ).some( ( node ) => {
+						if ( node.querySelector ) {
+							return node.querySelector( '.tribe-widget-form-control--dropdown[data-depends]' );
+						}
+						return false;
+					} );
 
 					if ( hasDependentDropdowns ) {
 						handleDependentDropdowns();
@@ -91,7 +87,8 @@ const QRCodeEdit = ( props ) => {
 		// Cleanup
 		return () => {
 			observer.disconnect();
-			document.querySelectorAll( '.tribe-widget-form-control--dropdown[data-depends]' )
+			document
+				.querySelectorAll( '.tribe-widget-form-control--dropdown[data-depends]' )
 				.forEach( ( dependent ) => {
 					const parent = document.querySelector( dependent.dataset.depends );
 					if ( parent && dependent._updateVisibility ) {

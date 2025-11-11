@@ -67,7 +67,7 @@ const DEFAULT_ZOOM = parseInt( get( mapsAPI(), 'zoom', 14 ), 10 );
  * A wrapper for Google's Static Maps
  *
  * @see https://developers.google.com/maps/documentation/staticmaps/intro#Overview
- * @example: http://staticmapmaker.com/google/
+ * @example http://staticmapmaker.com/google/
  */
 
 export default class GoogleMap extends Component {

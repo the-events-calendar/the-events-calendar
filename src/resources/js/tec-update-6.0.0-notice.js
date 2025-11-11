@@ -11,6 +11,7 @@
 			actions: [
 				{
 					url: obj.data.upgrade_link,
+					/* translators: %1$s: plural form of "events" (e.g., "events", "événements") */
 					label: sprintf( __( 'Upgrade your %1$s', 'the-events-calendar' ), obj.data.events_plural_lower ),
 				},
 				{
