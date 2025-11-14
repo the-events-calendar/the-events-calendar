@@ -411,11 +411,10 @@
 
 							
 								<div class="tribe-events-calendar-day__time-separator">
-	<time
-		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
-		datetime="13:00"
-	>
-		1:00 pm	</time>
+	<h2 class="tribe-events-calendar-day__time-separator-heading tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">
+		<time datetime="13:00">
+			1:00 pm		</time>
+	</h2>
 </div>
 				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349785 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">

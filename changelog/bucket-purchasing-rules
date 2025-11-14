@@ -1,0 +1,4 @@
+Significance: patch
+Type: compatibility
+
+Updates to support TEC v1 REST API Changes.

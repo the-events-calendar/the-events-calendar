@@ -394,11 +394,12 @@
 
 							
 				<li class="tribe-events-calendar-list__month-separator">
-	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
-		datetime="2019-06"
-	>
-		June 2019	</time>
+	<h3>
+		<time
+			class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
+		>
+			June 2019		</time>
+	</h3>
 </li>
 
 				<li  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
@@ -433,7 +434,7 @@
 	<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 	</div>
-					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
+					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=featured-test-event"
 		title="Featured test event"
@@ -441,7 +442,7 @@
 		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Featured test event	</a>
-</h3>
+</h4>
 														</header>
 
 								
@@ -474,7 +475,7 @@
 		<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
 	</div>
-					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
+					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 3"
@@ -482,7 +483,7 @@
 		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 3	</a>
-</h3>
+</h4>
 														</header>
 
 								
@@ -515,7 +516,7 @@
 		<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
 	</div>
-					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
+					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-2"
 		title="Single Event 4"
@@ -523,7 +524,7 @@
 		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 4	</a>
-</h3>
+</h4>
 														</header>
 
 								

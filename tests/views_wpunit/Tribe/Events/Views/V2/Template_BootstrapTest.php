@@ -2,10 +2,12 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Spatie\Snapshots\MatchesSnapshots;
 use Tribe__Events__Main as Main;
 require_once codecept_data_dir( 'Views/V2/classes/Test_Full_View.php' );
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
+	use MatchesSnapshots;
 
 	public function setUp() {
 		parent::setUp();
@@ -540,5 +542,178 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$filtered_body_classes = $template_bootstrap->filter_add_body_classes( $initial_body_classes );
 
 		$this->assertEquals( $expected, in_array( 'archive', $filtered_body_classes, true ) );
+	}
+
+	/**
+	 * It should wrap HTML in main landmark when not present.
+	 *
+	 * @test
+	 */
+	public function should_wrap_html_in_main_landmark_when_not_present() {
+		$bootstrap = $this->make_instance();
+		$html      = '<div class="tribe-events-view">Event content</div>';
+
+		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
+
+		$this->assertStringContainsString( '<main id="main"', $wrapped );
+		$this->assertStringContainsString( 'class="tec-events-main-content"', $wrapped );
+		$this->assertStringContainsString( 'tabindex="-1"', $wrapped );
+		$this->assertStringContainsString( 'role="main"', $wrapped );
+		$this->assertStringContainsString( 'aria-label="Main content"', $wrapped );
+		$this->assertStringContainsString( $html, $wrapped );
+		$this->assertStringContainsString( '</main>', $wrapped );
+	}
+
+	/**
+	 * It should not wrap HTML if main landmark already exists.
+	 *
+	 * @test
+	 */
+	public function should_not_wrap_html_if_main_landmark_already_exists() {
+		$bootstrap = $this->make_instance();
+		$html      = '<main id="custom-main"><div class="tribe-events-view">Event content</div></main>';
+
+		$result = $bootstrap->maybe_add_main_landmark( $html );
+
+		// Should return the HTML unchanged.
+		$this->assertEquals( $html, $result );
+		// Should not contain double main tags.
+		$this->assertEquals( 1, substr_count( $result, '<main' ) );
+	}
+
+	/**
+	 * It should allow filtering the main container ID.
+	 *
+	 * @test
+	 */
+	public function should_allow_filtering_the_main_container_id() {
+		$bootstrap = $this->make_instance();
+		$html      = '<div class="tribe-events-view">Event content</div>';
+
+		// Filter to use 'content' instead of 'main'.
+		add_filter( 'tec_events_main_container_id', function() {
+			return 'content';
+		} );
+
+		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
+
+		$this->assertStringContainsString( '<main id="content"', $wrapped );
+		$this->assertStringNotContainsString( '<main id="main"', $wrapped );
+	}
+
+	/**
+	 * It should not add landmark during AJAX requests.
+	 *
+	 * @test
+	 */
+	public function should_not_add_landmark_during_ajax_requests() {
+		$bootstrap = $this->make_instance();
+		$html      = '<div class="tribe-events-view">Event content</div>';
+
+		// Simulate AJAX context.
+		add_filter( 'wp_doing_ajax', '__return_true' );
+
+		$result = $bootstrap->maybe_add_main_landmark( $html );
+
+		// Should return HTML unchanged during AJAX.
+		$this->assertEquals( $html, $result );
+		$this->assertStringNotContainsString( '<main', $result );
+	}
+
+	/**
+	 * It should not add landmark for embed views.
+	 *
+	 * @test
+	 */
+	public function should_not_add_landmark_for_embed_views() {
+		$bootstrap = $this->make_instance();
+		$html      = '<div class="tribe-events-view">Event content</div>';
+
+		// Simulate embed context.
+		global $wp_query;
+		$wp_query->is_embed = true;
+
+		$result = $bootstrap->maybe_add_main_landmark( $html );
+
+		// Should return HTML unchanged for embeds.
+		$this->assertEquals( $html, $result );
+		$this->assertStringNotContainsString( '<main', $result );
+	}
+
+	/**
+	 * Snapshot test: HTML with main landmark wrapper (default ID).
+	 *
+	 * @test
+	 */
+	public function test_main_landmark_wrapper_snapshot_default_id() {
+		$bootstrap = $this->make_instance();
+		$html      = '<div class="tribe-events-view tribe-events-view--list">
+	<div class="tribe-common-l-container tribe-events-l-container">
+		<div class="tribe-events-calendar-list">
+			<div class="tribe-events-calendar-list__event-row">
+				<article class="tribe-events-calendar-list__event">
+					<h3 class="tribe-events-calendar-list__event-title">Test Event</h3>
+				</article>
+			</div>
+		</div>
+	</div>
+</div>';
+
+		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
+
+		$this->assertMatchesSnapshot( $wrapped );
+	}
+
+	/**
+	 * Snapshot test: HTML with main landmark wrapper (custom ID via filter).
+	 *
+	 * @test
+	 */
+	public function test_main_landmark_wrapper_snapshot_custom_id() {
+		$bootstrap = $this->make_instance();
+		$html      = '<div class="tribe-events-view tribe-events-view--month">
+	<div class="tribe-common-l-container tribe-events-l-container">
+		<div class="tribe-events-calendar-month">
+			<div class="tribe-events-calendar-month__day">
+				<article class="tribe-events-calendar-month__event">
+					<h3 class="tribe-events-calendar-month__event-title">Monthly Event</h3>
+				</article>
+			</div>
+		</div>
+	</div>
+</div>';
+
+		// Filter to use 'primary' as the ID.
+		add_filter( 'tec_events_main_container_id', function() {
+			return 'primary';
+		} );
+
+		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
+
+		$this->assertMatchesSnapshot( $wrapped );
+	}
+
+	/**
+	 * Snapshot test: HTML that already contains main landmark (no double-wrapping).
+	 *
+	 * @test
+	 */
+	public function test_main_landmark_no_double_wrap_snapshot() {
+		$bootstrap = $this->make_instance();
+		$html      = '<main id="theme-main" class="site-main">
+	<div class="tribe-events-view">
+		<div class="tribe-events-calendar-list">
+			<article class="tribe-events-calendar-list__event">
+				<h3>Pre-wrapped Event</h3>
+			</article>
+		</div>
+	</div>
+</main>';
+
+		$result = $bootstrap->maybe_add_main_landmark( $html );
+
+		// Should match the original HTML unchanged.
+		$this->assertMatchesSnapshot( $result );
+		$this->assertEquals( $html, $result );
 	}
 }

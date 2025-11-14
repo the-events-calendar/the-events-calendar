@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Improve mini calendar accessibility by adding descriptive ARIA labels and clarifying focus indicators for color-based event markers. [TEC-5630]
