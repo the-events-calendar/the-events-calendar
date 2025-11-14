@@ -84,7 +84,7 @@ Key properties:
 
 [Full Documentation](definitions/organizer.md)
 
-**Extends**: `TEC_Post_Entity` (via allOf pattern)  
+**Extends**: `TEC_Post_Entity` (via allOf pattern)
 **Priority**: 2
 
 Key properties (in addition to base entity):
@@ -97,7 +97,7 @@ Key properties (in addition to base entity):
 
 [Full Documentation](definitions/venue.md)
 
-**Extends**: `TEC_Post_Entity` (via allOf pattern)  
+**Extends**: `TEC_Post_Entity` (via allOf pattern)
 **Priority**: 3
 
 Key properties (in addition to base entity):
@@ -154,7 +154,7 @@ public function read_schema(): OpenAPI_Schema {
         fn() => __( 'Returns a single event', 'the-events-calendar' ),
         'getEvent',
         [ tribe( TEC_Tag::class ) ],
-        $this->read_args()
+        $this->read_params()
     );
 
     $response = new Definition_Parameter( new Event_Definition() );

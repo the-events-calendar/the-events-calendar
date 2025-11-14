@@ -220,7 +220,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 *
 	 * @return array
 	 */
-	protected function get_bulk_actions() {
+	public function get_bulk_actions() {
 		return [
 			[
 				'id'   => 'delete',
@@ -235,7 +235,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 * @param string $which The location of the bulk actions: 'top' or 'bottom'.
 	 *                      This is designated as optional for backwards-compatibility.
 	 */
-	protected function bulk_actions( $which = '' ) {
+	public function bulk_actions( $which = '' ) {
 		// On History Tab there is no Bulk Actions
 		if ( 'history' === $this->tab->get_slug() ) {
 			return false;
@@ -277,7 +277,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 *
 	 * @return array
 	 */
-	protected function get_views() {
+	public function get_views() {
 		$views        = [];
 		$given_origin = isset( $_GET['origin'] ) ? $_GET['origin'] : false;
 
@@ -733,7 +733,7 @@ class Tribe__Events__Aggregator__Record__List_Table extends WP_List_Table {
 	 *
 	 * @param string $which Equal to NULL, 'top' or 'bottom'.
 	 */
-	protected function pagination( $which ) {
+	public function pagination( $which ) {
 		if ( empty( $this->_pagination_args ) ) {
 			return;
 		}
