@@ -196,7 +196,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * Returns the arguments for the update request.
 	 *
 	 * @since 6.15.0
-	 * @since TBD Returning a RequestBodyCollection instead of a QueryArgumentCollection
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
 	 * @return RequestBodyCollection
 	 */

@@ -277,7 +277,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * Returns the arguments for the create request.
 	 *
 	 * @since 6.15.0
-	 * @since TBD Returning a RequestBodyCollection instead of a QueryArgumentCollection
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
 	 * @return RequestBodyCollection
 	 */
