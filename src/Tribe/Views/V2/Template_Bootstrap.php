@@ -563,7 +563,7 @@ class Template_Bootstrap {
 	 * This ensures that even when themes override the default-template.php,
 	 * the content is still wrapped in a proper main landmark element.
 	 *
-	 * @since TBD
+	 * @since 6.15.12
 	 *
 	 * @param string $html The HTML output from the view.
 	 *
@@ -586,7 +586,7 @@ class Template_Bootstrap {
 		 * This allows themes to customize the main container ID to match their skip link targets.
 		 * Common values: 'main', 'content', 'primary'.
 		 *
-		 * @since TBD
+		 * @since 6.15.12
 		 *
 		 * @param string $main_id The ID attribute for the main content container. Default 'main'.
 		 */

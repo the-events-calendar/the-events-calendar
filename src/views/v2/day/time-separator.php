@@ -9,10 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.12
  *
  * @since 4.9.11
- * @since TBD Wrap time element in an H2 to improve accessibility. [TEC-5627]
+ * @since 6.15.12 Wrap time element in an H2 to improve accessibility. [TEC-5627]
  *
  */
 

@@ -128,7 +128,7 @@ class Hooks extends Service_Provider {
 	 * Adds the filters required by each Views v2 component.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Added filter for adding the main landmark wrapper around the TEC view output.
+	 * @since 6.15.12 Added filter for adding the main landmark wrapper around the TEC view output.
 	 */
 	protected function add_filters() {
 		add_filter( 'tec_system_information', [ $this, 'filter_system_information' ] );
@@ -1395,7 +1395,7 @@ class Hooks extends Service_Provider {
 	 * This ensures skip links and screen readers work properly even when themes
 	 * override the default template.
 	 *
-	 * @since TBD
+	 * @since 6.15.12
 	 *
 	 * @param string         $html      The HTML to be displayed.
 	 * @param Tribe__Context $context   Tribe context used to setup the view.
