@@ -38,9 +38,9 @@ if ( empty( $disable_event_search ) ) {
 	}
 	?>
 
-	<?php $this->template( 'components/events-bar' ); ?>
+	<?php $this->template( [ $this->get_view_slug(), 'top-bar' ] ); ?>
 
 	<?php $this->template( 'components/content-title' ); ?>
 
-	<?php $this->template( [ $this->get_view_slug(), 'top-bar' ] ); ?>
+	<?php $this->template( 'components/events-bar' ); ?>
 </header>
