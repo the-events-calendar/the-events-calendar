@@ -9,14 +9,17 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @version 6.15.12
+ *
+ * @since 5.0.0
+ * @since 6.15.12  Updated `h3` element to `h4`
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
  * @see tribe_get_event() For the format of the event object.
  */
 ?>
-<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
+<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="<?php echo esc_url( $event->permalink ); ?>"
 		title="<?php echo esc_attr( $event->title ); ?>"
@@ -28,4 +31,4 @@
 		echo $event->title;
 		?>
 	</a>
-</h3>
+</h4>

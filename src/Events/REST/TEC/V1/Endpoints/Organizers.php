@@ -138,7 +138,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -202,7 +202,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
 			null,
-			$this->read_args(),
+			$this->read_params(),
 		);
 
 		$headers_collection = new HeadersCollection();
@@ -268,11 +268,21 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * Returns the arguments for the create request.
 	 *
 	 * @since 6.15.0
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return QueryArgumentCollection
+	 * @return RequestBodyCollection
 	 */
-	public function create_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function create_params(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Organizer_Request_Body_Definition();
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection
+			->set_description_provider( fn() => __( 'The organizer data to create.', 'the-events-calendar' ) )
+			->set_required( true )
+			->set_example( $definition->get_example() );
 	}
 
 	/**
@@ -283,14 +293,6 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
-		$collection = new RequestBodyCollection();
-
-		$definition = new Organizer_Request_Body_Definition();
-
-		$collection->set_example( $definition->get_example() );
-
-		$collection[] = new Definition_Parameter( $definition );
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Creates a new organizer', 'the-events-calendar' ),
@@ -298,7 +300,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 			$this->get_tags(),
 			null,
 			null,
-			$collection->set_description_provider( fn() => __( 'The organizer data to create.', 'the-events-calendar' ) )->set_required( true ),
+			$this->create_params(),
 			true
 		);
 

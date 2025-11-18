@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.11';
+		const VERSION             = '6.15.12';
 
 		/**
 		 * Min Pro Addon.
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.26.0-dev';
+		protected $min_et_version = '5.27.0-dev';
 
 		/**
 		 * Maybe display data wrapper

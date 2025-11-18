@@ -9,7 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @version 6.15.12
+ *
+ * @since 5.0.0
+ * @since 6.15.12 Wrapped time in `h3` element.
  *
  * @var WP_Post            $event        The event post object with properties added by the `tribe_get_event` function.
  * @var \DateTimeInterface $request_date The request date object. This will be "today" if the user did not input any
@@ -41,10 +44,11 @@ $sep_date = empty( $is_past ) && ! empty( $request_date )
 	: $event->dates->start_display;
 ?>
 <li class="tribe-events-calendar-list__month-separator">
-	<time
-		class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
-		datetime="<?php echo esc_attr( $sep_date->format( 'Y-m' ) ); ?>"
-	>
-		<?php echo esc_html( $sep_date->format_i18n( 'F Y' ) ); ?>
-	</time>
+	<h3>
+		<time
+			class="tribe-events-calendar-list__month-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
+		>
+			<?php echo esc_html( $sep_date->format_i18n( 'F Y' ) ); ?>
+		</time>
+	</h3>
 </li>
