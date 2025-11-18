@@ -153,7 +153,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		return new QueryArgumentCollection();
 	}
 
@@ -196,11 +196,23 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 	 * Returns the arguments for the update request.
 	 *
 	 * @since 6.15.0
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return QueryArgumentCollection
+	 * @return RequestBodyCollection
 	 */
-	public function update_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function update_params(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Event_Request_Body_Definition();
+
+		$collection->set_example( $definition->get_example() );
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection
+			->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )
+			->set_required( true )
+			->set_example( $definition->get_example() );
 	}
 
 	/**
@@ -224,7 +236,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			$this->get_tags(),
 			$this->get_path_parameters(),
 			null,
-			$collection->set_description_provider( fn() => __( 'The event data to update.', 'the-events-calendar' ) )->set_required( true )->set_example( $definition->get_example() ),
+			$this->update_params(),
 			true
 		);
 
@@ -280,7 +292,7 @@ class Event extends Post_Entity_Endpoint implements RUD_Endpoint {
 			$this->get_operation_id( 'delete' ),
 			$this->get_tags(),
 			$this->get_path_parameters(),
-			$this->delete_args(),
+			$this->delete_params(),
 			null,
 			true
 		);

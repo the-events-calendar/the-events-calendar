@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Improve Day View accessibility by using semantic H2 headings for time separators to create a proper heading hierarchy. [TEC-5627]

@@ -484,7 +484,7 @@ class Builder {
 	 *
 	 * @since 6.0.0
 	 * @since 6.1.3 Integration with memoization.
-	 * @since TBD Mark $data as nullable.
+	 * @since 6.15.12 Mark $data as nullable.
 	 *
 	 * @param array|null $data If the data is null the data of the model would be used to set an update, otherwise
 	 *                            an array of `column => value` are used to construct the series of updates to perform
@@ -1565,7 +1565,7 @@ class Builder {
 	 * Create an array of model instances to get the benefits of a model.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Mark $raw as nullable.
+	 * @since 6.15.12 Mark $raw as nullable.
 	 *
 	 * @param array|null $raw The result from a `$wpdb->get_results` call.
 	 *

@@ -1,5 +1,23 @@
 # Changelog
 
+### [6.15.12] 2025-11-18
+
+* Version - The Events Calendar 6.15.12 is only compatible with Event Tickets 5.27.0 or higher.
+* Version - The Events Calendar 6.15.12 is only compatible with Events Pro 7.7.11 or higher.
+* Fix - Correct use of globals in admin scripts.
+* Tweak - Added filters: `tec_events_rest_v1_events_read_params`, `tec_events_rest_v1_venues_read_params`, `tec_events_main_container_id`
+* Tweak - Removed filters: `tec_events_rest_v1_events_read_args`, `tec_events_rest_v1_venues_read_args`
+* Tweak - Changed views: `v2/components/content-title`, `v2/day/time-separator`, `v2/list/event/title`, `v2/list/month-separator`, `v2/month/calendar-body/day/date`
+* Tweak - Correct notice display on the troubleshooting page. [TEC-5724]
+* Tweak - Updates Shepherd library to 0.0.9 from 0.0.6 including various improvements. Shepherd's changelog can be found here https://github.com/stellarwp/shepherd/blob/0.0.9/CHANGELOG.md
+* Tweak - Improve Day View accessibility by using semantic H2 headings for time separators to create a proper heading hierarchy. [TEC-5627]
+* Tweak - Improve mini calendar accessibility by adding descriptive ARIA labels and clarifying focus indicators for color-based event markers. [TEC-5630]
+* Tweak - Update heading levels for “Events at this venue” and “Events from this organizer” to improve accessibility and semantic hierarchy. [TEC-5636]
+* Accessibility - Add filter to wrap event content in a main landmark if needed, which allows for the 'Skip to Content' button to work. [TEC-5628]
+* Compatibility - Make method signatures in Builder explicitly nullable to resolve PHP 8.4 deprecation warnings. [TEC-5725]
+* Compatibility - Updates to support TEC v1 REST API Changes.
+* Language - 3 new strings added, 75 updated, 0 fuzzied, and 1 obsoleted.
+
 ### [6.15.11] 2025-11-04
 
 * Tweak - Add JavaScript logic to move keyboard focus to expanded date content and announce event counts for screen reader users in month view mobile calendar [TEC-5231]
