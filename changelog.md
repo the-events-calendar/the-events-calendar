@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.15.12.1] 2025-11-19
+
+* Fix - Provides context to a translatable placeholder which could result in an error when using existing translation. [TEC-5728]
+* Language - 1 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.12] 2025-11-18
 
 * Version - The Events Calendar 6.15.12 is only compatible with Event Tickets 5.27.0 or higher.
