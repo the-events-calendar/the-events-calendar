@@ -2,8 +2,6 @@
 	class="tribe-common-form-control-text tribe-events-c-search__input-control tribe-events-c-search__input-control--keyword"
 	data-js="tribe-events-events-bar-input-control"
 >
-	<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
-		Enter Keyword. Search for Events by Keyword.	</label>
 	<input
 		class="tribe-common-form-control-text__input tribe-events-c-search__input"
 		data-js="tribe-events-events-bar-input-control-input"
@@ -11,9 +9,10 @@
 		id="tribe-events-events-bar-keyword"
 		name="tribe-events-views[tribe-bar-search]"
 		value=""
-		placeholder="Search for events"
 		aria-label="Enter Keyword. Search for events by Keyword."
 	/>
+	<label class="tribe-common-form-control-text__label" for="tribe-events-events-bar-keyword">
+		Search for events	</label>
 	<svg
 	 class="tribe-common-c-svgicon tribe-common-c-svgicon--search tribe-events-c-search__input-control-icon-svg" 	aria-hidden="true"
 	viewBox="0 0 16 16"
