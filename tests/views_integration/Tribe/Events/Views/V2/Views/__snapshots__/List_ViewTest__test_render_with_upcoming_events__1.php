@@ -420,6 +420,15 @@
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
 
 				<header class="tribe-events-calendar-list__event-header">
+					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
+		title="Test Event &#8211; +9 days"
+		rel="bookmark"
+		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
+	>
+		Test Event &#8211; +9 days	</a>
+</h4>
 					<div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
 	<em class="tribe-events-calendar-list__event-datetime-featured-icon">
 	<svg
@@ -435,15 +444,6 @@
 	<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 	</div>
-					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
-	<a
-		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
-		title="Test Event &#8211; +9 days"
-		rel="bookmark"
-		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
-	>
-		Test Event &#8211; +9 days	</a>
-</h4>
 														</header>
 
 								
@@ -472,10 +472,6 @@
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
 
 				<header class="tribe-events-calendar-list__event-header">
-					<div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
-		<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
-	</div>
 					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
@@ -485,6 +481,10 @@
 	>
 		Single Event 1	</a>
 </h4>
+					<div class="tribe-events-calendar-list__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+	</div>
 														</header>
 
 								
