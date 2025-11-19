@@ -138,7 +138,7 @@ class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -193,7 +193,7 @@ class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 		 * @param QueryArgumentCollection $collection The collection of arguments.
 		 * @param Venues                  $this       The venues endpoint.
 		 */
-		return apply_filters( 'tec_events_rest_v1_venues_read_args', $collection, $this );
+		return apply_filters( 'tec_events_rest_v1_venues_read_params', $collection, $this );
 	}
 
 	/**
@@ -210,7 +210,7 @@ class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
 			null,
-			$this->read_args(),
+			$this->read_params(),
 		);
 
 		$headers_collection = new HeadersCollection();
@@ -276,11 +276,21 @@ class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 	 * Returns the arguments for the create request.
 	 *
 	 * @since 6.15.0
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return Collection
+	 * @return RequestBodyCollection
 	 */
-	public function create_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function create_params(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Venue_Request_Body_Definition();
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection
+			->set_description_provider( fn() => __( 'The venue data to create.', 'the-events-calendar' ) )
+			->set_required( true )
+			->set_example( $definition->get_example() );
 	}
 
 	/**
@@ -291,14 +301,6 @@ class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
-		$collection = new RequestBodyCollection();
-
-		$definition = new Venue_Request_Body_Definition();
-
-		$collection->set_example( $definition->get_example() );
-
-		$collection[] = new Definition_Parameter( $definition );
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create a Venue', 'the-events-calendar' ),
 			fn() => __( 'Creates a new venue', 'the-events-calendar' ),
@@ -306,7 +308,7 @@ class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 			$this->get_tags(),
 			null,
 			null,
-			$collection->set_description_provider( fn() => __( 'The venue data to create.', 'the-events-calendar' ) )->set_required( true ),
+			$this->create_params(),
 			true
 		);
 

@@ -557,4 +557,48 @@ class Template_Bootstrap {
 		return $theme_file;
 	}
 
+	/**
+	 * Wraps the view HTML in a main landmark for accessibility if not already wrapped.
+	 *
+	 * This ensures that even when themes override the default-template.php,
+	 * the content is still wrapped in a proper main landmark element.
+	 *
+	 * @since 6.15.12
+	 *
+	 * @param string $html The HTML output from the view.
+	 *
+	 * @return string The HTML, wrapped in a main landmark if needed.
+	 */
+	public function maybe_add_main_landmark( $html ) {
+		// Don't add a landmark if we're doing an AJAX request or if this is embed content.
+		if ( wp_doing_ajax() || is_embed() || tribe_context()->doing_ajax() ) {
+			return $html;
+		}
+
+		// Check if the HTML already contains a main element to avoid double-wrapping.
+		if ( preg_match( '/<main[^>]*>/', $html ) ) {
+			return $html;
+		}
+
+		/**
+		 * Filters the ID attribute for the main content container on TEC pages.
+		 *
+		 * This allows themes to customize the main container ID to match their skip link targets.
+		 * Common values: 'main', 'content', 'primary'.
+		 *
+		 * @since 6.15.12
+		 *
+		 * @param string $main_id The ID attribute for the main content container. Default 'main'.
+		 */
+		$main_id = apply_filters( 'tec_events_main_container_id', 'main' );
+
+		// Wrap the HTML in a main landmark.
+		return sprintf(
+			'<main id="%s" class="tec-events-main-content" tabindex="-1" role="main" aria-label="%s">%s</main>',
+			esc_attr( $main_id ),
+			esc_attr__( 'Main content', 'the-events-calendar' ),
+			$html
+		);
+	}
+
 }

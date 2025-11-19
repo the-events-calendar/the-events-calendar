@@ -30,6 +30,8 @@ use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Context;
+use WP_Query;
 
 
 /**
@@ -126,6 +128,7 @@ class Hooks extends Service_Provider {
 	 * Adds the filters required by each Views v2 component.
 	 *
 	 * @since 4.9.2
+	 * @since 6.15.12 Added filter for adding the main landmark wrapper around the TEC view output.
 	 */
 	protected function add_filters() {
 		add_filter( 'tec_system_information', [ $this, 'filter_system_information' ] );
@@ -199,6 +202,9 @@ class Hooks extends Service_Provider {
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
 
 		add_filter( 'wp_rest_cache/allowed_endpoints', [ $this, 'include_rest_for_caching' ], 10, 1 );
+
+		// Add main landmark wrapper for accessibility.
+		add_filter( 'tribe_events_views_v2_bootstrap_html', [ $this, 'filter_add_main_landmark' ], 100, 4 );
 	}
 
 	/**
@@ -1383,6 +1389,26 @@ class Hooks extends Service_Provider {
 	}
 
 	/**
+	 * Filters the view HTML to add a main landmark wrapper for accessibility.
+	 *
+	 * This wraps the view output in a <main> element if it's not already wrapped.
+	 * This ensures skip links and screen readers work properly even when themes
+	 * override the default template.
+	 *
+	 * @since 6.15.12
+	 *
+	 * @param string         $html      The HTML to be displayed.
+	 * @param Tribe__Context $context   Tribe context used to setup the view.
+	 * @param string         $view_slug The slug of the View that we've built.
+	 * @param WP_Query       $query     The current WP Query object.
+	 *
+	 * @return string The filtered HTML with main landmark wrapper if needed.
+	 */
+	public function filter_add_main_landmark( $html, $context, $view_slug, $query ) {
+		return $this->container->make( Template_Bootstrap::class )->maybe_add_main_landmark( $html );
+	}
+
+	/**
 	 * Unregisters all the filters and action handled by the class.
 	 *
 	 * @since 6.0.2
@@ -1451,6 +1477,7 @@ class Hooks extends Service_Provider {
 		remove_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 		remove_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
 		remove_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12 );
+		remove_filter( 'tribe_events_views_v2_bootstrap_html', [ $this, 'filter_add_main_landmark' ], 100 );
 
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		remove_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
