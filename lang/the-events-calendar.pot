@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.12\n"
+"Project-Id-Version: The Events Calendar 6.15.12.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-17T18:11:42+00:00\n"
+"POT-Creation-Date: 2025-11-19T16:36:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -8713,7 +8713,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1000
 #: src/Tribe/Rewrite.php:274
-#: src/views/v2/month/calendar-body/day/date.php:62
+#: src/views/v2/month/calendar-body/day/date.php:63
 msgid "today"
 msgstr ""
 
@@ -11463,9 +11463,7 @@ msgid "Calendar of %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural).
-#. Translators: %1$s = number of events, %2$s = event label (singular or plural).
 #: src/views/v2/month/calendar-body/day/cell-title.php:48
-#: src/views/v2/month/calendar-body/day/date.php:71
 #, php-format
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
@@ -11478,16 +11476,25 @@ msgstr[1] ""
 msgid "has featured %s"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day/date.php:64
+#: src/views/v2/month/calendar-body/day/date.php:65
 msgid "past day"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day/date.php:66
+#: src/views/v2/month/calendar-body/day/date.php:67
 msgid "upcoming day"
 msgstr ""
 
+#. Translators: %1$s = number of events, %2$s = event label (singular or plural).
+#: src/views/v2/month/calendar-body/day/date.php:72
+#, php-format
+msgctxt "As (number) (event label - singular or plural)"
+msgid "%1$s %2$s"
+msgid_plural "%1$s %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
 #. translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
-#: src/views/v2/month/calendar-body/day/date.php:80
+#: src/views/v2/month/calendar-body/day/date.php:79
 #, php-format
 msgid "%1$s, %2$s"
 msgstr ""
