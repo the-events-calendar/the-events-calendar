@@ -9,10 +9,10 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.12
  *
  * @since 5.0.0
- * @since TBD Wrapped time in `h3` element.
+ * @since 6.15.12 Wrapped time in `h3` element.
  *
  * @var WP_Post            $event        The event post object with properties added by the `tribe_get_event` function.
  * @var \DateTimeInterface $request_date The request date object. This will be "today" if the user did not input any

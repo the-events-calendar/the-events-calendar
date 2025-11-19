@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.11\n"
+"Project-Id-Version: The Events Calendar 6.15.12\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-04T15:32:31+00:00\n"
+"POT-Creation-Date: 2025-11-17T18:11:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -134,7 +134,7 @@ msgid "Configure Settings"
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:39
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:376
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:378
 msgid "Create an Event"
 msgstr ""
 
@@ -2376,7 +2376,7 @@ msgstr ""
 
 #: src/admin-views/settings/tabs/general/general-maintenance.php:41
 #: src/admin-views/settings/tabs/general/general-maintenance.php:59
-#: src/Tribe/Views/V2/Hooks.php:1359
+#: src/Tribe/Views/V2/Hooks.php:1365
 msgid "Disabled"
 msgstr ""
 
@@ -5503,81 +5503,81 @@ msgid "Returns the event"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Endpoints/Event.php:188
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:258
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:305
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:270
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:317
 msgid "The requested event was not found"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:221
-msgid "Update an Event"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:222
-msgid "Updates an existing event"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:227
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:213
 msgid "The event data to update."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:235
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:233
+msgid "Update an Event"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:234
+msgid "Updates an existing event"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:247
 msgid "Event updated successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:243
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:398
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:221
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:317
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:221
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:326
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:255
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:400
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:223
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:319
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:222
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:328
 msgid "Invalid request data"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:248
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:295
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:403
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:226
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:273
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:322
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:226
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:273
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:331
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:260
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:307
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:405
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:228
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:275
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:324
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:227
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:274
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:333
 msgid "You are not logged in"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:253
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:265
 msgid "You do not have permission to update this event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:263
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:275
 msgid "Failed to update the event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:278
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:290
 msgid "Delete an Event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:279
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:291
 msgid "Deletes an existing event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:290
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:302
 msgid "Event deleted successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:300
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:312
 msgid "You do not have permission to delete this event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:310
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:322
 msgid "The event has already been trashed"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:315
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:327
 msgid "Failed to delete the event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:320
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:332
 msgid "The event does not support trashing. Set force=true to delete"
 msgstr ""
 
@@ -5712,23 +5712,23 @@ msgstr ""
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:377
-msgid "Creates a new event"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:382
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:364
 msgid "The event data to create."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:390
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:379
+msgid "Creates a new event"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:392
 msgid "Event created successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:408
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:410
 msgid "You do not have permission to create events"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:413
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:415
 msgid "Failed to create the event"
 msgstr ""
 
@@ -5749,60 +5749,60 @@ msgid "Returns the organizer"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Endpoints/Organizer.php:165
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:236
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:283
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:238
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:285
 msgid "The requested organizer was not found"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:199
-msgid "Update an Organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:200
-msgid "Updates an existing organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:205
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:188
 msgid "The organizer data to update."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:213
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:201
+msgid "Update an Organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:202
+msgid "Updates an existing organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:215
 msgid "Organizer updated successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:231
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:233
 msgid "You do not have permission to update this organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:241
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:243
 msgid "Failed to update the organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:256
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:258
 msgid "Delete an Organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:257
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:259
 msgid "Deletes an existing organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:268
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:270
 msgid "Organizer deleted successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:278
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:280
 msgid "You do not have permission to delete this organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:288
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:290
 msgid "The organizer has already been trashed"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:293
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:295
 msgid "Failed to delete the organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:298
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:300
 msgid "The organizer does not support trashing. Set force=true to delete"
 msgstr ""
 
@@ -5838,27 +5838,27 @@ msgstr ""
 msgid "Returns the list of organizers"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:295
-msgid "Create an Organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:296
-msgid "Creates a new organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:301
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:283
 msgid "The organizer data to create."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:309
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:297
+msgid "Create an Organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:298
+msgid "Creates a new organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:311
 msgid "Organizer created successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:327
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:329
 msgid "You do not have permission to create organizers"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:332
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:334
 msgid "Failed to create the organizer"
 msgstr ""
 
@@ -5879,60 +5879,60 @@ msgid "Returns the venue"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Endpoints/Venue.php:165
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:236
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:283
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:237
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:284
 msgid "The requested venue was not found"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:199
-msgid "Update a Venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:200
-msgid "Updates an existing venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:205
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:188
 msgid "The venue data to update."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:213
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:200
+msgid "Update a Venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:201
+msgid "Updates an existing venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:214
 msgid "Venue updated successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:231
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:232
 msgid "You do not have permission to update this venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:241
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:242
 msgid "Failed to update the venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:256
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:257
 msgid "Delete a Venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:257
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:258
 msgid "Deletes an existing venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:268
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:269
 msgid "Venue deleted successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:278
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:279
 msgid "You do not have permission to delete this venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:288
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:289
 msgid "The venue has already been trashed"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:293
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:294
 msgid "Failed to delete the venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:298
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:299
 msgid "The venue does not support trashing. Set force=true to delete"
 msgstr ""
 
@@ -5968,27 +5968,27 @@ msgstr ""
 msgid "Returns the list of venues"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:304
-msgid "Create a Venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:305
-msgid "Creates a new venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:310
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:292
 msgid "The venue data to create."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:318
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:306
+msgid "Create a Venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:307
+msgid "Creates a new venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:320
 msgid "Venue created successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:336
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:338
 msgid "You do not have permission to create venues"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:341
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:343
 msgid "Failed to create the venue"
 msgstr ""
 
@@ -8713,6 +8713,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1000
 #: src/Tribe/Rewrite.php:274
+#: src/views/v2/month/calendar-body/day/date.php:62
 msgid "today"
 msgstr ""
 
@@ -10782,47 +10783,47 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:682
+#: src/Tribe/Views/V2/Hooks.php:688
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:769
+#: src/Tribe/Views/V2/Hooks.php:775
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:784
+#: src/Tribe/Views/V2/Hooks.php:790
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1100
+#: src/Tribe/Views/V2/Hooks.php:1106
 #, php-format
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1128
+#: src/Tribe/Views/V2/Hooks.php:1134
 #, php-format
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1156
+#: src/Tribe/Views/V2/Hooks.php:1162
 #, php-format
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1220
+#: src/Tribe/Views/V2/Hooks.php:1226
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1240
+#: src/Tribe/Views/V2/Hooks.php:1246
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1359
+#: src/Tribe/Views/V2/Hooks.php:1365
 msgid "Enabled"
 msgstr ""
 
@@ -10903,6 +10904,10 @@ msgstr ""
 #: src/Tribe/Views/V2/Template/Title.php:172
 #, php-format
 msgid "%1$s from %2$s"
+msgstr ""
+
+#: src/Tribe/Views/V2/Template_Bootstrap.php:599
+msgid "Main content"
 msgstr ""
 
 #: src/Tribe/Views/V2/View.php:1669
@@ -11458,7 +11463,9 @@ msgid "Calendar of %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural).
+#. Translators: %1$s = number of events, %2$s = event label (singular or plural).
 #: src/views/v2/month/calendar-body/day/cell-title.php:48
+#: src/views/v2/month/calendar-body/day/date.php:71
 #, php-format
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
@@ -11471,16 +11478,16 @@ msgstr[1] ""
 msgid "has featured %s"
 msgstr ""
 
-#. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). This is for screen readers, and will be read just after the date number.
-#: src/views/v2/month/calendar-body/day/date.php:56
-#, php-format
-msgid "has %1$s %2$s"
-msgid_plural "has %1$s %3$s"
-msgstr[0] ""
-msgstr[1] ""
+#: src/views/v2/month/calendar-body/day/date.php:64
+msgid "past day"
+msgstr ""
+
+#: src/views/v2/month/calendar-body/day/date.php:66
+msgid "upcoming day"
+msgstr ""
 
 #. translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
-#: src/views/v2/month/calendar-body/day/date.php:64
+#: src/views/v2/month/calendar-body/day/date.php:80
 #, php-format
 msgid "%1$s, %2$s"
 msgstr ""
