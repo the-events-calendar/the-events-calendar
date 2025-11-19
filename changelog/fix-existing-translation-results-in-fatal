@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Provides context to a translatable placeholder which could result in an error when using existing translation. [TEC-5728]
