@@ -9,10 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.15.11
+ * @version 6.15.12.1
  *
  * @since 5.9.0
  * @since 6.15.11 Made event date area more accessible.
+ * @since 6.15.12.1 Added context to the translation to produce a new msgid and avoid errors from older translations.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -67,12 +68,10 @@ if ( $today_date === $day_date ) {
 }
 
 $num_events_label = sprintf(
-// Translators: %1$s = number of events, %2$s = event label (singular or plural).
-	_n( '%1$s %2$s', '%1$s %2$s', $day['found_events'], 'the-events-calendar' ),
+	// Translators: %1$s = number of events, %2$s = event label (singular or plural).
+	_nx( '%1$s %2$s', '%1$s %2$s', $day['found_events'], 'As (number) (event label - singular or plural)', 'the-events-calendar' ),
 	number_format_i18n( $day['found_events'] ),
-	1 === (int) $day['found_events']
-		? tribe_get_event_label_singular_lowercase()
-		: tribe_get_event_label_plural_lowercase()
+	1 === (int) $day['found_events'] ? tribe_get_event_label_singular_lowercase() : tribe_get_event_label_plural_lowercase()
 );
 
 $day_label = sprintf(
