@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Replace placeholder with floating label for event search to improve accessibility. [TEC-5618]
