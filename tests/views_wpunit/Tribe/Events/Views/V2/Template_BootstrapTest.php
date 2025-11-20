@@ -555,7 +555,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 
 		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
 
-		$this->assertEquals( '<div class="tribe-events-view" role="main" >Event content</div>', $wrapped );
+		$this->assertEquals( '<div class="tribe-events-view" role="main">Event content</div>', $wrapped );
 	}
 
 	/**
@@ -674,7 +674,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_main_landmark_no_double_wrap_snapshot() {
 		$bootstrap = $this->make_instance();
-		$html      = '<main id="theme-main" class="site-main" role="main" >
+		$html      = '<main id="theme-main" class="site-main" role="main">
 	<div class="tribe-events-view">
 		<div class="tribe-events-calendar-list">
 			<article class="tribe-events-calendar-list__event">

@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-view tribe-events-view--list" role="main" >
+<?php return '<div class="tribe-events-view tribe-events-view--list" role="main">
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div class="tribe-events-calendar-list">
 			<div class="tribe-events-calendar-list__event-row">
