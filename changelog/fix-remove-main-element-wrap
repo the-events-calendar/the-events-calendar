@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Removes the <main /> element as a wrapper in events related pages, avoiding the calendar page rendering issues for many themes. Adds a `role="main"` to the first element printed by The Events Calendar on those pages to maintain accessibility. [TEC-5729]
