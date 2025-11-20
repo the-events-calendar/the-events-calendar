@@ -588,6 +588,6 @@ class Template_Bootstrap {
 			return $html;
 		}
 
-		return preg_replace( '/<(\w+)([^>]*)>/', '<$1$2 role="main" >', $html, 1 );
+		return preg_replace( '/<(\w+)([^>]*)>/', '<$1$2 role="main">', $html, 1 );
 	}
 }
