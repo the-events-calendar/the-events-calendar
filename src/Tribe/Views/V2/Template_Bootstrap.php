@@ -313,7 +313,6 @@ class Template_Bootstrap {
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 
-
 		/**
 		 * Filters the HTML for the view before we do any other logic around that.
 		 *
@@ -564,6 +563,7 @@ class Template_Bootstrap {
 	 * the content is still wrapped in a proper main landmark element.
 	 *
 	 * @since 6.15.12
+	 * @since 6.15.12.2 Changed the approach to inject the `role` attribute to the first element in the HTML instead of wrapping the entire HTML in a main element.
 	 *
 	 * @param string $html The HTML output from the view.
 	 *
@@ -571,34 +571,18 @@ class Template_Bootstrap {
 	 */
 	public function maybe_add_main_landmark( $html ) {
 		// Don't add a landmark if we're doing an AJAX request or if this is embed content.
-		if ( wp_doing_ajax() || is_embed() || tribe_context()->doing_ajax() ) {
+		if ( is_embed() || tribe_context()->doing_ajax() ) {
 			return $html;
 		}
 
-		// Check if the HTML already contains a main element to avoid double-wrapping.
-		if ( preg_match( '/<main[^>]*>/', $html ) ) {
+		$cache = tribe_cache();
+
+		if ( ! empty( $cache['tec_events_views_v2_main_landmark_added'] ) ) {
 			return $html;
 		}
 
-		/**
-		 * Filters the ID attribute for the main content container on TEC pages.
-		 *
-		 * This allows themes to customize the main container ID to match their skip link targets.
-		 * Common values: 'main', 'content', 'primary'.
-		 *
-		 * @since 6.15.12
-		 *
-		 * @param string $main_id The ID attribute for the main content container. Default 'main'.
-		 */
-		$main_id = apply_filters( 'tec_events_main_container_id', 'main' );
+		$cache['tec_events_views_v2_main_landmark_added'] = true;
 
-		// Wrap the HTML in a main landmark.
-		return sprintf(
-			'<main id="%s" class="tec-events-main-content" tabindex="-1" role="main" aria-label="%s">%s</main>',
-			esc_attr( $main_id ),
-			esc_attr__( 'Main content', 'the-events-calendar' ),
-			$html
-		);
+		return preg_replace( '/<(\w+)([^>]*)>/', '<$1$2 role="main" >', $html, 1 );
 	}
-
 }
