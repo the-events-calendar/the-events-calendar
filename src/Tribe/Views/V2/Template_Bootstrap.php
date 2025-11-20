@@ -583,6 +583,11 @@ class Template_Bootstrap {
 
 		$cache['tec_events_views_v2_main_landmark_added'] = true;
 
+		if ( strstr( $html, 'role="main"' ) ) {
+			// A main role is already present.
+			return $html;
+		}
+
 		return preg_replace( '/<(\w+)([^>]*)>/', '<$1$2 role="main" >', $html, 1 );
 	}
 }

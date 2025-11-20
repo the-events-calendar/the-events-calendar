@@ -1,4 +1,4 @@
-<?php return '<main id="primary" class="tec-events-main-content" tabindex="-1" role="main" aria-label="Main content"><div class="tribe-events-view tribe-events-view--month">
+<?php return '<div class="tribe-events-view tribe-events-view--month" role="main" >
 	<div class="tribe-common-l-container tribe-events-l-container">
 		<div class="tribe-events-calendar-month">
 			<div class="tribe-events-calendar-month__day">
@@ -8,4 +8,4 @@
 			</div>
 		</div>
 	</div>
-</div></main>';
+</div>';

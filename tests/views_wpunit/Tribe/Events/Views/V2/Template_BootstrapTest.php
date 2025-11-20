@@ -555,13 +555,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 
 		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
 
-		$this->assertStringContainsString( '<main id="main"', $wrapped );
-		$this->assertStringContainsString( 'class="tec-events-main-content"', $wrapped );
-		$this->assertStringContainsString( 'tabindex="-1"', $wrapped );
-		$this->assertStringContainsString( 'role="main"', $wrapped );
-		$this->assertStringContainsString( 'aria-label="Main content"', $wrapped );
-		$this->assertStringContainsString( $html, $wrapped );
-		$this->assertStringContainsString( '</main>', $wrapped );
+		$this->assertEquals( '<div class="tribe-events-view" role="main" >Event content</div>', $wrapped );
 	}
 
 	/**
@@ -571,34 +565,14 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_wrap_html_if_main_landmark_already_exists() {
 		$bootstrap = $this->make_instance();
-		$html      = '<main id="custom-main"><div class="tribe-events-view">Event content</div></main>';
+		$html      = '<div class="tribe-events-view" role="main">Event content</div>';
 
 		$result = $bootstrap->maybe_add_main_landmark( $html );
 
 		// Should return the HTML unchanged.
 		$this->assertEquals( $html, $result );
 		// Should not contain double main tags.
-		$this->assertEquals( 1, substr_count( $result, '<main' ) );
-	}
-
-	/**
-	 * It should allow filtering the main container ID.
-	 *
-	 * @test
-	 */
-	public function should_allow_filtering_the_main_container_id() {
-		$bootstrap = $this->make_instance();
-		$html      = '<div class="tribe-events-view">Event content</div>';
-
-		// Filter to use 'content' instead of 'main'.
-		add_filter( 'tec_events_main_container_id', function() {
-			return 'content';
-		} );
-
-		$wrapped = $bootstrap->maybe_add_main_landmark( $html );
-
-		$this->assertStringContainsString( '<main id="content"', $wrapped );
-		$this->assertStringNotContainsString( '<main id="main"', $wrapped );
+		$this->assertEquals( $html, $result );
 	}
 
 	/**
@@ -700,7 +674,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_main_landmark_no_double_wrap_snapshot() {
 		$bootstrap = $this->make_instance();
-		$html      = '<main id="theme-main" class="site-main">
+		$html      = '<main id="theme-main" class="site-main" role="main" >
 	<div class="tribe-events-view">
 		<div class="tribe-events-calendar-list">
 			<article class="tribe-events-calendar-list__event">
