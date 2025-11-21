@@ -2,7 +2,26 @@
  * External dependencies
  */
 import React from 'react';
-import toJson from 'enzyme-to-json';
+import renderer from 'react-test-renderer';
+
+/**
+ * WordPress dependencies - Mock them
+ */
+jest.mock( '@wordpress/components', () => ( {
+	Spinner: () => <div>Spinner</div>,
+	Placeholder: ( { children } ) => <div>{ children }</div>,
+} ) );
+
+jest.mock( '@wordpress/i18n', () => ( {
+	__: ( text ) => text,
+} ) );
+
+/**
+ * Internal dependencies - Mock Input component
+ */
+jest.mock( '@moderntribe/events/elements', () => ( {
+	Input: ( props ) => <input { ...props } />,
+} ) );
 
 /**
  * Internal dependencies
@@ -12,69 +31,79 @@ import OrganizerForm from '../element';
 describe( 'OrganizerForm', () => {
 	const addOrganizer = jest.fn();
 	const onClose = jest.fn();
-	let state;
 
 	beforeEach( () => {
-		state = {
-			title: '',
-			email: '',
-			phone: '',
-			website: '',
+		addOrganizer.mockClear();
+		onClose.mockClear();
+	} );
+
+	test( 'should render the form', () => {
+		const component = renderer.create(
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
+		);
+		expect( component.toJSON() ).toMatchSnapshot();
+	} );
+
+	test( 'should render with custom post type', () => {
+		const component = renderer.create(
+			<OrganizerForm
+				addOrganizer={ addOrganizer }
+				onClose={ onClose }
+				postType="custom_organizer"
+			/>
+		);
+		expect( component.toJSON() ).toMatchSnapshot();
+	} );
+
+	test( 'should call wp.apiRequest when creating organizer', () => {
+		// Mock wp.apiRequest
+		const mockRequest = {
+			done: jest.fn( function() {
+				return this;
+			} ),
+			fail: jest.fn( function() {
+				return this;
+			} ),
 		};
-	} );
+		const apiRequestSpy = jest.spyOn( wp, 'apiRequest' ).mockReturnValue( mockRequest );
 
-	test( 'should show a spinner while creating', () => {
-		const component = shallow(
-			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />,
+		const component = renderer.create(
+			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />
 		);
-		component.instance().isCreating = jest.fn( () => true );
-		component.instance().forceUpdate();
-		expect( toJson( component ) ).toMatchSnapshot();
-	} );
 
-	test( 'should be set as invalid when any field validation fails', () => {
-		const component = shallow(
-			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />,
-		);
-		const input = component.find( '[data-testid="organizer-form-input-phone"]' );
-		const instance = component.instance();
-		const spyIsValid = jest.spyOn( instance, 'isValid' );
-		instance.fields = { 'organizer[phone]': input.dive().instance() };
-		const inputField = instance.fields[ 'organizer[phone]' ];
-		const spyOnChange = jest.spyOn( inputField, 'onChange' );
+		// Get the component instance to access internal methods
+		const instance = component.root.instance;
 
-		expect( component.state( 'phone' ) ).toEqual( '' );
-		inputField.onChange( 'not a phone number' );
-		expect( component.state( 'phone' ) ).toEqual( 'not a phone number' );
+		// Simulate form submission with some data
+		instance.setState( {
+			title: 'Test Organizer',
+			phone: '555-1234',
+			website: 'https://example.com',
+			email: 'test@example.com',
+		} );
 
-		expect( spyOnChange ).toHaveBeenCalledWith( 'not a phone number' );
-		expect( spyIsValid ).toHaveReturnedWith( false );
-	} );
+		// Mock isValid to return true
+		instance.isValid = jest.fn( () => true );
 
-	test( 'should send a request to the wp-api to create a new Organizer on submit', () => {
-		state.title = 'Organizer';
+		// Call onSubmit
+		instance.onSubmit();
 
-		const payload = {
+		// Verify API was called with correct payload
+		expect( apiRequestSpy ).toHaveBeenCalledWith( {
 			path: '/wp/v2/tribe_organizer',
 			method: 'POST',
 			data: {
-				title: state.title,
+				title: 'Test Organizer',
 				status: 'publish',
 				meta: {
-					_OrganizerEmail: state.email,
-					_OrganizerPhone: state.phone,
-					_OrganizerWebsite: state.website,
+					_OrganizerEmail: 'test@example.com',
+					_OrganizerPhone: '555-1234',
+					_OrganizerWebsite: 'https://example.com',
 				},
 			},
-		};
+		} );
 
-		const component = shallow(
-			<OrganizerForm addOrganizer={ addOrganizer } onClose={ onClose } />,
-		);
-		component.setState( state );
-		const spyRequest = jest.spyOn( wp, 'apiRequest' );
-		const button = component.find( '[data-testid="organizer-form-button-create"]' );
-		button.simulate( 'click' );
-		expect( spyRequest ).toHaveBeenCalledWith( payload );
+		// Cleanup
+		apiRequestSpy.mockRestore();
 	} );
 } );

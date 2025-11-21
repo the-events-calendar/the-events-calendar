@@ -44,6 +44,7 @@ class Tribe__Events__QueryTest extends \Codeception\TestCase\WPTestCase {
 		$utc = new DateTimeZone( 'UTC' );
 
 		$by_post_date_ids = [];
+		$by_start_date_ids = [];
 		foreach (
 			[
 				'2022-09-30 10:00:00' => '2022-09-28 10:00:00',
@@ -57,7 +58,9 @@ class Tribe__Events__QueryTest extends \Codeception\TestCase\WPTestCase {
 				'duration'   => 2 * HOUR_IN_SECONDS,
 				'status'     => 'publish',
 			] )->create();
-			$by_post_date_ids[] = $created->ID;
+
+			$by_post_date_ids[$created->ID]    = $post_date;
+			$by_start_date_ids[ $created->ID ] = $date;
 			// Space out the post date by 1 second.
 			if ( $wpdb->update(
 					$wpdb->posts,
@@ -74,10 +77,17 @@ class Tribe__Events__QueryTest extends \Codeception\TestCase\WPTestCase {
 			clean_post_cache( $created->ID );
 		}
 
-		$by_start_date_ids = [ $by_post_date_ids[1], $by_post_date_ids[2], $by_post_date_ids[0] ];
 
-		// Highest ID first.
-		return [ array_reverse( $by_post_date_ids ), $by_start_date_ids ];
+		// Sort by date values while preserving keys (event IDs).
+		// Start dates: ascending order (earliest first).
+		asort( $by_start_date_ids );
+		$by_start_date_ids = array_keys( $by_start_date_ids );
+
+		// Post dates: descending order (newest first) to match WordPress default query order.
+		arsort( $by_post_date_ids );
+		$by_post_date_ids = array_keys( $by_post_date_ids );
+
+		return [ $by_post_date_ids, $by_start_date_ids ];
 	}
 
 	/**

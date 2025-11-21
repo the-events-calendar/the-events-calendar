@@ -11,32 +11,31 @@ declare( strict_types=1 );
 
 namespace TEC\Events\REST\TEC\V1\Endpoints;
 
+use InvalidArgumentException;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
-use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
-use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
-use Tribe__Events__Main as Events_Main;
-use Tribe__Events__Validator__Base as Validator;
-use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
-use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
-use Tribe\Events\Models\Post_Types\Venue as Venue_Model;
-use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Common\REST\TEC\V1\Collections\Collection;
+use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
-use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
+use TEC\Common\REST\TEC\V1\Contracts\Archive_Endpoint;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
-use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
-use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
+use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Events\REST\TEC\V1\Documentation\Venue_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Venue_Request_Body_Definition;
-use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Events\REST\TEC\V1\Traits\With_Venues_ORM;
-use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
-use InvalidArgumentException;
+use Tribe\Events\Models\Post_Types\Venue as Venue_Model;
+use Tribe__Events__Main as Events_Main;
+use Tribe__Events__Validator__Base as Validator;
 
 /**
  * Archive venues endpoint for the TEC REST API V1.
@@ -45,7 +44,7 @@ use InvalidArgumentException;
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
-class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatable_Endpoint {
+class Venues extends Post_Entity_Endpoint implements Archive_Endpoint {
 	use Read_Archive_Response;
 	use Create_Entity_Response;
 	use With_Venues_ORM;
@@ -139,7 +138,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -194,7 +193,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 		 * @param QueryArgumentCollection $collection The collection of arguments.
 		 * @param Venues                  $this       The venues endpoint.
 		 */
-		return apply_filters( 'tec_events_rest_v1_venues_read_args', $collection, $this );
+		return apply_filters( 'tec_events_rest_v1_venues_read_params', $collection, $this );
 	}
 
 	/**
@@ -211,7 +210,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
 			null,
-			$this->read_args(),
+			$this->read_params(),
 		);
 
 		$headers_collection = new HeadersCollection();
@@ -277,11 +276,21 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * Returns the arguments for the create request.
 	 *
 	 * @since 6.15.0
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return Collection
+	 * @return RequestBodyCollection
 	 */
-	public function create_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function create_params(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Venue_Request_Body_Definition();
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection
+			->set_description_provider( fn() => __( 'The venue data to create.', 'the-events-calendar' ) )
+			->set_required( true )
+			->set_example( $definition->get_example() );
 	}
 
 	/**
@@ -292,14 +301,6 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
-		$collection = new RequestBodyCollection();
-
-		$definition = new Venue_Request_Body_Definition();
-
-		$collection->set_example( $definition->get_example() );
-
-		$collection[] = new Definition_Parameter( $definition );
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create a Venue', 'the-events-calendar' ),
 			fn() => __( 'Creates a new venue', 'the-events-calendar' ),
@@ -307,7 +308,7 @@ class Venues extends Post_Entity_Endpoint implements Readable_Endpoint, Creatabl
 			$this->get_tags(),
 			null,
 			null,
-			$collection->set_description_provider( fn() => __( 'The venue data to create.', 'the-events-calendar' ) )->set_required( true ),
+			$this->create_params(),
 			true
 		);
 

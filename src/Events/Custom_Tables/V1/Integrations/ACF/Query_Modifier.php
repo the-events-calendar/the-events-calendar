@@ -3,7 +3,7 @@
  * An extension of the Events-only modifier to redirect Event queries to the custom tables
  * while rendering ACF fields.
  *
- * @since   6.0.11
+ * @since 6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\ACF;
  */
@@ -18,13 +18,13 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Query_Modifier.
  *
- * @since   6.0.11
+ * @since 6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\ACF;
  */
 class Query_Modifier extends Events_Only_Modifier {
 	/**
-	 * ${CARET}
+	 * Whether this query modifier should handle the query or not.
 	 *
 	 * @since 6.0.11
 	 *

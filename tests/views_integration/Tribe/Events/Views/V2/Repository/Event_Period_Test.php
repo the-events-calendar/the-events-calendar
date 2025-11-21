@@ -1,8 +1,8 @@
 <?php
 /**
- * ${CARET}
+ * This class is used to test the Event_Period repository.
  *
- * @since   4.9.13
+ * @since 4.9.13
  *
  * @package Tribe\Events\Views\V2\Repository
  */

@@ -2,9 +2,7 @@ const eslintConfig = require( '@wordpress/scripts/config/.eslintrc.js' );
 
 module.exports = {
 	...eslintConfig,
-	overrides: [
-		...eslintConfig.overrides,
-	],
+	overrides: [ ...eslintConfig.overrides ],
 	globals: {
 		...eslintConfig.globals,
 		wp: true,
@@ -15,6 +13,7 @@ module.exports = {
 		ajaxurl: true,
 		DateFormatter: true,
 		google: true,
+		jest: true,
 		moment: true,
 		pagenow: true,
 		Qs: true,
@@ -34,6 +33,6 @@ module.exports = {
 		TribeList: true,
 		tribeUtils: true,
 		typenow: true,
-		TribeEventsAdminNoticeInstall: true
+		TribeEventsAdminNoticeInstall: true,
 	},
 };

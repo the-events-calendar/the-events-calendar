@@ -22,6 +22,7 @@ use TEC\Events\Notifications\Provider as Notifications_Provider;
 use TEC\Events\QR\Controller as QR_Controller;
 use TEC\Events\SEO\Controller as SEO_Controller;
 use TEC\Events\SEO\Headers\Controller as SEO_Headers_Controller;
+use TEC\Events\Admin\Controller as Admin_Controller;
 use TEC\Events\Admin\Notice\Provider as Admin_Notice_Provider;
 use TEC\Events\Admin\Settings\Provider as Admin_Settings_Provider;
 use TEC\Events\Admin\Onboarding\Controller as Admin_Onboarding_Controller;
@@ -61,6 +62,7 @@ class Controller extends Controller_Contract {
 			],
 			[ SEO_Controller::class ],
 			[ SEO_Headers_Controller::class ],
+			[ Admin_Controller::class ],
 			[ Admin_Notice_Provider::class ],
 			[ Admin_Settings_Provider::class ],
 			[ Admin_Onboarding_Controller::class ],

@@ -462,10 +462,12 @@ select.tribe-events-dropdown {
 }
 
 /* Date/Time */
-.single-tribe_events .tribe-events-schedule h2 {
-	display: inline-block;
-	vertical-align: middle;
-	zoom: 1;
+.single-tribe_events .tribe-events-schedule {
+	.tribe-events-schedule__datetime {
+		display: inline-block;
+		vertical-align: middle;
+		zoom: 1;
+	}
 }
 
 /* Cal Links */
@@ -511,6 +513,16 @@ select.tribe-events-dropdown {
 }
 
 #tribe-events-content .tribe-events-event-meta dd span.adr {
+	display: block;
+}
+
+/* Equivalent styles for new list-based meta structure. */
+.tribe-events-event-meta .tribe-events-meta-label {
+	clear: left;
+	font-weight: 700;
+}
+
+#tribe-events-content .tribe-events-event-meta .tribe-events-meta-value span.adr {
 	display: block;
 }
 

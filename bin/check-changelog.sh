@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BASE=${1-origin/master}
+BASE=${1-origin/main}
 HEAD=${2-HEAD}
 
 # Get only added files from git diff.

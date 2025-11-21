@@ -7,9 +7,12 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @package TribeEventsCalendar
+ * @version 6.15.11
  *
- * @version 4.6.19
+ * @since 4.6.19
+ * @since 6.15.11 Replaced definition list markup with unordered list for improved accessibility.
+ *
+ * @package TribeEventsCalendar
  */
 
 
@@ -60,7 +63,7 @@ $website_title = tribe_events_get_event_website_title();
 
 <div class="tribe-events-meta-group tribe-events-meta-group-details">
 	<h2 class="tribe-events-single-section-title"> <?php esc_html_e( 'Details', 'the-events-calendar' ); ?> </h2>
-	<dl>
+	<ul class="tribe-events-meta-list">
 
 		<?php
 		do_action( 'tribe_events_single_meta_details_section_start' );
@@ -69,66 +72,80 @@ $website_title = tribe_events_get_event_website_title();
 		if ( tribe_event_is_all_day() && tribe_event_is_multiday() ) :
 			?>
 
-			<dt class="tribe-events-start-date-label"> <?php esc_html_e( 'Start:', 'the-events-calendar' ); ?> </dt>
-			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-start-date-label tribe-events-meta-label"><?php esc_html_e( 'Start:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-meta-value">
+					<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
+				</span>
+			</li>
 
-			<dt class="tribe-events-end-date-label"> <?php esc_html_e( 'End:', 'the-events-calendar' ); ?> </dt>
-			<dd>
-				<abbr class="tribe-events-abbr tribe-events-end-date dtend" title="<?php echo esc_attr( $end_ts ); ?>"> <?php echo esc_html( $end_date ); ?> </abbr>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-end-date-label tribe-events-meta-label"><?php esc_html_e( 'End:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-meta-value">
+					<abbr class="tribe-events-abbr tribe-events-end-date dtend" title="<?php echo esc_attr( $end_ts ); ?>"> <?php echo esc_html( $end_date ); ?> </abbr>
+				</span>
+			</li>
 
 		<?php
 		// All day (single day) events
 		elseif ( tribe_event_is_all_day() ):
 			?>
 
-			<dt class="tribe-events-start-date-label"> <?php esc_html_e( 'Date:', 'the-events-calendar' ); ?> </dt>
-			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-start-date-label tribe-events-meta-label"><?php esc_html_e( 'Date:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-meta-value">
+					<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
+				</span>
+			</li>
 
 		<?php
 		// Multiday events
 		elseif ( tribe_event_is_multiday() ) :
 			?>
 
-			<dt class="tribe-events-start-datetime-label"> <?php esc_html_e( 'Start:', 'the-events-calendar' ); ?> </dt>
-			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_datetime ); ?> </abbr>
-				<?php if ( $show_time_zone ) : ?>
-					<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
-				<?php endif; ?>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-start-datetime-label tribe-events-meta-label"><?php esc_html_e( 'Start:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-meta-value">
+					<abbr class="tribe-events-abbr tribe-events-start-datetime updated published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_datetime ); ?> </abbr>
+					<?php if ( $show_time_zone ) : ?>
+						<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
+					<?php endif; ?>
+				</span>
+			</li>
 
-			<dt class="tribe-events-end-datetime-label"> <?php esc_html_e( 'End:', 'the-events-calendar' ); ?> </dt>
-			<dd>
-				<abbr class="tribe-events-abbr tribe-events-end-datetime dtend" title="<?php echo esc_attr( $end_ts ); ?>"> <?php echo esc_html( $end_datetime ); ?> </abbr>
-				<?php if ( $show_time_zone ) : ?>
-					<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
-				<?php endif; ?>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-end-datetime-label tribe-events-meta-label"><?php esc_html_e( 'End:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-meta-value">
+					<abbr class="tribe-events-abbr tribe-events-end-datetime dtend" title="<?php echo esc_attr( $end_ts ); ?>"> <?php echo esc_html( $end_datetime ); ?> </abbr>
+					<?php if ( $show_time_zone ) : ?>
+						<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
+					<?php endif; ?>
+				</span>
+			</li>
 
 		<?php
 		// Single day events
 		else :
 			?>
 
-			<dt class="tribe-events-start-date-label"> <?php esc_html_e( 'Date:', 'the-events-calendar' ); ?> </dt>
-			<dd>
-				<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-start-date-label tribe-events-meta-label"><?php esc_html_e( 'Date:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-meta-value">
+					<abbr class="tribe-events-abbr tribe-events-start-date published dtstart" title="<?php echo esc_attr( $start_ts ); ?>"> <?php echo esc_html( $start_date ); ?> </abbr>
+				</span>
+			</li>
 
-			<dt class="tribe-events-start-time-label"> <?php echo esc_html( $time_title ); ?> </dt>
-			<dd>
-				<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
-					<?php echo $time_formatted; ?>
-					<?php if ( $show_time_zone ) : ?>
-						<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
-					<?php endif; ?>
-				</div>
-			</dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-start-time-label tribe-events-meta-label"><?php echo esc_html( $time_title ); ?></span>
+				<span class="tribe-events-meta-value">
+					<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
+						<?php echo $time_formatted; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
+						<?php if ( $show_time_zone ) : ?>
+							<span class="tribe-events-abbr tribe-events-time-zone published "><?php echo esc_html( $time_zone_label ); ?></span>
+						<?php endif; ?>
+					</div>
+				</span>
+			</li>
 
 		<?php endif ?>
 
@@ -145,8 +162,10 @@ $website_title = tribe_events_get_event_website_title();
 		// Event Cost
 		if ( ! empty( $cost ) ) : ?>
 
-			<dt class="tribe-events-event-cost-label"> <?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?> </dt>
-			<dd class="tribe-events-event-cost"> <?php echo esc_html( $cost ); ?> </dd>
+			<li class="tribe-events-meta-item">
+				<span class="tribe-events-event-cost-label tribe-events-meta-label"><?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?></span>
+				<span class="tribe-events-event-cost tribe-events-meta-value"> <?php echo esc_html( $cost ); ?> </span>
+			</li>
 		<?php endif ?>
 
 		<?php
@@ -157,10 +176,10 @@ $website_title = tribe_events_get_event_website_title();
 				'sep'          => ', ',
 				'after'        => '',
 				'label'        => null, // An appropriate plural/singular label will be provided
-				'label_before' => '<dt class="tribe-events-event-categories-label">',
-				'label_after'  => '</dt>',
-				'wrap_before'  => '<dd class="tribe-events-event-categories">',
-				'wrap_after'   => '</dd>',
+				'label_before' => '<li class="tribe-events-meta-item"><span class="tribe-events-event-categories-label tribe-events-meta-label">',
+				'label_after'  => '</span>',
+				'wrap_before'  => '<span class="tribe-events-event-categories tribe-events-meta-value">',
+				'wrap_after'   => '</span></li>',
 			]
 		);
 		?>
@@ -180,12 +199,14 @@ $website_title = tribe_events_get_event_website_title();
 		<?php
 		// Event Website
 		if ( ! empty( $website ) ) : ?>
-			<?php if ( ! empty( $website_title ) ): ?>
-				<dt class="tribe-events-event-url-label"> <?php echo esc_html( $website_title ); ?> </dt>
-			<?php endif; ?>
-			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
+			<li class="tribe-events-meta-item">
+				<?php if ( ! empty( $website_title ) ) : ?>
+					<span class="tribe-events-event-url-label tribe-events-meta-label"><?php echo esc_html( $website_title ); ?></span>
+				<?php endif; ?>
+				<span class="tribe-events-event-url tribe-events-meta-value"> <?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?> </span>
+			</li>
 		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_details_section_end' ); ?>
-	</dl>
+	</ul>
 </div>

@@ -11,7 +11,7 @@ declare( strict_types=1 );
 
 namespace TEC\Events\REST\TEC\V1\Traits;
 
-use Tribe__Repository__Interface;
+use TEC\Common\Contracts\Repository_Interface;
 
 /**
  * Trait to handle the ORM for events.
@@ -25,10 +25,11 @@ trait With_Events_ORM {
 	 * Returns the ORM for the endpoint.
 	 *
 	 * @since 6.15.0
+	 * @since 6.15.12 Updated the return type to Repository_Interface.
 	 *
-	 * @return Tribe__Repository__Interface
+	 * @return Repository_Interface
 	 */
-	public function get_orm(): Tribe__Repository__Interface {
+	public function get_orm(): Repository_Interface {
 		return tribe_events();
 	}
 }

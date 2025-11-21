@@ -133,7 +133,7 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 			return $result;
 		}
 
-		$this->messages['success'][] = esc_html__( 'Scheduled import was successfully updated.' );
+		$this->messages['success'][] = esc_html__( 'Scheduled import was successfully updated.', 'the-events-calendar' );
 
 		ob_start();
 		?>

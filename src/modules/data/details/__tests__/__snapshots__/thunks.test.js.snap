@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Details thunks Should fetching details for non loading block 1`] = `
-Array [
-  Object {
-    "meta": Object {
-      "actions": Object {
+[
+  {
+    "meta": {
+      "actions": {
         "error": [Function],
         "start": [Function],
         "success": [Function],
