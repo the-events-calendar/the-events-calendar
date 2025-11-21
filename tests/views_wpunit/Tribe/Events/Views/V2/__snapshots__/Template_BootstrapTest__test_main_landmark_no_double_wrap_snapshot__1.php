@@ -1,4 +1,4 @@
-<?php return '<main id="theme-main" class="site-main">
+<?php return '<main id="theme-main" class="site-main" role="main">
 	<div class="tribe-events-view">
 		<div class="tribe-events-calendar-list">
 			<article class="tribe-events-calendar-list__event">
