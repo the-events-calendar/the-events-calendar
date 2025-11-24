@@ -13,6 +13,14 @@ namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
 class ProviderTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
+	 * @after
+	 */
+	public function tear_down(): void {
+		// Reset uopz mocks.
+		uopz_unset_return( 'is_admin' );
+	}
+
+	/**
 	 * @return Provider
 	 */
 	private function make_instance() {
@@ -89,5 +97,19 @@ class ProviderTest extends \Codeception\TestCase\WPTestCase {
 		} );
 
 		$this->assertEmpty( $events_schema );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_register_events_pagination_integration() {
+		$sut = $this->make_instance();
+		
+		// Check that the Events_Pagination class is registered in the container.
+		$this->assertTrue( tribe()->isBound( Events_Pagination::class ) );
+		
+		// Get the instance and verify it's the correct type.
+		$events_pagination = tribe( Events_Pagination::class );
+		$this->assertInstanceOf( Events_Pagination::class, $events_pagination );
 	}
 }

@@ -57,7 +57,7 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/filter-bar' ); ?>
 
-		<div
+		<ul
 			class="tribe-events-calendar-list"
 			aria-label="
 			<?php
@@ -76,7 +76,7 @@ if ( empty( $disable_event_search ) ) {
 
 			<?php endforeach; ?>
 
-		</div>
+		</ul>
 
 		<?php $this->template( 'list/nav' ); ?>
 

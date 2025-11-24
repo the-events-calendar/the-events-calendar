@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.5
+Stable tag: 7.0.0
 Requires at least: 6.6
-Tested up to: 6.8.2
+Tested up to: 6.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,96 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.15.12.2] 2025-11-20 =
+
+* Fix - Removes the <main /> element as a wrapper in events related pages, avoiding the calendar page rendering issues for many themes. Adds a `role="main"` to the first element printed by The Events Calendar on those pages to maintain accessibility. [TEC-5729]
+
+= [6.15.12.1] 2025-11-19 =
+
+* Fix - Provides context to a translatable placeholder which could result in an error when using existing translation. [TEC-5728]
+* Language - 1 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.15.12] 2025-11-18 =
+
+* Version - The Events Calendar 6.15.12 is only compatible with Event Tickets 5.27.0 or higher.
+* Version - The Events Calendar 6.15.12 is only compatible with Events Pro 7.7.11 or higher.
+* Fix - Correct use of globals in admin scripts.
+* Tweak - Added filters: `tec_events_rest_v1_events_read_params`, `tec_events_rest_v1_venues_read_params`, `tec_events_main_container_id`
+* Tweak - Removed filters: `tec_events_rest_v1_events_read_args`, `tec_events_rest_v1_venues_read_args`
+* Tweak - Changed views: `v2/components/content-title`, `v2/day/time-separator`, `v2/list/event/title`, `v2/list/month-separator`, `v2/month/calendar-body/day/date`
+* Tweak - Correct notice display on the troubleshooting page. [TEC-5724]
+* Tweak - Updates Shepherd library to 0.0.9 from 0.0.6 including various improvements. Shepherd's changelog can be found here https://github.com/stellarwp/shepherd/blob/0.0.9/CHANGELOG.md
+* Tweak - Improve Day View accessibility by using semantic H2 headings for time separators to create a proper heading hierarchy. [TEC-5627]
+* Tweak - Improve mini calendar accessibility by adding descriptive ARIA labels and clarifying focus indicators for color-based event markers. [TEC-5630]
+* Tweak - Update heading levels for “Events at this venue” and “Events from this organizer” to improve accessibility and semantic hierarchy. [TEC-5636]
+* Accessibility - Add filter to wrap event content in a main landmark if needed, which allows for the 'Skip to Content' button to work. [TEC-5628]
+* Compatibility - Make method signatures in Builder explicitly nullable to resolve PHP 8.4 deprecation warnings. [TEC-5725]
+* Compatibility - Updates to support TEC v1 REST API Changes.
+* Language - 3 new strings added, 75 updated, 0 fuzzied, and 1 obsoleted.
+
+= [6.15.11] 2025-11-04 =
+
+* Tweak - Add JavaScript logic to move keyboard focus to expanded date content and announce event counts for screen reader users in month view mobile calendar [TEC-5231]
+* Tweak - Avoid logging a warning when bulk deleting events. [TEC-5721]
+* Tweak - Changed views: `blocks/parts/details`, `blocks/parts/organizer`, `blocks/parts/venue`, `modules/meta/details`, `modules/meta/organizer`, `modules/meta/venue`, `v2/month`, `v2/month/calendar-body/day/date-extras`, `v2/month/calendar-body/day/date`, `v2/month/calendar-header`
+* Tweak - Improve accessibility in the mini calendar by replacing <em> elements used for event dots with semantic <span>s and removing redundant aria-label and title attributes [TEC-5228]
+* Accessibility - Improve screen reader accessibility for weekday headers in month view calendar. [TEC-5719]
+* Accessibility - Remove the presentational role from the Month View table. [TEC-5719]
+* Accessibility - Replace misuse of definition list (`<dl>/<dt>/<dd>`) tags with semantic unordered lists (`<ul>/<li>`) in event details, organizer, and venue meta sections to improve screen reader accessibility and reduce confusion.[TEC-5224]
+* Language - 3 new strings added, 53 updated, 1 fuzzied, and 4 obsoleted.
+
+= [6.15.10] 2025-10-28 =
+
+* Security - Improve authorization checks in QR codes. [SVUL-28]
+* Security - Improve `ORDER BY` clause validation. [SVUL-26]
+
+= [6.15.9] 2025-10-21 =
+
+* Fix - Alter logic so category colors CSS is ony enqueued on event archive pages. [TEC-5419]
+* Tweak - Added actions: `tec_conditional_content_assets`
+* Tweak - Add upsell banner for recurrence functionality in classic editor. [TEC-5589]
+* Tweak - Add `tec_is_valid_view()` helper to check whether the current context represents a valid registered view. [TEC-5419]
+* Tweak - Disable Yoast SEO pagination meta tags on Events Calendar views to prevent invalid rel=next/prev links. [TEC-5000]
+* Tweak - Revert automatic CSS combination handling for Avada to restore default behavior. [TEC-5682]
+* Language - 3 new strings added, 8 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.15.8] 2025-10-14 =
+
+* Fix - Tweak a few style rules to ensure Kadence overrides work. [TEC-5504]
+* Tweak - Automatically disabled Avada’s “Combine Third Party CSS Files” option when The Events Calendar is active to prevent stylesheet conflicts.  [TEC-5682]
+* Tweak - Events list view structure updated to use proper list HTML. [TEC-5210]
+* Tweak - Make Tooltips on calendar view dismissable with `esc` key. [TEC-5217]
+* Language - 7 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted.
+* Language - Fixed text domains and improved string translations across multiple components for better internationalization support.
+* Language - Move 'Free' string to TEC text domain for improved i18n. [TEC-5603]
+
+= [6.15.7] 2025-10-07 =
+
+* Tweak - Added `aria-label` to nav tags to make page landmarks unique. [TEC-5208]
+* Tweak - Event Date time block structure updated to improve accessibility. [TEC-5531]
+* Tweak - Change default opt-in status to prevent false positives in checks when the value is not set. [TEC-5583]
+* Tweak - Add ARIA landmark roles and `aria-current` attributes to breadcrumbs to improve screen reader support. [TEC-5205]
+* Tweak - Replace breadcrumbs with a "Back to Events" link on Venue and Organizer single pages for clearer navigation and improved accessibility.[TEC-5207][TEC-5205]
+* Tweak - Changed views: `blocks/event-datetime`, `v2/components/backlink`, `v2/components/breadcrumbs`, `v2/components/breadcrumbs/breadcrumb`, `v2/components/breadcrumbs/linked-breadcrumb`, `v2/components/header`, `v2/list/nav`, `v2/list/top-bar/nav`
+* Language - 4 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.15.6] 2025-09-30 =
+
+* Version - The Events Calendar 6.15.6 is only compatible with Events Pro 7.7.6 and higher.
+* Fix - Elementor Venue widget now shows the map show or hide option with proper styling options. [TEC-5092]
+* Fix - Enhanced iCal feed timezone definitions to include extended DST transition data for better calendar compatibility. [TEC-5061]
+* Fix - Onboarding wizard now shows loading spinner properly while waiting for Event Tickets installation. [TEC-5584]
+* Fix - Prevent ICS download from redirecting when List view is disabled. [TEC-5609]
+* Tweak - Added filters: `tec_events_views_v2_should_redirect`, `tec_events_ical_timezone_extend_years`
+* Tweak - Changed views: `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/cell`, `v2/month/calendar-body/day/more-events`, `v2/month/mobile-events/mobile-day`, `v2/month/mobile-events/mobile-day/more-events`
+* Tweak - Hide the Event Tickets upsell on the currency page when Event Tickets is enabled. [TEC-5585]
+* Tweak - Introduce subtabs for the Integration settings for better organization. [TEC-5681]
+* Tweak - Updated Community Addon upsell link to go to the proper page. [TEC-5586]
+* Accessibility - Add aria-label for the more events link in month view. [TEC-5216]
+* Accessibility - Adjust aria-label for month view day link to use formatting from TEC settings. [TEC-5214]
+* Compatibility - Conditionally remove template option if Elementor Pro is active to avoid conflicts. [TEC-5610]
+* Language - 4 new strings added, 75 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.15.5] 2025-09-23 =
 
@@ -881,4 +971,4 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
 
-### For all versions, please see the full [changelog](https://github.com/the-events-calendar/the-events-calendar/blob/master/changelog.md) in our documentation.
+### For all versions, please see the full [changelog](https://github.com/the-events-calendar/the-events-calendar/blob/main/changelog.md) in our documentation.

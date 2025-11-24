@@ -707,8 +707,11 @@ class Custom_Tables_Query extends WP_Query {
 		$orderbys = explode( ',', $posts_orderby );
 		foreach ( $orderbys as $orderby_frag ) {
 			// Fast-track the `rand` order, no need to redirect anything.
-			if ( stripos( $orderby_frag, 'rand' ) === 0 ) {
-				$redirected_orderbys .= $orderby_frag;
+			// Only allow the exact RAND() function to prevent SQL injection.
+			$trimmed_frag = trim( $orderby_frag );
+			if ( preg_match( '/^rand\s*\(\s*\)$/i', $trimmed_frag ) ) {
+				// Use hardcoded RAND() to prevent SQL injection
+				$redirected_orderbys .= ( $redirected_orderbys === '' ? '' : ', ' ) . 'RAND()';
 				continue;
 			}
 

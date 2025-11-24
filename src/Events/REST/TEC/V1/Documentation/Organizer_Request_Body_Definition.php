@@ -58,21 +58,21 @@ class Organizer_Request_Body_Definition extends Definition {
 		$properties[] = (
 			new Text(
 				'phone',
-				fn() => __( 'The organizer\'s phone number', 'the-events-calendar' ),
+				fn() => __( "The organizer's phone number", 'the-events-calendar' ),
 			)
 		)->set_format( 'tel' )->set_example( '123-456-7890' );
 
 		$properties[] = (
 			new URI(
 				'website',
-				fn() => __( 'The organizer\'s website', 'the-events-calendar' ),
+				fn() => __( "The organizer's website", 'the-events-calendar' ),
 			)
 		);
 
 		$properties[] = (
 			new Email(
 				'email',
-				fn() => __( 'The organizer\'s email address', 'the-events-calendar' ),
+				fn() => __( "The organizer's email address", 'the-events-calendar' ),
 			)
 		);
 

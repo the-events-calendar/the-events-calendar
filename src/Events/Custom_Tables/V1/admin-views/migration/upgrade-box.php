@@ -19,7 +19,7 @@ $is_outdated_pro = class_exists( 'Tribe__Events__Pro__Main' ) && version_compare
 <div class="tec-ct1-upgrade-outdated-pro tec-ct1-upgrade">
 	<div class="tec-ct1-upgrade__row">
 		<div class="content-container">
-			<h3><?php esc_html_e( 'Upgrade is not Available' ) ?></h3>
+			<h3><?php esc_html_e( 'Upgrade is not Available', 'the-events-calendar' ) ?></h3>
 			<p><?php esc_html_e( 'You must update your version of Events Calendar Pro for access to calendar upgrades.', 'the-events-calendar' ) ?></p>
 			<p>
 				<a href="<?php echo esc_url( admin_url( 'plugins.php?plugin_status=upgrade' ) ); ?>"><?php esc_html_e( 'Plugins Page', 'the-events-calendar' ); ?></a> |

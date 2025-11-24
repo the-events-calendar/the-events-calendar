@@ -313,7 +313,6 @@ class Template_Bootstrap {
 			$html = View::make( $view_slug, $context )->get_html();
 		}
 
-
 		/**
 		 * Filters the HTML for the view before we do any other logic around that.
 		 *
@@ -557,4 +556,38 @@ class Template_Bootstrap {
 		return $theme_file;
 	}
 
+	/**
+	 * Wraps the view HTML in a main landmark for accessibility if not already wrapped.
+	 *
+	 * This ensures that even when themes override the default-template.php,
+	 * the content is still wrapped in a proper main landmark element.
+	 *
+	 * @since 6.15.12
+	 * @since 6.15.12.2 Changed the approach to inject the `role` attribute to the first element in the HTML instead of wrapping the entire HTML in a main element.
+	 *
+	 * @param string $html The HTML output from the view.
+	 *
+	 * @return string The HTML, wrapped in a main landmark if needed.
+	 */
+	public function maybe_add_main_landmark( $html ) {
+		// Don't add a landmark if we're doing an AJAX request or if this is embed content.
+		if ( is_embed() || tribe_context()->doing_ajax() ) {
+			return $html;
+		}
+
+		$cache = tribe_cache();
+
+		if ( ! empty( $cache['tec_events_views_v2_main_landmark_added'] ) ) {
+			return $html;
+		}
+
+		$cache['tec_events_views_v2_main_landmark_added'] = true;
+
+		if ( strstr( $html, 'role="main"' ) ) {
+			// A main role is already present.
+			return $html;
+		}
+
+		return preg_replace( '/<(\w+)([^>]*)>/', '<$1$2 role="main">', $html, 1 );
+	}
 }

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Price actions Should set the cost 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "cost": 10,
   },
   "type": "@@MT/EVENTS/SET_PRICE_COST",
@@ -10,8 +10,8 @@ Object {
 `;
 
 exports[`[STORE] - Price actions Should set the position of the symbol 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "position": "suffix",
   },
   "type": "@@MT/EVENTS/SET_PRICE_POSITION",
@@ -19,8 +19,8 @@ Object {
 `;
 
 exports[`[STORE] - Price actions Should set the symbol 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "symbol": "€",
   },
   "type": "@@MT/EVENTS/SET_PRICE_SYMBOL",

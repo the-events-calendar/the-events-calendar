@@ -145,6 +145,39 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
+	 * Utility: detect Escape key presses
+	 *
+	 * @since 6.15.8
+	 *
+	 * @param {Event} event Keyboard event
+	 *
+	 * @return {boolean}
+	 */
+	obj.isEscapeKey = function ( event ) {
+		return event.keyCode === 27 || event.key === 'Esc';
+	};
+
+	/**
+	 * Handle ESC on origin/trigger: close tooltip (like blur)
+	 *
+	 * @since 6.15.8
+	 *
+	 * @param {Event} event Keyboard event
+	 *
+	 * @return {void}
+	 */
+	obj.handleOriginKeydown = function ( event ) {
+		if ( ! obj.isEscapeKey( event ) ) {
+			return;
+		}
+
+		// emulate blur-close behavior
+		event.data.target.blur();
+		event.data.target.tooltipster( 'close' );
+		event.preventDefault();
+	};
+
+	/**
 	 * Handle tooltip instance closing event
 	 *
 	 * @since 4.9.10
@@ -199,8 +232,9 @@ tribe.events.views.tooltip = {};
 			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
 			.on( 'blur', { target: $origin }, obj.handleOriginBlur )
 			.on( 'mouseenter touchstart', { target: $origin }, obj.handleOriginHoverIn )
-			.on( 'mouseleave touchleave', { target: $origin }, obj.handleOriginHoverOut );
-		instance
+			.on( 'mouseleave touchleave', { target: $origin }, obj.handleOriginHoverOut )
+			.on( 'keydown', { target: $origin }, obj.handleOriginKeydown );
+			instance
 			.on( 'close', { origin: $origin }, obj.handleInstanceClose )
 			.on( 'closing', { origin: $origin }, obj.handleInstanceClosing );
 	};

@@ -1,1 +1,1 @@
-<?php return '<dt class="tribe-event-tags-label">Tags:</dt><dd class="tribe-event-tags"><a href="http://wordpress.test/events/tag/tag-1/" rel="tag">test-1</a>! <a href="http://wordpress.test/events/tag/tag-2/" rel="tag">test-2</a></dd>';
+<?php return '<li class="tribe-events-meta-item"><span class="tribe-event-tags-label tribe-events-meta-label">Tags:</span><span class="tribe-event-tags tribe-events-meta-value"><a href="http://wordpress.test/events/tag/tag-1/" rel="tag">test-1</a>! <a href="http://wordpress.test/events/tag/tag-2/" rel="tag">test-2</a></span></li>';

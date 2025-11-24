@@ -189,4 +189,27 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 		set_transient( self::UNCOSTED_EVENTS_TRANSIENT, (int) $uncosted, $expire_after );
 		return (bool) ( $uncosted > 0 );
 	}
+	
+	/**
+	 * If the cost is "0", call it "Free". Overriding this method to use TEC text domain instead of common.
+	 *
+	 * @since 6.15.8
+	 *
+	 * @param int|float|string $cost The cost value.
+	 *
+	 * @return int|float|string
+	 */
+	public function maybe_replace_cost_with_free( $cost ) {
+		
+		$cost_with_period = $this->convert_decimal_separator( $cost );
+		
+		if (
+			is_numeric( $cost_with_period )
+			&& '0.00' === number_format( (float) $cost_with_period, 2, '.', ',' )
+		) {
+			return esc_html__( 'Free', 'the-events-calendar' );
+		}
+		
+		return $cost;
+	}
 }

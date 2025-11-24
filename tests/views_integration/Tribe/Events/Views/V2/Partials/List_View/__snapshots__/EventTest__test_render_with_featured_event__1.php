@@ -1,4 +1,4 @@
-<?php return '<div  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
+<?php return '<li  class="tribe-common-g-row tribe-events-calendar-list__event-row tribe-events-calendar-list__event-row--featured" >
 
 	<div  class="tribe-events-calendar-list__event-date-tag tribe-common-g-col post-7 tribe_events type-tribe_events status-publish hentry"  >
 	<time class="tribe-events-calendar-list__event-date-tag-datetime" datetime="2019-06-20" aria-hidden="true">
@@ -30,7 +30,7 @@
 	<time class="tribe-events-calendar-list__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20, 2019 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
 	</div>
-					<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
+					<h4 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=test-event-9-days-2"
 		title="Test Event &#8211; +9 days"
@@ -38,7 +38,7 @@
 		class="tribe-events-calendar-list__event-title-link tribe-common-anchor-thin"
 	>
 		Test Event &#8211; +9 days	</a>
-</h3>
+</h4>
 														</header>
 
 								
@@ -46,5 +46,5 @@
 		</article>
 	</div>
 
-</div>
+</li>
 ';

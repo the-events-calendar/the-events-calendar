@@ -2,7 +2,7 @@
  * External dependencies
  */
 import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 
 /**
  * Internal dependencies
@@ -85,4 +85,3 @@ describe( '[STORE] - Search thunk actions', () => {
 		expect( store.getActions() ).toMatchSnapshot();
 	} );
 } );
-

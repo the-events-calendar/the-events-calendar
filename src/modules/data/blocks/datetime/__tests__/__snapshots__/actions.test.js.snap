@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Datetime actions Action to set all day 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "allDay": true,
   },
   "type": "@@MT/EVENTS/SET_ALL_DAY",
@@ -10,8 +10,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set all day 2`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "allDay": false,
   },
   "type": "@@MT/EVENTS/SET_ALL_DAY",
@@ -19,9 +19,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the multi day 1`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "multiDay": true,
   },
   "type": "@@MT/EVENTS/SET_MULTI_DAY",
@@ -29,9 +29,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the multi day 2`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "multiDay": false,
   },
   "type": "@@MT/EVENTS/SET_MULTI_DAY",
@@ -39,8 +39,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the separator date 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "separator": " -  ",
   },
   "type": "@@MT/EVENTS/SET_SEPARATOR_DATE",
@@ -48,8 +48,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the separator time 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "separator": " @ ",
   },
   "type": "@@MT/EVENTS/SET_SEPARATOR_TIME",
@@ -57,9 +57,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the start time 1`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "start": "June 5, 2018 5:00 pm",
   },
   "type": "@@MT/EVENTS/SET_START_DATE_TIME",
@@ -67,9 +67,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the start time 2`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "end": "June 25, 2018 4:00 pm",
   },
   "type": "@@MT/EVENTS/SET_END_DATE_TIME",
@@ -77,8 +77,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the time zone 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "timeZone": "UTC",
   },
   "type": "@@MT/EVENTS/SET_TIME_ZONE",
@@ -86,8 +86,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the visibility of the time zone 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "show": true,
   },
   "type": "@@MT/EVENTS/SET_TIMEZONE_VISIBILITY",
@@ -95,8 +95,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Action to set the visibility of the time zone 2`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "show": false,
   },
   "type": "@@MT/EVENTS/SET_TIMEZONE_VISIBILITY",
@@ -104,9 +104,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Set Natural Language Label 1`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "label": "2 weeks from now",
   },
   "type": "@@MT/EVENTS/SET_NATURAL_LANGUAGE_LABEL",
@@ -114,8 +114,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Set editable 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "isEditable": true,
   },
   "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
@@ -123,8 +123,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions Set editable 2`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "isEditable": false,
   },
   "type": "@@MT/EVENTS/SET_DATETIME_BLOCK_EDITABLE_STATE",
@@ -132,9 +132,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions setDateRange 1`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "from": 0,
     "to": 1,
   },
@@ -143,9 +143,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions setEndTime 1`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "end": 6000,
   },
   "type": "@@MT/EVENTS/SET_END_TIME",
@@ -153,8 +153,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions setEndTimeInput 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "endTimeInput": "18:00",
   },
   "type": "@@MT/EVENTS/SET_END_TIME_INPUT",
@@ -162,9 +162,9 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions setStartTime 1`] = `
-Object {
-  "meta": Object {},
-  "payload": Object {
+{
+  "meta": {},
+  "payload": {
     "start": 6000,
   },
   "type": "@@MT/EVENTS/SET_START_TIME",
@@ -172,8 +172,8 @@ Object {
 `;
 
 exports[`[STORE] - Datetime actions setStartTimeInput 1`] = `
-Object {
-  "payload": Object {
+{
+  "payload": {
     "startTimeInput": "18:00",
   },
   "type": "@@MT/EVENTS/SET_START_TIME_INPUT",

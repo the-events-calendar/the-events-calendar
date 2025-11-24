@@ -44,6 +44,7 @@ class Assets {
 	 * Enqueues frontend styles and inline category color CSS.
 	 *
 	 * @since 6.14.0
+	 * @since 6.15.9 - Added more robust conditional for inline styles.
 	 */
 	public function enqueue_frontend_scripts(): void {
 		// Early bail if frontend UI should not be displayed.
@@ -93,7 +94,7 @@ class Assets {
 		$css = get_option( $this->generator->get_option_key(), '' );
 
 		// Add inline styles if available.
-		if ( ! empty( $css ) ) {
+		if ( ! empty( $css ) && $this->should_enqueue_frontend_styles() ) {
 			wp_add_inline_style( 'tec-category-colors-frontend-styles', $css );
 		}
 	}
@@ -102,10 +103,17 @@ class Assets {
 	 * Determines whether to enqueue the frontend styles for category colors.
 	 *
 	 * @since 6.14.0
+	 * @since 6.15.9 - Add logic to only enqueue on event archive pages.
 	 *
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
+		/*
+		Allow enqueueing on valid TEC views or frontend pages (e.g., venues),
+		but prevent it on single event or recurring event instance pages.
+		 */
+		$should_enqueue = ( ! is_singular( Tribe__Events__Main::POSTTYPE ) && ( tec_is_valid_view() || tribe_is_frontend() ) );
+
 		/**
 		 * Filter whether the category colors frontend styles should be enqueued.
 		 *
@@ -116,7 +124,7 @@ class Assets {
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_styles',
-			true,
+			$should_enqueue,
 			$this
 		);
 	}
@@ -130,7 +138,7 @@ class Assets {
 	 */
 	public function should_enqueue_frontend_legend(): bool {
 		// Only enqueue legend styles if custom CSS is not enabled.
-		$should_enqueue = ! tribe_get_option( 'category-color-custom-css', false );
+		$should_enqueue = ! tribe_get_option( 'category-color-custom-css', false ) && $this->should_enqueue_frontend_styles();
 
 		/**
 		 * Filter whether the category colors frontend legend styles should be enqueued.
