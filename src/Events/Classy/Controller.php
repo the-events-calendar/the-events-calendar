@@ -125,7 +125,7 @@ class Controller extends Controller_Contract {
 	 *          timeRangeSeparator: string,
 	 *          endOfDayCutoff:{
 	 *              hours: int,
-	 *              minutes: int
+	 *              minutes: int,
 	 *              endHours: int,
 	 *              endMinutes: int
 	 *          },
@@ -135,11 +135,7 @@ class Controller extends Controller_Contract {
 	 *              position: string
 	 *          },
 	 *          venuesLimit: int
-	 *     },
-	 *     endOfDayCutoff:{
-	 *          hours: int,
-	 *          minutes: int
-	 *     },
+	 *     }
 	 * } The filtered data passed to the Classy application.
 	 */
 	public function filter_data( array $data ): array {
@@ -155,8 +151,6 @@ class Controller extends Controller_Contract {
 			'venuesLimit'        => 1,
 		];
 
-		$data['settings'] = array_merge( $data['settings'], $additional_settings );
-
 		$multi_day_cutoff                  = tribe_get_option( 'multiDayCutoff', '00:00' );
 		[ $cutoff_hours, $cutoff_minutes ] = array_replace(
 			[ 0, 0 ],
@@ -168,12 +162,14 @@ class Controller extends Controller_Contract {
 										->format( 'H:i' );
 		[ $cutoff_end_hours, $cutoff_end_minutes ] = explode( ':', $cutoff_end_hours_minutes );
 
-		$data['endOfDayCutoff'] = [
+		$additional_settings['endOfDayCutoff'] = [
 			'hours'      => (int) $cutoff_hours,
 			'minutes'    => (int) $cutoff_minutes,
 			'endHours'   => (int) $cutoff_end_hours,
 			'endMinutes' => (int) $cutoff_end_minutes,
 		];
+
+		$data['settings'] = array_merge( $data['settings'], $additional_settings );
 
 		return $data;
 	}

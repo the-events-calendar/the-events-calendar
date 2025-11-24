@@ -38,9 +38,9 @@ export default function EventDateTime( props: FieldProps ): React.JSX.Element {
 		eventTimezone,
 		isAllDay,
 		isMultiday,
-		isNewEvent,
 		startOfWeek,
 		timeFormat,
+		isNewEvent,
 	} = useSelect( ( select ) => {
 		const tecStore: StoreSelect = select( 'tec/classy/events' );
 

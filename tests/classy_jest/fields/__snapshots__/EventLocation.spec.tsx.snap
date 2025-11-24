@@ -69,6 +69,7 @@ exports[`EventLocation should display existing venues from meta 1`] = `
                 type="button"
               >
                 <span
+                  aria-hidden="true"
                   class="classy-icon classy-icon--edit"
                 >
                   <svg
@@ -91,6 +92,7 @@ exports[`EventLocation should display existing venues from meta 1`] = `
                 type="button"
               >
                 <span
+                  aria-hidden="true"
                   class="classy-icon classy-icon--trash"
                 >
                   <svg
@@ -157,6 +159,7 @@ exports[`EventLocation should display existing venues from meta 1`] = `
                 type="button"
               >
                 <span
+                  aria-hidden="true"
                   class="classy-icon classy-icon--edit"
                 >
                   <svg
@@ -179,6 +182,7 @@ exports[`EventLocation should display existing venues from meta 1`] = `
                 type="button"
               >
                 <span
+                  aria-hidden="true"
                   class="classy-icon classy-icon--trash"
                 >
                   <svg

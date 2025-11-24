@@ -4,7 +4,7 @@
  * @since TBD
  */
 
-import { Settings } from '@tec/common/classy/types/LocalizedData';
+import { Settings } from '../types/Settings';
 
 /**
  * Event date and time details.

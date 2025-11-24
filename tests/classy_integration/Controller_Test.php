@@ -40,13 +40,13 @@ class Controller_Test extends Controller_Test_Case {
 						],
 					'timeRangeSeparator' => ' - ',
 					'venuesLimit'        => 1,
-				],
-			'endOfDayCutoff' =>
-				[
-					'hours'   => 0,
-					'minutes' => 0,
-					'endHours'   => 23,
-					'endMinutes' => 59,
+					'endOfDayCutoff' =>
+						[
+							'hours'      => 0,
+							'minutes'    => 0,
+							'endHours'   => 23,
+							'endMinutes' => 59,
+						],
 				],
 		], $data );
 
@@ -70,13 +70,13 @@ class Controller_Test extends Controller_Test_Case {
 						],
 					'timeRangeSeparator' => ' ~ ',
 					'venuesLimit'        => 1,
-				],
-			'endOfDayCutoff' =>
-				[
-					'hours'   => 2,
-					'minutes' => 30,
-					'endHours'   => 2,
-					'endMinutes' => 29,
+					'endOfDayCutoff' =>
+						[
+							'hours'      => 2,
+							'minutes'    => 30,
+							'endHours'   => 2,
+							'endMinutes' => 29,
+						],
 				],
 		], $data );
 	}
