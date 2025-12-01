@@ -18,7 +18,7 @@
  */
 
 // Get heading tag from View helper method.
-$heading_tag  = $this->get( 'view' )->get_content_title_heading_tag('h1');
+$heading_tag  = $this->get( 'view' )->get_content_title_heading_tag( 'h1' );
 $heading_text = $content_title ?: 'Events';
 
 // Choose visual class based on whether a real title was passed.
@@ -27,7 +27,12 @@ $visual_class = empty( $content_title )
 	: 'tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt';
 ?>
 <div class="tribe-events-header__content-title">
-	<<?php echo $heading_tag; ?> class="<?php echo esc_attr( $visual_class ); ?>">
-	<?php echo esc_html( $heading_text ); ?>
-</<?php echo $heading_tag; ?>>
+	<?php
+	printf(
+		'<%1$s class="%2$s">%3$s</%1$s>',
+		$heading_tag,
+		esc_attr( $visual_class ),
+		esc_html( $heading_text )
+	);
+	?>
 </div>

@@ -87,5 +87,29 @@ class Content_TitleTest extends HtmlPartialTestCase {
 
 		$this->assertMatchesSnapshot( $result );
 	}
+
+	/**
+	 * Test that the content title filter works properly.
+	 *
+	 * @since TBD
+	 */
+	public function test_content_title_filter() {
+		// Add a filter to set a custom content title.
+		add_filter(
+			'tec_events_views_v2_view_content_title',
+			function ( $content_title ) {
+				return 'Filtered Custom Title';
+			}
+		);
+
+		$view = View::make( View::class );
+
+		$result = $this->get_partial_html( [
+			'view'          => $view,
+			'content_title' => 'Filtered Custom Title',
+		] );
+
+		$this->assertMatchesSnapshot( $result );
+	}
 }
 
