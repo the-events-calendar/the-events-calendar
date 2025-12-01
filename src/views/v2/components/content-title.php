@@ -24,7 +24,7 @@ if ( $this->get( 'view' ) instanceof Tribe\Events\Views\V2\View ) {
 } else {
 	$heading_tag = 'h1';
 }
-$heading_text = $content_title ?: 'Events';
+$heading_text = $content_title ?: tribe_get_event_label_plural();
 
 // Choose visual class based on whether a real title was passed.
 $visual_class = empty( $content_title )
