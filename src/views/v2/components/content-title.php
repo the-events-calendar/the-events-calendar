@@ -12,6 +12,7 @@
  * @version 6.15.12
  * @since 6.2.0
  * @since 6.15.12 Changed `span` to `h2`. [TEC-5636]
+ * @since TBD Added the ability to change the heading tag. [TEC-5617]
  *
  * @var \Tribe\Events\Views\V2\Template $this Template Engine instance rendering.
  * @var string                          $content_title The title to display.
