@@ -18,7 +18,11 @@
  */
 
 // Get heading tag from View helper method.
-$heading_tag  = $this->get( 'view' )->get_content_title_heading_tag( 'h1' );
+if ( $this->get( 'view' ) instanceof Tribe\Events\Views\V2\View ) {
+	$heading_tag = $this->get( 'view' )->get_content_title_heading_tag( 'h1' );
+} else {
+	$heading_tag = 'h1';
+}
 $heading_text = $content_title ?: 'Events';
 
 // Choose visual class based on whether a real title was passed.
