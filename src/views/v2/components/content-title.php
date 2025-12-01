@@ -13,17 +13,21 @@
  * @since 6.2.0
  * @since 6.15.12 Changed `span` to `h2`. [TEC-5636]
  *
- * @var \Tribe\Events\Views\V2\Template $this          Template Engine instance rendering.
+ * @var \Tribe\Events\Views\V2\Template $this Template Engine instance rendering.
  * @var string                          $content_title The title to display.
  */
 
-if ( empty( $content_title ) ) {
-	return;
-}
-?>
+// Get heading tag from View helper method.
+$heading_tag  = $this->get( 'view' )->get_content_title_heading_tag('h1');
+$heading_text = $content_title ?: 'Events';
 
+// Choose visual class based on whether a real title was passed.
+$visual_class = empty( $content_title )
+	? 'screen-reader-text tec-a11y-title-hidden'
+	: 'tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt';
+?>
 <div class="tribe-events-header__content-title">
-	<h2 class="tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt">
-		<?php echo esc_html( $content_title ); ?>
-	</h2>
+	<<?php echo $heading_tag; ?> class="<?php echo esc_attr( $visual_class ); ?>">
+	<?php echo esc_html( $heading_text ); ?>
+</<?php echo $heading_tag; ?>>
 </div>
