@@ -28,9 +28,10 @@ $visual_class = empty( $content_title )
 ?>
 <div class="tribe-events-header__content-title">
 	<?php
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped -- $heading_tag is a validated heading tag (h1–h6).
 	printf(
 		'<%1$s class="%2$s">%3$s</%1$s>',
-		$heading_tag,  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		$heading_tag,
 		esc_attr( $visual_class ),
 		esc_html( $heading_text )
 	);
