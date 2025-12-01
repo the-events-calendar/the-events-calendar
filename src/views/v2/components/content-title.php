@@ -30,7 +30,7 @@ $visual_class = empty( $content_title )
 	<?php
 	printf(
 		'<%1$s class="%2$s">%3$s</%1$s>',
-		$heading_tag,
+		$heading_tag,  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		esc_attr( $visual_class ),
 		esc_html( $heading_text )
 	);
