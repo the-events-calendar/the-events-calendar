@@ -14,6 +14,7 @@
  *
  * @since 5.0.1
  * @since 6.15.7 Added aria-label attribute to nav.
+ * @since TBD Increased contrast of pagination arrows.
  *
  * @version 6.15.7
  */
