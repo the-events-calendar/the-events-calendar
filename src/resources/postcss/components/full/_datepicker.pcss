@@ -91,12 +91,29 @@
 			}
 
 			&.current {
-				background: var(--tec-color-accent-primary-background-datepicker);
+				background: #F0F2FF;
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
+
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 
 				&:hover,
 				&:focus,
 				&.focused {
-					background: var(--tec-color-accent-primary-background-datepicker);
+					&::before {
+						border: 1px solid var(--global-palette3, #1a202c);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
@@ -191,12 +208,29 @@
 			}
 
 			&.current {
-				background: var(--tec-color-accent-primary-background-datepicker);
+				background: #F0F2FF;
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
+
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 
 				&:hover,
 				&:focus,
 				&.focused {
-					background: var(--tec-color-accent-primary-background-datepicker);
+					&::before {
+						border: 2px solid var(--global-palette3, #1a202c);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
@@ -267,12 +301,29 @@
 			}
 
 			&.current {
-				background: var(--tec-color-accent-primary-background-datepicker);
+				background: #F0F2FF !important;
+				border-radius: var(--tec-border-radius-default) !important;
+				color: var(--tec-color-accent-primary) !important;
+				position: relative !important;
+
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary) !important;
+					border-radius: var(--tec-border-radius-default) !important;
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 
 				&:hover,
 				&:focus,
 				&.focused {
-					background: var(--tec-color-accent-primary-background-datepicker);
+					&::before {
+						border: 2px solid var(--global-palette3, #1a202c) !important;
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary) !important;
+					}
 				}
 			}
 
