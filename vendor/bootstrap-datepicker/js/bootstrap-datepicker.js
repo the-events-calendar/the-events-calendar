@@ -90,6 +90,138 @@
 		return String(value);
 	}
 
+	/**
+	 * Focus trap state object.
+	 * Stores the bound handler and trigger element for cleanup.
+	 */
+	var focusTrapState = {
+		handler: null,
+		triggerElement: null
+	};
+
+	/**
+	 * Get all focusable elements within the picker that are truly visible.
+	 * Filters out elements in hidden views or with display:none.
+	 *
+	 * @param {jQuery} $picker The datepicker container.
+	 *
+	 * @return {jQuery} Collection of focusable elements.
+	 */
+	function getFocusableElements($picker) {
+		// Early bail if picker is not visible.
+		if (!$picker || !$picker.is(':visible')) {
+			return $();
+		}
+
+		// Selector for focusable elements.
+		var focusableSelector = 'button:not([disabled]), [tabindex="0"]:not([disabled])';
+
+		// Get all focusable elements that are visible.
+		return $picker.find(focusableSelector).filter(function() {
+			var $el = $(this);
+			// Must be visible and not in a hidden parent.
+			return $el.is(':visible') && $el.css('visibility') !== 'hidden';
+		});
+	}
+
+	/**
+	 * Handle keydown events for focus trapping within the datepicker.
+	 * Traps Tab/Shift+Tab, handles Escape to close.
+	 *
+	 * @param {Event}  e          The keydown event.
+	 * @param {jQuery} $picker    The datepicker container.
+	 * @param {Object} datepicker The datepicker instance.
+	 */
+	function handleFocusTrapKeydown(e, $picker, datepicker) {
+		var key = e.key || e.keyCode;
+
+		// Early bail if picker is not visible.
+		if (!$picker.is(':visible')) {
+			return;
+		}
+
+		// Handle Escape key to close picker.
+		if (key === 'Escape' || key === 27) {
+			e.preventDefault();
+			e.stopPropagation();
+			datepicker.hide();
+			// Restore focus to the trigger element.
+			if (focusTrapState.triggerElement) {
+				$(focusTrapState.triggerElement).trigger('focus');
+			}
+			return;
+		}
+
+		// Only trap Tab key navigation.
+		if (key !== 'Tab' && key !== 9) {
+			return;
+		}
+
+		var $focusable = getFocusableElements($picker);
+
+		// Early bail if no focusable elements.
+		if (!$focusable.length) {
+			return;
+		}
+
+		var $first = $focusable.first();
+		var $last = $focusable.last();
+		var $active = $(document.activeElement);
+
+		// Shift+Tab on first element wraps to last.
+		if (e.shiftKey && $active.is($first)) {
+			e.preventDefault();
+			$last.trigger('focus');
+			return;
+		}
+
+		// Tab on last element wraps to first.
+		if (!e.shiftKey && $active.is($last)) {
+			e.preventDefault();
+			$first.trigger('focus');
+			return;
+		}
+	}
+
+	/**
+	 * Attach focus trap to the datepicker.
+	 * Binds a document-level keydown listener scoped to this picker.
+	 *
+	 * @param {jQuery} $picker       The datepicker container.
+	 * @param {Object} datepicker    The datepicker instance.
+	 * @param {Element} triggerElement The element that triggered the picker.
+	 */
+	function attachFocusTrap($picker, datepicker, triggerElement) {
+		// Store trigger for focus restoration.
+		focusTrapState.triggerElement = triggerElement;
+
+		// Create bound handler for later removal.
+		focusTrapState.handler = function(e) {
+			handleFocusTrapKeydown(e, $picker, datepicker);
+		};
+
+		// Attach to document to catch all keydown events.
+		$(document).on('keydown.datepickerFocusTrap', focusTrapState.handler);
+
+		// Move focus into the picker on next tick.
+		setTimeout(function() {
+			var $focusable = getFocusableElements($picker);
+			if ($focusable.length) {
+				$focusable.first().trigger('focus');
+			}
+		}, 0);
+	}
+
+	/**
+	 * Detach focus trap from the datepicker.
+	 * Removes the document-level keydown listener.
+	 */
+	function detachFocusTrap() {
+		$(document).off('keydown.datepickerFocusTrap', focusTrapState.handler);
+		focusTrapState.handler = null;
+		// Do not clear triggerElement here; hide() may need it.
+	}
+
 	var DateArray = (function(){
 		var extras = {
 			get: function(i){
@@ -534,12 +666,16 @@
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
 				$(this.element).blur();
 			}
+			// Attach focus trap for keyboard navigation.
+			attachFocusTrap(this.picker, this, this.element[0]);
 			return this;
 		},
 
 		hide: function(){
 			if (this.isInline || !this.picker.is(':visible'))
 				return this;
+			// Detach focus trap before hiding.
+			detachFocusTrap();
 			this.focusDate = null;
 			this.picker.hide().detach();
 			this._detachSecondaryEvents();
