@@ -11,6 +11,25 @@
 	border-radius: 4px;
 	direction: ltr;
 }
+/* Reset button styles for accessible controls. */
+.datepicker th button,
+.datepicker td button {
+	background: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	text-align: inherit;
+}
+.datepicker th button:focus,
+.datepicker td button:focus {
+	outline: 2px solid #005fcc;
+	outline-offset: -2px;
+}
 .datepicker-inline {
 	width: 220px;
 }
@@ -20,7 +39,8 @@
 .datepicker-rtl.dropdown-menu {
 	left: auto;
 }
-.datepicker-rtl table tr td span {
+.datepicker-rtl table tr td span,
+.datepicker-rtl table tr td button {
 	float: right;
 }
 .datepicker-dropdown {
@@ -335,7 +355,11 @@
 .datepicker table tr td.active.disabled:hover.active {
 	background-color: #003399 \9;
 }
-.datepicker table tr td span {
+.datepicker table tr td span,
+.datepicker table tr td button.month,
+.datepicker table tr td button.year,
+.datepicker table tr td button.decade,
+.datepicker table tr td button.century {
 	display: block;
 	width: 23%;
 	height: 54px;
@@ -348,11 +372,18 @@
 	border-radius: 4px;
 }
 .datepicker table tr td span:hover,
-.datepicker table tr td span.focused {
+.datepicker table tr td span.focused,
+.datepicker table tr td button.month:hover,
+.datepicker table tr td button.year:hover,
+.datepicker table tr td button.decade:hover,
+.datepicker table tr td button.century:hover,
+.datepicker table tr td button.focused {
 	background: #eee;
 }
 .datepicker table tr td span.disabled,
-.datepicker table tr td span.disabled:hover {
+.datepicker table tr td span.disabled:hover,
+.datepicker table tr td button.disabled,
+.datepicker table tr td button.disabled:hover {
 	background: none;
 	color: #999;
 	cursor: default;
@@ -409,8 +440,18 @@
 	background-color: #003399 \9;
 }
 .datepicker table tr td span.old,
-.datepicker table tr td span.new {
+.datepicker table tr td span.new,
+.datepicker table tr td button.old,
+.datepicker table tr td button.new {
 	color: #999;
+}
+/* Active state for button elements. */
+.datepicker table tr td button.active,
+.datepicker table tr td button.active:hover {
+	background-color: #006dcc;
+	background-image: linear-gradient(to bottom, #08c, #0044cc);
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 .datepicker .datepicker-switch {
 	width: 145px;

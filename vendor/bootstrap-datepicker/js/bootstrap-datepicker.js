@@ -841,7 +841,7 @@
 			var focused;
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
-				html += '<span class="month' + focused + '">' + dates[this.o.language].monthsShort[i] + '</span>';
+				html += '<button type="button" class="month' + focused + '">' + dates[this.o.language].monthsShort[i] + '</button>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -952,10 +952,10 @@
 					}
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</span>';
+				html += '<button type="button" class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</button>';
 			}
 
-			view.find('.datepicker-switch').text(startVal + '-' + endVal);
+			view.find('.datepicker-switch button').text(startVal + '-' + endVal);
 			view.find('td').html(html);
 		},
 
@@ -976,7 +976,7 @@
 				before;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days .datepicker-switch')
+			this.picker.find('.datepicker-days .datepicker-switch button')
 				.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot .today')
 				.text(todaytxt)
@@ -1061,10 +1061,10 @@
 
 			var monthsTitle = dates[this.o.language].monthsTitle || dates['en'].monthsTitle || 'Months';
 			var months = this.picker.find('.datepicker-months')
-				.find('.datepicker-switch')
+				.find('.datepicker-switch button')
 				.text(this.o.maxViewMode < 2 ? monthsTitle : year)
 				.end()
-				.find('tbody span').removeClass('active');
+				.find('tbody .month').removeClass('active');
 
 			$.each(this.dates, function(i, d){
 				if (d.getUTCFullYear() === year)
@@ -1180,6 +1180,12 @@
 			var target, dir, day, year, month;
 			target = $(e.target);
 
+			// Handle clicks on button elements inside header cells.
+			// Traverse up to find the actual control class.
+			if (target.is('button') && target.parent().is('th')) {
+				target = target.parent();
+			}
+
 			// Clicked on the switch
 			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
 				this.setViewMode(this.viewMode + 1);
@@ -1206,7 +1212,7 @@
 
 					day = 1;
 					if (this.viewMode === 1){
-						month = target.parent().find('span').index(target);
+						month = target.parent().find('.month').index(target);
 						year = this.viewDate.getUTCFullYear();
 						this.viewDate.setUTCMonth(month);
 					} else {
@@ -1951,9 +1957,9 @@
 			'<th colspan="7" class="datepicker-title"></th>'+
 			'</tr>'+
 			'<tr>'+
-			'<th class="prev">'+defaults.templates.leftArrow+'</th>'+
-			'<th colspan="5" class="datepicker-switch"></th>'+
-			'<th class="next">'+defaults.templates.rightArrow+'</th>'+
+			'<th class="prev"><button type="button" aria-label="Previous">'+defaults.templates.leftArrow+'</button></th>'+
+			'<th colspan="5" class="datepicker-switch"><button type="button"></button></th>'+
+			'<th class="next"><button type="button" aria-label="Next">'+defaults.templates.rightArrow+'</button></th>'+
 			'</tr>'+
 			'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
