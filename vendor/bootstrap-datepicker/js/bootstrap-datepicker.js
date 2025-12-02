@@ -40,6 +40,56 @@
 		return d && !isNaN(d.getTime());
 	}
 
+	/**
+	 * Get the document locale for Intl.DateTimeFormat.
+	 * Falls back to 'en' if not available.
+	 *
+	 * @return {string}
+	 */
+	function getDocumentLocale() {
+		return document.documentElement.lang || document.lang || 'en';
+	}
+
+	/**
+	 * Format a month button's aria-label using Intl.DateTimeFormat.
+	 * Example: "January 2024"
+	 *
+	 * @param {number} monthIndex Zero-based month index (0-11).
+	 * @param {number} year       The year for context.
+	 *
+	 * @return {string}
+	 */
+	function formatMonthAriaLabel(monthIndex, year) {
+		var locale = getDocumentLocale();
+		var date = new Date(year, monthIndex, 1);
+		try {
+			return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(date);
+		} catch (e) {
+			return new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(date);
+		}
+	}
+
+	/**
+	 * Format a year/decade/century button's aria-label.
+	 *
+	 * @param {number} value The year value.
+	 * @param {string} type  The type: 'year', 'decade', or 'century'.
+	 *
+	 * @return {string}
+	 */
+	function formatPeriodAriaLabel(value, type) {
+		if (type === 'year') {
+			return String(value);
+		}
+		if (type === 'decade') {
+			return value + ' - ' + (value + 9);
+		}
+		if (type === 'century') {
+			return value + ' - ' + (value + 99);
+		}
+		return String(value);
+	}
+
 	var DateArray = (function(){
 		var extras = {
 			get: function(i){
@@ -837,11 +887,13 @@
 
 		fillMonths: function(){
 			var localDate = this._utc_to_local(this.viewDate);
+			var year = this.viewDate.getUTCFullYear();
 			var html = '';
-			var focused;
+			var focused, ariaLabel;
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
-				html += '<button type="button" class="month' + focused + '">' + dates[this.o.language].monthsShort[i] + '</button>';
+				ariaLabel = formatMonthAriaLabel(i, year);
+				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '">' + dates[this.o.language].monthsShort[i] + '</button>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -912,7 +964,7 @@
 				return Math.floor(d.getUTCFullYear() / step) * step;
 			});
 
-			var classes, tooltip, before;
+			var classes, tooltip, before, ariaLabel;
 			for (var currVal = startVal - step; currVal <= endVal + step; currVal += step) {
 				classes = [cssClass];
 				tooltip = null;
@@ -952,7 +1004,8 @@
 					}
 				}
 
-				html += '<button type="button" class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</button>';
+				ariaLabel = formatPeriodAriaLabel(currVal, cssClass);
+				html += '<button type="button" class="' + classes.join(' ') + '" aria-label="' + ariaLabel + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</button>';
 			}
 
 			view.find('.datepicker-switch button').text(startVal + '-' + endVal);
