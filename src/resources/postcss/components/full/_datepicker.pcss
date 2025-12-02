@@ -84,19 +84,29 @@
 		.year {
 			border-radius: var(--tec-border-radius-default);
 
-			&:hover,
+			&:hover {
+				background: var(--tec-color-background-secondary-datepicker);
+			}
+
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
+				outline: 2px solid var(--global-palette3, #1a202c);
+				outline-offset: 2px;
 			}
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary-background-datepicker);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
+					outline: 2px solid var(--global-palette3, #1a202c);
+					outline-offset: 2px;
 				}
 			}
 
@@ -105,11 +115,18 @@
 				color: var(--tec-color-background);
 				text-shadow: none;
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
+					text-shadow: none;
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary);
 					color: var(--tec-color-background);
+					outline: 2px solid var(--global-palette3, #1a202c);
+					outline-offset: 2px;
 					text-shadow: none;
 				}
 			}
@@ -180,10 +197,15 @@
 			background-color: var(--tec-color-background);
 			color: var(--tec-color-text-primary);
 
-			&:hover,
+			&:hover {
+				background: var(--tec-color-background-secondary-datepicker);
+			}
+
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
+				outline: 2px solid var(--global-palette3, #1a202c) !important;
+				outline-offset: 2px !important;
 			}
 
 			&.past {
@@ -193,10 +215,15 @@
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary-background-datepicker);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
+					outline: 2px solid var(--global-palette3, #1a202c) !important;
+					outline-offset: 2px !important;
 				}
 			}
 
@@ -204,11 +231,17 @@
 				background: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary);
 					color: var(--tec-color-background);
+					outline: 2px solid var(--global-palette3, #1a202c) !important;
+					outline-offset: 2px !important;
 				}
 			}
 		}
@@ -256,10 +289,15 @@
 			background-color: transparent;
 			color: var(--tec-color-text-primary);
 
-			&:hover,
+			&:hover {
+				background: var(--tec-color-background-secondary-datepicker);
+			}
+
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
+				outline: 2px solid var(--global-palette3, #1a202c) !important;
+				outline-offset: 2px !important;
 			}
 
 			&.past {
@@ -269,10 +307,15 @@
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary-background-datepicker);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
+					outline: 2px solid var(--global-palette3, #1a202c) !important;
+					outline-offset: 2px !important;
 				}
 			}
 
@@ -280,11 +323,17 @@
 				background: var(--tec-color-accent-primary) !important;
 				color: var(--tec-color-background) !important;
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary) !important;
+					color: var(--tec-color-background) !important;
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary) !important;
 					color: var(--tec-color-background) !important;
+					outline: 2px solid var(--global-palette3, #1a202c) !important;
+					outline-offset: 2px !important;
 				}
 			}
 		}
