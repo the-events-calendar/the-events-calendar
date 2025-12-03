@@ -91,8 +91,8 @@
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
-				outline: 2px solid var(--tec-color-border-active, #1a202c);
-				outline-offset: 2px;
+				outline: var(--tec-outline-active-default);
+				outline-offset: var(--tec-outline-offset-default);
 			}
 
 			&.current {
@@ -105,8 +105,8 @@
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
-					outline: 2px solid var(--tec-color-border-active, #1a202c);
-					outline-offset: 2px;
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 
@@ -125,8 +125,8 @@
 				&.focused {
 					background: var(--tec-color-accent-primary);
 					color: var(--tec-color-background);
-					outline: 2px solid var(--tec-color-border-active, #1a202c);
-					outline-offset: 2px;
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 					text-shadow: none;
 				}
 			}
@@ -170,15 +170,15 @@
 		}
 
 		.datepicker-switch {
-			color: var(--tec-color-text-primary);
+			color: var(--tec-color-text-primary) !important;
 
 			&:hover,
 			&:focus {
-				color: var(--tec-color-accent-secondary-hover);
+				color: var(--tec-color-accent-secondary-hover) !important;
 			}
 
 			&:active {
-				color: var(--tec-color-accent-secondary-active);
+				color: var(--tec-color-accent-secondary-active) !important;
 			}
 		}
 
@@ -204,8 +204,8 @@
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
-				outline: 2px solid var(--tec-color-border-active, #1a202c);
-				outline-offset: 2px;
+				outline: var(--tec-outline-active-default);
+				outline-offset: var(--tec-outline-offset-default);
 			}
 
 			&.past {
@@ -222,8 +222,8 @@
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
-					outline: 2px solid var(--tec-color-border-active, #1a202c);
-					outline-offset: 2px;
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 
@@ -240,8 +240,8 @@
 				&.focused {
 					background: var(--tec-color-accent-primary);
 					color: var(--tec-color-background);
-					outline: 2px solid var(--tec-color-border-active, #1a202c);
-					outline-offset: 2px;
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 		}
@@ -296,12 +296,12 @@
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
-				outline: 2px solid var(--tec-color-border-active, #1a202c);
-				outline-offset: 2px;
+				outline: var(--tec-outline-active-default);
+				outline-offset: var(--tec-outline-offset-default);
 			}
 
 			&.past {
-				color: var(--tec-color-text-primary-light);
+				color: var(--tec-color-text-primary-light) !important;
 			}
 
 			&.current {
@@ -314,26 +314,26 @@
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
-					outline: 2px solid var(--tec-color-border-active, #1a202c);
-					outline-offset: 2px;
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 
 			&.active {
-				background: var(--tec-color-accent-primary);
-				color: var(--tec-color-background);
+				background: var(--tec-color-accent-primary) !important;
+				color: var(--tec-color-background) !important;
 
 				&:hover {
-					background: var(--tec-color-accent-primary);
-					color: var(--tec-color-background);
+					background: var(--tec-color-accent-primary) !important;
+					color: var(--tec-color-background) !important;
 				}
 
 				&:focus,
 				&.focused {
-					background: var(--tec-color-accent-primary);
-					color: var(--tec-color-background);
-					outline: 2px solid var(--tec-color-border-active, #1a202c);
-					outline-offset: 2px;
+					background: var(--tec-color-accent-primary) !important;
+					color: var(--tec-color-background) !important;
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 		}
