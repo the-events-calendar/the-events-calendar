@@ -89,14 +89,15 @@ class Events {
 		$suppress_errors_backup = $wpdb->suppress_errors;
 		$wpdb->suppress_errors  = true;
 		$wpdb->query( $lock_query );
-		$wpdb->suppress_errors = $suppress_errors_backup;
-
 		// Get our db object so we can inspect. This isn't always an object, so some type checking is needed.
-		$db = is_object( $wpdb->dbh ) ? $wpdb->dbh : null;
+		$db    = is_object( $wpdb->dbh ) ? $wpdb->dbh : null;
+		$errno = $db ? mysqli_errno( $db ) : null;
+
+		$wpdb->suppress_errors = $suppress_errors_backup;
 
 		// Deadlock error no.
 		$deadlock_errno = 1213;
-		if ( $db !== null && $db->errno === $deadlock_errno ) {
+		if ( $db !== null && $errno === $deadlock_errno ) {
 			// Deadlock, lets retry lock query.
 			$wpdb->query( $lock_query );
 		}
@@ -110,7 +111,7 @@ class Events {
 		$fetch_query = $wpdb->prepare( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
 		$results     = $wpdb->get_col( $fetch_query );
 
-		if ( empty( $results ) && $db !== null && $db->errno === $deadlock_errno ) {
+		if ( empty( $results ) && $db !== null && $errno === $deadlock_errno ) {
 			// Deadlock, lets retry fetch query.
 			$results = $wpdb->get_col( $fetch_query );
 		}
