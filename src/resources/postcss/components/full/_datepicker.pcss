@@ -97,6 +97,20 @@
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
+
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 
 				&:hover {
 					background: var(--tec-color-accent-primary-background-datepicker);
@@ -107,6 +121,11 @@
 					background: var(--tec-color-accent-primary-background-datepicker);
 					outline: var(--tec-outline-active-default);
 					outline-offset: var(--tec-outline-offset-default);
+
+					&::before {
+						border: 1px solid var(--tec-outline-color-default);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
@@ -214,6 +233,20 @@
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
+
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 
 				&:hover {
 					background: var(--tec-color-accent-primary-background-datepicker);
@@ -224,6 +257,11 @@
 					background: var(--tec-color-accent-primary-background-datepicker);
 					outline: var(--tec-outline-active-default);
 					outline-offset: var(--tec-outline-offset-default);
+
+					&::before {
+						border: 1px solid var(--tec-outline-color-default);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
@@ -306,6 +344,20 @@
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
+
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 
 				&:hover {
 					background: var(--tec-color-accent-primary-background-datepicker);
@@ -316,22 +368,27 @@
 					background: var(--tec-color-accent-primary-background-datepicker);
 					outline: var(--tec-outline-active-default);
 					outline-offset: var(--tec-outline-offset-default);
+
+					&::before {
+						border: 1px solid var(--tec-outline-color-default);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
 			&.active {
-				background: var(--tec-color-accent-primary) !important;
-				color: var(--tec-color-background) !important;
+				background: var(--tec-color-accent-primary);
+				color: var(--tec-color-background);
 
 				&:hover {
-					background: var(--tec-color-accent-primary) !important;
-					color: var(--tec-color-background) !important;
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
 				}
 
 				&:focus,
 				&.focused {
-					background: var(--tec-color-accent-primary) !important;
-					color: var(--tec-color-background) !important;
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
 					outline: var(--tec-outline-active-default);
 					outline-offset: var(--tec-outline-offset-default);
 				}
