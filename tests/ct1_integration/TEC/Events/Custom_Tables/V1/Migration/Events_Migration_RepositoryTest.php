@@ -197,12 +197,14 @@ class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 			$queries[ $query ] = $queries[ $query ] ?? 0;
 			if ( stripos( $query, 'post_id' ) && $queries[ $query ] === 0 ) {
 				$queries[ $query ] ++;
+				add_filter( 'tec_events_custom_tables_v1_migration_is_deadlock_error', '__return_true' );
 				$this->set_fn_return( 'mysqli_errno', 1213 );
 				$this->set_fn_return( 'mysqli_error', 'Faux Deadlock - whoops!' );
 				$this->set_fn_return( 'mysqli_ping', true );
 				$this->set_fn_return( 'mysqli_query', false );
 
 			} else {
+				remove_filter( 'tec_events_custom_tables_v1_migration_is_deadlock_error', '__return_true' );
 				$this->unset_uopz_returns();
 			}
 

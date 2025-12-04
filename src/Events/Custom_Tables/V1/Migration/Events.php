@@ -91,13 +91,11 @@ class Events {
 		$wpdb->query( $lock_query );
 		// Get our db object so we can inspect. This isn't always an object, so some type checking is needed.
 		$db    = is_object( $wpdb->dbh ) ? $wpdb->dbh : null;
-		$errno = $db ? mysqli_errno( $db ) : null;
+		$errno = $db->errno ?? null;
 
 		$wpdb->suppress_errors = $suppress_errors_backup;
 
-		// Deadlock error no.
-		$deadlock_errno = 1213;
-		if ( $db !== null && $errno === $deadlock_errno ) {
+		if ( $db !== null && $this->is_deadlock_error( $errno ) ) {
 			// Deadlock, lets retry lock query.
 			$wpdb->query( $lock_query );
 		}
@@ -111,12 +109,35 @@ class Events {
 		$fetch_query = $wpdb->prepare( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
 		$results     = $wpdb->get_col( $fetch_query );
 
-		if ( empty( $results ) && $db !== null && $errno === $deadlock_errno ) {
+		if ( empty( $results ) && $db !== null && $this->is_deadlock_error( $errno ) ) {
 			// Deadlock, lets retry fetch query.
 			$results = $wpdb->get_col( $fetch_query );
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Check if the error is a deadlock error.
+	 *
+	 * @since TBD
+	 *
+	 * @param ?int $errno The error number.
+	 *
+	 * @return bool Whether the error is a deadlock error.
+	 */
+	public function is_deadlock_error( $errno ): bool {
+		/**
+		 * Filter to determine if the error is a deadlock error.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $is_deadlock_error Whether the error is a deadlock error.
+		 * @param ?int $errno The error number.
+		 *
+		 * @return bool Whether the error is a deadlock error.
+		 */
+		return (bool) apply_filters( 'tec_events_custom_tables_v1_migration_is_deadlock_error', $errno === 1213, $errno );
 	}
 
 	/**
