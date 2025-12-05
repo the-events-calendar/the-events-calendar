@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Increase contrast for current day in the datepicker for improved accessibility. [TEC-5640]
