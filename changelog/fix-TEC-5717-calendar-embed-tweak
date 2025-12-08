@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Change content template name to 'embed-content' to avoid conflicts for Calendar Embeds. [TEC-5717]
