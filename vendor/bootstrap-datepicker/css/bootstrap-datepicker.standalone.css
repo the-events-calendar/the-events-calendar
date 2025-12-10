@@ -30,6 +30,23 @@
 	outline: 2px solid #005fcc;
 	outline-offset: -2px;
 }
+.datepicker th button:disabled,
+.datepicker td button:disabled {
+	cursor: not-allowed;
+	opacity: 0.65;
+}
+/* Screen reader only class for live region. */
+.datepicker .sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
 .datepicker-inline {
 	width: 220px;
 }

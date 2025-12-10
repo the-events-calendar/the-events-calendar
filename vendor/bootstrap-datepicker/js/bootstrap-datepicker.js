@@ -91,135 +91,32 @@
 	}
 
 	/**
-	 * Focus trap state object.
-	 * Stores the bound handler and trigger element for cleanup.
-	 */
-	var focusTrapState = {
-		handler: null,
-		triggerElement: null
-	};
-
-	/**
-	 * Get all focusable elements within the picker that are truly visible.
-	 * Filters out elements in hidden views or with display:none.
+	 * Format a day button's aria-label using Intl.DateTimeFormat.
+	 * Example: "Wednesday, December 25, 2024"
 	 *
-	 * @param {jQuery} $picker The datepicker container.
+	 * @param {Date} date The UTC date object.
 	 *
-	 * @return {jQuery} Collection of focusable elements.
+	 * @return {string}
 	 */
-	function getFocusableElements($picker) {
-		// Early bail if picker is not visible.
-		if (!$picker || !$picker.is(':visible')) {
-			return $();
+	function formatDayAriaLabel(date) {
+		var locale = getDocumentLocale();
+		// Convert UTC date to local for proper formatting.
+		var localDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+		try {
+			return new Intl.DateTimeFormat(locale, {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}).format(localDate);
+		} catch (e) {
+			return new Intl.DateTimeFormat('en', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}).format(localDate);
 		}
-
-		// Selector for focusable elements.
-		var focusableSelector = 'button:not([disabled]), [tabindex="0"]:not([disabled])';
-
-		// Get all focusable elements that are visible.
-		return $picker.find(focusableSelector).filter(function() {
-			var $el = $(this);
-			// Must be visible and not in a hidden parent.
-			return $el.is(':visible') && $el.css('visibility') !== 'hidden';
-		});
-	}
-
-	/**
-	 * Handle keydown events for focus trapping within the datepicker.
-	 * Traps Tab/Shift+Tab, handles Escape to close.
-	 *
-	 * @param {Event}  e          The keydown event.
-	 * @param {jQuery} $picker    The datepicker container.
-	 * @param {Object} datepicker The datepicker instance.
-	 */
-	function handleFocusTrapKeydown(e, $picker, datepicker) {
-		var key = e.key || e.keyCode;
-
-		// Early bail if picker is not visible.
-		if (!$picker.is(':visible')) {
-			return;
-		}
-
-		// Handle Escape key to close picker.
-		if (key === 'Escape' || key === 27) {
-			e.preventDefault();
-			e.stopPropagation();
-			datepicker.hide();
-			// Restore focus to the trigger element.
-			if (focusTrapState.triggerElement) {
-				$(focusTrapState.triggerElement).trigger('focus');
-			}
-			return;
-		}
-
-		// Only trap Tab key navigation.
-		if (key !== 'Tab' && key !== 9) {
-			return;
-		}
-
-		var $focusable = getFocusableElements($picker);
-
-		// Early bail if no focusable elements.
-		if (!$focusable.length) {
-			return;
-		}
-
-		var $first = $focusable.first();
-		var $last = $focusable.last();
-		var $active = $(document.activeElement);
-
-		// Shift+Tab on first element wraps to last.
-		if (e.shiftKey && $active.is($first)) {
-			e.preventDefault();
-			$last.trigger('focus');
-			return;
-		}
-
-		// Tab on last element wraps to first.
-		if (!e.shiftKey && $active.is($last)) {
-			e.preventDefault();
-			$first.trigger('focus');
-			return;
-		}
-	}
-
-	/**
-	 * Attach focus trap to the datepicker.
-	 * Binds a document-level keydown listener scoped to this picker.
-	 *
-	 * @param {jQuery} $picker       The datepicker container.
-	 * @param {Object} datepicker    The datepicker instance.
-	 * @param {Element} triggerElement The element that triggered the picker.
-	 */
-	function attachFocusTrap($picker, datepicker, triggerElement) {
-		// Store trigger for focus restoration.
-		focusTrapState.triggerElement = triggerElement;
-
-		// Create bound handler for later removal.
-		focusTrapState.handler = function(e) {
-			handleFocusTrapKeydown(e, $picker, datepicker);
-		};
-
-		// Attach to document to catch all keydown events.
-		$(document).on('keydown.datepickerFocusTrap', focusTrapState.handler);
-
-		// Move focus into the picker on next tick.
-		setTimeout(function() {
-			var $focusable = getFocusableElements($picker);
-			if ($focusable.length) {
-				$focusable.first().trigger('focus');
-			}
-		}, 0);
-	}
-
-	/**
-	 * Detach focus trap from the datepicker.
-	 * Removes the document-level keydown listener.
-	 */
-	function detachFocusTrap() {
-		$(document).off('keydown.datepickerFocusTrap', focusTrapState.handler);
-		focusTrapState.handler = null;
-		// Do not clear triggerElement here; hide() may need it.
 	}
 
 	var DateArray = (function(){
@@ -297,13 +194,13 @@
 
 		this.picker = $(DPGlobal.template);
 
-		// Checking templates and inserting
+		// Checking templates and inserting.
 		if (this._check_template(this.o.templates.leftArrow)) {
-			this.picker.find('.prev').html(this.o.templates.leftArrow);
+			this.picker.find('.prev button').html(this.o.templates.leftArrow);
 		}
 
 		if (this._check_template(this.o.templates.rightArrow)) {
-			this.picker.find('.next').html(this.o.templates.rightArrow);
+			this.picker.find('.next button').html(this.o.templates.rightArrow);
 		}
 
 		this._buildEvents();
@@ -321,7 +218,13 @@
 		}
 
 		if (this.o.calendarWeeks) {
-			this.picker.find('.datepicker-days .datepicker-switch, thead .datepicker-title, tfoot .today, tfoot .clear')
+			// Update colspan for calendar weeks column.
+			// Today/clear buttons are now inside the <th>, so target the parent <th>.
+			this.picker.find('.datepicker-days .datepicker-switch, thead .datepicker-title')
+				.attr('colspan', function(i, val){
+					return Number(val) + 1;
+				});
+			this.picker.find('tfoot button.today, tfoot button.clear').parent()
 				.attr('colspan', function(i, val){
 					return Number(val) + 1;
 				});
@@ -587,34 +490,35 @@
 				}]);
 			}
 
-			this._secondaryEvents = [
-				[this.picker, {
-					click: $.proxy(this.click, this)
-				}],
-				[this.picker, '.prev, .next', {
-					click: $.proxy(this.navArrowsClick, this)
-				}],
-				[this.picker, '.day:not(.disabled)', {
-					click: $.proxy(this.dayCellClick, this)
-				}],
-				[$(window), {
-					resize: $.proxy(this.place, this)
-				}],
-				[$(document), {
-					'mousedown touchstart': $.proxy(function(e){
-						// Clicked outside the datepicker, hide it
-						if (!(
-							this.element.is(e.target) ||
-							this.element.find(e.target).length ||
-							this.picker.is(e.target) ||
-							this.picker.find(e.target).length ||
-							this.isInline
-						)){
-							this.hide();
-						}
-					}, this)
-				}]
-			];
+		this._secondaryEvents = [
+			[this.picker, {
+				click: $.proxy(this.click, this),
+				keydown: $.proxy(this.pickerKeydown, this)
+			}],
+			[this.picker, '.prev button, .next button', {
+				click: $.proxy(this.navArrowsClick, this)
+			}],
+			[this.picker, 'button.day:not([disabled])', {
+				click: $.proxy(this.dayCellClick, this)
+			}],
+			[$(window), {
+				resize: $.proxy(this.place, this)
+			}],
+			[$(document), {
+				'mousedown touchstart': $.proxy(function(e){
+					// Clicked outside the datepicker, hide it.
+					if (!(
+						this.element.is(e.target) ||
+						this.element.find(e.target).length ||
+						this.picker.is(e.target) ||
+						this.picker.find(e.target).length ||
+						this.isInline
+					)){
+						this.hide();
+					}
+				}, this)
+			}]
+		];
 		},
 		_attachEvents: function(){
 			this._detachEvents();
@@ -666,16 +570,17 @@
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
 				$(this.element).blur();
 			}
-			// Attach focus trap for keyboard navigation.
-			attachFocusTrap(this.picker, this, this.element[0]);
+			// Store trigger element for focus restoration.
+			this._triggerElement = this.element[0];
+			// Update roving tabindex and focus the active element.
+			this._updateRovingTabindex();
+			this._focusActiveElement();
 			return this;
 		},
 
 		hide: function(){
 			if (this.isInline || !this.picker.is(':visible'))
 				return this;
-			// Detach focus trap before hiding.
-			detachFocusTrap();
 			this.focusDate = null;
 			this.picker.hide().detach();
 			this._detachSecondaryEvents();
@@ -1029,7 +934,7 @@
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
 				ariaLabel = formatMonthAriaLabel(i, year);
-				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '">' + dates[this.o.language].monthsShort[i] + '</button>';
+				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '" tabindex="-1">' + dates[this.o.language].monthsShort[i] + '</button>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -1141,7 +1046,20 @@
 				}
 
 				ariaLabel = formatPeriodAriaLabel(currVal, cssClass);
-				html += '<button type="button" class="' + classes.join(' ') + '" aria-label="' + ariaLabel + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</button>';
+				var isDisabled = $.inArray('disabled', classes) !== -1;
+				var btnAttrs = [
+					'type="button"',
+					'class="' + classes.join(' ') + '"',
+					'aria-label="' + ariaLabel + '"',
+					'tabindex="-1"'
+				];
+				if (isDisabled) {
+					btnAttrs.push('disabled');
+				}
+				if (tooltip) {
+					btnAttrs.push('title="' + tooltip + '"');
+				}
+				html += '<button ' + btnAttrs.join(' ') + '>' + currVal + '</button>';
 			}
 
 			view.find('.datepicker-switch button').text(startVal + '-' + endVal);
@@ -1167,12 +1085,12 @@
 				return;
 			this.picker.find('.datepicker-days .datepicker-switch button')
 				.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
-			this.picker.find('tfoot .today')
+			this.picker.find('tfoot button.today')
 				.text(todaytxt)
-				.css('display', titleBtnVisible ? 'table-cell' : 'none');
-			this.picker.find('tfoot .clear')
+				.css('display', titleBtnVisible ? 'inline-block' : 'none');
+			this.picker.find('tfoot button.clear')
 				.text(cleartxt)
-				.css('display', this.o.clearBtn === true ? 'table-cell' : 'none');
+				.css('display', this.o.clearBtn === true ? 'inline-block' : 'none');
 			this.picker.find('thead .datepicker-title')
 				.text(this.o.title)
 				.css('display', typeof this.o.title === 'string' && this.o.title !== '' ? 'table-cell' : 'none');
@@ -1231,15 +1149,42 @@
 						content = before.content;
 				}
 
-				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
-				//Fallback to unique function for older jquery versions
+				// Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2).
+				// Fallback to unique function for older jquery versions.
 				if (typeof $.uniqueSort === "function") {
 					clsName = $.uniqueSort(clsName);
 				} else {
 					clsName = $.unique(clsName);
 				}
 
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + ' data-date="' + prevMonth.getTime().toString() + '">' + content + '</td>');
+				// Build day button with accessibility attributes.
+				var isDisabled = $.inArray('disabled', clsName) !== -1;
+				var isSelected = $.inArray('active', clsName) !== -1;
+				var isToday = $.inArray('today', clsName) !== -1;
+				var isFocused = $.inArray('focused', clsName) !== -1;
+				var dayAriaLabel = formatDayAriaLabel(prevMonth);
+				var btnAttrs = [
+					'type="button"',
+					'class="' + clsName.join(' ') + '"',
+					'data-date="' + prevMonth.getTime().toString() + '"',
+					'aria-label="' + dayAriaLabel + '"',
+					'tabindex="-1"'
+				];
+
+				if (isDisabled) {
+					btnAttrs.push('disabled');
+				}
+				if (isSelected) {
+					btnAttrs.push('aria-selected="true"');
+				}
+				if (isToday) {
+					btnAttrs.push('aria-current="date"');
+				}
+				if (tooltip) {
+					btnAttrs.push('title="' + tooltip + '"');
+				}
+
+				html.push('<td><button ' + btnAttrs.join(' ') + '>' + content + '</button></td>');
 				tooltip = null;
 				if (weekDay === this.o.weekEnd){
 					html.push('</tr>');
@@ -1261,13 +1206,13 @@
 			});
 
 			if (year < startYear || year > endYear){
-				months.addClass('disabled');
+				months.addClass('disabled').prop('disabled', true);
 			}
 			if (year === startYear){
-				months.slice(0, startMonth).addClass('disabled');
+				months.slice(0, startMonth).addClass('disabled').prop('disabled', true);
 			}
 			if (year === endYear){
-				months.slice(endMonth+1).addClass('disabled');
+				months.slice(endMonth+1).addClass('disabled').prop('disabled', true);
 			}
 
 			if (this.o.beforeShowMonth !== $.noop){
@@ -1281,8 +1226,9 @@
 						before = {enabled: before};
 					else if (typeof before === 'string')
 						before = {classes: before};
-					if (before.enabled === false && !$(month).hasClass('disabled'))
-						$(month).addClass('disabled');
+					if (before.enabled === false && !$(month).hasClass('disabled')) {
+						$(month).addClass('disabled').prop('disabled', true);
+					}
 					if (before.classes)
 						$(month).addClass(before.classes);
 					if (before.tooltip)
@@ -1322,6 +1268,15 @@
 				endYear,
 				this.o.beforeShowCentury
 			);
+
+			// Update roving tabindex after fill.
+			this._updateRovingTabindex();
+
+			// Announce the current view to screen readers.
+			if (this.picker.is(':visible')) {
+				var announcement = DPGlobal.formatDate(d, titleFormat, this.o.language);
+				this._announce(announcement);
+			}
 		},
 
 		updateNavArrows: function(){
@@ -1360,6 +1315,9 @@
 
 			this.picker.find('.prev').toggleClass('disabled', prevIsDisabled);
 			this.picker.find('.next').toggleClass('disabled', nextIsDisabled);
+			// Also update the button disabled attribute for accessibility.
+			this.picker.find('.prev button').prop('disabled', prevIsDisabled);
+			this.picker.find('.next button').prop('disabled', nextIsDisabled);
 		},
 
 		click: function(e){
@@ -1370,29 +1328,30 @@
 			target = $(e.target);
 
 			// Handle clicks on button elements inside header cells.
-			// Traverse up to find the actual control class.
-			if (target.is('button') && target.parent().is('th')) {
+			// Traverse up to find the actual control class for switch button.
+			if (target.is('button') && target.parent().hasClass('datepicker-switch')) {
 				target = target.parent();
 			}
 
-			// Clicked on the switch
+			// Clicked on the switch.
 			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
 				this.setViewMode(this.viewMode + 1);
+				this._focusActiveElement();
 			}
 
-			// Clicked on today button
+			// Clicked on today button (now a button element).
 			if (target.hasClass('today') && !target.hasClass('day')){
 				this.setViewMode(0);
 				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
 			}
 
-			// Clicked on clear button
+			// Clicked on clear button (now a button element).
 			if (target.hasClass('clear')){
 				this.clearDates();
 			}
 
-			if (!target.hasClass('disabled')){
-				// Clicked on a month, year, decade, century
+			if (!target.hasClass('disabled') && !target.prop('disabled')){
+				// Clicked on a month, year, decade, century.
 				if (target.hasClass('month')
 					|| target.hasClass('year')
 					|| target.hasClass('decade')
@@ -1417,6 +1376,7 @@
 					} else {
 						this.setViewMode(this.viewMode - 1);
 						this.fill();
+						this._focusActiveElement();
 					}
 				}
 			}
@@ -1444,16 +1404,19 @@
 			this._setDate(date);
 		},
 
-		// Clicked on prev or next
+		// Clicked on prev or next.
 		navArrowsClick: function(e){
 			var $target = $(e.currentTarget);
-			var dir = $target.hasClass('prev') ? -1 : 1;
+			var $navCell = $target.closest('.prev, .next');
+			var dir = $navCell.hasClass('prev') ? -1 : 1;
 			if (this.viewMode !== 0){
 				dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
 			}
 			this.viewDate = this.moveMonth(this.viewDate, dir);
 			this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
 			this.fill();
+			// Restore focus to the clicked button after fill.
+			this._focusNavButton(dir === -1 ? 'prev' : 'next');
 		},
 
 		_toggle_multidate: function(date){
@@ -1593,7 +1556,7 @@
 
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
-				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
+				if (e.keyCode === 40 || e.keyCode === 27) { // Allow down to re-show picker.
 					this.show();
 					e.stopPropagation();
 				}
@@ -1609,8 +1572,13 @@
 						this.viewDate = this.dates.get(-1) || this.viewDate;
 						this.fill();
 					}
-					else
+					else {
 						this.hide();
+						// Restore focus to the trigger element.
+						if (this._triggerElement) {
+							$(this._triggerElement).trigger('focus');
+						}
+					}
 					e.preventDefault();
 					e.stopPropagation();
 					break;
@@ -1652,6 +1620,7 @@
 						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
 						this.fill();
+						this._focusActiveElement();
 						e.preventDefault();
 					}
 					break;
@@ -1675,10 +1644,13 @@
 					}
 					break;
 				case 9: // tab
-					this.focusDate = null;
-					this.viewDate = this.dates.get(-1) || this.viewDate;
-					this.fill();
-					this.hide();
+					// Let Tab navigate within the picker - handled by pickerKeydown.
+					// Only close if focus is still on the input.
+					if ($(document.activeElement).is(this.inputField)) {
+						// Move focus to the picker.
+						e.preventDefault();
+						this._focusActiveElement();
+					}
 					break;
 			}
 			if (dateChanged){
@@ -1699,6 +1671,239 @@
 				.show();
 			this.updateNavArrows();
 			this._trigger('changeViewMode', new Date(this.viewDate));
+		},
+
+		/**
+		 * Handle keydown events within the picker.
+		 * Handles Space key for button activation and arrow navigation.
+		 *
+		 * @param {Event} e The keydown event.
+		 */
+		pickerKeydown: function(e){
+			var key = e.key || e.keyCode;
+			var $target = $(e.target);
+
+			// Handle Space key to activate buttons (native behavior backup).
+			if ((key === ' ' || key === 'Space' || key === 32) && $target.is('button')) {
+				e.preventDefault();
+				$target.trigger('click');
+				return;
+			}
+
+			// Handle Escape key to close picker.
+			if (key === 'Escape' || key === 27) {
+				e.preventDefault();
+				e.stopPropagation();
+				if (this.focusDate) {
+					this.focusDate = null;
+					this.viewDate = this.dates.get(-1) || this.viewDate;
+					this.fill();
+				} else {
+					this.hide();
+					// Restore focus to the trigger element.
+					if (this._triggerElement) {
+						$(this._triggerElement).trigger('focus');
+					}
+				}
+				return;
+			}
+
+			// Handle Tab key for focus trap.
+			if (key === 'Tab' || key === 9) {
+				this._handleTabKey(e);
+				return;
+			}
+
+			// Handle arrow keys for roving tabindex within grid.
+			if ($target.hasClass('day') || $target.hasClass('month') ||
+				$target.hasClass('year') || $target.hasClass('decade') ||
+				$target.hasClass('century')) {
+				this._handleGridArrowKeys(e, $target);
+			}
+		},
+
+		/**
+		 * Handle Tab key navigation within the picker.
+		 * Implements focus trapping to keep focus within the picker.
+		 *
+		 * @param {Event} e The keydown event.
+		 */
+		_handleTabKey: function(e){
+			var $focusable = this._getFocusableElements();
+			if (!$focusable.length) {
+				return;
+			}
+
+			var $first = $focusable.first();
+			var $last = $focusable.last();
+			var $active = $(document.activeElement);
+
+			// Shift+Tab on first element wraps to last.
+			if (e.shiftKey && $active.is($first)) {
+				e.preventDefault();
+				$last.trigger('focus');
+				return;
+			}
+
+			// Tab on last element wraps to first.
+			if (!e.shiftKey && $active.is($last)) {
+				e.preventDefault();
+				$first.trigger('focus');
+				return;
+			}
+		},
+
+		/**
+		 * Handle arrow key navigation within grid elements.
+		 * Implements roving tabindex pattern.
+		 *
+		 * @param {Event}  e       The keydown event.
+		 * @param {jQuery} $target The focused element.
+		 */
+		_handleGridArrowKeys: function(e, $target){
+			var key = e.keyCode;
+			if ($.inArray(key, [37, 38, 39, 40]) === -1) {
+				return;
+			}
+
+			e.preventDefault();
+
+			var $container = $target.closest('td').parent().parent();
+			var $items = $container.find('button:not([disabled])').filter(':visible');
+			var currentIndex = $items.index($target);
+			var cols = $target.hasClass('day') ? 7 : 4;
+			var newIndex;
+
+			switch (key) {
+				case 37: // left
+					newIndex = currentIndex - 1;
+					break;
+				case 38: // up
+					newIndex = currentIndex - cols;
+					break;
+				case 39: // right
+					newIndex = currentIndex + 1;
+					break;
+				case 40: // down
+					newIndex = currentIndex + cols;
+					break;
+			}
+
+			if (newIndex >= 0 && newIndex < $items.length) {
+				// Update roving tabindex.
+				$items.attr('tabindex', '-1');
+				$items.eq(newIndex).attr('tabindex', '0').trigger('focus');
+
+				// Update focusDate for days view.
+				if ($target.hasClass('day')) {
+					var timestamp = $items.eq(newIndex).data('date');
+					if (timestamp) {
+						this.focusDate = new Date(timestamp);
+					}
+				}
+			}
+		},
+
+		/**
+		 * Get all focusable elements within the picker.
+		 *
+		 * @return {jQuery} Collection of focusable elements.
+		 */
+		_getFocusableElements: function(){
+			if (!this.picker || !this.picker.is(':visible')) {
+				return $();
+			}
+
+			return this.picker.find('button:not([disabled])').filter(function() {
+				var $el = $(this);
+				return $el.is(':visible') && $el.css('visibility') !== 'hidden' &&
+					$el.css('display') !== 'none';
+			});
+		},
+
+		/**
+		 * Focus the currently active or focused element in the visible view.
+		 * Uses roving tabindex pattern.
+		 */
+		_focusActiveElement: function(){
+			var self = this;
+			setTimeout(function() {
+				if (!self.picker.is(':visible')) {
+					return;
+				}
+
+				var $view = self.picker.find('.datepicker-' + DPGlobal.viewModes[self.viewMode].clsName);
+				var $focusTarget;
+
+				// Find the focused or active element.
+				$focusTarget = $view.find('button.focused:not([disabled])').first();
+				if (!$focusTarget.length) {
+					$focusTarget = $view.find('button.active:not([disabled])').first();
+				}
+				if (!$focusTarget.length) {
+					$focusTarget = $view.find('button.day:not([disabled]), button.month:not([disabled]), button.year:not([disabled])').first();
+				}
+
+				if ($focusTarget.length) {
+					// Update roving tabindex.
+					$view.find('button.day, button.month, button.year, button.decade, button.century').attr('tabindex', '-1');
+					$focusTarget.attr('tabindex', '0').trigger('focus');
+				}
+			}, 0);
+		},
+
+		/**
+		 * Focus a navigation button (prev or next).
+		 *
+		 * @param {string} which Either 'prev' or 'next'.
+		 */
+		_focusNavButton: function(which){
+			var self = this;
+			setTimeout(function() {
+				var $view = self.picker.find('.datepicker-' + DPGlobal.viewModes[self.viewMode].clsName);
+				var $btn = $view.find('.' + which + ' button');
+				if ($btn.length && !$btn.closest('th').hasClass('disabled')) {
+					$btn.trigger('focus');
+				}
+			}, 0);
+		},
+
+		/**
+		 * Update roving tabindex for the current view.
+		 * Ensures only one grid element has tabindex="0".
+		 */
+		_updateRovingTabindex: function(){
+			var $view = this.picker.find('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName);
+			var selector = 'button.day, button.month, button.year, button.decade, button.century';
+			var $items = $view.find(selector);
+
+			// Reset all to -1.
+			$items.attr('tabindex', '-1');
+
+			// Set focused or active to 0.
+			var $active = $items.filter('.focused').first();
+			if (!$active.length) {
+				$active = $items.filter('.active').first();
+			}
+			if (!$active.length) {
+				$active = $items.not('[disabled]').first();
+			}
+
+			if ($active.length) {
+				$active.attr('tabindex', '0');
+			}
+		},
+
+		/**
+		 * Announce a message to screen readers via the live region.
+		 *
+		 * @param {string} message The message to announce.
+		 */
+		_announce: function(message){
+			var $liveRegion = this.picker.find('.datepicker-live-region');
+			if ($liveRegion.length) {
+				$liveRegion.text(message);
+			}
 		}
 	};
 
@@ -2154,44 +2359,45 @@
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate: '<tfoot>'+
 			'<tr>'+
-			'<th colspan="7" class="today"></th>'+
+			'<th colspan="7"><button type="button" class="today" tabindex="-1"></button></th>'+
 			'</tr>'+
 			'<tr>'+
-			'<th colspan="7" class="clear"></th>'+
+			'<th colspan="7"><button type="button" class="clear" tabindex="-1"></button></th>'+
 			'</tr>'+
 			'</tfoot>'
 	};
-	DPGlobal.template = '<div class="datepicker">'+
+	DPGlobal.template = '<div class="datepicker" role="application" aria-label="Calendar">'+
+		'<div class="sr-only datepicker-live-region" aria-live="polite" aria-atomic="true"></div>'+
 		'<div class="datepicker-days">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		'<tbody></tbody>'+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-months">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-years">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-decades">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-centuries">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
