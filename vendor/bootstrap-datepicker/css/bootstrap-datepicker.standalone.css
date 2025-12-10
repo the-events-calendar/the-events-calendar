@@ -83,16 +83,19 @@
 	-ms-user-select: none;
 	user-select: none;
 }
-.datepicker td,
-.datepicker th {
-	text-align: center;
-	width: 20px;
-	height: 20px;
-	-webkit-border-radius: 4px;
+.datepicker td > button,
+.datepicker th  > button {
 	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
 	border-radius: 4px;
 	border: none;
+	display: table-cell;
+	height: 100%;
+	text-align: center;
+	width:100%;
 }
+
+
 .table-striped .datepicker table tr td,
 .table-striped .datepicker table tr th {
 	background-color: transparent;
@@ -415,10 +418,10 @@
 .datepicker .datepicker-switch {
 	width: 145px;
 }
-.datepicker .datepicker-switch,
-.datepicker .prev,
-.datepicker .next,
-.datepicker tfoot tr th {
+.datepicker .datepicker-switch button,
+.datepicker .prev button,
+.datepicker .next button,
+.datepicker tfoot tr th button{
 	cursor: pointer;
 }
 .datepicker .datepicker-switch:hover,
