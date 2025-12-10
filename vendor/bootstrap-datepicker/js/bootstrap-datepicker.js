@@ -914,10 +914,15 @@
 					html += '<th class="cw">&#160;</th>';
 				}
 				while (dowCnt < this.o.weekStart + 7){
+					var dayIndex = dowCnt % 7;
+					var fullDayName = dates[this.o.language].days[dayIndex];
+					var abbrevDayName = dates[this.o.language].daysMin[dayIndex];
 					html += '<th class="dow';
 					if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) !== -1)
 						html += ' disabled';
-					html += '">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
+					html += '" scope="col" aria-label="' + fullDayName + '" title="' + fullDayName + '">';
+					html += '<abbr title="' + fullDayName + '">' + abbrevDayName + '</abbr></th>';
+					dowCnt++;
 				}
 				html += '</tr>';
 				this.picker.find('.datepicker-days thead').append(html);
