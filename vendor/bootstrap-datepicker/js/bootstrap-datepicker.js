@@ -495,9 +495,6 @@
 				click: $.proxy(this.click, this),
 				keydown: $.proxy(this.pickerKeydown, this)
 			}],
-			[this.picker, '.prev button, .next button', {
-				click: $.proxy(this.navArrowsClick, this)
-			}],
 			[this.picker, 'button.day:not([disabled])', {
 				click: $.proxy(this.dayCellClick, this)
 			}],
@@ -1321,9 +1318,25 @@
 			target = $(e.target);
 
 			// Handle clicks on button elements inside header cells.
-			// Traverse up to find the actual control class for switch button.
-			if (target.is('button') && target.parent().hasClass('datepicker-switch')) {
-				target = target.parent();
+			// Traverse up to find the actual control class.
+			if (target.is('button')) {
+				var $parent = target.parent();
+				if ($parent.hasClass('datepicker-switch')) {
+					target = $parent;
+				} else if ($parent.hasClass('prev') || $parent.hasClass('next')) {
+					// Handle prev/next button clicks.
+					if (!$parent.hasClass('disabled')) {
+						dir = $parent.hasClass('prev') ? -1 : 1;
+						if (this.viewMode !== 0) {
+							dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
+						}
+						this.viewDate = this.moveMonth(this.viewDate, dir);
+						this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
+						this.fill();
+						this._focusNavButton($parent.hasClass('prev') ? 'prev' : 'next');
+					}
+					return;
+				}
 			}
 
 			// Clicked on the switch.
@@ -1670,11 +1683,13 @@
 			var key = e.key || e.keyCode;
 			var $target = $(e.target);
 
-			// Handle Space key to activate buttons (native behavior backup).
-			if ((key === ' ' || key === 'Space' || key === 32) && $target.is('button')) {
-				e.preventDefault();
-				$target.trigger('click');
-				return;
+			// Handle Enter and Space keys to activate buttons.
+			if ($target.is('button')) {
+				if (key === 'Enter' || key === 13 || key === ' ' || key === 'Space' || key === 32) {
+					e.preventDefault();
+					$target.trigger('click');
+					return;
+				}
 			}
 
 			// Handle Escape key to close picker.
