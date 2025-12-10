@@ -196,11 +196,11 @@
 
 		// Checking templates and inserting.
 		if (this._check_template(this.o.templates.leftArrow)) {
-			this.picker.find('.prev button').html(this.o.templates.leftArrow);
+			this.picker.find('button.prev').html(this.o.templates.leftArrow);
 		}
 
 		if (this._check_template(this.o.templates.rightArrow)) {
-			this.picker.find('.next button').html(this.o.templates.rightArrow);
+			this.picker.find('button.next').html(this.o.templates.rightArrow);
 		}
 
 		this._buildEvents();
@@ -219,11 +219,13 @@
 
 		if (this.o.calendarWeeks) {
 			// Update colspan for calendar weeks column.
-			// Today/clear buttons are now inside the <th>, so target the parent <th>.
-			this.picker.find('.datepicker-days .datepicker-switch, thead .datepicker-title')
-				.attr('colspan', function(i, val){
-					return Number(val) + 1;
-				});
+			// Target the <th> containing the datepicker-switch button, and the title row.
+			this.picker.find('thead .datepicker-title').attr('colspan', function(i, val){
+				return Number(val) + 1;
+			});
+			this.picker.find('.datepicker-days button.datepicker-switch').parent().attr('colspan', function(i, val){
+				return Number(val) + 1;
+			});
 			this.picker.find('tfoot button.today, tfoot button.clear').parent()
 				.attr('colspan', function(i, val){
 					return Number(val) + 1;
@@ -1057,7 +1059,7 @@
 				html += '<button ' + btnAttrs.join(' ') + '>' + currVal + '</button>';
 			}
 
-			view.find('.datepicker-switch button').text(startVal + '-' + endVal);
+			view.find('button.datepicker-switch').text(startVal + '-' + endVal);
 			view.find('td').html(html);
 		},
 
@@ -1078,7 +1080,7 @@
 				before;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days .datepicker-switch button')
+			this.picker.find('.datepicker-days button.datepicker-switch')
 				.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot button.today')
 				.text(todaytxt)
@@ -1188,7 +1190,7 @@
 
 			var monthsTitle = dates[this.o.language].monthsTitle || dates['en'].monthsTitle || 'Months';
 			var months = this.picker.find('.datepicker-months')
-				.find('.datepicker-switch button')
+				.find('button.datepicker-switch')
 				.text(this.o.maxViewMode < 2 ? monthsTitle : year)
 				.end()
 				.find('tbody .month').removeClass('active');
@@ -1303,11 +1305,9 @@
 					break;
 			}
 
-			this.picker.find('.prev').toggleClass('disabled', prevIsDisabled);
-			this.picker.find('.next').toggleClass('disabled', nextIsDisabled);
-			// Also update the button disabled attribute for accessibility.
-			this.picker.find('.prev button').prop('disabled', prevIsDisabled);
-			this.picker.find('.next button').prop('disabled', nextIsDisabled);
+			// Toggle disabled class and attribute on the navigation buttons.
+			this.picker.find('button.prev').toggleClass('disabled', prevIsDisabled).prop('disabled', prevIsDisabled);
+			this.picker.find('button.next').toggleClass('disabled', nextIsDisabled).prop('disabled', nextIsDisabled);
 		},
 
 		click: function(e){
@@ -1317,26 +1317,20 @@
 			var target, dir, day, year, month;
 			target = $(e.target);
 
-			// Handle clicks on button elements inside header cells.
-			// Traverse up to find the actual control class.
-			if (target.is('button')) {
-				var $parent = target.parent();
-				if ($parent.hasClass('datepicker-switch')) {
-					target = $parent;
-				} else if ($parent.hasClass('prev') || $parent.hasClass('next')) {
-					// Handle prev/next button clicks.
-					if (!$parent.hasClass('disabled')) {
-						dir = $parent.hasClass('prev') ? -1 : 1;
-						if (this.viewMode !== 0) {
-							dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
-						}
-						this.viewDate = this.moveMonth(this.viewDate, dir);
-						this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
-						this.fill();
-						this._focusNavButton($parent.hasClass('prev') ? 'prev' : 'next');
+			// Handle clicks on navigation buttons (prev/next).
+			// Classes are now directly on the button elements.
+			if (target.is('button') && (target.hasClass('prev') || target.hasClass('next'))) {
+				if (!target.hasClass('disabled') && !target.prop('disabled')) {
+					dir = target.hasClass('prev') ? -1 : 1;
+					if (this.viewMode !== 0) {
+						dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
 					}
-					return;
+					this.viewDate = this.moveMonth(this.viewDate, dir);
+					this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
+					this.fill();
+					this._focusNavButton(target.hasClass('prev') ? 'prev' : 'next');
 				}
+				return;
 			}
 
 			// Clicked on the switch.
@@ -1413,8 +1407,7 @@
 		// Clicked on prev or next.
 		navArrowsClick: function(e){
 			var $target = $(e.currentTarget);
-			var $navCell = $target.closest('.prev, .next');
-			var dir = $navCell.hasClass('prev') ? -1 : 1;
+			var dir = $target.hasClass('prev') ? -1 : 1;
 			if (this.viewMode !== 0){
 				dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
 			}
@@ -1805,8 +1798,8 @@
 			var self = this;
 			setTimeout(function() {
 				var $view = self.picker.find('.datepicker-' + DPGlobal.viewModes[self.viewMode].clsName);
-				var $btn = $view.find('.' + which + ' button');
-				if ($btn.length && !$btn.closest('th').hasClass('disabled')) {
+				var $btn = $view.find('button.' + which);
+				if ($btn.length && !$btn.hasClass('disabled') && !$btn.prop('disabled')) {
 					$btn.trigger('focus');
 				}
 			}, 0);
@@ -2269,9 +2262,9 @@
 			'<th colspan="7" class="datepicker-title"></th>'+
 			'</tr>'+
 			'<tr>'+
-			'<th class="prev"><button type="button" aria-label="Previous">'+defaults.templates.leftArrow+'</button></th>'+
-			'<th colspan="5" class="datepicker-switch"><button type="button"></button></th>'+
-			'<th class="next"><button type="button" aria-label="Next">'+defaults.templates.rightArrow+'</button></th>'+
+			'<th><button type="button" class="prev" aria-label="Previous">'+defaults.templates.leftArrow+'</button></th>'+
+			'<th colspan="5"><button type="button" class="datepicker-switch"></button></th>'+
+			'<th><button type="button" class="next" aria-label="Next">'+defaults.templates.rightArrow+'</button></th>'+
 			'</tr>'+
 			'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
