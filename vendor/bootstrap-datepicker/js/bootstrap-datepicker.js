@@ -572,8 +572,7 @@
 			}
 			// Store trigger element for focus restoration.
 			this._triggerElement = this.element[0];
-			// Update roving tabindex and focus the active element.
-			this._updateRovingTabindex();
+			// Focus the active element when picker opens.
 			this._focusActiveElement();
 			return this;
 		},
@@ -934,7 +933,7 @@
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
 				ariaLabel = formatMonthAriaLabel(i, year);
-				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '" tabindex="-1">' + dates[this.o.language].monthsShort[i] + '</button>';
+				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '">' + dates[this.o.language].monthsShort[i] + '</button>';
 			}
 			this.picker.find('.datepicker-months td').html(html);
 		},
@@ -1050,8 +1049,7 @@
 				var btnAttrs = [
 					'type="button"',
 					'class="' + classes.join(' ') + '"',
-					'aria-label="' + ariaLabel + '"',
-					'tabindex="-1"'
+					'aria-label="' + ariaLabel + '"'
 				];
 				if (isDisabled) {
 					btnAttrs.push('disabled');
@@ -1161,14 +1159,12 @@
 				var isDisabled = $.inArray('disabled', clsName) !== -1;
 				var isSelected = $.inArray('active', clsName) !== -1;
 				var isToday = $.inArray('today', clsName) !== -1;
-				var isFocused = $.inArray('focused', clsName) !== -1;
 				var dayAriaLabel = formatDayAriaLabel(prevMonth);
 				var btnAttrs = [
 					'type="button"',
 					'class="' + clsName.join(' ') + '"',
 					'data-date="' + prevMonth.getTime().toString() + '"',
-					'aria-label="' + dayAriaLabel + '"',
-					'tabindex="-1"'
+					'aria-label="' + dayAriaLabel + '"'
 				];
 
 				if (isDisabled) {
@@ -1268,9 +1264,6 @@
 				endYear,
 				this.o.beforeShowCentury
 			);
-
-			// Update roving tabindex after fill.
-			this._updateRovingTabindex();
 
 			// Announce the current view to screen readers.
 			if (this.picker.is(':visible')) {
@@ -1644,13 +1637,7 @@
 					}
 					break;
 				case 9: // tab
-					// Let Tab navigate within the picker - handled by pickerKeydown.
-					// Only close if focus is still on the input.
-					if ($(document.activeElement).is(this.inputField)) {
-						// Move focus to the picker.
-						e.preventDefault();
-						this._focusActiveElement();
-					}
+					// Allow natural Tab behavior - do not intercept.
 					break;
 			}
 			if (dateChanged){
@@ -1708,13 +1695,7 @@
 				return;
 			}
 
-			// Handle Tab key for focus trap.
-			if (key === 'Tab' || key === 9) {
-				this._handleTabKey(e);
-				return;
-			}
-
-			// Handle arrow keys for roving tabindex within grid.
+			// Handle arrow keys for navigation within grid.
 			if ($target.hasClass('day') || $target.hasClass('month') ||
 				$target.hasClass('year') || $target.hasClass('decade') ||
 				$target.hasClass('century')) {
@@ -1723,39 +1704,8 @@
 		},
 
 		/**
-		 * Handle Tab key navigation within the picker.
-		 * Implements focus trapping to keep focus within the picker.
-		 *
-		 * @param {Event} e The keydown event.
-		 */
-		_handleTabKey: function(e){
-			var $focusable = this._getFocusableElements();
-			if (!$focusable.length) {
-				return;
-			}
-
-			var $first = $focusable.first();
-			var $last = $focusable.last();
-			var $active = $(document.activeElement);
-
-			// Shift+Tab on first element wraps to last.
-			if (e.shiftKey && $active.is($first)) {
-				e.preventDefault();
-				$last.trigger('focus');
-				return;
-			}
-
-			// Tab on last element wraps to first.
-			if (!e.shiftKey && $active.is($last)) {
-				e.preventDefault();
-				$first.trigger('focus');
-				return;
-			}
-		},
-
-		/**
 		 * Handle arrow key navigation within grid elements.
-		 * Implements roving tabindex pattern.
+		 * Moves focus directly without modifying tabindex.
 		 *
 		 * @param {Event}  e       The keydown event.
 		 * @param {jQuery} $target The focused element.
@@ -1790,9 +1740,8 @@
 			}
 
 			if (newIndex >= 0 && newIndex < $items.length) {
-				// Update roving tabindex.
-				$items.attr('tabindex', '-1');
-				$items.eq(newIndex).attr('tabindex', '0').trigger('focus');
+				// Move focus to the target element.
+				$items.eq(newIndex).trigger('focus');
 
 				// Update focusDate for days view.
 				if ($target.hasClass('day')) {
@@ -1805,25 +1754,7 @@
 		},
 
 		/**
-		 * Get all focusable elements within the picker.
-		 *
-		 * @return {jQuery} Collection of focusable elements.
-		 */
-		_getFocusableElements: function(){
-			if (!this.picker || !this.picker.is(':visible')) {
-				return $();
-			}
-
-			return this.picker.find('button:not([disabled])').filter(function() {
-				var $el = $(this);
-				return $el.is(':visible') && $el.css('visibility') !== 'hidden' &&
-					$el.css('display') !== 'none';
-			});
-		},
-
-		/**
 		 * Focus the currently active or focused element in the visible view.
-		 * Uses roving tabindex pattern.
 		 */
 		_focusActiveElement: function(){
 			var self = this;
@@ -1845,9 +1776,7 @@
 				}
 
 				if ($focusTarget.length) {
-					// Update roving tabindex.
-					$view.find('button.day, button.month, button.year, button.decade, button.century').attr('tabindex', '-1');
-					$focusTarget.attr('tabindex', '0').trigger('focus');
+					$focusTarget.trigger('focus');
 				}
 			}, 0);
 		},
@@ -1866,32 +1795,6 @@
 					$btn.trigger('focus');
 				}
 			}, 0);
-		},
-
-		/**
-		 * Update roving tabindex for the current view.
-		 * Ensures only one grid element has tabindex="0".
-		 */
-		_updateRovingTabindex: function(){
-			var $view = this.picker.find('.datepicker-' + DPGlobal.viewModes[this.viewMode].clsName);
-			var selector = 'button.day, button.month, button.year, button.decade, button.century';
-			var $items = $view.find(selector);
-
-			// Reset all to -1.
-			$items.attr('tabindex', '-1');
-
-			// Set focused or active to 0.
-			var $active = $items.filter('.focused').first();
-			if (!$active.length) {
-				$active = $items.filter('.active').first();
-			}
-			if (!$active.length) {
-				$active = $items.not('[disabled]').first();
-			}
-
-			if ($active.length) {
-				$active.attr('tabindex', '0');
-			}
 		},
 
 		/**
@@ -2359,10 +2262,10 @@
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate: '<tfoot>'+
 			'<tr>'+
-			'<th colspan="7"><button type="button" class="today" tabindex="-1"></button></th>'+
+			'<th colspan="7"><button type="button" class="today"></button></th>'+
 			'</tr>'+
 			'<tr>'+
-			'<th colspan="7"><button type="button" class="clear" tabindex="-1"></button></th>'+
+			'<th colspan="7"><button type="button" class="clear"></button></th>'+
 			'</tr>'+
 			'</tfoot>'
 	};
