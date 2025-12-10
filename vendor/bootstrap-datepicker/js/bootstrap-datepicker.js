@@ -1085,10 +1085,10 @@
 				.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot button.today')
 				.text(todaytxt)
-				.css('display', titleBtnVisible ? 'inline-block' : 'none');
+				.closest('tr').css('display', titleBtnVisible ? '' : 'none');
 			this.picker.find('tfoot button.clear')
 				.text(cleartxt)
-				.css('display', this.o.clearBtn === true ? 'inline-block' : 'none');
+				.closest('tr').css('display', this.o.clearBtn === true ? '' : 'none');
 			this.picker.find('thead .datepicker-title')
 				.text(this.o.title)
 				.css('display', typeof this.o.title === 'string' && this.o.title !== '' ? 'table-cell' : 'none');
