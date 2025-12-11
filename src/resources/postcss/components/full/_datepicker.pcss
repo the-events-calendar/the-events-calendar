@@ -45,6 +45,10 @@
 		.prev,
 		.next {
 
+			.tribe-events-c-top-bar__datepicker-nav-icon-svg path {
+				fill: var(--tec-color-icon-primary);
+			}
+
 			&:hover,
 			&:focus,
 			&:active {
@@ -52,10 +56,6 @@
 				.tribe-events-c-top-bar__datepicker-nav-icon-svg path {
 					fill: var(--tec-color-icon-active);
 				}
-			}
-
-			.tribe-events-c-top-bar__datepicker-nav-icon-svg path {
-				fill: var(--tec-color-icon-secondary);
 			}
 		}
 
@@ -84,19 +84,48 @@
 		.year {
 			border-radius: var(--tec-border-radius-default);
 
-			&:hover,
+			&:hover {
+				background: var(--tec-color-background-secondary-datepicker);
+			}
+
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
+				outline: var(--tec-outline-active-default);
+				outline-offset: var(--tec-outline-offset-default);
 			}
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
 
-				&:hover,
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+
+				&:hover {
+					background: var(--tec-color-accent-primary-background-datepicker);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
+
+					&::before {
+						border: 1px solid var(--tec-outline-color-default);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
@@ -105,11 +134,18 @@
 				color: var(--tec-color-background);
 				text-shadow: none;
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
+					text-shadow: none;
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary);
 					color: var(--tec-color-background);
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 					text-shadow: none;
 				}
 			}
@@ -180,10 +216,15 @@
 			background-color: var(--tec-color-background);
 			color: var(--tec-color-text-primary);
 
-			&:hover,
+			&:hover {
+				background: var(--tec-color-background-secondary-datepicker);
+			}
+
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
+				outline: var(--tec-outline-active-default);
+				outline-offset: var(--tec-outline-offset-default);
 			}
 
 			&.past {
@@ -192,11 +233,35 @@
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
 
-				&:hover,
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+
+				&:hover {
+					background: var(--tec-color-accent-primary-background-datepicker);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
+
+					&::before {
+						border: 1px solid var(--tec-outline-color-default);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
@@ -204,11 +269,17 @@
 				background: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary);
 					color: var(--tec-color-background);
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 		}
@@ -256,10 +327,15 @@
 			background-color: transparent;
 			color: var(--tec-color-text-primary);
 
-			&:hover,
+			&:hover {
+				background: var(--tec-color-background-secondary-datepicker);
+			}
+
 			&:focus,
 			&.focused {
 				background: var(--tec-color-background-secondary-datepicker);
+				outline: var(--tec-outline-active-default);
+				outline-offset: var(--tec-outline-offset-default);
 			}
 
 			&.past {
@@ -268,23 +344,53 @@
 
 			&.current {
 				background: var(--tec-color-accent-primary-background-datepicker);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-accent-primary);
+				position: relative;
 
-				&:hover,
+				&::before {
+					border: 1px solid var(--tec-color-accent-primary);
+					border-radius: var(--tec-border-radius-default);
+					bottom: 0;
+					content: "";
+					left: 0;
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+
+				&:hover {
+					background: var(--tec-color-accent-primary-background-datepicker);
+				}
+
 				&:focus,
 				&.focused {
 					background: var(--tec-color-accent-primary-background-datepicker);
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
+
+					&::before {
+						border: 1px solid var(--tec-outline-color-default);
+						box-shadow: inset 0 0 0 1px var(--tec-color-accent-primary);
+					}
 				}
 			}
 
 			&.active {
-				background: var(--tec-color-accent-primary) !important;
-				color: var(--tec-color-background) !important;
+				background: var(--tec-color-accent-primary);
+				color: var(--tec-color-background);
 
-				&:hover,
+				&:hover {
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
+				}
+
 				&:focus,
 				&.focused {
-					background: var(--tec-color-accent-primary) !important;
-					color: var(--tec-color-background) !important;
+					background: var(--tec-color-accent-primary);
+					color: var(--tec-color-background);
+					outline: var(--tec-outline-active-default);
+					outline-offset: var(--tec-outline-offset-default);
 				}
 			}
 		}

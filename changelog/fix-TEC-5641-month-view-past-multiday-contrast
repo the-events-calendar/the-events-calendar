@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Increased contrast for month view past multiday events for improved accessibility. [TEC-5641]
