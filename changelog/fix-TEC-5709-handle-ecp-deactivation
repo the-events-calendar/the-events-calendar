@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Handle recurring events query when ECP has been deactivated. [TEC-5709]
