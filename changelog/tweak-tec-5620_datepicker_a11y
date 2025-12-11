@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Enhance Top Bar datepicker with semantic HTML, ARIA support, and reliable keyboard navigation. [TEC-5620]
