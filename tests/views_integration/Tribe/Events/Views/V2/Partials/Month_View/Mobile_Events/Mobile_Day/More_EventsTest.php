@@ -12,7 +12,11 @@ class More_EventsTest extends HtmlPartialTestCase {
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
-		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'more_events' => 4, 'more_url' => 'http://theeventscalendar.com' ] ) );
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'more_events' => 4,
+			'more_url'    => 'http://theeventscalendar.com',
+			'day_date'    => '2024-09-01',
+		] ) );
 	}
 
 	/**

@@ -51,9 +51,9 @@ $tec_events_general_editing = [
 		'tooltip'         => esc_html__( 'Enable WordPress Custom Fields on events in the classic editor.', 'the-events-calendar' ),
 		'default'         => true,
 		'validation_type' => 'boolean',
+		'conditional'     => ! tec_using_classy_editor(),
 	],
 ];
-
 
 $general_editing = new Tribe__Settings_Tab(
 	'general-editing-tab',

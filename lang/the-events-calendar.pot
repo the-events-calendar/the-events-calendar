@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.5\n"
+"Project-Id-Version: The Events Calendar 6.15.12.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-22T17:35:26+00:00\n"
+"POT-Creation-Date: 2025-11-19T16:36:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -19,13 +19,13 @@ msgstr ""
 #. translators: %s: The Events Calendar Link element.
 #: the-events-calendar.php
 #: src/admin-views/admin-welcome-message.php:31
-#: src/Events/Integrations/Plugins/Elementor/Controller.php:114
+#: src/Events/Integrations/Plugins/Elementor/Controller.php:116
 #: src/Events/Site_Health/Info_Section.php:73
-#: src/functions/template-tags/general.php:1520
+#: src/functions/template-tags/general.php:1523
 #: src/Tribe/Main.php:990
 #: src/Tribe/Main.php:1444
 #: src/Tribe/Privacy.php:29
-#: the-events-calendar.php:61
+#: the-events-calendar.php:62
 #: src/modules/blocks/archive-events/index.js:33
 #: src/modules/blocks/single-event/index.js:35
 msgid "The Events Calendar"
@@ -134,7 +134,7 @@ msgid "Configure Settings"
 msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:39
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:376
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:378
 msgid "Create an Event"
 msgstr ""
 
@@ -301,8 +301,8 @@ msgid "Origin:"
 msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:5
-#: src/Tribe/Ignored_Events.php:366
-#: src/Tribe/Ignored_Events.php:368
+#: src/Tribe/Ignored_Events.php:377
+#: src/Tribe/Ignored_Events.php:379
 msgid "Source:"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgid "Last Import:"
 msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:14
-#: src/Tribe/Ignored_Events.php:335
+#: src/Tribe/Ignored_Events.php:346
 msgid "The last time this event was imported and/or updated via import."
 msgstr ""
 
@@ -860,7 +860,7 @@ msgstr ""
 #: src/admin-views/tribe-options-imports.php:534
 #: src/admin-views/tribe-options-imports.php:597
 #: src/admin-views/tribe-options-imports.php:644
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:775
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:772
 msgid "Show Map"
 msgstr ""
 
@@ -1014,8 +1014,9 @@ msgid "When importing from a website that uses The Events Calendar, the REST API
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:476
-#: src/admin-views/settings/tabs/display/display-currency.php:71
+#: src/admin-views/settings/tabs/display/display-currency.php:72
 #: src/admin-views/settings/tabs/general/general-editing.php:40
+#: src/admin-views/tribe-options-imports.php:660
 #: src/Tribe/REST/V1/EA_Messages.php:40
 msgid "Learn more."
 msgstr ""
@@ -1085,7 +1086,7 @@ msgstr ""
 #: src/Tribe/Aggregator/API/Origins.php:57
 #: src/Tribe/Aggregator/Record/gCal.php:14
 #: src/Tribe/Editor/Blocks/Event_Links.php:26
-#: src/Tribe/iCal.php:154
+#: src/Tribe/iCal.php:156
 #: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:55
 #: src/modules/blocks/event-links/index.js:38
 #: src/modules/blocks/event-links/template.js:27
@@ -1095,7 +1096,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:628
 #: src/admin-views/aggregator/status.php:210
-#: src/admin-views/tribe-options-addons-api.php:45
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:75
 #: src/Tribe/Aggregator/API/Origins.php:75
 #: src/Tribe/Aggregator/Record/Meetup.php:40
 msgid "Meetup"
@@ -1107,7 +1108,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:636
 #: src/admin-views/aggregator/status.php:183
-#: src/admin-views/tribe-options-addons-api.php:94
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:120
 #: src/Tribe/Aggregator/API/Origins.php:51
 #: src/Tribe/Aggregator/Record/Eventbrite.php:88
 msgid "Eventbrite"
@@ -1363,6 +1364,7 @@ msgid "Category:"
 msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:307
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:135
 #: src/Tribe/Admin/Bar/Default_Configurator.php:75
 #: src/Tribe/Aggregator/Page.php:396
 msgid "Import"
@@ -1500,7 +1502,7 @@ msgstr ""
 #: src/admin-views/organizer-meta-box.php:37
 #: src/admin-views/venue-meta-box.php:185
 #: src/functions/template-tags/link.php:538
-#: src/views/blocks/parts/details.php:183
+#: src/views/blocks/parts/details.php:201
 #: src/views/integrations/elementor/widgets/event-website/header.php:20
 #: src/modules/blocks/classic-event-details/template.js:94
 #: src/modules/elements/organizer-form/element.js:167
@@ -1524,7 +1526,7 @@ msgid "Address:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:82
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:967
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:964
 #: src/Tribe/Importer/Column_Mapper.php:144
 msgid "Venue Address"
 msgstr ""
@@ -1574,7 +1576,7 @@ msgid "Venue Zip Code"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:190
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:894
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:891
 #: src/Tribe/Importer/Column_Mapper.php:149
 msgid "Venue Phone"
 msgstr ""
@@ -1666,8 +1668,8 @@ msgid "ISO Currency Code:"
 msgstr ""
 
 #: src/admin-views/events-meta-box.php:261
-#: src/views/blocks/parts/details.php:145
-#: src/views/modules/meta/details.php:148
+#: src/views/blocks/parts/details.php:161
+#: src/views/modules/meta/details.php:166
 msgid "Cost:"
 msgstr ""
 
@@ -2107,49 +2109,49 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:15
+#: src/admin-views/settings/tabs/display/display-currency.php:16
 msgctxt "Currency settings section header"
 msgid "Currency"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:22
+#: src/admin-views/settings/tabs/display/display-currency.php:23
 msgid "Default currency symbol"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:23
+#: src/admin-views/settings/tabs/display/display-currency.php:24
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:30
+#: src/admin-views/settings/tabs/display/display-currency.php:31
 msgid "Default currency code"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:31
+#: src/admin-views/settings/tabs/display/display-currency.php:32
 msgid "Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:38
+#: src/admin-views/settings/tabs/display/display-currency.php:39
 #: src/modules/data/blocks/price/reducer.js:25
 msgid "USD"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:43
+#: src/admin-views/settings/tabs/display/display-currency.php:44
 msgid "Currency symbol follows value"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:44
+#: src/admin-views/settings/tabs/display/display-currency.php:45
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:63
+#: src/admin-views/settings/tabs/display/display-currency.php:64
 msgid "Start selling tickets to your events"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:67
+#: src/admin-views/settings/tabs/display/display-currency.php:68
 msgid "Get Event Tickets to manage attendee registration and ticket sales to your events, for free."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-currency.php:83
+#: src/admin-views/settings/tabs/display/display-currency.php:84
 #: src/Events/Admin/Onboarding/Landing_Page.php:249
 msgid "Currency"
 msgstr ""
@@ -2374,7 +2376,7 @@ msgstr ""
 
 #: src/admin-views/settings/tabs/general/general-maintenance.php:41
 #: src/admin-views/settings/tabs/general/general-maintenance.php:59
-#: src/Tribe/Views/V2/Hooks.php:1343
+#: src/Tribe/Views/V2/Hooks.php:1365
 msgid "Disabled"
 msgstr ""
 
@@ -2504,66 +2506,93 @@ msgstr ""
 msgid "Viewing"
 msgstr ""
 
-#: src/admin-views/settings/upsells/community.php:20
-msgid "Community"
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:24
+msgctxt "Calendar display settings header"
+msgid "Import"
 msgstr ""
 
-#: src/admin-views/settings/upsells/community.php:24
-msgid "Offer visitors the ability to contribute to your event listings without needing backend access."
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:30
+msgid "Below you can set up the authentication for different calendar services, in order to be able to import events from them."
 msgstr ""
 
-#: src/admin-views/settings/upsells/community.php:27
-msgid "Check out our Community add-on"
-msgstr ""
-
-#: src/admin-views/tribe-options-addons-api.php:19
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:50
 msgid "Meetup Authentication"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:23
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:54
 msgid "You need to connect to Meetup for Event Aggregator to work properly"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:24
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:55
 msgid "Connect to Meetup"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:26
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:57
 msgid "Refresh your connection to Meetup"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:27
-#: src/admin-views/tribe-options-addons-api.php:77
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:58
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:104
 msgid "Disconnect"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:69
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:96
 msgid "Eventbrite Authentication"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:73
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:100
 msgid "You need to connect to Eventbrite for Event Aggregator to work properly"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:74
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:101
 msgid "Connect to Eventbrite"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:76
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:103
 msgid "Refresh your connection to Eventbrite"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:114
+#: src/admin-views/settings/upsells/community.php:21
+msgid "Community"
+msgstr ""
+
+#: src/admin-views/settings/upsells/community.php:25
+msgid "Offer visitors the ability to contribute to your event listings without needing backend access."
+msgstr ""
+
+#: src/admin-views/settings/upsells/community.php:28
+msgid "Check out our Community add-on"
+msgstr ""
+
+#: src/admin-views/settings/upsells/recurrence-banner.php:28
+msgid "Dismiss this notice."
+msgstr ""
+
+#: src/admin-views/settings/upsells/recurrence-banner.php:39
+msgid "Schedule multiple events in daily, weekly, monthly, or custom patterns with Events Calendar Pro."
+msgstr ""
+
+#. translators: %1$s: opening span tag, contents not show on smaller screens %2$s: closing span tag
+#: src/admin-views/settings/upsells/recurrence-banner.php:46
+#, php-format
+msgid "Find out more %1$s about Events Calendar Pro%2$s"
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:28
 msgctxt "Integrations section header"
 msgid "Integrations"
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:117
+#: src/admin-views/tribe-options-addons-api.php:31
 msgid "The Events Calendar, Event Tickets and their add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations."
 msgstr ""
 
-#: src/admin-views/tribe-options-addons-api.php:149
+#: src/admin-views/tribe-options-addons-api.php:65
 msgid "Integrations"
+msgstr ""
+
+#: src/admin-views/tribe-options-addons-api.php:72
+msgid "Google Maps"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:14
@@ -2822,22 +2851,22 @@ msgstr ""
 msgid "Invalid Facebook URL"
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:422
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:420
 #, php-format
 msgid "We hope you love %1$s"
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:427
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:425
 #, php-format
 msgid "Hi, %1$s! This is an invitation to help our %2$s community. If you opt-in, some data about your usage of %2$s will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on events management, WordPress, and our products from time to time."
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:431
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:429
 #, php-format
 msgid "And if you skip this, that's okay! %1$s will still work just fine."
 msgstr ""
 
-#: src/deprecated/Tribe__Events__Integrations__Freemius.php:435
+#: src/deprecated/Tribe__Events__Integrations__Freemius.php:433
 msgid "Powered by"
 msgstr ""
 
@@ -3162,15 +3191,15 @@ msgstr ""
 msgid "Learn how to get an active license"
 msgstr ""
 
-#: src/Events/Admin/Onboarding/Steps/Optin.php:49
+#: src/Events/Admin/Onboarding/Steps/Optin.php:50
 msgid "Opt-in status is already set to the requested value."
 msgstr ""
 
-#: src/Events/Admin/Onboarding/Steps/Optin.php:56
+#: src/Events/Admin/Onboarding/Steps/Optin.php:57
 msgid "Failed to save opt-in status."
 msgstr ""
 
-#: src/Events/Admin/Onboarding/Steps/Optin.php:62
+#: src/Events/Admin/Onboarding/Steps/Optin.php:63
 msgid "Successfully saved opt-in status."
 msgstr ""
 
@@ -3698,6 +3727,10 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
+#: src/Events/Custom_Tables/V1/admin-views/migration/upgrade-box.php:22
+msgid "Upgrade is not Available"
+msgstr ""
+
 #: src/Events/Custom_Tables/V1/admin-views/migration/upgrade-box.php:23
 msgid "You must update your version of Events Calendar Pro for access to calendar upgrades."
 msgstr ""
@@ -4056,6 +4089,10 @@ msgstr ""
 
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:461
 msgid "Automatic imports will be paused until migration is complete."
+msgstr ""
+
+#: src/Events/Custom_Tables/V1/Notices.php:70
+msgid "The Events Calendar: Custom Tables v1 - error"
 msgstr ""
 
 #. translators: %s: Event (singular)
@@ -4518,7 +4555,7 @@ msgid "Right"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:243
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1146
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1143
 msgid "Width"
 msgstr ""
 
@@ -4527,7 +4564,7 @@ msgid "Max Width"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:313
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1184
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1181
 msgid "Height"
 msgstr ""
 
@@ -4616,7 +4653,7 @@ msgid "Hover Animation"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:486
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1219
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1216
 msgid "Border Radius"
 msgstr ""
 
@@ -4675,9 +4712,9 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:678
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:919
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:603
-#: src/views/blocks/parts/organizer.php:69
-#: src/views/modules/meta/organizer.php:58
-#: src/views/modules/meta/venue.php:69
+#: src/views/blocks/parts/organizer.php:63
+#: src/views/modules/meta/organizer.php:49
+#: src/views/modules/meta/venue.php:48
 msgid "Phone"
 msgstr ""
 
@@ -4696,8 +4733,8 @@ msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:736
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:990
-#: src/views/blocks/parts/organizer.php:80
-#: src/views/modules/meta/organizer.php:69
+#: src/views/blocks/parts/organizer.php:76
+#: src/views/modules/meta/organizer.php:62
 msgid "Email"
 msgstr ""
 
@@ -4718,7 +4755,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:715
 #: src/functions/template-tags/organizer.php:514
 #: src/functions/template-tags/venue.php:938
-#: src/views/blocks/parts/organizer.php:91
+#: src/views/blocks/parts/organizer.php:89
 msgid "Website"
 msgstr ""
 
@@ -4732,7 +4769,7 @@ msgid "Header"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:931
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:906
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:903
 msgid "Phone Header"
 msgstr ""
 
@@ -4749,12 +4786,12 @@ msgid "Email Text"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1073
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1074
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1071
 msgid "Website Header"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1097
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1101
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1098
 msgid "Website Url"
 msgstr ""
 
@@ -4901,8 +4938,8 @@ msgstr ""
 
 #. Translators: %s is the singular lowercase label for an event, e.g., "event".
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:152
-#: src/functions/template-tags/general.php:642
-#: src/functions/template-tags/general.php:732
+#: src/functions/template-tags/general.php:644
+#: src/functions/template-tags/general.php:735
 msgid "Tags:"
 msgstr ""
 
@@ -4984,42 +5021,42 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:790
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:787
 msgid "Mock Data"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:798
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:795
 msgid "Show Two Venues"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:817
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:814
 msgid "Venue Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:855
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:852
 #: src/Tribe/Importer/Column_Mapper.php:141
 msgid "Venue Name"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:933
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:981
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:930
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:978
 msgid "Phone Number"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1008
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1005
 msgid "Address Text"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1024
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1021
 msgid "Map Link"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1062
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1059
 #: src/Tribe/Importer/Column_Mapper.php:150
 msgid "Venue Website"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1135
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1132
 msgid "Venue Map"
 msgstr ""
 
@@ -5173,6 +5210,14 @@ msgstr ""
 msgid "Venue"
 msgstr ""
 
+#: src/Events/Integrations/Themes/Avada/Provider.php:122
+msgid "Note:"
+msgstr ""
+
+#: src/Events/Integrations/Themes/Avada/Provider.php:123
+msgid "This option is automatically disabled when The Events Calendar is active for compatibility."
+msgstr ""
+
 #: src/Events/QR/QR_Code.php:97
 #: src/Events/QR/QR_Code.php:150
 msgid "View QR Code"
@@ -5183,20 +5228,24 @@ msgstr ""
 msgid "Generate QR Code"
 msgstr ""
 
-#: src/Events/QR/QR_Code.php:216
+#: src/Events/QR/QR_Code.php:219
 msgid "No post found."
 msgstr ""
 
-#: src/Events/QR/QR_Code.php:231
+#: src/Events/QR/QR_Code.php:224
+msgid "You do not have permission to access this content."
+msgstr ""
+
+#: src/Events/QR/QR_Code.php:239
 msgid "Not a supported post type."
 msgstr ""
 
-#: src/Events/QR/QR_Code.php:235
+#: src/Events/QR/QR_Code.php:243
 msgid "Error generating QR code."
 msgstr ""
 
 #. translators: %s: The event title or type of QR code
-#: src/Events/QR/QR_Code.php:263
+#: src/Events/QR/QR_Code.php:271
 #: src/Events/QR/Shortcode.php:92
 #, php-format
 msgid "QR Code for %s"
@@ -5454,81 +5503,81 @@ msgid "Returns the event"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Endpoints/Event.php:188
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:258
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:305
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:270
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:317
 msgid "The requested event was not found"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:221
-msgid "Update an Event"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:222
-msgid "Updates an existing event"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:227
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:213
 msgid "The event data to update."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:235
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:233
+msgid "Update an Event"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:234
+msgid "Updates an existing event"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:247
 msgid "Event updated successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:243
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:398
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:221
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:317
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:221
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:326
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:255
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:400
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:223
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:319
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:222
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:328
 msgid "Invalid request data"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:248
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:295
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:403
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:226
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:273
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:322
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:226
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:273
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:331
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:260
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:307
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:405
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:228
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:275
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:324
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:227
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:274
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:333
 msgid "You are not logged in"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:253
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:265
 msgid "You do not have permission to update this event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:263
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:275
 msgid "Failed to update the event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:278
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:290
 msgid "Delete an Event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:279
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:291
 msgid "Deletes an existing event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:290
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:302
 msgid "Event deleted successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:300
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:312
 msgid "You do not have permission to delete this event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:310
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:322
 msgid "The event has already been trashed"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:315
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:327
 msgid "Failed to delete the event"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Event.php:320
+#: src/Events/REST/TEC/V1/Endpoints/Event.php:332
 msgid "The event does not support trashing. Set force=true to delete"
 msgstr ""
 
@@ -5663,23 +5712,23 @@ msgstr ""
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:377
-msgid "Creates a new event"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:382
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:364
 msgid "The event data to create."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:390
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:379
+msgid "Creates a new event"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:392
 msgid "Event created successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:408
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:410
 msgid "You do not have permission to create events"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Events.php:413
+#: src/Events/REST/TEC/V1/Endpoints/Events.php:415
 msgid "Failed to create the event"
 msgstr ""
 
@@ -5700,60 +5749,60 @@ msgid "Returns the organizer"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Endpoints/Organizer.php:165
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:236
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:283
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:238
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:285
 msgid "The requested organizer was not found"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:199
-msgid "Update an Organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:200
-msgid "Updates an existing organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:205
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:188
 msgid "The organizer data to update."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:213
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:201
+msgid "Update an Organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:202
+msgid "Updates an existing organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:215
 msgid "Organizer updated successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:231
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:233
 msgid "You do not have permission to update this organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:241
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:243
 msgid "Failed to update the organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:256
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:258
 msgid "Delete an Organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:257
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:259
 msgid "Deletes an existing organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:268
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:270
 msgid "Organizer deleted successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:278
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:280
 msgid "You do not have permission to delete this organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:288
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:290
 msgid "The organizer has already been trashed"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:293
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:295
 msgid "Failed to delete the organizer"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:298
+#: src/Events/REST/TEC/V1/Endpoints/Organizer.php:300
 msgid "The organizer does not support trashing. Set force=true to delete"
 msgstr ""
 
@@ -5789,27 +5838,27 @@ msgstr ""
 msgid "Returns the list of organizers"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:295
-msgid "Create an Organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:296
-msgid "Creates a new organizer"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:301
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:283
 msgid "The organizer data to create."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:309
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:297
+msgid "Create an Organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:298
+msgid "Creates a new organizer"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:311
 msgid "Organizer created successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:327
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:329
 msgid "You do not have permission to create organizers"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:332
+#: src/Events/REST/TEC/V1/Endpoints/Organizers.php:334
 msgid "Failed to create the organizer"
 msgstr ""
 
@@ -5830,60 +5879,60 @@ msgid "Returns the venue"
 msgstr ""
 
 #: src/Events/REST/TEC/V1/Endpoints/Venue.php:165
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:236
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:283
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:237
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:284
 msgid "The requested venue was not found"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:199
-msgid "Update a Venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:200
-msgid "Updates an existing venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:205
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:188
 msgid "The venue data to update."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:213
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:200
+msgid "Update a Venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:201
+msgid "Updates an existing venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:214
 msgid "Venue updated successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:231
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:232
 msgid "You do not have permission to update this venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:241
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:242
 msgid "Failed to update the venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:256
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:257
 msgid "Delete a Venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:257
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:258
 msgid "Deletes an existing venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:268
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:269
 msgid "Venue deleted successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:278
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:279
 msgid "You do not have permission to delete this venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:288
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:289
 msgid "The venue has already been trashed"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:293
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:294
 msgid "Failed to delete the venue"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venue.php:298
+#: src/Events/REST/TEC/V1/Endpoints/Venue.php:299
 msgid "The venue does not support trashing. Set force=true to delete"
 msgstr ""
 
@@ -5919,27 +5968,27 @@ msgstr ""
 msgid "Returns the list of venues"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:304
-msgid "Create a Venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:305
-msgid "Creates a new venue"
-msgstr ""
-
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:310
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:292
 msgid "The venue data to create."
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:318
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:306
+msgid "Create a Venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:307
+msgid "Creates a new venue"
+msgstr ""
+
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:320
 msgid "Venue created successfully"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:336
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:338
 msgid "You do not have permission to create venues"
 msgstr ""
 
-#: src/Events/REST/TEC/V1/Endpoints/Venues.php:341
+#: src/Events/REST/TEC/V1/Endpoints/Venues.php:343
 msgid "Failed to create the venue"
 msgstr ""
 
@@ -6077,19 +6126,19 @@ msgid_plural "%s Categories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/functions/template-tags/general.php:852
+#: src/functions/template-tags/general.php:855
 #, php-format
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1415
+#: src/functions/template-tags/general.php:1418
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
 #. translators: %s: The Events Calendar Link element.
-#: src/functions/template-tags/general.php:1520
+#: src/functions/template-tags/general.php:1523
 #, php-format
 msgid "Calendar powered by %s"
 msgstr ""
@@ -6105,7 +6154,7 @@ msgid "+ Google Map"
 msgstr ""
 
 #. translators: %s: events label plural
-#: src/functions/template-tags/loop.php:151
+#: src/functions/template-tags/loop.php:152
 #: src/Tribe/Views/V2/Template/Featured_Title.php:41
 #, php-format
 msgctxt "featured events title"
@@ -6113,26 +6162,26 @@ msgid "Featured %s"
 msgstr ""
 
 #. translators: %s: Events plural
-#: src/functions/template-tags/loop.php:161
+#: src/functions/template-tags/loop.php:162
 #: src/Tribe/Views/V2/Template/Title.php:180
 #, php-format
 msgid "Upcoming %s"
 msgstr ""
 
-#: src/functions/template-tags/loop.php:176
+#: src/functions/template-tags/loop.php:177
 #, php-format
 msgid "%1$s for %2$s - %3$s"
 msgstr ""
 
 #. translators: %s: Events plural
-#: src/functions/template-tags/loop.php:178
+#: src/functions/template-tags/loop.php:179
 #: src/Tribe/Views/V2/Template/Title.php:176
 #, php-format
 msgid "Past %s"
 msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Month and year
-#: src/functions/template-tags/loop.php:183
+#: src/functions/template-tags/loop.php:184
 #: src/Tribe/Views/V2/Template/Title.php:398
 #, php-format
 msgctxt "month view"
@@ -6140,7 +6189,7 @@ msgid "%1$s for %2$s"
 msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Day
-#: src/functions/template-tags/loop.php:192
+#: src/functions/template-tags/loop.php:193
 #: src/Tribe/Views/V2/Template/Title.php:426
 #, php-format
 msgctxt "day_view"
@@ -6387,7 +6436,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator.php:622
 #: src/Tribe/Aggregator/Record/List_Table.php:618
-#: src/Tribe/Ignored_Events.php:380
+#: src/Tribe/Ignored_Events.php:391
 #, php-format
 msgctxt "human readable time ago"
 msgid "about %s ago"
@@ -6395,7 +6444,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator.php:624
 #: src/Tribe/Aggregator/Record/List_Table.php:620
-#: src/Tribe/Ignored_Events.php:382
+#: src/Tribe/Ignored_Events.php:393
 #, php-format
 msgctxt "in human readable time"
 msgid "in about %s"
@@ -6876,7 +6925,7 @@ msgid "Import preview"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:515
-#: src/Tribe/Ignored_Events.php:362
+#: src/Tribe/Ignored_Events.php:373
 msgctxt "record via origin"
 msgid "via "
 msgstr ""
@@ -6890,10 +6939,10 @@ msgid "Keywords:"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:548
-#: src/views/blocks/parts/details.php:78
-#: src/views/blocks/parts/details.php:104
-#: src/views/modules/meta/details.php:72
-#: src/views/modules/meta/details.php:97
+#: src/views/blocks/parts/details.php:81
+#: src/views/blocks/parts/details.php:112
+#: src/views/modules/meta/details.php:76
+#: src/views/modules/meta/details.php:107
 #: src/modules/blocks/classic-event-details/template.js:54
 msgid "Start:"
 msgstr ""
@@ -6994,6 +7043,10 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:288
 #, php-format
 msgid "Could not process queue for Import Record %1$d: %2$s"
+msgstr ""
+
+#: src/Tribe/Aggregator/Record/Queue_Processor.php:344
+msgid "There was an error building the record queue: "
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:57
@@ -7548,6 +7601,10 @@ msgstr ""
 msgid "Edit Import"
 msgstr ""
 
+#: src/Tribe/Aggregator/Tabs/Edit.php:136
+msgid "Scheduled import was successfully updated."
+msgstr ""
+
 #: src/Tribe/Aggregator/Tabs/Edit.php:142
 msgid "View All Scheduled Imports"
 msgstr ""
@@ -7839,6 +7896,12 @@ msgstr ""
 #: src/Tribe/Cost_Utils.php:137
 msgctxt "Cost range separator"
 msgid " – "
+msgstr ""
+
+#: src/Tribe/Cost_Utils.php:210
+#: src/Tribe/JSON_LD/Event.php:169
+#: src/modules/blocks/event-price/template.js:45
+msgid "Free"
 msgstr ""
 
 #: src/Tribe/Customizer/Day_List_View.php:77
@@ -8145,195 +8208,203 @@ msgstr ""
 msgid "Looks like you are using Gutenberg on this WordPress installation. %1$s"
 msgstr ""
 
-#: src/Tribe/iCal.php:70
+#: src/Tribe/iCal.php:72
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr ""
 
-#: src/Tribe/iCal.php:71
+#: src/Tribe/iCal.php:73
 #, php-format
 msgid "%1$s %2$s iCal Feed"
 msgstr ""
 
-#: src/Tribe/iCal.php:154
+#: src/Tribe/iCal.php:156
 #: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:62
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: src/Tribe/iCal.php:155
+#: src/Tribe/iCal.php:157
 msgid "Download .ics file"
 msgstr ""
 
-#: src/Tribe/iCal.php:155
+#: src/Tribe/iCal.php:157
 #: src/Tribe/Views/V2/iCalendar/Links/iCal.php:48
 msgid "Add to iCalendar"
 msgstr ""
 
-#: src/Tribe/iCal.php:217
+#: src/Tribe/iCal.php:219
 msgid "Export Events"
 msgstr ""
 
-#: src/Tribe/iCal.php:218
+#: src/Tribe/iCal.php:220
 #: src/Tribe/Views/V2/Views/Traits/iCal_Data.php:87
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 msgstr ""
 
-#: src/Tribe/iCal.php:590
+#: src/Tribe/iCal.php:592
 #, php-format
 msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:875
+#: src/Tribe/iCal.php:899
 msgctxt "Description in iCal content for events with hidden/protected content."
 msgid "Content is protected."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:43
-#: src/Tribe/Ignored_Events.php:59
-#: src/Tribe/Ignored_Events.php:460
+#: src/Tribe/Ignored_Events.php:51
+#: src/Tribe/Ignored_Events.php:67
+#: src/Tribe/Ignored_Events.php:471
 msgid "Delete Permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:44
+#: src/Tribe/Ignored_Events.php:52
 msgid "Ignored events that are deleted will be removed permanently. They can be recreated via import."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:47
-#: src/Tribe/Ignored_Events.php:493
-#: src/Tribe/Ignored_Events.php:769
+#: src/Tribe/Ignored_Events.php:55
+#: src/Tribe/Ignored_Events.php:504
+#: src/Tribe/Ignored_Events.php:784
 msgid "Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:51
-#: src/Tribe/Ignored_Events.php:423
+#: src/Tribe/Ignored_Events.php:59
+#: src/Tribe/Ignored_Events.php:434
 msgid "Hide & Ignore"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:52
-#: src/Tribe/Ignored_Events.php:422
+#: src/Tribe/Ignored_Events.php:60
+#: src/Tribe/Ignored_Events.php:433
 msgid "Ignored events do not show on the calendar but can be updated with future imports"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:140
+#. translators: %s: Number of posts moved to ignored status.
+#: src/Tribe/Ignored_Events.php:149
 msgid "post moved to Ignored."
 msgid_plural "posts moved to Ignored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:143
+#. translators: %s: Number of posts moved to the trash.
+#: src/Tribe/Ignored_Events.php:153
 #, php-format
 msgid "%s post moved to the Trash"
 msgid_plural "%s posts moved to the Trash"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:144
+#. translators: %s: Number of posts moved to ignored status.
+#: src/Tribe/Ignored_Events.php:155
 #, php-format
 msgid "and %s post moved to Ignored."
 msgid_plural "and %s posts moved to Ignored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:155
+#: src/Tribe/Ignored_Events.php:166
 msgid "Undo"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:178
+#: src/Tribe/Ignored_Events.php:189
 msgid "Event Aggregator includes a new, better system for removing unwanted imported events from your calendar. Click the button below to transition previously deleted events. This process will remove unwanted records from your database and include recent or upcoming trashed events in your Ignored archive."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:179
+#: src/Tribe/Ignored_Events.php:190
 msgctxt "link to knowlegebase article"
 msgid "Read more about Ignored Events."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:238
-#: src/Tribe/Ignored_Events.php:280
+#: src/Tribe/Ignored_Events.php:191
+msgid "Migrate Legacy Ignored Events"
+msgstr ""
+
+#: src/Tribe/Ignored_Events.php:249
+#: src/Tribe/Ignored_Events.php:291
 msgid "You do not have permission to restore this post."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:242
-#: src/Tribe/Ignored_Events.php:286
+#: src/Tribe/Ignored_Events.php:253
+#: src/Tribe/Ignored_Events.php:297
 msgid "Error restoring from Ignored Events."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:294
+#: src/Tribe/Ignored_Events.php:305
 #, php-format
 msgid "%s post restored."
 msgid_plural "%s posts restored."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:332
+#: src/Tribe/Ignored_Events.php:343
 msgid "Source"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:339
+#: src/Tribe/Ignored_Events.php:350
 msgid "Last Import"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:421
+#: src/Tribe/Ignored_Events.php:432
 #, php-format
 msgid "Hide and Ignore &#8220;%s&#8221;"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:451
+#: src/Tribe/Ignored_Events.php:462
 #, php-format
 msgid "Restore &#8220;%s&#8221; from the Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:452
+#: src/Tribe/Ignored_Events.php:463
 msgid "Restore"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:459
+#: src/Tribe/Ignored_Events.php:470
 #, php-format
 msgid "Delete &#8220;%s&#8221; permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:770
+#: src/Tribe/Ignored_Events.php:785
 #, php-format
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:889
+#: src/Tribe/Ignored_Events.php:904
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:899
+#: src/Tribe/Ignored_Events.php:914
 msgid "You do not have permission to migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:906
+#: src/Tribe/Ignored_Events.php:921
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:930
+#: src/Tribe/Ignored_Events.php:945
 #, php-format
-msgid "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen."
-msgid_plural "Migration: %d Legacy Ignored Posts were migrated but %d failed. To see the migrated events you will first need to refresh this screen."
+msgid "Migration: %1$d Legacy Ignored Post was migrated but %2$d failed. To see the migrated event you will first need to refresh this screen."
+msgid_plural "Migration: %1$d Legacy Ignored Posts were migrated but %2$d failed. To see the migrated events you will first need to refresh this screen."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:942
+#: src/Tribe/Ignored_Events.php:957
 #, php-format
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:954
+#. translators: 1: Event ID, 2: Error message.
+#: src/Tribe/Ignored_Events.php:970
 #, php-format
-msgid "Event %d: %s"
+msgid "Event %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:961
+#: src/Tribe/Ignored_Events.php:977
 #, php-format
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
@@ -8517,11 +8588,6 @@ msgstr ""
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
 msgstr ""
 
-#: src/Tribe/JSON_LD/Event.php:169
-#: src/modules/blocks/event-price/template.js:45
-msgid "Free"
-msgstr ""
-
 #: src/Tribe/Linked_Posts.php:1081
 #, php-format
 msgid "My %s"
@@ -8647,6 +8713,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1000
 #: src/Tribe/Rewrite.php:274
+#: src/views/v2/month/calendar-body/day/date.php:63
 msgid "today"
 msgstr ""
 
@@ -9994,6 +10061,22 @@ msgstr ""
 msgid "Deletes an organizer and returns its data"
 msgstr ""
 
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:201
+msgid "The organizer post ID is missing or does not exist."
+msgstr ""
+
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:204
+msgid "The current user cannot delete the organizer with the specified ID."
+msgstr ""
+
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:207
+msgid "The organizer with the specified ID has been deleted already."
+msgstr ""
+
+#: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:210
+msgid "The organizer with the specified ID could not be deleted."
+msgstr ""
+
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:230
 msgid "the organizer post ID"
 msgstr ""
@@ -10119,6 +10202,22 @@ msgstr ""
 msgid "Deletes a venue and returns its data"
 msgstr ""
 
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:199
+msgid "The venue post ID is missing or does not exist."
+msgstr ""
+
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:202
+msgid "The current user cannot delete the venue with the specified ID."
+msgstr ""
+
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:208
+msgid "The venue with the specified ID has been deleted already."
+msgstr ""
+
+#: src/Tribe/REST/V1/Endpoints/Single_Venue.php:214
+msgid "The venue with the specified ID could not be deleted."
+msgstr ""
+
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:237
 msgid "the venue post ID"
 msgstr ""
@@ -10212,6 +10311,7 @@ msgid "The 'end_date' parameter must be in a supported format"
 msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:52
+#: src/Tribe/REST/V1/Messages.php:110
 msgid "The 'search' parameter must be a string"
 msgstr ""
 
@@ -10263,8 +10363,40 @@ msgstr ""
 msgid "The event is already trashed"
 msgstr ""
 
+#: src/Tribe/REST/V1/Messages.php:95
+msgid "The venue could not be deleted"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:96
+msgid "The venue is already trashed"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:97
+msgid "The organizer could not be deleted"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:98
+msgid "The organizer is already trashed"
+msgstr ""
+
 #: src/Tribe/REST/V1/Messages.php:99
 msgid "The event could not be updated"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:100
+msgid "The venue could not be updated"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:101
+msgid "The organizer could not be updated"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:102
+msgid "The requested venue archive page does not exist"
+msgstr ""
+
+#: src/Tribe/REST/V1/Messages.php:106
+msgid "The requested organizer archive page does not exist"
 msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:114
@@ -10651,47 +10783,47 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:666
+#: src/Tribe/Views/V2/Hooks.php:688
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:753
+#: src/Tribe/Views/V2/Hooks.php:775
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:768
+#: src/Tribe/Views/V2/Hooks.php:790
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1084
+#: src/Tribe/Views/V2/Hooks.php:1106
 #, php-format
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1112
+#: src/Tribe/Views/V2/Hooks.php:1134
 #, php-format
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1140
+#: src/Tribe/Views/V2/Hooks.php:1162
 #, php-format
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1204
+#: src/Tribe/Views/V2/Hooks.php:1226
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1224
+#: src/Tribe/Views/V2/Hooks.php:1246
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1343
+#: src/Tribe/Views/V2/Hooks.php:1365
 msgid "Enabled"
 msgstr ""
 
@@ -10774,13 +10906,17 @@ msgstr ""
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1668
+#: src/Tribe/Views/V2/Template_Bootstrap.php:599
+msgid "Main content"
+msgstr ""
+
+#: src/Tribe/Views/V2/View.php:1669
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2281
-#: src/Tribe/Views/V2/View.php:2373
+#: src/Tribe/Views/V2/View.php:2339
+#: src/Tribe/Views/V2/View.php:2445
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/latest-past/event/date/featured.php:28
 #: src/views/v2/list/event/date/featured.php:28
@@ -10983,8 +11119,8 @@ msgid "Event ID:"
 msgstr ""
 
 #: src/views/blocks/classic-event-details.php:52
-#: src/views/blocks/parts/details.php:54
-#: src/views/modules/meta/details.php:54
+#: src/views/blocks/parts/details.php:56
+#: src/views/modules/meta/details.php:57
 msgid "Time:"
 msgstr ""
 
@@ -10993,30 +11129,30 @@ msgstr ""
 msgid "All day"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:63
-#: src/views/modules/meta/details.php:62
+#: src/views/blocks/parts/details.php:65
+#: src/views/modules/meta/details.php:65
 #: src/modules/blocks/classic-event-details/template.js:39
 msgid "Details"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:84
-#: src/views/blocks/parts/details.php:112
-#: src/views/modules/meta/details.php:77
-#: src/views/modules/meta/details.php:105
+#: src/views/blocks/parts/details.php:88
+#: src/views/blocks/parts/details.php:122
+#: src/views/modules/meta/details.php:83
+#: src/views/modules/meta/details.php:117
 #: src/modules/blocks/classic-event-details/template.js:76
 msgid "End:"
 msgstr ""
 
-#: src/views/blocks/parts/details.php:94
-#: src/views/blocks/parts/details.php:125
-#: src/views/modules/meta/details.php:87
-#: src/views/modules/meta/details.php:118
+#: src/views/blocks/parts/details.php:100
+#: src/views/blocks/parts/details.php:137
+#: src/views/modules/meta/details.php:95
+#: src/views/modules/meta/details.php:132
 msgid "Date:"
 msgstr ""
 
 #. Translators: %s: Event (singular)
-#: src/views/blocks/parts/details.php:176
-#: src/views/modules/meta/details.php:172
+#: src/views/blocks/parts/details.php:193
+#: src/views/modules/meta/details.php:191
 #, php-format
 msgid "%s Tags:"
 msgstr ""
@@ -11122,6 +11258,14 @@ msgstr ""
 
 #: src/views/single-event/recurring-description.php:26
 msgid "see all"
+msgstr ""
+
+#: src/views/v2/components/backlink.php:22
+msgid "Back link"
+msgstr ""
+
+#: src/views/v2/components/breadcrumbs.php:36
+msgid "Breadcrumb"
 msgstr ""
 
 #: src/views/v2/components/events-bar.php:23
@@ -11278,6 +11422,12 @@ msgstr ""
 msgid "List of %s"
 msgstr ""
 
+#. translators: %s: Event label plural
+#: src/views/v2/list/nav.php:24
+#, php-format
+msgid "Bottom %s list pagination"
+msgstr ""
+
 #. translators: %s: Event (plural or singular).
 #: src/views/v2/list/nav/next-disabled.php:17
 #: src/views/v2/list/nav/next-disabled.php:20
@@ -11300,6 +11450,12 @@ msgstr ""
 msgid "Previous %1$s"
 msgstr ""
 
+#. translators: %s: Event label plural
+#: src/views/v2/list/top-bar/nav.php:23
+#, php-format
+msgid "Top %s list pagination"
+msgstr ""
+
 #. translators: %s: event label plural.
 #: src/views/v2/month.php:60
 #, php-format
@@ -11307,7 +11463,7 @@ msgid "Calendar of %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural).
-#: src/views/v2/month/calendar-body/day/cell-title.php:47
+#: src/views/v2/month/calendar-body/day/cell-title.php:48
 #, php-format
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
@@ -11320,16 +11476,40 @@ msgstr[1] ""
 msgid "has featured %s"
 msgstr ""
 
-#. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural). This is for screen readers, and will be read just after the date number.
-#: src/views/v2/month/calendar-body/day/date.php:53
+#: src/views/v2/month/calendar-body/day/date.php:65
+msgid "past day"
+msgstr ""
+
+#: src/views/v2/month/calendar-body/day/date.php:67
+msgid "upcoming day"
+msgstr ""
+
+#. Translators: %1$s = number of events, %2$s = event label (singular or plural).
+#: src/views/v2/month/calendar-body/day/date.php:72
 #, php-format
-msgid "has %1$s %2$s"
-msgid_plural "has %1$s %3$s"
+msgctxt "As (number) (event label - singular or plural)"
+msgid "%1$s %2$s"
+msgid_plural "%1$s %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/views/v2/month/calendar-body/day/more-events.php:35
-#: src/views/v2/month/mobile-events/mobile-day/more-events.php:33
+#. translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
+#: src/views/v2/month/calendar-body/day/date.php:79
+#, php-format
+msgid "%1$s, %2$s"
+msgstr ""
+
+#. translators: %1$d: number of events, %2$s: formatted date.
+#: src/views/v2/month/calendar-body/day/more-events.php:42
+#: src/views/v2/month/mobile-events/mobile-day/more-events.php:40
+#, php-format
+msgid "+ %1$d More for %2$s"
+msgid_plural "+ %1$d More for %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/views/v2/month/calendar-body/day/more-events.php:49
+#: src/views/v2/month/mobile-events/mobile-day/more-events.php:47
 #, php-format
 msgid "+ %d More"
 msgid_plural "+ %d More"
@@ -11694,7 +11874,7 @@ msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
 msgstr ""
 
-#: src/modules/elements/venue-form/element.js:129
+#: src/modules/elements/venue-form/element.js:163
 msgid "Country"
 msgstr ""
 

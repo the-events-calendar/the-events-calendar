@@ -145,8 +145,8 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base { // phpcs:
 
 		$this->post_type_args['rewrite']['slug']   = $rewrite->prepare_slug( $this->singular_venue_label, self::POSTTYPE, false );
 		$this->post_type_args['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-		$this->post_type_args['public']            = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
-		$this->post_type_args['show_in_rest']      = class_exists( 'Tribe__Events__Pro__Main' ) && current_user_can( 'manage_options' );
+		$this->post_type_args['public']            = true;
+		$this->post_type_args['show_in_rest']      = true;
 
 		/**
 		 * Provides an opportunity to modify the labels used for the venue post type.

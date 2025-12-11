@@ -235,8 +235,6 @@ class Pre_Processor_Test extends WPTestCase {
 
 		$result = $this->processor->process();
 
-		codecept_debug($expected_result);
-		codecept_debug($result);
 		$this->assertEquals( $expected_result, $result );
 		$status = Status::get_migration_status();
 		$this->assertEquals( $expected_status, $status['status'] );

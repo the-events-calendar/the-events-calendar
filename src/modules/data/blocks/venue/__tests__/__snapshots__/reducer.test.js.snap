@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[STORE] - Venue reducer Should remove the venue 1`] = `
-Object {
-  "blocks": Object {
-    "allIds": Array [],
-    "byId": Object {},
-    "core": Object {},
+{
+  "blocks": {
+    "allIds": [],
+    "byId": {},
+    "core": {},
   },
 }
 `;
 
 exports[`[STORE] - Venue reducer Should return the default state 1`] = `
-Object {
-  "blocks": Object {
-    "allIds": Array [],
-    "byId": Object {},
-    "core": Object {},
+{
+  "blocks": {
+    "allIds": [],
+    "byId": {},
+    "core": {},
   },
 }
 `;
 
 exports[`[STORE] - Venue reducer Should set the venue 1`] = `
-Object {
-  "blocks": Object {
-    "allIds": Array [],
-    "byId": Object {},
-    "core": Object {},
+{
+  "blocks": {
+    "allIds": [],
+    "byId": {},
+    "core": {},
   },
 }
 `;

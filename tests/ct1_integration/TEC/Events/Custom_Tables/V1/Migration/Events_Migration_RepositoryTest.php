@@ -170,34 +170,44 @@ class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 	public function should_retry_deadlock_gracefully( Closure $setup_fixture, int $expected ): void {
 		global $wpdb;
 		$setup_fixture();
-		if ( ! method_exists( $wpdb, 'setup_test' ) ) {
-			$this->add_class_fn( 'wpdb', 'setup_test', function () {
-				$this->_dbh       = $this->dbh;
-				$this->dbh        = new \stdClass();
-				$this->dbh->errno = 1213;
-			} );
-			$this->add_class_fn( 'wpdb', 'teardown_test', function () {
-				$this->dbh  = $this->_dbh ?? $this->dbh;
-				$this->_dbh = null;
-			} );
-		}
-		$events = new Events();
-		// Setup a Deadlock mock before our get_ids_to_process() call.
-		$queries      = [];
-		$query_filter = function ( $query ) use ( &$queries, $wpdb ) {
-			// Only run once for each query - our retry will try twice.
-			$queries[ $query ] = $queries[ $query ] ?? 0;
-			if ( stripos( $query, 'post_id' ) && $queries[ $query ] === 0 ) {
-				$queries[ $query ] ++;
-				$wpdb->setup_test();
-				$this->set_fn_return( 'mysqli_errno', 1213 );
-				$this->set_fn_return( 'mysqli_error', 'Faux Deadlock - whoops!' );
-				$this->set_fn_return( 'mysqli_ping', true );
-				$this->set_fn_return( 'mysqli_query', false );
 
-			} else {
-				$wpdb->teardown_test();
+		// Setup a deadlock mock before our get_ids_to_process() call.
+		$queries      = [];
+		$query_filter = function ( $query ) use ( &$queries, &$query_filter ) {
+			global $wpdb;
+			static $original_dbh;
+			// Only run once for each query - our retry will try twice.
+			if ( stripos( $query, 'post_id' ) ) {
+				if ( count( $queries ) === 0 ) {
+					// First query.
+					$hit          = true;
+					$original_dbh = $wpdb->dbh;
+					$wpdb->dbh    = (object) [ 'errno' => 1213 ];
+					$this->set_fn_return( 'mysqli_errno', 1213 );
+					$this->set_fn_return( 'mysqli_error', 'Faux Deadlock - whoops!' );
+					$this->set_fn_return( 'mysqli_ping', true );
+					$this->set_fn_return( 'mysqli_query', false );
+
+					// Store the query.
+					$queries[] = $query;
+
+					// Do not actually run the query.
+					return '';
+				}
+
+				// Second query.
+
+				// Store the query.
+				$queries[] = $query;
+
+				// If we're here, we've filtered the previous query to simulate a deadlock.
+				$wpdb->dbh = $original_dbh;
+
+				// Restore the original dbh function return values.
 				$this->unset_uopz_returns();
+
+				// Remove the filter from the query: no more required.
+				remove_filter( 'query', $query_filter );
 			}
 
 			return $query;
@@ -206,7 +216,11 @@ class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 		add_filter( 'query', $query_filter );
 
 		// These should retry and run successfully.
-		$this->assertCount( $expected, $events->get_ids_to_process( 100 ) );
-		$this->unset_uopz_returns();
+		$events         = new Events();
+		$ids_to_process = $events->get_ids_to_process( 100 );
+
+		$this->assertCount( $expected, $ids_to_process );
+		$this->assertCount( 2, $queries );
+		$this->assertSame( $queries[0], $queries[1] );
 	}
 }

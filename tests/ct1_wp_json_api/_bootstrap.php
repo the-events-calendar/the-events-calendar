@@ -6,8 +6,8 @@ use function tad\WPBrowser\addListener;
 
 function enable_ct1_in_database(): void {
 	global $wpdb;
-	if ( $wpdb->query( "insert into $wpdb->options set option_name='tec_custom_tables_v1_active', option_value=1
-                                          on duplicate key update option_value=1" ) === false ) {
+	if ( $wpdb->query( "INSERT INTO $wpdb->options SET option_name='tec_custom_tables_v1_active', option_value=1
+                                          ON DUPLICATE KEY UPDATE option_value=1" ) === false ) {
 		throw new \Exception( 'Failed to set tec_custom_tables_v1_active option to 1: ' . $wpdb->last_error );
 	}
 }
@@ -46,7 +46,3 @@ addListener( Codeception\Events::TEST_AFTER, static function () {
 	// Re-enable foreign key checks.
 	$wpdb->query( 'SET FOREIGN_KEY_CHECKS = 1' );
 } );
-
-// Enable and load CT1 for the WordPress instance loaded in the tests context.
-putenv( 'TEC_CUSTOM_TABLES_V1_DISABLED=0' );
-$_ENV['TEC_CUSTOM_TABLES_V1_DISABLED'] = 0;

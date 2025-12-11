@@ -33,26 +33,6 @@ class MonthTest extends HtmlTestCase {
 		);
 	}
 
-	/**
-	 * @test
-	 */
-	public function it_should_contain_a11y_attributes() {
-		$this->given_month_data();
-		$this->template->add_template_globals( [
-			'view_slug' => 'month',
-			'the_date' => Dates::build_date_object( '2019-08-01' ),
-			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
-		] );
-		$template = $this->template->template( 'month' );
-		$html       = $this->document->html( $template );
-		$month      = $html->find( '.tribe-events-calendar-month' );
-
-		$this->assertTrue(
-			$month->is( '[aria-readonly="true"]' ),
-			'Month needs to be aria-readonly="true"'
-		);
-	}
-
 	protected function given_month_data() {
 		$period = new \DatePeriod(
 			new \DateTime( '2019-07-01 00:00:00' ),

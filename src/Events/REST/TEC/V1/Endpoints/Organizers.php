@@ -11,31 +11,31 @@ declare( strict_types=1 );
 
 namespace TEC\Events\REST\TEC\V1\Endpoints;
 
+use InvalidArgumentException;
 use TEC\Common\REST\TEC\V1\Abstracts\Post_Entity_Endpoint;
-use TEC\Common\REST\TEC\V1\Contracts\Creatable_Endpoint;
-use TEC\Common\REST\TEC\V1\Contracts\Readable_Endpoint;
-use Tribe__Events__Main as Events_Main;
-use Tribe__Events__Validator__Base as Validator;
-use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
-use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
-use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
-use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
+use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
 use TEC\Common\REST\TEC\V1\Collections\QueryArgumentCollection;
 use TEC\Common\REST\TEC\V1\Collections\RequestBodyCollection;
-use TEC\Common\REST\TEC\V1\Collections\HeadersCollection;
+use TEC\Common\REST\TEC\V1\Contracts\Archive_Endpoint;
+use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
+use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
+use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Positive_Integer;
 use TEC\Common\REST\TEC\V1\Parameter_Types\Text;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Boolean;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Array_Of_Type;
-use TEC\Common\REST\TEC\V1\Endpoints\OpenApiDocs;
-use TEC\Common\REST\TEC\V1\Documentation\OpenAPI_Schema;
+use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
+use TEC\Common\REST\TEC\V1\Traits\Create_Entity_Response;
+use TEC\Common\REST\TEC\V1\Traits\Read_Archive_Response;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Definition;
 use TEC\Events\REST\TEC\V1\Documentation\Organizer_Request_Body_Definition;
-use TEC\Common\REST\TEC\V1\Parameter_Types\URI;
-use TEC\Common\REST\TEC\V1\Parameter_Types\Definition_Parameter;
+use TEC\Events\REST\TEC\V1\Tags\TEC_Tag;
 use TEC\Events\REST\TEC\V1\Traits\With_Organizers_ORM;
-use TEC\Common\REST\TEC\V1\Contracts\Tag_Interface as Tag;
-use InvalidArgumentException;
+use Tribe\Events\Models\Post_Types\Organizer as Organizer_Model;
+use Tribe__Events__Main as Events_Main;
+use Tribe__Events__Validator__Base as Validator;
+use WP_Post;
 
 /**
  * Archive organizers endpoint for the TEC REST API V1.
@@ -44,7 +44,7 @@ use InvalidArgumentException;
  *
  * @package TEC\Events\REST\TEC\V1\Endpoints
  */
-class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Creatable_Endpoint {
+class Organizers extends Post_Entity_Endpoint implements Archive_Endpoint {
 	use Read_Archive_Response;
 	use Create_Entity_Response;
 	use With_Organizers_ORM;
@@ -138,7 +138,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 *
 	 * @return QueryArgumentCollection
 	 */
-	public function read_args(): QueryArgumentCollection {
+	public function read_params(): QueryArgumentCollection {
 		$collection = new QueryArgumentCollection();
 
 		$collection[] = new Positive_Integer(
@@ -202,7 +202,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 			$this->get_operation_id( 'read' ),
 			$this->get_tags(),
 			null,
-			$this->read_args(),
+			$this->read_params(),
 		);
 
 		$headers_collection = new HeadersCollection();
@@ -268,11 +268,21 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * Returns the arguments for the create request.
 	 *
 	 * @since 6.15.0
+	 * @since 6.15.12 Returning a RequestBodyCollection instead of a QueryArgumentCollection
 	 *
-	 * @return QueryArgumentCollection
+	 * @return RequestBodyCollection
 	 */
-	public function create_args(): QueryArgumentCollection {
-		return new QueryArgumentCollection();
+	public function create_params(): RequestBodyCollection {
+		$collection = new RequestBodyCollection();
+
+		$definition = new Organizer_Request_Body_Definition();
+
+		$collection[] = new Definition_Parameter( $definition );
+
+		return $collection
+			->set_description_provider( fn() => __( 'The organizer data to create.', 'the-events-calendar' ) )
+			->set_required( true )
+			->set_example( $definition->get_example() );
 	}
 
 	/**
@@ -283,14 +293,6 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 	 * @return OpenAPI_Schema
 	 */
 	public function create_schema(): OpenAPI_Schema {
-		$collection = new RequestBodyCollection();
-
-		$definition = new Organizer_Request_Body_Definition();
-
-		$collection->set_example( $definition->get_example() );
-
-		$collection[] = new Definition_Parameter( $definition );
-
 		$schema = new OpenAPI_Schema(
 			fn() => __( 'Create an Organizer', 'the-events-calendar' ),
 			fn() => __( 'Creates a new organizer', 'the-events-calendar' ),
@@ -298,7 +300,7 @@ class Organizers extends Post_Entity_Endpoint implements Readable_Endpoint, Crea
 			$this->get_tags(),
 			null,
 			null,
-			$collection->set_description_provider( fn() => __( 'The organizer data to create.', 'the-events-calendar' ) )->set_required( true ),
+			$this->create_params(),
 			true
 		);
 

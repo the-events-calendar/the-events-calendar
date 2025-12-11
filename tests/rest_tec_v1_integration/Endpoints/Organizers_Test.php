@@ -31,49 +31,24 @@ class Organizers_Test extends Organizer_Test {
 		[ $venues, $organizers ] = $this->create_test_data();
 		$fixture();
 
-		$responses = [];
+		$response = $this->assert_endpoint( $this->endpoint->get_base_path() );
+
+		// Count how many published organizers we have.
+		$expected_count = 0;
 		foreach ( $organizers as $organizer_id ) {
 			if ( 'publish' === get_post_status( $organizer_id ) ) {
-				$responses[] = $this->assert_endpoint( '/organizers/' . $organizer_id );
-			} else {
-				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $organizer_id );
-				$response = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ) );
-				if ( $should_pass ) {
-					$responses[] = $response;
-				}
+				$expected_count++;
 			}
 		}
 
-		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
+		// Ensure we have all of the published organizers in the response.
+		$this->assertEquals( $expected_count, count( $response ) );
 
-		$json = str_replace( $venues, '{VENUE_ID}', $json );
-		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
+		// Some organizers aren't published, so also assert that we have less that the total in the response.
+		$this->assertLessThan( count( $organizers ), count( $response ), 'There should be fewer organizers in the response.' );
 
-		$this->assertMatchesJsonSnapshot( $json );
-	}
-
-	/**
-	 * @dataProvider different_user_roles_provider
-	 */
-	public function test_read_responses_with_password( Closure $fixture ) {
-		[ $venues, $organizers ] = $this->create_test_data();
-		$fixture();
-
-		$responses = [];
-		foreach ( $organizers as $organizer_id ) {
-			if ( 'publish' === get_post_status( $organizer_id ) ) {
-				$responses[] = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', 200, [ 'password' => 'password123' ] );
-			} else {
-				$should_pass = is_user_logged_in() && current_user_can( 'read_post', $organizer_id );
-				$response = $this->assert_endpoint( '/organizers/' . $organizer_id, 'GET', $should_pass ? 200 : ( is_user_logged_in() ? 403 : 401 ), [ 'password' => 'password123' ] );
-				if ( $should_pass ) {
-					$responses[] = $response;
-				}
-			}
-		}
-
-		$json = wp_json_encode( $responses, JSON_SNAPSHOT_OPTIONS );
-
+		// Snapshot the response.
+		$json = wp_json_encode( $response, JSON_SNAPSHOT_OPTIONS );
 		$json = str_replace( $venues, '{VENUE_ID}', $json );
 		$json = str_replace( $organizers, '{ORGANIZER_ID}', $json );
 

@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderFields renders additional fields added via the tec.classy.fields Slot 1`] = `
+<div>
+  <div
+    data-testid="post-title"
+  >
+    Event Title
+  </div>
+  <div
+    data-testid="event-datetime"
+  >
+    Date and Time
+  </div>
+  <div
+    data-testid="event-details"
+  >
+    Event Details
+  </div>
+  <div
+    data-testid="event-location"
+  >
+    Location
+  </div>
+  <div
+    data-testid="event-organizer"
+  >
+    Event Organizer
+  </div>
+  <div
+    data-testid="event-admission"
+  >
+    Admission
+  </div>
+  <p>
+    Additional Field 1
+  </p>
+  <p>
+    Additional Field 2
+  </p>
+</div>
+`;
+
+exports[`renderFields renders all fields if post is Event 1`] = `
+<div>
+  <div
+    data-testid="post-title"
+  >
+    Event Title
+  </div>
+  <div
+    data-testid="event-datetime"
+  >
+    Date and Time
+  </div>
+  <div
+    data-testid="event-details"
+  >
+    Event Details
+  </div>
+  <div
+    data-testid="event-location"
+  >
+    Location
+  </div>
+  <div
+    data-testid="event-organizer"
+  >
+    Event Organizer
+  </div>
+  <div
+    data-testid="event-admission"
+  >
+    Admission
+  </div>
+</div>
+`;
+
+exports[`renderFields renders nothing if post is not Event 1`] = `<div />`;

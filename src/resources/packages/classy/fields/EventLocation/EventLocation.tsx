@@ -1,0 +1,399 @@
+import * as React from 'react';
+import { Fragment, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
+import { Button, CustomSelectControl, Slot } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { _x } from '@wordpress/i18n';
+import { IconAdd } from '@tec/common/classy/components';
+import { FieldProps } from '@tec/common/classy/types/FieldProps';
+import VenueCards from './VenueCards';
+import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
+import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
+import { FetchedVenue } from '../../types/FetchedVenue';
+import { METADATA_EVENT_VENUE_ID } from '../../constants';
+import { VenueData } from '../../types/VenueData';
+import VenueUpsertModal from './VenueUpsertModal';
+import { fetchVenues, upsertVenue } from '../../api';
+import { StoreSelect } from '../../types/Store';
+
+function buildOptionFromFetchedVenue( venue: FetchedVenue ): CustomSelectOption {
+	return {
+		key: venue.id.toString(),
+		name: venue.venue,
+		value: venue.id.toString(),
+		label: venue.venue,
+	};
+}
+
+const placeholderOption: CustomSelectOption = {
+	key: '0',
+	name: _x( 'Select venue', 'Venue selection placeholder option', 'the-events-calendar' ),
+	value: '0',
+};
+
+function getUpdatedOptions( venues: FetchedVenue[], currentVenueIds: number[] ) {
+	return venues
+		.filter( ( venue ) => ! currentVenueIds.includes( venue.id ) )
+		.map( buildOptionFromFetchedVenue )
+		.sort( sortOptionsForDisplay );
+}
+
+export default function EventLocation( props: FieldProps ) {
+	// Initially set the options to an array that only contains the placeholder.
+	const [ options, setOptions ] = useState( [ placeholderOption ] );
+
+	const { meta, venuesLimit } = useSelect(
+		(
+			select
+		): {
+			meta: Object;
+			venuesLimit: number;
+		} => {
+			const editorStore: {
+				getEditedPostAttribute: ( attribute: string ) => any;
+			} = select( 'core/editor' );
+			const classyStore: StoreSelect = select( 'tec/classy/events' );
+
+			const meta = editorStore.getEditedPostAttribute( 'meta' ) || null;
+			const venuesLimit = classyStore.getVenuesLimit() || 1;
+
+			return {
+				meta,
+				venuesLimit,
+			};
+		},
+		[]
+	);
+
+	const venueIds = meta?.[ METADATA_EVENT_VENUE_ID ]?.map( ( id: string ): number => parseInt( id, 10 ) ) || [];
+
+	const { editPost } = useDispatch( 'core/editor' );
+
+	const [ currentVenueIds, setCurrentVenueIds ] = useState( venueIds );
+
+	// To start, the page to fetch is the first one.
+	const [ pageToFetch, setPageToFetch ] = useState( 1 );
+
+	// If the initial number of venues is 0, we are adding a new venue.
+	const [ isAdding, setIsAdding ] = useState( false );
+
+	// Whether the user is currently inserting or updating a venue or not.
+	const [ isUpserting, setIsUpserting ] = useState< number | false >( false );
+
+	const getVenueData = useCallback( (): VenueData => {
+		const id = isUpserting || null;
+		const venue = id ? fetched.current.find( ( venue: FetchedVenue ) => venue.id === id ) : null;
+
+		// Editing an existing venue.
+		if ( venue ) {
+			return {
+				id: id,
+				name: venue.venue,
+				address: venue.address,
+				city: venue.city,
+				country: venue.country,
+				countryCode: '',
+				province: venue.province,
+				stateprovince: venue.state,
+				zip: venue.zip,
+				phone: venue.phone,
+				website: venue.website,
+			};
+		}
+
+		// Creating a new venue or, somehow, trying to edit a non-yet fetched venue.
+		return {
+			id: id,
+			name: '',
+			address: '',
+			city: '',
+			country: '',
+			countryCode: '',
+			province: '',
+			stateprovince: '',
+			zip: '',
+			phone: '',
+			website: '',
+		};
+	}, [ pageToFetch, isUpserting ] );
+
+	// Keep a set of fetched Venue objects across renders.
+	const fetched = useRef( [] as FetchedVenue[] );
+
+	useEffect( () => {
+		const fetchVenuesData = async () => {
+			try {
+				const result = await fetchVenues( pageToFetch );
+
+				// There are no venues, nothing to udpate.
+				if ( result.venues.length === 0 ) {
+					return;
+				}
+
+				// Update the number of pages to fetch if the total is more than the number of fetched options.
+				if ( result.total > fetched.current.length + result.venues.length ) {
+					setPageToFetch( pageToFetch + 1 );
+				}
+
+				// Update the fetched set of venues by making sure a new version of venues will override the already
+				// fetched version.
+				const safeResultIds = new Set( result.venues.map( ( venue: FetchedVenue ): number => venue.id ) );
+				fetched.current = [
+					...fetched.current.filter( ( venue ) => ! safeResultIds.has( venue.id ) ),
+					...result.venues,
+				];
+
+				// Update the options to all the so-far fetched options minus the current venue ids.
+				// Why not just add to the options? They might have been modified by a user removal or selection in the
+				// meanwhile. Since we're recalculating them anyway, make sure they are up to date.
+				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
+			} catch ( e ) {
+				console.error( 'Venue fetch request failed: ' + e.message );
+				// Set fetched venues to an empty array if an error occurs
+				fetched.current = [];
+				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
+			}
+		};
+
+		fetchVenuesData();
+	}, [ pageToFetch ] );
+
+	const ref = useRef( null );
+
+	function onVenueEdit( id: number ): void {
+		setIsUpserting( id );
+	}
+
+	const onVenueSelect = useCallback(
+		( newValue: { selectedItem: CustomSelectOption } ) => {
+			const venueIds = [ ...currentVenueIds, parseInt( newValue.selectedItem.key ) ];
+			setCurrentVenueIds( venueIds );
+			setOptions( getUpdatedOptions( fetched.current, venueIds ) );
+
+			setIsAdding( false );
+
+			editPost( {
+				meta: { [ METADATA_EVENT_VENUE_ID ]: venueIds },
+			} );
+		},
+		[ currentVenueIds ]
+	);
+
+	const onVenueRemove = useCallback(
+		( id: number ): void => {
+			const venueIds = currentVenueIds.filter( ( venueId ) => venueId !== id );
+			setCurrentVenueIds( venueIds );
+
+			setOptions( getUpdatedOptions( fetched.current, venueIds ) );
+
+			editPost( {
+				meta: { [ METADATA_EVENT_VENUE_ID ]: venueIds },
+			} );
+		},
+		[ currentVenueIds ]
+	);
+
+	const createNewVenue: MouseEventHandler = () => {
+		// We're creating a new venue, the ID is 0.
+		setIsUpserting( 0 );
+	};
+
+	/**
+	 * Upserts a venue by either updating an existing one or creating a new one based on the provided data.
+	 *
+	 * @since TBD
+	 *
+	 * @param {VenueData} venueData The data of the venue to be updated or inserted.
+	 *
+	 * @return {Promise<void>} A promise that resolves when the REST API replies.
+	 */
+	const handleVenueUpsert = useCallback( async ( venueData: VenueData ) => {
+		try {
+			// Call the extracted upsertVenue function
+			const venueId = await upsertVenue( venueData );
+
+			// Get the venue data from the API response
+			const data: FetchedVenue = {
+				id: venueId,
+				venue: venueData.name,
+				address: venueData.address,
+				city: venueData.city,
+				country: venueData.country,
+				province: venueData.countryCode === 'US' ? '' : venueData.stateprovince,
+				state: venueData.countryCode === 'US' ? venueData.stateprovince : '',
+				zip: venueData.zip,
+				phone: venueData.phone,
+				website: venueData.website,
+			};
+
+			setIsUpserting( false );
+
+			const index: number = fetched.current.findIndex( ( venue ) => venue.id === data.id );
+
+			if ( index === -1 ) {
+				// A new venue has been created: add it to the fetched set of venues.
+				fetched.current.push( data );
+
+				// Add the venue ID to the list of current venue IDs: we assume the user created the Venue to add
+				// it.
+				const newCurrentVenueIds = [ ...currentVenueIds, data.id ];
+				setCurrentVenueIds( newCurrentVenueIds );
+
+				// Update the post meta to track the new venues IDs.
+				editPost( {
+					meta: {
+						[ METADATA_EVENT_VENUE_ID ]: newCurrentVenueIds,
+					},
+				} );
+
+				// Update the options to the new set of venues; this will trigger a re-render.
+				setOptions( getUpdatedOptions( fetched.current, newCurrentVenueIds ) );
+			} else {
+				// A venue has been updated: update it in the set of fetched venues.
+				fetched.current[ index ] = data;
+				// Update the options to the new set; this will trigger a re-render.
+				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
+			}
+		} catch ( error ) {
+			setIsUpserting( false );
+			// Set the page to fetch to 0 to make sure all the Venues will be re-fetched.
+			setPageToFetch( 0 );
+			console.error( 'Venue upsert request failed: ' + error.message );
+		}
+	}, [] );
+
+	const orderedVenues = currentVenueIds
+		.map( ( id ) => fetched.current.find( ( venue ) => venue.id === id ) )
+		.filter( ( venue ) => venue !== undefined );
+
+	const hasVenues = currentVenueIds.length > 0;
+
+	return (
+		<div className="classy-field classy-field--event-location">
+			<div className="classy-field__title">
+				<h3>{ props.title }</h3>
+			</div>
+
+			<div className="classy-field__inputs classy-field__inputs--boxed">
+				{ hasVenues && (
+					<div className="classy-field__inputs-section">
+						<VenueCards venues={ orderedVenues } onEdit={ onVenueEdit } onRemove={ onVenueRemove } />
+					</div>
+				) }
+
+				{ isAdding && hasVenues && <span className="classy-section-separator"></span> }
+
+				{ currentVenueIds.length < venuesLimit && (
+					<div className="classy-field__inputs-section classy-field__inputs-section--row classy-field__inputs-section--justify-left">
+						{ ( isAdding || currentVenueIds.length === 0 ) && (
+							<Fragment>
+								<div className="classy-field__input classy-field__input-full-width">
+									<CustomSelectControl
+										__next40pxDefaultSize
+										className="classy-field__control classy-field__control--select"
+										hideLabelFromVision={ true }
+										label={ _x(
+											'Venue selection',
+											'Assistive technology label',
+											'the-events-calendar'
+										) }
+										onChange={ onVenueSelect }
+										options={ options }
+										value={ placeholderOption }
+									/>
+								</div>
+
+								<div className="classy-field__input" ref={ ref }>
+									<div className="classy-field__control classy-field__control--venue" ref={ ref }>
+										<span className="classy-field__venue-label">
+											{ _x(
+												'or',
+												'prefix to the Venue create popover link ',
+												'the-events-calendar'
+											) }
+										</span>{ ' ' }
+										<Button
+											variant="link"
+											className="classy-cta classy-field__venue-value"
+											onClick={ createNewVenue }
+										>
+											{ _x(
+												'Create new venue',
+												'Call to action to create a new venue',
+												'the-events-calendar'
+											) }
+										</Button>
+									</div>
+								</div>
+							</Fragment>
+						) }
+
+						{ ! isAdding && hasVenues && currentVenueIds.length < venuesLimit && (
+							<div className="classy-field__input">
+								<Button
+									variant="link"
+									className="classy-field__control classy-field__control--cta"
+									onClick={ () => setIsAdding( true ) }
+								>
+									<IconAdd />
+									{ _x(
+										'Add another venue',
+										'Call-to-action to add another venue',
+										'the-events-calendar'
+									) }
+								</Button>
+							</div>
+						) }
+					</div>
+				) }
+
+				{ hasVenues && isAdding && (
+					<div className="classy-field__inputs-section classy-field__inputs-section--row">
+						<Button
+							variant="link"
+							className="classy-field__control classy-field__control--cancel"
+							onClick={ () => setIsAdding( false ) }
+						>
+							{ _x( 'Cancel', 'Cancel the venue selection', 'the-events-calendar' ) }
+						</Button>
+					</div>
+				) }
+
+				{ isUpserting !== false && (
+					<VenueUpsertModal
+						isUpdate={ isUpserting > 0 }
+						onCancel={ () => setIsUpserting( false ) }
+						onSave={ handleVenueUpsert }
+						onClose={ () => setIsUpserting( false ) }
+						values={ getVenueData() }
+					/>
+				) }
+
+				{ /**
+				 * Renders at the end of the Event Location field of The Events Calendar.
+				 *
+				 * Extending plugins must hook on the `tec.classy.render` filter and render components in this Slot.
+				 *
+				 * Example:
+				 * ```
+				 * addFilter(
+				 * 	'tec.classy.render',
+				 * 	'tec.classy.my-plugin',
+				 * 	(fields: React.ReactNode | null) => (
+				 * 		<Fragment>
+				 * 			{fields}
+				 * 			<Fill name='tec.classy.events.event-location.after'>
+				 * 				<p>HELLO FROM MY PLUGIN</p>
+				 * 			</Fill>
+				 * 		</Fragment>
+				 * 	)
+				 * );
+				 * ```
+				 *
+				 * Note that, as in any filter, it's up to the extending plugin to manage priority in the filter
+				 * or whether previous nodes will be rendered or not.
+				 */ }
+				<Slot name="tec.classy.events.event-location.after" />
+			</div>
+		</div>
+	);
+}

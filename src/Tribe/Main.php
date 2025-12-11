@@ -5,8 +5,8 @@
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe\DB_Lock;
-use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.5';
+		const VERSION             = '7.0.0';
 
 		/**
 		 * Min Pro Addon.
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.26.0-dev';
+		protected $min_et_version = '5.27.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * In the past we used to parse `common/src/Tribe/Main.php` for the Common Lib version.
 		 *
-		 * @link https://github.com/moderntribe/tribe-common
+		 * @link https://github.com/the-events-calendar/tribe-common
 		 * @see  self::init_autoloading
 		 *
 		 * @return void
@@ -602,7 +602,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bind_implementations(  ) {
+		public function bind_implementations() {
 			tribe_singleton( 'tec.main', $this );
 
 			// Admin provider.
@@ -703,6 +703,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_singleton( 'db-lock', DB_Lock::class );
 
 			tribe_register_provider( TEC\Events\Controller::class );
+
+			if ( tec_using_classy_editor() ) {
+				// Register the Classy controller if the feature is active.
+				tribe_register_provider( TEC\Events\Classy\Controller::class );
+			}
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -3385,6 +3390,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			if ( tec_using_classy_editor() ) {
+				return;
+			}
+
 			add_meta_box(
 				'tribe_events_event_options',
 				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),

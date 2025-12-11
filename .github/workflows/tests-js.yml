@@ -1,0 +1,56 @@
+name: 'JS Tests'
+on:
+  pull_request:
+    paths:
+      - '.github/**/*'
+      - 'src/modules/**.js'
+      - 'src/resources/packages/**/*'
+      - 'tests/**/*.js'
+      - 'tests/**/*.ts'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+          submodules: recursive
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install node modules
+        run: npm ci
+
+      - name: Run jest task
+        run: npm run jest
+
+  npm_tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - classy:jest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+          submodules: recursive
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install node modules
+        run: npm ci
+
+      - name: Run NPM test
+        run: npm run ${{ matrix.suite }}

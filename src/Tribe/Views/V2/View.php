@@ -1608,6 +1608,7 @@ class View implements View_Interface {
 	 * @since 4.9.4
 	 * @since 5.2.1 Add the `rest_method` to the template variables.
 	 * @since 6.14.0 Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
+	 * @since 6.15.7 Added `backlink` support to template variables, allowing views to display a back link instead of breadcrumbs.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1749,6 +1750,7 @@ class View implements View_Interface {
 			'header_title_element' => $this->get_header_title_element(),
 			'content_title'        => $this->get_content_title(),
 			'breadcrumbs'          => $this->get_breadcrumbs(),
+			'backlink'             => $this->get_back_link( $this->get_breadcrumbs() ),
 			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
 			'after_events'         => tribe( Advanced_Display::class )->get_after_events_html( $this ),
 			'display_events_bar'   => $this->filter_display_events_bar( $this->display_events_bar ),
@@ -1786,6 +1788,61 @@ class View implements View_Interface {
 		}
 
 		return $template_vars;
+	}
+
+	/**
+	 * Decide whether to show breadcrumbs or a back link.
+	 *
+	 * @since 6.15.7
+	 *
+	 * @param array $breadcrumbs The breadcrumbs array (may be empty).
+	 *
+	 * @return array|false False to show breadcrumbs, or an array with back link data:
+	 *                     [
+	 *                         'url'   => (string) The URL for the back link.
+	 *                         'label' => (string) The label for the back link.
+	 *                     ]
+	 */
+	protected function get_back_link( $breadcrumbs ) {
+		/**
+		 * Filter the back link data for all views.
+		 *
+		 * Return false to show breadcrumbs, or return an array with 'url' and 'label'
+		 * to show a back link instead.
+		 *
+		 * @since 6.15.7
+		 *
+		 * @param array|false $back_link   Default false. Return array to show back link.
+		 * @param array       $breadcrumbs The breadcrumbs array (may be empty).
+		 * @param View        $view        The current view instance.
+		 */
+		$back_link = apply_filters(
+			'tec_events_views_v2_view_back_link',
+			false,
+			$breadcrumbs,
+			$this
+		);
+
+		$view_slug = static::get_view_slug();
+
+		/**
+		 * Filter the back link data for a specific view.
+		 *
+		 * Return false to show breadcrumbs, or return an array with 'url' and 'label'
+		 * to show a back link instead.
+		 *
+		 * @since 6.15.7
+		 *
+		 * @param array|false $back_link   Default false. Return array to show back link.
+		 * @param array       $breadcrumbs The breadcrumbs array (may be empty).
+		 * @param View        $view        The current view instance.
+		 */
+		return apply_filters(
+			"tec_events_views_v2_view_{$view_slug}_back_link",
+			$back_link,
+			$breadcrumbs,
+			$this
+		);
 	}
 
 	/**
@@ -2230,8 +2287,9 @@ class View implements View_Interface {
 	 * Returns the breadcrumbs data the View will display on the front-end.
 	 *
 	 * @since 4.9.11
+	 * @since 6.15.7 Add is_last property to each breadcrumb after filters are applied.
 	 *
-	 * @return array
+	 * @return array<int,array{link:string,label:string,is_last:bool}>
 	 */
 	protected function get_breadcrumbs() {
 		$context     = $this->context;
@@ -2303,6 +2361,20 @@ class View implements View_Interface {
 		 * @param View  $this        The current View instance being rendered.
 		 */
 		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breadcrumbs", $breadcrumbs, $this );
+
+		// After filters are applied.
+		$last_index = array_key_last( $breadcrumbs );
+
+		$breadcrumbs = array_map(
+			static function ( $crumb, $index ) use ( $last_index ) {
+				$crumb['is_last'] = ( $index === $last_index );
+
+				return $crumb;
+			},
+			$breadcrumbs,
+			array_keys( $breadcrumbs )
+		);
+
 
 		return $breadcrumbs;
 	}
