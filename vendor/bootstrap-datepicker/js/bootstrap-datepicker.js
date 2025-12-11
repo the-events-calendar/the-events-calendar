@@ -932,13 +932,14 @@
 		fillMonths: function(){
 			var localDate = this._utc_to_local(this.viewDate);
 			var year = this.viewDate.getUTCFullYear();
-			var html = '';
+			var html = '<div class="datepicker-grid">';
 			var focused, ariaLabel;
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
 				ariaLabel = formatMonthAriaLabel(i, year);
 				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '">' + dates[this.o.language].monthsShort[i] + '</button>';
 			}
+			html += '</div>';
 			this.picker.find('.datepicker-months td').html(html);
 		},
 
@@ -998,7 +999,7 @@
 		},
 
 		_fill_yearsView: function(selector, cssClass, factor, year, startYear, endYear, beforeFn){
-			var html = '';
+			var html = '<div class="datepicker-grid">';
 			var step = factor / 10;
 			var view = this.picker.find(selector);
 			var startVal = Math.floor(year / factor) * factor;
@@ -1063,6 +1064,7 @@
 				}
 				html += '<button ' + btnAttrs.join(' ') + '>' + currVal + '</button>';
 			}
+			html += '</div>';
 
 			view.find('button.datepicker-switch').text(startVal + '-' + endVal);
 			view.find('td').html(html);
