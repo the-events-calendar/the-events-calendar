@@ -137,7 +137,7 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.6
+          ${SLIC_BIN} wp core update --force --version=6.7
           ${SLIC_BIN} wp core version
       - name: Ensure Twenty-Twenty is installed
         run: |

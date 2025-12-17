@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Increase contrast of past events title for improved accessibility. [TEC-5642]

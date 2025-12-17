@@ -10,6 +10,7 @@
 namespace TEC\Events\Tests\Integration\Category_Colors\Admin;
 
 use Codeception\TestCase\WPTestCase;
+use TEC\Events\Category_Colors\Admin\Controller;
 use TEC\Events\Category_Colors\Admin\Quick_Edit;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
@@ -604,5 +605,42 @@ class Quick_Edit_Test extends WPTestCase {
 		$refMethod = $reflection->getMethod($method);
 		$refMethod->setAccessible(true);
 		return $refMethod->invokeArgs($object, $args);
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Category_Colors\Admin\Controller::add_column_data
+	 *
+	 * @since TBD
+	 */
+	public function should_handle_null_values_from_filter() {
+		$controller = tribe( Controller::class );
+
+		$term_id = $this->factory()->term->create(
+			[
+				'taxonomy' => Tribe__Events__Main::TAXONOMY,
+				'name'     => 'Test Category',
+			]
+		);
+
+		$meta = $this->meta->set_term( $term_id );
+		$meta->set( $this->get_key( 'priority' ), '5' );
+		$meta->set( $this->get_key( 'primary' ), '#ff0000' );
+		$meta->set( $this->get_key( 'secondary' ), '#00ff00' );
+		$meta->save();
+
+		// WordPress filter can pass null as the first argument.
+		$result = $controller->add_column_data( null, 'category_priority', $term_id );
+		$this->assertEquals( '5', $result, 'Should handle null content and return priority value.' );
+
+		$result = $controller->add_column_data( null, 'category_color', $term_id );
+		$this->assertNotEmpty( $result, 'Should handle null content and return color preview.' );
+
+		// Also test with null column name and term_id for completeness.
+		$result = $controller->add_column_data( null, null, $term_id );
+		$this->assertIsString( $result, 'Should return a string even with null column name.' );
+
+		$result = $controller->add_column_data( null, 'category_priority', null );
+		$this->assertIsString( $result, 'Should return a string even with null term_id.' );
 	}
 }

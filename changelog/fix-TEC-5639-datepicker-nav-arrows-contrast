@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Increase contrast in datepicker navigation arrows for improved accessibility. [TEC-5639]

@@ -10,6 +10,8 @@ use Tribe__Events__Main as TEC;
 class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
+	private ?bool $backup_wpdb_suppress_errors = null;
+
 	/**
 	 * @before
 	 */
@@ -162,41 +164,47 @@ class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @before
+	 */
+	public function suppress_errors_before(): void {
+		global $wpdb;
+		$this->backup_wpdb_suppress_errors = $wpdb->suppress_errors;
+		$wpdb->suppress_errors( true );
+	}
+
+	/**
+	 * @after
+	 */
+	public function suppress_errors_after(): void {
+		global $wpdb;
+		$wpdb->suppress_errors( $this->backup_wpdb_suppress_errors );
+	}
+
+	/**
 	 * It should retry get_ids_to_process() in situations with deadlock errors.
 	 *
 	 * @test
 	 * @dataProvider total_events_data_provider
 	 */
 	public function should_retry_deadlock_gracefully( Closure $setup_fixture, int $expected ): void {
-		global $wpdb;
 		$setup_fixture();
-		if ( ! method_exists( $wpdb, 'setup_test' ) ) {
-			$this->add_class_fn( 'wpdb', 'setup_test', function () {
-				$this->_dbh       = $this->dbh;
-				$this->dbh        = new \stdClass();
-				$this->dbh->errno = 1213;
-			} );
-			$this->add_class_fn( 'wpdb', 'teardown_test', function () {
-				$this->dbh  = $this->_dbh ?? $this->dbh;
-				$this->_dbh = null;
-			} );
-		}
+
 		$events = new Events();
 		// Setup a Deadlock mock before our get_ids_to_process() call.
 		$queries      = [];
-		$query_filter = function ( $query ) use ( &$queries, $wpdb ) {
+		$query_filter = function ( $query ) use ( &$queries ) {
 			// Only run once for each query - our retry will try twice.
 			$queries[ $query ] = $queries[ $query ] ?? 0;
 			if ( stripos( $query, 'post_id' ) && $queries[ $query ] === 0 ) {
 				$queries[ $query ] ++;
-				$wpdb->setup_test();
+				add_filter( 'tec_events_custom_tables_v1_migration_is_deadlock_error', '__return_true' );
 				$this->set_fn_return( 'mysqli_errno', 1213 );
 				$this->set_fn_return( 'mysqli_error', 'Faux Deadlock - whoops!' );
 				$this->set_fn_return( 'mysqli_ping', true );
 				$this->set_fn_return( 'mysqli_query', false );
 
 			} else {
-				$wpdb->teardown_test();
+				remove_filter( 'tec_events_custom_tables_v1_migration_is_deadlock_error', '__return_true' );
 				$this->unset_uopz_returns();
 			}
 
@@ -207,6 +215,5 @@ class Events_Migration_RepositoryTest extends \Codeception\TestCase\WPTestCase {
 
 		// These should retry and run successfully.
 		$this->assertCount( $expected, $events->get_ids_to_process( 100 ) );
-		$this->unset_uopz_returns();
 	}
 }

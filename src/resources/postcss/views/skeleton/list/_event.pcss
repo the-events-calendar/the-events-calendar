@@ -106,6 +106,24 @@
 	}
 
 	.tribe-events-calendar-list__event-header {
+		display: flex;
+		flex-direction: column;
+
+		.tribe-events-calendar-list__event-datetime-wrapper {
+			order: 1;
+		}
+
+		.tribe-events-calendar-list__event-title {
+			order: 2;
+		}
+
+		.tribe-events-calendar-list__event-venue{
+			order: 3;
+		}
+
+		.tec-events-calendar-list__event-categories{
+			order: 4;
+		}
 
 		> *:last-child {
 			margin-bottom: 0;

@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Improve JavaScript namespace initialization by ensuring window.tribe is defined before category color scripts run. [TEC-5712]

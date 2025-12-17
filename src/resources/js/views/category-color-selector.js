@@ -5,8 +5,10 @@
  *
  * @type {Object}
  */
-tribe.events = tribe.events || {};
-tribe.events.categoryColors = tribe.events.categoryColors || {};
+window.tribe = window.tribe || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.categoryColors = window.tribe.events.categoryColors || {};
+
 
 /**
  * Category Color Picker module.

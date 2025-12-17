@@ -88,6 +88,24 @@
 	}
 
 	.tribe-events-calendar-day__event-header {
+		display: flex;
+		flex-direction: column;
+
+		.tribe-events-calendar-day__event-datetime-wrapper {
+			order: 1;
+		}
+
+		.tribe-events-calendar-day__event-title {
+			order: 2;
+		}
+
+		.tribe-events-calendar-day__event-venue{
+			order: 3;
+		}
+
+		.tec-events-calendar-day__event-categories{
+			order: 4;
+		}
 
 		> *:last-child {
 			margin-bottom: 0;

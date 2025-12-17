@@ -14,6 +14,20 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use CT1_Fixtures;
 
+	private ?bool $backup_wpdb_suppress_errors = null;
+
+	/**
+	 * @after
+	 */
+	public function restore_wpdb_suppress_errors() {
+		if ( $this->backup_wpdb_suppress_errors === null ) {
+			return;
+		}
+		global $wpdb;
+		$wpdb->suppress_errors( $this->backup_wpdb_suppress_errors );
+		$this->backup_wpdb_suppress_errors = null;
+	}
+
 	public function report_db_errors_queries_data_provider(): array {
 		return [
 			'find()'   => [ 'find', [ 1 ] ],
@@ -86,6 +100,9 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 		$q = "DROP /* WPTestCase will replace this if it matches substr()...*/ TABLE IF EXISTS `$occurrences_table`;";
 		$wpdb->query( $q );
 		tribe_cache()->reset();
+		$this->backup_wpdb_suppress_errors = $wpdb->suppress_errors;
+
+		$wpdb->suppress_errors(true);
 
 		$found = false;
 		// Validate our error shows...

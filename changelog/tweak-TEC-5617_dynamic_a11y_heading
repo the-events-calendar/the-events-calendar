@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Improve archive view content title to default to an H1 while allowing heading tag overrides via tec_events_views_v2_view_{$view_slug}_content_title_heading_tag filter. [TEC-5617]
