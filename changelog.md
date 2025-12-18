@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.15.13] 2025-12-18
+
+* Security - Strengthen the user access level in the system information opt-in functionality. [SVUL-35]
+
 ### [6.15.12.2] 2025-11-20
 
 * Fix - Removes the <main /> element as a wrapper in events related pages, avoiding the calendar page rendering issues for many themes. Adds a `role="main"` to the first element printed by The Events Calendar on those pages to maintain accessibility. [TEC-5729]
