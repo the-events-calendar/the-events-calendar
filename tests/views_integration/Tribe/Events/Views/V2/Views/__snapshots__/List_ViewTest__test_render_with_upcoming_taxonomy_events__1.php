@@ -51,124 +51,6 @@
 	
 	
 	
-	<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
-
-	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Top events list pagination">
-	<ul class="tribe-events-c-top-bar__nav-list">
-		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
-		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous Events"
-		title="Previous Events"
-		disabled
-	>
-		<svg
-	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg" 	aria-hidden="true"
-	viewBox="0 0 10 16"
-	xmlns="http://www.w3.org/2000/svg"
->
-	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
-</svg>
-	</button>
-</li>
-
-		<li class="tribe-events-c-top-bar__nav-list-item">
-	<button
-		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next Events"
-		title="Next Events"
-		disabled
-	>
-		<svg
-	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg" 	aria-hidden="true"
-	viewBox="0 0 10 16"
-	xmlns="http://www.w3.org/2000/svg"
->
-	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
-</svg>
-	</button>
-</li>
-	</ul>
-</nav>
-
-	<a
-	href="http://test.tri.be/events/category/cat-1/list/"
-	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
-	data-js="tribe-events-view-link"
-	aria-description="Click to select today&#039;s date"
->
-	Today</a>
-
-	<div class="tribe-events-c-top-bar__datepicker">
-	<button
-		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
-		data-js="tribe-events-top-bar-datepicker-button"
-		type="button"
-		aria-description="Click to toggle datepicker"
-	>
-		<time
-			datetime="2019-01-01"
-			class="tribe-events-c-top-bar__datepicker-time"
-		>
-							<span class="tribe-events-c-top-bar__datepicker-mobile">
-					Upcoming				</span>
-				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
-					Upcoming				</span>
-					</time>
-				<svg
-	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-top-bar__datepicker-button-icon-svg" 	aria-hidden="true"
-	viewBox="0 0 10 7"
-	xmlns="http://www.w3.org/2000/svg"
->
-	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
-</svg>
-	</button>
-	<label
-		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
-		for="tribe-events-top-bar-date"
-	>
-		Select date.	</label>
-	<input
-		type="text"
-		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
-		data-js="tribe-events-top-bar-date"
-		id="tribe-events-top-bar-date"
-		name="tribe-events-views[tribe-bar-date]"
-		value="1/1/2019"
-		tabindex="-1"
-		autocomplete="off"
-		readonly="readonly"
-	/>
-	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
-	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
-		<svg
-	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-top-bar__datepicker-nav-icon-svg" 	aria-hidden="true"
-	viewBox="0 0 10 16"
-	xmlns="http://www.w3.org/2000/svg"
->
-	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
-</svg>
-	</template>
-	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
-		<svg
-	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-top-bar__datepicker-nav-icon-svg" 	aria-hidden="true"
-	viewBox="0 0 10 16"
-	xmlns="http://www.w3.org/2000/svg"
->
-	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
-</svg>
-	</template>
-</div>
-
-	
-	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
-	</div>
-
-</div>
-
-	<div class="tribe-events-header__content-title">
-	<h1 class="screen-reader-text tec-a11y-title-hidden">Events</h1></div>
-
 	<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
@@ -383,6 +265,124 @@
 </div>
 	</div>
 </div>
+
+</div>
+
+	<div class="tribe-events-header__content-title">
+	<h1 class="screen-reader-text tec-a11y-title-hidden">Events</h1></div>
+
+	<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
+
+	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Top events list pagination">
+	<ul class="tribe-events-c-top-bar__nav-list">
+		<li class="tribe-events-c-top-bar__nav-list-item">
+	<button
+		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
+		aria-label="Previous Events"
+		title="Previous Events"
+		disabled
+	>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
+	</button>
+</li>
+
+		<li class="tribe-events-c-top-bar__nav-list-item">
+	<button
+		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
+		aria-label="Next Events"
+		title="Next Events"
+		disabled
+	>
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
+	</button>
+</li>
+	</ul>
+</nav>
+
+	<a
+	href="http://test.tri.be/events/category/cat-1/list/"
+	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
+	data-js="tribe-events-view-link"
+	aria-description="Click to select today&#039;s date"
+>
+	Today</a>
+
+	<div class="tribe-events-c-top-bar__datepicker">
+	<button
+		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		data-js="tribe-events-top-bar-datepicker-button"
+		type="button"
+		aria-description="Click to toggle datepicker"
+	>
+		<time
+			datetime="2019-01-01"
+			class="tribe-events-c-top-bar__datepicker-time"
+		>
+							<span class="tribe-events-c-top-bar__datepicker-mobile">
+					Upcoming				</span>
+				<span class="tribe-events-c-top-bar__datepicker-desktop tribe-common-a11y-hidden">
+					Upcoming				</span>
+					</time>
+				<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-top-bar__datepicker-button-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 7"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/>
+</svg>
+	</button>
+	<label
+		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
+		for="tribe-events-top-bar-date"
+	>
+		Select date.	</label>
+	<input
+		type="text"
+		class="tribe-events-c-top-bar__datepicker-input tribe-common-a11y-visual-hide"
+		data-js="tribe-events-top-bar-date"
+		id="tribe-events-top-bar-date"
+		name="tribe-events-views[tribe-bar-date]"
+		value="1/1/2019"
+		tabindex="-1"
+		autocomplete="off"
+		readonly="readonly"
+	/>
+	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
+	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-events-c-top-bar__datepicker-nav-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/>
+</svg>
+	</template>
+	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
+		<svg
+	 class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-top-bar__datepicker-nav-icon-svg" 	aria-hidden="true"
+	viewBox="0 0 10 16"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/>
+</svg>
+	</template>
+</div>
+
+	
+	<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
+	</div>
 
 </div>
 </header>

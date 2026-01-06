@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Improve accessibility by having the DOM order, focus order, and visual order align for the datepicker and buttons. [TEC-5193]
