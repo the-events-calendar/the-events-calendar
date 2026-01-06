@@ -308,7 +308,9 @@
 
 </div>
 
-	
+	<div class="tribe-events-header__content-title">
+	<h1 class="screen-reader-text tec-a11y-title-hidden">Events</h1></div>
+
 	<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
 	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Top events list pagination">
