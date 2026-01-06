@@ -476,6 +476,10 @@ class Tribe__Events__Amalgamator {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$amalgamator = new self();
 		$amalgamator->merge_duplicates();
 

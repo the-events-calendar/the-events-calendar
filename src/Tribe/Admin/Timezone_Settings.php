@@ -69,6 +69,10 @@ class Tribe__Events__Admin__Timezone_Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		// Update request?
 		if ( isset( $_GET['timezone-update'] ) ) {
 			$updater = new Tribe__Events__Admin__Timezone_Updater;
@@ -84,6 +88,10 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 */
 	public function ajax_updater() {
 		if ( ! isset( $_POST['check'] ) || ! wp_verify_nonce( $_POST['check'], 'timezone-settings' ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 

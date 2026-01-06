@@ -59,7 +59,15 @@ class File_Download {
 			return false;
 		}
 
-		return (bool) wp_verify_nonce( $_GET['wpnonce'] );
+		if ( ! wp_verify_nonce( $_GET['wpnonce'] ) ) {
+			return false;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
