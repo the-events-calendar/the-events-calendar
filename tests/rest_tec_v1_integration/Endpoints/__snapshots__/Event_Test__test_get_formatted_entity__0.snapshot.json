@@ -1198,7 +1198,7 @@
         "timezone": "UTC",
         "duration": "21600",
         "multiday": false,
-        "is_past": false,
+        "is_past": true,
         "is_now": false,
         "all_day": false,
         "starts_this_week": null,
