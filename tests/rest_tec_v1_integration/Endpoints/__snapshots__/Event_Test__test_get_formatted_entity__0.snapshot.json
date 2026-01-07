@@ -920,7 +920,7 @@
         "type": "tribe_events",
         "link": "http://wordpress.test/?post_type=tribe_events&p={EVENT_ID}",
         "title": {
-            "rendered": "Private: VIP Dinner Gala"
+            "rendered": "VIP Dinner Gala"
         },
         "content": {
             "rendered": "<p>An exclusive dinner event for VIP members only.</p>\n",
@@ -1198,7 +1198,7 @@
         "timezone": "UTC",
         "duration": "21600",
         "multiday": false,
-        "is_past": false,
+        "is_past": true,
         "is_now": false,
         "all_day": false,
         "starts_this_week": null,
