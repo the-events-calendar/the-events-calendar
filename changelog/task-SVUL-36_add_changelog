@@ -1,4 +1,0 @@
-Significance: minor
-Type: security
-
-Strengthen the user access level when submitting ajax requests. [SVUL-36]
