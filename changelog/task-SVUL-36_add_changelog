@@ -1,0 +1,4 @@
+Significance: minor
+Type: security
+
+Strengthen the user access level for Custom Tables migration actions. [SVUL-36]
