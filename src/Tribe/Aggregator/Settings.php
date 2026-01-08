@@ -63,6 +63,10 @@ class Tribe__Events__Aggregator__Settings {
 			return;
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$this->clear_eb_credentials();
 
 		wp_redirect(
@@ -180,7 +184,7 @@ class Tribe__Events__Aggregator__Settings {
 	}
 
 	/**
-	 * Hooked to current_screen, this method identifies whether or not eb credentials should be cleared
+	 * Hooked to current_screen, this method identifies whether or not meetup credentials should be cleared
 	 *
 	 * @since 4.9.6
 	 *
@@ -199,6 +203,10 @@ class Tribe__Events__Aggregator__Settings {
 		$nonce  = tribe_get_request_var( '_wpnonce' );
 
 		if ( ! ( $action && $nonce && wp_verify_nonce( $nonce, 'disconnect-meetup' ) ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -766,6 +774,10 @@ class Tribe__Events__Aggregator__Settings {
 				&& wp_verify_nonce( $_GET['_wpnonce'], 'disconnect-facebook' )
 			)
 		) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 

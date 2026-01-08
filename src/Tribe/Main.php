@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.13';
+		const VERSION             = '6.15.13.1';
 
 		/**
 		 * Min Pro Addon.
@@ -3256,11 +3256,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function ajax_form_validate() {
+			$post_type = get_post_type_object( self::POSTTYPE );
+
 			if (
 				$_REQUEST['name']
 				&& $_REQUEST['nonce']
 				&& $_REQUEST['type']
 				&& wp_verify_nonce( $_REQUEST['nonce'], 'tribe-validation-nonce' )
+				&& current_user_can( $post_type->cap->edit_posts )
 			) {
 				echo $this->verify_unique_name( $_REQUEST['name'], $_REQUEST['type'] );
 				die;
