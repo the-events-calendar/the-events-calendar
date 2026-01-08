@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.15.13.1] 2026-01-07
+
+* Fix - Corrective language fix for Category Colors. [TEC-36]
+
 ### [6.15.13] 2025-12-18
 
 * Security - Strengthen the user access level in the system information opt-in functionality. [SVUL-35]
