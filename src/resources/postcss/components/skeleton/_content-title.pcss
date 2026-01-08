@@ -7,11 +7,14 @@
 .tribe-events {
 
 	.tribe-events-header__content-title {
-		margin-bottom: var(--tec-spacer-5);
 		width: 100%;
 
-		.tribe-common--breakpoint-medium& {
-			margin-bottom: var(--tec-spacer-7);
+		.tribe-events-header__content-title > :not(.tec-a11y-title-hidden) {
+			margin-bottom: var(--tec-spacer-5);
+
+			.tribe-common--breakpoint-medium& {
+				margin-bottom: var(--tec-spacer-7);
+			}
 		}
 	}
 }
