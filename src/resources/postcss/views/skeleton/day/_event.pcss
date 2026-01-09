@@ -96,7 +96,6 @@
 		}
 
 		.tribe-events-calendar-day__event-title {
-			margin: 0 0 var(--tec-spacer-3);
 			order: 2;
 		}
 
@@ -115,7 +114,7 @@
 
 	.tribe-events-calendar-day__event-datetime-wrapper,
 	.tribe-events-calendar-day__event-title {
-		margin: 0 0 var(--tec-spacer-1);
+		margin: var(--tec-spacer-3) 0 0 0;
 
 		.tribe-common--breakpoint-medium& {
 			margin: 0 0 var(--tec-spacer-3);
@@ -142,14 +141,13 @@
 	}
 
 	.tribe-events-calendar-day__event-venue {
-		margin-bottom: var(--tec-spacer-1);
+		margin: var(--tec-spacer-3) 0 0 0;
 
-		.tribe-common--breakpoint-medium& {
-			margin-bottom: var(--tec-spacer-3);
-		}
 	}
 
 	.tribe-events-calendar-day__event-description {
+
+		margin-top: var(--tec-spacer-3);
 
 		.tribe-common--breakpoint-medium& {
 			display: block !important;
