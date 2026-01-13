@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Reorder event markup in archive and widget views so event titles precede their date and time for improved screen reader navigation. [TEC-5621]

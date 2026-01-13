@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Improve category table stability by preventing fatal errors when custom column data receives null values. [TEC-5712]
