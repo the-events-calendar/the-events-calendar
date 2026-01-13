@@ -166,7 +166,7 @@ class Controller extends Controller_Contract {
 	 * Adds custom column data to the category table.
 	 *
 	 * @since 6.14.0
-	 * @since TBD Cast data before sending to add_custom_column_data().
+	 * @since 6.15.13.1 Cast data before sending to add_custom_column_data().
 	 *
 	 * @param string $content     The column content.
 	 * @param string $column_name The name of the column.

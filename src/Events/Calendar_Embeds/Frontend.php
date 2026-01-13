@@ -150,7 +150,7 @@ class Frontend extends Controller_Contract {
 	 * Overwrites the content of the calendar embeds.
 	 *
 	 * @since 6.11.0
-	 * @since TBD Change content template name to 'embed-content' to avoid potential conflicts.
+	 * @since 6.15.13.1 Change content template name to 'embed-content' to avoid potential conflicts.
 	 *
 	 * @param string $content The content.
 	 *

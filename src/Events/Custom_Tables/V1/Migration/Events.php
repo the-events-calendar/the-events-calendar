@@ -120,7 +120,7 @@ class Events {
 	/**
 	 * Check if the error is a deadlock error.
 	 *
-	 * @since TBD
+	 * @since 6.15.13.1
 	 *
 	 * @param ?int $errno The error number.
 	 *
@@ -130,7 +130,7 @@ class Events {
 		/**
 		 * Filter to determine if the error is a deadlock error.
 		 *
-		 * @since TBD
+		 * @since 6.15.13.1
 		 *
 		 * @param bool $is_deadlock_error Whether the error is a deadlock error.
 		 * @param ?int $errno The error number.

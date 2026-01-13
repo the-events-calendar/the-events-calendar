@@ -125,7 +125,7 @@ class Controller extends Controller_Contract {
 	 * Adds category color variables to the view template.
 	 *
 	 * @since 6.14.0
-	 * @since TBD Unset the category colors context if no colors are enabled.
+	 * @since 6.15.13.1 Unset the category colors context if no colors are enabled.
 	 *
 	 * @param array<string,mixed> $template_vars The template variables.
 	 * @param View                $view          The current view instance.

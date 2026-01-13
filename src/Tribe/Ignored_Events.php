@@ -405,7 +405,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Add the required Row Actions for the Ignored Events View.
 		 *
-		 * @since TBD Add data-ignore-event attribute when ignoring an event.
+		 * @since 6.15.13.1 Add data-ignore-event attribute when ignoring an event.
 		 *
 		 * @param  array       $actions List of the current actions
 		 * @param  int|WP_Post $post    WP Post ID or Object

@@ -226,7 +226,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @since 4.6.13
 	 * @since 6.0.13 Added a return value, and suspends Tribe__Events__Dates__Known_Range::rebuild_known_range() until batch is complete.
-	 * @since TBD Added a filter to skip updating the series post status when cleaning old events.
+	 * @since 6.15.13.1 Added a filter to skip updating the series post status when cleaning old events.
 	 *
 	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
