@@ -2,6 +2,7 @@
 
 ### [6.15.14] 2026-01-13
 
+* Version - The Events Calendar 6.15.14 is only compatible with Events Pro 7.7.12 or higher.
 * Fix - Ensure that the Series post status is not changed during maintenance.
 * Fix - Improve category table stability by preventing fatal errors when custom column data receives null values. [TEC-5712]
 * Fix - Prevent category data from persisting between events when some have colored categories and others do not. Props to @deltragon. [TEC-5622]
@@ -13,8 +14,8 @@
 * Tweak - Increase contrast for current day in the datepicker for improved accessibility. [TEC-5640]
 * Tweak - Increase contrast in datepicker navigation arrows for improved accessibility. [TEC-5639]
 * Tweak - Increase contrast of past events title for improved accessibility. [TEC-5642]
-* Tweak - Increased contrast for month view past multiday events for improved accessibility. [TEC-5641]
-* Tweak - Increased contrast on pagination arrows for improved accessibility. [TEC-5638]
+* Tweak - Increase contrast for month view past multiday events for improved accessibility. [TEC-5641]
+* Tweak - Increase contrast on pagination arrows for improved accessibility. [TEC-5638]
 * Tweak - Reorder event markup in archive and widget views so event titles precede their date and time for improved screen reader navigation. [TEC-5621]
 * Language - 2 new strings added, 57 updated, 0 fuzzied, and 1 obsoleted.
 
