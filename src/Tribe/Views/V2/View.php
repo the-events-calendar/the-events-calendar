@@ -2506,7 +2506,7 @@ class View implements View_Interface {
 	 * Filter allows downgrading the tag from `h1` to any valid `h2–h6` depending on context,
 	 * without introducing new View class properties.
 	 *
-	 * @since TBD
+	 * @since 6.15.14
 	 *
 	 * @param string $default_tag The default heading tag. Defaults to `h1`.
 	 *
@@ -2521,7 +2521,7 @@ class View implements View_Interface {
 		 * This filter runs for all Views V2 event archives and allows themes or plugins to
 		 * adjust the heading level for accessibility or document structure.
 		 *
-		 * @since TBD
+		 * @since 6.15.14
 		 *
 		 * @param string                       $tag   The heading tag to use (defaults to 'h1').
 		 * @param View $view  The current View instance.
