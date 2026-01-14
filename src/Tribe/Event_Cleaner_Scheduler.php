@@ -226,10 +226,14 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @since 4.6.13
 	 * @since 6.0.13 Added a return value, and suspends Tribe__Events__Dates__Known_Range::rebuild_known_range() until batch is complete.
+	 * @since 6.15.14 Added a filter to skip updating the series post status when cleaning old events.
 	 *
 	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
 	public function move_old_events_to_trash(): array {
+		// When running maintenance, we want to keep the Series post unchanged.
+		add_filter( 'tec_events_skip_updating_series_status', '__return_true' );
+
 		$month    = $this->trash_new_date;
 		$post_ids = $this->select_events_to_purge( $month );
 		$results  = [];
@@ -245,6 +249,8 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
 		$this->hook_rebuild_known_range();
+		
+		remove_filter( 'tec_events_skip_updating_series_status', '__return_true' );
 
 		return $results;
 	}

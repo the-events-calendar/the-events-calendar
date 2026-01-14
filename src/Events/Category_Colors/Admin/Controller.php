@@ -166,6 +166,7 @@ class Controller extends Controller_Contract {
 	 * Adds custom column data to the category table.
 	 *
 	 * @since 6.14.0
+	 * @since 6.15.14 Cast data before sending to add_custom_column_data().
 	 *
 	 * @param string $content     The column content.
 	 * @param string $column_name The name of the column.
@@ -175,7 +176,7 @@ class Controller extends Controller_Contract {
 	public function add_column_data( $content, $column_name, $term_id ) {
 		/** @var Quick_Edit $instance */
 		$instance = $this->container->make( Quick_Edit::class );
-		return $instance->add_custom_column_data( $content, $column_name, $term_id );
+		return $instance->add_custom_column_data( (string) $content, (string) $column_name, (int) $term_id );
 	}
 
 	/**

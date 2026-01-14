@@ -125,6 +125,7 @@ class Controller extends Controller_Contract {
 	 * Adds category color variables to the view template.
 	 *
 	 * @since 6.14.0
+	 * @since 6.15.14 Unset the category colors context if no colors are enabled.
 	 *
 	 * @param array<string,mixed> $template_vars The template variables.
 	 * @param View                $view          The current view instance.
@@ -171,10 +172,13 @@ class Controller extends Controller_Contract {
 
 		$category_data = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category_with_meta( $event );
 
-		if ( $category_data ) {
-			$context['category_colors_priority_category'] = $category_data['category'];
-			$context['category_colors_meta']              = $category_data['meta'];
+		if ( ! $category_data ) {
+			unset( $context['category_colors_priority_category'], $context['category_colors_meta'] );
+			return $context;
 		}
+
+		$context['category_colors_priority_category'] = $category_data['category'];
+		$context['category_colors_meta']              = $category_data['meta'];
 
 		return $context;
 	}

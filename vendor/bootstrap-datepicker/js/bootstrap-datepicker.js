@@ -40,6 +40,85 @@
 		return d && !isNaN(d.getTime());
 	}
 
+	/**
+	 * Get the document locale for Intl.DateTimeFormat.
+	 * Falls back to 'en' if not available.
+	 *
+	 * @return {string}
+	 */
+	function getDocumentLocale() {
+		return document.documentElement.lang || document.lang || 'en';
+	}
+
+	/**
+	 * Format a month button's aria-label using Intl.DateTimeFormat.
+	 * Example: "January 2024"
+	 *
+	 * @param {number} monthIndex Zero-based month index (0-11).
+	 * @param {number} year       The year for context.
+	 *
+	 * @return {string}
+	 */
+	function formatMonthAriaLabel(monthIndex, year) {
+		var locale = getDocumentLocale();
+		var date = new Date(year, monthIndex, 1);
+		try {
+			return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(date);
+		} catch (e) {
+			return new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(date);
+		}
+	}
+
+	/**
+	 * Format a year/decade/century button's aria-label.
+	 *
+	 * @param {number} value The year value.
+	 * @param {string} type  The type: 'year', 'decade', or 'century'.
+	 *
+	 * @return {string}
+	 */
+	function formatPeriodAriaLabel(value, type) {
+		if (type === 'year') {
+			return String(value);
+		}
+		if (type === 'decade') {
+			return value + ' - ' + (value + 9);
+		}
+		if (type === 'century') {
+			return value + ' - ' + (value + 99);
+		}
+		return String(value);
+	}
+
+	/**
+	 * Format a day button's aria-label using Intl.DateTimeFormat.
+	 * Example: "Wednesday, December 25, 2024"
+	 *
+	 * @param {Date} date The UTC date object.
+	 *
+	 * @return {string}
+	 */
+	function formatDayAriaLabel(date) {
+		var locale = getDocumentLocale();
+		// Convert UTC date to local for proper formatting.
+		var localDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+		try {
+			return new Intl.DateTimeFormat(locale, {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}).format(localDate);
+		} catch (e) {
+			return new Intl.DateTimeFormat('en', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}).format(localDate);
+		}
+	}
+
 	var DateArray = (function(){
 		var extras = {
 			get: function(i){
@@ -115,13 +194,13 @@
 
 		this.picker = $(DPGlobal.template);
 
-		// Checking templates and inserting
+		// Checking templates and inserting.
 		if (this._check_template(this.o.templates.leftArrow)) {
-			this.picker.find('.prev').html(this.o.templates.leftArrow);
+			this.picker.find('button.prev').html(this.o.templates.leftArrow);
 		}
 
 		if (this._check_template(this.o.templates.rightArrow)) {
-			this.picker.find('.next').html(this.o.templates.rightArrow);
+			this.picker.find('button.next').html(this.o.templates.rightArrow);
 		}
 
 		this._buildEvents();
@@ -139,7 +218,15 @@
 		}
 
 		if (this.o.calendarWeeks) {
-			this.picker.find('.datepicker-days .datepicker-switch, thead .datepicker-title, tfoot .today, tfoot .clear')
+			// Update colspan for calendar weeks column.
+			// Target the <th> containing the datepicker-switch button, and the title row.
+			this.picker.find('thead .datepicker-title').attr('colspan', function(i, val){
+				return Number(val) + 1;
+			});
+			this.picker.find('.datepicker-days button.datepicker-switch').parent().attr('colspan', function(i, val){
+				return Number(val) + 1;
+			});
+			this.picker.find('tfoot button.today, tfoot button.clear').parent()
 				.attr('colspan', function(i, val){
 					return Number(val) + 1;
 				});
@@ -405,34 +492,32 @@
 				}]);
 			}
 
-			this._secondaryEvents = [
-				[this.picker, {
-					click: $.proxy(this.click, this)
-				}],
-				[this.picker, '.prev, .next', {
-					click: $.proxy(this.navArrowsClick, this)
-				}],
-				[this.picker, '.day:not(.disabled)', {
-					click: $.proxy(this.dayCellClick, this)
-				}],
-				[$(window), {
-					resize: $.proxy(this.place, this)
-				}],
-				[$(document), {
-					'mousedown touchstart': $.proxy(function(e){
-						// Clicked outside the datepicker, hide it
-						if (!(
-							this.element.is(e.target) ||
-							this.element.find(e.target).length ||
-							this.picker.is(e.target) ||
-							this.picker.find(e.target).length ||
-							this.isInline
-						)){
-							this.hide();
-						}
-					}, this)
-				}]
-			];
+		this._secondaryEvents = [
+			[this.picker, {
+				click: $.proxy(this.click, this),
+				keydown: $.proxy(this.pickerKeydown, this)
+			}],
+			[this.picker, 'button.day:not([disabled])', {
+				click: $.proxy(this.dayCellClick, this)
+			}],
+			[$(window), {
+				resize: $.proxy(this.place, this)
+			}],
+			[$(document), {
+				'mousedown touchstart': $.proxy(function(e){
+					// Clicked outside the datepicker, hide it.
+					if (!(
+						this.element.is(e.target) ||
+						this.element.find(e.target).length ||
+						this.picker.is(e.target) ||
+						this.picker.find(e.target).length ||
+						this.isInline
+					)){
+						this.hide();
+					}
+				}, this)
+			}]
+		];
 		},
 		_attachEvents: function(){
 			this._detachEvents();
@@ -484,6 +569,10 @@
 			if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
 				$(this.element).blur();
 			}
+			// Store trigger element for focus restoration.
+			this._triggerElement = this.element[0];
+			// Focus the active element when picker opens.
+			this._focusActiveElement();
 			return this;
 		},
 
@@ -825,10 +914,15 @@
 					html += '<th class="cw">&#160;</th>';
 				}
 				while (dowCnt < this.o.weekStart + 7){
+					var dayIndex = dowCnt % 7;
+					var fullDayName = dates[this.o.language].days[dayIndex];
+					var abbrevDayName = dates[this.o.language].daysMin[dayIndex];
 					html += '<th class="dow';
 					if ($.inArray(dowCnt, this.o.daysOfWeekDisabled) !== -1)
 						html += ' disabled';
-					html += '">'+dates[this.o.language].daysMin[(dowCnt++)%7]+'</th>';
+					html += '" scope="col" aria-label="' + fullDayName + '" title="' + fullDayName + '">';
+					html += '<abbr title="' + fullDayName + '">' + abbrevDayName + '</abbr></th>';
+					dowCnt++;
 				}
 				html += '</tr>';
 				this.picker.find('.datepicker-days thead').append(html);
@@ -837,12 +931,15 @@
 
 		fillMonths: function(){
 			var localDate = this._utc_to_local(this.viewDate);
-			var html = '';
-			var focused;
+			var year = this.viewDate.getUTCFullYear();
+			var html = '<div class="datepicker-grid">';
+			var focused, ariaLabel;
 			for (var i = 0; i < 12; i++){
 				focused = localDate && localDate.getMonth() === i ? ' focused' : '';
-				html += '<span class="month' + focused + '">' + dates[this.o.language].monthsShort[i] + '</span>';
+				ariaLabel = formatMonthAriaLabel(i, year);
+				html += '<button type="button" class="month' + focused + '" aria-label="' + ariaLabel + '">' + dates[this.o.language].monthsShort[i] + '</button>';
 			}
+			html += '</div>';
 			this.picker.find('.datepicker-months td').html(html);
 		},
 
@@ -902,7 +999,7 @@
 		},
 
 		_fill_yearsView: function(selector, cssClass, factor, year, startYear, endYear, beforeFn){
-			var html = '';
+			var html = '<div class="datepicker-grid">';
 			var step = factor / 10;
 			var view = this.picker.find(selector);
 			var startVal = Math.floor(year / factor) * factor;
@@ -912,7 +1009,7 @@
 				return Math.floor(d.getUTCFullYear() / step) * step;
 			});
 
-			var classes, tooltip, before;
+			var classes, tooltip, before, ariaLabel;
 			for (var currVal = startVal - step; currVal <= endVal + step; currVal += step) {
 				classes = [cssClass];
 				tooltip = null;
@@ -952,10 +1049,24 @@
 					}
 				}
 
-				html += '<span class="' + classes.join(' ') + '"' + (tooltip ? ' title="' + tooltip + '"' : '') + '>' + currVal + '</span>';
+				ariaLabel = formatPeriodAriaLabel(currVal, cssClass);
+				var isDisabled = $.inArray('disabled', classes) !== -1;
+				var btnAttrs = [
+					'type="button"',
+					'class="' + classes.join(' ') + '"',
+					'aria-label="' + ariaLabel + '"'
+				];
+				if (isDisabled) {
+					btnAttrs.push('disabled');
+				}
+				if (tooltip) {
+					btnAttrs.push('title="' + tooltip + '"');
+				}
+				html += '<button ' + btnAttrs.join(' ') + '>' + currVal + '</button>';
 			}
+			html += '</div>';
 
-			view.find('.datepicker-switch').text(startVal + '-' + endVal);
+			view.find('button.datepicker-switch').text(startVal + '-' + endVal);
 			view.find('td').html(html);
 		},
 
@@ -976,14 +1087,14 @@
 				before;
 			if (isNaN(year) || isNaN(month))
 				return;
-			this.picker.find('.datepicker-days .datepicker-switch')
+			this.picker.find('.datepicker-days button.datepicker-switch')
 				.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
-			this.picker.find('tfoot .today')
+			this.picker.find('tfoot button.today')
 				.text(todaytxt)
-				.css('display', titleBtnVisible ? 'table-cell' : 'none');
-			this.picker.find('tfoot .clear')
+				.closest('tr').css('display', titleBtnVisible ? '' : 'none');
+			this.picker.find('tfoot button.clear')
 				.text(cleartxt)
-				.css('display', this.o.clearBtn === true ? 'table-cell' : 'none');
+				.closest('tr').css('display', this.o.clearBtn === true ? '' : 'none');
 			this.picker.find('thead .datepicker-title')
 				.text(this.o.title)
 				.css('display', typeof this.o.title === 'string' && this.o.title !== '' ? 'table-cell' : 'none');
@@ -1042,15 +1153,40 @@
 						content = before.content;
 				}
 
-				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
-				//Fallback to unique function for older jquery versions
+				// Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2).
+				// Fallback to unique function for older jquery versions.
 				if (typeof $.uniqueSort === "function") {
 					clsName = $.uniqueSort(clsName);
 				} else {
 					clsName = $.unique(clsName);
 				}
 
-				html.push('<td class="'+clsName.join(' ')+'"' + (tooltip ? ' title="'+tooltip+'"' : '') + ' data-date="' + prevMonth.getTime().toString() + '">' + content + '</td>');
+				// Build day button with accessibility attributes.
+				var isDisabled = $.inArray('disabled', clsName) !== -1;
+				var isSelected = $.inArray('active', clsName) !== -1;
+				var isToday = $.inArray('today', clsName) !== -1;
+				var dayAriaLabel = formatDayAriaLabel(prevMonth);
+				var btnAttrs = [
+					'type="button"',
+					'class="' + clsName.join(' ') + '"',
+					'data-date="' + prevMonth.getTime().toString() + '"',
+					'aria-label="' + dayAriaLabel + '"'
+				];
+
+				if (isDisabled) {
+					btnAttrs.push('disabled');
+				}
+				if (isSelected) {
+					btnAttrs.push('aria-selected="true"');
+				}
+				if (isToday) {
+					btnAttrs.push('aria-current="date"');
+				}
+				if (tooltip) {
+					btnAttrs.push('title="' + tooltip + '"');
+				}
+
+				html.push('<td><button ' + btnAttrs.join(' ') + '>' + content + '</button></td>');
 				tooltip = null;
 				if (weekDay === this.o.weekEnd){
 					html.push('</tr>');
@@ -1061,10 +1197,10 @@
 
 			var monthsTitle = dates[this.o.language].monthsTitle || dates['en'].monthsTitle || 'Months';
 			var months = this.picker.find('.datepicker-months')
-				.find('.datepicker-switch')
+				.find('button.datepicker-switch')
 				.text(this.o.maxViewMode < 2 ? monthsTitle : year)
 				.end()
-				.find('tbody span').removeClass('active');
+				.find('tbody .month').removeClass('active');
 
 			$.each(this.dates, function(i, d){
 				if (d.getUTCFullYear() === year)
@@ -1072,13 +1208,13 @@
 			});
 
 			if (year < startYear || year > endYear){
-				months.addClass('disabled');
+				months.addClass('disabled').prop('disabled', true);
 			}
 			if (year === startYear){
-				months.slice(0, startMonth).addClass('disabled');
+				months.slice(0, startMonth).addClass('disabled').prop('disabled', true);
 			}
 			if (year === endYear){
-				months.slice(endMonth+1).addClass('disabled');
+				months.slice(endMonth+1).addClass('disabled').prop('disabled', true);
 			}
 
 			if (this.o.beforeShowMonth !== $.noop){
@@ -1092,8 +1228,9 @@
 						before = {enabled: before};
 					else if (typeof before === 'string')
 						before = {classes: before};
-					if (before.enabled === false && !$(month).hasClass('disabled'))
-						$(month).addClass('disabled');
+					if (before.enabled === false && !$(month).hasClass('disabled')) {
+						$(month).addClass('disabled').prop('disabled', true);
+					}
 					if (before.classes)
 						$(month).addClass(before.classes);
 					if (before.tooltip)
@@ -1133,6 +1270,12 @@
 				endYear,
 				this.o.beforeShowCentury
 			);
+
+			// Announce the current view to screen readers.
+			if (this.picker.is(':visible')) {
+				var announcement = DPGlobal.formatDate(d, titleFormat, this.o.language);
+				this._announce(announcement);
+			}
 		},
 
 		updateNavArrows: function(){
@@ -1169,8 +1312,9 @@
 					break;
 			}
 
-			this.picker.find('.prev').toggleClass('disabled', prevIsDisabled);
-			this.picker.find('.next').toggleClass('disabled', nextIsDisabled);
+			// Toggle disabled class and attribute on the navigation buttons.
+			this.picker.find('button.prev').toggleClass('disabled', prevIsDisabled).prop('disabled', prevIsDisabled);
+			this.picker.find('button.next').toggleClass('disabled', nextIsDisabled).prop('disabled', nextIsDisabled);
 		},
 
 		click: function(e){
@@ -1180,24 +1324,41 @@
 			var target, dir, day, year, month;
 			target = $(e.target);
 
-			// Clicked on the switch
-			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
-				this.setViewMode(this.viewMode + 1);
+			// Handle clicks on navigation buttons (prev/next).
+			// Classes are now directly on the button elements.
+			if (target.is('button') && (target.hasClass('prev') || target.hasClass('next'))) {
+				if (!target.hasClass('disabled') && !target.prop('disabled')) {
+					dir = target.hasClass('prev') ? -1 : 1;
+					if (this.viewMode !== 0) {
+						dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
+					}
+					this.viewDate = this.moveMonth(this.viewDate, dir);
+					this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
+					this.fill();
+					this._focusNavButton(target.hasClass('prev') ? 'prev' : 'next');
+				}
+				return;
 			}
 
-			// Clicked on today button
+			// Clicked on the switch.
+			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
+				this.setViewMode(this.viewMode + 1);
+				this._focusActiveElement();
+			}
+
+			// Clicked on today button (now a button element).
 			if (target.hasClass('today') && !target.hasClass('day')){
 				this.setViewMode(0);
 				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
 			}
 
-			// Clicked on clear button
+			// Clicked on clear button (now a button element).
 			if (target.hasClass('clear')){
 				this.clearDates();
 			}
 
-			if (!target.hasClass('disabled')){
-				// Clicked on a month, year, decade, century
+			if (!target.hasClass('disabled') && !target.prop('disabled')){
+				// Clicked on a month, year, decade, century.
 				if (target.hasClass('month')
 					|| target.hasClass('year')
 					|| target.hasClass('decade')
@@ -1206,7 +1367,7 @@
 
 					day = 1;
 					if (this.viewMode === 1){
-						month = target.parent().find('span').index(target);
+						month = target.parent().find('.month').index(target);
 						year = this.viewDate.getUTCFullYear();
 						this.viewDate.setUTCMonth(month);
 					} else {
@@ -1222,6 +1383,7 @@
 					} else {
 						this.setViewMode(this.viewMode - 1);
 						this.fill();
+						this._focusActiveElement();
 					}
 				}
 			}
@@ -1249,7 +1411,7 @@
 			this._setDate(date);
 		},
 
-		// Clicked on prev or next
+		// Clicked on prev or next.
 		navArrowsClick: function(e){
 			var $target = $(e.currentTarget);
 			var dir = $target.hasClass('prev') ? -1 : 1;
@@ -1259,6 +1421,8 @@
 			this.viewDate = this.moveMonth(this.viewDate, dir);
 			this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
 			this.fill();
+			// Restore focus to the clicked button after fill.
+			this._focusNavButton(dir === -1 ? 'prev' : 'next');
 		},
 
 		_toggle_multidate: function(date){
@@ -1398,7 +1562,7 @@
 
 		keydown: function(e){
 			if (!this.picker.is(':visible')){
-				if (e.keyCode === 40 || e.keyCode === 27) { // allow down to re-show picker
+				if (e.keyCode === 40 || e.keyCode === 27) { // Allow down to re-show picker.
 					this.show();
 					e.stopPropagation();
 				}
@@ -1414,8 +1578,13 @@
 						this.viewDate = this.dates.get(-1) || this.viewDate;
 						this.fill();
 					}
-					else
+					else {
 						this.hide();
+						// Restore focus to the trigger element.
+						if (this._triggerElement) {
+							$(this._triggerElement).trigger('focus');
+						}
+					}
 					e.preventDefault();
 					e.stopPropagation();
 					break;
@@ -1457,6 +1626,7 @@
 						this.focusDate = this.viewDate = newViewDate;
 						this.setValue();
 						this.fill();
+						this._focusActiveElement();
 						e.preventDefault();
 					}
 					break;
@@ -1480,10 +1650,7 @@
 					}
 					break;
 				case 9: // tab
-					this.focusDate = null;
-					this.viewDate = this.dates.get(-1) || this.viewDate;
-					this.fill();
-					this.hide();
+					// Allow natural Tab behavior - do not intercept.
 					break;
 			}
 			if (dateChanged){
@@ -1504,6 +1671,157 @@
 				.show();
 			this.updateNavArrows();
 			this._trigger('changeViewMode', new Date(this.viewDate));
+		},
+
+		/**
+		 * Handle keydown events within the picker.
+		 * Handles Space key for button activation and arrow navigation.
+		 *
+		 * @param {Event} e The keydown event.
+		 */
+		pickerKeydown: function(e){
+			var key = e.key || e.keyCode;
+			var $target = $(e.target);
+
+			// Handle Enter and Space keys to activate buttons.
+			if ($target.is('button')) {
+				if (key === 'Enter' || key === 13 || key === ' ' || key === 'Space' || key === 32) {
+					e.preventDefault();
+					$target.trigger('click');
+					return;
+				}
+			}
+
+			// Handle Escape key to close picker.
+			if (key === 'Escape' || key === 27) {
+				e.preventDefault();
+				e.stopPropagation();
+				if (this.focusDate) {
+					this.focusDate = null;
+					this.viewDate = this.dates.get(-1) || this.viewDate;
+					this.fill();
+				} else {
+					this.hide();
+					// Restore focus to the trigger element.
+					if (this._triggerElement) {
+						$(this._triggerElement).trigger('focus');
+					}
+				}
+				return;
+			}
+
+			// Handle arrow keys for navigation within grid.
+			if ($target.hasClass('day') || $target.hasClass('month') ||
+				$target.hasClass('year') || $target.hasClass('decade') ||
+				$target.hasClass('century')) {
+				this._handleGridArrowKeys(e, $target);
+			}
+		},
+
+		/**
+		 * Handle arrow key navigation within grid elements.
+		 * Moves focus directly without modifying tabindex.
+		 *
+		 * @param {Event}  e       The keydown event.
+		 * @param {jQuery} $target The focused element.
+		 */
+		_handleGridArrowKeys: function(e, $target){
+			var key = e.keyCode;
+			if ($.inArray(key, [37, 38, 39, 40]) === -1) {
+				return;
+			}
+
+			e.preventDefault();
+
+			var $container = $target.closest('td').parent().parent();
+			var $items = $container.find('button:not([disabled])').filter(':visible');
+			var currentIndex = $items.index($target);
+			var cols = $target.hasClass('day') ? 7 : 4;
+			var newIndex;
+
+			switch (key) {
+				case 37: // left
+					newIndex = currentIndex - 1;
+					break;
+				case 38: // up
+					newIndex = currentIndex - cols;
+					break;
+				case 39: // right
+					newIndex = currentIndex + 1;
+					break;
+				case 40: // down
+					newIndex = currentIndex + cols;
+					break;
+			}
+
+			if (newIndex >= 0 && newIndex < $items.length) {
+				// Move focus to the target element.
+				$items.eq(newIndex).trigger('focus');
+
+				// Update focusDate for days view.
+				if ($target.hasClass('day')) {
+					var timestamp = $items.eq(newIndex).data('date');
+					if (timestamp) {
+						this.focusDate = new Date(timestamp);
+					}
+				}
+			}
+		},
+
+		/**
+		 * Focus the currently active or focused element in the visible view.
+		 */
+		_focusActiveElement: function(){
+			var self = this;
+			setTimeout(function() {
+				if (!self.picker.is(':visible')) {
+					return;
+				}
+
+				var $view = self.picker.find('.datepicker-' + DPGlobal.viewModes[self.viewMode].clsName);
+				var $focusTarget;
+
+				// Find the focused or active element.
+				$focusTarget = $view.find('button.focused:not([disabled])').first();
+				if (!$focusTarget.length) {
+					$focusTarget = $view.find('button.active:not([disabled])').first();
+				}
+				if (!$focusTarget.length) {
+					$focusTarget = $view.find('button.day:not([disabled]), button.month:not([disabled]), button.year:not([disabled])').first();
+				}
+
+				if ($focusTarget.length) {
+					$focusTarget.trigger('focus');
+				}
+			}, 0);
+		},
+
+		/**
+		 * Focus a navigation button (prev or next).
+		 *
+		 * @param {string} which Either 'prev' or 'next'.
+		 */
+		_focusNavButton: function(which){
+			var self = this;
+			setTimeout(function() {
+				var $view = self.picker.find('.datepicker-' + DPGlobal.viewModes[self.viewMode].clsName);
+				var $btn = $view.find('button.' + which);
+				if ($btn.length && !$btn.hasClass('disabled') && !$btn.prop('disabled')) {
+					$btn.trigger('focus');
+				}
+			}, 0);
+		},
+
+		/**
+		 * Announce a message to screen readers via the live region.
+		 *
+		 * @param {string} message The message to announce.
+		 */
+		_announce: function(message){
+			var $liveRegion = this.picker.find('.datepicker-live-region');
+			if ($liveRegion.length) {
+				$liveRegion.text(message);
+			}
 		}
 	};
 
@@ -1951,52 +2269,53 @@
 			'<th colspan="7" class="datepicker-title"></th>'+
 			'</tr>'+
 			'<tr>'+
-			'<th class="prev">'+defaults.templates.leftArrow+'</th>'+
-			'<th colspan="5" class="datepicker-switch"></th>'+
-			'<th class="next">'+defaults.templates.rightArrow+'</th>'+
+			'<th><button type="button" class="prev" aria-label="Previous">'+defaults.templates.leftArrow+'</button></th>'+
+			'<th colspan="5"><button type="button" class="datepicker-switch"></button></th>'+
+			'<th><button type="button" class="next" aria-label="Next">'+defaults.templates.rightArrow+'</button></th>'+
 			'</tr>'+
 			'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
 		footTemplate: '<tfoot>'+
 			'<tr>'+
-			'<th colspan="7" class="today"></th>'+
+			'<th colspan="7"><button type="button" class="today"></button></th>'+
 			'</tr>'+
 			'<tr>'+
-			'<th colspan="7" class="clear"></th>'+
+			'<th colspan="7"><button type="button" class="clear"></button></th>'+
 			'</tr>'+
 			'</tfoot>'
 	};
-	DPGlobal.template = '<div class="datepicker">'+
+	DPGlobal.template = '<div class="datepicker" role="application" aria-label="Calendar">'+
+		'<div class="sr-only datepicker-live-region" aria-live="polite" aria-atomic="true"></div>'+
 		'<div class="datepicker-days">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		'<tbody></tbody>'+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-months">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-years">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-decades">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+
 		'</table>'+
 		'</div>'+
 		'<div class="datepicker-centuries">'+
-		'<table class="table-condensed">'+
+		'<table class="table-condensed" role="grid">'+
 		DPGlobal.headTemplate+
 		DPGlobal.contTemplate+
 		DPGlobal.footTemplate+

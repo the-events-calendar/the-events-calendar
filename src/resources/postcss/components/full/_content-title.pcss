@@ -19,6 +19,12 @@
 			margin-left: 20px;
 		}
 
+		/* If the only title is a11y-hidden, remove the decorative line. */
+		&:has(.tec-a11y-title-hidden)::after {
+			display: none;
+			content: none;
+		}
+
 		.tribe-events-header__content-title-text {
 			flex: none;
 		}

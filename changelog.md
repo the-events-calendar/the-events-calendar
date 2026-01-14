@@ -1,5 +1,24 @@
 # Changelog
 
+### [6.15.14] 2026-01-13
+
+* Version - The Events Calendar 6.15.14 is only compatible with Events Pro 7.7.12 or higher.
+* Fix - Ensure that the Series post status is not changed during maintenance.
+* Fix - Improve category table stability by preventing fatal errors when custom column data receives null values. [TEC-5712]
+* Fix - Prevent category data from persisting between events when some have colored categories and others do not. Props to @deltragon. [TEC-5622]
+* Tweak - Add a visual outline when a day is in focus in the datepicker for improved accessibility. [TEC-5646]
+* Tweak - Change content template name to 'embed-content' to avoid conflicts for Calendar Embeds. [TEC-5717]
+* Tweak - Enhance Top Bar datepicker with semantic HTML, ARIA support, and reliable keyboard navigation. [TEC-5620]
+* Tweak - Improve archive view content title to default to an H1 while allowing heading tag overrides via tec_events_views_v2_view_{$view_slug}_content_title_heading_tag filter. [TEC-5617]
+* Tweak - Improve JavaScript namespace initialization by ensuring window.tribe is defined before category color scripts run. [TEC-5712]
+* Tweak - Increase contrast for current day in the datepicker for improved accessibility. [TEC-5640]
+* Tweak - Increase contrast in datepicker navigation arrows for improved accessibility. [TEC-5639]
+* Tweak - Increase contrast of past events title for improved accessibility. [TEC-5642]
+* Tweak - Increase contrast for month view past multiday events for improved accessibility. [TEC-5641]
+* Tweak - Increase contrast on pagination arrows for improved accessibility. [TEC-5638]
+* Tweak - Reorder event markup in archive and widget views so event titles precede their date and time for improved screen reader navigation. [TEC-5621]
+* Language - 2 new strings added, 57 updated, 0 fuzzied, and 1 obsoleted.
+
 ### [6.15.13.1] 2026-01-07
 
 * Fix - Corrective language fix for Category Colors. [TEC-36]

@@ -150,6 +150,7 @@ class Frontend extends Controller_Contract {
 	 * Overwrites the content of the calendar embeds.
 	 *
 	 * @since 6.11.0
+	 * @since 6.15.14 Change content template name to 'embed-content' to avoid potential conflicts.
 	 *
 	 * @param string $content The content.
 	 *
@@ -167,7 +168,7 @@ class Frontend extends Controller_Contract {
 		$calendar_embed_id = get_the_ID();
 
 		return $this->template->template(
-			'content',
+			'embed-content',
 			[
 				'calendar_embed_id' => $calendar_embed_id,
 				'event_categories'  => Calendar_Embeds::get_event_categories( $calendar_embed_id ),

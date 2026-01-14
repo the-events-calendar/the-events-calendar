@@ -62,10 +62,11 @@ class Category_Color_Priority_Category_Provider {
 	 * Retrieves the highest-priority category with all its metadata for a given event.
 	 *
 	 * @since 6.14.0
+	 * @since 6.15.14 Return null if the primary color is empty.
 	 *
 	 * @param WP_Post $event The post object of the event.
 	 *
-	 * @return array|null Array containing the category object and metadata, or null if none found.
+	 * @return array|null Array containing the category object and metadata, or null if none found or if category has no color.
 	 */
 	public function get_highest_priority_category_with_meta( WP_Post $event ): ?array {
 		$category = $this->get_highest_priority_category( $event );
@@ -76,10 +77,17 @@ class Category_Color_Priority_Category_Provider {
 
 		$meta_instance = tribe( Event_Category_Meta::class )->set_term( $category->term_id );
 
+		$primary_color = $meta_instance->get( $this->get_key( 'primary' ) );
+
+		// Return null if the category has no primary color set.
+		if ( empty( $primary_color ) ) {
+			return null;
+		}
+
 		return [
 			'category' => $category,
 			'meta'     => [
-				'primary'          => $meta_instance->get( $this->get_key( 'primary' ) ),
+				'primary'          => $primary_color,
 				'secondary'        => $meta_instance->get( $this->get_key( 'secondary' ) ),
 				'text'             => $meta_instance->get( $this->get_key( 'text' ) ),
 				'priority'         => $meta_instance->get( $this->get_key( 'priority' ) ),

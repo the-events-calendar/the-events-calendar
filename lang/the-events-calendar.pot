@@ -1,15 +1,15 @@
-# Copyright (C) 2025 The Events Calendar
+# Copyright (C) 2026 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.12.1\n"
+"Project-Id-Version: The Events Calendar 6.15.14\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-19T16:36:34+00:00\n"
+"POT-Creation-Date: 2026-01-13T16:37:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -2105,7 +2105,7 @@ msgid "Hide the search field on all views."
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-calendar.php:197
-#: src/Tribe/Main.php:3725
+#: src/Tribe/Main.php:3728
 msgid "Calendar"
 msgstr ""
 
@@ -2728,7 +2728,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-upgrade.php:20
 #: src/Tribe/Admin/Bar/Default_Configurator.php:47
-#: src/Tribe/Main.php:3672
+#: src/Tribe/Main.php:3675
 #: src/Tribe/Views/V2/Views/Widgets/Widget_View.php:61
 msgid "View Calendar"
 msgstr ""
@@ -3749,6 +3749,17 @@ msgstr ""
 
 #: src/Events/Custom_Tables/V1/admin-views/migration/upgrade-logo.php:4
 msgid "The Events Calendar product suite logo"
+msgstr ""
+
+#: src/Events/Custom_Tables/V1/Migration/Ajax.php:140
+#: src/Events/Custom_Tables/V1/Migration/Ajax.php:171
+msgid "You do not have permission to view this page."
+msgstr ""
+
+#: src/Events/Custom_Tables/V1/Migration/Ajax.php:515
+#: src/Events/Custom_Tables/V1/Migration/Ajax.php:563
+#: src/Events/Custom_Tables/V1/Migration/Ajax.php:606
+msgid "You do not have permission to migrate events."
 msgstr ""
 
 #: src/Events/Custom_Tables/V1/Migration/Reports/Event_Report.php:154
@@ -4815,7 +4826,7 @@ msgstr ""
 #: src/Tribe/Template/Single_Event.php:35
 #: src/Tribe/Views/V2/Template_Bootstrap.php:186
 #: src/Tribe/Views/V2/Template_Bootstrap.php:229
-#: src/Tribe/Views/V2/Template_Bootstrap.php:554
+#: src/Tribe/Views/V2/Template_Bootstrap.php:553
 #, php-format
 msgid "This %s has passed."
 msgstr ""
@@ -6097,8 +6108,8 @@ msgstr ""
 
 #: src/functions/template-tags/deprecated.php:22
 #: src/functions/template-tags/deprecated.php:44
-#: src/Tribe/Main.php:3321
-#: src/Tribe/Main.php:3360
+#: src/Tribe/Main.php:3324
+#: src/Tribe/Main.php:3363
 msgid "Date out of range."
 msgstr ""
 
@@ -6254,7 +6265,7 @@ msgstr ""
 #: src/Tribe/Admin/Bar/Default_Configurator.php:91
 #: src/Tribe/Admin/Settings.php:119
 #: src/Tribe/Admin/Settings.php:215
-#: src/Tribe/Main.php:3724
+#: src/Tribe/Main.php:3727
 msgid "Settings"
 msgstr ""
 
@@ -7490,81 +7501,81 @@ msgstr ""
 msgid "Unknown service message"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:536
+#: src/Tribe/Aggregator/Settings.php:544
 msgid "By date range"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:537
+#: src/Tribe/Aggregator/Settings.php:545
 msgid "By number of events"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:538
+#: src/Tribe/Aggregator/Settings.php:546
 msgid "Do not limit (not recommended)"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:565
-#: src/Tribe/Aggregator/Settings.php:566
+#: src/Tribe/Aggregator/Settings.php:573
+#: src/Tribe/Aggregator/Settings.php:574
 msgid "24 hours"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:569
-#: src/Tribe/Aggregator/Settings.php:570
+#: src/Tribe/Aggregator/Settings.php:577
+#: src/Tribe/Aggregator/Settings.php:578
 msgid "72 hours"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:573
+#: src/Tribe/Aggregator/Settings.php:581
 msgid "One week"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:574
+#: src/Tribe/Aggregator/Settings.php:582
 msgid "one week"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:577
+#: src/Tribe/Aggregator/Settings.php:585
 msgid "Two weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:578
+#: src/Tribe/Aggregator/Settings.php:586
 msgid "two weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:581
+#: src/Tribe/Aggregator/Settings.php:589
 msgid "Three weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:582
+#: src/Tribe/Aggregator/Settings.php:590
 msgid "three weeks"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:585
+#: src/Tribe/Aggregator/Settings.php:593
 msgid "One month"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:586
+#: src/Tribe/Aggregator/Settings.php:594
 msgid "one month"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:589
+#: src/Tribe/Aggregator/Settings.php:597
 msgid "Two months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:590
+#: src/Tribe/Aggregator/Settings.php:598
 msgid "two months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:593
+#: src/Tribe/Aggregator/Settings.php:601
 msgid "Three months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:594
+#: src/Tribe/Aggregator/Settings.php:602
 msgid "three months"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:878
+#: src/Tribe/Aggregator/Settings.php:890
 msgid "Asynchronous"
 msgstr ""
 
-#: src/Tribe/Aggregator/Settings.php:882
+#: src/Tribe/Aggregator/Settings.php:894
 msgid "Cron-based"
 msgstr ""
 
@@ -7803,43 +7814,43 @@ msgstr ""
 msgid "Scheduled Imports"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:183
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:188
 msgid "queued"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:187
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:192
 msgid "delete"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:191
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:196
 msgid "reactivated"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:195
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:200
 msgid "deactivated"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:248
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:253
 #, php-format
 msgid "Error: %d scheduled import was not %s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:258
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:263
 #, php-format
 msgid "Successfully %s %d scheduled import"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:373
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:378
 msgid "All scheduled imports are currently suspended, and no events will be imported."
 msgstr ""
 
 #. Translators: %1$s: opening link tag, %2$s: closing link tag.
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:380
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:385
 #, php-format
 msgid "To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:387
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:392
 msgid "Enter Event Aggregator License"
 msgstr ""
 
@@ -8254,7 +8265,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:51
 #: src/Tribe/Ignored_Events.php:67
-#: src/Tribe/Ignored_Events.php:471
+#: src/Tribe/Ignored_Events.php:473
 msgid "Delete Permanently"
 msgstr ""
 
@@ -8263,18 +8274,18 @@ msgid "Ignored events that are deleted will be removed permanently. They can be 
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:55
-#: src/Tribe/Ignored_Events.php:504
-#: src/Tribe/Ignored_Events.php:784
+#: src/Tribe/Ignored_Events.php:506
+#: src/Tribe/Ignored_Events.php:786
 msgid "Ignored"
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:59
-#: src/Tribe/Ignored_Events.php:434
+#: src/Tribe/Ignored_Events.php:436
 msgid "Hide & Ignore"
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:60
-#: src/Tribe/Ignored_Events.php:433
+#: src/Tribe/Ignored_Events.php:435
 msgid "Ignored events do not show on the calendar but can be updated with future imports"
 msgstr ""
 
@@ -8344,54 +8355,54 @@ msgid "Last Import"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:432
+#: src/Tribe/Ignored_Events.php:434
 #, php-format
 msgid "Hide and Ignore &#8220;%s&#8221;"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:462
+#: src/Tribe/Ignored_Events.php:464
 #, php-format
 msgid "Restore &#8220;%s&#8221; from the Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:463
+#: src/Tribe/Ignored_Events.php:465
 msgid "Restore"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:470
+#: src/Tribe/Ignored_Events.php:472
 #, php-format
 msgid "Delete &#8220;%s&#8221; permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:785
+#: src/Tribe/Ignored_Events.php:787
 #, php-format
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:904
+#: src/Tribe/Ignored_Events.php:906
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:914
+#: src/Tribe/Ignored_Events.php:916
 msgid "You do not have permission to migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:921
+#: src/Tribe/Ignored_Events.php:923
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:945
+#: src/Tribe/Ignored_Events.php:947
 #, php-format
 msgid "Migration: %1$d Legacy Ignored Post was migrated but %2$d failed. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %1$d Legacy Ignored Posts were migrated but %2$d failed. To see the migrated events you will first need to refresh this screen."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:957
+#: src/Tribe/Ignored_Events.php:959
 #, php-format
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
@@ -8399,12 +8410,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: Event ID, 2: Error message.
-#: src/Tribe/Ignored_Events.php:970
+#: src/Tribe/Ignored_Events.php:972
 #, php-format
 msgid "Event %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:977
+#: src/Tribe/Ignored_Events.php:979
 #, php-format
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
@@ -9158,37 +9169,37 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3390
+#: src/Tribe/Main.php:3393
 #, php-format
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3562
+#: src/Tribe/Main.php:3565
 msgid "Support"
 msgstr ""
 
-#: src/Tribe/Main.php:3565
+#: src/Tribe/Main.php:3568
 msgid "View All Add-Ons"
 msgstr ""
 
-#: src/Tribe/Main.php:3587
+#: src/Tribe/Main.php:3590
 msgid "News from The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:3614
+#: src/Tribe/Main.php:3617
 msgid "Additional Functionality"
 msgstr ""
 
-#: src/Tribe/Main.php:3619
+#: src/Tribe/Main.php:3622
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr ""
 
-#: src/Tribe/Main.php:3620
+#: src/Tribe/Main.php:3623
 #, php-format
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
-#: src/Tribe/Main.php:3762
+#: src/Tribe/Main.php:3765
 msgid "Once Every 30 Mins"
 msgstr ""
 
@@ -10904,10 +10915,6 @@ msgstr ""
 #: src/Tribe/Views/V2/Template/Title.php:172
 #, php-format
 msgid "%1$s from %2$s"
-msgstr ""
-
-#: src/Tribe/Views/V2/Template_Bootstrap.php:599
-msgid "Main content"
 msgstr ""
 
 #: src/Tribe/Views/V2/View.php:1669
