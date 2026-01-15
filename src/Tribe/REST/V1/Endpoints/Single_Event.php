@@ -101,7 +101,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Post          $event   The event post object.
+	 * @param WP_Post         $event   The event post object.
 	 * @param WP_REST_Request $request The REST request object.
 	 *
 	 * @return true|WP_Error True if accessible, or WP_Error on failure.
@@ -138,7 +138,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_REST_Request $request
+	 * @param WP_REST_Request $request The REST request object.
 	 *
 	 * @return WP_REST_Response|WP_Error An array containing the data on success or a WP_Error instance on failure.
 	 */
