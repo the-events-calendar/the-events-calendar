@@ -62,17 +62,63 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	}
 
 	/**
-	 * @param WP_REST_Request $request
+	 * Validates that an event exists and is the correct post type.
 	 *
-	 * @return WP_REST_Response|WP_Error An array containing the data on success or a WP_Error instance on failure.
+	 * @since TBD
+	 *
+	 * @param int $event_id The event ID to validate.
+	 *
+	 * @return WP_Post|WP_Error The event post object on success, or WP_Error on failure.
 	 */
-	public function get( WP_REST_Request $request ) {
-		$this->serving = $request;
+	protected function validate_event_exists( $event_id ) {
+		$event = get_post( $event_id );
 
-		$event = get_post( $request['id'] );
+		// Check if the post exists.
+		if ( empty( $event ) ) {
+			$message = $this->messages->get_message( 'rest-event-not-found' );
+			return new WP_Error(
+				'rest_event_not_found',
+				sprintf( $message, $event_id ),
+				[ 'status' => 404 ]
+			);
+		}
+
+		// Check if the post is the correct post type.
+		if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+			$message = $this->messages->get_message( 'rest-invalid-event-id' );
+			return new WP_Error(
+				'rest_invalid_event_id',
+				sprintf( $message, $event_id, $event->post_type ),
+				[ 'status' => 400 ]
+			);
+		}
+
+		return $event;
+	}
+
+	/**
+	 * Validates that an event is accessible for reading.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post          $event   The event post object.
+	 * @param WP_REST_Request $request The REST request object.
+	 *
+	 * @return true|WP_Error True if accessible, or WP_Error on failure.
+	 */
+	protected function validate_event_accessible( $event, WP_REST_Request $request ) {
+		// Check if the event is trashed and return a specific message.
+		if ( 'trash' === $event->post_status ) {
+			$message = $this->messages->get_message( 'event-no-longer-available' );
+			return new WP_Error(
+				'event-no-longer-available',
+				$message,
+				[ 'status' => 403 ]
+			);
+		}
 
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->read_post;
-		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $request['id'] ) ) ) {
+		if ( ! ( 'publish' === $event->post_status || current_user_can( $cap, $event->ID ) ) ) {
 			$message = $this->messages->get_message( 'event-not-accessible' );
 
 			return new WP_Error( 'event-not-accessible', $message, [ 'status' => 403 ] );
@@ -84,7 +130,36 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return new WP_Error( 'event-password-protected', $message, [ 'status' => 403 ] );
 		}
 
-		$data = $this->post_repository->get_event_data( $request['id'], 'single' );
+		return true;
+	}
+
+	/**
+	 * GET request via API.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_REST_Request $request
+	 *
+	 * @return WP_REST_Response|WP_Error An array containing the data on success or a WP_Error instance on failure.
+	 */
+	public function get( WP_REST_Request $request ) {
+		$this->serving = $request;
+
+		$event_id = $request['id'];
+
+		// Validate event exists and is correct post type.
+		$event = $this->validate_event_exists( $event_id );
+		if ( is_wp_error( $event ) ) {
+			return $event;
+		}
+
+		// Validate event is accessible.
+		$accessible = $this->validate_event_accessible( $event, $request );
+		if ( is_wp_error( $accessible ) ) {
+			return $accessible;
+		}
+
+		$data = $this->post_repository->get_event_data( $event_id, 'single' );
 
 		/**
 		 * Filters the data that will be returned for a single event request.
@@ -454,7 +529,11 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function delete( WP_REST_Request $request ) {
 		$event_id = $request['id'];
 
-		$event = get_post( $event_id );
+		// Validate event exists and is correct post type.
+		$event = $this->validate_event_exists( $event_id );
+		if ( is_wp_error( $event ) ) {
+			return $event;
+		}
 
 		if ( 'trash' === $event->post_status ) {
 			$message = $this->messages->get_message( 'event-is-in-trash' );
@@ -512,13 +591,21 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	public function update( WP_REST_Request $request ) {
 		$this->serving = $request;
 
+		$event_id = $request['id'];
+
+		// Validate event exists and is correct post type.
+		$event = $this->validate_event_exists( $event_id );
+		if ( is_wp_error( $event ) ) {
+			return $event;
+		}
+
 		$postarr = $this->prepare_postarr( $request );
 
 		if ( is_wp_error( $postarr ) ) {
 			return $postarr;
 		}
 
-		$id = Tribe__Events__API::updateEvent( $request['id'], $postarr );
+		$id = Tribe__Events__API::updateEvent( $event_id, $postarr );
 
 		if ( is_wp_error( $id ) ) {
 			/** @var WP_Error $id */
