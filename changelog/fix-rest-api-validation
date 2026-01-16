@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Improve REST API error handling by providing specific error messages for trashed events and ensuring invalid or non-existent event ID parameters in archive endpoints return proper 400 errors.
