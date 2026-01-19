@@ -1330,78 +1330,87 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var target, dir, day, year, month;
-			target = $(e.target);
+		var target, dir, day, year, month;
+		target = $(e.target);
 
 		// Handle clicks on navigation buttons (prev/next).
 		// Use closest() to handle clicks on SVG icons inside the buttons.
 		var $navButton = target.closest('button.prev, button.next');
+
+		// Make sure we have a navigation button.
 		if ($navButton.length) {
-			if (!$navButton.hasClass('disabled') && !$navButton.prop('disabled')) {
-				dir = $navButton.hasClass('prev') ? -1 : 1;
-				if (this.viewMode !== 0) {
-					dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
-				}
-				this.viewDate = this.moveMonth(this.viewDate, dir);
-				this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
-				this.fill();
-				this._focusNavButton($navButton.hasClass('prev') ? 'prev' : 'next');
+			// Bail if the navigation button is disabled.
+			if ($navButton.hasClass('disabled') || $navButton.prop('disabled')) {
+				return;
 			}
+
+			// Determine the direction of the navigation.
+			dir = $navButton.hasClass('prev') ? -1 : 1;
+
+			// If we're not in the day view, multiply the direction by the number of months in the view mode.
+			if (this.viewMode !== 0) {
+				dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
+			}
+			// Move the view date by the direction.
+			this.viewDate = this.moveMonth(this.viewDate, dir);
+			this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
+			this.fill();
+			this._focusNavButton($navButton.hasClass('prev') ? 'prev' : 'next');
 			return;
 		}
 
-			// Clicked on the switch.
-			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
-				this.setViewMode(this.viewMode + 1);
-				this._focusActiveElement();
-			}
+		// Clicked on the switch.
+		if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
+			this.setViewMode(this.viewMode + 1);
+			this._focusActiveElement();
+		}
 
-			// Clicked on today button (now a button element).
-			if (target.hasClass('today') && !target.hasClass('day')){
-				this.setViewMode(0);
-				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
-			}
+		// Clicked on today button (now a button element).
+		if (target.hasClass('today') && !target.hasClass('day')){
+			this.setViewMode(0);
+			this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
+		}
 
-			// Clicked on clear button (now a button element).
-			if (target.hasClass('clear')){
-				this.clearDates();
-			}
+		// Clicked on clear button (now a button element).
+		if (target.hasClass('clear')){
+			this.clearDates();
+		}
 
-			if (!target.hasClass('disabled') && !target.prop('disabled')){
-				// Clicked on a month, year, decade, century.
-				if (target.hasClass('month')
-					|| target.hasClass('year')
-					|| target.hasClass('decade')
-					|| target.hasClass('century')) {
-					this.viewDate.setUTCDate(1);
+		if (!target.hasClass('disabled') && !target.prop('disabled')){
+			// Clicked on a month, year, decade, century.
+			if (target.hasClass('month')
+				|| target.hasClass('year')
+				|| target.hasClass('decade')
+				|| target.hasClass('century')) {
+				this.viewDate.setUTCDate(1);
 
-					day = 1;
-					if (this.viewMode === 1){
-						month = target.parent().find('.month').index(target);
-						year = this.viewDate.getUTCFullYear();
-						this.viewDate.setUTCMonth(month);
-					} else {
-						month = 0;
-						year = Number(target.text());
-						this.viewDate.setUTCFullYear(year);
-					}
+				day = 1;
+				if (this.viewMode === 1){
+					month = target.parent().find('.month').index(target);
+					year = this.viewDate.getUTCFullYear();
+					this.viewDate.setUTCMonth(month);
+				} else {
+					month = 0;
+					year = Number(target.text());
+					this.viewDate.setUTCFullYear(year);
+				}
 
-					this._trigger(DPGlobal.viewModes[this.viewMode - 1].e, this.viewDate);
+				this._trigger(DPGlobal.viewModes[this.viewMode - 1].e, this.viewDate);
 
-					if (this.viewMode === this.o.minViewMode){
-						this._setDate(UTCDate(year, month, day));
-					} else {
-						this.setViewMode(this.viewMode - 1);
-						this.fill();
-						this._focusActiveElement();
-					}
+				if (this.viewMode === this.o.minViewMode){
+					this._setDate(UTCDate(year, month, day));
+				} else {
+					this.setViewMode(this.viewMode - 1);
+					this.fill();
+					this._focusActiveElement();
 				}
 			}
+		}
 
-			if (this.picker.is(':visible') && this._focused_from){
-				this._focused_from.focus();
-			}
-			delete this._focused_from;
+		if (this.picker.is(':visible') && this._focused_from){
+			this._focused_from.focus();
+		}
+		delete this._focused_from;
 		},
 
 		dayCellClick: function(e){
