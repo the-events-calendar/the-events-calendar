@@ -1,6 +1,8 @@
 <?php
 /**
  * Main Tribe Events Calendar class.
+ *
+ * Add a comment to trigger PHP tests.
  */
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
