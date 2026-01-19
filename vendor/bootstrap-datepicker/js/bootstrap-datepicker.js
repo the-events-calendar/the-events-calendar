@@ -164,8 +164,17 @@
 	})();
 
 
-	// Picker object
-
+	/**
+	 * Datepicker constructor.
+	 * Initializes a new datepicker instance with accessibility features enabled.
+	 * Creates an interactive calendar widget that can be displayed inline or as a dropdown.
+	 *
+	 * @since TBD Allow clicking on icons within buttons to navigate to previous/next month/year.
+	 *
+	 * @param {jQuery|HTMLElement} element The input element or container to attach the datepicker to.
+	 * @param {Object}             options Configuration options for the datepicker instance.
+	 *
+	 */
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
 
@@ -1324,21 +1333,22 @@
 			var target, dir, day, year, month;
 			target = $(e.target);
 
-			// Handle clicks on navigation buttons (prev/next).
-			// Classes are now directly on the button elements.
-			if (target.is('button') && (target.hasClass('prev') || target.hasClass('next'))) {
-				if (!target.hasClass('disabled') && !target.prop('disabled')) {
-					dir = target.hasClass('prev') ? -1 : 1;
-					if (this.viewMode !== 0) {
-						dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
-					}
-					this.viewDate = this.moveMonth(this.viewDate, dir);
-					this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
-					this.fill();
-					this._focusNavButton(target.hasClass('prev') ? 'prev' : 'next');
+		// Handle clicks on navigation buttons (prev/next).
+		// Use closest() to handle clicks on SVG icons inside the buttons.
+		var $navButton = target.closest('button.prev, button.next');
+		if ($navButton.length) {
+			if (!$navButton.hasClass('disabled') && !$navButton.prop('disabled')) {
+				dir = $navButton.hasClass('prev') ? -1 : 1;
+				if (this.viewMode !== 0) {
+					dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
 				}
-				return;
+				this.viewDate = this.moveMonth(this.viewDate, dir);
+				this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
+				this.fill();
+				this._focusNavButton($navButton.hasClass('prev') ? 'prev' : 'next');
 			}
+			return;
+		}
 
 			// Clicked on the switch.
 			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
