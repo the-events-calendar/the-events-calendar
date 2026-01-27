@@ -41,7 +41,7 @@ $website_title = tribe_events_get_organizer_website_title();
 			<?php
 		}
 
-		if ( ! $multiple && ! post_password_required( $organizer ) ) { // only show organizer details if there is one
+		if ( ! $multiple && ! empty( $organizer_ids[0] ) && ! post_password_required( $organizer_ids[0] ) ) { // only show organizer details if there is one
 			if ( ! empty( $phone ) ) {
 				?>
 				<li class="tribe-events-meta-item">
