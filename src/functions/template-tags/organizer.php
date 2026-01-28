@@ -438,8 +438,9 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null, $targ
 	 * Filter the organizer link target attribute.
 	 *
 	 * @since 5.1.0
+	 * @since TBD Changed the default target to _blank from _self.
 	 *
-	 * @param string   $target  The target attribute string. Defaults to "_self".
+	 * @param string   $target  The target attribute string. Defaults to "_blank".
 	 * @param string   $url     The link URL.
 	 * @param null|int $post_id post ID for the organizer.
 	 */
