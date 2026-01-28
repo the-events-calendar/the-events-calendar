@@ -14,7 +14,7 @@
 					<span class="tribe-organizer-email-label tribe-events-meta-label">
 						Email					</span>
 					<span class="tribe-organizer-email tribe-events-meta-value">
-						&#116;e&#115;t&#064;ex&#097;m&#112;l&#101;.&#099;&#111;&#109;					</span>
+						test@example.com					</span>
 				</li>
 								<li class="tribe-events-meta-item">
 										<span class="tribe-organizer-url tribe-events-meta-value">

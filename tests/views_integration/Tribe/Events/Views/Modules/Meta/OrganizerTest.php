@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\Modules\Meta;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
+use Tribe\Tests\Traits\With_Uopz;
 
 /**
  * Class OrganizerTest
@@ -14,6 +15,7 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
  */
 class OrganizerTest extends HtmlTestCase {
 	use MatchesSnapshots;
+	use With_Uopz;
 
 	/**
 	 * Data provider for organizer password protection test cases.
@@ -70,6 +72,8 @@ class OrganizerTest extends HtmlTestCase {
 		// Set up the global post context as if we're viewing this event.
 		$GLOBALS['post'] = get_post( $event->ID );
 		setup_postdata( $GLOBALS['post'] );
+
+		$this->set_fn_return( 'antispambot', fn( $email ) => $email, true );
 
 		// Render the organizer meta template.
 		ob_start();
