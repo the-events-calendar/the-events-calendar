@@ -429,7 +429,7 @@ if ( ! function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if
  *
  * @return string
  **/
-function tribe_get_organizer_website_link( $post_id = null, $label = null, $target = '_self' ): string {
+function tribe_get_organizer_website_link( $post_id = null, $label = null, $target = '_blank' ): string {
 	$post_id = tribe_get_organizer_id( $post_id );
 	$url     = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
 
@@ -446,7 +446,7 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null, $targ
 
 	// Ensure the target is given a valid value.
 	$allowed = [ '_self', '_blank', '_parent', '_top', '_unfencedTop' ];
-	if ( ! in_array( $target, $allowed ) ) {
+	if ( ! in_array( $target, $allowed, true ) ) {
 		$target = '_self';
 	}
 
