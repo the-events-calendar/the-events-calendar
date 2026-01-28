@@ -169,7 +169,7 @@
 	 * Initializes a new datepicker instance with accessibility features enabled.
 	 * Creates an interactive calendar widget that can be displayed inline or as a dropdown.
 	 *
-	 * @since TBD Allow clicking on icons within buttons to navigate to previous/next month/year.
+	 * @since 6.15.15 Allow clicking on icons within buttons to navigate to previous/next month/year.
 	 *
 	 * @param {jQuery|HTMLElement} element The input element or container to attach the datepicker to.
 	 * @param {Object}             options Configuration options for the datepicker instance.
