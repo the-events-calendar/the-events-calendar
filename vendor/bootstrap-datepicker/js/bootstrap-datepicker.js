@@ -164,8 +164,17 @@
 	})();
 
 
-	// Picker object
-
+	/**
+	 * Datepicker constructor.
+	 * Initializes a new datepicker instance with accessibility features enabled.
+	 * Creates an interactive calendar widget that can be displayed inline or as a dropdown.
+	 *
+	 * @since 6.15.15 Allow clicking on icons within buttons to navigate to previous/next month/year.
+	 *
+	 * @param {jQuery|HTMLElement} element The input element or container to attach the datepicker to.
+	 * @param {Object}             options Configuration options for the datepicker instance.
+	 *
+	 */
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
 
@@ -1321,77 +1330,87 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var target, dir, day, year, month;
-			target = $(e.target);
+		var target, dir, day, year, month;
+		target = $(e.target);
 
-			// Handle clicks on navigation buttons (prev/next).
-			// Classes are now directly on the button elements.
-			if (target.is('button') && (target.hasClass('prev') || target.hasClass('next'))) {
-				if (!target.hasClass('disabled') && !target.prop('disabled')) {
-					dir = target.hasClass('prev') ? -1 : 1;
-					if (this.viewMode !== 0) {
-						dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
-					}
-					this.viewDate = this.moveMonth(this.viewDate, dir);
-					this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
-					this.fill();
-					this._focusNavButton(target.hasClass('prev') ? 'prev' : 'next');
-				}
+		// Handle clicks on navigation buttons (prev/next).
+		// Use closest() to handle clicks on SVG icons inside the buttons.
+		var $navButton = target.closest('button.prev, button.next');
+
+		// Make sure we have a navigation button.
+		if ($navButton.length) {
+			// Bail if the navigation button is disabled.
+			if ($navButton.hasClass('disabled') || $navButton.prop('disabled')) {
 				return;
 			}
 
-			// Clicked on the switch.
-			if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
-				this.setViewMode(this.viewMode + 1);
-				this._focusActiveElement();
+			// Determine the direction of the navigation.
+			dir = $navButton.hasClass('prev') ? -1 : 1;
+
+			// If we're not in the day view, multiply the direction by the number of months in the view mode.
+			if (this.viewMode !== 0) {
+				dir *= DPGlobal.viewModes[this.viewMode].navStep * 12;
 			}
+			// Move the view date by the direction.
+			this.viewDate = this.moveMonth(this.viewDate, dir);
+			this._trigger(DPGlobal.viewModes[this.viewMode].e, this.viewDate);
+			this.fill();
+			this._focusNavButton($navButton.hasClass('prev') ? 'prev' : 'next');
+			return;
+		}
 
-			// Clicked on today button (now a button element).
-			if (target.hasClass('today') && !target.hasClass('day')){
-				this.setViewMode(0);
-				this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
-			}
+		// Clicked on the switch.
+		if (target.hasClass('datepicker-switch') && this.viewMode !== this.o.maxViewMode){
+			this.setViewMode(this.viewMode + 1);
+			this._focusActiveElement();
+		}
 
-			// Clicked on clear button (now a button element).
-			if (target.hasClass('clear')){
-				this.clearDates();
-			}
+		// Clicked on today button (now a button element).
+		if (target.hasClass('today') && !target.hasClass('day')){
+			this.setViewMode(0);
+			this._setDate(UTCToday(), this.o.todayBtn === 'linked' ? null : 'view');
+		}
 
-			if (!target.hasClass('disabled') && !target.prop('disabled')){
-				// Clicked on a month, year, decade, century.
-				if (target.hasClass('month')
-					|| target.hasClass('year')
-					|| target.hasClass('decade')
-					|| target.hasClass('century')) {
-					this.viewDate.setUTCDate(1);
+		// Clicked on clear button (now a button element).
+		if (target.hasClass('clear')){
+			this.clearDates();
+		}
 
-					day = 1;
-					if (this.viewMode === 1){
-						month = target.parent().find('.month').index(target);
-						year = this.viewDate.getUTCFullYear();
-						this.viewDate.setUTCMonth(month);
-					} else {
-						month = 0;
-						year = Number(target.text());
-						this.viewDate.setUTCFullYear(year);
-					}
+		if (!target.hasClass('disabled') && !target.prop('disabled')){
+			// Clicked on a month, year, decade, century.
+			if (target.hasClass('month')
+				|| target.hasClass('year')
+				|| target.hasClass('decade')
+				|| target.hasClass('century')) {
+				this.viewDate.setUTCDate(1);
 
-					this._trigger(DPGlobal.viewModes[this.viewMode - 1].e, this.viewDate);
+				day = 1;
+				if (this.viewMode === 1){
+					month = target.parent().find('.month').index(target);
+					year = this.viewDate.getUTCFullYear();
+					this.viewDate.setUTCMonth(month);
+				} else {
+					month = 0;
+					year = Number(target.text());
+					this.viewDate.setUTCFullYear(year);
+				}
 
-					if (this.viewMode === this.o.minViewMode){
-						this._setDate(UTCDate(year, month, day));
-					} else {
-						this.setViewMode(this.viewMode - 1);
-						this.fill();
-						this._focusActiveElement();
-					}
+				this._trigger(DPGlobal.viewModes[this.viewMode - 1].e, this.viewDate);
+
+				if (this.viewMode === this.o.minViewMode){
+					this._setDate(UTCDate(year, month, day));
+				} else {
+					this.setViewMode(this.viewMode - 1);
+					this.fill();
+					this._focusActiveElement();
 				}
 			}
+		}
 
-			if (this.picker.is(':visible') && this._focused_from){
-				this._focused_from.focus();
-			}
-			delete this._focused_from;
+		if (this.picker.is(':visible') && this._focused_from){
+			this._focused_from.focus();
+		}
+		delete this._focused_from;
 		},
 
 		dayCellClick: function(e){
