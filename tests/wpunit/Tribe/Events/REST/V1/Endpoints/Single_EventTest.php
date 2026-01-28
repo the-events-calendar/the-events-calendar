@@ -90,6 +90,134 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
+	 * it should return 404 for permanently deleted event
+	 */
+	public function it_should_return_404_for_permanently_deleted_event() {
+		$event_id = $this->factory()->event->create();
+		wp_delete_post( $event_id, true ); // Permanently delete.
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'rest_event_not_found', $response->get_error_code() );
+		$this->assertStringContainsString( 'does not exist', $response->get_error_message() );
+		$error_data = $response->get_error_data();
+		$this->assertArrayHasKey( 'status', $error_data );
+		$this->assertSame( 404, $error_data['status'] );
+	}
+
+	/**
+	 * @test
+	 * it should return 403 with specific message for trashed event
+	 */
+	public function it_should_return_403_with_specific_message_for_trashed_event() {
+		$event_id = $this->factory()->event->create();
+		wp_trash_post( $event_id );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'event-is-trashed', $response->get_error_code() );
+		$this->assertSame( 'The event is trashed', $response->get_error_message() );
+		$error_data = $response->get_error_data();
+		$this->assertArrayHasKey( 'status', $error_data );
+		$this->assertSame( 403, $error_data['status'] );
+	}
+
+	/**
+	 * @test
+	 * it should return 403 with event-not-accessible for draft event
+	 */
+	public function it_should_return_403_with_event_not_accessible_for_draft_event() {
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'draft' ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'event-not-accessible', $response->get_error_code() );
+		$this->assertSame( 'The requested event is not accessible', $response->get_error_message() );
+		$error_data = $response->get_error_data();
+		$this->assertArrayHasKey( 'status', $error_data );
+		$this->assertSame( 403, $error_data['status'] );
+	}
+
+	/**
+	 * @test
+	 * it should return 403 with event-not-accessible for pending review event
+	 */
+	public function it_should_return_403_with_event_not_accessible_for_pending_review_event() {
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'pending' ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'event-not-accessible', $response->get_error_code() );
+		$this->assertSame( 'The requested event is not accessible', $response->get_error_message() );
+		$error_data = $response->get_error_data();
+		$this->assertArrayHasKey( 'status', $error_data );
+		$this->assertSame( 403, $error_data['status'] );
+	}
+
+	/**
+	 * @test
+	 * it should return 403 with event-password-protected for password protected event
+	 */
+	public function it_should_return_403_with_event_password_protected_for_password_protected_event() {
+		$event_id = $this->factory()->event->create( [ 'post_password' => 'test-password' ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'event-password-protected', $response->get_error_code() );
+		$this->assertSame( 'The requested event is not accessible without a password', $response->get_error_message() );
+		$error_data = $response->get_error_data();
+		$this->assertArrayHasKey( 'status', $error_data );
+		$this->assertSame( 403, $error_data['status'] );
+	}
+
+	/**
+	 * @test
+	 * it should return 403 with event-not-accessible for private event
+	 */
+	public function it_should_return_403_with_event_not_accessible_for_private_event() {
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'private' ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$this->assertWPError( $response );
+		$this->assertSame( 'event-not-accessible', $response->get_error_code() );
+		$this->assertSame( 'The requested event is not accessible', $response->get_error_message() );
+		$error_data = $response->get_error_data();
+		$this->assertArrayHasKey( 'status', $error_data );
+		$this->assertSame( 403, $error_data['status'] );
+	}
+
+	/**
+	 * @test
 	 * it should return event data if event accessible
 	 */
 	public function it_should_return_event_data_if_event_accessible() {

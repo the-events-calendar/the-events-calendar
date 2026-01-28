@@ -81,8 +81,29 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 *
 	 * @since 4.6
 	 * @since 6.15.3 Added password protection check.
+	 * @since TBD Added validation for event parameter.
 	 */
 	public function get( WP_REST_Request $request ) {
+		// Validate event parameter if provided.
+		if ( isset( $request['event'] ) && null !== $request['event'] ) {
+			$validation = $this->validator->is_event_id( $request['event'] );
+			if ( is_wp_error( $validation ) ) {
+				return $validation;
+			}
+			// Check if event exists and is correct post type.
+			if ( true === $validation ) {
+				$event = get_post( $request['event'] );
+				if ( empty( $event ) || Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+					$message = $this->messages->get_message( 'rest-invalid-event-id' );
+					return new WP_Error(
+						'rest_invalid_event_id',
+						sprintf( $message, $request['event'], $event ? $event->post_type : 'none' ),
+						[ 'status' => 400 ]
+					);
+				}
+			}
+		}
+
 		$args = array(
 			'posts_per_page' => $request['per_page'],
 			'paged'          => $request['page'],

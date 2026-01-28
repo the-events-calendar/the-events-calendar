@@ -78,30 +78,50 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Whether the value is the post ID of an existing event or not.
 	 *
+	 * Note: This method validates the format and type of the ID, but does not check
+	 * if the event actually exists. Existence checks should be done in the request handler
+	 * to allow proper 404 responses instead of 400 validation errors.
+	 *
+	 * @since TBD Added WP_Error if ID is empty, or an invalid number.
 	 * @since 4.6
 	 *
 	 * @param int|string $event_id
 	 *
-	 * @return bool
+	 * @return bool|WP_Error True if valid format, false or WP_Error if invalid format.
 	 */
 	public function is_event_id( $event_id ) {
-		if ( empty( $event_id ) ) {
-			return false;
+		// Check if empty, but allow 0 as a valid numeric value.
+		if ( $event_id === null || $event_id === false || $event_id === '' ) {
+			return new WP_Error(
+				'rest_invalid_param',
+				__( 'Event ID cannot be empty.', 'the-events-calendar' ),
+				[ 'status' => 400 ]
+			);
 		}
 
-		$event = get_post( $event_id );
+		// Only validate that it's a numeric value, not that the event exists.
+		// Existence checks are done in the request handler to allow proper 404 responses.
+		if ( ! is_numeric( $event_id ) ) {
+			return new WP_Error(
+				'rest_invalid_param',
+				/* translators: %s: The PHP data type of the invalid event ID value. */
+				sprintf( __( 'Event ID must be a number, got: %s.', 'the-events-calendar' ), gettype( $event_id ) ),
+				[ 'status' => 400 ]
+			);
+		}
 
-		$is_event_id = ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
+		$is_event_id = true;
 
 		/**
 		 * Validator filter to define if is a valid event_id.
 		 *
-		 * @param bool $is_event_id
-		 * @param \WP_Post|array|null $event
+		 * @param bool|WP_Error $is_event_id True if valid format, false or WP_Error if invalid format.
+		 * @param int|string $event_id The event ID being validated.
 		 *
 		 * @since 4.9.4
+		 * @since TBD Use $event_id instead of $event.
 		 */
-		return apply_filters( 'tribe_events_validator_is_event_id', $is_event_id, $event );
+		return apply_filters( 'tribe_events_validator_is_event_id', $is_event_id, $event_id );
 	}
 
 	/**
@@ -228,7 +248,14 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		$sep    = is_string( $sep ) ? $sep : ',';
 		$events = Tribe__Utils__Array::list_to_array( $events, $sep );
 
-		$valid = array_filter( $events, [ $this, 'is_event_id' ] );
+		$valid = array_filter(
+			$events,
+			function ( $event_id ) {
+				$result = $this->is_event_id( $event_id );
+				// Return true only if the result is exactly true (not WP_Error).
+				return $result === true;
+			}
+		);
 
 		return ! empty( $events ) && count( $valid ) === count( $events );
 	}
