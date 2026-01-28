@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.15.15] 2026-01-28 =
+
+* Tweak - Correct datepicker navigation to include icons on click. [TEC-5736]
+
 = [6.15.14] 2026-01-13 =
 
 * Version - The Events Calendar 6.15.14 is only compatible with Events Pro 7.7.12 or higher.
