@@ -8,7 +8,7 @@ use Generator;
 /**
  * Class Events_PaginationTest
  *
- * @since TBD
+ * @since 6.15.15
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -47,7 +47,7 @@ class Events_PaginationTest extends WPTestCase {
 	/**
 	 * Helper method to set up and execute the pagination disabler.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @param mixed $tribe_is_event_query_return The return value for tribe_is_event_query function.
 	 *
@@ -86,7 +86,7 @@ class Events_PaginationTest extends WPTestCase {
 	/**
 	 * Data provider for pagination filter tests.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @return Generator
 	 */
@@ -145,7 +145,7 @@ class Events_PaginationTest extends WPTestCase {
 	/**
 	 * Data provider for filter behavior tests.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @return Generator
 	 */
