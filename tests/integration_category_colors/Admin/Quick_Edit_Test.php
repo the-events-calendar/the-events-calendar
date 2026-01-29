@@ -611,7 +611,7 @@ class Quick_Edit_Test extends WPTestCase {
 	 * @test
 	 * @covers \TEC\Events\Category_Colors\Admin\Controller::add_column_data
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function should_handle_null_values_from_filter() {
 		$controller = tribe( Controller::class );

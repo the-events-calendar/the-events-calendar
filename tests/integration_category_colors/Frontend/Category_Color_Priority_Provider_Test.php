@@ -289,7 +289,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function should_prevent_category_data_bleed_between_events() {
 		$controller = tribe( Controller::class );
@@ -463,7 +463,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function should_return_context_unchanged_when_frontend_ui_disabled() {
 		$controller = tribe( Controller::class );
@@ -483,7 +483,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 	/**
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function should_return_context_unchanged_when_event_is_invalid() {
 		$controller = tribe( Controller::class );

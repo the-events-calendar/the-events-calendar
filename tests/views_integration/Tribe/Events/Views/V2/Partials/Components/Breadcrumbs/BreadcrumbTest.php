@@ -12,7 +12,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Data provider for breadcrumb rendering tests.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @return Generator
 	 */
@@ -173,7 +173,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	 * Test render with various breadcrumb data scenarios.
 	 *
 	 * @dataProvider breadcrumb_data_provider
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @param array $breadcrumb_data The breadcrumb data to test.
 	 * @param bool  $should_render   Whether the breadcrumbs should render.
@@ -191,7 +191,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the last breadcrumb item is properly marked as current.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_last_breadcrumb_is_current() {
 		$breadcrumbs = [
@@ -226,7 +226,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the last breadcrumb is automatically marked as current even when explicitly set to false.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_last_breadcrumb_automatically_marked_current() {
 		$breadcrumbs = [
@@ -256,7 +256,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the last breadcrumb is automatically marked as current when no is_last flags are set.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_breadcrumb_without_is_last_flag_automatically_marked() {
 		$breadcrumbs = [
@@ -284,7 +284,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the last breadcrumb is always marked as current with multiple breadcrumbs.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_last_breadcrumb_always_current_with_multiple_items() {
 		$breadcrumbs = [
@@ -325,7 +325,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the last breadcrumb is always marked as current even when it's unlinked.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_last_breadcrumb_always_current_when_unlinked() {
 		$breadcrumbs = [
@@ -365,7 +365,7 @@ class BreadcrumbTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the last breadcrumb is always marked as current with mixed link types.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_last_breadcrumb_always_current_with_mixed_links() {
 		$breadcrumbs = [

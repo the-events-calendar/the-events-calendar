@@ -16,7 +16,7 @@ class BacklinkTest extends HtmlPartialTestCase {
 	/**
 	 * Data provider for backlink rendering tests.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @return Generator
 	 */
@@ -85,7 +85,7 @@ class BacklinkTest extends HtmlPartialTestCase {
 	 * Test render with various backlink data scenarios.
 	 *
 	 * @dataProvider backlink_data_provider
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @param array $backlink_data The backlink data to test.
 	 * @param bool  $should_render Whether the backlink should render.
