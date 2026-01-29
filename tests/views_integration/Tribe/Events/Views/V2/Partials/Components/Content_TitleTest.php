@@ -15,7 +15,7 @@ class Content_TitleTest extends HtmlPartialTestCase {
 	/**
 	 * Data provider for content title rendering tests.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @return Generator
 	 */
@@ -58,7 +58,7 @@ class Content_TitleTest extends HtmlPartialTestCase {
 	 * Test render with various heading tags and content titles.
 	 *
 	 * @dataProvider content_title_data_provider
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @param string $heading_tag   The heading tag to use.
 	 * @param string $content_title The content title to render.
@@ -91,7 +91,7 @@ class Content_TitleTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the content title filter works properly.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_content_title_filter() {
 		// Add a filter to set a custom content title.
@@ -112,4 +112,3 @@ class Content_TitleTest extends HtmlPartialTestCase {
 		$this->assertMatchesSnapshot( $result );
 	}
 }
-
