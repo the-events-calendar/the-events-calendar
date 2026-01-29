@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Add aria-label attribute to events navigation. [TEC-5732]
