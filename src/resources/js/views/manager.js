@@ -140,6 +140,9 @@ tribe.events.views.manager = {};
       $form.off("submit.tribeEvents", obj.onSubmit);
     }
 
+    // Remove resize listener for focus order management.
+    $container.off("resize.tribeEvents");
+
     $container.trigger("afterCleanup.tribeEvents", [$container, data]);
   };
 
@@ -189,6 +192,17 @@ tribe.events.views.manager = {};
     }
 
     $container.trigger("afterSetup.tribeEvents", [index, $container, data]);
+
+    // Manage mobile focus order after setup.
+    // Use a small delay to ensure viewport state is set by viewport module.
+    setTimeout(function() {
+      obj.manageMobileFocusOrder($container);
+    }, 0);
+
+    // Listen to resize events on this container to update focus order.
+    $container.on("resize.tribeEvents", function() {
+      obj.manageMobileFocusOrder($container);
+    });
   };
 
   /**
@@ -738,6 +752,9 @@ tribe.events.views.manager = {};
     // Trigger the browser pushState
     obj.updateUrl($container);
 
+    // Manage mobile focus order after AJAX success.
+    obj.manageMobileFocusOrder($container);
+
     $container.trigger("afterAjaxSuccess.tribeEvents", [
       data,
       textStatus,
@@ -806,6 +823,86 @@ tribe.events.views.manager = {};
     }
 
     return obj.$lastContainer;
+  };
+
+  /**
+   * Manages focus order for mobile devices.
+   *
+   * On mobile, ensures focus order is:
+   * 1. Title
+   * 2. Datepicker button (data-js="tribe-events-top-bar-datepicker-button")
+   * 3. Events bar (data-js="tribe-events-events-bar")
+   * 4. Content (after header.tribe-events-header)
+   *
+   * @since  TBD
+   *
+   * @param  {jQuery} $container Which container we are managing focus for.
+   *
+   * @return {void}
+   */
+  obj.manageMobileFocusOrder = function($container) {
+    var containerState = $container.data("tribeEventsState");
+    var mobileBreakpoint =
+      (tribe.events.views.breakpoints &&
+        tribe.events.views.breakpoints.breakpoints &&
+        tribe.events.views.breakpoints.breakpoints.medium) ||
+      768;
+    var isMobile =
+      containerState && typeof containerState.isMobile !== "undefined"
+        ? containerState.isMobile
+        : $container.outerWidth() < mobileBreakpoint;
+
+    // Navigation menu that should be skipped on mobile.
+    var $nav = $container.find(".tribe-events-c-top-bar__nav");
+    var $navLinks = $nav.find("a, button");
+
+    // Datepicker button.
+    var $datepickerButton = $container.find(
+      '[data-js="tribe-events-top-bar-datepicker-button"]'
+    );
+
+    // Events bar container.
+    var $eventsBar = $container.find('[data-js="tribe-events-events-bar"]');
+
+    if (isMobile) {
+      // On mobile: skip navigation menu by setting tabindex="-1".
+      $navLinks.each(function() {
+        var $link = $(this);
+        if (!$link.attr("tabindex")) {
+          $link.attr("tabindex", "-1");
+        } else if ($link.attr("tabindex") !== "-1") {
+          $link.attr("tabindex", "-1");
+        }
+      });
+
+      // Ensure datepicker button is focusable.
+      if ($datepickerButton.length) {
+        var currentTabindex = $datepickerButton.attr("tabindex");
+        if (currentTabindex === "-1") {
+          $datepickerButton.removeAttr("tabindex");
+        }
+      }
+
+      // Ensure events bar buttons are focusable.
+      if ($eventsBar.length) {
+        var $eventsBarButtons = $eventsBar.find("button, a, input, select");
+        $eventsBarButtons.each(function() {
+          var $button = $(this);
+          var currentTabindex = $button.attr("tabindex");
+          if (currentTabindex === "-1") {
+            $button.removeAttr("tabindex");
+          }
+        });
+      }
+    } else {
+      // On desktop: restore navigation menu focusability.
+      $navLinks.each(function() {
+        var $link = $(this);
+        if ($link.attr("tabindex") === "-1") {
+          $link.removeAttr("tabindex");
+        }
+      });
+    }
   };
 
   /**
