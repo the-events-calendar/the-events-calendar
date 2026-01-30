@@ -257,7 +257,7 @@
 
 	<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
-	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden">
+	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Top events list pagination">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
@@ -581,7 +581,7 @@
 			
 		</div>
 
-		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
+		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav" aria-label="Bottom events list pagination">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
