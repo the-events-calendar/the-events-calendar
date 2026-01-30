@@ -1,4 +1,4 @@
-<?php return '<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
+<?php return '<nav class="tribe-events-calendar-day-nav tribe-events-c-nav" aria-label="Bottom events list pagination">
 	<ul class="tribe-events-c-nav__list">
 		<li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<button
