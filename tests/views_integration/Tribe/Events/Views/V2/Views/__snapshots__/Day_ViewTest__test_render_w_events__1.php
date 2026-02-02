@@ -378,10 +378,10 @@
 
 							
 								<div class="tribe-events-calendar-day__time-separator">
-	<h2 class="tribe-events-calendar-day__time-separator-heading tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">
+	<span class="tribe-events-calendar-day__time-separator-heading tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">
 		<time datetime="13:00">
 			1:00 pm		</time>
-	</h2>
+	</span>
 </div>
 				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349785 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
@@ -390,7 +390,7 @@
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
-				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+				<h4 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=featured-test-event-904385349785"
 		title="Featured test event  904385349785"
@@ -398,7 +398,7 @@
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
 		Featured test event  904385349785	</a>
-</h3>
+</h4>
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 	<em class="tribe-events-calendar-day__event-datetime-featured-icon">
 	<svg
@@ -411,8 +411,10 @@
 </em>
 <span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
-	<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+	<h3 class="tribe-events-calendar-day__event-datetime-label tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
+	</h3>
 	</div>
 											</header>
 
@@ -430,7 +432,7 @@
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
-				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+				<h4 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-349589759485"
 		title="Single Event 349589759485"
@@ -438,10 +440,12 @@
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 349589759485	</a>
-</h3>
+</h4>
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<h3 class="tribe-events-calendar-day__event-datetime-label tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+	</h3>
 	</div>
 											</header>
 
@@ -459,7 +463,7 @@
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
-				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+				<h4 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-340934095850"
 		title="Single Event 340934095850"
@@ -467,10 +471,12 @@
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 340934095850	</a>
-</h3>
+</h4>
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<h3 class="tribe-events-calendar-day__event-datetime-label tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+	</h3>
 	</div>
 											</header>
 

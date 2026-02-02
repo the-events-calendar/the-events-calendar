@@ -10,7 +10,9 @@
 </em>
 <span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
-	<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20, 2019 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+	<h3 class="tribe-events-calendar-day__event-datetime-label tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
+			<span class="tribe-event-date-start">June 20, 2019 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>		</time>
+	</h3>
 	</div>
 ';
