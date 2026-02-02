@@ -5,7 +5,7 @@
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
-				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
+				<h4 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
 		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
@@ -13,10 +13,12 @@
 		class="tribe-events-calendar-day__event-title-link tribe-common-anchor-thin"
 	>
 		Single Event 1	</a>
-</h3>
+</h4>
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
+		<h3 class="tribe-events-calendar-day__event-datetime-label tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20, 2019 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+			<span class="tribe-event-date-start">June 20, 2019 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+	</h3>
 	</div>
 								
 <div class="tec-events-calendar-day__event-categories">
