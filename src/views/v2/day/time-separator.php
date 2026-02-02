@@ -33,9 +33,9 @@ $time_attribute = date_i18n( 'H:i', $event_start_hour );
 
 ?>
 <div class="tribe-events-calendar-day__time-separator">
-	<h2 class="tribe-events-calendar-day__time-separator-heading tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">
+	<span class="tribe-events-calendar-day__time-separator-heading tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt">
 		<time datetime="<?php echo esc_attr( $time_attribute ); ?>">
 			<?php echo esc_html( $separator_text ); ?>
 		</time>
-	</h2>
+	</span>
 </div>

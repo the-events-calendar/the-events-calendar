@@ -25,8 +25,10 @@ $event_date_attr = $event->dates->start->format( Dates::DBDATEFORMAT );
 ?>
 <div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 	<?php $this->template( 'day/event/date/featured' ); ?>
-	<time class="tribe-events-calendar-day__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
-		<?php echo $event->schedule_details->value(); ?>
-	</time>
+	<h3 class="tribe-events-calendar-day__event-datetime-label tribe-common-b2">
+		<time class="tribe-events-calendar-day__event-datetime" datetime="<?php echo esc_attr( $event_date_attr ); ?>">
+			<?php echo $event->schedule_details->value(); ?>
+		</time>
+	</h3>
 	<?php $this->template( 'day/event/date/meta', [ 'event' => $event ] ); ?>
 </div>
