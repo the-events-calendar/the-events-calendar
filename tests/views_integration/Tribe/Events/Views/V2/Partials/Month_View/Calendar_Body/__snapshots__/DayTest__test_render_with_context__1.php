@@ -5,7 +5,7 @@
 	<button
 	aria-expanded="true"
 	aria-controls="tribe-events-calendar-mobile-day-2019-07-1"
-	aria-label="July 1, 6 events"
+	aria-label="July 1, 6 events, today"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
