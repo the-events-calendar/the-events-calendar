@@ -114,14 +114,14 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.7
+          ${SLIC_BIN} wp core update --force --version=6.9
           ${SLIC_BIN} wp core version
       - name: Ensure Twenty-Twenty is installed
         run: |
           ${SLIC_BIN} wp theme install twentytwenty --activate
       - name: Install Yoast SEO
         run: |
-          ${SLIC_BIN} wp core update --force --version=6.7
+          ${SLIC_BIN} wp core update --force --version=6.9
           ${SLIC_BIN} wp plugin install wordpress-seo
       # ------------------------------------------------------------------------------
       # Run the Actual tests
