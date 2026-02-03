@@ -841,7 +841,7 @@ tribe.events.views.manager = {};
       // On desktop: restore natural tab order by removing tabindex values we set.
       var $header = $container.find("header.tribe-events-header");
       if ($header.length) {
-        $header.off("focusin.tribeMobileFocusOrder");
+        $header.off("focusin.tribeMobileFocusOrder focusout.tribeMobileFocusOrder");
         $header
           .find('[data-tribe-mobile-focus-order]')
           .off("focus.tribeMobileFocusOrder keydown.tribeMobileFocusOrder blur.tribeMobileFocusOrder")
@@ -981,6 +981,31 @@ tribe.events.views.manager = {};
       });
     }
 
+    // Function to reset focus order state (restore datepicker, reset events bar).
+    var resetFocusOrderState = function() {
+      // Restore datepicker (remove tabindex="-1" if we set it).
+      if ($datepickerButton.length) {
+        var datepickerMarker = $datepickerButton.attr("data-tribe-mobile-focus-order");
+        if (datepickerMarker === "datepicker") {
+          var currentTabindex = $datepickerButton.attr("tabindex");
+          if (currentTabindex === "-1") {
+            $datepickerButton.removeAttr("tabindex");
+          }
+        }
+      }
+      // Reset events bar buttons back to skipped state.
+      if ($eventsBarButtons.length) {
+        $eventsBarButtons.each(function() {
+          var $button = $(this);
+          var buttonMarker = $button.attr("data-tribe-mobile-focus-order");
+          if (buttonMarker === "events-bar") {
+            $button.attr("tabindex", "-1");
+            $button.attr("data-tribe-mobile-focus-order", "events-bar-skipped");
+          }
+        });
+      }
+    };
+
     // Handle focus on events bar buttons - when focus enters events bar, skip datepicker to prevent cycling back.
     if ($eventsBarButtons.length) {
       $eventsBarButtons.off("focus.tribeMobileFocusOrder");
@@ -991,6 +1016,18 @@ tribe.events.views.manager = {};
         }
       });
     }
+
+    // Reset state when focus leaves the header area (goes to content or cycles back).
+    $header.off("focusout.tribeMobileFocusOrder");
+    $header.on("focusout.tribeMobileFocusOrder", function(e) {
+      var $target = $(e.relatedTarget);
+      // If focus is moving outside the header (to content or elsewhere), reset state.
+      if (!$target || !$target.closest("header.tribe-events-header").length) {
+        setTimeout(function() {
+          resetFocusOrderState();
+        }, 100);
+      }
+    });
 
     // Also enable events bar when focus enters the header (fallback).
     $header.off("focusin.tribeMobileFocusOrder");
