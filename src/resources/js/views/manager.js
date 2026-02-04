@@ -1062,13 +1062,10 @@ tribe.events.views.manager = {};
    * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
    * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
    * @param {jQuery}  $container jQuery object of view container
-   * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
    *
    * @return {void}
    */
-  obj.initMobileFocusOrder = function(event, index, $container, data) {
-	console.log( 'initMobileFocusOrder' );
-    // eslint-disable-line no-unused-vars
+  obj.initMobileFocusOrder = function(event, index, $container) {
     // Use a small delay to ensure viewport state is set by viewport module.
     setTimeout(function() {
       // Manage mobile focus order after viewport state is set.
