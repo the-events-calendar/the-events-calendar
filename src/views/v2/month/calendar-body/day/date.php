@@ -44,6 +44,7 @@ $day_button_classes = [
 ];
 
 // Determine day state for ARIA context.
+$today_date  ??= $today_date;
 $day_date      = $day['date'];
 $day_number    = $day['day_number'];
 $expanded      = 'false';
