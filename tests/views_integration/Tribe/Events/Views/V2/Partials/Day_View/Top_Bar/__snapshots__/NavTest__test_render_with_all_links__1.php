@@ -1,4 +1,4 @@
-<?php return '<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden">
+<?php return '<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden" aria-label="Top events list pagination">
 	<ul class="tribe-events-c-top-bar__nav-list">
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<a
