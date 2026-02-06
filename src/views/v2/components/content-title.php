@@ -13,6 +13,7 @@
  * @since 6.2.0
  * @since 6.15.12 Changed `span` to `h2`. [TEC-5636]
  * @since 6.15.14 Added the ability to change the heading tag. [TEC-5617]
+ * @since TBD Use the variable `$show_content_title` to display the title. [TEC-5733]
  *
  * @var \Tribe\Events\Views\V2\Template $this Template Engine instance rendering.
  * @var string                          $content_title The title to display.
@@ -26,10 +27,10 @@ if ( $this->get( 'view' ) instanceof Tribe\Events\Views\V2\View ) {
 }
 $heading_text = $content_title ?: tribe_get_event_label_plural();
 
-// Choose visual class based on whether a real title was passed.
-$visual_class = empty( $content_title )
-	? 'screen-reader-text tec-a11y-title-hidden'
-	: 'tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt';
+// Choose visual class based on whether to show the title.
+$visual_class = ! empty( $show_content_title )
+	? 'tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt'
+	: 'screen-reader-text tec-a11y-title-hidden';
 ?>
 <div class="tribe-events-header__content-title">
 	<?php
