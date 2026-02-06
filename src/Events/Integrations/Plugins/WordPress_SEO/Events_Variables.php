@@ -10,6 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
 
 use Tribe__Events__Main as TEC_Plugin;
+use WP_Term;
 
 /**
  * Class Events_Variables
@@ -27,6 +28,7 @@ class Events_Variables {
 	 */
 	public function register() {
 		add_action( 'wpseo_register_extra_replacements', [ $this, 'register_custom_variables' ] );
+		add_filter( 'wpseo_replacements', [ $this, 'populate_term_replace_vars' ], 10, 2 );
 	}
 
 	/**
@@ -157,5 +159,58 @@ class Events_Variables {
 		}
 
 		return tribe_get_organizer( $event_id );
+	}
+
+	/**
+	 * Populate term data for Yoast SEO replace vars on Event Category and Tag archive pages.
+	 *
+	 * This ensures that Yoast SEO can properly replace %%term_title%% and other term-related
+	 * variables when viewing Event Category or Event Tag archive pages. The method populates
+	 * the $args object with term data (name, term_id, taxonomy) so that Yoast's variable
+	 * replacement system can access it.
+	 *
+	 * @since TBD
+	 *
+	 * @param array  $replacements The current replacements array.
+	 * @param object $args         The args object passed to wpseo_replace_vars (passed by reference).
+	 *
+	 * @return array The unmodified replacements array (we only modify $args).
+	 */
+	public function populate_term_replace_vars( $replacements, $args ) {
+		// Only process on the frontend.
+		if ( is_admin() ) {
+			return $replacements;
+		}
+
+		// Get the queried object once and cache it.
+		$term = get_queried_object();
+
+		// Early return if queried object is not a term.
+		if ( ! $term instanceof WP_Term ) {
+			return $replacements;
+		}
+
+		// Check if we're on an Event Category archive page.
+		if ( is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY ) {
+			// Populate the args object with term data for Event Categories.
+			$args->name     = $term->name;
+			$args->term_id  = $term->term_id;
+			$args->taxonomy = $term->taxonomy;
+
+			return $replacements;
+		}
+
+		// Check if we're on an Event Tag archive page (post_tag taxonomy on event query).
+		if ( is_tag() && $term->taxonomy === 'post_tag' ) {
+			// Only process if this is an event query (defensive check for function existence).
+			if ( function_exists( 'tribe_is_event_query' ) && tribe_is_event_query() ) {
+				// Populate the args object with term data for Event Tags.
+				$args->name     = $term->name;
+				$args->term_id  = $term->term_id;
+				$args->taxonomy = $term->taxonomy;
+			}
+		}
+
+		return $replacements;
 	}
 }
