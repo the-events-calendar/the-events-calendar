@@ -1,3 +1,3 @@
 <?php return '<div class="tribe-events-header__content-title">
-	<h4 class="tribe-events-header__content-title-text tribe-common-h7 tribe-common-h3--min-medium tribe-common-h--alt">Upcoming Events</h4></div>
+	<h4 class="screen-reader-text tec-a11y-title-hidden">Upcoming Events</h4></div>
 ';
