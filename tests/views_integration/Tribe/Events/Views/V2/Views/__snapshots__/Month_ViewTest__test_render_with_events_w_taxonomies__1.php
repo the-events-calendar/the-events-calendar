@@ -533,7 +533,7 @@
 	aria-label="January 1, 2 events"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
-	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
 			2 events		</span>
 		<time
@@ -541,7 +541,7 @@
 			datetime="2019-01-01"
 		>
 			1		</time>
-	</div>
+	</h3>
 	
 	<span class="tribe-events-calendar-month__mobile-events-icon tribe-events-calendar-month__mobile-events-icon--event" >
 	</span>
@@ -552,7 +552,7 @@
 	class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--desktop tribe-common-a11y-hidden"
 >
 	
-<div class="tribe-events-calendar-month__day-date tribe-common-h4">
+<h3 class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		2 events,
 	</span>
@@ -568,7 +568,7 @@
 			>
 				1			</a>
 			</time>
-</div>
+</h3>
 
 	<div class="tribe-events-calendar-month__events">
 		
