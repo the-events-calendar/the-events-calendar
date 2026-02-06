@@ -81,8 +81,9 @@ class Content_TitleTest extends HtmlPartialTestCase {
 		$view = View::make( View::class );
 
 		$result = $this->get_partial_html( [
-			'view'          => $view,
-			'content_title' => $content_title,
+			'view'                => $view,
+			'content_title'       => $content_title,
+			'show_content_title'  => ! empty( $content_title ),
 		] );
 
 		$this->assertMatchesSnapshot( $result );
@@ -105,8 +106,9 @@ class Content_TitleTest extends HtmlPartialTestCase {
 		$view = View::make( View::class );
 
 		$result = $this->get_partial_html( [
-			'view'          => $view,
-			'content_title' => 'Filtered Custom Title',
+			'view'                => $view,
+			'content_title'       => 'Filtered Custom Title',
+			'show_content_title'  => true,
 		] );
 
 		$this->assertMatchesSnapshot( $result );

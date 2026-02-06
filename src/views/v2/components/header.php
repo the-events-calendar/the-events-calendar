@@ -12,6 +12,7 @@
  * @version 6.15.7
  * @since   6.2.0
  * @since 6.15.7 Add support for displaying either breadcrumbs or a back link in the header.
+ * @since TBD Moved the `content-title` template higher up. [TEC-5733]
  *
  * @var \Tribe\Events\Views\V2\Template $this                 Template Engine instance rendering.
  * @var bool                            $disable_event_search Boolean on whether to disable the event search.
@@ -24,6 +25,8 @@ if ( empty( $disable_event_search ) ) {
 ?>
 
 <header <?php tec_classes( $header_classes ); ?>>
+	<?php $this->template( 'components/content-title' ); ?>
+
 	<?php $this->template( 'components/messages' ); ?>
 
 	<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
@@ -39,8 +42,6 @@ if ( empty( $disable_event_search ) ) {
 	?>
 
 	<?php $this->template( 'components/events-bar' ); ?>
-
-	<?php $this->template( 'components/content-title' ); ?>
 
 	<?php $this->template( [ $this->get_view_slug(), 'top-bar' ] ); ?>
 </header>
