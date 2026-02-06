@@ -140,6 +140,9 @@ tribe.events.views.manager = {};
       $form.off("submit.tribeEvents", obj.onSubmit);
     }
 
+    // Remove resize listener for focus order management.
+    $container.off("resize.tribeEvents");
+
     $container.trigger("afterCleanup.tribeEvents", [$container, data]);
   };
 
@@ -809,6 +812,273 @@ tribe.events.views.manager = {};
   };
 
   /**
+   * Manages focus order for mobile devices.
+   *
+   * On mobile, ensures focus order is:
+   * 1. Datepicker button (.tribe-events-c-top-bar__datepicker)
+   * 2. Events bar buttons (.tribe-events-header__events-bar)
+   * 3. Content (after .tribe-events-header)
+   *
+   * @since  TBD
+   *
+   * @param  {jQuery} $container Which container we are managing focus for.
+   *
+   * @return {void}
+   */
+  obj.manageMobileFocusOrder = function($container) {
+    var containerState = $container.data("tribeEventsState");
+    var mobileBreakpoint =
+      (tribe.events.views.breakpoints &&
+        tribe.events.views.breakpoints.breakpoints &&
+        tribe.events.views.breakpoints.breakpoints.medium) ||
+      768;
+    var isMobile =
+      containerState && typeof containerState.isMobile !== "undefined"
+        ? containerState.isMobile
+        : $container.outerWidth() < mobileBreakpoint;
+
+    if (!isMobile) {
+      // On desktop: restore natural tab order by removing tabindex values we set.
+      var $header = $container.find("header.tribe-events-header");
+      if ($header.length) {
+        $header.off("focusin.tribeMobileFocusOrder focusout.tribeMobileFocusOrder");
+        $header
+          .find('[data-tribe-mobile-focus-order]')
+          .off("focus.tribeMobileFocusOrder keydown.tribeMobileFocusOrder blur.tribeMobileFocusOrder")
+          .each(function() {
+            var $el = $(this);
+            var marker = $el.attr("data-tribe-mobile-focus-order");
+            // Remove tabindex for skipped elements.
+            if (marker === "skipped" || marker === "events-bar-skipped") {
+              $el.removeAttr("tabindex");
+            }
+            $el.removeAttr("data-tribe-mobile-focus-order");
+          });
+      }
+      return;
+    }
+
+    // Find the header element - we only manage focus order WITHIN this header.
+    var $header = $container.find("header.tribe-events-header");
+    if (!$header.length) {
+      return;
+    }
+
+    // Datepicker button - should be first focusable element WITHIN the header.
+    var $datepickerButton = $header.find(
+      '[data-js="tribe-events-top-bar-datepicker-button"]'
+    );
+
+    // Events bar container - buttons should come second WITHIN the header.
+    var $eventsBar = $header.find(".tribe-events-header__events-bar");
+
+    // Find all focusable elements WITHIN the header.
+    var $headerFocusable = $header.find(
+      "a, button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])"
+    );
+
+    // Get events bar buttons first to exclude them from the skip logic.
+    var $eventsBarButtons = $eventsBar.length
+      ? $eventsBar.find(
+          "button:not([disabled]), a, input:not([disabled]), select:not([disabled])"
+        )
+      : $();
+
+    // Skip all focusable elements in header except datepicker and events bar.
+    $headerFocusable.each(function() {
+      var $el = $(this);
+      // Don't skip datepicker button or events bar buttons.
+      var isDatepicker = $el.is($datepickerButton);
+      var isInEventsBar = $el.closest(".tribe-events-header__events-bar").length > 0;
+      var isInDatepicker = $el.closest(".tribe-events-c-top-bar__datepicker").length > 0;
+      var isEventsBarButton = $eventsBarButtons.length && $eventsBarButtons.index($el) >= 0;
+
+      if (!isDatepicker && !isInEventsBar && !isInDatepicker && !isEventsBarButton) {
+        $el.attr("tabindex", "-1");
+        $el.attr("data-tribe-mobile-focus-order", "skipped");
+      }
+    });
+
+    // Since events bar comes before datepicker in DOM, we need to reorder them.
+    // We'll skip events bar initially, then enable it when datepicker gets focus.
+    // This way: datepicker comes first, then events bar, without interfering with site header.
+
+    // Skip events bar buttons initially (they come before datepicker in DOM).
+    if ($eventsBarButtons.length) {
+      $eventsBarButtons.each(function() {
+        var $button = $(this);
+        // Only skip if not already skipped by the previous loop.
+        if ($button.attr("data-tribe-mobile-focus-order") !== "skipped") {
+          $button.attr("tabindex", "-1");
+          $button.attr("data-tribe-mobile-focus-order", "events-bar-skipped");
+        }
+      });
+    }
+
+    // Function to enable events bar buttons.
+    var enableEventsBarButtons = function() {
+      if ($eventsBarButtons.length) {
+        $eventsBarButtons.each(function() {
+          var $button = $(this);
+          var currentMarker = $button.attr("data-tribe-mobile-focus-order");
+          // Enable if it was marked as skipped.
+          if (
+            currentMarker === "events-bar-skipped" ||
+            (currentMarker === "skipped" && $button.closest(".tribe-events-header__events-bar").length)
+          ) {
+            $button.removeAttr("tabindex");
+            $button.attr("data-tribe-mobile-focus-order", "events-bar");
+          }
+        });
+      }
+    };
+
+    // Ensure datepicker is focusable (remove any negative tabindex, but don't set positive tabindex).
+    if ($datepickerButton.length) {
+      var currentTabindex = $datepickerButton.attr("tabindex");
+      if (currentTabindex === "-1" || (currentTabindex && parseInt(currentTabindex, 10) < 0)) {
+        $datepickerButton.removeAttr("tabindex");
+      }
+      // Don't set positive tabindex - let it use natural order after site header.
+      $datepickerButton.attr("data-tribe-mobile-focus-order", "datepicker");
+
+      // Enable events bar immediately when datepicker gets focus.
+      $datepickerButton.off("focus.tribeMobileFocusOrder");
+      $datepickerButton.on("focus.tribeMobileFocusOrder", function() {
+        enableEventsBarButtons();
+      });
+
+      // Intercept Tab key to ensure events bar is enabled and focus goes there.
+      $datepickerButton.off("keydown.tribeMobileFocusOrder");
+      $datepickerButton.on("keydown.tribeMobileFocusOrder", function(e) {
+        // If Tab key is pressed (not Shift+Tab).
+        if (e.keyCode === 9 && !e.shiftKey) {
+          // Enable events bar buttons first.
+          enableEventsBarButtons();
+
+          // If events bar has buttons, redirect focus to first events bar button.
+          if ($eventsBarButtons.length) {
+            e.preventDefault();
+            e.stopPropagation();
+            setTimeout(function() {
+              $eventsBarButtons.first()[0].focus();
+            }, 0);
+            return false;
+          }
+        }
+      });
+
+      // After events bar is enabled, skip datepicker to prevent cycling back.
+      // We'll do this when focus leaves datepicker.
+      $datepickerButton.off("blur.tribeMobileFocusOrder");
+      $datepickerButton.on("blur.tribeMobileFocusOrder", function() {
+        // After a short delay, if events bar is enabled, skip datepicker.
+        setTimeout(function() {
+          if ($eventsBarButtons.length && $eventsBarButtons.first().attr("data-tribe-mobile-focus-order") === "events-bar") {
+            $datepickerButton.attr("tabindex", "-1");
+          }
+        }, 100);
+      });
+    }
+
+    // Function to reset focus order state (restore datepicker, reset events bar).
+    var resetFocusOrderState = function() {
+      // Restore datepicker (remove tabindex="-1" if we set it).
+      if ($datepickerButton.length) {
+        var datepickerMarker = $datepickerButton.attr("data-tribe-mobile-focus-order");
+        if (datepickerMarker === "datepicker") {
+          var currentTabindex = $datepickerButton.attr("tabindex");
+          if (currentTabindex === "-1") {
+            $datepickerButton.removeAttr("tabindex");
+          }
+        }
+      }
+      // Reset events bar buttons back to skipped state.
+      if ($eventsBarButtons.length) {
+        $eventsBarButtons.each(function() {
+          var $button = $(this);
+          var buttonMarker = $button.attr("data-tribe-mobile-focus-order");
+          if (buttonMarker === "events-bar") {
+            $button.attr("tabindex", "-1");
+            $button.attr("data-tribe-mobile-focus-order", "events-bar-skipped");
+          }
+        });
+      }
+    };
+
+    // Handle focus on events bar buttons - when focus enters events bar, skip datepicker to prevent cycling back.
+    if ($eventsBarButtons.length) {
+      $eventsBarButtons.off("focus.tribeMobileFocusOrder");
+      $eventsBarButtons.on("focus.tribeMobileFocusOrder", function() {
+        // When focus enters events bar, skip datepicker to prevent cycling back.
+        if ($datepickerButton.length) {
+          $datepickerButton.attr("tabindex", "-1");
+        }
+      });
+    }
+
+    // Reset state when focus leaves the header area (goes to content or cycles back).
+    $header.off("focusout.tribeMobileFocusOrder");
+    $header.on("focusout.tribeMobileFocusOrder", function(e) {
+      var $target = $(e.relatedTarget);
+      // If focus is moving outside the header (to content or elsewhere), reset state.
+      if (!$target || !$target.closest("header.tribe-events-header").length) {
+        setTimeout(function() {
+          resetFocusOrderState();
+        }, 100);
+      }
+    });
+
+    // Also enable events bar when focus enters the header (fallback).
+    $header.off("focusin.tribeMobileFocusOrder");
+    $header.on("focusin.tribeMobileFocusOrder", function(e) {
+      var $target = $(e.target);
+      // If focus is on datepicker or any element in/after datepicker area, enable events bar.
+      if (
+        $target.is($datepickerButton) ||
+        $target.closest(".tribe-events-c-top-bar__datepicker").length ||
+        ($datepickerButton.length &&
+          $header.find("*").index($target[0]) >= $header.find("*").index($datepickerButton[0]))
+      ) {
+        enableEventsBarButtons();
+      }
+    });
+
+    // Navigation menu should be skipped.
+    var $nav = $header.find(".tribe-events-c-top-bar__nav");
+    var $navLinks = $nav.find("a, button");
+    $navLinks.each(function() {
+      var $link = $(this);
+      $link.attr("tabindex", "-1");
+      $link.attr("data-tribe-mobile-focus-order", "skipped");
+    });
+  };
+
+  /**
+   * Initializes mobile focus order management.
+   *
+   * @since  TBD
+   *
+   * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+   * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+   * @param {jQuery}  $container jQuery object of view container
+   *
+   * @return {void}
+   */
+  obj.initMobileFocusOrder = function(event, index, $container) {
+    // Use a small delay to ensure viewport state is set by viewport module.
+    setTimeout(function() {
+      // Manage mobile focus order after viewport state is set.
+      obj.manageMobileFocusOrder($container);
+    }, 10);
+
+    // Listen to resize events on this container to update focus order.
+    $container.on("resize.tribeEvents", function() {
+      obj.manageMobileFocusOrder($container);
+    });
+  };
+
+  /**
    * Handles the initialization of the manager when Document is ready.
    *
    * @since  4.9.2
@@ -822,6 +1092,14 @@ tribe.events.views.manager = {};
       pathname: document.location.pathname
     };
   };
+
+  // Listen to afterSetup event to manage mobile focus order.
+  // Set this up immediately, not in ready(), to ensure it's attached before containers initialize.
+  $(document).on(
+    "afterSetup.tribeEvents",
+    obj.selectors.container,
+    obj.initMobileFocusOrder
+  );
 
   // Configure on document ready.
   $(obj.ready);
