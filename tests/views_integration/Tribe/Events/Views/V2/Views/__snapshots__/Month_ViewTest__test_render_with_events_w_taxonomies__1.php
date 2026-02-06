@@ -483,7 +483,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2018-12-31"
-	aria-label="December 31, 0 events"
+	aria-label="December 31, 0 events, past day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -530,7 +530,7 @@
 	<button
 	aria-expanded="true"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-1"
-	aria-label="January 1, 2 events"
+	aria-label="January 1, 2 events, today"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile tribe-events-calendar-month__day-cell--selected" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<h3 class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -746,7 +746,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-2"
-	aria-label="January 2, 0 events"
+	aria-label="January 2, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -793,7 +793,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-3"
-	aria-label="January 3, 0 events"
+	aria-label="January 3, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -840,7 +840,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-4"
-	aria-label="January 4, 0 events"
+	aria-label="January 4, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -887,7 +887,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-5"
-	aria-label="January 5, 0 events"
+	aria-label="January 5, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -934,7 +934,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-6"
-	aria-label="January 6, 0 events"
+	aria-label="January 6, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -983,7 +983,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-7"
-	aria-label="January 7, 0 events"
+	aria-label="January 7, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1030,7 +1030,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-8"
-	aria-label="January 8, 0 events"
+	aria-label="January 8, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1077,7 +1077,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-9"
-	aria-label="January 9, 0 events"
+	aria-label="January 9, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1124,7 +1124,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-10"
-	aria-label="January 10, 0 events"
+	aria-label="January 10, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1171,7 +1171,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-11"
-	aria-label="January 11, 0 events"
+	aria-label="January 11, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1218,7 +1218,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-12"
-	aria-label="January 12, 0 events"
+	aria-label="January 12, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1265,7 +1265,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-13"
-	aria-label="January 13, 0 events"
+	aria-label="January 13, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1314,7 +1314,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-14"
-	aria-label="January 14, 0 events"
+	aria-label="January 14, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1361,7 +1361,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-15"
-	aria-label="January 15, 0 events"
+	aria-label="January 15, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1408,7 +1408,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-16"
-	aria-label="January 16, 0 events"
+	aria-label="January 16, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1455,7 +1455,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-17"
-	aria-label="January 17, 0 events"
+	aria-label="January 17, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1502,7 +1502,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-18"
-	aria-label="January 18, 0 events"
+	aria-label="January 18, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1549,7 +1549,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-19"
-	aria-label="January 19, 0 events"
+	aria-label="January 19, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1596,7 +1596,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-20"
-	aria-label="January 20, 0 events"
+	aria-label="January 20, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1645,7 +1645,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-21"
-	aria-label="January 21, 0 events"
+	aria-label="January 21, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1692,7 +1692,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-22"
-	aria-label="January 22, 0 events"
+	aria-label="January 22, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1739,7 +1739,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-23"
-	aria-label="January 23, 0 events"
+	aria-label="January 23, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1786,7 +1786,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-24"
-	aria-label="January 24, 0 events"
+	aria-label="January 24, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1833,7 +1833,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-25"
-	aria-label="January 25, 0 events"
+	aria-label="January 25, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1880,7 +1880,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-26"
-	aria-label="January 26, 0 events"
+	aria-label="January 26, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1927,7 +1927,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-27"
-	aria-label="January 27, 0 events"
+	aria-label="January 27, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -1976,7 +1976,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-28"
-	aria-label="January 28, 0 events"
+	aria-label="January 28, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -2023,7 +2023,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-29"
-	aria-label="January 29, 0 events"
+	aria-label="January 29, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -2070,7 +2070,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-30"
-	aria-label="January 30, 0 events"
+	aria-label="January 30, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -2117,7 +2117,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-01-31"
-	aria-label="January 31, 0 events"
+	aria-label="January 31, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -2164,7 +2164,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-02-1"
-	aria-label="February 1, 0 events"
+	aria-label="February 1, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -2211,7 +2211,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-02-2"
-	aria-label="February 2, 0 events"
+	aria-label="February 2, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
@@ -2258,7 +2258,7 @@
 	<button
 	aria-expanded="false"
 	aria-controls="tribe-events-calendar-mobile-day-2019-02-3"
-	aria-label="February 3, 0 events"
+	aria-label="February 3, 0 events, upcoming day"
 	 class="tribe-events-calendar-month__day-cell tribe-events-calendar-month__day-cell--mobile" 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
 	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">

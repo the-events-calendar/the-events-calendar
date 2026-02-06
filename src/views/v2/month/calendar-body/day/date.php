@@ -76,10 +76,11 @@ $num_events_label = sprintf(
 );
 
 $day_label = sprintf(
-	// translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
-	__( '%1$s, %2$s', 'the-events-calendar' ),
+	// translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event), %3$s: day state (e.g. past day).
+	__( '%1$s, %2$s, %3$s', 'the-events-calendar' ),
 	tribe_format_date( $day['date'], false, 'F j' ),
-	$num_events_label
+	$num_events_label,
+	$state_label
 );
 
 $has_events = ! empty( $day['found_events'] );
