@@ -27,15 +27,17 @@ class Events_VariablesTest extends WPTestCase {
 	 *
 	 * @since 6.14.0
 	 *
+	 * @before
+	 *
 	 * @return void
 	 */
-	public function setUp(): void {
-		parent::setUp();
-
+	public function set_up_test(): void {
 		$this->sut = new Events_Variables();
 		$this->sut->register();
 
-    add_filter( 'tribe_date_format', function() { return 'Y-m-d'; } );
+		add_filter( 'tribe_date_format', function () {
+			return 'Y-m-d';
+		} );
 	}
 
 	/**
@@ -43,12 +45,13 @@ class Events_VariablesTest extends WPTestCase {
 	 *
 	 * @since 6.14.0
 	 *
+	 * @after
+	 *
 	 * @return void
 	 */
-	public function tearDown(): void {
+	public function tear_down_test(): void {
 		remove_all_filters( 'tribe_date_format' );
 		wp_reset_postdata();
-		parent::tearDown();
 	}
 
 	/**
