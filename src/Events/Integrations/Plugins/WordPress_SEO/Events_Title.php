@@ -2,6 +2,18 @@
 /**
  * Handles title replacement for Event Categories and Tags to use Yoast SEO titles.
  *
+ * When a user sets a custom SEO title via Yoast's term editor, TEC's title-building
+ * pipeline normally ignores it. This class intercepts TEC's title generation at two
+ * points to ensure the Yoast title takes precedence:
+ *
+ * 1. `pre_get_document_title` (priority 25, after TEC's priority 20 that returns '')
+ *    — if Yoast has a custom term title, return it and short-circuit WordPress's
+ *      title-parts pipeline entirely.
+ *
+ * 2. `tribe_events_views_v2_category_title` — fallback that replaces the category
+ *    title part inside TEC's own builder, in case `pre_get_document_title` could
+ *    not run (e.g. the query object was not yet set).
+ *
  * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
@@ -11,10 +23,14 @@ namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
 
 use Tribe__Events__Main as TEC_Plugin;
 use WP_Term;
-use Yoast\WP\SEO\Presentations\Indexable_Presentation;
+use WPSEO_Replace_Vars;
+use WPSEO_Taxonomy_Meta;
 
 /**
  * Class Events_Title
+ *
+ * Ensures Yoast SEO custom titles for Event Categories and Tags are used
+ * in the document `<title>` tag, matching the `og:title` output.
  *
  * @since TBD
  *
@@ -30,158 +46,136 @@ class Events_Title {
 	 * @return void
 	 */
 	public function register() {
-		// Hook into tribe_events_views_v2_category_title to replace TEC's title with Yoast's title.
+		// Primary: return the full Yoast title from pre_get_document_title so WordPress
+		// never enters the title-parts pipeline and TEC cannot override it.
+		// Priority 25 runs after TEC's priority 20 (which returns '' for archives).
+		add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 25 );
+
+		// Fallback: if pre_get_document_title did not fire (rare), replace the category
+		// title part inside TEC's own title builder.
 		add_filter( 'tribe_events_views_v2_category_title', [ $this, 'filter_category_title' ], 10, 5 );
-		
-		// Also hook into pre_get_document_title at priority 15 to return Yoast title directly.
-		add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 15 );
-	}
-
-	/**
-	 * Filter the Event Category title to use Yoast's title if available.
-	 *
-	 * @since TBD
-	 *
-	 * @param string    $new_title The Event Category archive title.
-	 * @param string    $title     The original title.
-	 * @param \WP_Term  $cat       The Event Category term used to build the title.
-	 * @param boolean   $depth     Whether to display the taxonomy hierarchy as part of the title.
-	 * @param string    $separator The separator character for the title parts.
-	 *
-	 * @return string The filtered title.
-	 */
-	public function filter_category_title( $new_title, $title, $cat, $depth, $separator ) {
-		// Check if Yoast SEO is available.
-		if ( ! function_exists( 'YoastSEO' ) ) {
-			return $new_title;
-		}
-
-		// Check if Yoast has a custom title set for this term.
-		$term_meta = \WPSEO_Taxonomy_Meta::get_term_meta( $cat, $cat->taxonomy, 'title' );
-
-		if ( empty( $term_meta ) ) {
-			return $new_title;
-		}
-
-		// Get Yoast's processed title.
-		$yoast_title = $this->get_yoast_processed_title( $cat, $term_meta );
-
-		// If we have a Yoast title, return it instead of TEC's built title.
-		if ( ! empty( $yoast_title ) ) {
-			return $yoast_title;
-		}
-
-		return $new_title;
-	}
-
-	/**
-	 * Get Yoast's processed title for a term.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Term $term      The term object.
-	 * @param string  $term_meta The term meta title template.
-	 *
-	 * @return string|false The processed title, or false if not available.
-	 */
-	private function get_yoast_processed_title( $term, $term_meta ) {
-		if ( empty( $term_meta ) ) {
-			return false;
-		}
-
-		// If the title has no variables, we can return it directly (after basic cleanup).
-		if ( strpos( $term_meta, '%%' ) === false ) {
-			$clean_title = trim( strip_tags( $term_meta ) );
-			return ! empty( $clean_title ) ? $clean_title : false;
-		}
-
-		$yoast = YoastSEO();
-		if ( ! $yoast ) {
-			return false;
-		}
-
-		// Get the meta tags context.
-		$context = $yoast->meta->for_current_page();
-		
-		if ( ! $context || ! isset( $context->presentation ) ) {
-			return false;
-		}
-
-		// Get WPSEO_Replace_Vars to process the title template.
-		$replace_vars = null;
-		if ( isset( $yoast->classes ) && is_object( $yoast->classes ) && method_exists( $yoast->classes, 'get' ) ) {
-			$replace_vars = $yoast->classes->get( 'WPSEO_Replace_Vars' );
-		} else {
-			$replace_vars = \Yoast\WP\SEO\WordPress\Wrapper::get_replace_vars();
-		}
-
-		if ( ! $replace_vars ) {
-			return false;
-		}
-
-		// Process the title template through Yoast's variable replacement system.
-		$source = $context->presentation->source ?? [];
-		$yoast_title = $replace_vars->replace( $term_meta, $source );
-
-		// Apply the same filters that Yoast applies to the title.
-		$yoast_title = apply_filters( 'wpseo_title', $yoast_title, $context->presentation );
-		
-		// Strip tags and trim, just like Yoast does.
-		$yoast_title = $yoast->helpers->string->strip_all_tags( $yoast_title );
-		$yoast_title = trim( $yoast_title );
-
-		return ! empty( $yoast_title ) ? $yoast_title : false;
 	}
 
 	/**
 	 * Intercept the document title to use Yoast's title for Event Categories and Tags.
 	 *
+	 * TEC's `pre_get_document_title` at priority 20 returns '' for event archive pages,
+	 * causing WordPress to fall through to `document_title_parts` where TEC builds its
+	 * own title. By hooking at priority 25 and returning a non-empty Yoast title, we
+	 * short-circuit the entire title-parts pipeline.
+	 *
 	 * @since TBD
 	 *
-	 * @param string $title The current title.
+	 * @param string $title The current title value ('' after TEC's filter).
 	 *
-	 * @return string The title, potentially from Yoast.
+	 * @return string The Yoast title if available, otherwise the original title.
 	 */
 	public function pre_get_document_title( $title ) {
-		// Only process on the frontend.
 		if ( is_admin() ) {
 			return $title;
 		}
 
-		// Get the term.
 		$term = get_queried_object();
 		if ( ! $term instanceof WP_Term ) {
 			return $title;
 		}
 
-		// Check if we're on an Event Category or Event Tag archive.
-		$is_event_category = is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY;
-		$is_event_tag      = is_tag() && $term->taxonomy === 'post_tag' && function_exists( 'tribe_is_event_query' ) && tribe_is_event_query();
-
-		if ( ! $is_event_category && ! $is_event_tag ) {
+		if ( ! $this->is_supported_taxonomy( $term ) ) {
 			return $title;
 		}
 
-		// Check if Yoast SEO is available.
-		if ( ! function_exists( 'YoastSEO' ) ) {
-			return $title;
+		$yoast_title = $this->get_yoast_title_for_term( $term );
+
+		return ! empty( $yoast_title ) ? $yoast_title : $title;
+	}
+
+	/**
+	 * Filter the Event Category title to use Yoast's title if available.
+	 *
+	 * This is a fallback that fires inside TEC's `build_category_title()` method.
+	 * If `pre_get_document_title` already returned a non-empty title, WordPress
+	 * will not enter the title-parts pipeline and this method will never run.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $new_title The Event Category archive title.
+	 * @param string   $title     The original title.
+	 * @param \WP_Term $cat       The Event Category term used to build the title.
+	 * @param boolean  $depth     Whether to display the taxonomy hierarchy as part of the title.
+	 * @param string   $separator The separator character for the title parts.
+	 *
+	 * @return string The filtered title.
+	 */
+	public function filter_category_title( $new_title, $title, $cat, $depth, $separator ) {
+		$yoast_title = $this->get_yoast_title_for_term( $cat );
+
+		return ! empty( $yoast_title ) ? $yoast_title : $new_title;
+	}
+
+	/**
+	 * Get the fully processed Yoast SEO title for a term.
+	 *
+	 * Retrieves the custom title template from Yoast's term meta and processes
+	 * any variable placeholders (e.g. `%%event_start_date%%`) through Yoast's
+	 * `WPSEO_Replace_Vars` engine. The term object is passed as the replacement
+	 * source so term-related variables resolve correctly.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The term object.
+	 *
+	 * @return string|false The processed title, or false if no custom title is set.
+	 */
+	private function get_yoast_title_for_term( WP_Term $term ) {
+		if ( ! class_exists( 'WPSEO_Taxonomy_Meta' ) ) {
+			return false;
 		}
 
-		// Check if Yoast has a custom title set for this term.
-		$term_meta = \WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
+		$title_template = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
 
-		if ( empty( $term_meta ) ) {
-			return $title;
+		if ( empty( $title_template ) ) {
+			return false;
 		}
 
-		// Get Yoast's processed title.
-		$yoast_title = $this->get_yoast_processed_title( $term, $term_meta );
-
-		// If we have a Yoast title, return it to prevent TEC from building its own.
-		if ( ! empty( $yoast_title ) ) {
-			return $yoast_title;
+		// If the title has no variable placeholders, return it directly.
+		if ( strpos( $title_template, '%%' ) === false ) {
+			$clean = trim( wp_strip_all_tags( $title_template ) );
+			return $clean !== '' ? $clean : false;
 		}
 
-		return $title;
+		// Process variable placeholders through Yoast's replacement engine.
+		if ( ! class_exists( 'WPSEO_Replace_Vars' ) ) {
+			return false;
+		}
+
+		$replace_vars = new WPSEO_Replace_Vars();
+		$processed    = $replace_vars->replace( $title_template, $term );
+		$processed    = wp_strip_all_tags( $processed );
+		$processed    = trim( $processed );
+
+		return $processed !== '' ? $processed : false;
+	}
+
+	/**
+	 * Check whether the term belongs to a taxonomy this class should handle.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The term object.
+	 *
+	 * @return bool True if the term is an Event Category or an Event Tag.
+	 */
+	private function is_supported_taxonomy( WP_Term $term ): bool {
+		// Event Categories.
+		if ( is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY ) {
+			return true;
+		}
+
+		// Event Tags.
+		if ( is_tag() && $term->taxonomy === 'post_tag' && function_exists( 'tribe_is_event_query' ) && tribe_is_event_query() ) {
+			return true;
+		}
+
+		return false;
 	}
 }

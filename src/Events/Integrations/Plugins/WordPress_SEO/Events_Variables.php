@@ -22,12 +22,25 @@ use WP_Term;
 class Events_Variables {
 
 	/**
+	 * Flag to track if variables have been registered to prevent duplicate registration.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	private static $registered = false;
+
+	/**
 	 * Register the custom variables with Yoast SEO.
 	 *
 	 * @since 6.14.0
 	 */
 	public function register() {
+		// Register variables when Yoast fires the registration action (inside setup_statics_once).
+		// This is the primary registration method recommended by Yoast.
 		add_action( 'wpseo_register_extra_replacements', [ $this, 'register_custom_variables' ] );
+		
+		// Populate term data for variable replacement on frontend.
 		add_filter( 'wpseo_replacements', [ $this, 'populate_term_replace_vars' ], 10, 2 );
 	}
 
@@ -35,14 +48,23 @@ class Events_Variables {
 	 * Register all custom variables with Yoast SEO.
 	 *
 	 * @since 6.14.0
+	 *
+	 * @return void
 	 */
 	public function register_custom_variables() {
+		// Prevent duplicate registration.
+		if ( self::$registered ) {
+			return;
+		}
+
 		wpseo_register_var_replacement( '%%event_start_date%%', [ $this, 'get_event_start_date' ], 'advanced', 'Get the event start date' );
 		wpseo_register_var_replacement( '%%event_end_date%%', [ $this, 'get_event_end_date' ], 'advanced', 'Get the event end date' );
 		wpseo_register_var_replacement( '%%venue_title%%', [ $this, 'get_venue_title' ], 'advanced', 'Get the venue name' );
 		wpseo_register_var_replacement( '%%venue_city%%', [ $this, 'get_venue_city' ], 'advanced', 'Get the venue city' );
 		wpseo_register_var_replacement( '%%venue_state%%', [ $this, 'get_venue_state' ], 'advanced', 'Get the venue state' );
 		wpseo_register_var_replacement( '%%organizer_title%%', [ $this, 'get_organizer_title' ], 'advanced', 'Get the organizer name' );
+
+		self::$registered = true;
 	}
 
 	/**
