@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Improved keyboard focus order in zoomed/mobile layouts to follow a more logical and predictable sequence, aligning with WCAG best practices. [TEC-5193]
