@@ -53,7 +53,7 @@ class Events_Title {
 
 		// Fallback: if pre_get_document_title did not fire (rare), replace the category
 		// title part inside TEC's own title builder.
-		add_filter( 'tribe_events_views_v2_category_title', [ $this, 'filter_category_title' ], 10, 5 );
+		add_filter( 'tribe_events_views_v2_category_title', [ $this, 'filter_category_title' ], 10, 3 );
 	}
 
 	/**
@@ -101,12 +101,10 @@ class Events_Title {
 	 * @param string   $new_title The Event Category archive title.
 	 * @param string   $title     The original title.
 	 * @param \WP_Term $cat       The Event Category term used to build the title.
-	 * @param boolean  $depth     Whether to display the taxonomy hierarchy as part of the title.
-	 * @param string   $separator The separator character for the title parts.
 	 *
 	 * @return string The filtered title.
 	 */
-	public function filter_category_title( $new_title, $title, $cat, $depth, $separator ) {
+	public function filter_category_title( $new_title, $title, $cat ) {
 		$yoast_title = $this->get_yoast_title_for_term( $cat );
 
 		return ! empty( $yoast_title ) ? $yoast_title : $new_title;
