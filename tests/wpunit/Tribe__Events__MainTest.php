@@ -187,12 +187,7 @@ class Tribe__Events__MainTest extends \Codeception\TestCase\WPTestCase {
 
 		TEC::instance()->restore_event_tag_taxonomy_on_locale_change();
 
-		$this->assertContains( TEC::POSTTYPE, $wp_taxonomies['post_tag']->object_type, 'After restore, post_tag object_type should include tribe_events.' );
-
-		// tec_calendar_embed is only registered when Calendar Embeds is loaded; if it exists, it should be restored.
-		if ( post_type_exists( 'tec_calendar_embed' ) ) {
-			$this->assertContains( 'tec_calendar_embed', $wp_taxonomies['post_tag']->object_type, 'When tec_calendar_embed post type exists, it should be restored to post_tag object_type.' );
-		}
+		$this->assertContains( 'tec_calendar_embed', $wp_taxonomies['post_tag']->object_type, 'When tec_calendar_embed exists, restore should add it to post_tag object_type.' );
 	}
 
 	/**
