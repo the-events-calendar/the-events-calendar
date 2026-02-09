@@ -39,7 +39,7 @@ class Events_Variables {
 		// Register variables when Yoast fires the registration action (inside setup_statics_once).
 		// This is the primary registration method recommended by Yoast.
 		add_action( 'wpseo_register_extra_replacements', [ $this, 'register_custom_variables' ] );
-		
+
 		// Populate term data for variable replacement on frontend.
 		add_filter( 'wpseo_replacements', [ $this, 'populate_term_replace_vars' ], 10, 2 );
 	}
@@ -68,6 +68,45 @@ class Events_Variables {
 	}
 
 	/**
+	 * Get the current event ID if it's a valid event post.
+	 *
+	 * @since TBD
+	 *
+	 * @return int|false The event ID, or false if not a valid event.
+	 */
+	private function get_current_event_id() {
+		$event_id = get_the_ID();
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+			return false;
+		}
+
+		return $event_id;
+	}
+
+	/**
+	 * Get the venue object for the current event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The event ID.
+	 *
+	 * @return object|null The venue object, or null if not found.
+	 */
+	private function get_venue_object( $event_id ) {
+		$venue_id = tribe_get_venue_id( $event_id );
+		if ( ! $venue_id ) {
+			return null;
+		}
+
+		$venue_object = tribe_get_venue_object( $venue_id );
+		if ( ! $venue_object || ! is_object( $venue_object ) ) {
+			return null;
+		}
+
+		return $venue_object;
+	}
+
+	/**
 	 * Get the event start date.
 	 *
 	 * @since 6.14.0
@@ -75,8 +114,8 @@ class Events_Variables {
 	 * @return string The event start date.
 	 */
 	public function get_event_start_date() {
-		$event_id = get_the_ID();
-		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+		$event_id = $this->get_current_event_id();
+		if ( ! $event_id ) {
 			return '';
 		}
 
@@ -91,8 +130,8 @@ class Events_Variables {
 	 * @return string The event end date.
 	 */
 	public function get_event_end_date() {
-		$event_id = get_the_ID();
-		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+		$event_id = $this->get_current_event_id();
+		if ( ! $event_id ) {
 			return '';
 		}
 
@@ -107,8 +146,8 @@ class Events_Variables {
 	 * @return string The venue title.
 	 */
 	public function get_venue_title() {
-		$event_id = get_the_ID();
-		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+		$event_id = $this->get_current_event_id();
+		if ( ! $event_id ) {
 			return '';
 		}
 
@@ -123,20 +162,12 @@ class Events_Variables {
 	 * @return string The venue city.
 	 */
 	public function get_venue_city() {
-		$event_id = get_the_ID();
-		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+		$event_id = $this->get_current_event_id();
+		if ( ! $event_id ) {
 			return '';
 		}
 
-		$venue_id = tribe_get_venue_id( $event_id );
-		if ( ! $venue_id ) {
-			return '';
-		}
-
-		$venue_object = tribe_get_venue_object( $venue_id );
-		if ( ! $venue_object || ! is_object( $venue_object ) ) {
-			return '';
-		}
+		$venue_object = $this->get_venue_object( $event_id );
 
 		return $venue_object->city ?? '';
 	}
@@ -149,20 +180,12 @@ class Events_Variables {
 	 * @return string The venue state.
 	 */
 	public function get_venue_state() {
-		$event_id = get_the_ID();
-		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+		$event_id = $this->get_current_event_id();
+		if ( ! $event_id ) {
 			return '';
 		}
 
-		$venue_id = tribe_get_venue_id( $event_id );
-		if ( ! $venue_id ) {
-			return '';
-		}
-
-		$venue_object = tribe_get_venue_object( $venue_id );
-		if ( ! $venue_object || ! is_object( $venue_object ) ) {
-			return '';
-		}
+		$venue_object = $this->get_venue_object( $event_id );
 
 		return $venue_object->state ?? '';
 	}
@@ -175,12 +198,57 @@ class Events_Variables {
 	 * @return string The organizer title.
 	 */
 	public function get_organizer_title() {
-		$event_id = get_the_ID();
-		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
+		$event_id = $this->get_current_event_id();
+		if ( ! $event_id ) {
 			return '';
 		}
 
 		return tribe_get_organizer( $event_id );
+	}
+
+	/**
+	 * Populate term data in the args object for Yoast SEO variable replacement.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The term object.
+	 * @param object  $args The args object (passed by reference).
+	 *
+	 * @return void
+	 */
+	private function populate_term_args( WP_Term $term, $args ): void {
+		$args->name     = $term->name;
+		$args->term_id  = $term->term_id;
+		$args->taxonomy = $term->taxonomy;
+	}
+
+	/**
+	 * Check if we're on an Event Category archive page.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The queried term.
+	 *
+	 * @return bool True if on an Event Category archive.
+	 */
+	private function is_event_category_archive( WP_Term $term ): bool {
+		return is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY;
+	}
+
+	/**
+	 * Check if we're on an Event Tag archive page.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The queried term.
+	 *
+	 * @return bool True if on an Event Tag archive.
+	 */
+	private function is_event_tag_archive( WP_Term $term ): bool {
+		return is_tag()
+			&& $term->taxonomy === 'post_tag'
+			&& function_exists( 'tribe_is_event_query' )
+			&& tribe_is_event_query();
 	}
 
 	/**
@@ -199,40 +267,20 @@ class Events_Variables {
 	 * @return array The unmodified replacements array (we only modify $args).
 	 */
 	public function populate_term_replace_vars( $replacements, $args ) {
-		// Only process on the frontend.
 		if ( is_admin() ) {
 			return $replacements;
 		}
 
-		// Get the queried object once and cache it.
 		$term = get_queried_object();
-
-		// Early return if queried object is not a term.
 		if ( ! $term instanceof WP_Term ) {
 			return $replacements;
 		}
 
-		// Check if we're on an Event Category archive page.
-		if ( is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY ) {
-			// Populate the args object with term data for Event Categories.
-			$args->name     = $term->name;
-			$args->term_id  = $term->term_id;
-			$args->taxonomy = $term->taxonomy;
-
-			return $replacements;
-		}
-
-		// Check if we're on an Event Tag archive page (post_tag taxonomy on event query).
-		if ( is_tag() && $term->taxonomy === 'post_tag' ) {
-			// Only process if this is an event query (defensive check for function existence).
-			if ( function_exists( 'tribe_is_event_query' ) && tribe_is_event_query() ) {
-				// Populate the args object with term data for Event Tags.
-				$args->name     = $term->name;
-				$args->term_id  = $term->term_id;
-				$args->taxonomy = $term->taxonomy;
-			}
+		if ( $this->is_event_category_archive( $term ) || $this->is_event_tag_archive( $term ) ) {
+			$this->populate_term_args( $term, $args );
 		}
 
 		return $replacements;
 	}
 }
+

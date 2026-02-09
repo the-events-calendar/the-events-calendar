@@ -113,6 +113,47 @@ class Events_Title {
 	}
 
 	/**
+	 * Get the title template from Yoast term meta.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The term object.
+	 *
+	 * @return string|false The title template, or false if not set.
+	 */
+	private function get_title_template( WP_Term $term ) {
+		if ( ! class_exists( 'WPSEO_Taxonomy_Meta' ) ) {
+			return false;
+		}
+
+		$title_template = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
+
+		return ! empty( $title_template ) ? $title_template : false;
+	}
+
+	/**
+	 * Process a title template through Yoast's variable replacement engine.
+	 *
+	 * @since TBD
+	 *
+	 * @param string  $title_template The title template with variable placeholders.
+	 * @param WP_Term $term            The term object to use as replacement source.
+	 *
+	 * @return string|false The processed title, or false on failure.
+	 */
+	private function process_title_template( string $title_template, WP_Term $term ) {
+		if ( ! class_exists( 'WPSEO_Replace_Vars' ) ) {
+			return false;
+		}
+
+		$replace_vars = new WPSEO_Replace_Vars();
+		$processed    = $replace_vars->replace( $title_template, $term );
+		$processed    = trim( wp_strip_all_tags( $processed ) );
+
+		return $processed !== '' ? $processed : false;
+	}
+
+	/**
 	 * Get the fully processed Yoast SEO title for a term.
 	 *
 	 * Retrieves the custom title template from Yoast's term meta and processes
@@ -127,13 +168,8 @@ class Events_Title {
 	 * @return string|false The processed title, or false if no custom title is set.
 	 */
 	private function get_yoast_title_for_term( WP_Term $term ) {
-		if ( ! class_exists( 'WPSEO_Taxonomy_Meta' ) ) {
-			return false;
-		}
-
-		$title_template = WPSEO_Taxonomy_Meta::get_term_meta( $term, $term->taxonomy, 'title' );
-
-		if ( empty( $title_template ) ) {
+		$title_template = $this->get_title_template( $term );
+		if ( ! $title_template ) {
 			return false;
 		}
 
@@ -144,16 +180,36 @@ class Events_Title {
 		}
 
 		// Process variable placeholders through Yoast's replacement engine.
-		if ( ! class_exists( 'WPSEO_Replace_Vars' ) ) {
-			return false;
-		}
+		return $this->process_title_template( $title_template, $term );
+	}
 
-		$replace_vars = new WPSEO_Replace_Vars();
-		$processed    = $replace_vars->replace( $title_template, $term );
-		$processed    = wp_strip_all_tags( $processed );
-		$processed    = trim( $processed );
+	/**
+	 * Check if the term is an Event Category.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The term object.
+	 *
+	 * @return bool True if the term is an Event Category.
+	 */
+	private function is_event_category( WP_Term $term ): bool {
+		return is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY;
+	}
 
-		return $processed !== '' ? $processed : false;
+	/**
+	 * Check if the term is an Event Tag.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $term The term object.
+	 *
+	 * @return bool True if the term is an Event Tag.
+	 */
+	private function is_event_tag( WP_Term $term ): bool {
+		return is_tag()
+			&& $term->taxonomy === 'post_tag'
+			&& function_exists( 'tribe_is_event_query' )
+			&& tribe_is_event_query();
 	}
 
 	/**
@@ -166,16 +222,6 @@ class Events_Title {
 	 * @return bool True if the term is an Event Category or an Event Tag.
 	 */
 	private function is_supported_taxonomy( WP_Term $term ): bool {
-		// Event Categories.
-		if ( is_tax( TEC_Plugin::TAXONOMY ) && $term->taxonomy === TEC_Plugin::TAXONOMY ) {
-			return true;
-		}
-
-		// Event Tags.
-		if ( is_tag() && $term->taxonomy === 'post_tag' && function_exists( 'tribe_is_event_query' ) && tribe_is_event_query() ) {
-			return true;
-		}
-
-		return false;
+		return $this->is_event_category( $term ) || $this->is_event_tag( $term );
 	}
 }
