@@ -47,18 +47,12 @@
 		
 		
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
-	<div class="tribe-events-header__content-title">
-	<h1 class="screen-reader-text tec-a11y-title-hidden">Events</h1></div>
-
-	
-	
 	
 <div class="tribe-events-header__title">
 	<h1 class="tribe-events-header__title-text">
 		tag-1	</h1>
 </div>
-
-	<nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="Breadcrumb">
+<nav class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs" aria-label="Breadcrumb">
 	<ol class="tribe-events-c-breadcrumbs__list">
 		
 							<li class="tribe-events-c-breadcrumbs__list-item">
@@ -88,7 +82,11 @@
 		
 			</ol>
 </nav>
+<div class="tribe-events-header__content-title">
+	<h2 class="screen-reader-text tec-a11y-title-hidden">Events</h2></div>
 
+	
+	
 	<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
