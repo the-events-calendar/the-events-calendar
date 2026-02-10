@@ -45,7 +45,7 @@
 		
 		
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
-	
+
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" tabindex="0" role="alert" aria-live="assertive">
 										<div
@@ -62,8 +62,8 @@
 					</div>
 	</div>
 
-	
-	
+
+
 	<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
