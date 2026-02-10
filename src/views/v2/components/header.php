@@ -30,7 +30,7 @@ $has_breadcrumbs  = ! empty( $breadcrumbs );
 ?>
 
 <header <?php tec_classes( $header_classes ); ?>>
-<?php
+	<?php
 	// Primary title should always render first (H1).
 	if ( $has_header_title ) {
 		$this->template( 'components/header-title' );

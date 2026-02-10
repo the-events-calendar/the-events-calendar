@@ -45,7 +45,7 @@
 		
 		
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
-<div class="tribe-events-header__content-title">
+	<div class="tribe-events-header__content-title">
 	<h1 class="screen-reader-text tec-a11y-title-hidden">Events for January 1, 2019</h1></div>
 
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
@@ -91,8 +91,6 @@
 					There are no upcoming events.				</div>
 					</div>
 	</div>
-
-
 
 	<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"

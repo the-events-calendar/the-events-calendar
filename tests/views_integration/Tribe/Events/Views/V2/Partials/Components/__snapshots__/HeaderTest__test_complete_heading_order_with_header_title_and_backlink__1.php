@@ -1,6 +1,6 @@
 <?php return '
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
-
+	
 <div class="tribe-events-header__title">
 	<h1 class="tribe-events-header__title-text">
 		Test Organizer	</h1>
@@ -14,8 +14,6 @@
 
 	
 	
-
-
 	
 	</header>
 ';

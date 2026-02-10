@@ -47,7 +47,7 @@
 		
 		
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
-
+	
 <div class="tribe-events-header__title">
 	<h1 class="tribe-events-header__title-text">
 		tag-1	</h1>
@@ -87,8 +87,6 @@
 
 	
 	
-
-
 	<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
