@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.15\n"
+"Project-Id-Version: The Events Calendar 6.15.16\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-28T16:14:07+00:00\n"
+"POT-Creation-Date: 2026-02-11T13:41:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -4724,7 +4724,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:919
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:603
 #: src/views/blocks/parts/organizer.php:63
-#: src/views/modules/meta/organizer.php:49
+#: src/views/modules/meta/organizer.php:50
 #: src/views/modules/meta/venue.php:48
 msgid "Phone"
 msgstr ""
@@ -4745,7 +4745,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:736
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:990
 #: src/views/blocks/parts/organizer.php:76
-#: src/views/modules/meta/organizer.php:62
+#: src/views/modules/meta/organizer.php:63
 msgid "Email"
 msgstr ""
 
@@ -4764,7 +4764,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:794
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1061
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:715
-#: src/functions/template-tags/organizer.php:514
+#: src/functions/template-tags/organizer.php:516
 #: src/functions/template-tags/venue.php:938
 #: src/views/blocks/parts/organizer.php:89
 msgid "Website"
@@ -8724,7 +8724,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1000
 #: src/Tribe/Rewrite.php:274
-#: src/views/v2/month/calendar-body/day/date.php:63
+#: src/views/v2/month/calendar-body/day/date.php:64
 msgid "today"
 msgstr ""
 
@@ -10922,8 +10922,8 @@ msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2339
-#: src/Tribe/Views/V2/View.php:2445
+#: src/Tribe/Views/V2/View.php:2340
+#: src/Tribe/Views/V2/View.php:2446
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/latest-past/event/date/featured.php:28
 #: src/views/v2/list/event/date/featured.php:28
@@ -10939,6 +10939,13 @@ msgstr ""
 #: src/Tribe/Views/V2/Views/Day_View.php:77
 msgctxt "The text label for the Day View."
 msgid "Day"
+msgstr ""
+
+#. translators: %1$s: Events plural %2$s: Date
+#: src/Tribe/Views/V2/Views/Day_View.php:438
+#, php-format
+msgctxt "day view content title"
+msgid "%1$s for %2$s"
 msgstr ""
 
 #: src/Tribe/Views/V2/Views/List_View.php:74
@@ -11370,6 +11377,13 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
+#. translators: %s: Event label plural
+#: src/views/v2/day/nav.php:23
+#: src/views/v2/list/nav.php:24
+#, php-format
+msgid "Bottom %s list pagination"
+msgstr ""
+
 #: src/views/v2/day/nav/next-disabled.php:19
 #: src/views/v2/day/nav/next-disabled.php:20
 #: src/views/v2/day/nav/next-disabled.php:23
@@ -11398,6 +11412,13 @@ msgstr ""
 #: src/views/v2/list/top-bar/datepicker.php:80
 #: src/views/v2/month/top-bar/datepicker.php:56
 msgid "Select date."
+msgstr ""
+
+#. translators: %s: Event label plural
+#: src/views/v2/day/top-bar/nav.php:22
+#: src/views/v2/list/top-bar/nav.php:23
+#, php-format
+msgid "Top %s list pagination"
 msgstr ""
 
 #: src/views/v2/day/top-bar/nav/next-disabled.php:19
@@ -11429,12 +11450,6 @@ msgstr ""
 msgid "List of %s"
 msgstr ""
 
-#. translators: %s: Event label plural
-#: src/views/v2/list/nav.php:24
-#, php-format
-msgid "Bottom %s list pagination"
-msgstr ""
-
 #. translators: %s: Event (plural or singular).
 #: src/views/v2/list/nav/next-disabled.php:17
 #: src/views/v2/list/nav/next-disabled.php:20
@@ -11457,12 +11472,6 @@ msgstr ""
 msgid "Previous %1$s"
 msgstr ""
 
-#. translators: %s: Event label plural
-#: src/views/v2/list/top-bar/nav.php:23
-#, php-format
-msgid "Top %s list pagination"
-msgstr ""
-
 #. translators: %s: event label plural.
 #: src/views/v2/month.php:60
 #, php-format
@@ -11470,7 +11479,7 @@ msgid "Calendar of %s"
 msgstr ""
 
 #. translators: %1$s: number of events, %2$s: event (singular), %3$s: events (plural).
-#: src/views/v2/month/calendar-body/day/cell-title.php:48
+#: src/views/v2/month/calendar-body/day/cell-title.php:49
 #, php-format
 msgid "%1$s %2$s"
 msgid_plural "%1$s %3$s"
@@ -11483,16 +11492,16 @@ msgstr[1] ""
 msgid "has featured %s"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day/date.php:65
+#: src/views/v2/month/calendar-body/day/date.php:66
 msgid "past day"
 msgstr ""
 
-#: src/views/v2/month/calendar-body/day/date.php:67
+#: src/views/v2/month/calendar-body/day/date.php:68
 msgid "upcoming day"
 msgstr ""
 
 #. Translators: %1$s = number of events, %2$s = event label (singular or plural).
-#: src/views/v2/month/calendar-body/day/date.php:72
+#: src/views/v2/month/calendar-body/day/date.php:73
 #, php-format
 msgctxt "As (number) (event label - singular or plural)"
 msgid "%1$s %2$s"
@@ -11500,10 +11509,10 @@ msgid_plural "%1$s %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#. translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
-#: src/views/v2/month/calendar-body/day/date.php:79
+#. translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event), %3$s: day state (e.g. past day).
+#: src/views/v2/month/calendar-body/day/date.php:80
 #, php-format
-msgid "%1$s, %2$s"
+msgid "%1$s, %2$s, %3$s"
 msgstr ""
 
 #. translators: %1$d: number of events, %2$s: formatted date.
@@ -11537,6 +11546,12 @@ msgstr ""
 #: src/views/v2/month/mobile-events/nav/prev.php:26
 #, php-format
 msgid "Previous month, %1$s"
+msgstr ""
+
+#. Translators: %s: Events (plural).
+#: src/views/v2/month/top-bar/nav.php:22
+#, php-format
+msgid "%s Pagination"
 msgstr ""
 
 #: src/views/v2/month/top-bar/nav/next-disabled.php:19
