@@ -2482,7 +2482,7 @@ class View implements View_Interface {
 	 * Views can override this method to provide contextual defaults like
 	 * "Events for [Date]" or "Events in [Month]".
 	 *
-	 * @since TBD
+	 * @since 6.15.16
 	 *
 	 * @return string The default content title, empty string if none.
 	 */

@@ -13,8 +13,8 @@
  * @since 6.2.0
  * @since 6.15.12 Changed `span` to `h2`. [TEC-5636]
  * @since 6.15.14 Added the ability to change the heading tag. [TEC-5617]
- * @since TBD Use the variable `$show_content_title` to display the title. [TEC-5733]
- * @since TBD Downgrade to h2 when header-title exists to maintain proper heading hierarchy. [TEC-5733]
+ * @since 6.15.16 Use the variable `$show_content_title` to display the title. [TEC-5733]
+ * @since 6.15.16 Downgrade to h2 when header-title exists to maintain proper heading hierarchy. [TEC-5733]
  *
  * @var \Tribe\Events\Views\V2\Template $this Template Engine instance rendering.
  * @var string                          $content_title The title to display.

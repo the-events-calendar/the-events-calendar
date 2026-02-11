@@ -5,12 +5,12 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
- * @version TBD
+ * @version 6.15.16
  *
  * @since 4.6.19
  * @since 6.15.3 Added post password protection.
  * @since 6.15.11 Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
- * @since TBD Fixed issue with multiple organizers and post password protection.
+ * @since 6.15.16 Fixed issue with multiple organizers and post password protection.
  *
  * @package TribeEventsCalendar
  */

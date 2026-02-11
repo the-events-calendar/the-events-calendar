@@ -14,7 +14,7 @@
  * @since 5.9.0
  * @since 6.15.11 Made event date area more accessible.
  * @since 6.15.12.1 Added context to the translation to produce a new msgid and avoid errors from older translations.
- * @since TBD Improved heading hierarchy by making dates headings only when events are present.
+ * @since 6.15.16 Improved heading hierarchy by making dates headings only when events are present.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.

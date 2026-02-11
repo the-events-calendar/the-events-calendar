@@ -12,8 +12,8 @@
  * @version 6.15.7
  * @since   6.2.0
  * @since 6.15.7 Add support for displaying either breadcrumbs or a back link in the header.
- * @since TBD Moved the `content-title` template higher up. [TEC-5733]
- * @since TBD Conditionally order title templates to ensure primary h1 renders first, with backlink/breadcrumb directly after. [TEC-5733]
+ * @since 6.15.16 Moved the `content-title` template higher up. [TEC-5733]
+ * @since 6.15.16 Conditionally order title templates to ensure primary h1 renders first, with backlink/breadcrumb directly after. [TEC-5733]
  *
  * @var \Tribe\Events\Views\V2\Template $this                 Template Engine instance rendering.
  * @var bool                            $disable_event_search Boolean on whether to disable the event search.
