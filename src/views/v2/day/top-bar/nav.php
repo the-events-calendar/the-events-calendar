@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.15.16
  *
- * @since TBD Add aria-label attribute to nav. [TEC-5732]
+ * @since 6.15.16 Add aria-label attribute to nav. [TEC-5732]
  *
  * @var string $prev_url The URL to the previous page, if any, or an empty string.
  * @var string $next_url The URL to the next page, if any, or an empty string.

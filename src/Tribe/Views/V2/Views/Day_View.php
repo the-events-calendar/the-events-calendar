@@ -422,7 +422,7 @@ class Day_View extends View {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.15.16
 	 */
 	protected function get_default_content_title(): string {
 		// Get the date being displayed.

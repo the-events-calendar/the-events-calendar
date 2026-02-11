@@ -13,9 +13,9 @@
  * @var string $next_url The URL to the next page, if any, or an empty string.
  * @var string $today_url The URL to the today page, if any, or an empty string.
  *
- * @since TBD Add aria-label attribute to nav. [TEC-5732]
+ * @since 6.15.16 Add aria-label attribute to nav. [TEC-5732]
  *
- * @version TBD
+ * @version 6.15.16
  */
 
 $aria_label = sprintf(

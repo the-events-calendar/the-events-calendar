@@ -819,7 +819,7 @@ tribe.events.views.manager = {};
    * 2. Events bar buttons (.tribe-events-header__events-bar)
    * 3. Content (after .tribe-events-header)
    *
-   * @since  TBD
+   * @since  6.15.16
    *
    * @param  {jQuery} $container Which container we are managing focus for.
    *
@@ -1057,7 +1057,7 @@ tribe.events.views.manager = {};
   /**
    * Initializes mobile focus order management.
    *
-   * @since  TBD
+   * @since  6.15.16
    *
    * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
    * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
