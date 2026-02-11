@@ -7,7 +7,7 @@
 * Tweak - Changed views: `modules/meta/organizer`, `v2/components/content-title`, `v2/components/header`, `v2/day/nav`, `v2/day/top-bar/nav`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date`, `v2/month/top-bar/nav`
 * Tweak - Improve Day View content title to display contextual "Events for [Date]" format at the top of the view. [TEC-5733]
 * Tweak - Improve heading hierarchy in month view by making date headings only when events are present. [TEC-5622]
-* Tweak - Improved keyboard focus order in zoomed/mobile layouts to follow a more logical and predictable sequence, aligning with WCAG best practices. [TEC-5193]
+* Tweak - Improve keyboard focus order in zoomed/mobile layouts to follow a more logical and predictable sequence, aligning with WCAG best practices. [TEC-5193]
 * Tweak - Improve mini calendar accessibility by adding non-color indicators for past, current, and upcoming days. [TEC-5735]
 * Language - 3 new strings added, 11 updated, 0 fuzzied, and 1 obsoleted.
 
