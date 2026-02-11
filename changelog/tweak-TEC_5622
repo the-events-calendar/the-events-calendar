@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Improved heading hierarchy in month view by making dates headings only when events are present. [TEC-5622]
