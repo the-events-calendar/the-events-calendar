@@ -12,6 +12,7 @@
  * @since 5.9.0
  * @since 6.14.2 Improved accessibility for calendar view [TEC-5212].
  * @since 6.15.6 Adjusted aria-label to use date format from TEC settings.
+ * @since 6.15.16 Improved heading hierarchy by making dates headings only when events are present.
  *
  * @version 6.14.2
  *
@@ -53,9 +54,12 @@ $num_events_label = sprintf(
 
 $date_format  = tribe_get_date_option( 'dateWithoutYearFormat', 'F j' );
 $date_ordinal = date_i18n( $date_format, strtotime( $day['date'] ) );
+
+$has_events = ! empty( $day['found_events'] );
+$date_tag   = $has_events ? 'h3' : 'div';
 ?>
 
-<div class="tribe-events-calendar-month__day-date tribe-common-h4">
+<<?php echo esc_attr( $date_tag ); ?> class="tribe-events-calendar-month__day-date tribe-common-h4">
 	<span class="tribe-common-a11y-visual-hide">
 		<?php echo esc_html( $num_events_label ); ?>,
 	</span>
@@ -63,7 +67,7 @@ $date_ordinal = date_i18n( $date_format, strtotime( $day['date'] ) );
 		class="tribe-events-calendar-month__day-date-daynum"
 		datetime="<?php echo esc_attr( $day['date'] ); ?>"
 	>
-		<?php if ( ! empty( $day['found_events'] ) ) : ?>
+		<?php if ( $has_events ) : ?>
 			<a
 				href="<?php echo esc_url( $day['day_url'] ); ?>"
 				class="tribe-events-calendar-month__day-date-link"
@@ -76,4 +80,4 @@ $date_ordinal = date_i18n( $date_format, strtotime( $day['date'] ) );
 			<?php echo esc_html( $day_number ); ?>
 		<?php endif; ?>
 	</time>
-</div>
+</<?php echo esc_attr( $date_tag ); ?>>
