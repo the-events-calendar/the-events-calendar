@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Improve Day View content title to display contextual "Events for [Date]" format at the top of the view. [TEC-5733]

@@ -52,8 +52,6 @@
 
 	
 	
-	
-	
 	<div
 	 class="tribe-events-header__events-bar tribe-events-c-events-bar tribe-events-c-events-bar--border" 	data-js="tribe-events-events-bar"
 >
