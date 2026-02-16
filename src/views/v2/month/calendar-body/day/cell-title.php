@@ -12,7 +12,7 @@
  * @since 5.9.0
  * @since 6.14.2 Improved accessibility for calendar view [TEC-5212].
  * @since 6.15.6 Adjusted aria-label to use date format from TEC settings.
- * @since TBD Improved heading hierarchy by making dates headings only when events are present.
+ * @since 6.15.16 Improved heading hierarchy by making dates headings only when events are present.
  *
  * @version 6.14.2
  *

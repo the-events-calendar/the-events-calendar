@@ -422,7 +422,7 @@ if ( ! function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if
  * Returns the event Organizer Name with a link to their supplied website
  *
  * @since 3.0
- * @since TBD Changed the default target to _blank from _self.
+ * @since 6.15.16 Changed the default target to _blank from _self.
  *
  * @param ?int    $post_id The post ID for an event.
  * @param ?string $label   The text for the link.
@@ -438,7 +438,7 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null, $targ
 	 * Filter the organizer link target attribute.
 	 *
 	 * @since 5.1.0
-	 * @since TBD Changed the default target to _blank from _self.
+	 * @since 6.15.16 Changed the default target to _blank from _self.
 	 *
 	 * @param string   $target  The target attribute string. Defaults to "_blank".
 	 * @param string   $url     The link URL.
