@@ -1,4 +1,4 @@
 Significance: patch
 Type: accessibility
 
-Add outline on hover for the datepicker. [TEC-5740]
+Add an outline on hover for the datepicker. [TEC-5740]
