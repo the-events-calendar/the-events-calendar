@@ -1748,7 +1748,8 @@ class View implements View_Interface {
 			'start_of_week'        => get_option( 'start_of_week', 0 ),
 			'header_title'         => $this->get_header_title(),
 			'header_title_element' => $this->get_header_title_element(),
-			'content_title'        => $this->get_content_title(),
+			'content_title'        => $content_title = $this->get_content_title(),
+			'show_content_title'   => ! empty( $content_title ),
 			'breadcrumbs'          => $this->get_breadcrumbs(),
 			'backlink'             => $this->get_back_link( $this->get_breadcrumbs() ),
 			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
@@ -2475,6 +2476,23 @@ class View implements View_Interface {
 	 *
 	 * @return string
 	 */
+	/**
+	 * Gets the default content title for this view.
+	 *
+	 * Views can override this method to provide contextual defaults like
+	 * "Events for [Date]" or "Events in [Month]".
+	 *
+	 * @since 6.15.16
+	 *
+	 * @return string The default content title, empty string if none.
+	 */
+	protected function get_default_content_title(): string {
+		return '';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_content_title(): string {
 		/**
 		 * Filters the content title the View will print on the frontend.
@@ -2496,7 +2514,14 @@ class View implements View_Interface {
 		 * @param string $content_title The content title to be displayed.
 		 * @param View   $this          The current View instance being rendered.
 		 */
-		return (string) apply_filters( "tec_events_views_v2_view_{$view_slug}_content_title", $content_title, $this );
+		$content_title = (string) apply_filters( "tec_events_views_v2_view_{$view_slug}_content_title", $content_title, $this );
+
+		// If filters didn't provide a title, use the view's default.
+		if ( empty( $content_title ) ) {
+			$content_title = $this->get_default_content_title();
+		}
+
+		return $content_title;
 	}
 
 

@@ -334,6 +334,8 @@ class Day_View extends View {
 		$next_rel        = $index_next_rel ? 'next' : 'noindex';
 		$prev_rel        = $index_prev_rel ? 'prev' : 'noindex';
 
+		$template_vars['show_content_title'] = false;
+
 		$template_vars['events']   = $sorted_events;
 		$template_vars['next_rel'] = $next_rel;
 		$template_vars['prev_rel'] = $prev_rel;
@@ -415,5 +417,27 @@ class Day_View extends View {
 			$message_key = $this->upcoming_events_count() ? 'day_no_results_found' : 'no_upcoming_events';
 			$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key, $date_label ) );
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @since 6.15.16
+	 */
+	protected function get_default_content_title(): string {
+		// Get the date being displayed.
+		$date_time  = Dates::build_date_object( $this->context->get( 'event_date', 'today' ) );
+		$date_label = date_i18n(
+			tribe_get_date_format( true ),
+			$date_time->getTimestamp() + $date_time->getOffset()
+		);
+
+		// Return formatted title: "Events for [Date]".
+		return sprintf(
+			/* translators: %1$s: Events plural %2$s: Date */
+			esc_html_x( '%1$s for %2$s', 'day view content title', 'the-events-calendar' ),
+			tribe_get_event_label_plural(),
+			$date_label
+		);
 	}
 }

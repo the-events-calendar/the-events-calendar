@@ -14,6 +14,7 @@
  * @since 5.9.0
  * @since 6.15.11 Made event date area more accessible.
  * @since 6.15.12.1 Added context to the translation to produce a new msgid and avoid errors from older translations.
+ * @since 6.15.16 Improved heading hierarchy by making dates headings only when events are present.
  *
  * @var string $today_date Today's date in the `Y-m-d` format.
  * @var string $day_date The current day date, in the `Y-m-d` format.
@@ -75,11 +76,15 @@ $num_events_label = sprintf(
 );
 
 $day_label = sprintf(
-	// translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event).
-	__( '%1$s, %2$s', 'the-events-calendar' ),
+	// translators: %1$s: formatted date (e.g. October 22), %2$s: event count (e.g. has 1 event), %3$s: day state (e.g. past day).
+	__( '%1$s, %2$s, %3$s', 'the-events-calendar' ),
 	tribe_format_date( $day['date'], false, 'F j' ),
-	$num_events_label
+	$num_events_label,
+	$state_label
 );
+
+$has_events = ! empty( $day['found_events'] );
+$date_tag   = $has_events ? 'h3' : 'div';
 ?>
 <button
 	aria-expanded="<?php echo esc_attr( $expanded ); ?>"
@@ -88,7 +93,7 @@ $day_label = sprintf(
 	<?php tec_classes( $day_button_classes ); ?>
 	data-js="tribe-events-calendar-month-day-cell-mobile"
 >
-	<div class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
+	<<?php echo esc_attr( $date_tag ); ?> class="tribe-events-calendar-month__day-date tribe-common-h6 tribe-common-h--alt">
 		<span class="tribe-common-a11y-visual-hide">
 			<?php echo esc_html( $num_events_label ); ?>
 		</span>
@@ -98,6 +103,6 @@ $day_label = sprintf(
 		>
 			<?php echo esc_html( $day_number ); ?>
 		</time>
-	</div>
+	</<?php echo esc_attr( $date_tag ); ?>>
 	<?php $this->template( 'month/calendar-body/day/date-extras', [ 'day_date' => $day_date, 'day' => $day ] ); ?>
 </button>

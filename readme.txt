@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.15
+Stable tag: 6.15.16
 Requires at least: 6.7
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -231,6 +231,17 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.15.16] 2026-02-11 =
+
+* Fix - Evaluate correctly whether the email and phone field of a non-password protected organizer should display and by default the organizer's website opens in a new tab.[TEC-5744]
+* Tweak - Add aria-label attribute to events navigation. [TEC-5732]
+* Tweak - Changed views: `modules/meta/organizer`, `v2/components/content-title`, `v2/components/header`, `v2/day/nav`, `v2/day/top-bar/nav`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date`, `v2/month/top-bar/nav`
+* Tweak - Improve Day View content title to display contextual "Events for [Date]" format at the top of the view. [TEC-5733]
+* Tweak - Improve heading hierarchy in month view by making date headings only when events are present. [TEC-5622]
+* Tweak - Improve keyboard focus order in zoomed/mobile layouts to follow a more logical and predictable sequence, aligning with WCAG best practices. [TEC-5193]
+* Tweak - Improve mini calendar accessibility by adding non-color indicators for past, current, and upcoming days. [TEC-5735]
+* Language - 3 new strings added, 11 updated, 0 fuzzied, and 1 obsoleted.
 
 = [6.15.15] 2026-01-28 =
 
