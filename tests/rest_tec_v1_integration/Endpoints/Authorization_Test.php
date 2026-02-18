@@ -1,9 +1,10 @@
 <?php
 /**
- * Test per-post capability checks for REST API endpoints.
+ * Tests per-post capability checks for REST API endpoints.
  *
- * This test suite ensures that authenticated users with lower privileges
- * cannot modify or delete posts they don't own via the REST API.
+ * Ensures that the Events, Venues, and Organizers REST endpoints enforce
+ * object-level authorization: users can only edit/delete posts they own
+ * unless they have the appropriate "edit/delete others" capability.
  *
  * @package TEC\Tests\REST\V1\Endpoints
  * @since TBD
@@ -12,216 +13,99 @@
 namespace TEC\Events\Tests\REST\TEC\V1\Endpoints;
 
 use Codeception\TestCase\WPTestCase;
-use WP_REST_Server;
 
 class Authorization_Test extends WPTestCase {
 
 	/**
-	 * Test that a contributor cannot edit an event created by an administrator.
+	 * Data provider for event REST authorization scenarios.
 	 *
-	 * Vulnerability: Broken object-level authorization allows contributors
-	 * to edit events they don't own via REST API.
-	 *
-	 * Expected behavior (after fix): HTTP 403 Forbidden
-	 * Actual behavior (vulnerable): HTTP 200 OK
+	 * @return array<string, array{string, bool, string, int|array<int>>} Scenario name, actor role, is own post, action, expected status.
 	 */
-	public function test_contributor_cannot_edit_admin_event() {
-		// Create an admin user and event
+	public function event_authorization_provider() {
+		return [
+			'contributor cannot edit admin event'   => [ 'contributor', false, 'edit', 403 ],
+			'contributor can edit own event'       => [ 'contributor', true, 'edit', [ 200, 201 ] ],
+			'contributor cannot delete admin event' => [ 'contributor', false, 'delete', 403 ],
+			'contributor can delete own event'      => [ 'contributor', true, 'delete', 200 ],
+			'editor can edit other events'         => [ 'editor', false, 'edit', 200 ],
+			'editor can delete other events'       => [ 'editor', false, 'delete', 200 ],
+		];
+	}
+
+	/**
+	 * Event REST API enforces per-post edit/delete authorization.
+	 *
+	 * @test
+	 * @dataProvider event_authorization_provider
+	 *
+	 * @param string         $actor_role     Role of the user making the request.
+	 * @param bool           $is_own_post    Whether the actor is the post author.
+	 * @param string         $action         'edit' or 'delete'.
+	 * @param int|array<int> $expected_status Expected HTTP status (or allowed set for success).
+	 */
+	public function event_rest_authorization( $actor_role, $is_own_post, $action, $expected_status ) {
 		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $admin_id );
 
+		$author_id = $is_own_post
+			? $this->factory()->user->create( [ 'role' => $actor_role ] )
+			: $admin_id;
+
+		if ( $is_own_post ) {
+			wp_set_current_user( $author_id );
+		}
+
 		$event_id = tribe_events()->set_args( [
-			'title'       => 'Admin Event',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
+			'title'      => 'Test Event',
+			'start_date' => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
+			'end_date'   => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
+			'status'     => 'publish',
+			'author'     => $author_id,
 		] )->create()->ID;
 
-		// Create a contributor user
-		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $contributor_id );
+		$actor_id = $is_own_post ? $author_id : $this->factory()->user->create( [ 'role' => $actor_role ] );
+		wp_set_current_user( $actor_id );
 
-		// Attempt to edit the admin's event via REST API
-		$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/events/' . $event_id );
-		$request->set_body_params( [
-			'title' => 'TAMPERED BY CONTRIBUTOR',
-			'description' => 'This event was modified without authorization.',
-		] );
+		if ( $action === 'edit' ) {
+			$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/events/' . $event_id );
+			$request->set_body_params( [ 'title' => 'Updated Title' ] );
+		} else {
+			$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/events/' . $event_id );
+			$request->set_param( 'force', true );
+		}
 
-		// Verify the request is rejected with 403 Forbidden
 		$response = rest_get_server()->dispatch( $request );
-		$this->assertSame( 403, $response->get_status(), 'Contributor should not be able to edit admin event' );
+		$status   = $response->get_status();
+
+		if ( is_array( $expected_status ) ) {
+			$this->assertContains( $status, $expected_status, 'Response status should be one of the allowed success codes.' );
+		} else {
+			$this->assertSame( $expected_status, $status, 'Response status should match expected.' );
+		}
 	}
 
 	/**
-	 * Test that a contributor can edit their own event.
+	 * Data provider for venue REST authorization (contributor vs admin).
 	 *
-	 * Expected behavior: HTTP 200 OK
+	 * @return array<string, array{string, int}>
 	 */
-	public function test_contributor_can_edit_own_event() {
-		// Create a contributor user and event
-		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $contributor_id );
-
-		$event_id = tribe_events()->set_args( [
-			'title'       => 'Contributor Event',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
-			'author'      => $contributor_id,
-		] )->create()->ID;
-
-		// Attempt to edit the contributor's own event
-		$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/events/' . $event_id );
-		$request->set_body_params( [
-			'title' => 'Updated by Contributor',
-		] );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is allowed (200 or 201)
-		$this->assertThat(
-			$response->get_status(),
-			$this->logicalOr(
-				$this->equalTo( 200 ),
-				$this->equalTo( 201 )
-			),
-			'Contributor should be able to edit their own event'
-		);
+	public function venue_authorization_provider() {
+		return [
+			'contributor cannot edit admin venue'    => [ 'edit', 403 ],
+			'contributor cannot delete admin venue'  => [ 'delete', 403 ],
+		];
 	}
 
 	/**
-	 * Test that a contributor cannot delete an event created by an administrator.
+	 * Venue REST API rejects contributor edit/delete of another user's venue.
 	 *
-	 * Vulnerability: Broken object-level authorization allows contributors
-	 * to delete events they don't own via REST API.
+	 * @test
+	 * @dataProvider venue_authorization_provider
 	 *
-	 * Expected behavior (after fix): HTTP 403 Forbidden
-	 * Actual behavior (vulnerable): HTTP 200 OK
+	 * @param string $action         'edit' or 'delete'.
+	 * @param int    $expected_status Expected HTTP status (403).
 	 */
-	public function test_contributor_cannot_delete_admin_event() {
-		// Create an admin user and event
-		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $admin_id );
-
-		$event_id = tribe_events()->set_args( [
-			'title'       => 'Admin Event to Delete',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
-		] )->create()->ID;
-
-		// Create a contributor user
-		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $contributor_id );
-
-		// Attempt to delete the admin's event via REST API
-		$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/events/' . $event_id );
-		$request->set_param( 'force', true );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected with 403 Forbidden
-		$this->assertSame( 403, $response->get_status(), 'Contributor should not be able to delete admin event' );
-	}
-
-	/**
-	 * Test that a contributor can delete their own event.
-	 *
-	 * Expected behavior: HTTP 200 OK
-	 */
-	public function test_contributor_can_delete_own_event() {
-		// Create a contributor user and event
-		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $contributor_id );
-
-		$event_id = tribe_events()->set_args( [
-			'title'       => 'Contributor Event to Delete',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
-			'author'      => $contributor_id,
-		] )->create()->ID;
-
-		// Attempt to delete the contributor's own event
-		$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/events/' . $event_id );
-		$request->set_param( 'force', true );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is allowed
-		$this->assertSame( 200, $response->get_status(), 'Contributor should be able to delete their own event' );
-	}
-
-	/**
-	 * Test that an editor with edit_others_tribe_events can edit any event.
-	 *
-	 * Expected behavior: HTTP 200 OK
-	 */
-	public function test_editor_can_edit_other_events() {
-		// Create an admin user and event
-		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $admin_id );
-
-		$event_id = tribe_events()->set_args( [
-			'title'       => 'Admin Event',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
-		] )->create()->ID;
-
-		// Create an editor user
-		$editor_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
-		wp_set_current_user( $editor_id );
-
-		// Attempt to edit the admin's event via REST API
-		$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/events/' . $event_id );
-		$request->set_body_params( [
-			'title' => 'Edited by Editor',
-		] );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is allowed (editors have edit_others_tribe_events cap)
-		$this->assertSame( 200, $response->get_status(), 'Editor should be able to edit other events' );
-	}
-
-	/**
-	 * Test that an editor can delete any event.
-	 *
-	 * Expected behavior: HTTP 200 OK
-	 */
-	public function test_editor_can_delete_other_events() {
-		// Create an admin user and event
-		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $admin_id );
-
-		$event_id = tribe_events()->set_args( [
-			'title'       => 'Admin Event to Delete',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
-		] )->create()->ID;
-
-		// Create an editor user
-		$editor_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
-		wp_set_current_user( $editor_id );
-
-		// Attempt to delete the admin's event via REST API
-		$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/events/' . $event_id );
-		$request->set_param( 'force', true );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is allowed
-		$this->assertSame( 200, $response->get_status(), 'Editor should be able to delete other events' );
-	}
-
-	/**
-	 * Test venue authorization: contributor cannot edit admin venue.
-	 */
-	public function test_contributor_cannot_edit_admin_venue() {
-		// Create an admin user and venue
+	public function venue_rest_authorization( $action, $expected_status ) {
 		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $admin_id );
 
@@ -231,56 +115,43 @@ class Authorization_Test extends WPTestCase {
 			'status'  => 'publish',
 		] )->create()->ID;
 
-		// Create a contributor user
 		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $contributor_id );
 
-		// Attempt to edit the admin's venue via REST API
-		$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/venues/' . $venue_id );
-		$request->set_body_params( [
-			'venue' => 'Tampered Venue Name',
-			'address' => '1 Attacker St',
-		] );
+		if ( $action === 'edit' ) {
+			$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/venues/' . $venue_id );
+			$request->set_body_params( [ 'venue' => 'Tampered', 'address' => '1 Attacker St' ] );
+		} else {
+			$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/venues/' . $venue_id );
+			$request->set_param( 'force', true );
+		}
 
 		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected with 403 Forbidden
-		$this->assertSame( 403, $response->get_status(), 'Contributor should not be able to edit admin venue' );
+		$this->assertSame( $expected_status, $response->get_status(), 'Contributor should not be able to modify admin venue.' );
 	}
 
 	/**
-	 * Test venue authorization: contributor cannot delete admin venue.
+	 * Data provider for organizer REST authorization (contributor vs admin).
+	 *
+	 * @return array<string, array{string, int}>
 	 */
-	public function test_contributor_cannot_delete_admin_venue() {
-		// Create an admin user and venue
-		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $admin_id );
-
-		$venue_id = tribe_venues()->set_args( [
-			'title'   => 'Admin Venue to Delete',
-			'address' => '123 Main St',
-			'status'  => 'publish',
-		] )->create()->ID;
-
-		// Create a contributor user
-		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $contributor_id );
-
-		// Attempt to delete the admin's venue via REST API
-		$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/venues/' . $venue_id );
-		$request->set_param( 'force', true );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected with 403 Forbidden
-		$this->assertSame( 403, $response->get_status(), 'Contributor should not be able to delete admin venue' );
+	public function organizer_authorization_provider() {
+		return [
+			'contributor cannot edit admin organizer'    => [ 'edit', 403 ],
+			'contributor cannot delete admin organizer'   => [ 'delete', 403 ],
+		];
 	}
 
 	/**
-	 * Test organizer authorization: contributor cannot edit admin organizer.
+	 * Organizer REST API rejects contributor edit/delete of another user's organizer.
+	 *
+	 * @test
+	 * @dataProvider organizer_authorization_provider
+	 *
+	 * @param string $action         'edit' or 'delete'.
+	 * @param int    $expected_status Expected HTTP status (403).
 	 */
-	public function test_contributor_cannot_edit_admin_organizer() {
-		// Create an admin user and organizer
+	public function organizer_rest_authorization( $action, $expected_status ) {
 		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $admin_id );
 
@@ -290,105 +161,64 @@ class Authorization_Test extends WPTestCase {
 			'status' => 'publish',
 		] )->create()->ID;
 
-		// Create a contributor user
 		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 		wp_set_current_user( $contributor_id );
 
-		// Attempt to edit the admin's organizer via REST API
-		$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/organizers/' . $organizer_id );
-		$request->set_body_params( [
-			'organizer' => 'Tampered Organizer Name',
-		] );
+		if ( $action === 'edit' ) {
+			$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/organizers/' . $organizer_id );
+			$request->set_body_params( [ 'organizer' => 'Tampered Organizer' ] );
+		} else {
+			$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/organizers/' . $organizer_id );
+			$request->set_param( 'force', true );
+		}
 
 		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected with 403 Forbidden
-		$this->assertSame( 403, $response->get_status(), 'Contributor should not be able to edit admin organizer' );
+		$this->assertSame( $expected_status, $response->get_status(), 'Contributor should not be able to modify admin organizer.' );
 	}
 
 	/**
-	 * Test organizer authorization: contributor cannot delete admin organizer.
+	 * Data provider for unauthenticated event requests.
+	 *
+	 * @return array<string, array{string, int}>
 	 */
-	public function test_contributor_cannot_delete_admin_organizer() {
-		// Create an admin user and organizer
-		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $admin_id );
-
-		$organizer_id = tribe_organizers()->set_args( [
-			'title'  => 'Admin Organizer to Delete',
-			'email'  => 'admin@example.com',
-			'status' => 'publish',
-		] )->create()->ID;
-
-		// Create a contributor user
-		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
-		wp_set_current_user( $contributor_id );
-
-		// Attempt to delete the admin's organizer via REST API
-		$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/organizers/' . $organizer_id );
-		$request->set_param( 'force', true );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected with 403 Forbidden
-		$this->assertSame( 403, $response->get_status(), 'Contributor should not be able to delete admin organizer' );
+	public function unauthenticated_event_provider() {
+		return [
+			'unauthenticated cannot edit event'    => [ 'edit', 401 ],
+			'unauthenticated cannot delete event' => [ 'delete', 401 ],
+		];
 	}
 
 	/**
-	 * Test that unauthenticated users cannot edit events.
+	 * Event REST API rejects unauthenticated edit and delete requests.
+	 *
+	 * @test
+	 * @dataProvider unauthenticated_event_provider
+	 *
+	 * @param string $action         'edit' or 'delete'.
+	 * @param int    $expected_status Expected HTTP status (401).
 	 */
-	public function test_unauthenticated_cannot_edit_event() {
-		// Create an event as admin
+	public function unauthenticated_event_rest_authorization( $action, $expected_status ) {
 		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $admin_id );
 
 		$event_id = tribe_events()->set_args( [
-			'title'       => 'Public Event',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
+			'title'      => 'Public Event',
+			'start_date' => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
+			'end_date'   => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
+			'status'     => 'publish',
 		] )->create()->ID;
 
-		// Logout
 		wp_set_current_user( 0 );
 
-		// Attempt to edit the event via REST API
-		$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/events/' . $event_id );
-		$request->set_body_params( [
-			'title' => 'Tampered by Guest',
-		] );
+		if ( $action === 'edit' ) {
+			$request = new \WP_REST_Request( 'PUT', '/tribe/events/v1/events/' . $event_id );
+			$request->set_body_params( [ 'title' => 'Tampered by Guest' ] );
+		} else {
+			$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/events/' . $event_id );
+			$request->set_param( 'force', true );
+		}
 
 		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected
-		$this->assertSame( 401, $response->get_status(), 'Unauthenticated user should not be able to edit event' );
-	}
-
-	/**
-	 * Test that unauthenticated users cannot delete events.
-	 */
-	public function test_unauthenticated_cannot_delete_event() {
-		// Create an event as admin
-		$admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $admin_id );
-
-		$event_id = tribe_events()->set_args( [
-			'title'       => 'Public Event',
-			'start_date'  => date( 'Y-m-d H:i:s', strtotime( '+1 day' ) ),
-			'end_date'    => date( 'Y-m-d H:i:s', strtotime( '+1 day +2 hours' ) ),
-			'status'      => 'publish',
-		] )->create()->ID;
-
-		// Logout
-		wp_set_current_user( 0 );
-
-		// Attempt to delete the event via REST API
-		$request = new \WP_REST_Request( 'DELETE', '/tribe/events/v1/events/' . $event_id );
-		$request->set_param( 'force', true );
-
-		$response = rest_get_server()->dispatch( $request );
-
-		// Verify the request is rejected
-		$this->assertSame( 401, $response->get_status(), 'Unauthenticated user should not be able to delete event' );
+		$this->assertSame( $expected_status, $response->get_status(), 'Unauthenticated user should not be able to modify event.' );
 	}
 }
