@@ -504,9 +504,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts );
 		}
 
-		// Store the request for later use.
-		$this->serving = $request;
-
 		// Try multiple methods to extract post ID from request.
 		$post_id = $request['id']
 			?? $request->get_url_params()['id']
@@ -612,9 +609,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Fallback for non-REST contexts
 			return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts );
 		}
-
-		// Store the request for later use.
-		$this->serving = $request;
 
 		// Try multiple methods to extract post ID from request.
 		$post_id = $request['id']
