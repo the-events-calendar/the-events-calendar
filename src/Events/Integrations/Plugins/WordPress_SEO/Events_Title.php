@@ -46,9 +46,6 @@ class Events_Title {
 	 * @return void
 	 */
 	public function register() {
-		// Primary: return the full Yoast title from pre_get_document_title so WordPress
-		// never enters the title-parts pipeline and TEC cannot override it.
-		// Priority 25 runs after TEC's priority 20 (which returns '' for archives).
 		add_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 25 );
 
 		// Fallback: if pre_get_document_title did not fire (rare), replace the category
@@ -58,11 +55,6 @@ class Events_Title {
 
 	/**
 	 * Intercept the document title to use Yoast's title for Event Categories and Tags.
-	 *
-	 * TEC's `pre_get_document_title` at priority 20 returns '' for event archive pages,
-	 * causing WordPress to fall through to `document_title_parts` where TEC builds its
-	 * own title. By hooking at priority 25 and returning a non-empty Yoast title, we
-	 * short-circuit the entire title-parts pipeline.
 	 *
 	 * @since TBD
 	 *
