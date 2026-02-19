@@ -530,46 +530,22 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @return bool
 	 */
 	public function can_delete( ?WP_REST_Request $request = null ) {
-		if ( ! $request ) {
-			// Fallback for non-REST contexts.
+		$id = $request['id'] ?? null;
+
+		if ( ! $id ) {
 			return current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_posts );
 		}
 
-		// Try multiple methods to extract post ID from request.
-		$post_id = $request['id']
-			?? $request->get_url_params()['id']
-			?? $request->get_param( 'id' )
-			?? null;
-
-		// If still not found, try parsing from the route.
-		if ( ! $post_id ) {
-			// Try parsing the ID from the request's route
-			preg_match( '/\/venues\/(\d+)/', $request->get_route(), $matches );
-			$post_id = $matches[1] ?? null;
-		}
-
-		if ( ! $post_id ) {
+		$post = get_post( $id );
+		if ( ! $post || $post->post_type !== Tribe__Events__Main::VENUE_POST_TYPE ) {
 			return false;
 		}
 
-		$post_type_obj = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE );
-		$post = get_post( $post_id );
-
-		if ( ! $post ) {
-			return false;
-		}
-
-		// User must have the base delete capability.
-		if ( ! current_user_can( $post_type_obj->cap->delete_posts ) ) {
-			return false;
-		}
-
-		// Check if user can delete others' posts, or if it's their own post.
-		if ( current_user_can( $post_type_obj->cap->delete_others_posts ) ) {
+		// Check if user can delete others' posts, or if they own this post.
+		if ( current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_others_posts ) ) {
 			return true;
 		}
 
-		// For their own posts, they need to be the author.
 		return (int) $post->post_author === (int) get_current_user_id();
 	}
 
@@ -618,53 +594,28 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * Whether the current user can update content of this type or not.
 	 *
 	 * @since 4.6
-	 * @since TBD Added more logic to check if the user can edit the venue.
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return bool Whether the current user can update or not.
 	 */
 	public function can_edit( ?WP_REST_Request $request = null ) {
-		if ( ! $request ) {
-			// Fallback for non-REST contexts.
+		$id = $request['id'] ?? null;
+
+		if ( ! $id ) {
 			return current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts );
 		}
 
-		// Try multiple methods to extract post ID from request.
-		$post_id = $request['id']
-			?? $request->get_url_params()['id']
-			?? $request->get_param( 'id' )
-			?? null;
-
-		// If still not found, try parsing from the route.
-		if ( ! $post_id ) {
-			// Try parsing the ID from the request's route.
-			preg_match( '/\/venues\/(\d+)/', $request->get_route(), $matches );
-			$post_id = $matches[1] ?? null;
-		}
-
-		if ( ! $post_id ) {
+		$post = get_post( $id );
+		if ( ! $post || $post->post_type !== Tribe__Events__Main::VENUE_POST_TYPE ) {
 			return false;
 		}
 
-		$post_type_obj = get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE );
-		$post = get_post( $post_id );
-
-		if ( ! $post ) {
-			return false;
-		}
-
-		// User must have the base edit capability.
-		if ( ! current_user_can( $post_type_obj->cap->edit_posts ) ) {
-			return false;
-		}
-
-		// Check if user can edit others' posts, or if it's their own post.
-		if ( current_user_can( $post_type_obj->cap->edit_others_posts ) ) {
+		// Check if user can edit others' posts, or if they own this post.
+		if ( current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_others_posts ) ) {
 			return true;
 		}
 
-		// For their own posts, they need to be the author.
 		return (int) $post->post_author === (int) get_current_user_id();
 	}
 }
