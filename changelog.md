@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.15.17] 2026-02-19
+### [6.15.16.1] 2026-02-19
 
 * Security - Strengthen user permission checks. [SVUL-48]
 
