@@ -10,7 +10,7 @@ use Step\Restv1\RestGuy as Tester;
  * unless they have the appropriate "edit/delete others" capability.
  *
  * @package TEC\Tests\REST\V1\Endpoints
- * @since TBD
+ * @since 6.15.16.1
  */
 class AuthorizationCest extends BaseRestCest {
 

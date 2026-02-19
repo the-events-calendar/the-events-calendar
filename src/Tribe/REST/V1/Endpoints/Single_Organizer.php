@@ -458,7 +458,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 * Whether the current user can delete posts of the type managed by the endpoint or not.
 	 *
 	 * @since 4.6
-	 * @since TBD Added more logic to check if the user can delete the organizer.
+	 * @since 6.15.16.1 Added more logic to check if the user can delete the organizer.
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

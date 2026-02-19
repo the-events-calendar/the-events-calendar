@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Strengthen user permission checks. [SVUL-48]
