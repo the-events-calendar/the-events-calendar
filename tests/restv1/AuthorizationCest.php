@@ -35,12 +35,12 @@ class AuthorizationCest extends BaseRestCest {
 	}
 
 	/**
-	 * Contributor can edit their own event.
+	 * Contributor cannot edit their own published event.
 	 *
 	 * @test
 	 */
-	public function contributor_can_edit_own_event( Tester $I ) {
-		// Contributor creates and edits their own event
+	public function contributor_cannot_edit_own_published_event( Tester $I ) {
+		// Contributor creates a published event
 		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
 		$I->loginAs( 'contributor_user', 'contributor' );
 		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
@@ -54,10 +54,10 @@ class AuthorizationCest extends BaseRestCest {
 			'post_author'  => $contributor_id,
 		] );
 
-		// Same contributor edits their own event (reuse nonce from above)
+		// Same contributor tries to edit their own published event
 		$I->sendPUT( $this->events_url . "/{$event_id}", [ 'title' => 'Updated Title' ] );
 
-		$I->seeResponseCodeIsSuccessful();
+		$I->seeResponseCodeIs( 403 );
 	}
 
 	/**
@@ -81,12 +81,12 @@ class AuthorizationCest extends BaseRestCest {
 	}
 
 	/**
-	 * Contributor can delete their own event.
+	 * Contributor cannot delete their own published event.
 	 *
 	 * @test
 	 */
-	public function contributor_can_delete_own_event( Tester $I ) {
-		// Contributor creates and deletes their own event
+	public function contributor_cannot_delete_own_published_event( Tester $I ) {
+		// Contributor creates a published event
 		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
 		$I->loginAs( 'contributor_user', 'contributor' );
 		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
@@ -100,10 +100,10 @@ class AuthorizationCest extends BaseRestCest {
 			'post_author'  => $contributor_id,
 		] );
 
-		// Same contributor deletes their own event (reuse nonce from above)
+		// Same contributor tries to delete their own published event
 		$I->sendDELETE( $this->events_url . "/{$event_id}", [ 'force' => true ] );
 
-		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseCodeIs( 403 );
 	}
 
 	/**

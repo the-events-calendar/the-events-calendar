@@ -536,17 +536,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			return current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_posts );
 		}
 
-		$post = get_post( $id );
-		if ( ! $post || $post->post_type !== Tribe__Events__Main::VENUE_POST_TYPE ) {
-			return false;
-		}
-
-		// Check if user can delete others' posts, or if they own this post.
-		if ( current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_others_posts ) ) {
-			return true;
-		}
-
-		return (int) $post->post_author === (int) get_current_user_id();
+		return current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->delete_post, $id );
 	}
 
 	/**
@@ -594,6 +584,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * Whether the current user can update content of this type or not.
 	 *
 	 * @since 4.6
+	 * @since 6.15.16.1 Added more logic to check if the user can edit the venue.
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -606,16 +597,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 			return current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_posts );
 		}
 
-		$post = get_post( $id );
-		if ( ! $post || $post->post_type !== Tribe__Events__Main::VENUE_POST_TYPE ) {
-			return false;
-		}
-
-		// Check if user can edit others' posts, or if they own this post.
-		if ( current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_others_posts ) ) {
-			return true;
-		}
-
-		return (int) $post->post_author === (int) get_current_user_id();
+		return current_user_can( get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_post, $id );
 	}
 }
