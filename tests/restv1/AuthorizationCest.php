@@ -107,6 +107,60 @@ class AuthorizationCest extends BaseRestCest {
 	}
 
 	/**
+	 * Contributor can edit their own draft event.
+	 *
+	 * @test
+	 */
+	public function contributor_can_edit_own_draft_event( Tester $I ) {
+		// Contributor creates a draft event
+		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
+		$I->loginAs( 'contributor_user', 'contributor' );
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
+		wp_set_current_user( $contributor_id );
+		$nonce = wp_create_nonce( 'wp_rest' );
+		$I->haveHttpHeader( 'X-WP-Nonce', $nonce );
+
+		$event_id = $I->haveEventInDatabase( [
+			'post_title'   => 'Draft Contributor Event',
+			'when'         => '+1 day 9am',
+			'post_author'  => $contributor_id,
+			'post_status'  => 'draft',
+		] );
+
+		// Same contributor edits their own draft event
+		$I->sendPUT( $this->events_url . "/{$event_id}", [ 'title' => 'Updated Draft Title' ] );
+
+		$I->seeResponseCodeIsSuccessful();
+	}
+
+	/**
+	 * Contributor can delete their own draft event.
+	 *
+	 * @test
+	 */
+	public function contributor_can_delete_own_draft_event( Tester $I ) {
+		// Contributor creates a draft event
+		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
+		$I->loginAs( 'contributor_user', 'contributor' );
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
+		wp_set_current_user( $contributor_id );
+		$nonce = wp_create_nonce( 'wp_rest' );
+		$I->haveHttpHeader( 'X-WP-Nonce', $nonce );
+
+		$event_id = $I->haveEventInDatabase( [
+			'post_title'   => 'Draft Contributor Event',
+			'when'         => '+1 day 9am',
+			'post_author'  => $contributor_id,
+			'post_status'  => 'draft',
+		] );
+
+		// Same contributor deletes their own draft event
+		$I->sendDELETE( $this->events_url . "/{$event_id}", [ 'force' => true ] );
+
+		$I->seeResponseCodeIs( 200 );
+	}
+
+	/**
 	 * Editor can edit events created by other users.
 	 *
 	 * @test
@@ -284,6 +338,28 @@ class AuthorizationCest extends BaseRestCest {
 		// Clear authentication for unauthenticated request
 		$I->haveHttpHeader( 'X-WP-Nonce', '' );
 		$I->sendDELETE( $this->events_url . "/{$event_id}", [ 'force' => true ] );
+
+		$I->seeResponseCodeIs( 401 );
+	}
+
+	/**
+	 * Unauthenticated user cannot edit a contributor's draft event.
+	 *
+	 * @test
+	 */
+	public function unauthenticated_cannot_edit_draft_event( Tester $I ) {
+		// Contributor creates a draft event
+		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
+		$event_id = $I->haveEventInDatabase( [
+			'post_title'  => 'Draft Event',
+			'when'        => '+1 day 9am',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		// Unauthenticated user tries to edit the draft event
+		$I->haveHttpHeader( 'X-WP-Nonce', '' );
+		$I->sendPUT( $this->events_url . "/{$event_id}", [ 'title' => 'Tampered Draft' ] );
 
 		$I->seeResponseCodeIs( 401 );
 	}
