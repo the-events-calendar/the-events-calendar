@@ -24,7 +24,7 @@ class Events_Variables {
 	/**
 	 * Flag to track if variables have been registered to prevent duplicate registration.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @var bool
 	 */
@@ -70,7 +70,7 @@ class Events_Variables {
 	/**
 	 * Get the current event ID if it's a valid event post.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @return int|false The event ID, or false if not a valid event.
 	 */
@@ -86,7 +86,7 @@ class Events_Variables {
 	/**
 	 * Get the venue object for the current event.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param int $event_id The event ID.
 	 *
@@ -209,7 +209,7 @@ class Events_Variables {
 	/**
 	 * Populate term data in the args object for Yoast SEO variable replacement.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The term object.
 	 * @param object  $args The args object (passed by reference).
@@ -225,7 +225,7 @@ class Events_Variables {
 	/**
 	 * Check if we're on an Event Category archive page.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The queried term.
 	 *
@@ -238,7 +238,7 @@ class Events_Variables {
 	/**
 	 * Check if we're on an Event Tag archive page.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The queried term.
 	 *
@@ -259,7 +259,7 @@ class Events_Variables {
 	 * the $args object with term data (name, term_id, taxonomy) so that Yoast's variable
 	 * replacement system can access it.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param array  $replacements The current replacements array.
 	 * @param object $args         The args object passed to wpseo_replace_vars (passed by reference).

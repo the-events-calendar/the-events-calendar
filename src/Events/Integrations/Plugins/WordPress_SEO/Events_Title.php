@@ -14,7 +14,7 @@
  *    title part inside TEC's own builder, in case `pre_get_document_title` could
  *    not run (e.g. the query object was not yet set).
  *
- * @since TBD
+ * @since 6.15.17
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -32,7 +32,7 @@ use WPSEO_Taxonomy_Meta;
  * Ensures Yoast SEO custom titles for Event Categories and Tags are used
  * in the document `<title>` tag, matching the `og:title` output.
  *
- * @since TBD
+ * @since 6.15.17
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -41,7 +41,7 @@ class Events_Title {
 	/**
 	 * Register the title hooks.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @return void
 	 */
@@ -56,7 +56,7 @@ class Events_Title {
 	/**
 	 * Intercept the document title to use Yoast's title for Event Categories and Tags.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param string $title The current title value ('' after TEC's filter).
 	 *
@@ -88,7 +88,7 @@ class Events_Title {
 	 * If `pre_get_document_title` already returned a non-empty title, WordPress
 	 * will not enter the title-parts pipeline and this method will never run.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param string   $new_title The Event Category archive title.
 	 * @param string   $title     The original title.
@@ -105,7 +105,7 @@ class Events_Title {
 	/**
 	 * Get the title template from Yoast term meta.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The term object.
 	 *
@@ -124,7 +124,7 @@ class Events_Title {
 	/**
 	 * Process a title template through Yoast's variable replacement engine.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param string  $title_template The title template with variable placeholders.
 	 * @param WP_Term $term            The term object to use as replacement source.
@@ -151,7 +151,7 @@ class Events_Title {
 	 * `WPSEO_Replace_Vars` engine. The term object is passed as the replacement
 	 * source so term-related variables resolve correctly.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The term object.
 	 *
@@ -176,7 +176,7 @@ class Events_Title {
 	/**
 	 * Check if the term is an Event Category.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The term object.
 	 *
@@ -189,7 +189,7 @@ class Events_Title {
 	/**
 	 * Check if the term is an Event Tag.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The term object.
 	 *
@@ -205,7 +205,7 @@ class Events_Title {
 	/**
 	 * Check whether the term belongs to a taxonomy this class should handle.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @param WP_Term $term The term object.
 	 *
