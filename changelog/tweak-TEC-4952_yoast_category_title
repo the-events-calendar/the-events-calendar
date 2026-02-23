@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Custom SEO titles set in Yoast SEO for Event Categories and Event Tags are now correctly applied to both the page `<title>` tag and `og:title` meta tag. [TEC-4952]
