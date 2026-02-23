@@ -2033,7 +2033,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * re-runs create_initial_taxonomies on the change_locale action, which otherwise overwrites
 		 * object_type and removes tribe_events and tec_calendar_embed.
 		 *
-		 * @since TBD
+		 * @since 6.15.17
 		 */
 		public function restore_event_tag_taxonomy_on_locale_change(): void {
 			// Bail if post_tag taxonomy doesn't exist.

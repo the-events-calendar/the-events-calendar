@@ -190,7 +190,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Register the title handler for Event Categories and Tags.
 	 *
-	 * @since TBD
+	 * @since 6.15.17
 	 *
 	 * @return void
 	 */
