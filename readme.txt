@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.15.16.1] 2026-02-19 =
+= [6.15.16.1] 2026-02-23 =
 
 * Security - Strengthen user permission checks. [SVUL-48]
 
