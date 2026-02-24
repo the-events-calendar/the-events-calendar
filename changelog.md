@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.15.16.1] 2026-02-24
+
+* Security - Strengthen user permission checks. [SVUL-48]
+
 ### [6.15.16] 2026-02-11
 
 * Fix - Evaluate correctly whether the email and phone field of a non-password protected organizer should display and by default the organizer's website opens in a new tab.[TEC-5744]
