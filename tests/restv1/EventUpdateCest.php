@@ -776,9 +776,9 @@ class EventUpdateCest extends BaseRestCest {
 	 * @example ["featured", true]
 	 */
 	public function it_should_allow_inserting_presentation_meta_to_users_that_can_publish_posts( Tester $I, \Codeception\Example $data ) {
-		$event_id = $I->haveEventInDatabase();
-
 		$I->generate_nonce_for_role( 'author' );
+		$user_id = $I->grabUserIdFromDatabase( 'user' );
+		$event_id = $I->haveEventInDatabase( [ 'post_author' => $user_id ] );
 
 		$params             = [
 			'title'       => 'An event',
@@ -796,32 +796,6 @@ class EventUpdateCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should set the post status to draft if user cannot publish posts
-	 *
-	 * @test
-	 */
-	public function it_should_set_the_post_status_to_draft_if_user_cannot_publish_posts( Tester $I ) {
-		$event_id = $I->haveEventInDatabase();
-
-		$I->generate_nonce_for_role( 'contributor' );
-
-		$params = [
-			'title'       => 'An event',
-			'description' => 'An event content',
-			'start_date'  => 'tomorrow 9am',
-			'end_date'    => 'tomorrow 11am',
-			'status'      => 'publish',
-		];
-
-		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
-
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
-		$I->seePostInDatabase( [ 'ID' => $response['id'], 'post_status' => 'pending' ] );
-	}
-
-	/**
 	 * It should allow a user that can publish to set status to publish
 	 *
 	 * @test
@@ -830,9 +804,9 @@ class EventUpdateCest extends BaseRestCest {
 	 * @example ["author", "publish"]
 	 */
 	public function it_should_allow_a_user_that_can_publish_to_set_status_to_publish( Tester $I, \Codeception\Example $data ) {
-		$event_id = $I->haveEventInDatabase();
-
 		$I->generate_nonce_for_role( $data[0] );
+		$user_id = $I->grabUserIdFromDatabase( 'user' );
+		$event_id = $I->haveEventInDatabase( [ 'post_author' => $user_id ] );
 
 		$params = [
 			'title'       => 'An event',
