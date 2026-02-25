@@ -80,6 +80,7 @@ class Provider extends Integration_Abstract {
 		$this->register_custom_variables();
 		$this->register_assets();
 		$this->register_events_pagination();
+		$this->register_events_title();
 	}
 
 	/**
@@ -184,5 +185,17 @@ class Provider extends Integration_Abstract {
 		
 		$events_pagination = tribe( Events_Pagination::class );
 		$events_pagination->register();
+	}
+
+	/**
+	 * Register the title handler for Event Categories and Tags.
+	 *
+	 * @since 6.15.17
+	 *
+	 * @return void
+	 */
+	private function register_events_title(): void {
+		$events_title = new Events_Title();
+		$events_title->register();
 	}
 }

@@ -1,5 +1,14 @@
 # Changelog
 
+### [6.15.17] 2026-02-25
+
+* Tweak - Changed views: `modules/meta/organizer`, `v2/components/content-title`, `v2/components/header`, `v2/day/nav`, `v2/day/top-bar/nav`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date`, `v2/month/top-bar/nav`
+* Tweak - Custom SEO titles set in Yoast SEO for Event Categories and Event Tags are now correctly applied to both the page `<title>` tag and `og:title` meta tag. [TEC-4952]
+* Tweak - Restore `post_tag` for events after `change_locale` action, which was being overwritten for fr_FR, causing the tags to not show with the block editor. [TEC-4996]
+* Accessibility - Add an outline on hover for the datepicker. [TEC-5740]
+* Accessibility - Increase contrast of text for past event times. [TEC-5741]
+* Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.15.16.1] 2026-02-24
 
 * Security - Strengthen user permission checks. [SVUL-48]

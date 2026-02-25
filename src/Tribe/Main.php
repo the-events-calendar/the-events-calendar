@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.16.1';
+		const VERSION             = '6.15.17';
 
 		/**
 		 * Min Pro Addon.
@@ -795,6 +795,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'init', [ $this, 'setup_l10n_strings' ], 5 );
 			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
+			// Restore post_tag for events when WordPress re-runs create_initial_taxonomies on change_locale.
+			add_action( 'change_locale', [ $this, 'restore_event_tag_taxonomy_on_locale_change' ], 20 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
@@ -2024,6 +2026,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_post_type_support( self::POSTTYPE, 'comments' );
 			}
 
+		}
+
+		/**
+		 * Restores the post_tag taxonomy association for event post types after WordPress
+		 * re-runs create_initial_taxonomies on the change_locale action, which otherwise overwrites
+		 * object_type and removes tribe_events and tec_calendar_embed.
+		 *
+		 * @since 6.15.17
+		 */
+		public function restore_event_tag_taxonomy_on_locale_change(): void {
+			// Bail if post_tag taxonomy doesn't exist.
+			if ( ! taxonomy_exists( 'post_tag' ) ) {
+				return;
+			}
+
+			// Restore post_tag for tribe_events post type.
+			if ( post_type_exists( self::POSTTYPE ) ) {
+				register_taxonomy_for_object_type( 'post_tag', self::POSTTYPE );
+			}
+
+			// Restore post_tag for tec_calendar_embed post type.
+			if ( post_type_exists( 'tec_calendar_embed' ) ) {
+				register_taxonomy_for_object_type( 'post_tag', 'tec_calendar_embed' );
+			}
 		}
 
 		/**
