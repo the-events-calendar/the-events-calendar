@@ -461,7 +461,34 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	protected function remove_hooks() {
 		parent::remove_hooks();
 		remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
+		remove_filter( 'request', [ $this, 'filter_request_decode_taxonomy_slugs' ], 5 );
 		remove_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
+	}
+
+	/**
+	 * Decodes percent-encoded taxonomy slugs in the request so that URLs with non-ASCII
+	 * characters (e.g. Cyrillic) resolve correctly for category and tag archives.
+	 *
+	 * When the request path is percent-encoded (e.g. /%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F/...),
+	 * the rewrite capture passes the encoded value to the query var. Term lookups and canonical
+	 * URL generation then fail because the term slug in the database is stored in UTF-8.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_vars The array of parsed query variables.
+	 * @return array The query variables with taxonomy slugs decoded when needed.
+	 */
+	public function filter_request_decode_taxonomy_slugs( $query_vars ) {
+		if ( ! is_array( $query_vars ) ) {
+			return $query_vars;
+		}
+		$tax_slugs = [ TEC::TAXONOMY => true, 'tag' => true ];
+		foreach ( array_keys( $tax_slugs ) as $var ) {
+			if ( isset( $query_vars[ $var ] ) && is_string( $query_vars[ $var ] ) && strpos( $query_vars[ $var ], '%' ) !== false ) {
+				$query_vars[ $var ] = urldecode( $query_vars[ $var ] );
+			}
+		}
+		return $query_vars;
 	}
 
 	protected function add_hooks() {
@@ -469,6 +496,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
+		add_filter( 'request', [ $this, 'filter_request_decode_taxonomy_slugs' ], 5 );
 		add_action( 'wp_loaded', [ $this, 'maybe_delayed_flush_rewrite_rules' ] );
 		add_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
 	}
