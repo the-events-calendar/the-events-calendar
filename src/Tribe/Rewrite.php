@@ -484,7 +484,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		}
 		$tax_slugs = [
 			TEC::TAXONOMY => true,
-			'tag' => true
+			'tag'           => true,
 		];
 		foreach ( array_keys( $tax_slugs ) as $var ) {
 			if ( isset( $query_vars[ $var ] ) && is_string( $query_vars[ $var ] ) && strpos( $query_vars[ $var ], '%' ) !== false ) {
