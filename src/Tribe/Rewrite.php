@@ -482,7 +482,10 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		if ( ! is_array( $query_vars ) ) {
 			return $query_vars;
 		}
-		$tax_slugs = [ TEC::TAXONOMY => true, 'tag' => true ];
+		$tax_slugs = [
+			TEC::TAXONOMY => true,
+			'tag' => true
+		];
 		foreach ( array_keys( $tax_slugs ) as $var ) {
 			if ( isset( $query_vars[ $var ] ) && is_string( $query_vars[ $var ] ) && strpos( $query_vars[ $var ], '%' ) !== false ) {
 				$query_vars[ $var ] = rawurldecode( $query_vars[ $var ] );
