@@ -24,6 +24,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register actions.
 	 *
+	 * @since 6.10.2
 	 * @since TBD
 	 */
 	public function do_register(): void {
@@ -35,6 +36,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregister actions.
 	 *
+	 * @since 6.10.2
 	 * @since TBD
 	 */
 	public function unregister(): void {
