@@ -309,7 +309,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	 * Returns the path to the CSV file.
 	 *
 	 * @since 4.6.15
-	 * @since TBD
+	 * @since TBD Strengthen file type and location checks during aggregator imports.
 	 *
 	 * @return bool|false|string Either the absolute path to the CSV file or `false` on failure.
 	 */
@@ -318,20 +318,25 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$file_path = get_attached_file( absint( $this->meta['file'] ) );
 		} else {
 			$file_path = realpath( $this->meta['file'] );
+		}
 
-			if ( $file_path ) {
-				// Only allow CSV files — reject any other extension to prevent file disclosure.
-				$filetype = wp_check_filetype( $file_path );
-				if ( empty( $filetype['ext'] ) || 'csv' !== strtolower( $filetype['ext'] ) ) {
+		if ( $file_path ) {
+			// Only allow CSV files — reject any other extension to prevent file disclosure.
+			$filetype = wp_check_filetype( $file_path );
+			if ( empty( $filetype['ext'] ) || 'csv' !== strtolower( $filetype['ext'] ) ) {
+				return false;
+			}
+
+			// Restrict the file to the WordPress uploads directory to prevent path traversal.
+			$upload_info  = wp_upload_dir();
+			$uploads_base = realpath( $upload_info['basedir'] );
+			if ( false === $uploads_base || 0 !== strpos( $file_path, trailingslashit( $uploads_base ) ) ) {
+				// Attempt a reverse DB attachment lookup to support attachments offloaded files
+				$attachment_id = attachment_url_to_postid( $this->meta['file'] );
+				if ( ! $attachment_id ) {
 					return false;
 				}
-
-				// Restrict the file to the WordPress uploads directory to prevent path traversal.
-				$upload_info  = wp_upload_dir();
-				$uploads_base = realpath( $upload_info['basedir'] );
-				if ( false === $uploads_base || 0 !== strpos( $file_path, trailingslashit( $uploads_base ) ) ) {
-					return false;
-				}
+				$file_path = get_attached_file( $attachment_id );
 			}
 		}
 

@@ -1,4 +1,4 @@
 Significance: patch
 Type: security
 
-Ensure CSV file type and restrict the file to the WordPress uploads directory during the tribe_aggregator_create_import action
+Strengthen file type and location checks during aggregator imports. [SVUL-54]
