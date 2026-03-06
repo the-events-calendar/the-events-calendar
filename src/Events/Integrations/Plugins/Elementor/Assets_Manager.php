@@ -9,11 +9,11 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use TEC\Common\Contracts\Provider\Controller;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Static;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Importer;
-use Tribe\Events\Views\V2\Template_Bootstrap;
-use TEC\Common\Contracts\Provider\Controller;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use Tribe\Events\Views\V2\Template_Bootstrap;
 
 /**
  * Class Assets_Manager
@@ -258,10 +258,17 @@ class Assets_Manager extends Controller {
 		}
 
 		$upload_dir = wp_upload_dir();
+		$css_path = '/elementor/css/post-' . $template->ID . '.css';
+		$css_path   = $upload_dir['basedir'] . $css_path;
+
+		// Bail if the CSS file has not been generated yet to avoid a 404 request.
+		if ( ! file_exists( $css_path ) ) {
+			return;
+		}
 
 		wp_enqueue_style(
 			'elementor-event-template-' . $template->ID,
-			$upload_dir['baseurl'] . '/elementor/css/post-' . $template->ID . '.css',
+			$upload_dir['baseurl'] . $css_path,
 			[],
 			\Tribe__Events__Main::VERSION
 		);

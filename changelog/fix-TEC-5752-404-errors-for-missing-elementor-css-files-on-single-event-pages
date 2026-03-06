@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Verify if the Elementor CSS exists before to add it to avoid 404. [TEC-5752]
