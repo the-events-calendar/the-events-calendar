@@ -11,9 +11,11 @@ use Tribe__Events__Aggregator__Record__CSV as CSV_Record;
  * Verifies that the method correctly validates file paths before use:
  *   1. Extension check  – only .csv files are permitted.
  *   2. Directory check  – the resolved path must be inside wp-content/uploads/.
+ *   3. Reverse lookup   – if the file is outside uploads, an attachment DB lookup
+ *                         is attempted via attachment_url_to_postid() before giving up.
  *
- * Numeric values are treated as attachment IDs and resolved via
- * get_attached_file(), bypassing the string-path guards entirely.
+ * Numeric values are treated as attachment IDs and resolved via get_attached_file().
+ * Both the numeric and string-path routes go through the same filetype guard.
  *
  * @group security
  * @group aggregator
@@ -173,10 +175,11 @@ class CSVTest extends Events_TestCase {
 	}
 
 	// -------------------------------------------------------------------------
-	// String path: correct extension but outside uploads (directory guard only)
+	// String path: correct extension but outside uploads and not in the DB
 	//
-	// Places a .csv file in the system temp directory to isolate the directory
-	// check from the extension check and confirm each guard works independently.
+	// Places a .csv file in the system temp directory.  The extension guard
+	// passes, but the file is outside uploads AND attachment_url_to_postid()
+	// finds no matching attachment, so the method must return false.
 	// -------------------------------------------------------------------------
 
 	/**
@@ -243,16 +246,16 @@ class CSVTest extends Events_TestCase {
 	}
 
 	// -------------------------------------------------------------------------
-	// Numeric value: attachment ID resolved via get_attached_file() (should pass)
+	// Numeric value: valid .csv attachment ID (should pass)
 	//
-	// When the value is numeric the string-path guards are not applied; the
-	// file is resolved directly from the WordPress media library.
+	// When the value is numeric the file is resolved via get_attached_file().
+	// The same CSV extension guard still applies to the resolved path.
 	// -------------------------------------------------------------------------
 
 	/**
 	 * @test
 	 */
-	public function it_resolves_numeric_attachment_id_without_applying_path_guards() {
+	public function it_resolves_numeric_attachment_id_for_valid_csv_in_uploads() {
 		$csv_path = trailingslashit( $this->uploads_dir ) . 'tec-attachment-import.csv';
 		$this->create_file( $csv_path );
 
@@ -269,7 +272,105 @@ class CSVTest extends Events_TestCase {
 
 		$this->assertNotFalse(
 			$result,
-			'get_file_path() must resolve a numeric attachment ID via get_attached_file() without rejecting it.'
+			'get_file_path() must return the resolved path for a numeric attachment ID pointing to a valid .csv file.'
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// Numeric value: attachment ID pointing to a non-CSV file (should fail)
+	//
+	// The extension guard applies to the numeric branch as well, so a numeric
+	// ID whose attached file is not a .csv must return false.
+	// -------------------------------------------------------------------------
+
+	/**
+	 * @test
+	 */
+	public function it_rejects_numeric_attachment_id_pointing_to_non_csv_file() {
+		$target = trailingslashit( $this->uploads_dir ) . 'tec-test-attachment.txt';
+		$this->create_file( $target, 'not a csv' );
+
+		$attachment_id = $this->factory()->attachment->create_upload_object( $target );
+		$attached_file = get_attached_file( $attachment_id );
+
+		if ( empty( $attached_file ) ) {
+			$this->markTestSkipped( 'Could not create .txt attachment for this test.' );
+		}
+
+		$record = $this->make_record( (string) $attachment_id );
+
+		$this->assertFalse(
+			$this->call_get_file_path( $record ),
+			'get_file_path() must return false for a numeric attachment ID whose file does not have a .csv extension.'
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// Offloaded file: local path outside uploads that IS registered as an
+	// attachment (reverse-lookup success path)
+	//
+	// If a CSV file resolves to a path outside the uploads dir but the original
+	// value matches an attachment via attachment_url_to_postid(), get_file_path()
+	// must succeed by resolving through that attachment record.
+	// -------------------------------------------------------------------------
+
+	/**
+	 * @test
+	 */
+	public function it_allows_csv_outside_uploads_when_registered_as_attachment() {
+		$temp_csv = sys_get_temp_dir() . '/tec-offload-lookup.csv';
+		$this->create_file( $temp_csv );
+		$resolved = realpath( $temp_csv );
+
+		// Use a fake attachment ID — real DB rows are not required because both
+		// sides of the lookup are controlled via WordPress filters.
+		$fake_id = 9999;
+
+		$url_filter = static function ( $post_id, $url ) use ( $temp_csv, $fake_id ) {
+			return $url === $temp_csv ? $fake_id : $post_id;
+		};
+		$file_filter = static function ( $file, $att_id ) use ( $fake_id, $resolved ) {
+			return (int) $att_id === $fake_id ? $resolved : $file;
+		};
+
+		add_filter( 'attachment_url_to_postid', $url_filter, 10, 2 );
+		add_filter( 'get_attached_file', $file_filter, 10, 2 );
+
+		$record = $this->make_record( $temp_csv );
+		$result = $this->call_get_file_path( $record );
+
+		remove_filter( 'attachment_url_to_postid', $url_filter, 10 );
+		remove_filter( 'get_attached_file', $file_filter, 10 );
+
+		$this->assertSame(
+			$resolved,
+			$result,
+			'get_file_path() must return the resolved path when the file is outside uploads but is registered as an attachment.'
+		);
+	}
+
+	// -------------------------------------------------------------------------
+	// Offloaded file: remote URL not present on the local filesystem
+	//
+	// Truly remote/CDN-offloaded files (only accessible via URL) are NOT
+	// resolved by the current implementation: realpath() returns false for
+	// URLs so $file_path is never truthy and the reverse-attachment-lookup is
+	// never reached.  This test documents the current behaviour as a regression
+	// guard for any future improvement that handles remote URLs.
+	// -------------------------------------------------------------------------
+
+	/**
+	 * @test
+	 */
+	public function it_returns_false_for_remote_url_not_present_on_local_filesystem() {
+		// A CDN-style URL that realpath() cannot resolve to a local path.
+		$remote_url = 'https://cdn.example.com/wp-content/uploads/2024/01/events.csv';
+
+		$record = $this->make_record( $remote_url );
+
+		$this->assertFalse(
+			$this->call_get_file_path( $record ),
+			'get_file_path() must return false for a remote URL that is not present on the local filesystem.'
 		);
 	}
 }
