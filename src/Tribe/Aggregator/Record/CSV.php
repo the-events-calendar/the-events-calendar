@@ -331,12 +331,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 			$upload_info  = wp_upload_dir();
 			$uploads_base = realpath( $upload_info['basedir'] );
 			if ( false === $uploads_base || 0 !== strpos( $file_path, trailingslashit( $uploads_base ) ) ) {
-				// Attempt a reverse DB attachment lookup to support attachments offloaded files
-				$attachment_id = attachment_url_to_postid( $this->meta['file'] );
-				if ( ! $attachment_id ) {
-					return false;
-				}
-				$file_path = get_attached_file( $attachment_id );
+				return false;
 			}
 		}
 
