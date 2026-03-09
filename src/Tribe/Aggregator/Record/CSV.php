@@ -309,7 +309,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	 * Returns the path to the CSV file.
 	 *
 	 * @since 4.6.15
-	 * @since TBD Strengthen file type and location checks during aggregator imports.
+	 * @since 6.15.17.1 Strengthen file type and location checks during aggregator imports.
 	 *
 	 * @return bool|false|string Either the absolute path to the CSV file or `false` on failure.
 	 */
