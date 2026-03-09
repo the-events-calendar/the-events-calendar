@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Strengthen file type and location checks during aggregator imports. [SVUL-54]
