@@ -254,7 +254,6 @@ class Controller_List_View_Paged_404_Test extends \Codeception\TestCase\WPTestCa
 		tribe_register_provider( Controller::class );
 		$controller = tribe( Controller::class );
 
-		$controller->do_register();
 		$this->assertNotFalse(
 			has_filter( 'pre_handle_404', [ $controller, 'prevent_list_view_paged_404' ] ),
 			'pre_handle_404 filter should be registered after do_register().'
