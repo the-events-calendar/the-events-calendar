@@ -238,6 +238,12 @@ class Assets_Manager extends Controller {
 	 * Note this stylesheet is programmatically created by Elementor and stored in the uploads directory.
 	 *
 	 * @since 6.4.0
+	 *
+	 * Added check for the CSS file existence.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function enqueue_single_event_template_styles(): void {
 		// Bail if we are not on a single event page.
@@ -259,10 +265,10 @@ class Assets_Manager extends Controller {
 
 		$upload_dir = wp_upload_dir();
 		$css_path   = '/elementor/css/post-' . $template->ID . '.css';
-		$css_path   = $upload_dir['basedir'] . $css_path;
+		$css_upload_path   = $upload_dir['basedir'] . $css_path;
 
 		// Bail if the CSS file has not been generated yet to avoid a 404 request.
-		if ( ! file_exists( $css_path ) ) {
+		if ( ! file_exists( $css_upload_path ) ) {
 			return;
 		}
 
