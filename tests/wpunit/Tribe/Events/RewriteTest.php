@@ -724,17 +724,19 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$rewrite                         = new Rewrite();
 		$rewrite->setup( $wp_rewrite );
 
-		$clean_url = $rewrite->get_clean_url(
-			add_query_arg(
-				array_merge(
-					[
-						'post_type'    => TEC::POSTTYPE,
-						'eventDisplay' => 'default',
-					],
-					$query_args 
-				) 
-			) 
+		// Use /events/ as base so parse_request matches the events archive rule, not a post rule.
+		$input_url = add_query_arg(
+			array_merge(
+				[
+					'post_type'    => TEC::POSTTYPE,
+					'eventDisplay' => 'default',
+				],
+				$query_args
+			),
+			home_url( '/events/' )
 		);
+
+		$clean_url = $rewrite->get_clean_url( $input_url );
 
 		$this->assertEquals( $expected, str_replace( home_url(), '', urldecode( $clean_url ) ) );
 	}

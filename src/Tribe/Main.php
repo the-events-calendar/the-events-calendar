@@ -5,8 +5,8 @@
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe\DB_Lock;
-use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
