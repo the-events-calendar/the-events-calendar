@@ -263,9 +263,9 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		$upload_dir = wp_upload_dir();
-		$css_path   = '/elementor/css/post-' . $template->ID . '.css';
-		$css_upload_path   = $upload_dir['basedir'] . $css_path;
+		$upload_dir      = wp_upload_dir();
+		$css_path        = '/elementor/css/post-' . $template->ID . '.css';
+		$css_upload_path = $upload_dir['basedir'] . $css_path;
 
 		// Bail if the CSS file has not been generated yet to avoid a 404 request.
 		if ( ! file_exists( $css_upload_path ) ) {
