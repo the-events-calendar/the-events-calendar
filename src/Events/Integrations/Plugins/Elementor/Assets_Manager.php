@@ -240,7 +240,6 @@ class Assets_Manager extends Controller {
 	 * @since 6.4.0
 	 * @since TBD Added check for the existence of the CSS file.
 	 *
-	 *
 	 * @return void
 	 */
 	public function enqueue_single_event_template_styles(): void {
