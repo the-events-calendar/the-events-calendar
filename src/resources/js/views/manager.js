@@ -267,7 +267,8 @@ tribe.events.views.manager = {};
    * formatted as a `application/json` that we will parse and apply here.
    *
    * @since 4.9.4
-   *
+	 * @since TBD Added compatibility for when the day view is disabled.
+	 *
    * @param  {jQuery} $container Which element we are updating the URL from.
    *
    * @return {void}
@@ -312,8 +313,23 @@ tribe.events.views.manager = {};
      */
     document.title = data.title;
 
+    // Rewrite it to query-param form and falls back to the default view
+		// in case day-view is disabled, to prevent 404 after a page refresh.
+    var pushUrl = data.url;
+    if ( data.day_view_disabled ) {
+      try {
+        var parsedUrl = new URL( pushUrl, window.location.origin );
+        var dateMatch = parsedUrl.pathname.match( /\/(\d{4}-\d{2}-\d{2})\/?$/ );
+        if ( dateMatch ) {
+          parsedUrl.pathname = parsedUrl.pathname.replace( /\/\d{4}-\d{2}-\d{2}\/?$/, '/' );
+          parsedUrl.searchParams.set( 'eventDate', dateMatch[ 1 ] );
+          pushUrl = parsedUrl.toString();
+        }
+      } catch ( e ) {}
+    }
+
     // Push browser history
-    window.history.pushState(null, data.title, data.url);
+    window.history.pushState(null, data.title, pushUrl);
     obj.lastLocation.pathname = document.location.pathname;
     obj.lastLocation.origin = document.location.origin;
   };
