@@ -157,9 +157,17 @@ class Event_Query_Controller {
 		$query->post_count = count( $injected_posts );
 		$query->post       = $query->post_count ? reset( $injected_posts ) : null;
 		// Set the request (SQL code) the repository used to fetch the events.;
-		$query->request       = $repository->get_query()->request;
-		$query->max_num_pages = $query->post_count > 0
-			? (int) ( ceil( $query->found_posts / $query->post_count ) )
+		$query->request = $repository->get_query()->request;
+		/*
+		 * Use the intended posts_per_page from the repository query, not post_count.
+		 * post_count varies by page (e.g., 0 on empty pages or < posts_per_page on the
+		 * last page), which would produce an incorrect max_num_pages and trigger false 404s.
+		 *
+		 * @since TBD
+		 */
+		$posts_per_page       = (int) $repository->get_query()->get( 'posts_per_page', 1 );
+		$query->max_num_pages = $query->found_posts > 0 && $posts_per_page > 0
+			? (int) ceil( $query->found_posts / $posts_per_page )
 			: 1;
 		$query->is_single     = false;
 		$query->is_singular   = false;
@@ -220,13 +228,58 @@ class Event_Query_Controller {
 	/**
 	 * Returns the repository the controller will use to fetch posts.
 	 *
+	 * The repository is used to populate the main WP_Query with the correct `found_posts`
+	 * and `max_num_pages` values, which WordPress uses to determine whether a paginated
+	 * request is valid or should result in a 404.
+	 *
+	 * We always query page 1 with the correct `events_per_page` so that `found_posts` and
+	 * `max_num_pages` are computed against the right event set and page size, regardless of
+	 * which page the current request is for. This prevents false 404s on deep paginated URLs.
+	 *
 	 * @since 4.9.2
+	 * @since TBD Respect the current display mode (past/upcoming) and `events_per_page`
+	 *                to prevent false 404s on direct-access of paginated event URLs.
 	 *
 	 * @return \Tribe__Repository__Interface
 	 */
 	private function repository() {
-		// @todo [BTRIA-594]: Refine this to handle order depending on the View.
-		return tribe_events()->order_by( 'event_date', 'ASC' );
+		$context  = tribe_context();
+		$display  = $context->get( 'event_display_mode', '' );
+		$date     = $context->get( 'event_date', 'now' );
+		$per_page = max( 1, (int) $context->get( 'events_per_page', 12 ) );
+		/*
+		 * When rendering the initial page (SSR), use the tribe "events per page" option
+		 * explicitly so pagination matches the View and AJAX requests. Otherwise the
+		 * context can resolve to a different value (e.g. WordPress "Blog pages show at
+		 * most") and max_num_pages ends up lower than when navigating via AJAX.
+		 */
+		if ( $context->doing_php_initial_state() ) {
+			/*
+			 * Use the canonical TEC "Events per page" option key ('postsPerPage') first so
+			 * that upgraded sites — which may still have a stale 'posts_per_page' tribe
+			 * option from an older TEC version — get the correct current value.
+			 * Fall back to the legacy key, then to WordPress's "Blog pages show at most" setting.
+			 */
+			$per_page = max( 1, (int) tribe_get_option( 'postsPerPage', tribe_get_option( 'posts_per_page', get_option( 'posts_per_page', 12 ) ) ) );
+		}
+
+		if ( 'past' === $display ) {
+			return tribe_events()->by_args( [
+				'posts_per_page' => $per_page,
+				'paged'          => 1,
+				'ends_before'    => $date,
+				'order'          => 'DESC',
+				'orderby'        => 'event_date',
+			] );
+		}
+
+		return tribe_events()->by_args( [
+			'posts_per_page' => $per_page,
+			'paged'          => 1,
+			'ends_after'     => $date,
+			'order'          => 'ASC',
+			'orderby'        => 'event_date',
+		] );
 	}
 
 	/**
