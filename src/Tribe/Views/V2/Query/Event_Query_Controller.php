@@ -2,7 +2,7 @@
 /**
  * Controls an Event query connecting it with the Repository and Context.
  *
- * @since   4.9.2
+ * @since 4.9.2
  * @package Tribe\Events\Views\V2\Query
  */
 
@@ -13,7 +13,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Event_Query_Controller
  *
- * @since   4.9.2
+ * @since 4.9.2
  * @package Tribe\Events\Views\V2\Query
  */
 class Event_Query_Controller {
@@ -84,9 +84,12 @@ class Event_Query_Controller {
 			// If the query posts have been pre-filled already then let's use the information.
 			$query_posts = $query->posts;
 
-			$post__in = array_map( static function ( $post ): int {
-				return is_object( $post ) ? $post->ID : (int) $post;
-			}, $query_posts );
+			$post__in = array_map(
+				static function ( $post ): int {
+					return is_object( $post ) ? $post->ID : (int) $post;
+				},
+				$query_posts 
+			);
 		}
 
 		/**
@@ -188,8 +191,7 @@ class Event_Query_Controller {
 	 *
 	 * @return array An array of post types supported by the Event_Query_Controller.
 	 */
-	public
-	function get_supported_post_types() {
+	public function get_supported_post_types() {
 		/**
 		 * Filters the list of post types supported by the Event_Query_Controller.
 		 *
@@ -264,22 +266,26 @@ class Event_Query_Controller {
 		}
 
 		if ( 'past' === $display ) {
-			return tribe_events()->by_args( [
-				'posts_per_page' => $per_page,
-				'paged'          => 1,
-				'ends_before'    => $date,
-				'order'          => 'DESC',
-				'orderby'        => 'event_date',
-			] );
+			return tribe_events()->by_args(
+				[
+					'posts_per_page' => $per_page,
+					'paged'          => 1,
+					'ends_before'    => $date,
+					'order'          => 'DESC',
+					'orderby'        => 'event_date',
+				] 
+			);
 		}
 
-		return tribe_events()->by_args( [
-			'posts_per_page' => $per_page,
-			'paged'          => 1,
-			'ends_after'     => $date,
-			'order'          => 'ASC',
-			'orderby'        => 'event_date',
-		] );
+		return tribe_events()->by_args(
+			[
+				'posts_per_page' => $per_page,
+				'paged'          => 1,
+				'ends_after'     => $date,
+				'order'          => 'ASC',
+				'orderby'        => 'event_date',
+			] 
+		);
 	}
 
 	/**
@@ -365,7 +371,7 @@ class Event_Query_Controller {
 	 */
 	private function is_php_initial_state_main_query( $query ) {
 		return tribe_context()->doing_php_initial_state()
-		       && $query instanceof \WP_Query
-		       && $query->is_main_query();
+				&& $query instanceof \WP_Query
+				&& $query->is_main_query();
 	}
 }
