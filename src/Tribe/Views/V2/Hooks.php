@@ -136,6 +136,7 @@ class Hooks extends Service_Provider {
 		add_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ], 10, 2 );
 		add_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
 		add_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
+		add_action( 'pre_get_posts', [ $this, 'filter_pre_get_posts_events_per_page' ], 20 );
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20, 2 );
 		add_filter( 'body_class', [ $this, 'filter_body_classes' ] );
 		add_filter( 'tribe_body_class_should_add_to_queue', [ $this, 'body_class_should_add_to_queue' ], 10, 3 );
@@ -448,6 +449,29 @@ class Hooks extends Service_Provider {
 		remove_filter( current_filter(), [ $this, 'filter_posts_pre_query' ] );
 
 		return $posts;
+	}
+
+	/**
+	 * Sets the main event archive query's posts_per_page to the tribe option so pagination
+	 * (found_posts, max_num_pages) matches the View and AJAX. Without this, SSR uses the
+	 * WordPress "Blog pages show at most" value and can 404 on valid page numbers (e.g. page 3).
+	 *
+	 * @since 6.15.18
+	 *
+	 * @param WP_Query $query The query object.
+	 */
+	public function filter_pre_get_posts_events_per_page( $query ) {
+		if ( ! $query instanceof WP_Query || ! $query->is_main_query() || is_admin() ) {
+			return;
+		}
+		// tribe_is_event_query is set in Tribe__Events__Query::parse_query (runs before pre_get_posts).
+		if ( empty( $query->tribe_is_event_query ) ) {
+			return;
+		}
+		$per_page = (int) tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 12 ) ) );
+		if ( $per_page > 0 ) {
+			$query->set( 'posts_per_page', $per_page );
+		}
 	}
 
 	/**
