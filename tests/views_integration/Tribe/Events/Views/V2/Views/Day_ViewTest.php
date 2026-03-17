@@ -384,7 +384,7 @@ class Day_ViewTest extends TecViewTestCase {
 		] );
 		$day_view = View::make( Day_View::class, $context );
 
-		$html = $day_view->get_html();
+		$html = str_replace( "\r\n", "\n", $day_view->get_html() );
 
 		// Let's make sure the View is displaying what events we expect it to display.
 		$expected_post_ids = wp_list_pluck( array_slice( $events, 2, 5 ), 'ID' );
@@ -402,7 +402,7 @@ class Day_ViewTest extends TecViewTestCase {
 		] );
 		$day_view_tag = View::make( Day_View::class, $context_tag );
 
-		$html_tag = $day_view_tag->get_html();
+		$html_tag = str_replace( "\r\n", "\n", $day_view_tag->get_html() );
 
 		$this->assertEquals( $expected_post_ids, $day_view_tag->found_post_ids() );
 
