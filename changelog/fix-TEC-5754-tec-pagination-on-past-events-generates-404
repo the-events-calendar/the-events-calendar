@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-SSR not respecting AJAX pagination so direct page URLs no longer return 404. [TEC-5754]
+Make SSR respect AJAX pagination so direct page URLs no longer return 404s. [TEC-5754]
