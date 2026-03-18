@@ -314,7 +314,7 @@ tribe.events.views.manager = {};
     document.title = data.title;
 
     // Rewrite it to query-param form and falls back to the default view
-		// in case day-view is disabled, to prevent 404 after a page refresh.
+    // in case day-view is disabled, to prevent 404 after a page refresh.
     var pushUrl = data.url;
     if ( data.day_view_disabled ) {
       try {
