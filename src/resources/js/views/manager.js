@@ -267,8 +267,8 @@ tribe.events.views.manager = {};
    * formatted as a `application/json` that we will parse and apply here.
    *
    * @since 4.9.4
-	 * @since TBD Added compatibility for when the day view is disabled.
-	 *
+   * @since TBD Added compatibility for when the day view is disabled.
+   *
    * @param  {jQuery} $container Which element we are updating the URL from.
    *
    * @return {void}
