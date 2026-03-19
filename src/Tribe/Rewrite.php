@@ -493,8 +493,8 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		}
 
 		// Normalize in a single pass:
-		//  - Raw non-ASCII UTF-8 bytes  → encode with rawurlencode() then lowercase the hex
-		//  - Already-encoded UPPERCASE sequences (e.g. %D0%BC) → lowercase hex (%d0%bc)
+		// - Raw non-ASCII UTF-8 bytes  → encode with rawurlencode() then lowercase the hex
+		// - Already-encoded UPPERCASE sequences (e.g. %D0%BC) → lowercase hex (%d0%bc)
 		// Both outcomes match the lowercase patterns stored in the rewrite rules.
 		$_SERVER['REQUEST_URI'] = preg_replace_callback( // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 			'/([^\x00-\x7F]+)|%([89A-Fa-f][0-9A-Fa-f])/',
