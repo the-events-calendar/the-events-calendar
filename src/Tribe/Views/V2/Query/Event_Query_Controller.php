@@ -140,7 +140,7 @@ class Event_Query_Controller {
 				 * option from an older TEC version — get the correct current value.
 				 * Fall back to the legacy key, then to WordPress's "Blog pages show at most" setting.
 				 */
-				$per_page = max( 1, (int) tribe_get_option( 'postsPerPage', tribe_get_option( 'posts_per_page', get_option( 'posts_per_page', 12 ) ) ) );
+				$per_page = max( 1, (int) tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 12 ) ) ) );
 			}
 
 			if ( 'past' === $display ) {
