@@ -462,7 +462,52 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		parent::remove_hooks();
 		remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
 		remove_filter( 'request', [ $this, 'filter_request_decode_taxonomy_slugs' ], 5 );
+		remove_action( 'init', [ $this, 'normalize_request_uri_for_non_ascii' ], 1 );
 		remove_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
+	}
+
+	/**
+	 * Normalizes non-ASCII percent-encoding in REQUEST_URI to lowercase before WordPress's
+	 * WP::parse_request() runs its rewrite rule matching.
+	 *
+	 * The Events Calendar generates URLs via sanitize_title() which produces lowercase
+	 * hex-encoded sequences (e.g. %d0%bc for Cyrillic м). Rewrite rules are therefore stored
+	 * with lowercase patterns. Browsers, however, re-encode non-ASCII characters with uppercase
+	 * hex (e.g. %D0%BC) per RFC 3986 when the user clicks the address bar and presses Enter.
+	 * Since preg_match() is case-sensitive, uppercase-encoded requests never match the stored
+	 * lowercase patterns, causing a 404.
+	 *
+	 * This method also handles the case where a browser sends raw UTF-8 bytes instead of
+	 * percent-encoding (e.g. /events/месяц/ rather than /events/%d0%bc%d0%b5%d1%81%d1%8f%d1%86/).
+	 *
+	 * Running at init priority 1 ensures this fires well before WP::main() calls
+	 * WP::parse_request(), regardless of when the Rewrite instance was created.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function normalize_request_uri_for_non_ascii() {
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+			return;
+		}
+
+		// Normalize in a single pass:
+		//  - Raw non-ASCII UTF-8 bytes  → encode with rawurlencode() then lowercase the hex
+		//  - Already-encoded UPPERCASE sequences (e.g. %D0%BC) → lowercase hex (%d0%bc)
+		// Both outcomes match the lowercase patterns stored in the rewrite rules.
+		$_SERVER['REQUEST_URI'] = preg_replace_callback( // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			'/([^\x00-\x7F]+)|%([89A-Fa-f][0-9A-Fa-f])/',
+			static function ( $matches ) {
+				if ( ! empty( $matches[1] ) ) {
+					// Raw non-ASCII bytes: encode to percent-encoding then lowercase.
+					return strtolower( rawurlencode( $matches[1] ) );
+				}
+				// Uppercase-encoded non-ASCII byte sequence: normalize hex to lowercase.
+				return '%' . strtolower( $matches[2] );
+			},
+			$_SERVER['REQUEST_URI'] // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		);
 	}
 
 	/**
@@ -500,6 +545,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
 		add_filter( 'request', [ $this, 'filter_request_decode_taxonomy_slugs' ], 5 );
+		add_action( 'init', [ $this, 'normalize_request_uri_for_non_ascii' ], 1 );
 		add_action( 'wp_loaded', [ $this, 'maybe_delayed_flush_rewrite_rules' ] );
 		add_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
 	}
