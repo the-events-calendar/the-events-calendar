@@ -409,6 +409,60 @@ class Day_ViewTest extends TecViewTestCase {
 		$this->assertMatchesSnapshot( $html_tag );
 	}
 
+	public function day_view_disabled_data_sets() {
+		yield 'day_view_enabled' => [
+			[ 'day', 'list', 'month' ],
+			false,
+		];
+
+		yield 'day_view_disabled' => [
+			[ 'list', 'month' ],
+			true,
+		];
+
+		yield 'only_day_view_enabled' => [
+			[ 'day' ],
+			false,
+		];
+
+		yield 'empty_enabled_views' => [
+			[],
+			true,
+		];
+	}
+
+	/**
+	 * It should correctly set the day_view_disabled template variable.
+	 *
+	 * @test
+	 * @dataProvider day_view_disabled_data_sets
+	 */
+	public function should_correctly_set_day_view_disabled( array $enabled_views, bool $expected_disabled ) {
+		tribe_update_option( 'tribeEnableViews', $enabled_views );
+
+		$context = tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
+			'event_date' => $this->mock_date_value,
+		] );
+
+		$view = View::make( Day_View::class, $context );
+		$view->set_repository( $this->makeEmpty( \Tribe__Repository__Interface::class, [
+			'found'        => 0,
+			'get_ids'      => [],
+			'all'          => [],
+			'prev'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+			'next'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+			'build_query'  => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+			'hash'         => 'test-hash',
+		] ) );
+
+		$template_vars = $view->get_template_vars();
+
+		$this->assertArrayHasKey( 'day_view_disabled', $template_vars );
+		$this->assertSame( $expected_disabled, $template_vars['day_view_disabled'] );
+	}
+
 	public function tearDown() {
 		parent::tearDown();
 		if ( isset( $this->date_default_timezone ) ) {
