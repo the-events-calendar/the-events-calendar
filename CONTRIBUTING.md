@@ -36,10 +36,6 @@ git submodule update --init --recursive
 _Note: you'll need to do this for the common directory and the root directory._
 
 ```
-git restore vendor common/vendor
-```
-
-```
 cd common
 composer install
 

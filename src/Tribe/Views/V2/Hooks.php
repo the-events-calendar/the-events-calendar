@@ -456,7 +456,7 @@ class Hooks extends Service_Provider {
 	 * (found_posts, max_num_pages) matches the View and AJAX. Without this, SSR uses the
 	 * WordPress "Blog pages show at most" value and can 404 on valid page numbers (e.g. page 3).
 	 *
-	 * @since 6.15.18
+	 * @since TBD
 	 *
 	 * @param WP_Query $query The query object.
 	 */

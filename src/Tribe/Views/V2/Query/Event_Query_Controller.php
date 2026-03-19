@@ -14,6 +14,7 @@ use Tribe__Events__Main as TEC;
  * Class Event_Query_Controller
  *
  * @since 4.9.2
+ * @since TBD SSR pagination fix
  * @package Tribe\Events\Views\V2\Query
  */
 class Event_Query_Controller {
