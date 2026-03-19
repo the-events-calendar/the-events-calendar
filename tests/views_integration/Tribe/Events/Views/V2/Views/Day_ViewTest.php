@@ -438,29 +438,38 @@ class Day_ViewTest extends TecViewTestCase {
 	 * @dataProvider day_view_disabled_data_sets
 	 */
 	public function should_correctly_set_day_view_disabled( array $enabled_views, bool $expected_disabled ) {
+		$original_enabled_views = tribe_get_option( 'tribeEnableViews' );
+
 		tribe_update_option( 'tribeEnableViews', $enabled_views );
 
-		$context = tribe_context()->alter( [
-			'today'      => $this->mock_date_value,
-			'now'        => $this->mock_date_value,
-			'event_date' => $this->mock_date_value,
-		] );
+		try {
+			$context = tribe_context()->alter( [
+				'today'      => $this->mock_date_value,
+				'now'        => $this->mock_date_value,
+				'event_date' => $this->mock_date_value,
+			] );
 
-		$view = View::make( Day_View::class, $context );
-		$view->set_repository( $this->makeEmpty( \Tribe__Repository__Interface::class, [
-			'found'        => 0,
-			'get_ids'      => [],
-			'all'          => [],
-			'prev'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
-			'next'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
-			'build_query'  => $this->makeEmpty( \Tribe__Repository__Interface::class ),
-			'hash'         => 'test-hash',
-		] ) );
+			$view = View::make( Day_View::class, $context );
+			$view->set_repository( $this->makeEmpty( \Tribe__Repository__Interface::class, [
+				'found'        => 0,
+				'get_ids'      => [],
+				'all'          => [],
+				'prev'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+				'next'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+				'build_query'  => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+				'hash'         => 'test-hash',
+			] ) );
 
-		$template_vars = $view->get_template_vars();
+			$template_vars = $view->get_template_vars();
 
-		$this->assertArrayHasKey( 'day_view_disabled', $template_vars );
-		$this->assertSame( $expected_disabled, $template_vars['day_view_disabled'] );
+			$this->assertArrayHasKey( 'day_view_disabled', $template_vars );
+			$this->assertSame( $expected_disabled, $template_vars['day_view_disabled'] );
+		} finally {
+			// Restore the original value so the in-memory options cache does not
+			// bleed into subsequent tests (WPLoader rolls back DB transactions, but
+			// wp_cache persists across tests within the same PHP process).
+			tribe_update_option( 'tribeEnableViews', $original_enabled_views );
+		}
 	}
 
 	public function tearDown() {
