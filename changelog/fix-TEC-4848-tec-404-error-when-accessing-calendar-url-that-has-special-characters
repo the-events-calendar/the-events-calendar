@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Improve the URL compatibility with non-ASCII languages. [TEC-4848]

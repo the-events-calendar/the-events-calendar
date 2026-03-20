@@ -461,7 +461,82 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	protected function remove_hooks() {
 		parent::remove_hooks();
 		remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
+		remove_filter( 'request', [ $this, 'filter_request_decode_taxonomy_slugs' ], 5 );
+		remove_action( 'init', [ $this, 'normalize_request_uri_for_non_ascii' ], 1 );
 		remove_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
+	}
+
+	/**
+	 * Normalizes non-ASCII percent-encoding in REQUEST_URI to lowercase before WordPress's
+	 * WP::parse_request() runs its rewrite rule matching.
+	 *
+	 * The Events Calendar generates URLs via sanitize_title() which produces lowercase
+	 * hex-encoded sequences (e.g. %d0%bc for Cyrillic м). Rewrite rules are therefore stored
+	 * with lowercase patterns. Browsers, however, re-encode non-ASCII characters with uppercase
+	 * hex (e.g. %D0%BC) per RFC 3986 when the user clicks the address bar and presses Enter.
+	 * Since preg_match() is case-sensitive, uppercase-encoded requests never match the stored
+	 * lowercase patterns, causing a 404.
+	 *
+	 * This method also handles the case where a browser sends raw UTF-8 bytes instead of
+	 * percent-encoding (e.g. /events/месяц/ rather than /events/%d0%bc%d0%b5%d1%81%d1%8f%d1%86/).
+	 *
+	 * Running at init priority 1 ensures this fires well before WP::main() calls
+	 * WP::parse_request(), regardless of when the Rewrite instance was created.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function normalize_request_uri_for_non_ascii() {
+		if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+			return;
+		}
+
+		// Normalize in a single pass:
+		// - Raw non-ASCII UTF-8 bytes  → encode with rawurlencode() then lowercase the hex
+		// - Already-encoded UPPERCASE sequences (e.g. %D0%BC) → lowercase hex (%d0%bc)
+		// Both outcomes match the lowercase patterns stored in the rewrite rules.
+		$_SERVER['REQUEST_URI'] = preg_replace_callback( // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			'/([^\x00-\x7F]+)|%([89A-Fa-f][0-9A-Fa-f])/',
+			static function ( $matches ) {
+				if ( ! empty( $matches[1] ) ) {
+					// Raw non-ASCII bytes: encode to percent-encoding then lowercase.
+					return strtolower( rawurlencode( $matches[1] ) );
+				}
+				// Uppercase-encoded non-ASCII byte sequence: normalize hex to lowercase.
+				return '%' . strtolower( $matches[2] );
+			},
+			$_SERVER['REQUEST_URI'] // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		);
+	}
+
+	/**
+	 * Decodes percent-encoded taxonomy slugs in the request so that URLs with non-ASCII
+	 * characters (e.g. Cyrillic) resolve correctly for category and tag archives.
+	 *
+	 * When the request path is percent-encoded (e.g. /%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F/...),
+	 * the rewrite capture passes the encoded value to the query var. Term lookups and canonical
+	 * URL generation then fail because the term slug in the database is stored in UTF-8.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $query_vars The array of parsed query variables.
+	 * @return array The query variables with taxonomy slugs decoded when needed.
+	 */
+	public function filter_request_decode_taxonomy_slugs( $query_vars ) {
+		if ( ! is_array( $query_vars ) ) {
+			return $query_vars;
+		}
+		$tax_slugs = [
+			TEC::TAXONOMY => true,
+			'tag'         => true,
+		];
+		foreach ( array_keys( $tax_slugs ) as $var ) {
+			if ( isset( $query_vars[ $var ] ) && is_string( $query_vars[ $var ] ) && strpos( $query_vars[ $var ], '%' ) !== false ) {
+				$query_vars[ $var ] = rawurldecode( $query_vars[ $var ] );
+			}
+		}
+		return $query_vars;
 	}
 
 	protected function add_hooks() {
@@ -469,6 +544,8 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		add_action( 'tribe_events_pre_rewrite', array( $this, 'generate_core_rules' ) );
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
+		add_filter( 'request', [ $this, 'filter_request_decode_taxonomy_slugs' ], 5 );
+		add_action( 'init', [ $this, 'normalize_request_uri_for_non_ascii' ], 1 );
 		add_action( 'wp_loaded', [ $this, 'maybe_delayed_flush_rewrite_rules' ] );
 		add_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
 	}
