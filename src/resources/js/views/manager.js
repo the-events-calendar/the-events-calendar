@@ -316,15 +316,12 @@ tribe.events.views.manager = {};
     // Rewrite it to query-param form and falls back to the default view
     // in case day-view is disabled, to prevent 404 after a page refresh.
     var pushUrl = data.url;
-    if ( data.day_view_disabled ) {
+    if ( data.day_view_disabled && data.url_event_date ) {
       try {
         var parsedUrl = new URL( pushUrl, window.location.origin );
-        var dateMatch = parsedUrl.pathname.match( /\/(\d{4}-\d{2}-\d{2})\/?$/ );
-        if ( dateMatch ) {
-          parsedUrl.pathname = parsedUrl.pathname.replace( /\/\d{4}-\d{2}-\d{2}\/?$/, '/' );
-          parsedUrl.searchParams.set( 'eventDate', dateMatch[ 1 ] );
-          pushUrl = parsedUrl.toString();
-        }
+        parsedUrl.pathname = parsedUrl.pathname.replace( '/' + data.url_event_date, '' ).replace( /\/$/, '' ) + '/';
+        parsedUrl.searchParams.set( 'eventDate', data.url_event_date );
+        pushUrl = parsedUrl.toString();
       } catch ( e ) {}
     }
 
