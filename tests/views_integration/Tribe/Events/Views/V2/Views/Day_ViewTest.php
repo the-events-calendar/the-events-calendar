@@ -17,25 +17,14 @@ class Day_ViewTest extends TecViewTestCase {
 	use With_Uopz;
 
 	/**
-	 * Snapshot of tribeEnableViews saved before each test, restored after.
+	 * Original value of tribeEnableViews, set only by tests that mutate it.
+	 * Restored in tearDown so the in-memory options cache does not bleed into
+	 * subsequent tests (WPLoader rolls back DB transactions, but wp_cache
+	 * persists across tests within the same PHP process).
 	 *
 	 * @var mixed
 	 */
-	private $original_enabled_views;
-
-	/**
-	 * @before
-	 */
-	public function save_enabled_views(): void {
-		$this->original_enabled_views = tribe_get_option( 'tribeEnableViews' );
-	}
-
-	/**
-	 * @after
-	 */
-	public function restore_enabled_views(): void {
-		tribe_update_option( 'tribeEnableViews', $this->original_enabled_views );
-	}
+	private $original_enabled_views = null;
 
 	public function setUp() {
 		parent::setUp();
@@ -459,6 +448,7 @@ class Day_ViewTest extends TecViewTestCase {
 	 * @dataProvider day_view_disabled_data_sets
 	 */
 	public function should_correctly_set_day_view_disabled( array $enabled_views, bool $expected_disabled ) {
+		$this->original_enabled_views = tribe_get_option( 'tribeEnableViews' );
 		tribe_update_option( 'tribeEnableViews', $enabled_views );
 
 		$context = tribe_context()->alter( [
@@ -485,6 +475,10 @@ class Day_ViewTest extends TecViewTestCase {
 	}
 
 	public function tearDown() {
+		if ( $this->original_enabled_views !== null ) {
+			tribe_update_option( 'tribeEnableViews', $this->original_enabled_views );
+			$this->original_enabled_views = null;
+		}
 		parent::tearDown();
 		if ( isset( $this->date_default_timezone ) ) {
 			date_default_timezone_set( $this->date_default_timezone );
