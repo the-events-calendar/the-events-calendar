@@ -238,7 +238,7 @@ class Assets_Manager extends Controller {
 	 * Note this stylesheet is programmatically created by Elementor and stored in the uploads directory.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Added check for the existence of the CSS file.
+	 * @since 6.15.18 Added check for the existence of the CSS file.
 	 *
 	 * @return void
 	 */

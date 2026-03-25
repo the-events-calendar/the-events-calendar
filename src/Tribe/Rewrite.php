@@ -483,7 +483,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * Running at init priority 1 ensures this fires well before WP::main() calls
 	 * WP::parse_request(), regardless of when the Rewrite instance was created.
 	 *
-	 * @since TBD
+	 * @since 6.15.18
 	 *
 	 * @return void
 	 */
@@ -518,7 +518,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * the rewrite capture passes the encoded value to the query var. Term lookups and canonical
 	 * URL generation then fail because the term slug in the database is stored in UTF-8.
 	 *
-	 * @since TBD
+	 * @since 6.15.18
 	 *
 	 * @param array $query_vars The array of parsed query variables.
 	 * @return array The query variables with taxonomy slugs decoded when needed.

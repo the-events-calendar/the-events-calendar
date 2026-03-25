@@ -249,7 +249,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Modifies the Elementor posts widget query arguments to set 'tribe_suppress_query_filters' to true for the Event post type.
 	 *
-	 * @since TBD Added is_array verification to guard against non-array values passed by Elementor in some contexts.
+	 * @since 6.15.18 Added is_array verification to guard against non-array values passed by Elementor in some contexts.
 	 *
 	 * @param array $query_args The Elementor posts widget query arguments.
 	 *
