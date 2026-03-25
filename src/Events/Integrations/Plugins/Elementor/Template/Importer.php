@@ -577,7 +577,7 @@ class Importer {
 	 * automatically write the post CSS file to disk. This method explicitly regenerates
 	 * it so that enqueued references to post-{id}.css do not return 404.
 	 *
-	 * @since TBD
+	 * @since 6.15.18
 	 *
 	 * @param int $post_id The post ID of the imported Elementor document.
 	 *
