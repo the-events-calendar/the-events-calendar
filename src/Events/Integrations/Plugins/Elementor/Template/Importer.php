@@ -10,13 +10,12 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
 use Elementor\Core\Base\Document;
-use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
-use WP_Post;
-use Elementor\TemplateLibrary\Source_Local;
 use Elementor\Plugin;
-
-use Tribe__Template as Template;
+use Elementor\TemplateLibrary\Source_Local;
+use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
 use Tribe__Log as Log;
+use Tribe__Template as Template;
+use WP_Post;
 
 /**
  * Class Importer
@@ -566,7 +565,43 @@ class Importer {
 			return false;
 		}
 
+		$this->generate_css_for_document( $document->get_post()->ID );
+
 		return $document->get_post()->ID;
+	}
+
+	/**
+	 * Triggers Elementor's CSS file generation for an imported document post.
+	 *
+	 * After a document is imported via import_with_elementor(), Elementor does not
+	 * automatically write the post CSS file to disk. This method explicitly regenerates
+	 * it so that enqueued references to post-{id}.css do not return 404.
+	 *
+	 * @since 6.15.18
+	 *
+	 * @param int $post_id The post ID of the imported Elementor document.
+	 *
+	 * @return void
+	 */
+	protected function generate_css_for_document( int $post_id ): void {
+		if ( ! class_exists( '\Elementor\Core\Files\CSS\Post' ) ) {
+			return;
+		}
+
+		try {
+			$css_file = \Elementor\Core\Files\CSS\Post::create( $post_id );
+			$css_file->update();
+		} catch ( \Throwable $e ) {
+			do_action(
+				'tribe_log',
+				\Tribe__Log::WARNING,
+				'Failed to generate Elementor CSS for imported document.',
+				[
+					'post_id' => $post_id,
+					'error'   => $e->getMessage(),
+				]
+			);
+		}
 	}
 
 	/**

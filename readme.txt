@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.17.1
+Stable tag: 6.15.18
 Requires at least: 6.7
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -231,6 +231,13 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.15.18] 2026-03-25 =
+
+* Fix - Add `is_array` verification to guard against non-array values passed by Elementor in some contexts. [TEC-5762]
+* Fix - Improve the URL compatibility with non-ASCII languages. [TEC-4848]
+* Fix - Verify if Elementor CSS exists before adding it to avoid a 404 response. [TEC-5752]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.15.17.1] 2026-03-09 =
 
