@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Add `is_array` verification to guard against non-array values passed by Elementor in some contexts. [TEC-5762]
