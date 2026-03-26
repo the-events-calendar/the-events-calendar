@@ -5,8 +5,8 @@
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe\DB_Lock;
-use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.13';
+		const VERSION             = '6.15.18';
 
 		/**
 		 * Min Pro Addon.
@@ -795,6 +795,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'init', [ $this, 'setup_l10n_strings' ], 5 );
 			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
+			// Restore post_tag for events when WordPress re-runs create_initial_taxonomies on change_locale.
+			add_action( 'change_locale', [ $this, 'restore_event_tag_taxonomy_on_locale_change' ], 20 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
@@ -2027,6 +2029,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Restores the post_tag taxonomy association for event post types after WordPress
+		 * re-runs create_initial_taxonomies on the change_locale action, which otherwise overwrites
+		 * object_type and removes tribe_events and tec_calendar_embed.
+		 *
+		 * @since 6.15.17
+		 */
+		public function restore_event_tag_taxonomy_on_locale_change(): void {
+			// Bail if post_tag taxonomy doesn't exist.
+			if ( ! taxonomy_exists( 'post_tag' ) ) {
+				return;
+			}
+
+			// Restore post_tag for tribe_events post type.
+			if ( post_type_exists( self::POSTTYPE ) ) {
+				register_taxonomy_for_object_type( 'post_tag', self::POSTTYPE );
+			}
+
+			// Restore post_tag for tec_calendar_embed post type.
+			if ( post_type_exists( 'tec_calendar_embed' ) ) {
+				register_taxonomy_for_object_type( 'post_tag', 'tec_calendar_embed' );
+			}
+		}
+
+		/**
 		 * Get the rewrite slug
 		 *
 		 * @return string
@@ -3256,11 +3282,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function ajax_form_validate() {
+			$post_type = get_post_type_object( self::POSTTYPE );
+
 			if (
 				$_REQUEST['name']
 				&& $_REQUEST['nonce']
 				&& $_REQUEST['type']
 				&& wp_verify_nonce( $_REQUEST['nonce'], 'tribe-validation-nonce' )
+				&& current_user_can( $post_type->cap->edit_posts )
 			) {
 				echo $this->verify_unique_name( $_REQUEST['name'], $_REQUEST['type'] );
 				die;

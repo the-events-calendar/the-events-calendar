@@ -3,7 +3,7 @@
  * Tests for Landing_Page webpack public path functionality.
  *
  * @package TEC\Events\Admin\Onboarding
- * @since   TBD
+ * @since   6.15.15
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -19,7 +19,7 @@ use Codeception\TestCase\WPTestCase;
  * These tests verify the integration between WordPress admin pages, asset enqueuing,
  * and webpack configuration.
  *
- * @since TBD
+ * @since 6.15.15
  */
 class Landing_Page_Webpack_Test extends WPTestCase {
 	use With_Uopz;
@@ -49,7 +49,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 *
 	 * @before
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function before() {
 		$this->get_vars = $_GET;
@@ -67,7 +67,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * Test that inline script is registered with webpack public path.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_register_webpack_public_path_inline_script() {
 		// Simulate being on the landing page.
@@ -93,7 +93,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * Test that the webpack public path contains the build directory.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_include_build_directory_in_path() {
 		$_GET['page'] = Landing_Page::get_page_slug();
@@ -115,7 +115,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * Test that the webpack public path is a valid URL.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_output_valid_url() {
 		$_GET['page'] = Landing_Page::get_page_slug();
@@ -153,7 +153,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * not the full WordPress admin page detection system.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_respect_page_check() {
 		// This test verifies that the asset has a condition set.
@@ -177,7 +177,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * This simulates WordPress installations with non-standard directory structures.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_work_with_custom_wp_content_dir() {
 		$_GET['page'] = Landing_Page::get_page_slug();
@@ -215,7 +215,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * Test that the URL is properly escaped for JavaScript.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_escape_url_for_javascript() {
 		$_GET['page'] = Landing_Page::get_page_slug();
@@ -244,7 +244,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 * Test that plugins_url generates correct URL for symlinked plugins.
 	 *
 	 * @test
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function it_should_handle_symlinked_plugin_directories() {
 		$_GET['page'] = Landing_Page::get_page_slug();
@@ -273,7 +273,7 @@ class Landing_Page_Webpack_Test extends WPTestCase {
 	 *
 	 * @after
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function after() {
 		global $current_screen;

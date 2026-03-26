@@ -15,7 +15,7 @@ class Content_TitleTest extends HtmlPartialTestCase {
 	/**
 	 * Data provider for content title rendering tests.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @return Generator
 	 */
@@ -58,7 +58,7 @@ class Content_TitleTest extends HtmlPartialTestCase {
 	 * Test render with various heading tags and content titles.
 	 *
 	 * @dataProvider content_title_data_provider
-	 * @since TBD
+	 * @since 6.15.15
 	 *
 	 * @param string $heading_tag   The heading tag to use.
 	 * @param string $content_title The content title to render.
@@ -81,8 +81,9 @@ class Content_TitleTest extends HtmlPartialTestCase {
 		$view = View::make( View::class );
 
 		$result = $this->get_partial_html( [
-			'view'          => $view,
-			'content_title' => $content_title,
+			'view'                => $view,
+			'content_title'       => $content_title,
+			'show_content_title'  => ! empty( $content_title ),
 		] );
 
 		$this->assertMatchesSnapshot( $result );
@@ -91,7 +92,7 @@ class Content_TitleTest extends HtmlPartialTestCase {
 	/**
 	 * Test that the content title filter works properly.
 	 *
-	 * @since TBD
+	 * @since 6.15.15
 	 */
 	public function test_content_title_filter() {
 		// Add a filter to set a custom content title.
@@ -105,11 +106,11 @@ class Content_TitleTest extends HtmlPartialTestCase {
 		$view = View::make( View::class );
 
 		$result = $this->get_partial_html( [
-			'view'          => $view,
-			'content_title' => 'Filtered Custom Title',
+			'view'                => $view,
+			'content_title'       => 'Filtered Custom Title',
+			'show_content_title'  => true,
 		] );
 
 		$this->assertMatchesSnapshot( $result );
 	}
 }
-

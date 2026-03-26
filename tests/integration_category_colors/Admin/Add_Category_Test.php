@@ -14,8 +14,10 @@ use TEC\Events\Category_Colors\Admin\Add_Category;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Add_Category_Test extends WPTestCase {
+	use With_Uopz;
 	use Meta_Keys_Trait;
 
 	/**
@@ -97,7 +99,7 @@ class Add_Category_Test extends WPTestCase {
 				'primary'   => '',
 				'secondary' => '',
 				'text'      => '',
-				'priority'  => '',
+				'priority'  => '0',
 			],
 		];
 
@@ -167,6 +169,10 @@ class Add_Category_Test extends WPTestCase {
 	 * @dataProvider category_field_scenarios
 	 */
 	public function should_handle_category_field_scenarios( array $post_data, array $expected_values ) {
+		// Mock nonce and capability checks to always pass.
+		$this->set_fn_return( 'wp_verify_nonce', true );
+		$this->set_fn_return( 'current_user_can', true );
+
 		// Create a test category
 		$term_id = $this->factory()->term->create(
 			[
@@ -177,8 +183,7 @@ class Add_Category_Test extends WPTestCase {
 
 		// Simulate POST data
 		$_POST['tec_events_category-color'] = $post_data;
-		// Generate a valid nonce.
-		$_POST['tec_category_colors_nonce'] = wp_create_nonce( 'save_category_colors' );
+		$_REQUEST['tec_events_category-color'] = $post_data;
 
 		// Save the fields
 		$this->add_category->save_category_fields( $term_id );

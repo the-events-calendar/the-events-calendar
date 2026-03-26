@@ -129,6 +129,11 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 			return false;
 		}
 
+		$post_type = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+		if ( empty( $post_type->cap->edit_posts ) || ! current_user_can( $post_type->cap->edit_posts ) ) {
+			return false;
+		}
+
 		if ( empty( $data->records ) ) {
 			if ( empty( $data->ids ) ) {
 				return false;

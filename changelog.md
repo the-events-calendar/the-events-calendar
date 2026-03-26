@@ -1,5 +1,72 @@
 # Changelog
 
+### [6.15.18] 2026-03-25
+
+* Fix - Add `is_array` verification to guard against non-array values passed by Elementor in some contexts. [TEC-5762]
+* Fix - Improve the URL compatibility with non-ASCII languages. [TEC-4848]
+* Fix - Verify if Elementor CSS exists before adding it to avoid a 404 response. [TEC-5752]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.17.1] 2026-03-09
+
+* Security - Strengthen file type and location checks during aggregator imports. [SVUL-54]
+
+### [6.15.17] 2026-02-25
+
+* Tweak - Changed views: `modules/meta/organizer`, `v2/components/content-title`, `v2/components/header`, `v2/day/nav`, `v2/day/top-bar/nav`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date`, `v2/month/top-bar/nav`
+* Tweak - Custom SEO titles set in Yoast SEO for Event Categories and Event Tags are now correctly applied to both the page `<title>` tag and `og:title` meta tag. [TEC-4952]
+* Tweak - Restore `post_tag` for events after `change_locale` action, which was being overwritten for fr_FR, causing the tags to not show with the block editor. [TEC-4996]
+* Accessibility - Add an outline on hover for the datepicker. [TEC-5740]
+* Accessibility - Increase contrast of text for past event times. [TEC-5741]
+* Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.16.1] 2026-02-24
+
+* Security - Strengthen user permission checks. [SVUL-48]
+
+### [6.15.16] 2026-02-11
+
+* Fix - Evaluate correctly whether the email and phone field of a non-password protected organizer should display and by default the organizer's website opens in a new tab.[TEC-5744]
+* Tweak - Add aria-label attribute to events navigation. [TEC-5732]
+* Tweak - Changed views: `modules/meta/organizer`, `v2/components/content-title`, `v2/components/header`, `v2/day/nav`, `v2/day/top-bar/nav`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date`, `v2/month/top-bar/nav`
+* Tweak - Improve Day View content title to display contextual "Events for [Date]" format at the top of the view. [TEC-5733]
+* Tweak - Improve heading hierarchy in month view by making date headings only when events are present. [TEC-5622]
+* Tweak - Improve keyboard focus order in zoomed/mobile layouts to follow a more logical and predictable sequence, aligning with WCAG best practices. [TEC-5193]
+* Tweak - Improve mini calendar accessibility by adding non-color indicators for past, current, and upcoming days. [TEC-5735]
+* Language - 3 new strings added, 11 updated, 0 fuzzied, and 1 obsoleted.
+
+### [6.15.15] 2026-01-28
+
+* Tweak - Correct datepicker navigation to include icons on click. [TEC-5736]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.14] 2026-01-13
+
+* Version - The Events Calendar 6.15.14 is only compatible with Events Pro 7.7.12 or higher.
+* Fix - Ensure that the Series post status is not changed during maintenance.
+* Fix - Improve category table stability by preventing fatal errors when custom column data receives null values. [TEC-5712]
+* Fix - Prevent category data from persisting between events when some have colored categories and others do not. Props to @deltragon. [TEC-5622]
+* Tweak - Add a visual outline when a day is in focus in the datepicker for improved accessibility. [TEC-5646]
+* Tweak - Change content template name to 'embed-content' to avoid conflicts for Calendar Embeds. [TEC-5717]
+* Tweak - Enhance Top Bar datepicker with semantic HTML, ARIA support, and reliable keyboard navigation. [TEC-5620]
+* Tweak - Improve archive view content title to default to an H1 while allowing heading tag overrides via tec_events_views_v2_view_{$view_slug}_content_title_heading_tag filter. [TEC-5617]
+* Tweak - Improve JavaScript namespace initialization by ensuring window.tribe is defined before category color scripts run. [TEC-5712]
+* Tweak - Increase contrast for current day in the datepicker for improved accessibility. [TEC-5640]
+* Tweak - Increase contrast in datepicker navigation arrows for improved accessibility. [TEC-5639]
+* Tweak - Increase contrast of past events title for improved accessibility. [TEC-5642]
+* Tweak - Increase contrast for month view past multiday events for improved accessibility. [TEC-5641]
+* Tweak - Increase contrast on pagination arrows for improved accessibility. [TEC-5638]
+* Tweak - Reorder event markup in archive and widget views so event titles precede their date and time for improved screen reader navigation. [TEC-5621]
+* Language - 2 new strings added, 57 updated, 0 fuzzied, and 1 obsoleted.
+
+### [6.15.13.1] 2026-01-07
+
+* Fix - Corrective language fix for Category Colors. [TEC-36]
+
+### [6.15.13] 2025-12-18
+
+* Security - Strengthen the user access level in the system information opt-in functionality. [SVUL-35]
+
 ### [6.15.12.2] 2025-11-20
 
 * Fix - Removes the <main /> element as a wrapper in events related pages, avoiding the calendar page rendering issues for many themes. Adds a `role="main"` to the first element printed by The Events Calendar on those pages to maintain accessibility. [TEC-5729]

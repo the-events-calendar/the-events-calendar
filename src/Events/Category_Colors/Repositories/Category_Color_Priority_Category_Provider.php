@@ -62,7 +62,7 @@ class Category_Color_Priority_Category_Provider {
 	 * Retrieves the highest-priority category with all its metadata for a given event.
 	 *
 	 * @since 6.14.0
-	 * @since TBD Return null if the primary color is empty.
+	 * @since 6.15.14 Return null if the primary color is empty.
 	 *
 	 * @param WP_Post $event The post object of the event.
 	 *

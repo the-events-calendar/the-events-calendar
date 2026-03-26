@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Ensure that the Series post status is not changed during maintenance.

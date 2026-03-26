@@ -405,6 +405,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Add the required Row Actions for the Ignored Events View.
 		 *
+		 * @since 6.15.14 Add data-ignore-event attribute when ignoring an event.
+		 *
 		 * @param  array       $actions List of the current actions
 		 * @param  int|WP_Post $post    WP Post ID or Object
 		 *
@@ -426,7 +428,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				// Modify when it can be ignored.
 				if ( $this->can_ignore( $event ) ) {
 					$actions['trash'] = sprintf(
-						'<a href="%1$s" class="submitdelete" aria-label="%2$s" title="%3$s">%4$s</a>',
+						'<a href="%1$s" class="submitdelete" data-ignore-event aria-label="%2$s" title="%3$s">%4$s</a>',
 						get_delete_post_link( $event->ID ),
 						/* translators: %s: post title */
 						esc_attr( sprintf( __( 'Hide and Ignore &#8220;%s&#8221;', 'the-events-calendar' ), $title ) ),

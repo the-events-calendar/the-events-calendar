@@ -6,7 +6,7 @@
  * handler will concentrate on AJAX requests from the migraiton UI, not
  * from Action Scheduler.
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
@@ -14,8 +14,6 @@
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Phase_View_Renderer;
-use TEC\Events\Custom_Tables\V1\Migration\Admin\Progress_Modal;
-use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
@@ -23,7 +21,7 @@ use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 /**
  * Class Ajax.
  *
- * @since   6.0.0
+ * @since 6.0.0
  * @package TEC\Events\Custom_Tables\V1\Migration;
  */
 class Ajax {
@@ -132,10 +130,19 @@ class Ajax {
 	 * @param bool $echo Flag whether we echo or return json string.
 	 *
 	 * @return void|string The JSON-encoded data for the front-end.
-	 *
 	 */
 	public function send_report( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'You do not have permission to view this page.', 'the-events-calendar' ),
+				]
+			);
+
+			return;
+		}
 
 		$response = $this->get_report();
 		if ( $echo ) {
@@ -157,6 +164,17 @@ class Ajax {
 	 */
 	public function paginate_events( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'You do not have permission to view this page.', 'the-events-calendar' ),
+				]
+			);
+
+			return;
+		}
+
 		$response = $this->get_paginated_response( $_GET['page'], 25, ! empty( $_GET['upcoming'] ), $_GET['report_category'] );
 		if ( $echo ) {
 			wp_send_json( $response );
@@ -184,21 +202,25 @@ class Ajax {
 		$filter        = [
 			Event_Report::META_KEY_MIGRATION_CATEGORY => $category,
 			Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-			'upcoming'                                => $upcoming
+			'upcoming'                                => $upcoming,
 		];
 		$event_details = $this->get_events_and_has_more( $page, $count, $filter );
 		$renderer_args = [
 			'state'         => $this->state,
 			'report'        => $this->site_report,
 			'text'          => $this->text,
-			'event_reports' => $event_details['event_reports']
+			'event_reports' => $event_details['event_reports'],
 		];
 
 		$renderer = new Phase_View_Renderer(
 			$phase . '-paginated',
 			'/partials/event-items.php',
 			$renderer_args,
-			[ 'has_more' => $event_details['has_more'], 'append' => $upcoming, 'prepend' => ! $upcoming ]
+			[
+				'has_more' => $event_details['has_more'],
+				'append'   => $upcoming,
+				'prepend'  => ! $upcoming,
+			]
 		);
 
 		return $renderer->compile();
@@ -214,8 +236,8 @@ class Ajax {
 	 */
 	protected function get_report() {
 		// What phase are we in?
-		$state    = $this->state;
-		$phase    = $state->get_phase();
+		$state = $this->state;
+		$phase = $state->get_phase();
 
 		// Short-circuit if migration is not required.
 		if ( $phase === State::PHASE_MIGRATION_NOT_REQUIRED ) {
@@ -238,9 +260,9 @@ class Ajax {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param int $page  Which page we are on.
-	 * @param int $count How many we want.
-	 * @param     $filter
+	 * @param int    $page  Which page we are on.
+	 * @param int    $count How many we want.
+	 * @param $filter
 	 *
 	 * @return array{ has_more:bool, event_reports:array<Event_Report> }
 	 */
@@ -255,14 +277,19 @@ class Ajax {
 			$has_more = false;
 		} else {
 			// If we did, lets see if there is another page.
-			$has_more = ! empty( $this->events_repository->get_events_migrated(
-				$page + 1,
-				$count,
-				$filter
-			) );
+			$has_more = ! empty(
+				$this->events_repository->get_events_migrated(
+					$page + 1,
+					$count,
+					$filter
+				) 
+			);
 		}
 
-		return [ 'has_more' => $has_more, 'event_reports' => $event_reports ];
+		return [
+			'has_more'      => $has_more,
+			'event_reports' => $event_reports,
+		];
 	}
 
 	/**
@@ -279,7 +306,7 @@ class Ajax {
 		$renderer_args = [
 			'state'  => $this->state,
 			'report' => $this->site_report,
-			'text'   => $this->text
+			'text'   => $this->text,
 		];
 
 		switch ( $phase ) {
@@ -302,7 +329,7 @@ class Ajax {
 						$upcoming_filter         = [
 							Event_Report::META_KEY_MIGRATION_CATEGORY => $category['key'],
 							Event_Report::META_KEY_MIGRATION_PHASE    => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_SUCCESS,
-							'upcoming'                                => true
+							'upcoming'                                => true,
 						];
 						$past_filter             = $upcoming_filter;
 						$past_filter['upcoming'] = false;
@@ -335,7 +362,8 @@ class Ajax {
 			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
 				$renderer_args['event_reports'] = $this->site_report->get_event_reports(
 					1,
-					$count, [ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
+					$count,
+					[ Event_Report::META_KEY_MIGRATION_PHASE => Event_Report::META_VALUE_MIGRATION_PHASE_MIGRATION_FAILURE ]
 				);
 				break;
 		}
@@ -353,13 +381,13 @@ class Ajax {
 	 * @return string|void The primary template file to load for this phase.
 	 */
 	protected function get_renderer_template( $phase ) {
-		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
+		$phase ??= State::PHASE_PREVIEW_PROMPT;
 
 		// Is the Maintenance Mode view requesting the report? This changes how we handle the views.
-		$is_maintenance_mode = ! empty( $_GET["is_maintenance_mode"] );
+		$is_maintenance_mode = ! empty( $_GET['is_maintenance_mode'] );
 
 		// Determine base directory for templates.
-		$base_dir = $is_maintenance_mode ? "/maintenance-mode/phase" : "/phase";
+		$base_dir = $is_maintenance_mode ? '/maintenance-mode/phase' : '/phase';
 
 		// Base template is phase name. Some phases might change it with other logic.
 		$template = $phase;
@@ -432,13 +460,13 @@ class Ajax {
 		 *                           Initially `null`.
 		 * @param string $phase      The current phase we are in.
 		 */
-		$renderer = apply_filters( "tec_events_custom_tables_v1_migration_ajax_ui_renderer", null, $phase );
+		$renderer = apply_filters( 'tec_events_custom_tables_v1_migration_ajax_ui_renderer', null, $phase );
 		if ( $renderer instanceof Phase_View_Renderer ) {
 
 			return $renderer;
 		}
 
-		$phase = $phase === null ? State::PHASE_PREVIEW_PROMPT : $phase;
+		$phase ??= State::PHASE_PREVIEW_PROMPT;
 
 		// Get the args.
 		$renderer_args = $this->get_renderer_args( $phase );
@@ -452,13 +480,14 @@ class Ajax {
 			case State::PHASE_MIGRATION_IN_PROGRESS:
 				// * Warning, need a new report object here, state will have changed.
 				$site_report = Site_Report::build();
-				$renderer->register_node( 'progress-bar',
+				$renderer->register_node(
+					'progress-bar',
 					'.tec-ct1-upgrade-update-bar-container',
 					'/partials/progress-bar.php',
 					[
 						'phase'  => $phase,
 						'report' => $site_report,
-						'text'   => $this->text
+						'text'   => $this->text,
 					]
 				);
 				break;
@@ -480,12 +509,27 @@ class Ajax {
 	public function start_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'You do not have permission to migrate events.', 'the-events-calendar' ),
+				]
+			);
+
+			return;
+		}
+
 		$dry_run = ! empty( $_REQUEST['tec_events_custom_tables_v1_migration_dry_run'] );
 		// Log our start
-		do_action( 'tribe_log', 'debug', 'Ajax: Start migration', [
-			'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'dry_run' => $dry_run,
-		] );
+		do_action(
+			'tribe_log',
+			'debug',
+			'Ajax: Start migration',
+			[
+				'source'  => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+				'dry_run' => $dry_run,
+			] 
+		);
 		$this->process->start( $dry_run );
 
 		$response = $this->get_report();
@@ -509,14 +553,29 @@ class Ajax {
 	 * @param bool $echo Flag whether we echo or return json string.
 	 *
 	 * @return void|string The JSON-encoded data for the front-end.
-	 *
 	 */
 	public function cancel_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'You do not have permission to migrate events.', 'the-events-calendar' ),
+				]
+			);
+
+			return;
+		}
+
 		// Log our start
-		do_action( 'tribe_log', 'debug', 'Ajax: Cancel migration', [
-			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-		] );
+		do_action(
+			'tribe_log',
+			'debug',
+			'Ajax: Cancel migration',
+			[
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] 
+		);
 		// A cancel action is identical to an undo.
 		$this->process->cancel();
 		$response = $this->get_report();
@@ -540,10 +599,26 @@ class Ajax {
 	 */
 	public function revert_migration( $echo = true ) {
 		check_ajax_referer( self::NONCE_ACTION );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				[
+					'message' => __( 'You do not have permission to migrate events.', 'the-events-calendar' ),
+				]
+			);
+
+			return;
+		}
+
 		// Log our start
-		do_action( 'tribe_log', 'debug', 'Ajax: Undo migration', [
-			'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-		] );
+		do_action(
+			'tribe_log',
+			'debug',
+			'Ajax: Undo migration',
+			[
+				'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+			] 
+		);
 		$this->process->revert();
 		$response = $this->get_report();
 		if ( $echo ) {

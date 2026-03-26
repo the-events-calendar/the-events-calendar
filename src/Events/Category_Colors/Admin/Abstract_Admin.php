@@ -148,6 +148,11 @@ abstract class Abstract_Admin {
 			return;
 		}
 
+		// Verify user can edit this term.
+		if ( ! current_user_can( 'edit_term', $term_id ) ) {
+			return;
+		}
+
 		// Retrieve submitted category colors.
 		$category_colors = tec_get_request_var( 'tec_events_category-color', false );
 
