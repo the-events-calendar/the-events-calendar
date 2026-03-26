@@ -538,7 +538,6 @@ class Custom_Tables_Query extends WP_Query {
 			return $where;
 		}
 
-		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 
 		/**
@@ -586,14 +585,17 @@ class Custom_Tables_Query extends WP_Query {
 			// Simple limit: Get the earliest occurrence per post_id that matches the main WHERE clause
 			// We need to incorporate the date filtering from the main WHERE clause into the subquery
 			// Extract date conditions from the current WHERE clause.
-			$where_date_conditions = '';
-			if ( preg_match( '/wp_tec_occurrences\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where, $matches ) ) {
-				// Extract all date conditions that reference wp_tec_occurrences table.
-				preg_match_all( '/wp_tec_occurrences\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where, $all_matches );
+			$o1_where_conditions = '';
+			$o2_where_conditions = '';
+			$escaped_occurrences = preg_quote( $occurrences, '/' );
+			if ( preg_match( '/' . $escaped_occurrences . '\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where ) ) {
+				// Extract all date conditions that reference the occurrences table.
+				preg_match_all( '/' . $escaped_occurrences . '\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where, $all_matches );
 				if ( ! empty( $all_matches[0] ) ) {
 					foreach ( $all_matches[0] as $condition ) {
-						// Convert wp_tec_occurrences to o1/o2 aliases.
-						$where_date_conditions .= ' AND ' . str_replace( 'wp_tec_occurrences', 'o1', $condition );
+						// Convert occurrences table name to o1/o2 aliases.
+						$o1_where_conditions .= ' AND ' . str_replace( $occurrences, 'o1', $condition );
+						$o2_where_conditions .= ' AND ' . str_replace( $occurrences, 'o2', $condition );
 					}
 				}
 			}
@@ -603,9 +605,9 @@ class Custom_Tables_Query extends WP_Query {
 				FROM {$occurrences} o1
 				LEFT JOIN {$occurrences} o2 ON o1.post_id = o2.post_id
 					AND (o2.start_date < o1.start_date OR (o2.start_date = o1.start_date AND o2.occurrence_id < o1.occurrence_id))
-					{$where_date_conditions}
+					{$o2_where_conditions}
 				WHERE o2.occurrence_id IS NULL
-				{$where_date_conditions}
+				{$o1_where_conditions}
 			)";
 		} else {
 			// Date-aware limit: include date conditions in the subquery to select the right occurrence.
@@ -687,8 +689,24 @@ class Custom_Tables_Query extends WP_Query {
 			// Sanitize and escape the value.
 			$value = esc_sql( $value );
 
-			// Build the condition.
-			$date_conditions .= " AND occ.{$column} {$compare} '{$value}'";
+			// Build the condition based on the comparison type.
+			switch ( strtoupper( $compare ) ) {
+				case 'EXISTS':
+					$date_conditions .= " AND occ.{$column} IS NOT NULL";
+					break;
+				case 'NOT EXISTS':
+					$date_conditions .= " AND occ.{$column} IS NULL";
+					break;
+				case 'IN':
+				case 'NOT IN':
+				case 'BETWEEN':
+				case 'NOT BETWEEN':
+					// Skip complex comparisons that need special handling.
+					break;
+				default:
+					$date_conditions .= " AND occ.{$column} {$compare} '{$value}'";
+					break;
+			}
 		}
 
 		return $date_conditions;
