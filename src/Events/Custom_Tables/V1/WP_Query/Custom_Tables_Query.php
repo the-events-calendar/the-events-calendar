@@ -152,6 +152,7 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_where', [ $this, 'filter_where' ], 20, 2 );
 		add_filter( 'posts_where', [ $this, 'limit_to_single_occurrence_when_pro_inactive' ], 30, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
+		add_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5, 2 );
 		// This is the last filter in the `WP_Query` class: use this as an action to clean up.
 		add_filter( 'the_posts', [ $this, 'remove_late_filters' ], 10, 2 );
 		add_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200, 2 );
@@ -509,22 +510,20 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
-	 * Limits results to a single occurrence per event when Events Calendar Pro is not active.
+	 * Extracts and stores date conditions for occurrence hydration when Pro is inactive.
 	 *
-	 * When ECP is deactivated but recurring events were previously created, the occurrences table
-	 * may contain multiple rows per post_id. This filter ensures only one occurrence per event is
-	 * returned when Pro is inactive, preventing duplicate event displays.
-	 *
-	 * The subquery respects date filtering by only selecting from occurrences that match the
-	 * main query's date criteria, ensuring that for queries like "events after now", we get
-	 * the first *future* occurrence, not the globally first occurrence by ID.
+	 * When ECP is deactivated but recurring events were previously created, deduplication
+	 * is handled by keeping the GROUP BY on post_id (see group_posts_by_occurrence_id).
+	 * This method extracts date conditions from the meta_query and stores them on the query
+	 * object so the hydration step (Provider::hydrate_posts_with_occurrence_dates) can select
+	 * the correct occurrence dates for each event post.
 	 *
 	 * @since TBD
 	 *
 	 * @param string        $where The input `WHERE` clause, as built by the `WP_Query` class code.
 	 * @param WP_Query|null $query A reference to the `WP_Query` instance currently being filtered.
 	 *
-	 * @return string The `WHERE` SQL clause, modified to limit to one occurrence per post when Pro is inactive.
+	 * @return string The `WHERE` SQL clause.
 	 */
 	public function limit_to_single_occurrence_when_pro_inactive( $where, $query = null ) {
 		if ( $this !== $query ) {
@@ -538,20 +537,28 @@ class Custom_Tables_Query extends WP_Query {
 			return $where;
 		}
 
-		$occurrences = Occurrences::table_name( true );
+		// Check if any events have multiple occurrences. If not, there's nothing to
+		// deduplicate or hydrate, so we can skip all the special logic.
+		if ( ! $this->has_multi_occurrence_events() ) {
+			$this->set( '_tec_used_simple_limit', true );
+			return $where;
+		}
 
 		/**
 		 * Extract date filtering conditions from the query's meta_query.
 		 * At this point in the filter chain, meta_query conditions haven't been added to WHERE yet,
 		 * so we need to build them from the meta_query array directly.
+		 *
+		 * These conditions are stored for use by hydration (in Provider::hydrate_posts_with_occurrence_dates)
+		 * to select the correct occurrence dates for each event post.
 		 */
 		$date_conditions = $this->build_date_conditions_from_meta_query( $query );
 
 		// Check for List View via eventDisplay parameter.
 		$event_display = $this->get( 'eventDisplay', false );
 
-		// For List View, when no date conditions are in meta_query, apply a future events filter
-		// This ensures we select the first future occurrence, not the globally earliest one.
+		// For List View, when no date conditions are in meta_query, apply a future events filter.
+		// This ensures hydration selects the first future occurrence, not the globally earliest one.
 		if ( $event_display === 'list' && empty( $date_conditions ) ) {
 			$current_time    = current_time( 'mysql' );
 			$date_conditions = " AND occ.end_date > '{$current_time}'";
@@ -560,71 +567,8 @@ class Custom_Tables_Query extends WP_Query {
 		// Store the date conditions in the query object so hydration can use them.
 		$this->set( '_tec_occurrence_date_conditions', $date_conditions );
 
-		/**
-		 * If no date conditions were found in meta_query or ends_after, use simple limiting.
-		 * The main query's WHERE clause will handle date filtering via date_overlaps.
-		 */
-		$use_simple_limit = empty( $date_conditions );
-
-		// Store whether we're using simple limit so hydration knows whether to apply date filtering.
-		$this->set( '_tec_used_simple_limit', $use_simple_limit );
-
-		/**
-		 * When Pro is not active, limit to the earliest occurrence for each post_id
-		 * that matches the date criteria. This prevents showing the same event multiple
-		 * times when recurring event data exists in the occurrences table but Pro is deactivated.
-		 *
-		 * We select by earliest start_date, not by MIN(occurrence_id), since occurrence IDs
-		 * may not be in chronological order. By including the date conditions in the subquery,
-		 * we ensure that for queries like "events after now", we get the first future occurrence.
-		 *
-		 * This uses a self-join approach compatible with MySQL 5.7+.
-		 */
-
-		if ( $use_simple_limit ) {
-			// Simple limit: Get the earliest occurrence per post_id that matches the main WHERE clause
-			// We need to incorporate the date filtering from the main WHERE clause into the subquery
-			// Extract date conditions from the current WHERE clause.
-			$o1_where_conditions = '';
-			$o2_where_conditions = '';
-			$escaped_occurrences = preg_quote( $occurrences, '/' );
-			if ( preg_match( '/' . $escaped_occurrences . '\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where ) ) {
-				// Extract all date conditions that reference the occurrences table.
-				preg_match_all( '/' . $escaped_occurrences . '\.(start_date|end_date)\s*[<>=]+\s*\'[^\']+\'/i', $where, $all_matches );
-				if ( ! empty( $all_matches[0] ) ) {
-					foreach ( $all_matches[0] as $condition ) {
-						// Convert occurrences table name to o1/o2 aliases.
-						$o1_where_conditions .= ' AND ' . str_replace( $occurrences, 'o1', $condition );
-						$o2_where_conditions .= ' AND ' . str_replace( $occurrences, 'o2', $condition );
-					}
-				}
-			}
-
-			$where .= " AND {$occurrences}.occurrence_id IN (
-				SELECT o1.occurrence_id
-				FROM {$occurrences} o1
-				LEFT JOIN {$occurrences} o2 ON o1.post_id = o2.post_id
-					AND (o2.start_date < o1.start_date OR (o2.start_date = o1.start_date AND o2.occurrence_id < o1.occurrence_id))
-					{$o2_where_conditions}
-				WHERE o2.occurrence_id IS NULL
-				{$o1_where_conditions}
-			)";
-		} else {
-			// Date-aware limit: include date conditions in the subquery to select the right occurrence.
-			// This ensures that for queries like "events after now", we get the first future occurrence.
-			$o1_date_conditions = str_replace( 'occ.', 'o1.', $date_conditions );
-			$o2_date_conditions = str_replace( 'occ.', 'o2.', $date_conditions );
-
-			$where .= " AND {$occurrences}.occurrence_id IN (
-				SELECT o1.occurrence_id
-				FROM {$occurrences} o1
-				LEFT JOIN {$occurrences} o2 ON o1.post_id = o2.post_id
-					AND (o2.start_date < o1.start_date OR (o2.start_date = o1.start_date AND o2.occurrence_id < o1.occurrence_id))
-					AND 1=1 {$o2_date_conditions}
-				WHERE o2.occurrence_id IS NULL
-				AND 1=1 {$o1_date_conditions}
-			)";
-		}
+		// Store whether simple limiting was used so hydration knows whether to apply date filtering.
+		$this->set( '_tec_used_simple_limit', empty( $date_conditions ) );
 
 		return $where;
 	}
@@ -634,7 +578,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * This is necessary because at the time `posts_where` filters run, the meta_query
 	 * conditions haven't been converted to SQL yet. We need to extract them early
-	 * to use in our occurrence-limiting subquery.
+	 * so the hydration step can use them to select the correct occurrence.
 	 *
 	 * @since TBD
 	 *
@@ -710,6 +654,34 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		return $date_conditions;
+	}
+
+	/**
+	 * Checks whether any events in the occurrences table have more than one occurrence.
+	 *
+	 * Uses a static cache to avoid repeated queries within the same request.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if any event has multiple occurrences, false otherwise.
+	 */
+	private function has_multi_occurrence_events(): bool {
+		static $has_multi = null;
+
+		if ( null !== $has_multi ) {
+			return $has_multi;
+		}
+
+		global $wpdb;
+		$table = Occurrences::table_name( true );
+
+		// Table name comes from Occurrences::table_name() and cannot be parameterized via $wpdb->prepare().
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$result = $wpdb->get_var( "SELECT 1 FROM {$table} GROUP BY post_id HAVING COUNT(*) > 1 LIMIT 1" );
+
+		$has_multi = (bool) $result;
+
+		return $has_multi;
 	}
 
 	/**
@@ -823,9 +795,57 @@ class Custom_Tables_Query extends WP_Query {
 		remove_filter( 'posts_where', [ $this, 'filter_where' ] );
 		remove_filter( 'posts_where', [ $this, 'limit_to_single_occurrence_when_pro_inactive' ] );
 		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ] );
+		remove_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5 );
 		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
 		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
 		remove_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200 );
+	}
+
+	/**
+	 * Deduplicates posts by post_id when Events Calendar Pro is not active.
+	 *
+	 * When Pro is deactivated but recurring events were previously created, the occurrences
+	 * table may contain multiple rows per post_id. Since the query groups by occurrence_id,
+	 * the same event post can appear multiple times. This filter keeps only the first
+	 * occurrence of each post_id (respecting the query's ORDER BY).
+	 *
+	 * @since TBD
+	 *
+	 * @param array    $posts The posts returned by the query.
+	 * @param WP_Query $query The WP_Query instance.
+	 *
+	 * @return array The deduplicated posts array.
+	 */
+	public function deduplicate_posts_when_pro_inactive( $posts, $query ) {
+		if ( $query !== $this->wp_query ) {
+			return $posts;
+		}
+
+		remove_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5 );
+
+		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			return $posts;
+		}
+
+		if ( empty( $posts ) || ! is_array( $posts ) ) {
+			return $posts;
+		}
+
+		$seen     = [];
+		$filtered = [];
+
+		foreach ( $posts as $post ) {
+			$post_id = $post instanceof \WP_Post ? $post->ID : (int) $post;
+
+			if ( isset( $seen[ $post_id ] ) ) {
+				continue;
+			}
+
+			$seen[ $post_id ] = true;
+			$filtered[]       = $post;
+		}
+
+		return $filtered;
 	}
 
 	/**

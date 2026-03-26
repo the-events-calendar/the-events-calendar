@@ -156,32 +156,50 @@ class Provider extends Service_Provider {
 			return $posts;
 		}
 
+		// Collect all post IDs from the results.
+		$post_ids = [];
 		foreach ( $posts as $post ) {
-			// During found_posts, $post is a post ID (integer) but during posts_results, $post is a WP_Post object or stdClass.
 			if ( $post instanceof \WP_Post ) {
-				$post_id = $post->ID;
+				$post_ids[] = $post->ID;
 			} elseif ( is_object( $post ) && isset( $post->ID ) ) {
-				$post_id = (int) $post->ID;
+				$post_ids[] = (int) $post->ID;
 			} else {
-				$post_id = (int) $post;
+				$post_ids[] = (int) $post;
 			}
+		}
 
-			if ( empty( $post_id ) ) {
-				continue;
-			}
+		$post_ids = array_filter( $post_ids );
 
-			/*
-			 * Get the occurrence using the same date filtering as the query.
-			 * This ensures we get the right occurrence (e.g., first future one for List View).
-			 */
-			global $wpdb;
-			$table = \TEC\Events\Custom_Tables\V1\Tables\Occurrences::table_name( true );
+		if ( empty( $post_ids ) ) {
+			return $posts;
+		}
 
-			// Build the query with date conditions.
-			// Note: date_conditions already includes quotes and is safe to use directly (not via prepare).
-			$occ_date_conditions = str_replace( 'occ.', 'o.', $date_conditions );
+		/*
+		 * Only hydrate posts that actually have multiple occurrences.
+		 * Single-occurrence events already have correct dates in post meta.
+		 */
+		global $wpdb;
+		$table        = \TEC\Events\Custom_Tables\V1\Tables\Occurrences::table_name( true );
+		$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
 
-			// Prepare the post_id part first.
+		// Table name from Occurrences::table_name() cannot be parameterized; placeholders are
+		// dynamically-generated %d tokens matched to $post_ids via $wpdb->prepare().
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		$multi_occurrence_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT post_id FROM {$table} WHERE post_id IN ({$placeholders}) GROUP BY post_id HAVING COUNT(*) > 1",
+				$post_ids
+			)
+		);
+
+		if ( empty( $multi_occurrence_ids ) ) {
+			return $posts;
+		}
+
+		$multi_occurrence_ids = array_map( 'intval', $multi_occurrence_ids );
+		$occ_date_conditions  = str_replace( 'occ.', 'o.', $date_conditions );
+
+		foreach ( $multi_occurrence_ids as $post_id ) {
 			$post_id_condition = $wpdb->prepare( 'o.post_id = %d', $post_id );
 
 			// Build the full SQL (date conditions are already escaped from meta_query processing).
@@ -192,6 +210,8 @@ class Provider extends Service_Provider {
 				ORDER BY o.start_date ASC, o.occurrence_id ASC
 				LIMIT 1";
 
+			// $post_id_condition uses $wpdb->prepare(); $occ_date_conditions values are esc_sql()'d
+			// in build_date_conditions_from_meta_query(). Table name cannot be parameterized.
 			$occurrence_row = $wpdb->get_row( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			if ( ! $occurrence_row ) {
@@ -199,8 +219,7 @@ class Provider extends Service_Provider {
 			}
 
 			// Update the post meta cache with this occurrence's dates.
-			$cache_key  = $post_id;
-			$meta_cache = wp_cache_get( $cache_key, 'post_meta' );
+			$meta_cache = wp_cache_get( $post_id, 'post_meta' );
 
 			if ( false === $meta_cache ) {
 				$meta_cache = update_meta_cache( 'post', [ $post_id ] );
@@ -213,7 +232,7 @@ class Provider extends Service_Provider {
 			$meta_cache['_EventStartDateUTC'] = [ $occurrence_row->start_date_utc ];
 			$meta_cache['_EventEndDateUTC']   = [ $occurrence_row->end_date_utc ];
 
-			wp_cache_set( $cache_key, $meta_cache, 'post_meta' );
+			wp_cache_set( $post_id, $meta_cache, 'post_meta' );
 		}
 
 		return $posts;
