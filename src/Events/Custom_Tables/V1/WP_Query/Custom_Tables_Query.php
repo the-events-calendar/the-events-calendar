@@ -975,7 +975,7 @@ class Custom_Tables_Query extends WP_Query {
 			// Only allow the exact RAND() function to prevent SQL injection.
 			$trimmed_frag = trim( $orderby_frag );
 			if ( preg_match( '/^rand\s*\(\s*\)$/i', $trimmed_frag ) ) {
-				// Use hardcoded RAND() to prevent SQL injection
+				// Use hardcoded RAND() to prevent SQL injection.
 				$redirected_orderbys .= ( $redirected_orderbys === '' ? '' : ', ' ) . 'RAND()';
 				continue;
 			}

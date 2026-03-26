@@ -182,14 +182,11 @@ class Provider extends Service_Provider {
 		$table        = \TEC\Events\Custom_Tables\V1\Tables\Occurrences::table_name( true );
 		$placeholders = implode( ',', array_fill( 0, count( $post_ids ), '%d' ) );
 
-		// Table name from Occurrences::table_name() cannot be parameterized; placeholders are
-		// dynamically-generated %d tokens matched to $post_ids via $wpdb->prepare().
-		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+		// Table name from Occurrences::table_name() cannot be parameterized; $placeholders are
+		// dynamically-generated %d tokens whose values are passed to $wpdb->prepare() via $post_ids.
+		$sql                  = "SELECT post_id FROM {$table} WHERE post_id IN ({$placeholders}) GROUP BY post_id HAVING COUNT(*) > 1"; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$multi_occurrence_ids = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT post_id FROM {$table} WHERE post_id IN ({$placeholders}) GROUP BY post_id HAVING COUNT(*) > 1",
-				$post_ids
-			)
+			$wpdb->prepare( $sql, $post_ids ) // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		);
 
 		if ( empty( $multi_occurrence_ids ) ) {
