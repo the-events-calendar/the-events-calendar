@@ -150,7 +150,6 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_where' ], 20, 2 );
-		add_filter( 'posts_where', [ $this, 'limit_to_single_occurrence_when_pro_inactive' ], 30, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
 		add_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5, 2 );
 		// This is the last filter in the `WP_Query` class: use this as an action to clean up.
@@ -196,8 +195,6 @@ class Custom_Tables_Query extends WP_Query {
 			add_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0, 2 );
 		} else {
 			$this->set( 'cache_results', false );
-			// When not calculating found_posts, hydrate via posts_results instead.
-			add_filter( 'posts_results', [ $this, 'hydrate_posts_via_posts_results' ], 10, 2 );
 		}
 
 		$results = parent::get_posts();
@@ -510,181 +507,6 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
-	 * Extracts and stores date conditions for occurrence hydration when Pro is inactive.
-	 *
-	 * When ECP is deactivated but recurring events were previously created, deduplication
-	 * is handled by keeping the GROUP BY on post_id (see group_posts_by_occurrence_id).
-	 * This method extracts date conditions from the meta_query and stores them on the query
-	 * object so the hydration step (Provider::hydrate_posts_with_occurrence_dates) can select
-	 * the correct occurrence dates for each event post.
-	 *
-	 * @since TBD
-	 *
-	 * @param string        $where The input `WHERE` clause, as built by the `WP_Query` class code.
-	 * @param WP_Query|null $query A reference to the `WP_Query` instance currently being filtered.
-	 *
-	 * @return string The `WHERE` SQL clause.
-	 */
-	public function limit_to_single_occurrence_when_pro_inactive( $where, $query = null ) {
-		if ( $this !== $query ) {
-			return $where;
-		}
-
-		remove_filter( 'posts_where', [ $this, 'limit_to_single_occurrence_when_pro_inactive' ], 30 );
-
-		// If Events Calendar Pro is active, it will handle multiple occurrences properly.
-		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			return $where;
-		}
-
-		// Check if any events have multiple occurrences. If not, there's nothing to
-		// deduplicate or hydrate, so we can skip all the special logic.
-		if ( ! $this->has_multi_occurrence_events() ) {
-			$this->set( '_tec_used_simple_limit', true );
-			return $where;
-		}
-
-		/**
-		 * Extract date filtering conditions from the query's meta_query.
-		 * At this point in the filter chain, meta_query conditions haven't been added to WHERE yet,
-		 * so we need to build them from the meta_query array directly.
-		 *
-		 * These conditions are stored for use by hydration (in Provider::hydrate_posts_with_occurrence_dates)
-		 * to select the correct occurrence dates for each event post.
-		 */
-		$date_conditions = $this->build_date_conditions_from_meta_query( $query );
-
-		// Check for List View via eventDisplay parameter.
-		$event_display = $this->get( 'eventDisplay', false );
-
-		// For List View, when no date conditions are in meta_query, apply a future events filter.
-		// This ensures hydration selects the first future occurrence, not the globally earliest one.
-		if ( $event_display === 'list' && empty( $date_conditions ) ) {
-			$current_time    = current_time( 'mysql' );
-			$date_conditions = " AND occ.end_date > '{$current_time}'";
-		}
-
-		// Store the date conditions in the query object so hydration can use them.
-		$this->set( '_tec_occurrence_date_conditions', $date_conditions );
-
-		// Store whether simple limiting was used so hydration knows whether to apply date filtering.
-		$this->set( '_tec_used_simple_limit', empty( $date_conditions ) );
-
-		return $where;
-	}
-
-	/**
-	 * Builds date filtering conditions from the query's meta_query array.
-	 *
-	 * This is necessary because at the time `posts_where` filters run, the meta_query
-	 * conditions haven't been converted to SQL yet. We need to extract them early
-	 * so the hydration step can use them to select the correct occurrence.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Query|null $query A reference to the `WP_Query` instance.
-	 *
-	 * @return string SQL conditions for the subquery, prefixed with 'occ.' table alias.
-	 */
-	private function build_date_conditions_from_meta_query( $query ) {
-		if ( ! $query || ! isset( $query->meta_query ) || ! $query->meta_query instanceof \WP_Meta_Query ) {
-			return '';
-		}
-
-		$date_conditions = '';
-
-		// Map meta keys to occurrence table columns.
-		$meta_key_map = [
-			'_EventStartDate'    => 'start_date',
-			'_EventEndDate'      => 'end_date',
-			'_EventStartDateUTC' => 'start_date_utc',
-			'_EventEndDateUTC'   => 'end_date_utc',
-		];
-
-		// Extract conditions from meta_query.
-		$queries = $query->meta_query->queries;
-
-		foreach ( $queries as $query_key => $query_item ) {
-			if ( ! is_array( $query_item ) ) {
-				continue;
-			}
-
-			// Check if this is the actual query or metadata (like 'relation').
-			if ( $query_key === 'relation' ) {
-				continue;
-			}
-
-			// Get the meta key - check both 'original_meta_key' (set by Custom Tables) and 'key'.
-			$meta_key = $query_item['original_meta_key'] ?? $query_item['key'] ?? null;
-
-			if ( ! $meta_key ) {
-				continue;
-			}
-
-			// Only process date-related meta keys.
-			if ( ! isset( $meta_key_map[ $meta_key ] ) ) {
-				continue;
-			}
-
-			$column  = $meta_key_map[ $meta_key ];
-			$compare = $query_item['compare'] ?? '=';
-			$value   = $query_item['value'] ?? '';
-
-			// Sanitize and escape the value.
-			$value = esc_sql( $value );
-
-			// Build the condition based on the comparison type.
-			switch ( strtoupper( $compare ) ) {
-				case 'EXISTS':
-					$date_conditions .= " AND occ.{$column} IS NOT NULL";
-					break;
-				case 'NOT EXISTS':
-					$date_conditions .= " AND occ.{$column} IS NULL";
-					break;
-				case 'IN':
-				case 'NOT IN':
-				case 'BETWEEN':
-				case 'NOT BETWEEN':
-					// Skip complex comparisons that need special handling.
-					break;
-				default:
-					$date_conditions .= " AND occ.{$column} {$compare} '{$value}'";
-					break;
-			}
-		}
-
-		return $date_conditions;
-	}
-
-	/**
-	 * Checks whether any events in the occurrences table have more than one occurrence.
-	 *
-	 * Uses a static cache to avoid repeated queries within the same request.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool True if any event has multiple occurrences, false otherwise.
-	 */
-	private function has_multi_occurrence_events(): bool {
-		static $has_multi = null;
-
-		if ( null !== $has_multi ) {
-			return $has_multi;
-		}
-
-		global $wpdb;
-		$table = Occurrences::table_name( true );
-
-		// Table name comes from Occurrences::table_name() and cannot be parameterized via $wpdb->prepare().
-		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$result = $wpdb->get_var( "SELECT 1 FROM {$table} GROUP BY post_id HAVING COUNT(*) > 1 LIMIT 1" );
-
-		$has_multi = (bool) $result;
-
-		return $has_multi;
-	}
-
-	/**
 	 * Filters the Query JOIN clause to JOIN on the Occurrences table if the Custom
 	 * Tables Meta Query did not do that already.
 	 *
@@ -793,7 +615,6 @@ class Custom_Tables_Query extends WP_Query {
 		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
 		remove_filter( 'posts_where', [ $this, 'filter_by_date' ] );
 		remove_filter( 'posts_where', [ $this, 'filter_where' ] );
-		remove_filter( 'posts_where', [ $this, 'limit_to_single_occurrence_when_pro_inactive' ] );
 		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ] );
 		remove_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5 );
 		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
@@ -903,43 +724,6 @@ class Custom_Tables_Query extends WP_Query {
 		$query->posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $query->posts, $query );
 
 		return $found_posts;
-	}
-
-	/**
-	 * Hydrates the posts returned by the query via the posts_results filter.
-	 *
-	 * This is used when the query has no_found_rows set to true, meaning the found_posts
-	 * filter won't run. In this case, we hydrate via posts_results instead.
-	 *
-	 * @since TBD
-	 *
-	 * @param array    $posts The posts returned by the query.
-	 * @param WP_Query $query The query object.
-	 *
-	 * @return array The hydrated posts.
-	 */
-	public function hydrate_posts_via_posts_results( $posts, $query ) {
-		// The posts_results filter doesn't pass $this, but rather returns from parent::get_posts()
-		// So we can't do strict object comparison. Instead, just proceed with hydration.
-
-		remove_filter( 'posts_results', [ $this, 'hydrate_posts_via_posts_results' ], 10 );
-
-		if ( empty( $posts ) || ! is_array( $posts ) ) {
-			return $posts;
-		}
-
-		/**
-		 * Filters the posts that will be hydrated by the Custom Tables Query.
-		 *
-		 * @since TBD
-		 *
-		 * @param array               $posts The posts that will be hydrated by the Custom Tables Query.
-		 * @param Custom_Tables_Query $this  The Custom Tables Query instance.
-		 */
-		$posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $posts, $this );
-
-		// Pass $this instead of $query, because $this has the date conditions stored.
-		return $posts;
 	}
 
 	/**
