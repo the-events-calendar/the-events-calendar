@@ -2,7 +2,7 @@
 /**
  * Provides integration with Views V2.
  *
- * @since 6.0.0
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
@@ -19,7 +19,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Provider
  *
- * @since 6.0.0
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */

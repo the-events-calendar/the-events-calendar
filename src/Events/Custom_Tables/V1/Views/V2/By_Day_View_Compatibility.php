@@ -3,7 +3,7 @@
  * Handles the plugin integration and compatibility with the `By_Day_View` class, the common ancestor of Month and
  * Week View.
  *
- * @since 6.0.0
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
@@ -12,12 +12,13 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 
 use stdClass;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use Tribe\Events\Models\Post_Types\Event;
 use Tribe__Timezones as Timezones;
 
 /**
  * Class By_Day_View_Compatibility
  *
- * @since 6.0.0
+ * @since   6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
@@ -28,7 +29,8 @@ class By_Day_View_Compatibility {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param array<int> $ids A list of the Event post IDs to prepare the day results for.
+	 * @param array<int> $ids A list of the Event post IDs to prepare the day results
+	 *                        for.
 	 *
 	 * @return array<int,stdClass> The prepared day results.
 	 */
