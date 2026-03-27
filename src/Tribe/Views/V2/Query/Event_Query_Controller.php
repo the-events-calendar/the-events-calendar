@@ -2,7 +2,7 @@
 /**
  * Controls an Event query connecting it with the Repository and Context.
  *
- * @since   4.9.2
+ * @since 4.9.2
  * @package Tribe\Events\Views\V2\Query
  */
 
@@ -13,7 +13,8 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Event_Query_Controller
  *
- * @since   4.9.2
+ * @since 4.9.2
+ * @since TBD SSR pagination fix
  * @package Tribe\Events\Views\V2\Query
  */
 class Event_Query_Controller {
@@ -84,9 +85,12 @@ class Event_Query_Controller {
 			// If the query posts have been pre-filled already then let's use the information.
 			$query_posts = $query->posts;
 
-			$post__in = array_map( static function ( $post ): int {
-				return is_object( $post ) ? $post->ID : (int) $post;
-			}, $query_posts );
+			$post__in = array_map(
+				static function ( $post ): int {
+					return is_object( $post ) ? $post->ID : (int) $post;
+				},
+				$query_posts
+			);
 		}
 
 		/**
@@ -113,7 +117,53 @@ class Event_Query_Controller {
 		}
 
 		// @todo here build the args via URL -> Context -> orm_args
-		$orm_args = [];
+		// Build initial ORM args using context-based pagination defaults.
+		// These defaults are passed to the filter and can be fully overridden by it.
+		$context = tribe_context();
+
+		if ( $context->doing_php_initial_state() ) {
+			$display  = $context->get( 'event_display_mode', '' );
+			$date     = $context->get( 'event_date', 'now' );
+			$per_page = max( 1, (int) $context->get( 'events_per_page', 12 ) );
+
+			/*
+			 * When rendering the initial page (SSR) for a paginated event view, use the tribe
+			 * "events per page" option so pagination matches the View and AJAX. Only do this
+			 * when event_display is set (list, month, day) so callers that rely on the
+			 * orm_args filter (e.g. unit tests) still get the filter's posts_per_page.
+			 */
+			$event_display     = $context->get( 'event_display', '' );
+			$is_paginated_view = in_array( $event_display, [ 'list', 'month', 'day' ], true );
+			if ( $is_paginated_view ) {
+				/*
+				 * Use the canonical TEC "Events per page" option key ('postsPerPage') first so
+				 * that upgraded sites — which may still have a stale 'posts_per_page' tribe
+				 * option from an older TEC version — get the correct current value.
+				 * Fall back to the legacy key, then to WordPress's "Blog pages show at most" setting.
+				 */
+				$per_page = max( 1, (int) tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 12 ) ) ) );
+			}
+
+			if ( 'past' === $display ) {
+				$orm_args = [
+					'posts_per_page' => $per_page,
+					'paged'          => 1,
+					'ends_before'    => $date,
+					'order'          => 'DESC',
+					'orderby'        => 'event_date',
+				];
+			} else {
+				$orm_args = [
+					'posts_per_page' => $per_page,
+					'paged'          => 1,
+					'ends_after'     => $date,
+					'order'          => 'ASC',
+					'orderby'        => 'event_date',
+				];
+			}
+		} else {
+			$orm_args = [];
+		}
 
 		if ( null !== $post__in ) {
 			/*
@@ -157,9 +207,18 @@ class Event_Query_Controller {
 		$query->post_count = count( $injected_posts );
 		$query->post       = $query->post_count ? reset( $injected_posts ) : null;
 		// Set the request (SQL code) the repository used to fetch the events.;
-		$query->request       = $repository->get_query()->request;
-		$query->max_num_pages = $query->post_count > 0
-			? (int) ( ceil( $query->found_posts / $query->post_count ) )
+		$query->request = $repository->get_query()->request;
+
+		/*
+		 * Use the intended posts_per_page from the repository query, not post_count.
+		 * post_count varies by page (e.g., 0 on empty pages or < posts_per_page on the
+		 * last page), which would produce an incorrect max_num_pages and trigger false 404s.
+		 *
+		 * @since TBD
+		 */
+		$posts_per_page       = (int) $repository->get_query()->get( 'posts_per_page', 1 );
+		$query->max_num_pages = $query->found_posts > 0 && $posts_per_page > 0
+			? (int) ceil( $query->found_posts / $posts_per_page )
 			: 1;
 		$query->is_single     = false;
 		$query->is_singular   = false;
@@ -180,8 +239,7 @@ class Event_Query_Controller {
 	 *
 	 * @return array An array of post types supported by the Event_Query_Controller.
 	 */
-	public
-	function get_supported_post_types() {
+	public function get_supported_post_types() {
 		/**
 		 * Filters the list of post types supported by the Event_Query_Controller.
 		 *
@@ -312,7 +370,7 @@ class Event_Query_Controller {
 	 */
 	private function is_php_initial_state_main_query( $query ) {
 		return tribe_context()->doing_php_initial_state()
-		       && $query instanceof \WP_Query
-		       && $query->is_main_query();
+				&& $query instanceof \WP_Query
+				&& $query->is_main_query();
 	}
 }
