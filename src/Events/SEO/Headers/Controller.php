@@ -25,19 +25,64 @@ class Controller extends Controller_Contract {
 	 * Register actions.
 	 *
 	 * @since 6.10.2
+	 * @since TBD
 	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
 		add_action( 'send_headers', [ $this, 'filter_headers' ] );
+		add_filter( 'pre_handle_404', [ $this, 'prevent_list_view_paged_404' ], 10, 2 );
 	}
 
 	/**
 	 * Unregister actions.
 	 *
 	 * @since 6.10.2
+	 * @since TBD
 	 */
 	public function unregister(): void {
 		remove_action( 'send_headers', [ $this, 'filter_headers' ] );
+		remove_filter( 'pre_handle_404', [ $this, 'prevent_list_view_paged_404' ], 10 );
+	}
+
+	/**
+	 * Prevent WordPress from issuing a 404 for paginated TEC list view requests.
+	 *
+	 * On MariaDB, the Custom Tables query can return 0 rows for paged list view
+	 * requests due to GROUP BY occurrence_id + LIMIT offset optimiser differences
+	 * versus MySQL. WordPress's handle_404() unconditionally sets 404 when
+	 * is_paged() = true and $wp_query->posts is empty, so this filter intercepts
+	 * before that logic runs and lets TEC render the view with its own repository.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool      $preempt  Whether to short-circuit handle_404().
+	 * @param \WP_Query $wp_query The main query object.
+	 *
+	 * @return bool True to prevent the 404, otherwise the original value.
+	 */
+	public function prevent_list_view_paged_404( bool $preempt, \WP_Query $wp_query ): bool {
+		if ( $preempt ) {
+			return $preempt;
+		}
+
+		if (
+			! $wp_query->is_main_query()
+			|| ! isset( $wp_query->query['post_type'] )
+			|| $wp_query->query['post_type'] !== TEC::POSTTYPE
+			|| ! isset( $wp_query->query['eventDisplay'] )
+			|| $wp_query->query['eventDisplay'] !== 'list'
+			|| empty( $wp_query->query['paged'] )
+			|| (int) $wp_query->query['paged'] <= 1
+		) {
+			return $preempt;
+		}
+
+		$enabled_views = tribe_get_option( 'tribeEnableViews', [] );
+		if ( ! in_array( 'list', $enabled_views, true ) ) {
+			return $preempt;
+		}
+
+		return true;
 	}
 
 	/**
