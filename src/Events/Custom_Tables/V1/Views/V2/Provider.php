@@ -11,9 +11,11 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 
 use Exception;
 use stdClass;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Customizer as Customizer;
 use Tribe__Customizer__Section as Customizer_Section;
 use TEC\Common\Contracts\Service_Provider;
+use WP_Post;
 
 
 /**
@@ -39,6 +41,14 @@ class Provider extends Service_Provider {
 			$this,
 			'prepare_by_day_view_day_results',
 		], 10, 2 );
+
+		// When Pro is inactive, hydrate posts with next upcoming occurrence dates.
+		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			add_filter( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', [
+				$this,
+				'hydrate_posts_with_upcoming_occurrence_dates',
+			], 10, 2 );
+		}
 
 		// Handle Customizer styles.
 		add_filter( 'tribe_customizer_global_elements_css_template', [
@@ -80,5 +90,80 @@ class Provider extends Service_Provider {
 	public function update_global_customizer_styles( $css_template, $section, $customizer ) {
 		return $this->container->make( Customizer_Compatibility::class )
 		                       ->update_global_customizer_styles( $css_template, $section, $customizer );;
+	}
+
+	/**
+	 * Updates the post meta cache with the next upcoming occurrence dates when Pro is inactive.
+	 *
+	 * When Pro is deactivated but recurring event data remains, the post meta still reflects the
+	 * original first occurrence dates. This method overrides the cached meta with the next upcoming
+	 * occurrence's dates so List View and other views display the correct date.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $posts The posts returned by the Custom Tables Query.
+	 *
+	 * @return array The posts, unchanged. Side effect: post meta cache is updated.
+	 */
+	public function hydrate_posts_with_upcoming_occurrence_dates( $posts ) {
+		if ( empty( $posts ) ) {
+			return $posts;
+		}
+
+		$now = current_time( 'mysql' );
+
+		foreach ( $posts as $post ) {
+			$post_id = $post instanceof WP_Post ? $post->ID : (int) $post;
+
+			if ( empty( $post_id ) ) {
+				continue;
+			}
+
+			// Only hydrate events that have multiple occurrences (leftover from Pro).
+			// Events with a single occurrence already have correct dates in post meta.
+			$occurrence_count = Occurrence::where( 'post_id', '=', $post_id )->count();
+
+			if ( $occurrence_count <= 1 ) {
+				continue;
+			}
+
+			// Get the next upcoming occurrence for this event.
+			$occurrence = Occurrence::where( 'post_id', '=', $post_id )
+				->where( 'start_date', '>=', $now )
+				->order_by( 'start_date', 'ASC' )
+				->first();
+
+			// Fall back to the most recent past occurrence.
+			if ( ! $occurrence ) {
+				$occurrence = Occurrence::where( 'post_id', '=', $post_id )
+					->order_by( 'start_date', 'DESC' )
+					->first();
+			}
+
+			if ( ! $occurrence ) {
+				continue;
+			}
+
+			// Update the post meta cache with this occurrence's dates.
+			$meta_cache = wp_cache_get( $post_id, 'post_meta' );
+
+			if ( false === $meta_cache ) {
+				update_meta_cache( 'post', [ $post_id ] );
+				$meta_cache = wp_cache_get( $post_id, 'post_meta' );
+			}
+
+			if ( ! is_array( $meta_cache ) ) {
+				continue;
+			}
+
+			$meta_cache['_EventStartDate']    = [ $occurrence->start_date ];
+			$meta_cache['_EventEndDate']      = [ $occurrence->end_date ];
+			$meta_cache['_EventStartDateUTC'] = [ $occurrence->start_date_utc ];
+			$meta_cache['_EventEndDateUTC']   = [ $occurrence->end_date_utc ];
+
+			wp_cache_set( $post_id, $meta_cache, 'post_meta' );
+		}
+
+		return $posts;
 	}
 }

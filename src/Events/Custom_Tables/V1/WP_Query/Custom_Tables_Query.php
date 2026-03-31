@@ -323,8 +323,14 @@ class Custom_Tables_Query extends WP_Query {
 
 		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
 
-		$occurrences = Occurrences::table_name( true );
 		global $wpdb;
+		$occurrences = Occurrences::table_name( true );
+
+		// When Pro is not active, group by post ID to collapse duplicate
+		// occurrences left behind by a previously-active Pro.
+		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			return "$wpdb->posts.ID";
+		}
 
 		// Group by the occurrence ID, not the post ID.
 		return str_replace( "$wpdb->posts.ID", "$occurrences.occurrence_id", $groupby );
