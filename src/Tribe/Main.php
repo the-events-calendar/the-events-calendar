@@ -3065,49 +3065,26 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Whether the given user may publish this post (used before `wp_publish_post` on linked venues/organizers).
+		 * Whether the current user may publish this post (used before `wp_publish_post` on linked venues/organizers).
 		 *
 		 * @since TBD
 		 *
-		 * @param int $user_id         User ID.
-		 * @param int $linked_post_id  Post ID.
+		 * @param int $linked_post_id Post ID.
 		 *
 		 * @return bool
 		 */
-		protected function user_can_publish_linked_post_for_user( $user_id, $linked_post_id ) {
-			$user_id = (int) $user_id;
-
-			if ( ! $user_id || ! $linked_post_id ) {
-				return false;
-			}
-
+		protected function user_can_publish_linked_post_for_user( int $linked_post_id ): bool {
 			$linked_post = get_post( $linked_post_id );
 
-			if ( ! $linked_post instanceof WP_Post ) {
+			if ( ! $linked_post ) {
 				return false;
 			}
 
-			$post_type_object = get_post_type_object( $linked_post->post_type );
-
-			if ( ! $post_type_object ) {
-				return false;
-			}
-
-			/*
-			 * Authors receive `publish_*` for tribe_venue / tribe_organizer but not `edit_others_*`. WordPress can still
-			 * map `publish_post` + post ID too loosely for these CPTs, so require explicit ownership or edit-others
-			 * before honoring `publish_post` for this ID.
-			 */
-			$owns_linked_post = (int) $linked_post->post_author === $user_id;
-			$edit_others_cap = $post_type_object->cap->edit_others_posts ?? '';
-			$can_edit_others = $edit_others_cap && user_can( $user_id, $edit_others_cap );
-
-			if ( ! $owns_linked_post && ! $can_edit_others ) {
-				return false;
-			}
-
-			return user_can( $user_id, 'publish_post', $linked_post_id );
+			return 'publish' === $linked_post->post_status
+				? current_user_can( 'edit_post', $linked_post->ID )
+				: current_user_can( 'publish_post', $linked_post->ID );
 		}
+
 
 		/**
 		 * Publishes associated venue/organizer when an event is published
@@ -3153,6 +3130,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
+						if ( ! $acting_user_id ) {
+							continue;
+						}
+
 						$linked_post_id = absint( $linked_post_id );
 
 						if ( ! $linked_post_id ) {
@@ -3169,7 +3150,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							continue;
 						}
 
-						if ( ! $acting_user_id || ! $this->user_can_publish_linked_post_for_user( $acting_user_id, $linked_post_id ) ) {
+						if ( ! $this->user_can_publish_linked_post_for_user( $linked_post_id ) ) {
 							continue;
 						}
 

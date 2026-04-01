@@ -1,9 +1,5 @@
 # Changelog
 
-### TBD 2026-04-01
-
-* Security - Strengthen permission checks when publishing events. [SVUL-61]
-
 ### [6.15.18] 2026-03-25
 
 * Fix - Add `is_array` verification to guard against non-array values passed by Elementor in some contexts. [TEC-5762]
