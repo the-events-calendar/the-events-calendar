@@ -3104,6 +3104,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->remove_preview_venues( $post_id, true );
 			$this->remove_preview_organizers( $post_id, true );
 
+			if ( ! is_user_logged_in() ) {
+				return;
+			}
+
 			// save venue and organizer info on first pass
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
 
