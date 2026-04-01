@@ -11,10 +11,10 @@ OR test_posts.post_status = \'private\')))
   1 => 'SELECT FOUND_ROWS()',
   2 => 'SELECT COUNT(*)
 FROM `test_tec_occurrences`
-WHERE (`post_id` IN (22,23,24))',
+WHERE (`post_id` IN (203,204,205))',
   3 => 'SELECT *
 FROM `test_tec_occurrences`
-WHERE (`post_id` IN (22,23,24))
+WHERE (`post_id` IN (203,204,205))
 LIMIT 50
 OFFSET 0',
   4 => 'SELECT 3',
