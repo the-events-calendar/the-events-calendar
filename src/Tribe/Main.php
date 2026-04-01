@@ -3109,7 +3109,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				//get venue and organizer and publish them
 				$pm             = get_post_custom( $post->ID );
-				$acting_user_id = get_current_user_id();
 
 				$linked_post_prefixes = [
 					'venue'     => '_EventVenue',
@@ -3130,10 +3129,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
-						if ( ! $acting_user_id ) {
-							continue;
-						}
-
 						$linked_post_id = absint( $linked_post_id );
 
 						if ( ! $linked_post_id ) {
