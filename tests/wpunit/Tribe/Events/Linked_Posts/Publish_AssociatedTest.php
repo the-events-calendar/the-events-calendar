@@ -588,10 +588,12 @@ class Publish_AssociatedTest extends WPTestCase {
 
 	/**
 	 * @test
+	 * Publishing defers to `current_user_can( 'publish_post', $venue_id )`. An Author can satisfy that cap for
+	 * `tribe_venue` even when the venue is owned by someone else, so use a Contributor to assert the venue stays draft.
 	 */
 	public function it_should_not_publish_another_users_draft_venue_without_publish_capability() {
-		$admin_id  = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		$author_id = $this->factory()->user->create( [ 'role' => 'author' ] );
+		$admin_id       = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
 
 		wp_set_current_user( $admin_id );
 
@@ -600,12 +602,12 @@ class Publish_AssociatedTest extends WPTestCase {
 		$event_id = $this->factory()->event->create(
 			[
 				'post_status' => 'publish',
-				'post_author' => $author_id,
+				'post_author' => $contributor_id,
 			]
 		);
 		add_post_meta( $event_id, '_EventVenueID', $venue_id );
 
-		wp_set_current_user( $author_id );
+		wp_set_current_user( $contributor_id );
 
 		/** @var Tribe__Events__Main $main */
 		$main  = tribe( 'tec.main' );
