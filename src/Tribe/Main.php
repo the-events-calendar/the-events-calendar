@@ -3108,7 +3108,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
 
 				//get venue and organizer and publish them
-				$pm             = get_post_custom( $post->ID );
+				$pm = get_post_custom( $post->ID );
 
 				$linked_post_prefixes = [
 					'venue'     => '_EventVenue',
