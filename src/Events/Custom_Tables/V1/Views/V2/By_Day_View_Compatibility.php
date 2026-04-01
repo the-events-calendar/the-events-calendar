@@ -64,22 +64,11 @@ class By_Day_View_Compatibility {
 
 				$occurrences = [];
 				foreach ( $by_post as $post_occurrences ) {
-					// Find the next upcoming occurrence.
-					$upcoming = null;
-					$latest   = null;
+					usort( $post_occurrences, static fn( $a, $b ) => $a->start_date <=> $b->start_date );
 
-					foreach ( $post_occurrences as $occ ) {
-						if ( $occ->start_date >= $now ) {
-							if ( ! $upcoming || $occ->start_date < $upcoming->start_date ) {
-								$upcoming = $occ;
-							}
-						}
-						if ( ! $latest || $occ->start_date > $latest->start_date ) {
-							$latest = $occ;
-						}
-					}
+					$upcoming = array_filter( $post_occurrences, static fn( $occ ) => $occ->start_date >= $now );
 
-					$occurrences[] = $upcoming ?? $latest;
+					$occurrences[] = ! empty( $upcoming ) ? reset( $upcoming ) : end( $post_occurrences );
 				}
 			}
 

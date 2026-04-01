@@ -42,18 +42,11 @@ class Provider extends Service_Provider {
 			'prepare_by_day_view_day_results',
 		], 10, 2 );
 
-		// When Pro is inactive, hydrate posts with next upcoming occurrence dates.
-		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			add_filter(
-				'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts',
-				[
-					$this,
-					'hydrate_posts_with_upcoming_occurrence_dates',
-				],
-				10,
-				2
-			);
-		}
+		// Hydrate posts with next upcoming occurrence dates when Pro is inactive.
+		add_filter( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', [
+			$this,
+			'hydrate_posts_with_upcoming_occurrence_dates',
+		], 10, 2 );
 
 		// Handle Customizer styles.
 		add_filter( 'tribe_customizer_global_elements_css_template', [
@@ -111,43 +104,53 @@ class Provider extends Service_Provider {
 	 * @return array The posts, unchanged. Side effect: post meta cache is updated.
 	 */
 	public function hydrate_posts_with_upcoming_occurrence_dates( $posts ) {
-		if ( empty( $posts ) ) {
+		if ( ! $posts || class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			return $posts;
+		}
+
+		// Collect post IDs that haven't been hydrated yet.
+		$post_ids = [];
+		foreach ( $posts as $post ) {
+			$post_id = $post instanceof WP_Post ? $post->ID : (int) $post;
+
+			if ( ! $post_id || wp_cache_get( $post_id, 'tec_occurrence_hydrated' ) ) {
+				continue;
+			}
+
+			$post_ids[] = $post_id;
+		}
+
+		if ( ! $post_ids ) {
+			return $posts;
+		}
+
+		// Batch-fetch all occurrences for these posts in a single query.
+		$all_occurrences = Occurrence::where_in( 'post_id', $post_ids )->all();
+
+		// Group occurrences by post_id.
+		$by_post = [];
+		foreach ( $all_occurrences as $occurrence ) {
+			$by_post[ $occurrence->post_id ][] = $occurrence;
 		}
 
 		$now = current_time( 'mysql' );
 
-		foreach ( $posts as $post ) {
-			$post_id = $post instanceof WP_Post ? $post->ID : (int) $post;
+		foreach ( $post_ids as $post_id ) {
+			wp_cache_set( $post_id, true, 'tec_occurrence_hydrated' );
 
-			if ( empty( $post_id ) ) {
+			$occurrences = $by_post[ $post_id ] ?? [];
+
+			// Only hydrate events with multiple occurrences (leftover from Pro).
+			if ( count( $occurrences ) <= 1 ) {
 				continue;
 			}
 
-			// Only hydrate events that have multiple occurrences (leftover from Pro).
-			// Events with a single occurrence already have correct dates in post meta.
-			$occurrence_count = Occurrence::where( 'post_id', '=', $post_id )->count();
+			// Sort by start_date and pick the next upcoming, or fall back to latest.
+			usort( $occurrences, static fn( $a, $b ) => $a->start_date <=> $b->start_date );
 
-			if ( $occurrence_count <= 1 ) {
-				continue;
-			}
+			$upcoming = array_filter( $occurrences, static fn( $occ ) => $occ->start_date >= $now );
 
-			// Get the next upcoming occurrence for this event.
-			$occurrence = Occurrence::where( 'post_id', '=', $post_id )
-				->where( 'start_date', '>=', $now )
-				->order_by( 'start_date', 'ASC' )
-				->first();
-
-			// Fall back to the most recent past occurrence.
-			if ( ! $occurrence ) {
-				$occurrence = Occurrence::where( 'post_id', '=', $post_id )
-					->order_by( 'start_date', 'DESC' )
-					->first();
-			}
-
-			if ( ! $occurrence ) {
-				continue;
-			}
+			$occurrence = ! empty( $upcoming ) ? reset( $upcoming ) : end( $occurrences );
 
 			// Update the post meta cache with this occurrence's dates.
 			$meta_cache = wp_cache_get( $post_id, 'post_meta' );
