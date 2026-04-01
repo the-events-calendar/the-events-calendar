@@ -215,6 +215,22 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventDuration'] = null;
 			}
 
+			$linked_posts = Tribe__Events__Linked_Posts::instance();
+
+			if ( isset( $data['EventVenueID'] ) ) {
+				$data['EventVenueID'] = $linked_posts->filter_assignable_linked_post_ids(
+					$data['EventVenueID'],
+					Tribe__Events__Venue::POSTTYPE
+				);
+			}
+
+			if ( isset( $data['EventOrganizerID'] ) ) {
+				$data['EventOrganizerID'] = $linked_posts->filter_assignable_linked_post_ids(
+					$data['EventOrganizerID'],
+					Tribe__Events__Organizer::POSTTYPE
+				);
+			}
+
 			/**
 			 * Allow hooking in prior to updating meta fields.
 			 *

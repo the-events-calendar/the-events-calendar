@@ -557,4 +557,57 @@ class Publish_AssociatedTest extends WPTestCase {
 		$this->assertTrue( true ); // If we get here without errors, test passes
 	}
 
+	/**
+	 * @test
+	 */
+	public function it_should_not_publish_non_venue_or_organizer_post_linked_via_event_meta() {
+		$other_draft_id = $this->factory()->post->create(
+			[
+				'post_status' => 'draft',
+				'post_type'   => 'post',
+			]
+		);
+
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'publish' ] );
+		add_post_meta( $event_id, '_EventVenueID', $other_draft_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'draft', get_post_status( $other_draft_id ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_publish_another_users_draft_venue_without_publish_capability() {
+		$admin_id  = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$author_id = $this->factory()->user->create( [ 'role' => 'author' ] );
+
+		wp_set_current_user( $admin_id );
+
+		$venue_id = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+
+		$event_id = $this->factory()->event->create(
+			[
+				'post_status' => 'publish',
+				'post_author' => $author_id,
+			]
+		);
+		add_post_meta( $event_id, '_EventVenueID', $venue_id );
+
+		wp_set_current_user( $author_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'draft', get_post_status( $venue_id ) );
+	}
+
 }

@@ -3065,6 +3065,28 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Whether the active user may publish a linked venue or organizer when the parent event is published.
+		 *
+		 * @since TBD
+		 *
+		 * @param int     $linked_post_id Linked venue or organizer post ID.
+		 * @param WP_Post $event_post     The event post.
+		 *
+		 * @return bool
+		 */
+		protected function current_user_can_publish_linked_entity_for_event( $linked_post_id, $event_post ) {
+			$user_id = get_current_user_id();
+
+			if ( $user_id ) {
+				return user_can( $user_id, 'publish_post', $linked_post_id );
+			}
+
+			$author_id = isset( $event_post->post_author ) ? (int) $event_post->post_author : 0;
+
+			return $author_id && user_can( $author_id, 'publish_post', $linked_post_id );
+		}
+
+		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
 		 * @since 6.15.4 Added new logic to generate permalinks for Organizer/Venue when the `post_name` is blank.
@@ -3100,10 +3122,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						continue;
 					}
 
+					$expected_post_type = 'venue' === $type
+						? Tribe__Events__Venue::POSTTYPE
+						: Tribe__Events__Organizer::POSTTYPE;
+
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
+						$linked_post_id = absint( $linked_post_id );
+
 						if ( ! $linked_post_id ) {
+							continue;
+						}
+
+						$linked_post = get_post( $linked_post_id );
+
+						if ( ! $linked_post instanceof WP_Post ) {
+							continue;
+						}
+
+						if ( $linked_post->post_type !== $expected_post_type ) {
+							continue;
+						}
+
+						if ( ! $this->current_user_can_publish_linked_entity_for_event( $linked_post_id, $post ) ) {
 							continue;
 						}
 
