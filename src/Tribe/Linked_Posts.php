@@ -759,76 +759,6 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Whether the current user may attach an existing linked post ID to an event (correct post type and capability).
-	 *
-	 * Unauthenticated saves (e.g. some imports) skip checks so server-side code paths keep prior behavior.
-	 *
-	 * @since TBD
-	 *
-	 * @param int    $post_id          Candidate linked post ID.
-	 * @param string $linked_post_type Expected post type (e.g. `tribe_venue`).
-	 *
-	 * @return bool
-	 */
-	public function can_user_assign_linked_post_id( $post_id, $linked_post_type ) {
-		$post_id = absint( $post_id );
-
-		if ( ! $post_id ) {
-			return true;
-		}
-
-		if ( ! is_user_logged_in() ) {
-			return true;
-		}
-
-		$post = get_post( $post_id );
-
-		if ( ! $post instanceof WP_Post ) {
-			return false;
-		}
-
-		if ( $post->post_type !== $linked_post_type ) {
-			return false;
-		}
-
-		if ( current_user_can( 'edit_post', $post_id ) ) {
-			return true;
-		}
-
-		return in_array( $post->post_status, [ 'publish', 'private' ], true );
-	}
-
-	/**
-	 * Removes linked post IDs the current user is not allowed to assign from submitted meta values.
-	 *
-	 * @since TBD
-	 *
-	 * @param int|string|int[] $ids              Single ID, array of IDs, or empty string.
-	 * @param string           $linked_post_type Expected linked post type.
-	 *
-	 * @return int|string|int[]
-	 */
-	public function filter_assignable_linked_post_ids( $ids, $linked_post_type ) {
-		if ( is_array( $ids ) ) {
-			$filtered = [];
-
-			foreach ( $ids as $id ) {
-				if ( $this->can_user_assign_linked_post_id( $id, $linked_post_type ) ) {
-					$filtered[] = absint( $id );
-				}
-			}
-
-			return $filtered;
-		}
-
-		if ( ! $this->can_user_assign_linked_post_id( $ids, $linked_post_type ) ) {
-			return '';
-		}
-
-		return absint( $ids );
-	}
-
-	/**
 	 * Detects linked post type data within a form submission and executes the post type-specific handlers
 	 *
 	 * @since 4.2
@@ -911,13 +841,7 @@ class Tribe__Events__Linked_Posts {
 			}
 
 			if ( ! empty( $id ) ) {
-				$maybe_id = absint( $id );
-
-				if ( ! $this->can_user_assign_linked_post_id( $maybe_id, $linked_post_type ) ) {
-					continue;
-				}
-
-				$post_ids_to_link[] = $maybe_id;
+				$post_ids_to_link[] = absint( $id );
 				continue;
 			}
 

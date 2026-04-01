@@ -12,19 +12,25 @@ use Tribe__Events__Venue;
 
 class Publish_AssociatedTest extends WPTestCase {
 
+	/**
+	 * @var int
+	 */
+	protected $user_id_before_test = 0;
+
 	public function setUp() {
-		// before
 		parent::setUp();
 
 		$this->factory()->event     = new Event();
 		$this->factory()->organizer = new Organizer();
 		$this->factory()->venue     = new Venue();
+
+		$this->user_id_before_test = get_current_user_id();
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 	}
 
 	public function tearDown() {
-		// your tear down methods here
+		wp_set_current_user( $this->user_id_before_test );
 
-		// then
 		parent::tearDown();
 	}
 
@@ -600,6 +606,25 @@ class Publish_AssociatedTest extends WPTestCase {
 		add_post_meta( $event_id, '_EventVenueID', $venue_id );
 
 		wp_set_current_user( $author_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'draft', get_post_status( $venue_id ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_publish_linked_venues_when_there_is_no_authenticated_user() {
+		wp_set_current_user( 0 );
+
+		$venue_id = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'publish' ] );
+		add_post_meta( $event_id, '_EventVenueID', $venue_id );
 
 		/** @var Tribe__Events__Main $main */
 		$main  = tribe( 'tec.main' );

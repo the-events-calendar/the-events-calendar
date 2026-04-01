@@ -3065,25 +3065,48 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Whether the active user may publish a linked venue or organizer when the parent event is published.
+		 * Whether the given user may publish this post (used before `wp_publish_post` on linked venues/organizers).
 		 *
 		 * @since TBD
 		 *
-		 * @param int     $linked_post_id Linked venue or organizer post ID.
-		 * @param WP_Post $event_post     The event post.
+		 * @param int $user_id         User ID.
+		 * @param int $linked_post_id  Post ID.
 		 *
 		 * @return bool
 		 */
-		protected function current_user_can_publish_linked_entity_for_event( $linked_post_id, $event_post ) {
-			$user_id = get_current_user_id();
+		protected function user_can_publish_linked_post_for_user( $user_id, $linked_post_id ) {
+			$user_id = (int) $user_id;
 
-			if ( $user_id ) {
-				return user_can( $user_id, 'publish_post', $linked_post_id );
+			if ( ! $user_id || ! $linked_post_id ) {
+				return false;
 			}
 
-			$author_id = isset( $event_post->post_author ) ? (int) $event_post->post_author : 0;
+			$linked_post = get_post( $linked_post_id );
 
-			return $author_id && user_can( $author_id, 'publish_post', $linked_post_id );
+			if ( ! $linked_post instanceof WP_Post ) {
+				return false;
+			}
+
+			$post_type_object = get_post_type_object( $linked_post->post_type );
+
+			if ( ! $post_type_object ) {
+				return false;
+			}
+
+			/*
+			 * Authors receive `publish_*` for tribe_venue / tribe_organizer but not `edit_others_*`. WordPress can still
+			 * map `publish_post` + post ID too loosely for these CPTs, so require explicit ownership or edit-others
+			 * before honoring `publish_post` for this ID.
+			 */
+			$owns_linked_post = (int) $linked_post->post_author === $user_id;
+			$edit_others_cap = $post_type_object->cap->edit_others_posts ?? '';
+			$can_edit_others = $edit_others_cap && user_can( $user_id, $edit_others_cap );
+
+			if ( ! $owns_linked_post && ! $can_edit_others ) {
+				return false;
+			}
+
+			return user_can( $user_id, 'publish_post', $linked_post_id );
 		}
 
 		/**
@@ -3108,7 +3131,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
 
 				//get venue and organizer and publish them
-				$pm = get_post_custom( $post->ID );
+				$pm             = get_post_custom( $post->ID );
+				$acting_user_id = get_current_user_id();
 
 				$linked_post_prefixes = [
 					'venue'     => '_EventVenue',
@@ -3145,7 +3169,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							continue;
 						}
 
-						if ( ! $this->current_user_can_publish_linked_entity_for_event( $linked_post_id, $post ) ) {
+						if ( ! $acting_user_id || ! $this->user_can_publish_linked_post_for_user( $acting_user_id, $linked_post_id ) ) {
 							continue;
 						}
 
