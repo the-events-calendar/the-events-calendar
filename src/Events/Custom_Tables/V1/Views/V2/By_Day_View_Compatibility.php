@@ -55,8 +55,8 @@ class By_Day_View_Compatibility {
 			// When Pro is not active, limit to one occurrence per event: the next
 			// upcoming one, or the most recent past one if none are upcoming.
 			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-				$now       = current_time( 'mysql' );
-				$by_post   = [];
+				$now     = current_time( 'mysql' );
+				$by_post = [];
 
 				foreach ( $occurrences as $occurrence ) {
 					$by_post[ $occurrence->post_id ][] = $occurrence;

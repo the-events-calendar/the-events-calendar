@@ -44,10 +44,15 @@ class Provider extends Service_Provider {
 
 		// When Pro is inactive, hydrate posts with next upcoming occurrence dates.
 		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			add_filter( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', [
-				$this,
-				'hydrate_posts_with_upcoming_occurrence_dates',
-			], 10, 2 );
+			add_filter(
+				'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts',
+				[
+					$this,
+					'hydrate_posts_with_upcoming_occurrence_dates',
+				],
+				10,
+				2
+			);
 		}
 
 		// Handle Customizer styles.
