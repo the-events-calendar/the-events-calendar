@@ -3,6 +3,7 @@
 namespace Tribe\Events\Aggregator;
 
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
+use Tribe__Events__Aggregator__Record__Abstract as Record_Abstract;
 use Tribe__Events__Aggregator__Record__gCal as Gcal_Record;
 use Tribe__Events__Aggregator__Record__Url as Url_Record;
 use Tribe__Events__Aggregator__Records as Records;
@@ -110,15 +111,46 @@ class Scheduled_Record_Edit_AccessTest extends \Codeception\TestCase\WPTestCase 
 	}
 
 	/**
+	 * Happy path: authenticated users who may edit the record get `true` from validation, and `save()` succeeds.
+	 *
 	 * @test
 	 */
-	public function it_should_return_true_for_valid_scheduled_record_when_user_can_edit() {
-		$scheduled = $this->make_schedule_record( 'valid-edit-access', [] );
+	public function it_should_allow_validation_and_save_for_authenticated_users_authorized_to_edit() {
+		$scheduled = $this->make_schedule_record( 'happy-path-auth', [] );
+		$record_id = (int) $scheduled->id;
+		$stub      = $this->make_gcal_request_record_stub();
+		$sut       = Records::instance();
 
-		$sut    = Records::instance();
-		$result = $sut->validate_scheduled_record_edit_access( $scheduled->id, $this->make_gcal_request_record_stub() );
+		// Primary admin (user 1 from setUp): logged in and explicitly allowed to edit this post.
+		$this->assertTrue( is_user_logged_in() );
+		$this->assertTrue( current_user_can( 'edit_post', $record_id ), 'Primary admin should pass edit_post for the scheduled record.' );
 
-		$this->assertTrue( $result );
+		$validation = $sut->validate_scheduled_record_edit_access( $record_id, $stub );
+		$this->assertFalse( is_wp_error( $validation ), 'Validation should not return WP_Error for an authorized user.' );
+		$this->assertSame( true, $validation, 'validate_scheduled_record_edit_access should return true for an authorized user.' );
+
+		// Another administrator should also pass (typical multi-admin / handoff scenario).
+		$other_admin_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $other_admin_id );
+		$this->assertTrue( current_user_can( 'edit_post', $record_id ), 'Second administrator should pass edit_post for the same record.' );
+		$validation_second = $sut->validate_scheduled_record_edit_access( $record_id, $stub );
+		$this->assertFalse( is_wp_error( $validation_second ), 'Second admin validation should not return WP_Error.' );
+		$this->assertSame( true, $validation_second );
+
+		// save() must complete when the ID matches the scheduled record and the user is authorized.
+		wp_set_current_user( 1 );
+		$meta = array_merge(
+			$scheduled->meta,
+			[
+				'type' => 'schedule',
+			]
+		);
+
+		$save_result = $scheduled->save( $record_id, [], $meta );
+		$this->assertFalse( is_wp_error( $save_result ), 'save() should not return WP_Error for a valid authorized edit.' );
+		$this->assertInstanceOf( Record_Abstract::class, $save_result );
+		$this->assertSame( $record_id, (int) $save_result->id );
+		$this->assertTrue( $save_result->is_schedule );
 	}
 
 	/**
