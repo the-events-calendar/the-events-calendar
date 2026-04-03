@@ -69,6 +69,21 @@ class CategoryDeletionCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should return 403 if contributor tries to delete an event category
+	 *
+	 * @test
+	 */
+	public function should_return_403_if_contributor_cannot_delete_event_category( Tester $I ) {
+		list( $id ) = $I->haveTermInDatabase( 'foo', Main::TAXONOMY );
+
+		$I->generate_nonce_for_role( 'contributor' );
+		$I->sendDELETE( $this->categories_url . "/{$id}" );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseIsJson();
+	}
+
+	/**
 	 * It should return bad request if term ID parameter is bad
 	 *
 	 * @test

@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Strengthen capability checks for categories and terms. [SVUL-64]
