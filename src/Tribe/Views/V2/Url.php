@@ -359,8 +359,9 @@ class Url {
 		/**
 		 * Filters the list of allowed query parameter names for View URLs.
 		 *
-		 * Any query parameter whose name is not in this list and does not begin
-		 * with `tribe-bar-` or `tribe_` will be stripped from the URL.
+		 * Any query parameter whose name is not in this list (compared case-insensitively)
+		 * and does not begin with `tribe-bar-` or `tribe_` will be stripped from the URL.
+		 * Original parameter name casing from the request is preserved when rebuilding the URL.
 		 *
 		 * @since TBD
 		 *
@@ -385,12 +386,17 @@ class Url {
 			'tec_render',
 		] );
 
-		$allowed_flipped = array_flip( $allowed );
+		$allowed_exact = array_flip( $allowed );
+		$allowed_lower = [];
+		foreach ( $allowed as $name ) {
+			$allowed_lower[ strtolower( $name ) ] = true;
+		}
 
 		$filtered = [];
 		foreach ( $query_args as $key => $value ) {
 			if (
-				isset( $allowed_flipped[ $key ] )
+				isset( $allowed_exact[ $key ] )
+				|| isset( $allowed_lower[ strtolower( $key ) ] )
 				|| 0 === strpos( $key, 'tribe-bar-' )
 				|| 0 === strpos( $key, 'tribe_' )
 			) {

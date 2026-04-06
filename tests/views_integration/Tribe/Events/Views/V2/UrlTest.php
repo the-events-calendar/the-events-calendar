@@ -284,6 +284,22 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Allowlisted args match case-insensitively so alternate casing is preserved like the pre-filter URL.
+	 *
+	 * @test
+	 */
+	public function should_preserve_allowlisted_query_args_with_alternate_casing() {
+		$this->with_request_uri( '/events/?eventdisplay=list&EVENTDATE=2020-05-01&evil=1', function () {
+			$url  = Url::get_current_url();
+			$args = $this->parse_url_query_args( $url );
+
+			$this->assertArrayNotHasKey( 'evil', $args );
+			$this->assertSame( 'list', $args['eventdisplay'] );
+			$this->assertSame( '2020-05-01', $args['EVENTDATE'] );
+		} );
+	}
+
+	/**
 	 * It should preserve tribe-bar- parameters on get_current_url.
 	 *
 	 * @test
