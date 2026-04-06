@@ -220,4 +220,139 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 			)
 		);
 	}
+
+	/**
+	 * Runs a callback with a temporary `$_SERVER['REQUEST_URI']` and restores it afterward.
+	 *
+	 * @param string   $request_uri The request URI to use (path and query string).
+	 * @param callable $callback    The code to run.
+	 */
+	private function with_request_uri( string $request_uri, callable $callback ) {
+		$original = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
+		$_SERVER['REQUEST_URI'] = $request_uri;
+		try {
+			$callback();
+		} finally {
+			$_SERVER['REQUEST_URI'] = $original;
+		}
+	}
+
+	/**
+	 * Parses the query string of a URL into an associative array.
+	 *
+	 * @param string $url The full URL.
+	 *
+	 * @return array<string, string>
+	 */
+	private function parse_url_query_args( string $url ): array {
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
+		if ( empty( $query ) ) {
+			return [];
+		}
+		$args = [];
+		parse_str( $query, $args );
+
+		return $args;
+	}
+
+	/**
+	 * It should leave get_current_url unchanged when there is no query string.
+	 *
+	 * @test
+	 */
+	public function should_leave_get_current_url_unchanged_when_there_is_no_query_string() {
+		$this->with_request_uri( '/events/list/', function () {
+			$expected = home_url( add_query_arg( [] ) );
+			$this->assertEquals( $expected, Url::get_current_url() );
+		} );
+	}
+
+	/**
+	 * It should strip query parameters that are not allowlisted or tribe-prefixed.
+	 *
+	 * @test
+	 */
+	public function should_strip_unknown_query_parameters_from_get_current_url() {
+		$this->with_request_uri( '/events/?evil=reflected&eventDisplay=list&paged=2', function () {
+			$url  = Url::get_current_url();
+			$args = $this->parse_url_query_args( $url );
+
+			$this->assertArrayNotHasKey( 'evil', $args );
+			$this->assertSame( 'list', $args['eventDisplay'] );
+			$this->assertSame( '2', $args['paged'] );
+		} );
+	}
+
+	/**
+	 * It should preserve tribe-bar- parameters on get_current_url.
+	 *
+	 * @test
+	 */
+	public function should_preserve_tribe_bar_prefixed_parameters_on_get_current_url() {
+		$this->with_request_uri( '/events/?tribe-bar-date=2019-10-12&not_allowed=1', function () {
+			$url  = Url::get_current_url();
+			$args = $this->parse_url_query_args( $url );
+
+			$this->assertSame( '2019-10-12', $args['tribe-bar-date'] );
+			$this->assertArrayNotHasKey( 'not_allowed', $args );
+		} );
+	}
+
+	/**
+	 * It should preserve tribe_ prefixed parameters on get_current_url.
+	 *
+	 * @test
+	 */
+	public function should_preserve_tribe_underscore_prefixed_parameters_on_get_current_url() {
+		$this->with_request_uri( '/events/?tribe_custom=1&hacker=0', function () {
+			$url  = Url::get_current_url();
+			$args = $this->parse_url_query_args( $url );
+
+			$this->assertSame( '1', $args['tribe_custom'] );
+			$this->assertArrayNotHasKey( 'hacker', $args );
+		} );
+	}
+
+	/**
+	 * It should return the base URL without a query when all parameters are stripped.
+	 *
+	 * @test
+	 */
+	public function should_return_base_url_without_query_when_all_query_parameters_are_stripped() {
+		$this->with_request_uri( '/events/list/?only=bad&also=evil', function () {
+			$raw    = home_url( add_query_arg( [] ) );
+			$base   = strtok( $raw, '?' );
+			$result = Url::get_current_url();
+
+			$this->assertSame( $base, $result );
+			$this->assertStringNotContainsString( '?', $result );
+		} );
+	}
+
+	/**
+	 * It should allow extending allowlisted args via tec_events_views_v2_url_allowed_query_args.
+	 *
+	 * @test
+	 */
+	public function should_allow_extending_allowlisted_args_via_filter() {
+		$filter = static function ( array $allowed ) {
+			$allowed[] = 'my_custom_arg';
+
+			return $allowed;
+		};
+
+		add_filter( 'tec_events_views_v2_url_allowed_query_args', $filter );
+
+		try {
+			$this->with_request_uri( '/events/?my_custom_arg=kept&stripped=gone', function () {
+				$url  = Url::get_current_url();
+				$args = $this->parse_url_query_args( $url );
+
+				$this->assertSame( 'kept', $args['my_custom_arg'] );
+				$this->assertArrayNotHasKey( 'stripped', $args );
+			} );
+		} finally {
+			remove_filter( 'tec_events_views_v2_url_allowed_query_args', $filter );
+		}
+	}
 }
