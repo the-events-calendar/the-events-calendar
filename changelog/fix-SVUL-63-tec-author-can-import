@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Tighten capability checks and server-side validation for Event Aggregator scheduled import edits. [SVUL-63]
