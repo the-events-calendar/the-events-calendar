@@ -12,19 +12,25 @@ use Tribe__Events__Venue;
 
 class Publish_AssociatedTest extends WPTestCase {
 
+	/**
+	 * @var int
+	 */
+	protected $user_id_before_test = 0;
+
 	public function setUp() {
-		// before
 		parent::setUp();
 
 		$this->factory()->event     = new Event();
 		$this->factory()->organizer = new Organizer();
 		$this->factory()->venue     = new Venue();
+
+		$this->user_id_before_test = get_current_user_id();
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 	}
 
 	public function tearDown() {
-		// your tear down methods here
+		wp_set_current_user( $this->user_id_before_test );
 
-		// then
 		parent::tearDown();
 	}
 
@@ -555,6 +561,171 @@ class Publish_AssociatedTest extends WPTestCase {
 		$main->publishAssociatedTypes( $event_id, $event );
 
 		$this->assertTrue( true ); // If we get here without errors, test passes
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_publish_non_venue_or_organizer_post_linked_via_event_meta() {
+		$other_draft_id = $this->factory()->post->create(
+			[
+				'post_status' => 'draft',
+				'post_type'   => 'post',
+			]
+		);
+
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'publish' ] );
+		add_post_meta( $event_id, '_EventVenueID', $other_draft_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'draft', get_post_status( $other_draft_id ) );
+	}
+
+	/**
+	 * @test
+	 * Publishing defers to `current_user_can( 'publish_post', $venue_id )`. An Author can satisfy that cap for
+	 * `tribe_venue` even when the venue is owned by someone else, so use a Contributor to assert the venue stays draft.
+	 */
+	public function it_should_not_publish_another_users_draft_venue_without_publish_capability() {
+		$admin_id       = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+
+		wp_set_current_user( $admin_id );
+
+		$venue_id = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+
+		$event_id = $this->factory()->event->create(
+			[
+				'post_status' => 'publish',
+				'post_author' => $contributor_id,
+			]
+		);
+		add_post_meta( $event_id, '_EventVenueID', $venue_id );
+
+		wp_set_current_user( $contributor_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'draft', get_post_status( $venue_id ) );
+	}
+
+	/**
+	 * @test
+	 * Happy path: an Author who owns draft venue and organizer posts can have both published when linked to their
+	 * published event (`current_user_can( 'publish_post', $id )` passes for their own drafts).
+	 */
+	public function it_should_publish_linked_draft_venue_and_organizer_when_user_owns_them_and_can_publish() {
+		$author_id = $this->factory()->user->create( [ 'role' => 'author' ] );
+		wp_set_current_user( $author_id );
+
+		$venue_id = $this->factory()->venue->create(
+			[
+				'post_status' => 'draft',
+				'post_author' => $author_id,
+			]
+		);
+		$organizer_id = $this->factory()->organizer->create(
+			[
+				'post_status' => 'draft',
+				'post_author' => $author_id,
+			]
+		);
+		$event_id = $this->factory()->event->create(
+			[
+				'post_status' => 'publish',
+				'post_author' => $author_id,
+			]
+		);
+		add_post_meta( $event_id, '_EventVenueID', $venue_id );
+		add_post_meta( $event_id, '_EventOrganizerID', $organizer_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$this->assertEquals( 'draft', get_post_status( $venue_id ) );
+		$this->assertEquals( 'draft', get_post_status( $organizer_id ) );
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'publish', get_post_status( $venue_id ) );
+		$this->assertEquals( 'publish', get_post_status( $organizer_id ) );
+	}
+
+	/**
+	 * @test
+	 * Happy path: an Editor can publish another user's draft venue and organizer when those posts are linked to the
+	 * editor's published event (`edit_others_*` + `publish_post` meta caps).
+	 */
+	public function it_should_publish_another_users_draft_venue_and_organizer_when_editor_can_edit_others() {
+		$owner_id  = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$editor_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+
+		wp_set_current_user( $owner_id );
+
+		$venue_id = $this->factory()->venue->create(
+			[
+				'post_status' => 'draft',
+				'post_author' => $owner_id,
+			]
+		);
+		$organizer_id = $this->factory()->organizer->create(
+			[
+				'post_status' => 'draft',
+				'post_author' => $owner_id,
+			]
+		);
+
+		$event_id = $this->factory()->event->create(
+			[
+				'post_status' => 'publish',
+				'post_author' => $editor_id,
+			]
+		);
+		add_post_meta( $event_id, '_EventVenueID', $venue_id );
+		add_post_meta( $event_id, '_EventOrganizerID', $organizer_id );
+
+		wp_set_current_user( $editor_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$this->assertEquals( 'draft', get_post_status( $venue_id ) );
+		$this->assertEquals( 'draft', get_post_status( $organizer_id ) );
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'publish', get_post_status( $venue_id ) );
+		$this->assertEquals( 'publish', get_post_status( $organizer_id ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_publish_linked_venues_when_there_is_no_authenticated_user() {
+		wp_set_current_user( 0 );
+
+		$venue_id = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+		$event_id = $this->factory()->event->create( [ 'post_status' => 'publish' ] );
+		add_post_meta( $event_id, '_EventVenueID', $venue_id );
+
+		/** @var Tribe__Events__Main $main */
+		$main  = tribe( 'tec.main' );
+		$event = tribe_events()->where( 'ID', $event_id )->first();
+
+		$main->publishAssociatedTypes( $event_id, $event );
+
+		$this->assertEquals( 'draft', get_post_status( $venue_id ) );
 	}
 
 }
