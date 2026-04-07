@@ -61,7 +61,7 @@ class Tribe__Events__Integrations__Manager {
 	 */
 	private function load_freemius() {
 
-		_deprecated_function( __METHOD__, '6.1.0', 'No direct replacement, we are now using StellarWP Telemetry.' );
+		_deprecated_function( __METHOD__, '6.1.0', 'No direct replacement, we are now using Liquid Web Telemetry.' );
 
 		return false;
 	}

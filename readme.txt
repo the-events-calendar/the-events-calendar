@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
+Contributors: theeventscalendar, liquidweb, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 6.15.19
@@ -811,7 +811,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.6.0.2] 2024-07-24 =
 
-* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+* Fix - Liquid Web Sale's banner links, details, and HTML tags handling. [TEC-5121]
 
 = [6.6.0.1] 2024-07-23 =
 

@@ -58,11 +58,11 @@ class Telemetry {
 
 		$intro_message = sprintf(
 			/* Translators: %1$s - the user name. */
-			__( 'Hi, %1$s! This is an invitation to help our StellarWP community.', 'the-events-calendar' ),
+			__( 'Hi, %1$s! This is an invitation to help our Liquid Web community.', 'the-events-calendar' ),
 			wp_get_current_user()->display_name // escaped after string is assembled, below.
 		);
 
-		$intro_message .= ' ' . __( 'If you opt-in, some data about your usage of The Events Calendar and future StellarWP Products will be shared with our teams (so they can work their butts off to improve).' , 'the-events-calendar');
+		$intro_message .= ' ' . __( 'If you opt-in, some data about your usage of The Events Calendar and future Liquid Web Products will be shared with our teams (so they can work their butts off to improve).' , 'the-events-calendar');
 		$intro_message .= ' ' . __( 'We will also share some helpful info on WordPress, and our products from time to time.' , 'the-events-calendar');
 		$intro_message .= ' ' . __( 'And if you skip this, that’s okay! Our products still work just fine.', 'the-events-calendar' );
 
@@ -95,7 +95,7 @@ class Telemetry {
 			'tooltip'         => sprintf(
 			// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
 				_x(
-					'Enable this option to share usage data with The Events Calendar and StellarWP.
+					'Enable this option to share usage data with The Events Calendar and Liquid Web.
         This activates access to TEC AI chatbot and in-app priority support for premium users.
         %1$sWhat permissions are being granted?%4$s
         %2$sRead our terms of service%4$s.

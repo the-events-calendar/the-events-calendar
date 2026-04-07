@@ -1,5 +1,5 @@
 <?php
-_deprecated_file( __FILE__, '6.1.0', 'No direct replacement, we now use StellarWP Telemetry' );
+_deprecated_file( __FILE__, '6.1.0', 'No direct replacement, we now use Liquid Web Telemetry' );
 
 use Tribe\Events\Admin\Settings;
 
