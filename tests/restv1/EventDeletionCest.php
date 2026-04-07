@@ -9,7 +9,7 @@ class EventDeletionCest extends BaseRestCest {
 	 * It should return 404 if trying to delete event passing non-existent event ID
 	 * @test
 	 */
-	public function it_should_return_404_if_trying_to_delete_event_passing_non_existent_event_id( Tester $I ) {
+	public function it_should_return_404_if_trying_to_delete_non_existent_event_id( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		// pass an ID that does not exist
