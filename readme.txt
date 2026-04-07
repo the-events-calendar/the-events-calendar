@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.18
+Stable tag: 6.15.19
 Requires at least: 6.7
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -231,6 +231,14 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.15.19] 2026-04-07 =
+
+* Tweak - Added filters: `tec_events_views_v2_url_allowed_query_args`
+* Security - Ensure Venues and Organizers linked to an event, are still honoring their individual capabilities. [SVUL-61]
+* Security - Strengthen capability checks for categories and terms. [SVUL-64]
+* Security - Tighten capability checks and server-side validation for Event Aggregator scheduled import edits. [SVUL-63]
+* Language - 2 new strings added, 20 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.15.18] 2026-03-25 =
 
