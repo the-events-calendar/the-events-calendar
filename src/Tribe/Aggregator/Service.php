@@ -161,8 +161,9 @@ class Tribe__Events__Aggregator__Service {
 			return $api;
 		}
 
-		// Enforce Key on the Query Data
-		$data['key'] = $api->key;
+		// Enforce Key and Domain on the Query Data
+		$data['key']    = $api->key;
+		$data['domain'] = wp_parse_url( site_url(), PHP_URL_HOST );
 
 		/**
 		 * Allow to filter the variable used to build the URL with `add_query_arg` to insert or change
