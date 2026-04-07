@@ -114,13 +114,14 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	 * Whether the current user can create content of the specified type or not.
 	 *
 	 * @since 4.6
+	 * @since TBD Add a check to verify whether the user can manage terms of the endpoint's taxonomy.
 	 *
 	 * @return bool Whether the current user can post or not.
 	 */
 	public function can_create() {
 		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts;
 
-		return current_user_can( $cap );
+		return current_user_can( $cap ) && $this->can_manage_terms();
 	}
 
 	/**
@@ -233,5 +234,26 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 		$term_response->set_data( $data );
 
 		return $term_response;
+	}
+
+
+
+	/**
+	 * Whether the current user can manage terms of the endpoint's taxonomy.
+	 *
+	 * Checks the taxonomy-specific `manage_terms` capability.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the current user can manage terms of this taxonomy or not.
+	 */
+	public function can_manage_terms(): bool {
+		$taxonomy = get_taxonomy( $this->get_taxonomy() );
+
+		if ( ! $taxonomy ) {
+			return false;
+		}
+
+		return current_user_can( $taxonomy->cap->manage_terms );
 	}
 }
