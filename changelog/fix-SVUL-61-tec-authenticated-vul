@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Resolved an issue where an unexpected request was being accepted

@@ -3065,6 +3065,28 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Whether the current user may publish this post (used before `wp_publish_post` on linked venues/organizers).
+		 *
+		 * @since TBD
+		 *
+		 * @param int $linked_post_id Post ID.
+		 *
+		 * @return bool
+		 */
+		protected function user_can_publish_linked_post_for_user( int $linked_post_id ): bool {
+			$linked_post = get_post( $linked_post_id );
+
+			if ( ! $linked_post ) {
+				return false;
+			}
+
+			return 'publish' === $linked_post->post_status
+				? current_user_can( 'edit_post', $linked_post->ID )
+				: current_user_can( 'publish_post', $linked_post->ID );
+		}
+
+
+		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
 		 * @since 6.15.4 Added new logic to generate permalinks for Organizer/Venue when the `post_name` is blank.
@@ -3081,6 +3103,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Remove any "preview" venues and organizers (duplicates) attached to this event.
 			$this->remove_preview_venues( $post_id, true );
 			$this->remove_preview_organizers( $post_id, true );
+
+			if ( ! is_user_logged_in() ) {
+				return;
+			}
 
 			// save venue and organizer info on first pass
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
@@ -3100,10 +3126,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						continue;
 					}
 
+					$expected_post_type = 'venue' === $type
+						? Tribe__Events__Venue::POSTTYPE
+						: Tribe__Events__Organizer::POSTTYPE;
+
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
+						$linked_post_id = absint( $linked_post_id );
+
 						if ( ! $linked_post_id ) {
+							continue;
+						}
+
+						$linked_post = get_post( $linked_post_id );
+
+						if ( ! $linked_post instanceof WP_Post ) {
+							continue;
+						}
+
+						if ( $linked_post->post_type !== $expected_post_type ) {
+							continue;
+						}
+
+						if ( ! $this->user_can_publish_linked_post_for_user( $linked_post_id ) ) {
 							continue;
 						}
 
