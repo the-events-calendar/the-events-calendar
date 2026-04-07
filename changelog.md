@@ -3,7 +3,7 @@
 ### [6.15.19] 2026-04-07
 
 * Tweak - Added filters: `tec_events_views_v2_url_allowed_query_args`
-* Security - Resolved an issue where an unexpected request was being accepted
+* Security - Ensure Venues and Organizers linked to an event, are still honoring their individual capabilities. [SVUL-61]
 * Security - Strengthen capability checks for categories and terms. [SVUL-64]
 * Security - Tighten capability checks and server-side validation for Event Aggregator scheduled import edits. [SVUL-63]
 * Language - 2 new strings added, 20 updated, 0 fuzzied, and 0 obsoleted.
