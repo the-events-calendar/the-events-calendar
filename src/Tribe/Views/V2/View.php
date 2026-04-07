@@ -1026,7 +1026,7 @@ class View implements View_Interface {
 			$query_args[ $this->page_key ] = $this->url->get_current_page() + 1;
 
 			// Default to the current URL.
-			$url = $url ?: home_url( add_query_arg( [] ) );
+			$url = $url ?: Url::get_current_url();
 
 			$query_args = $this->filter_query_args( $query_args, $url );
 			$query_args = array_filter( $query_args );
@@ -1089,7 +1089,7 @@ class View implements View_Interface {
 			$query_args = array_merge( $query_args, $page_query_args );
 
 			// Default to the current URL.
-			$url = $url ?: home_url( add_query_arg( [] ) );
+			$url = $url ?: Url::get_current_url();
 
 			if ( $paged === 1 ) {
 				$url = remove_query_arg( $this->page_key, $url );

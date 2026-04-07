@@ -80,13 +80,15 @@ class Url {
 	/**
 	 * Url constructor.
 	 *
+	 * @since TBD Strengthen accepted URL parameters.
+	 *
 	 * @param null|string $url The url to build the object with or `null` to use the current URL.
 	 * @param bool $query_overrides_path A flag to define how conflicts between parameters set in the query
 	 *                                   arguments and parameters set by the path should be resolved.
 	 */
 	public function __construct( $url = null, $query_overrides_path = false ) {
 		if ( empty( $url ) ) {
-			$url = home_url( add_query_arg( [] ) );
+			$url = static::get_current_url();
 		}
 
 		$this->url = $url;
@@ -272,6 +274,7 @@ class Url {
 	 * Builds and returns an instance of the object taking care to parse additional parameters to use the correct URL.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Strengthen accepted URL parameters.
 	 *
 	 * @param string $url The URL address to build the object on.
 	 * @param array  $params An array of additional parameters to parse; these parameters might be more up to date in
@@ -283,7 +286,7 @@ class Url {
 	 */
 	public static function from_url_and_params( $url = null, array $params = [] ) {
 		if ( empty( $url ) ) {
-			$url = home_url( add_query_arg( [] ) );
+			$url = static::get_current_url();
 		}
 
 		/*
@@ -329,6 +332,86 @@ class Url {
 		}
 
 		return new static( $url );
+	}
+
+	/**
+	 * Returns the current request URL with only allowed query parameters preserved.
+	 *
+	 * This prevents HTTP Parameter Pollution (HPP) by stripping arbitrary query
+	 * parameters that are not recognized by the Views system before they can be
+	 * reflected into the page HTML.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The current URL with only allowed query parameters.
+	 */
+	public static function get_current_url() {
+		$raw_url = home_url( add_query_arg( [] ) );
+
+		$parsed = parse_url( $raw_url );
+
+		if ( empty( $parsed['query'] ) ) {
+			return $raw_url;
+		}
+
+		parse_str( $parsed['query'], $query_args );
+
+		/**
+		 * Filters the list of allowed query parameter names for View URLs.
+		 *
+		 * Any query parameter whose name is not in this list (compared case-insensitively)
+		 * and does not begin with `tribe-bar-` or `tribe_` will be stripped from the URL.
+		 * Original parameter name casing from the request is preserved when rebuilding the URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $allowed The default allowed parameter names.
+		 */
+		$allowed = apply_filters( 'tec_events_views_v2_url_allowed_query_args', [
+			'eventDisplay',
+			'eventDate',
+			'event_date',
+			'event-date',
+			'tribe_events_cat',
+			'post_type',
+			'tag',
+			'post_tag',
+			'paged',
+			'page',
+			'featured',
+			'hide_subsequent_recurrences',
+			's',
+			'tribe_redirected',
+			'tribe_event_display',
+			'tec_render',
+		] );
+
+		$allowed_exact = array_flip( $allowed );
+		$allowed_lower = [];
+		foreach ( $allowed as $name ) {
+			$allowed_lower[ strtolower( $name ) ] = true;
+		}
+
+		$filtered = [];
+		foreach ( $query_args as $key => $value ) {
+			if (
+				isset( $allowed_exact[ $key ] )
+				|| isset( $allowed_lower[ strtolower( $key ) ] )
+				|| 0 === strpos( $key, 'tribe-bar-' )
+				|| 0 === strpos( $key, 'tribe_' )
+			) {
+				$filtered[ $key ] = $value;
+			}
+		}
+
+		// Rebuild the URL with only the allowed parameters.
+		$base_url = strtok( $raw_url, '?' );
+
+		if ( empty( $filtered ) ) {
+			return $base_url;
+		}
+
+		return add_query_arg( $filtered, $base_url );
 	}
 
 	/**
