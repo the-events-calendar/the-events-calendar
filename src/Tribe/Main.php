@@ -3067,7 +3067,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Whether the current user may publish this post (used before `wp_publish_post` on linked venues/organizers).
 		 *
-		 * @since TBD
+		 * @since 6.15.19
 		 *
 		 * @param int $linked_post_id Post ID.
 		 *

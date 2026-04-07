@@ -114,7 +114,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	 * Whether the current user can create content of the specified type or not.
 	 *
 	 * @since 4.6
-	 * @since TBD Add a check to verify whether the user can manage terms of the endpoint's taxonomy.
+	 * @since 6.15.19 Add a check to verify whether the user can manage terms of the endpoint's taxonomy.
 	 *
 	 * @return bool Whether the current user can post or not.
 	 */
@@ -243,7 +243,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Single_Base
 	 *
 	 * Checks the taxonomy-specific `manage_terms` capability.
 	 *
-	 * @since TBD
+	 * @since 6.15.19
 	 *
 	 * @return bool Whether the current user can manage terms of this taxonomy or not.
 	 */

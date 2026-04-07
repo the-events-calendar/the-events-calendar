@@ -471,7 +471,7 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Ensures a scheduled import record ID is valid for an edit request and that the current user may update it.
 	 *
-	 * @since TBD
+	 * @since 6.15.19
 	 *
 	 * @param int                                         $post_id        Post ID submitted as the record to update.
 	 * @param Tribe__Events__Aggregator__Record__Abstract $request_record Record for the import origin from the same request.
