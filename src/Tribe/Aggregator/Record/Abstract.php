@@ -450,6 +450,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 			return tribe_error( 'core:aggregator:invalid-edit-record-type', $meta );
 		}
 
+		$access = Records::instance()->validate_scheduled_record_edit_access( (int) $post_id, $this );
+		if ( is_wp_error( $access ) ) {
+			return $access;
+		}
+
 		$defaults = [
 			'parent' => 0,
 		];
