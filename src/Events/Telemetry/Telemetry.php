@@ -62,7 +62,7 @@ class Telemetry {
 			wp_get_current_user()->display_name // escaped after string is assembled, below.
 		);
 
-		$intro_message .= ' ' . __( 'If you opt-in, some data about your usage of The Events Calendar and future Liquid Web Products will be shared with our teams (so they can work their butts off to improve).' , 'the-events-calendar');
+		$intro_message .= ' ' . __( 'If you opt-in, some data about your usage of The Events Calendar and future Liquid Web Products will be shared with our teams (so they can work their butts off to improve).', 'the-events-calendar' );
 		$intro_message .= ' ' . __( 'We will also share some helpful info on WordPress, and our products from time to time.' , 'the-events-calendar');
 		$intro_message .= ' ' . __( 'And if you skip this, that’s okay! Our products still work just fine.', 'the-events-calendar' );
 
