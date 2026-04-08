@@ -270,12 +270,14 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 			[ false ],
 			[ 'foo' ],
 			[ "{PHP_INT_MAX}" ],
-			// Note: PHP_INT_MAX, 0, and '0' are now valid (numeric format check only).
+			[ PHP_INT_MAX ],
+			[ 0 ],
+			[ '0' ],
 		];
 	}
 
 	/**
-	 * Test is_event_id with bad inputs (non-numeric values)
+	 * Test is_event_id with bad inputs
 	 *
 	 * @test
 	 * @dataProvider post_id_bad_inputs
@@ -283,27 +285,7 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	public function test_is_event_id_with_bad_inputs( $input ) {
 		$sut = $this->make_instance();
 
-		$result = $sut->is_event_id( $input );
-		// Should return WP_Error for invalid format inputs, not true.
-		$this->assertNotTrue( $result );
-		if ( is_wp_error( $result ) ) {
-			$this->assertSame( 'rest_invalid_param', $result->get_error_code() );
-		}
-	}
-
-	/**
-	 * Test is_event_id accepts numeric values (format validation only)
-	 *
-	 * @test
-	 */
-	public function test_is_event_id_accepts_numeric_values() {
-		$sut = $this->make_instance();
-
-		// Numeric values should return true (format validation only, not existence).
-		$this->assertTrue( $sut->is_event_id( PHP_INT_MAX ) );
-		$this->assertTrue( $sut->is_event_id( 0 ) );
-		$this->assertTrue( $sut->is_event_id( '0' ) );
-		$this->assertTrue( $sut->is_event_id( 999999 ) );
+		$this->assertFalse( $sut->is_event_id( $input ) );
 	}
 
 	/**
@@ -321,35 +303,34 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Test is_event_id validates format only (not existence)
+	 * Test is_event_id_format with valid numeric values
 	 *
 	 * @test
 	 */
-	public function test_is_event_id_validates_format_only() {
+	public function test_is_event_id_format_accepts_numeric_values() {
 		$sut = $this->make_instance();
 
-		// Should return true for any numeric value, even if event doesn't exist.
-		$non_existent_id = 999999;
-		$result = $sut->is_event_id( $non_existent_id );
-
-		$this->assertTrue( $result );
+		$this->assertTrue( $sut->is_event_id_format( 123 ) );
+		$this->assertTrue( $sut->is_event_id_format( '123' ) );
+		$this->assertTrue( $sut->is_event_id_format( 0 ) );
+		$this->assertTrue( $sut->is_event_id_format( '0' ) );
+		$this->assertTrue( $sut->is_event_id_format( PHP_INT_MAX ) );
+		$this->assertTrue( $sut->is_event_id_format( 999999 ) );
 	}
 
 	/**
-	 * Test is_event_id returns WP_Error for non-numeric values
+	 * Test is_event_id_format with invalid values
 	 *
 	 * @test
 	 */
-	public function test_is_event_id_returns_wp_error_for_non_numeric() {
+	public function test_is_event_id_format_rejects_invalid_values() {
 		$sut = $this->make_instance();
 
-		$result = $sut->is_event_id( 'not-a-number' );
-
-		$this->assertWPError( $result );
-		$this->assertSame( 'rest_invalid_param', $result->get_error_code() );
-		$this->assertStringContainsString( 'must be a number', $result->get_error_message() );
-		$this->assertArrayHasKey( 'status', $result->get_error_data() );
-		$this->assertSame( 400, $result->get_error_data()['status'] );
+		$this->assertFalse( $sut->is_event_id_format( null ) );
+		$this->assertFalse( $sut->is_event_id_format( false ) );
+		$this->assertFalse( $sut->is_event_id_format( '' ) );
+		$this->assertFalse( $sut->is_event_id_format( 'foo' ) );
+		$this->assertFalse( $sut->is_event_id_format( 'not-a-number' ) );
 	}
 
 	/**
