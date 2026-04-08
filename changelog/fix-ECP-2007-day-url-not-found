@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Rewrite the day view URL to query-param form and fall back to the default view when day view is disabled, preventing a 404 after a page refresh. [TEC-5765]
