@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.19
+Stable tag: 6.15.20
 Requires at least: 6.7
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -231,6 +231,13 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.15.20] 2026-04-08 =
+
+* Fix - Make SSR respect AJAX pagination so direct page URLs no longer return 404s. [TEC-5754]
+* Fix - Prevent 404 errors for paginated TEC list view requests on MariaDB. [TEC-5056]
+* Fix - Rewrite the day view URL to query-param form and fall back to the default view when day view is disabled, preventing a 404 after a page refresh. [TEC-5765]
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.15.19] 2026-04-07 =
 
