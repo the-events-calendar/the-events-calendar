@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Make SSR respect AJAX pagination so direct page URLs no longer return 404s. [TEC-5754]

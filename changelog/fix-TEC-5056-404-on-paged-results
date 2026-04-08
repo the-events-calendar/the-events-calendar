@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Prevent 404 errors for paginated TEC list view requests on MariaDB. [TEC-5056]
