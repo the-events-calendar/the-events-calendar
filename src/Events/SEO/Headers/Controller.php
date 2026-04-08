@@ -25,7 +25,7 @@ class Controller extends Controller_Contract {
 	 * Register actions.
 	 *
 	 * @since 6.10.2
-	 * @since TBD
+	 * @since 6.15.20
 	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
@@ -37,7 +37,7 @@ class Controller extends Controller_Contract {
 	 * Unregister actions.
 	 *
 	 * @since 6.10.2
-	 * @since TBD
+	 * @since 6.15.20
 	 */
 	public function unregister(): void {
 		remove_action( 'send_headers', [ $this, 'filter_headers' ] );
@@ -53,7 +53,7 @@ class Controller extends Controller_Contract {
 	 * is_paged() = true and $wp_query->posts is empty, so this filter intercepts
 	 * before that logic runs and lets TEC render the view with its own repository.
 	 *
-	 * @since TBD
+	 * @since 6.15.20
 	 *
 	 * @param bool      $preempt  Whether to short-circuit handle_404().
 	 * @param \WP_Query $wp_query The main query object.

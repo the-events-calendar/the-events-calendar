@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC;
  * Class Event_Query_Controller
  *
  * @since 4.9.2
- * @since TBD SSR pagination fix
+ * @since 6.15.20 SSR pagination fix
  * @package Tribe\Events\Views\V2\Query
  */
 class Event_Query_Controller {
@@ -214,7 +214,7 @@ class Event_Query_Controller {
 		 * post_count varies by page (e.g., 0 on empty pages or < posts_per_page on the
 		 * last page), which would produce an incorrect max_num_pages and trigger false 404s.
 		 *
-		 * @since TBD
+		 * @since 6.15.20
 		 */
 		$posts_per_page       = (int) $repository->get_query()->get( 'posts_per_page', 1 );
 		$query->max_num_pages = $query->found_posts > 0 && $posts_per_page > 0
