@@ -71,13 +71,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @return WP_Post|WP_Error The event post object on success, or WP_Error on failure.
 	 */
 	protected function validate_event_exists( $event_id ) {
-		$event = get_post( $event_id );
+		$event = get_post( (int) $event_id );
 
 		// Check if the post exists.
 		if ( empty( $event ) ) {
 			$message = $this->messages->get_message( 'rest-event-not-found' );
 			return new WP_Error(
-				'rest_event_not_found',
+				'rest-event-not-found',
 				sprintf( $message, $event_id ),
 				[ 'status' => 404 ]
 			);
@@ -87,8 +87,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
 			$message = $this->messages->get_message( 'rest-invalid-event-id' );
 			return new WP_Error(
-				'rest_invalid_event_id',
-				sprintf( $message, $event_id, $event->post_type ),
+				'rest-invalid-event-id',
+				$message,
 				[ 'status' => 400 ]
 			);
 		}
@@ -572,7 +572,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can delete the event.
-	 * @since TBD Add fallback to general capability when the post doesn't exist.
+	 * @since TBD Fall back to general capability for non-existent posts.
 	 *
 	 * @param $request WP_REST_Request The request object.
 	 *
@@ -584,7 +584,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		// Fall back to the general capability when the post doesn't exist so the
 		// request reaches the handler, which returns a proper 404.
-		if ( ! $id || ! get_post( $id ) ) {
+		if ( ! $id || ! get_post( (int) $id ) ) {
 			return current_user_can( $cap->delete_posts );
 		}
 
@@ -656,7 +656,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can edit the event.
-	 * @since TBD Add fallback to general capability when the post doesn't exist.
+	 * @since TBD Fall back to general capability for non-existent posts.
 	 *
 	 * @param $request WP_REST_Request The request object.
 	 *
@@ -668,7 +668,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		// Fall back to the general capability when the post doesn't exist so the
 		// request reaches the handler, which returns a proper 404.
-		if ( ! $id || ! get_post( $id ) ) {
+		if ( ! $id || ! get_post( (int) $id ) ) {
 			return current_user_can( $cap->edit_posts );
 		}
 

@@ -7,7 +7,7 @@ class SingleEventCest extends BaseRestCest {
 	 *
 	 * @test
 	 */
-	public function it_should_return_bad_request_if_event_id_is_0(Restv1Tester $I) {
+	public function it_should_return_not_found_if_event_id_is_0(Restv1Tester $I) {
 		$I->sendGET( $this->events_url . '/0' );
 
 		$I->seeResponseCodeIs( 404 );
@@ -18,7 +18,7 @@ class SingleEventCest extends BaseRestCest {
 	 * @test
 	 * it should return not found if hitting a non existing single event endpoint
 	 */
-	public function it_should_return_bad_request_if_hitting_a_non_existing_single_event_endpoint( Restv1Tester $I ) {
+	public function it_should_return_not_found_if_hitting_a_non_existing_single_event_endpoint( Restv1Tester $I ) {
 		$I->sendGET( $this->events_url . '/13' );
 
 		$I->seeResponseCodeIs( 404 );
