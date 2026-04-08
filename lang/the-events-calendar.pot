@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.19\n"
+"Project-Id-Version: The Events Calendar 6.15.20\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-07T15:12:24+00:00\n"
+"POT-Creation-Date: 2026-04-08T14:37:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -2376,7 +2376,7 @@ msgstr ""
 
 #: src/admin-views/settings/tabs/general/general-maintenance.php:41
 #: src/admin-views/settings/tabs/general/general-maintenance.php:59
-#: src/Tribe/Views/V2/Hooks.php:1365
+#: src/Tribe/Views/V2/Hooks.php:1389
 msgid "Disabled"
 msgstr ""
 
@@ -10807,47 +10807,47 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:688
+#: src/Tribe/Views/V2/Hooks.php:712
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:775
+#: src/Tribe/Views/V2/Hooks.php:799
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:790
+#: src/Tribe/Views/V2/Hooks.php:814
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1106
+#: src/Tribe/Views/V2/Hooks.php:1130
 #, php-format
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1134
+#: src/Tribe/Views/V2/Hooks.php:1158
 #, php-format
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1162
+#: src/Tribe/Views/V2/Hooks.php:1186
 #, php-format
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1226
+#: src/Tribe/Views/V2/Hooks.php:1250
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1246
+#: src/Tribe/Views/V2/Hooks.php:1270
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1365
+#: src/Tribe/Views/V2/Hooks.php:1389
 msgid "Enabled"
 msgstr ""
 
@@ -10930,13 +10930,13 @@ msgstr ""
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1669
+#: src/Tribe/Views/V2/View.php:1670
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2340
-#: src/Tribe/Views/V2/View.php:2446
+#: src/Tribe/Views/V2/View.php:2341
+#: src/Tribe/Views/V2/View.php:2447
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/latest-past/event/date/featured.php:28
 #: src/views/v2/list/event/date/featured.php:28
@@ -10955,7 +10955,7 @@ msgid "Day"
 msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Date
-#: src/Tribe/Views/V2/Views/Day_View.php:438
+#: src/Tribe/Views/V2/Views/Day_View.php:441
 #, php-format
 msgctxt "day view content title"
 msgid "%1$s for %2$s"
