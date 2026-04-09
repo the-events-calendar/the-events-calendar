@@ -16,6 +16,16 @@ class Day_ViewTest extends TecViewTestCase {
 	use MatchesSnapshots;
 	use With_Uopz;
 
+	/**
+	 * Original value of tribeEnableViews, set only by tests that mutate it.
+	 * Restored in tearDown so the in-memory options cache does not bleed into
+	 * subsequent tests (WPLoader rolls back DB transactions, but wp_cache
+	 * persists across tests within the same PHP process).
+	 *
+	 * @var mixed
+	 */
+	private $original_enabled_views = null;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -384,7 +394,7 @@ class Day_ViewTest extends TecViewTestCase {
 		] );
 		$day_view = View::make( Day_View::class, $context );
 
-		$html = $day_view->get_html();
+		$html = str_replace( "\r\n", "\n", $day_view->get_html() );
 
 		// Let's make sure the View is displaying what events we expect it to display.
 		$expected_post_ids = wp_list_pluck( array_slice( $events, 2, 5 ), 'ID' );
@@ -402,14 +412,73 @@ class Day_ViewTest extends TecViewTestCase {
 		] );
 		$day_view_tag = View::make( Day_View::class, $context_tag );
 
-		$html_tag = $day_view_tag->get_html();
+		$html_tag = str_replace( "\r\n", "\n", $day_view_tag->get_html() );
 
 		$this->assertEquals( $expected_post_ids, $day_view_tag->found_post_ids() );
 
 		$this->assertMatchesSnapshot( $html_tag );
 	}
 
+	public function day_view_disabled_data_sets() {
+		yield 'day_view_enabled' => [
+			[ 'day', 'list', 'month' ],
+			false,
+		];
+
+		yield 'day_view_disabled' => [
+			[ 'list', 'month' ],
+			true,
+		];
+
+		yield 'only_day_view_enabled' => [
+			[ 'day' ],
+			false,
+		];
+
+		yield 'empty_enabled_views' => [
+			[],
+			true,
+		];
+	}
+
+	/**
+	 * It should correctly set the day_view_disabled template variable.
+	 *
+	 * @test
+	 * @dataProvider day_view_disabled_data_sets
+	 */
+	public function should_correctly_set_day_view_disabled( array $enabled_views, bool $expected_disabled ) {
+		$this->original_enabled_views = tribe_get_option( 'tribeEnableViews' );
+		tribe_update_option( 'tribeEnableViews', $enabled_views );
+
+		$context = tribe_context()->alter( [
+			'today'      => $this->mock_date_value,
+			'now'        => $this->mock_date_value,
+			'event_date' => $this->mock_date_value,
+		] );
+
+		$view = View::make( Day_View::class, $context );
+		$view->set_repository( $this->makeEmpty( \Tribe__Repository__Interface::class, [
+			'found'        => 0,
+			'get_ids'      => [],
+			'all'          => [],
+			'prev'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+			'next'         => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+			'build_query'  => $this->makeEmpty( \Tribe__Repository__Interface::class ),
+			'hash'         => 'test-hash',
+		] ) );
+
+		$template_vars = $view->get_template_vars();
+
+		$this->assertArrayHasKey( 'day_view_disabled', $template_vars );
+		$this->assertSame( $expected_disabled, $template_vars['day_view_disabled'] );
+	}
+
 	public function tearDown() {
+		if ( $this->original_enabled_views !== null ) {
+			tribe_update_option( 'tribeEnableViews', $this->original_enabled_views );
+			$this->original_enabled_views = null;
+		}
 		parent::tearDown();
 		if ( isset( $this->date_default_timezone ) ) {
 			date_default_timezone_set( $this->date_default_timezone );
