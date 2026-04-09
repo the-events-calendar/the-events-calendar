@@ -56,7 +56,7 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	 *
 	 * @since TBD
 	 *
-	 * @param int|string $event_id
+	 * @param int|string $event_id A numeric event ID or string representation of a numeric event ID.
 	 *
 	 * @return bool
 	 */
