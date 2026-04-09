@@ -89,19 +89,40 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 			return false;
 		}
 
-		$event = get_post( $event_id );
+		$event = get_post( (int) $event_id );
 
 		$is_event_id = ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
 
 		/**
 		 * Validator filter to define if is a valid event_id.
 		 *
-		 * @param bool $is_event_id
+		 * @param bool              $is_event_id
 		 * @param \WP_Post|array|null $event
 		 *
 		 * @since 4.9.4
 		 */
 		return apply_filters( 'tribe_events_validator_is_event_id', $is_event_id, $event );
+	}
+
+	/**
+	 * Whether the value is a valid event ID format (numeric and non-empty).
+	 *
+	 * This method only validates the format, not existence. Use this in REST
+	 * endpoint handlers where existence checks need to return proper HTTP
+	 * status codes (e.g. 404) rather than validation errors (400).
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string $event_id A numeric event ID or string representation of a numeric event ID.
+	 *
+	 * @return bool True if valid format, false otherwise.
+	 */
+	public function is_event_id_format( $event_id ) {
+		if ( $event_id === null || $event_id === false || $event_id === '' ) {
+			return false;
+		}
+
+		return is_numeric( $event_id );
 	}
 
 	/**

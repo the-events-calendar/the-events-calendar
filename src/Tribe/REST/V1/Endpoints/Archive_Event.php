@@ -53,11 +53,21 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
+	 * @since TBD Added validation for post_parent parameter.
+	 *
 	 * @param WP_REST_Request $request
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
+		// Validate post_parent parameter if provided.
+		if ( isset( $request['post_parent'] ) && null !== $request['post_parent'] ) {
+			$validation = $this->validate_event_id_param( $request['post_parent'], 'post_parent' );
+			if ( is_wp_error( $validation ) ) {
+				return $validation;
+			}
+		}
+
 		$args        = [];
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 		$relative_dates = false;

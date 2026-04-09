@@ -115,6 +115,19 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 				'The requested event term archive page does not exist',
 				'the-events-calendar'
 			),
+			/* translators: %d: Event ID. */
+			'rest-event-not-found'             => __(
+				'Event with ID %d does not exist.',
+				'the-events-calendar'
+			),
+			'rest-invalid-event-id'            => __(
+				'The specified ID is not a valid event.',
+				'the-events-calendar'
+			),
+			'event-is-trashed'                 => __(
+				'The event is trashed',
+				'the-events-calendar'
+			),
 		];
 	}
 
