@@ -289,7 +289,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'type'              => 'integer',
 				'description'       => __( 'the event post ID', 'the-events-calendar' ),
 				'required'          => true,
-				'validate_callback' => [ $this->validator, 'is_event_id' ],
+				'validate_callback' => [ $this->validator, 'is_event_id_format' ],
 			],
 			'password' => [
 				'in'                => 'path',
