@@ -35,12 +35,6 @@ git submodule update --init --recursive
 
 _Note: you'll need to do this for the common directory and the root directory._
 
-_Tip: both `vendor/` and common's submodule `common/vendor/` are version-controlled. Do not delete them to troubleshoot install issues. If you removed them by mistake, restore tracked files first:_
-
-```
-git restore vendor common/vendor
-```
-
 ```
 cd common
 composer install
