@@ -114,16 +114,19 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		dispatch( organizerActions.removeOrganizerInClassic( organizer ) );
 		dispatch( formActions.removeVolatile( organizer ) );
 
-		// set event organizer meta
-		const classicOrganizers = organizerSelectors.getOrganizersInClassic( getState() );
-		const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
-		const record = {
-			meta: {
-				_EventOrganizerID: classicOrganizers,
-			},
-		};
+		// set event organizer meta only when editing a tribe_events post
+		const currentPostType = globals.wpData.select( 'core/editor' ).getCurrentPostType();
+		if ( currentPostType === editor.EVENT ) {
+			const classicOrganizers = organizerSelectors.getOrganizersInClassic( getState() );
+			const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
+			const record = {
+				meta: {
+					_EventOrganizerID: classicOrganizers,
+				},
+			};
 
-		globals.wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, record );
+			globals.wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, record );
+		}
 	}
 };
 

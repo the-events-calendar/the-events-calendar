@@ -68,6 +68,12 @@ const subscribe = () => {
 			website: [ websiteReducer.defaultStateToMetaMap, websiteSelectors.getWebsiteBlock ],
 		};
 		const blockKeys = Object.keys( blockToMapAndSelectorMap );
+
+		const postType = wpSelect( 'core/editor' ).getCurrentPostType();
+		if ( postType !== editor.EVENT ) {
+			return;
+		}
+
 		const postId = wpSelect( 'core/editor' ).getCurrentPostId();
 
 		const meta = blockKeys.reduce(

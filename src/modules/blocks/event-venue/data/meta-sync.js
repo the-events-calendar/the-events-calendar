@@ -13,6 +13,11 @@ const { getState } = store;
  * @since 6.2.0
  */
 export const syncVenuesWithPost = () => {
+	const postType = wpData.select( 'core/editor' ).getCurrentPostType();
+	if ( postType !== editor.EVENT ) {
+		return;
+	}
+
 	const postId = wpData.select( 'core/editor' ).getCurrentPostId();
 	const modifiedPost = {
 		meta: {
