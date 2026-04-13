@@ -319,6 +319,12 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			return $groupby;
 		}
 
+		// When Pro is not active, keep grouping by post ID to collapse
+		// duplicate occurrences left behind by a previously-active Pro.
+		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			return $groupby;
+		}
+
 		$this->redirect();
 
 		global $wpdb;

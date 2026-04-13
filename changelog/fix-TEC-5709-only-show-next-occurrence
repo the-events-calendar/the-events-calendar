@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Handle event recurrences when Events Calendar Pro is deactivated. [TEC-5709]

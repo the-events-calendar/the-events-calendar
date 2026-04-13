@@ -12,7 +12,6 @@ namespace TEC\Events\Custom_Tables\V1\Views\V2;
 
 use stdClass;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use Tribe\Events\Models\Post_Types\Event;
 use Tribe__Timezones as Timezones;
 
 /**
@@ -48,9 +47,30 @@ class By_Day_View_Compatibility {
 		$prepared = [];
 
 		while ( $ids_count ) {
-			$ids_chunk   = array_splice( $ids, 0, $ids_chunk_size );
-			$ids_count   = count( $ids );
+			$ids_chunk = array_splice( $ids, 0, $ids_chunk_size );
+			$ids_count = count( $ids );
+
 			$occurrences = Occurrence::where_in( 'post_id', $ids_chunk )->all();
+
+			// When Pro is not active, limit to one occurrence per event: the next
+			// upcoming one, or the most recent past one if none are upcoming.
+			if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+				$now     = current_time( 'mysql' );
+				$by_post = [];
+
+				foreach ( $occurrences as $occurrence ) {
+					$by_post[ $occurrence->post_id ][] = $occurrence;
+				}
+
+				$occurrences = [];
+				foreach ( $by_post as $post_occurrences ) {
+					usort( $post_occurrences, static fn( $a, $b ) => $a->start_date <=> $b->start_date );
+
+					$upcoming = array_filter( $post_occurrences, static fn( $occ ) => $occ->start_date >= $now );
+
+					$occurrences[] = ! empty( $upcoming ) ? reset( $upcoming ) : end( $post_occurrences );
+				}
+			}
 
 			foreach ( $occurrences as $occurrence ) {
 				/** @var Occurrence $occurrence */

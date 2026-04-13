@@ -6,6 +6,6 @@
   test_tec_occurrences.end_date >= \'2022-10-01 08:00:00\'
 ) AND ((test_posts.post_type = \'tribe_events\' AND (test_posts.post_status = \'publish\' OR test_posts.post_status = \'tribe-ea-success\' OR test_posts.post_status = \'tribe-ea-failed\' OR test_posts.post_status = \'tribe-ea-schedule\' OR test_posts.post_status = \'tribe-ea-pending\' OR test_posts.post_status = \'tribe-ea-draft\' 
 OR test_posts.post_status = \'private\')))
-					 GROUP BY test_tec_occurrences.occurrence_id
+					 GROUP BY test_posts.ID
 					 ORDER BY test_tec_occurrences.duration DESC, test_tec_occurrences.start_date ASC, test_posts.post_date ASC
 					 LIMIT 0, 10';
