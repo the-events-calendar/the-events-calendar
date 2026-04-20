@@ -144,7 +144,7 @@ class Tribe__Events__Aggregator__Service {
 		$plugin_name = $aggregator->filter_pue_plugin_name( '', 'event-aggregator' );
 
 		$pue_notices = Tribe__Main::instance()->pue_notices();
-		$has_notice = ! $consolidation_took_over && $pue_notices->has_notice( $plugin_name );
+		$has_notice  = ! $consolidation_took_over && $pue_notices->has_notice( $plugin_name );
 
 		// The user doesn't have a valid license key
 		if ( empty( $api->key ) || $has_notice ) {
@@ -170,7 +170,7 @@ class Tribe__Events__Aggregator__Service {
 			return $api;
 		}
 
-		// Enforce Key and Domain on the Query Data
+		// Enforce Key and Domain on the Query Data.
 		$data['key']    = $api->key;
 		$data['domain'] = wp_parse_url( site_url(), PHP_URL_HOST );
 
