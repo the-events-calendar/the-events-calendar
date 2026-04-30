@@ -105,8 +105,17 @@ class Tribe__Events__Aggregator__Service {
 		 */
 		$api = (object) apply_filters( 'tribe_aggregator_api', $api );
 
+		/**
+		 * Allows plugins to hook in and determine if the consolidation took over.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $harbor_took_over Whether the Harbor took over.
+		 */
+		$harbor_took_over = apply_filters( 'tec_events_aggregator_harbor_took_over', false );
+
 		// Allows Eventbrite and others to skip ea license check
-		if ( ! empty( $api->licenses ) ) {
+		if ( ! empty( $api->licenses ) && ! $harbor_took_over ) {
 			foreach ( $api->licenses as $plugin => $key ) {
 				// If empty Key was passed we skip
 				if ( empty( $key ) ) {
@@ -135,7 +144,7 @@ class Tribe__Events__Aggregator__Service {
 		$plugin_name = $aggregator->filter_pue_plugin_name( '', 'event-aggregator' );
 
 		$pue_notices = Tribe__Main::instance()->pue_notices();
-		$has_notice = $pue_notices->has_notice( $plugin_name );
+		$has_notice  = ! $harbor_took_over && $pue_notices->has_notice( $plugin_name );
 
 		// The user doesn't have a valid license key
 		if ( empty( $api->key ) || $has_notice ) {
@@ -161,8 +170,9 @@ class Tribe__Events__Aggregator__Service {
 			return $api;
 		}
 
-		// Enforce Key on the Query Data
-		$data['key'] = $api->key;
+		// Enforce Key and Domain on the Query Data.
+		$data['key']    = $api->key;
+		$data['domain'] = wp_parse_url( site_url(), PHP_URL_HOST );
 
 		/**
 		 * Allow to filter the variable used to build the URL with `add_query_arg` to insert or change

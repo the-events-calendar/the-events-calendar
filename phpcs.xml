@@ -9,13 +9,13 @@
 	</rule>
 
 	<rule ref="WordPress">
-		<!-- Exclude Generic rules that overlap with or are overridden by StellarWP standards -->
+		<!-- Exclude Generic rules that overlap with or are overridden by Nexcess standards -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 
-		<!-- Exclude PEAR rules that overlap with StellarWP standards -->
+		<!-- Exclude PEAR rules that overlap with Nexcess standards -->
 		<exclude name="PEAR.NamingConventions.ValidClassName.Invalid"/>
 
-		<!-- Exclude WP rules that overlap with or are overridden by StellarWP standards -->
+		<!-- Exclude WP rules that overlap with or are overridden by Nexcess standards -->
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.DB.DirectDatabaseQuery"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
