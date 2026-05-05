@@ -97,18 +97,34 @@ class Controller extends Controller_Contract {
 			! isset( $wp_query->query['post_type'] )
 			|| $wp_query->query['post_type'] !== TEC::POSTTYPE
 			|| ! isset( $wp_query->query['eventDisplay'] )
-			|| ! isset( $wp_query->query['eventDate'] )
 		) {
 			return;
 		}
 
-		$enabled_views = tribe_get_option( 'tribeEnableViews' );
+		$enabled_views = tribe_get_option( 'tribeEnableViews', [] );
 		$event_display = $wp_query->query['eventDisplay'];
+
+		// 404 for any view that is currently disabled, regardless of how the URL was built.
+		if ( ! in_array( $event_display, $enabled_views, true ) ) {
+			$this->set_404( $wp_query );
+			return;
+		}
+
+		// Day/Month views carry the date as a WP query var (set by URL rewrite rules).
+		// List view keeps the date as a raw GET parameter (?tribe-bar-date) instead.
+		$has_pretty_date = isset( $wp_query->query['eventDate'] );
+		$has_list_date   = 'list' === $event_display && ! empty( tribe_get_request_var( 'tribe-bar-date' ) );
+
+		if ( ! $has_pretty_date && ! $has_list_date ) {
+			return;
+		}
 
 		if ( 'day' === $event_display ) {
 			$this->check_day_view( $wp_query, $enabled_views );
 		} elseif ( 'month' === $event_display ) {
 			$this->check_month_view( $wp_query, $enabled_views );
+		} elseif ( 'list' === $event_display ) {
+			$this->check_list_view( $wp_query, $enabled_views );
 		}
 	}
 
@@ -167,7 +183,7 @@ class Controller extends Controller_Contract {
 	 */
 	private function check_day_view( object $wp_query, array $enabled_views ) {
 		if ( ! in_array( 'day', $enabled_views, true ) ) {
-			$wp_query->set_404();
+			$this->set_404( $wp_query );
 
 			return;
 		}
@@ -180,13 +196,13 @@ class Controller extends Controller_Contract {
 		}
 
 		if ( strtotime( $data['earliest_date_str'] ) > $data['event_timestamp'] ) {
-			$wp_query->set_404();
+			$this->set_404( $wp_query );
 
 			return;
 		}
 
 		if ( strtotime( $data['latest_date_str'] ) < $data['event_timestamp'] ) {
-			$wp_query->set_404();
+			$this->set_404( $wp_query );
 
 			return;
 		}
@@ -203,7 +219,7 @@ class Controller extends Controller_Contract {
 	 */
 	private function check_month_view( object $wp_query, array $enabled_views ) {
 		if ( ! in_array( 'month', $enabled_views, true ) ) {
-			$wp_query->set_404();
+			$this->set_404( $wp_query );
 
 			return;
 		}
@@ -217,16 +233,88 @@ class Controller extends Controller_Contract {
 		}
 
 		if ( $data['earliest_date_str'] > $data['event_date_str'] ) {
-			$wp_query->set_404();
+			$this->set_404( $wp_query );
 
 			return;
 		}
 
 		if ( $data['latest_date_str'] < $data['event_date_str'] ) {
-			$wp_query->set_404();
+			$this->set_404( $wp_query );
 
 			return;
 		}
+	}
+
+	/**
+	 * Check the conditions for the list view.
+	 *
+	 * Returns a 404 when:
+	 * - List view is disabled in TEC settings.
+	 * - The ?tribe-bar-date parameter refers to a date before the earliest event on record.
+	 * - The ?tribe-bar-date parameter refers to a date after the latest event on record.
+	 *
+	 * Mirrors the grace logic used in check_day_view(): if the site has no events yet and
+	 * the requested date is in the current month, validation is skipped so the live list
+	 * view is not erroneously suppressed.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $wp_query      The global WP_Query object.
+	 * @param array  $enabled_views An array of the enabled view slugs.
+	 */
+	private function check_list_view( object $wp_query, array $enabled_views ): void {
+		if ( ! in_array( 'list', $enabled_views, true ) ) {
+			$this->set_404( $wp_query );
+			return;
+		}
+
+		// List view stores the date in ?tribe-bar-date (a raw GET param, not a WP query var).
+		$tribe_bar_date = tribe_get_request_var( 'tribe-bar-date', '' );
+
+		if ( empty( $tribe_bar_date ) ) {
+			return;
+		}
+
+		$event_timestamp = strtotime( $tribe_bar_date );
+
+		// Bail on malformed date strings.
+		if ( false === $event_timestamp ) {
+			return;
+		}
+
+		$event_month   = gmdate( 'Y-m', $event_timestamp );
+		$current_month = static::get_current_month();
+
+		$earliest_date_str = tribe_events_earliest_date( 'Y-m-d' );
+		$latest_date_str   = tribe_events_latest_date( 'Y-m-d' );
+
+		// Skip validation when no events exist yet but the date is in the current month.
+		if ( ( ! $earliest_date_str || ! $latest_date_str ) && $event_month === $current_month ) {
+			return;
+		}
+
+		if ( $earliest_date_str && strtotime( $earliest_date_str ) > $event_timestamp ) {
+			$this->set_404( $wp_query );
+			return;
+		}
+
+		if ( $latest_date_str && strtotime( $latest_date_str ) < $event_timestamp ) {
+			$this->set_404( $wp_query );
+		}
+	}
+
+	/**
+	 * Set the query to 404 and send the HTTP 404 status header.
+	 *
+	 * WordPress's handle_404() only sends status_header(404) when it is the one
+	 * deciding to set the 404 state. When the state is already set (by our
+	 * send_headers callback) it bails early, so we must send the header ourselves.
+	 *
+	 * @param \WP_Query $wp_query The query to mark as 404.
+	 */
+	private function set_404( \WP_Query $wp_query ): void {
+		$wp_query->set_404();
+		status_header( 404 );
 	}
 
 	/**
