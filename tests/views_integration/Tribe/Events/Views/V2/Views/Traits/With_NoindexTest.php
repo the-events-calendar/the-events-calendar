@@ -352,6 +352,18 @@ class With_NoindexTest extends TecViewTestCase {
 	public function test_list_view_with_tribe_bar_date_no_noindex_when_setting_disabled(): void {
 		$_REQUEST['tribe-bar-date'] = '2019-01-01';
 
+		// Create an event so the "no events → noindex" existing behavior does not
+		// trigger, keeping the test focused on the OPT_NOINDEX_DATED_LIST_URLS toggle.
+		$timezone = new \DateTimeZone( 'UTC' );
+		$now      = new \DateTimeImmutable( $this->mock_date_value, $timezone );
+		tribe_events()->set_args( [
+			'start_date' => $now->setTime( 10, 0 ),
+			'timezone'   => 'UTC',
+			'duration'   => 3 * HOUR_IN_SECONDS,
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+		] )->create();
+
 		add_filter(
 			'tribe_get_option_' . Settings::OPT_NOINDEX_DATED_LIST_URLS,
 			static fn() => false
