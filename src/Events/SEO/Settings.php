@@ -185,7 +185,7 @@ class Settings {
 					),
 				]
 			),
-			self::OPT_OUT_OF_RANGE_BEHAVIOR   => [
+			self::OPT_OUT_OF_RANGE_BEHAVIOR          => [
 				'type'            => 'radio',
 				'label'           => esc_html__( 'Out-of-range date URL behavior', 'the-events-calendar' ),
 				'tooltip'         => esc_html__( 'What to do when a visitor or search engine requests an event listing page with a date that falls before the earliest event or after the latest event on record.', 'the-events-calendar' ),
@@ -196,14 +196,14 @@ class Settings {
 					'soft_noindex' => esc_html__( 'Return HTTP 200 with a noindex directive — softer behaviour, the events page is still shown to visitors.', 'the-events-calendar' ),
 				],
 			],
-			self::OPT_NOINDEX_DATED_LIST_URLS => [
+			self::OPT_NOINDEX_DATED_LIST_URLS        => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Add noindex to dated List view URLs', 'the-events-calendar' ),
 				'tooltip'         => esc_html__( 'Adds a noindex robots directive to any List view URL that carries a ?tribe-bar-date query parameter. The canonical tag already points to the base /events/list/ URL, so these parameterised URLs produce duplicate content. Disable if you intentionally expose dated list views as standalone pages.', 'the-events-calendar' ),
 				'default'         => true,
 				'validation_type' => 'boolean',
 			],
-			self::OPT_DISABLED_VIEW_404       => [
+			self::OPT_DISABLED_VIEW_404              => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Return 404 for disabled view URLs', 'the-events-calendar' ),
 				'tooltip'         => esc_html__( 'Returns HTTP 404 when a URL specifies a view (e.g. ?eventDisplay=photo) that is currently disabled under Events > Settings > Display. This prevents accumulation of disabled-view URLs in search indexes.', 'the-events-calendar' ),
