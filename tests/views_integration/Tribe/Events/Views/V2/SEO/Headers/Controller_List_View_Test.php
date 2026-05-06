@@ -62,7 +62,7 @@ class Controller_List_View_Test extends \Codeception\TestCase\WPTestCase {
 	public function test_list_view_disabled_always_shows_404(): void {
 		add_filter( 'tribe_get_option_tribeEnableViews', static fn() => [ 'month' ], 10, 3 );
 
-		$this->create_test_events( '2023-06-20', '2023-12-31', '2023-06-15' );
+		$this->create_test_events( '2023-06-20', '2023-12-31', '2023-06-21' );
 		tribe_update_option( 'earliest_date', false );
 		tribe_update_option( 'latest_date', false );
 
