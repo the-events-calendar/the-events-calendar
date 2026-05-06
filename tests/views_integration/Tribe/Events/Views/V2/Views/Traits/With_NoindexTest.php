@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\V2\Views\Traits;
 
 use TEC\Events\SEO\Controller;
+use TEC\Events\SEO\Settings;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\List_View;
@@ -37,7 +38,6 @@ class With_NoindexTest extends TecViewTestCase {
 			'event_date' => $now->format( 'Y-m-d' ),
 		] );
 
-		// Ensure our controller is registered and available
 		tribe_register_provider( Controller::class );
 		$this->controller = tribe( Controller::class );
 
@@ -227,10 +227,7 @@ class With_NoindexTest extends TecViewTestCase {
 	 * @test
 	 */
 	public function test_integration_of_nofollow_and_filter_robots_directives() {
-		// First add nofollow
-		$robots = $this->controller->set_nofollow( [] );
-
-		// Then filter robots directives
+		$robots       = $this->controller->set_nofollow( [] );
 		$final_robots = $this->controller->filter_robots_directives( $robots );
 
 		$this->assertArrayHasKey( 'noindex', $final_robots );
@@ -304,5 +301,129 @@ class With_NoindexTest extends TecViewTestCase {
 
 		$this->assertFalse( has_action( 'wp', [ $this->controller, 'hook_issue_noindex' ] ) );
 		$this->assertFalse( has_action( 'tec_events_before_view_html_cache', [ $this->controller, 'issue_noindex' ] ) );
+	}
+
+	/**
+	 * A List view URL that carries ?tribe-bar-date is a parameterised variant of
+	 * the canonical /events/list/ URL and must receive a noindex directive so
+	 * that search engines stop treating each dated URL as a unique indexable page.
+	 *
+	 * The tec_post_type context flag is set to true so that
+	 * should_add_no_index_for_list_based_views() passes its early guard (the same
+	 * guard that causes the base list-view test in view_data_set to return false).
+	 *
+	 * @test
+	 */
+	public function test_list_view_with_tribe_bar_date_gets_noindex(): void {
+		$_REQUEST['tribe-bar-date'] = '2019-01-01';
+
+		// tec_post_type must be true to pass the early guard in should_add_no_index_for_list_based_views().
+		$context = $this->context->alter( [ 'tec_post_type' => true ] );
+
+		$was_called = false;
+		add_filter(
+			'tec_events_seo_robots_meta_include_list',
+			function ( $add_noindex ) use ( &$was_called ) {
+				$was_called = true;
+				$this->assertTrue(
+					$add_noindex,
+					'A List view URL carrying ?tribe-bar-date should have noindex set to true.'
+				);
+				return $add_noindex;
+			}
+		);
+
+		$view = View::make( List_View::class, $context );
+		$view->get_html();
+		tribe( Controller::class )->issue_noindex( $view );
+
+		$this->assertTrue( $was_called, 'The tec_events_seo_robots_meta_include_list filter should have been called.' );
+
+		unset( $_REQUEST['tribe-bar-date'] );
+	}
+
+	/**
+	 * When the site owner disables the "Add noindex to dated List view URLs" option
+	 * (Settings::OPT_NOINDEX_DATED_LIST_URLS = false), a List view URL carrying
+	 * ?tribe-bar-date must NOT receive noindex even though the param is present.
+	 *
+	 * @test
+	 */
+	public function test_list_view_with_tribe_bar_date_no_noindex_when_setting_disabled(): void {
+		$_REQUEST['tribe-bar-date'] = '2019-01-01';
+
+		add_filter(
+			'tribe_get_option_' . Settings::OPT_NOINDEX_DATED_LIST_URLS,
+			static fn() => false
+		);
+
+		$context    = $this->context->alter( [ 'tec_post_type' => true ] );
+		$was_called = false;
+
+		add_filter(
+			'tec_events_seo_robots_meta_include_list',
+			function ( $add_noindex ) use ( &$was_called ) {
+				$was_called = true;
+				$this->assertFalse(
+					$add_noindex,
+					'When OPT_NOINDEX_DATED_LIST_URLS is disabled, noindex must not be set even with ?tribe-bar-date present.'
+				);
+				return $add_noindex;
+			}
+		);
+
+		$view = View::make( List_View::class, $context );
+		$view->get_html();
+		tribe( Controller::class )->issue_noindex( $view );
+
+		$this->assertTrue( $was_called, 'The tec_events_seo_robots_meta_include_list filter should have been called.' );
+
+		unset( $_REQUEST['tribe-bar-date'] );
+		remove_all_filters( 'tribe_get_option_' . Settings::OPT_NOINDEX_DATED_LIST_URLS );
+	}
+
+	/**
+	 * A List view URL without ?tribe-bar-date that has events should NOT receive
+	 * noindex — the base /events/list/ URL is the canonical page and must remain
+	 * indexable.
+	 *
+	 * @test
+	 */
+	public function test_list_view_without_tribe_bar_date_and_with_events_no_noindex(): void {
+		unset( $_REQUEST['tribe-bar-date'] );
+
+		$timezone_string = 'Europe/Paris';
+		$timezone        = new \DateTimeZone( $timezone_string );
+		update_option( 'timezone_string', $timezone_string );
+
+		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
+		tribe_events()->set_args( [
+			'start_date' => $now->setTime( 10, 0 ),
+			'timezone'   => $timezone,
+			'duration'   => 3 * HOUR_IN_SECONDS,
+			'title'      => 'Test Event for noindex check',
+			'status'     => 'publish',
+		] )->create();
+
+		$context = $this->context->alter( [ 'tec_post_type' => true ] );
+
+		$was_called = false;
+		add_filter(
+			'tec_events_seo_robots_meta_include_list',
+			function ( $add_noindex ) use ( &$was_called ) {
+				$was_called = true;
+				$this->assertFalse(
+					$add_noindex,
+					'The base List view URL (no ?tribe-bar-date) with events should not have noindex.'
+				);
+				return $add_noindex;
+			}
+		);
+
+		$view = View::make( List_View::class, $context );
+		$view->get_html();
+		tribe( Controller::class )->issue_noindex( $view );
+
+		$this->assertTrue( $was_called, 'The tec_events_seo_robots_meta_include_list filter should have been called.' );
 	}
 }
