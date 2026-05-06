@@ -297,17 +297,20 @@ class Controller extends Controller_Contract {
 		$earliest_date_str = tribe_events_earliest_date( 'Y-m-d' );
 		$latest_date_str   = tribe_events_latest_date( 'Y-m-d' );
 
-		// Skip validation when no events exist yet but the date is in the current month.
-		if ( ( ! $earliest_date_str || ! $latest_date_str ) && $event_month === $current_month ) {
+		// No events exist yet: allow only the current month (grace), 404 everything else.
+		if ( ! $earliest_date_str || ! $latest_date_str ) {
+			if ( $event_month !== $current_month ) {
+				$this->handle_out_of_range( $wp_query );
+			}
 			return;
 		}
 
-		if ( $earliest_date_str && strtotime( $earliest_date_str ) > $event_timestamp ) {
+		if ( strtotime( $earliest_date_str ) > $event_timestamp ) {
 			$this->handle_out_of_range( $wp_query );
 			return;
 		}
 
-		if ( $latest_date_str && strtotime( $latest_date_str ) < $event_timestamp ) {
+		if ( strtotime( $latest_date_str ) < $event_timestamp ) {
 			$this->handle_out_of_range( $wp_query );
 		}
 	}
