@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Dated List view URLs carrying ?tribe-bar-date outside the known event range returning HTTP 200, preventing accumulation of low-value indexed pages in search engines. [TEC-5750]
