@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Resolved the Title Meta tag in Events single and archive showing past date. [TEC-5759]

@@ -104,6 +104,86 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertMatchesSnapshot( $title->build_title() );
 	}
 
+	public function test_post_range_title_clamps_past_first_date_for_upcoming() {
+		$future       = date( 'Y-m-d', strtotime( '+30 days' ) );
+		$past_event   = $this->get_mock_event( 'events/single/1.template.json', [
+			'ID'         => 9001,
+			'start_date' => '2022-12-01 09:00:00',
+			'end_date'   => '2022-12-01 11:00:00',
+		] );
+		$future_event = $this->get_mock_event( 'events/single/1.template.json', [
+			'ID'         => 9002,
+			'start_date' => $future . ' 09:00:00',
+			'end_date'   => $future . ' 11:00:00',
+		] );
+
+		$context = tribe_context()->alter( [
+			'event_post_type'    => true,
+			'event_display'      => 'list',
+			'event_display_mode' => 'list',
+		] );
+
+		$range = Title::build_post_range_title( $context, '', [ $past_event, $future_event ] );
+
+		$expected_first = tribe_format_date( date( 'Y-m-d' ), false );
+		$expected_last  = tribe_get_start_date( $future_event, false );
+
+		$this->assertSame( "$expected_first - $expected_last", $range );
+		$this->assertStringNotContainsString( '2022', $range );
+	}
+
+	public function test_post_range_title_collapses_same_day_to_single_date() {
+		$same_day = date( 'Y-m-d', strtotime( '+5 days' ) );
+
+		$event_1 = $this->get_mock_event( 'events/single/1.template.json', [
+			'ID'         => 9101,
+			'start_date' => $same_day . ' 09:00:00',
+			'end_date'   => $same_day . ' 10:00:00',
+		] );
+		$event_2 = $this->get_mock_event( 'events/single/1.template.json', [
+			'ID'         => 9102,
+			'start_date' => $same_day . ' 14:00:00',
+			'end_date'   => $same_day . ' 16:00:00',
+		] );
+
+		$context = tribe_context()->alter( [
+			'event_post_type'    => true,
+			'event_display'      => 'list',
+			'event_display_mode' => 'list',
+		] );
+
+		$range = Title::build_post_range_title( $context, '', [ $event_1, $event_2 ] );
+
+		$this->assertSame( tribe_get_start_date( $event_1, false ), $range );
+		$this->assertStringNotContainsString( ' - ', $range );
+	}
+
+	public function test_post_range_title_preserves_past_dates_in_past_mode() {
+		$older = $this->get_mock_event( 'events/single/1.template.json', [
+			'ID'         => 9201,
+			'start_date' => '2022-01-15 09:00:00',
+			'end_date'   => '2022-01-15 11:00:00',
+		] );
+		$newer = $this->get_mock_event( 'events/single/1.template.json', [
+			'ID'         => 9202,
+			'start_date' => '2022-06-20 09:00:00',
+			'end_date'   => '2022-06-20 11:00:00',
+		] );
+
+		$context = tribe_context()->alter( [
+			'event_post_type'    => true,
+			'event_display'      => 'past',
+			'event_display_mode' => 'past',
+		] );
+
+		$range = Title::build_post_range_title( $context, '', [ $newer, $older ] );
+
+		$expected_first = tribe_get_start_date( $older, false );
+		$expected_last  = tribe_get_start_date( $newer, false );
+
+		$this->assertSame( "$expected_first - $expected_last", $range );
+	}
+
 	public function title_with_views_data_provider() {
 		$events = [
 			[
