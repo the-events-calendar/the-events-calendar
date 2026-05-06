@@ -10,6 +10,7 @@
  namespace TEC\Events\SEO;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\SEO\Settings;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe\Events\Views\V2\Views;
 use Tribe__Date_Utils as Dates;
@@ -50,6 +51,11 @@ class Controller extends Controller_Contract {
 
 		// Hook to determine robots noindex.
 		add_action( 'wp', [ $this, 'hook_issue_noindex' ] );
+
+		// Register admin settings for SEO & URL Handling.
+		/** @var Settings $settings */
+		$settings = $this->container->make( Settings::class );
+		$settings->add_hooks();
 	}
 
 	/**
@@ -58,6 +64,10 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
 		remove_action( 'tec_events_before_view_html_cache', [ $this, 'issue_noindex' ] );
+
+		/** @var Settings $settings */
+		$settings = $this->container->make( Settings::class );
+		$settings->unregister_hooks();
 	}
 
 	/**
@@ -244,7 +254,11 @@ class Controller extends Controller_Contract {
 
 		// Any dated List view URL (?tribe-bar-date present) is a parameterised variant
 		// of the canonical base URL and should not be independently indexed.
-		if ( ! empty( tribe_get_request_var( 'tribe-bar-date' ) ) ) {
+		// This can be disabled per-site via Settings > Display > SEO & URL Handling.
+		if (
+			! empty( tribe_get_request_var( 'tribe-bar-date' ) )
+			&& tribe_get_option( Settings::OPT_NOINDEX_DATED_LIST_URLS, true )
+		) {
 			return true;
 		}
 

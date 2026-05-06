@@ -10,6 +10,7 @@
 namespace TEC\Events\SEO\Headers;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\SEO\Settings;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -104,26 +105,34 @@ class Controller extends Controller_Contract {
 		$enabled_views = tribe_get_option( 'tribeEnableViews', [] );
 		$event_display = $wp_query->query['eventDisplay'];
 
+		// 'past' is a List view display-mode modifier, not a view slug — normalize it so
+		// the enabled-view guard and per-view dispatch both treat it as 'list'.
+		$effective_display = 'past' === $event_display ? 'list' : $event_display;
+
 		// 404 for any view that is currently disabled, regardless of how the URL was built.
-		if ( ! in_array( $event_display, $enabled_views, true ) ) {
-			$this->set_404( $wp_query );
+		// Site owners can disable this guard via Settings > Display > SEO & URL Handling.
+		if ( ! in_array( $effective_display, $enabled_views, true ) ) {
+			if ( tribe_get_option( Settings::OPT_DISABLED_VIEW_404, true ) ) {
+				$this->set_404( $wp_query );
+			}
+			// Either way, skip per-view date checks for a disabled view.
 			return;
 		}
 
 		// Day/Month views carry the date as a WP query var (set by URL rewrite rules).
 		// List view keeps the date as a raw GET parameter (?tribe-bar-date) instead.
 		$has_pretty_date = isset( $wp_query->query['eventDate'] );
-		$has_list_date   = 'list' === $event_display && ! empty( tribe_get_request_var( 'tribe-bar-date' ) );
+		$has_list_date   = 'list' === $effective_display && ! empty( tribe_get_request_var( 'tribe-bar-date' ) );
 
 		if ( ! $has_pretty_date && ! $has_list_date ) {
 			return;
 		}
 
-		if ( 'day' === $event_display ) {
+		if ( 'day' === $effective_display ) {
 			$this->check_day_view( $wp_query, $enabled_views );
-		} elseif ( 'month' === $event_display ) {
+		} elseif ( 'month' === $effective_display ) {
 			$this->check_month_view( $wp_query, $enabled_views );
-		} elseif ( 'list' === $event_display ) {
+		} elseif ( 'list' === $effective_display ) {
 			$this->check_list_view( $wp_query, $enabled_views );
 		}
 	}
@@ -248,7 +257,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Check the conditions for the list view.
 	 *
-	 * Returns a 404 when:
+	 * Returns a 404 (or noindex, depending on the tec_seo_out_of_range_behavior setting) when:
 	 * - List view is disabled in TEC settings.
 	 * - The ?tribe-bar-date parameter refers to a date before the earliest event on record.
 	 * - The ?tribe-bar-date parameter refers to a date after the latest event on record.
@@ -294,21 +303,50 @@ class Controller extends Controller_Contract {
 		}
 
 		if ( $earliest_date_str && strtotime( $earliest_date_str ) > $event_timestamp ) {
-			$this->set_404( $wp_query );
+			$this->handle_out_of_range( $wp_query );
 			return;
 		}
 
 		if ( $latest_date_str && strtotime( $latest_date_str ) < $event_timestamp ) {
-			$this->set_404( $wp_query );
+			$this->handle_out_of_range( $wp_query );
 		}
 	}
 
 	/**
-	 * Set the query to 404 and send the HTTP 404 status header.
+	 * Respond to an out-of-range date request.
 	 *
-	 * WordPress's handle_404() only sends status_header(404) when it is the one
-	 * deciding to set the 404 state. When the state is already set (by our
-	 * send_headers callback) it bails early, so we must send the header ourselves.
+	 * By default (setting: 'hard_404'), the WP_Query is set to a 404 so WordPress
+	 * returns an HTTP 404 Not Found response — the strongest SEO signal.
+	 *
+	 * When the site owner has chosen 'soft_noindex' in Settings > Display >
+	 * SEO & URL Handling, the page is still served (HTTP 200) but a noindex
+	 * robots directive is injected via the wp_robots filter, so search engines
+	 * will not index the URL without surfacing a 404 error page to visitors.
+	 *
+	 * @since TBD
+	 *
+	 * @param object $wp_query The global WP_Query object.
+	 */
+	private function handle_out_of_range( object $wp_query ): void {
+		$behavior = tribe_get_option( Settings::OPT_OUT_OF_RANGE_BEHAVIOR, 'hard_404' );
+
+		if ( 'soft_noindex' === $behavior ) {
+			// Add noindex at the wp_robots filter stage instead of returning a 404.
+			add_filter(
+				'wp_robots',
+				static function ( array $robots ): array {
+					$robots['noindex'] = true;
+					return $robots;
+				}
+			);
+			return;
+		}
+
+		$this->set_404( $wp_query );
+	}
+
+	/**
+	 * Set the query to 404 and send the HTTP 404 status header.
 	 *
 	 * @param \WP_Query $wp_query The query to mark as 404.
 	 */
