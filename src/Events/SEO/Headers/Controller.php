@@ -109,6 +109,11 @@ class Controller extends Controller_Contract {
 		// the enabled-view guard and per-view dispatch both treat it as 'list'.
 		$effective_display = 'past' === $event_display ? 'list' : $event_display;
 
+		// disabled-view guard — otherwise the main events page receives a false 404.
+		if ( 'default' === $effective_display ) {
+			return;
+		}
+
 		// 404 for any view that is currently disabled, regardless of how the URL was built.
 		// Site owners can disable this guard via Settings > Display > SEO & URL Handling.
 		if ( ! in_array( $effective_display, $enabled_views, true ) ) {
