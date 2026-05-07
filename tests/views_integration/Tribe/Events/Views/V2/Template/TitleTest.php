@@ -108,13 +108,13 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		$future       = date( 'Y-m-d', strtotime( '+30 days' ) );
 		$past_event   = $this->get_mock_event( 'events/single/1.template.json', [
 			'ID'         => 9001,
-			'start_date' => '2022-12-01 09:00:00',
-			'end_date'   => '2022-12-01 11:00:00',
+			'start_date' => '2022-12-01',
+			'end_date'   => '2022-12-01',
 		] );
 		$future_event = $this->get_mock_event( 'events/single/1.template.json', [
 			'ID'         => 9002,
-			'start_date' => $future . ' 09:00:00',
-			'end_date'   => $future . ' 11:00:00',
+			'start_date' => $future,
+			'end_date'   => $future,
 		] );
 
 		$context = tribe_context()->alter( [
@@ -137,13 +137,13 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 
 		$event_1 = $this->get_mock_event( 'events/single/1.template.json', [
 			'ID'         => 9101,
-			'start_date' => $same_day . ' 09:00:00',
-			'end_date'   => $same_day . ' 10:00:00',
+			'start_date' => $same_day,
+			'end_date'   => $same_day,
 		] );
 		$event_2 = $this->get_mock_event( 'events/single/1.template.json', [
 			'ID'         => 9102,
-			'start_date' => $same_day . ' 14:00:00',
-			'end_date'   => $same_day . ' 16:00:00',
+			'start_date' => $same_day,
+			'end_date'   => $same_day,
 		] );
 
 		$context = tribe_context()->alter( [
@@ -152,7 +152,7 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			'event_display_mode' => 'list',
 		] );
 
-		$range = Title::build_post_range_title( $context, '', [ $event_1, $event_2 ] );
+		$range = Title::build_post_range_title( $context, $same_day, [ $event_1, $event_2 ] );
 
 		$this->assertSame( tribe_get_start_date( $event_1, false ), $range );
 		$this->assertStringNotContainsString( ' - ', $range );
@@ -161,13 +161,13 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	public function test_post_range_title_preserves_past_dates_in_past_mode() {
 		$older = $this->get_mock_event( 'events/single/1.template.json', [
 			'ID'         => 9201,
-			'start_date' => '2022-01-15 09:00:00',
-			'end_date'   => '2022-01-15 11:00:00',
+			'start_date' => '2022-01-15',
+			'end_date'   => '2022-01-15',
 		] );
 		$newer = $this->get_mock_event( 'events/single/1.template.json', [
 			'ID'         => 9202,
-			'start_date' => '2022-06-20 09:00:00',
-			'end_date'   => '2022-06-20 11:00:00',
+			'start_date' => '2022-06-20',
+			'end_date'   => '2022-06-20',
 		] );
 
 		$context = tribe_context()->alter( [

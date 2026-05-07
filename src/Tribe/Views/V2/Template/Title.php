@@ -281,10 +281,12 @@ class Title {
 		/*
 		 * For upcoming views, never let the range start in the past — recurring events whose
 		 * series started earlier can otherwise leak an outdated date into the page title.
+		 * Only clamp when the last date is still in the future, so we don't invert ranges that
+		 * are entirely in the past.
 		 */
 		if ( ! $is_past ) {
 			$today = Dates::build_date_object( 'now' )->format( Dates::DBDATEFORMAT );
-			if ( $first_returned_date < $today ) {
+			if ( $first_returned_date < $today && $last_returned_date >= $today ) {
 				$first_event_date    = tribe_format_date( $today, false );
 				$first_returned_date = $today;
 			}
