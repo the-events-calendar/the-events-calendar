@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Corrected the legend superpowers filter so that days with multiple events from different categories evaluate every event when deciding whether to dim the day cell, instead of relying on the first event only. [ECP-2016]

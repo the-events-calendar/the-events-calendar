@@ -378,21 +378,33 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 
 	/**
 	 * Updates event visibility based on selected categories.
+	 *
+	 * When the parent container does not itself carry a category class (e.g. day cells
+	 * containing multiple events), every category-bearing descendant is checked, not just
+	 * the first one. The container is filtered only when none of its descendants match.
+	 *
 	 * @since 6.14.0
+	 * @since TBD Check all category-bearing descendants instead of only the first match,
+	 *            so day cells with multiple events filter correctly.
 	 * @return {void}
 	 */
 	const updateEventVisibility = () => {
 		const selectedArray = [ ...selectedCategories ];
 
 		getEventParentElements().forEach( ( eventContainer ) => {
-			let categoryElement = eventContainer;
+			const ownHasCategoryClass = [ ...eventContainer.classList ].some(
+				( cls ) => cls.startsWith( 'tribe_events_cat-' )
+			);
 
-			// If the parent doesn't have a category class, check children
-			if ( ! [ ...categoryElement.classList ].some( ( cls ) => cls.startsWith( 'tribe_events_cat-' ) ) ) {
-				categoryElement = eventContainer.querySelector( '[class*="tribe_events_cat-"]' );
+			let hasMatch = false;
+			if ( ownHasCategoryClass ) {
+				hasMatch = eventHasMatchingCategory( eventContainer, selectedArray );
+			} else {
+				const categoryElements = eventContainer.querySelectorAll( '[class*="tribe_events_cat-"]' );
+				hasMatch = [ ...categoryElements ].some(
+					( el ) => eventHasMatchingCategory( el, selectedArray )
+				);
 			}
-
-			const hasMatch = categoryElement ? eventHasMatchingCategory( categoryElement, selectedArray ) : false;
 
 			eventContainer.classList.toggle( SELECTORS.filteredHide, selectedArray.length > 0 && ! hasMatch );
 		} );
