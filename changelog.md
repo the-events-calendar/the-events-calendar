@@ -2,6 +2,7 @@
 
 ### [6.15.21] 2026-05-11
 
+* Feature - Integrate with Nexcess Licensing and Portal.
 * Tweak - Added filters: `tec_events_aggregator_harbor_took_over`
 * Tweak - Updated branding references from StellarWP to Nexcess.
 
