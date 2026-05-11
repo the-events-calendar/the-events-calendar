@@ -2,7 +2,7 @@
 /**
  * Handles the manipulation of the template title to correctly render it in the context of a Views v2 request.
  *
- * @since   4.9.10
+ * @since 4.9.10
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -20,7 +20,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Title
  *
- * @since   4.9.10
+ * @since 4.9.10
  *
  * @package Tribe\Events\Views\V2\Template
  */
@@ -251,8 +251,8 @@ class Title {
 	 * @return array The built post range title.
 	 */
 	public static function build_post_range_title( Context $context, $event_date, array $posts ) {
-		$event_date         = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
-		$is_past = 'past' === $context->get( 'event_display_mode' );
+		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
+		$is_past    = 'past' === $context->get( 'event_display_mode' );
 
 		if ( $is_past ) {
 			$first = end( $posts );
@@ -467,7 +467,7 @@ class Title {
 	 * @since 5.12.3 Added params, refined logic around category archive titles.
 	 *
 	 * @param string      $title     The input title.
-	 * @param  \WP_Term    $cat       The category term to use to build the title.
+	 * @param \WP_Term    $cat       The category term to use to build the title.
 	 * @param boolean     $depth     Whether to display the taxonomy hierarchy as part of the title.
 	 * @param null|string $separator The separator sequence to separate the title components.
 	 *
@@ -483,7 +483,7 @@ class Title {
 		 *
 		 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
 		 * @param string      $title The input title.
-		 * @param  \WP_Term   $cat   The category term to use to build the title.
+		 * @param \WP_Term   $cat   The category term to use to build the title.
 		 */
 		$depth = apply_filters( 'tec_events_views_v2_display_tax_hierarchy_in_title', $depth, $title, $cat );
 
