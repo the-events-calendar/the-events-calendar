@@ -252,8 +252,7 @@ class Title {
 	 */
 	public static function build_post_range_title( Context $context, $event_date, array $posts ) {
 		$event_date         = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
-		$event_display_mode = $context->get( 'event_display_mode' );
-		$is_past            = 'past' === $event_display_mode;
+		$is_past = 'past' === $context->get( 'event_display_mode' );
 
 		if ( $is_past ) {
 			$first = end( $posts );
