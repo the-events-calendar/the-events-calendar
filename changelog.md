@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.15.21] 2026-05-11
+### [6.16.0] 2026-05-11
 
 * Feature - Integrate with Nexcess Licensing and Portal.
 * Tweak - Added filters: `tec_events_aggregator_harbor_took_over`

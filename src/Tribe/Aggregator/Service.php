@@ -108,7 +108,7 @@ class Tribe__Events__Aggregator__Service {
 		/**
 		 * Allows plugins to hook in and determine if the consolidation took over.
 		 *
-		 * @since 6.15.21
+		 * @since 6.16.0
 		 *
 		 * @param bool $harbor_took_over Whether the Harbor took over.
 		 */

@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.15.21
+Stable tag: 6.16.0
 Requires at least: 6.7
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.15.21] 2026-05-11 =
+= [6.16.0] 2026-05-11 =
 
 * Feature - Integrate with Nexcess Licensing and Portal.
 * Tweak - Added filters: `tec_events_aggregator_harbor_took_over`
