@@ -180,7 +180,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: $timezone;
 
 		$localized = self::to_tz( $datetime, $tzstring );
-		$tzstring = self::is_utc_offset( $tzstring )
+		$tzstring  = self::is_utc_offset( $tzstring )
 			? self::generate_timezone_string_from_utc_offset( $tzstring )
 			: $tzstring;
 
