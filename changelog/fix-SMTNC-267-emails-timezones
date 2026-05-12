@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Improved timezone date parsing to prevent event times from displaying incorrectly in some configurations.
