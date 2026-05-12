@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.16.1] 2026-05-12
+
+* Tweak - Update Harbor to version 1.1.0 to remove the top level Liquid Web page added to the dashboard.
+
 ### [6.16.0] 2026-05-11
 
 * Feature - Integrate with Nexcess Licensing and Portal.
