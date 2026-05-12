@@ -160,8 +160,14 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		// If the event-specific timezone is suitable, we can obtain it without any conversion work
 		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
 			$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
+			$interpret_tz = ! empty( $event_tz ) ? $event_tz : $site_tz;
+			$interpret_tz = self::is_utc_offset( $interpret_tz )
+				? self::generate_timezone_string_from_utc_offset( $interpret_tz )
+				: $interpret_tz;
 
-			return $timestamps[ $cache_key ] = strtotime( $datetime );
+			$timestamp = new DateTime( $datetime, new DateTimeZone( $interpret_tz ) );
+
+			return $timestamps[ $cache_key ] = $timestamp->getTimestamp();
 		}
 
 		// Otherwise lets load the event's UTC time and convert it
@@ -174,7 +180,12 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: $timezone;
 
 		$localized = self::to_tz( $datetime, $tzstring );
-		$timestamps[ $cache_key ] = strtotime( $localized );
+		$tzstring = self::is_utc_offset( $tzstring )
+			? self::generate_timezone_string_from_utc_offset( $tzstring )
+			: $tzstring;
+
+		$timestamp = new DateTime( $localized, new DateTimeZone( $tzstring ) );
+		$timestamps[ $cache_key ] = $timestamp->getTimestamp();
 
 		tribe_set_var( $cache_var_name, $timestamps );
 
