@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.16.0] 2026-05-11
+
+* Feature - Integrate with Nexcess Licensing and Portal.
+* Tweak - Added filters: `tec_events_aggregator_harbor_took_over`
+* Tweak - Updated branding references from StellarWP to Nexcess.
+
 ### [6.15.20] 2026-04-08
 
 * Fix - Make SSR respect AJAX pagination so direct page URLs no longer return 404s. [TEC-5754]
