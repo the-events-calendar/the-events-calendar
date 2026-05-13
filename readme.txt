@@ -371,4 +371,5 @@ Remember to always make a backup of your database and files before updating!
 * Security - Improve authorization checks in QR codes. [SVUL-28]
 * Security - Improve `ORDER BY` clause validation. [SVUL-26]
 
+
 ### For all versions, please see the full [changelog](https://github.com/the-events-calendar/the-events-calendar/blob/main/changelog.md) in our documentation.
