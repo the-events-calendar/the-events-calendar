@@ -11,7 +11,7 @@
 
 	<div class="tribe-events-calendar-list__event-wrapper tribe-common-g-col">
 		<article  class="tribe-events-calendar-list__event tribe-common-g-row tribe-common-g-row--gutters post-8 tribe_events type-tribe_events status-publish hentry tribe_events_cat-green-category tribe_events_cat-red-category" >
-
+			
 			<div class="tribe-events-calendar-list__event-details tribe-common-g-col">
 
 				<header class="tribe-events-calendar-list__event-header">
@@ -30,7 +30,7 @@
 	</div>
 														</header>
 
-
+								
 			</div>
 		</article>
 	</div>

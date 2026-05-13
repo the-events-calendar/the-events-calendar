@@ -1,7 +1,7 @@
 <?php return '<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-8 tribe_events type-tribe_events status-publish hentry tribe_events_cat-green-category tribe_events_cat-red-category" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -18,14 +18,14 @@
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
 		<span class="tribe-event-date-start">June 20, 2019 @ 12:04 pm</span> - <span class="tribe-event-time">4:04 pm</span>	</time>
 	</div>
-
+								
 <div class="tec-events-calendar-day__event-categories">
 	<div class="tec-events-calendar-day__category tribe-events-calendar__category--green-category">
 				Green Category	</div>
 </div>
 			</header>
 
-
+						
 		</div>
 
 	</div>
