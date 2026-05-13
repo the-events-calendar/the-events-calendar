@@ -241,6 +241,8 @@ class Frontend_Test extends Controller_Test_Case {
 		$this->set_fn_return( 'is_singular', fn( $ptype = null ) => $ptype === Calendar_Embeds::POSTTYPE, true );
 		$this->set_fn_return( 'wp_create_nonce', 'hdas64538ahda' );
 		add_filter( 'tribe_events_views_v2_view_breakpoint_pointer', fn() => 'breakpoint-pointer' );
+		// Pin compatibility-wrapper emission so the snapshot is stable regardless of the active theme.
+		add_filter( 'tec_events_calendar_embeds_render_compatibility_required', '__return_false' );
 
 		add_filter( 'tribe_context_pre_today', fn() => date( 'Y-m-d' ) );
 		add_filter( 'tribe_context_pre_now', fn() => date( 'Y-m-d H:i:s' ) );
