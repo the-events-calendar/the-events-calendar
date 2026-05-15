@@ -74,36 +74,9 @@ jobs:
         run: |
           set -o pipefail
 
-          PHPCS_STDOUT="$(mktemp)"
-          PHPCS_STDERR="$(mktemp)"
-
-          vendor/bin/phpcs --report=json -q >"$PHPCS_STDOUT" 2>"$PHPCS_STDERR"
-          PHPCS_EXIT_CODE=$?
-
-          if [ -s "$PHPCS_STDERR" ]; then
-            echo "PHPCS STDERR (can break JSON if mixed into stdout):"
-            cat "$PHPCS_STDERR"
-          fi
-
-          if ! jq empty <"$PHPCS_STDOUT" >/dev/null 2>&1; then
-            echo "PHPCS did not produce valid JSON. Raw stdout:"
-            cat "$PHPCS_STDOUT"
-            if [ "$PHPCS_EXIT_CODE" -eq 0 ]; then
-              exit 1
-            fi
-            exit "$PHPCS_EXIT_CODE"
-          fi
-
-          jq -r '
-            .files | to_entries[] | .key as $path |
-            .value.messages[] as $msg |
-            "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)"
-          ' "$PHPCS_STDOUT" | reviewdog \
-            -f=efm \
-            -efm="%f:%l:%c:%m" \
-            -name="phpcs" \
-            -filter-mode="added" \
+          vendor/bin/phpcs --report=checkstyle -q | reviewdog \
+            -f=checkstyle \
+            -name=phpcs \
+            -filter-mode=added \
             -fail-level=any \
             -reporter=github-pr-check
-
-          exit "$PHPCS_EXIT_CODE"
