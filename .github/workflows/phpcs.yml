@@ -25,69 +25,9 @@ jobs:
   phpcs:
     needs: check
     if: needs.check.outputs.run_tests
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      # ------------------------------------------------------------------------------
-      # Checkout the repo
-      # ------------------------------------------------------------------------------
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1000
-          token: ${{ secrets.GH_BOT_TOKEN }}
-          submodules: recursive
-
-      # ------------------------------------------------------------------------------
-      # Set up PHP and Composer dependencies
-      # ------------------------------------------------------------------------------
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-          extensions: uopz
-          tools: composer:v2
-          coverage: none
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache/files
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist
-
-      - name: Set up reviewdog
-        uses: reviewdog/action-setup@v1
-
-      # ------------------------------------------------------------------------------
-      # Run PHPCS with robust JSON parsing
-      # ------------------------------------------------------------------------------
-      - name: Run PHPCS and annotate PR
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -eo pipefail
-
-          if ! vendor/bin/phpcs --report=checkstyle -q > phpcs-report.xml 2> phpcs-stderr.log; then
-            cat phpcs-stderr.log
-            exit 1
-          fi
-
-          if [ ! -s phpcs-report.xml ]; then
-            echo "PHPCS produced an empty checkstyle report"
-            cat phpcs-stderr.log || true
-            exit 1
-          fi
-
-          reviewdog \
-            -f=checkstyle \
-            -name=phpcs \
-            -filter-mode=added \
-            -fail-level=any \
-            -reporter=github-check < phpcs-report.xml
+    uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
+    with:
+      ref: ${{ github.event.inputs.ref }}
+      change_permissions: false
+    secrets:
+      access-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
