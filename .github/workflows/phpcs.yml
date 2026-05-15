@@ -25,9 +25,85 @@ jobs:
   phpcs:
     needs: check
     if: needs.check.outputs.run_tests
-    uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
-    with:
-      ref: ${{ github.event.inputs.ref }}
-      change_permissions: false
-    secrets:
-      access-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      # ------------------------------------------------------------------------------
+      # Checkout the repo
+      # ------------------------------------------------------------------------------
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          submodules: recursive
+
+      # ------------------------------------------------------------------------------
+      # Set up PHP and Composer dependencies
+      # ------------------------------------------------------------------------------
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: uopz
+          tools: composer:v2
+          coverage: none
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Set up reviewdog
+        uses: reviewdog/action-setup@v1
+
+      # ------------------------------------------------------------------------------
+      # Run PHPCS with robust JSON parsing
+      # ------------------------------------------------------------------------------
+      - name: Run PHPCS and annotate PR
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -o pipefail
+
+          PHPCS_STDOUT="$(mktemp)"
+          PHPCS_STDERR="$(mktemp)"
+
+          vendor/bin/phpcs --report=json -q >"$PHPCS_STDOUT" 2>"$PHPCS_STDERR"
+          PHPCS_EXIT_CODE=$?
+
+          if [ -s "$PHPCS_STDERR" ]; then
+            echo "PHPCS STDERR (can break JSON if mixed into stdout):"
+            cat "$PHPCS_STDERR"
+          fi
+
+          if ! jq empty <"$PHPCS_STDOUT" >/dev/null 2>&1; then
+            echo "PHPCS did not produce valid JSON. Raw stdout:"
+            cat "$PHPCS_STDOUT"
+            if [ "$PHPCS_EXIT_CODE" -eq 0 ]; then
+              exit 1
+            fi
+            exit "$PHPCS_EXIT_CODE"
+          fi
+
+          jq -r '
+            .files | to_entries[] | .key as $path |
+            .value.messages[] as $msg |
+            "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)"
+          ' "$PHPCS_STDOUT" | reviewdog \
+            -f=efm \
+            -efm="%f:%l:%c:%m" \
+            -name="phpcs" \
+            -filter-mode="added" \
+            -fail-level=any \
+            -reporter=github-pr-check
+
+          exit "$PHPCS_EXIT_CODE"
