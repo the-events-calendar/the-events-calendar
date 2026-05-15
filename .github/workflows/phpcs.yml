@@ -72,11 +72,22 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -o pipefail
+          set -eo pipefail
 
-          vendor/bin/phpcs --report=checkstyle -q | reviewdog \
+          if ! vendor/bin/phpcs --report=checkstyle -q > phpcs-report.xml 2> phpcs-stderr.log; then
+            cat phpcs-stderr.log
+            exit 1
+          fi
+
+          if [ ! -s phpcs-report.xml ]; then
+            echo "PHPCS produced an empty checkstyle report"
+            cat phpcs-stderr.log || true
+            exit 1
+          fi
+
+          reviewdog \
             -f=checkstyle \
             -name=phpcs \
             -filter-mode=added \
             -fail-level=any \
-            -reporter=github-pr-check
+            -reporter=github-pr-check < phpcs-report.xml
