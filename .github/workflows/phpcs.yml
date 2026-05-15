@@ -90,4 +90,4 @@ jobs:
             -name=phpcs \
             -filter-mode=added \
             -fail-level=any \
-            -reporter=github-pr-check < phpcs-report.xml
+            -reporter=github-check < phpcs-report.xml
