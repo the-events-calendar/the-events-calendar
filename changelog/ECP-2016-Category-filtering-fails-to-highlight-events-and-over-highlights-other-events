@@ -1,1 +1,4 @@
+Significance: patch
+Type: fix
+
 Resolved an issue where the category legend superpowers filter would not apply in a day with multiple events from different categories. [ECP-2016]
