@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.15.20\n"
+"Project-Id-Version: The Events Calendar 6.16.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-08T14:37:37+00:00\n"
+"POT-Creation-Date: 2026-05-11T00:02:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -6038,39 +6038,25 @@ msgstr ""
 msgid "Previous TEC versions"
 msgstr ""
 
-#. Translators: %1$s - the user name.
-#: src/Events/Telemetry/Telemetry.php:61
-#, php-format
-msgid "Hi, %1$s! This is an invitation to help our StellarWP community."
+#: src/Events/Telemetry/Telemetry.php:59
+msgid "Want to help shape the future of The Events Calendar? Opting in shares anonymous usage data with our team at Liquid Web, the company behind The Events Calendar, giving us the insights we need to keep improving the tools you rely on."
 msgstr ""
 
-#: src/Events/Telemetry/Telemetry.php:65
-msgid "If you opt-in, some data about your usage of The Events Calendar and future StellarWP Products will be shared with our teams (so they can work their butts off to improve)."
-msgstr ""
-
-#: src/Events/Telemetry/Telemetry.php:66
-msgid "We will also share some helpful info on WordPress, and our products from time to time."
-msgstr ""
-
-#: src/Events/Telemetry/Telemetry.php:67
-msgid "And if you skip this, that’s okay! Our products still work just fine."
-msgstr ""
-
-#: src/Events/Telemetry/Telemetry.php:72
+#: src/Events/Telemetry/Telemetry.php:64
 msgid "We hope you love The Events Calendar!"
 msgstr ""
 
-#: src/Events/Telemetry/Telemetry.php:94
+#: src/Events/Telemetry/Telemetry.php:86
 msgctxt "Title for Data share section."
 msgid "Data share consent"
 msgstr ""
 
 #. Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
-#: src/Events/Telemetry/Telemetry.php:97
+#: src/Events/Telemetry/Telemetry.php:89
 #, php-format
 msgctxt "Description of opt-in setting."
 msgid ""
-"Enable this option to share usage data with The Events Calendar and StellarWP.\n"
+"Enable this option to share usage data with The Events Calendar and Liquid Web.\n"
 "        This activates access to TEC AI chatbot and in-app priority support for premium users.\n"
 "        %1$sWhat permissions are being granted?%4$s\n"
 "        %2$sRead our terms of service%4$s.\n"
@@ -6477,7 +6463,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Admin_Bar.php:97
 #: src/Tribe/Aggregator/API/Origins.php:46
-#: src/Tribe/Aggregator/Service.php:929
+#: src/Tribe/Aggregator/Service.php:939
 msgid "CSV File"
 msgstr ""
 
@@ -6526,7 +6512,7 @@ msgid "The image associated with your event could not be attached to the event."
 msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:64
-#: src/Tribe/Aggregator/Service.php:793
+#: src/Tribe/Aggregator/Service.php:803
 #, php-format
 msgid "The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later."
 msgstr ""
@@ -6599,9 +6585,9 @@ msgid "You must enter an Event Aggregator license key in Events > Settings > Lic
 msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:144
-#: src/Tribe/Aggregator/Service.php:249
-#: src/Tribe/Aggregator/Service.php:257
-#: src/Tribe/Aggregator/Service.php:313
+#: src/Tribe/Aggregator/Service.php:259
+#: src/Tribe/Aggregator/Service.php:267
+#: src/Tribe/Aggregator/Service.php:323
 msgid "There may be an issue with the Event Aggregator server. Please try your import again later."
 msgstr ""
 
@@ -7271,246 +7257,246 @@ msgstr ""
 msgid "The new status message slug, to allow for localized messages."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:229
+#: src/Tribe/Aggregator/Service.php:239
 msgid "Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:239
+#: src/Tribe/Aggregator/Service.php:249
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:270
+#: src/Tribe/Aggregator/Service.php:280
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:765
+#: src/Tribe/Aggregator/Service.php:775
 msgid "the UID part of the iCalendar Specification"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:770
+#: src/Tribe/Aggregator/Service.php:780
 msgid "read more about Facebook restrictions in our knowledgebase"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:775
+#: src/Tribe/Aggregator/Service.php:785
 msgid "https://evnt.is/1afb"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:780
+#: src/Tribe/Aggregator/Service.php:790
 msgid "Sorry, but something went wrong. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:781
+#: src/Tribe/Aggregator/Service.php:791
 msgid "Events could not be imported. The import parameters were invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:782
+#: src/Tribe/Aggregator/Service.php:792
 msgid "Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href=\"https://theeventscalendar.com/knowledgebase/import-errors/\" target=\"_blank\">read more about Eventbrite restrictions in our knowledgebase</a>."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:783
+#: src/Tribe/Aggregator/Service.php:793
 msgid "No upcoming Eventbrite events found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:784
+#: src/Tribe/Aggregator/Service.php:794
 msgid "The URL provided could not be reached."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:785
+#: src/Tribe/Aggregator/Service.php:795
 msgid "The URL provided failed to load."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:786
+#: src/Tribe/Aggregator/Service.php:796
 msgid "The image associated with your event could not be imported."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:787
+#: src/Tribe/Aggregator/Service.php:797
 msgid "The image associated with your event is not accessible with your API key."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:788
+#: src/Tribe/Aggregator/Service.php:798
 msgid "The import failed for an unknown reason. Please try again. If the problem persists, please contact support."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:789
+#: src/Tribe/Aggregator/Service.php:799
 msgid "Events could not be imported. The URL provided did not have events in the proper format."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:790
+#: src/Tribe/Aggregator/Service.php:800
 msgid "The file provided could not be opened. Please confirm that it is a properly formatted .ics file."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:791
+#: src/Tribe/Aggregator/Service.php:801
 msgid "Your Meetup API key is invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:792
+#: src/Tribe/Aggregator/Service.php:802
 msgid "Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:795
+#: src/Tribe/Aggregator/Service.php:805
 msgid "The import is in progress."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:797
+#: src/Tribe/Aggregator/Service.php:807
 msgid "The import will be starting soon."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:799
+#: src/Tribe/Aggregator/Service.php:809
 msgid "Success"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:800
+#: src/Tribe/Aggregator/Service.php:810
 msgid "Import created"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:801
+#: src/Tribe/Aggregator/Service.php:811
 msgid "Successfully fetched Eventbrite Token"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:802
+#: src/Tribe/Aggregator/Service.php:812
 msgid "Successfully loaded import origins"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:803
+#: src/Tribe/Aggregator/Service.php:813
 msgid "Import is complete"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:804
+#: src/Tribe/Aggregator/Service.php:814
 msgid "Import queued"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:805
+#: src/Tribe/Aggregator/Service.php:815
 msgid "Events could not be imported. The URL provided could not be reached."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:806
+#: src/Tribe/Aggregator/Service.php:816
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:808
+#: src/Tribe/Aggregator/Service.php:818
 #, php-format
 msgctxt "The placeholder is for the localized version of the iCal UID specification link"
 msgid "Some events at the requested source are missing the UID attribute required by the iCalendar Specification. Creating a scheduled import would generate duplicate events on each import. Instead, please use a One-Time import or contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed's UID issue."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:817
+#: src/Tribe/Aggregator/Service.php:827
 #, php-format
 msgctxt "The placeholder is for the localized version of the iCal UID specification link"
 msgid "Some events at the requested source are missing the UID attribute required by the iCalendar Specification. One-Time and ICS File imports are allowed but successive imports will create duplicated events on your site. Please contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed's UID issue."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:823
+#: src/Tribe/Aggregator/Service.php:833
 msgid "Successfully fetched Facebook Token"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:824
+#: src/Tribe/Aggregator/Service.php:834
 msgid "Successfully connected to Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:825
+#: src/Tribe/Aggregator/Service.php:835
 msgid "Successfully disconnected Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:826
+#: src/Tribe/Aggregator/Service.php:836
 msgid "Successfully marked event for import from Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:827
+#: src/Tribe/Aggregator/Service.php:837
 msgid "Successfully synced event to Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:828
+#: src/Tribe/Aggregator/Service.php:838
 msgid "The import being fetched is not queued up for importing. Please try the import again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:830
+#: src/Tribe/Aggregator/Service.php:840
 #, php-format
 msgctxt "Placeholder used for the facebook restriction link"
 msgid "Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can %1$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:837
+#: src/Tribe/Aggregator/Service.php:847
 msgid "Events cannot be imported because we received an error from Facebook: "
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:838
+#: src/Tribe/Aggregator/Service.php:848
 msgid "Events cannot be imported because we received an error from Eventbrite: "
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:839
+#: src/Tribe/Aggregator/Service.php:849
 msgid "Event cannot be synced to Eventbrite because we received an error from Eventbrite."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:840
+#: src/Tribe/Aggregator/Service.php:850
 msgid "Eventbrite token is not valid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:841
-#: src/Tribe/Aggregator/Service.php:844
+#: src/Tribe/Aggregator/Service.php:851
+#: src/Tribe/Aggregator/Service.php:854
 msgid "Eventbrite parsed object is empty."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:842
+#: src/Tribe/Aggregator/Service.php:852
 msgid "Eventbrite parsed object type is empty."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:843
+#: src/Tribe/Aggregator/Service.php:853
 msgid "Eventbrite parsed object ID is empty."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:845
+#: src/Tribe/Aggregator/Service.php:855
 msgid "Eventbrite event not found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:846
+#: src/Tribe/Aggregator/Service.php:856
 msgid "Eventbrite organizer not found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:847
+#: src/Tribe/Aggregator/Service.php:857
 msgid "Eventbrite venue not found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:848
+#: src/Tribe/Aggregator/Service.php:858
 msgid "Eventbrite user not found."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:849
+#: src/Tribe/Aggregator/Service.php:859
 msgid "Eventbrite sync data invalid."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:850
+#: src/Tribe/Aggregator/Service.php:860
 msgid "You do not have an active connection to Eventbrite through your account and Event Aggregator."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:851
+#: src/Tribe/Aggregator/Service.php:861
 msgid "Webhook not registered properly."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:852
+#: src/Tribe/Aggregator/Service.php:862
 msgid "This webhook action is not currently supported."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:853
+#: src/Tribe/Aggregator/Service.php:863
 msgid "Event not owned, you cannot edit it."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:855
+#: src/Tribe/Aggregator/Service.php:865
 #, php-format
 msgctxt "Placeholder used for the meetup API changes"
 msgid "Meetup is no longer supporting API keys, and will restrict access using your existing key starting from August 2019. As an alternative, you should use OAuth2 and update The Events Calendar to the latest version. Learn more at %1$s"
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:863
+#: src/Tribe/Aggregator/Service.php:873
 #, php-format
 msgctxt "Placeholder used for the meetup API changes link when the KEY is plain"
 msgid "Meetup is no longer supporting API keys, and has restricted access using your existing key starting from August 2019. As an alternative, you must use OAuth2 and update The Events Calendar to the latest version. Learn more at %1$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:870
+#: src/Tribe/Aggregator/Service.php:880
 msgid "You do not have an active connection to Meetup through your account and Event Aggregator."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:887
+#: src/Tribe/Aggregator/Service.php:897
 msgid "Unknown service message"
 msgstr ""
 
