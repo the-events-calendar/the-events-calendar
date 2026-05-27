@@ -483,4 +483,240 @@ multiple lines",
 			$this->assertNotEquals( '', $ical );
 		}
 	}
+
+	/**
+	 * Provides `ical` query-string values mimicking scanners and abuse attempts.
+	 *
+	 * The real `ical` parameter is only checked for presence (`isset`).
+	 *
+	 * @return array<string, array{0: string, 1: array<int, string>}>
+	 */
+	public function malicious_ical_value_provider() {
+		return [
+			'plain_boolean_one'            => [
+				'1',
+				[],
+			],
+			'mysql_time_based_sleep'       => [
+				"1'));SLEEP(3);-- tec_svul_ical_mysql",
+				[ 'SLEEP(3)', 'tec_svul_ical_mysql' ],
+			],
+			'mssql_time_based_waitfor'     => [
+				"1');WAITFOR DELAY '00:00:03';-- tec_svul_ical_mssql",
+				[ "WAITFOR DELAY '00:00:03'", 'tec_svul_ical_mssql' ],
+			],
+			'scanner_style_waitfor'        => [
+				"1');WAITFOR DELAY '00:00:3';--",
+				[ "WAITFOR DELAY '00:00:3'" ],
+			],
+			'union_select'                 => [
+				"1' UNION SELECT NULL,tec_svul_ical_union,NULL--",
+				[ 'tec_svul_ical_union', 'UNION SELECT' ],
+			],
+			'script_injection'             => [
+				'<script>tec_svul_ical_xss</script>',
+				[ '<script>', 'tec_svul_ical_xss', '</script>' ],
+			],
+			'boolean_true_string'          => [
+				'true',
+				[],
+			],
+			'long_encoded_style_payload'   => [
+				"1));SLEEP(2);-- tec_svul_ical_long " . str_repeat( 'A', 64 ),
+				[ 'SLEEP(2)', 'tec_svul_ical_long' ],
+			],
+		];
+	}
+
+	/**
+	 * Malicious `ical` values must not reach the feed body or database queries.
+	 *
+	 * Covers false positives from time-based SQLi scanners: `ical` is a boolean
+	 * gate in `Tribe__Events__iCal::do_ical_template()`; export work is done in
+	 * `generate_ical_feed()`, which does not interpolate `$_GET['ical']` into SQL.
+	 *
+	 * We exercise `generate_ical_feed( null, false )` while `$_GET`/`$_REQUEST` are
+	 * poisoned, matching what runs after the template gate (without `die()` / `tribe_exit()`).
+	 *
+	 * @test
+	 * @dataProvider malicious_ical_value_provider
+	 *
+	 * @param string               $ical_value          Value assigned to `$_GET['ical']`.
+	 * @param array<int, string>   $forbidden_substrings Substrings that must not appear in output or SQL.
+	 */
+	public function should_not_reflect_malicious_ical_parameter_in_feed_or_queries( $ical_value, array $forbidden_substrings ) {
+		global $wpdb, $wp_query;
+
+		$this->ensure_savequeries_enabled();
+
+		$post_type = \Tribe__Events__Main::POSTTYPE;
+		$this->factory()->event->create(
+			[
+				'post_type'  => $post_type,
+				'meta_input' => [
+					'_EventStartDate' => gmdate( \Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+1 day' ) ),
+				],
+			]
+		);
+
+		$wp_query = tribe_get_events( [ 'posts_per_page' => 10 ], true );
+
+		$original_get      = isset( $_GET['ical'] ) ? $_GET['ical'] : null;
+		$original_request  = isset( $_REQUEST['ical'] ) ? $_REQUEST['ical'] : null;
+
+		$query_offset = ( is_array( $wpdb->queries ) ) ? count( $wpdb->queries ) : 0;
+
+		$_GET['ical']     = $ical_value;
+		$_REQUEST['ical'] = $ical_value;
+
+		try {
+			$sut     = $this->make_instance();
+			$content = $sut->generate_ical_feed( null, false );
+		} finally {
+			if ( null !== $original_get ) {
+				$_GET['ical'] = $original_get;
+			} else {
+				unset( $_GET['ical'] );
+			}
+			if ( null !== $original_request ) {
+				$_REQUEST['ical'] = $original_request;
+			} else {
+				unset( $_REQUEST['ical'] );
+			}
+		}
+
+		$this->assertNotEmpty( $content );
+		$this->assertContains( 'BEGIN:VCALENDAR', $content );
+
+		foreach ( $forbidden_substrings as $needle ) {
+			$this->assertStringNotContainsString(
+				$needle,
+				$content,
+				'iCal output must not contain malicious `ical` payload fragments.'
+			);
+		}
+
+		$this->assertSubstringsAbsentFromQueriesSince( $forbidden_substrings, $query_offset );
+	}
+
+	/**
+	 * Same guarantees when the scanner sends `ical` on POST (body) rather than GET.
+	 *
+	 * `do_ical_template()` only checks `$_GET['ical']` and rewrite query vars, so POST-only
+	 * requests do not open the iCal template; export code still must not leak POST payloads
+	 * into SQL when generating feeds elsewhere.
+	 *
+	 * @test
+	 */
+	public function should_not_reflect_malicious_ical_from_post_superglobal_in_feed_or_queries() {
+		global $wpdb, $wp_query;
+
+		$this->ensure_savequeries_enabled();
+
+		$post_type = \Tribe__Events__Main::POSTTYPE;
+		$this->factory()->event->create(
+			[
+				'post_type'  => $post_type,
+				'meta_input' => [
+					'_EventStartDate' => gmdate( \Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+2 days' ) ),
+				],
+			]
+		);
+
+		$wp_query = tribe_get_events( [ 'posts_per_page' => 10 ], true );
+
+		$malicious = "1'));SLEEP(3);-- tec_svul_ical_post_body";
+		$needles   = [ 'SLEEP(3)', 'tec_svul_ical_post_body' ];
+
+		$original_get     = isset( $_GET['ical'] ) ? $_GET['ical'] : null;
+		$original_post    = isset( $_POST['ical'] ) ? $_POST['ical'] : null;
+		$original_request = isset( $_REQUEST['ical'] ) ? $_REQUEST['ical'] : null;
+
+		unset( $_GET['ical'] );
+
+		$query_offset = ( is_array( $wpdb->queries ) ) ? count( $wpdb->queries ) : 0;
+
+		$_POST['ical']    = $malicious;
+		$_REQUEST['ical'] = $malicious;
+
+		try {
+			$sut     = $this->make_instance();
+			$content = $sut->generate_ical_feed( null, false );
+		} finally {
+			if ( null !== $original_get ) {
+				$_GET['ical'] = $original_get;
+			} else {
+				unset( $_GET['ical'] );
+			}
+			if ( null !== $original_post ) {
+				$_POST['ical'] = $original_post;
+			} else {
+				unset( $_POST['ical'] );
+			}
+			if ( null !== $original_request ) {
+				$_REQUEST['ical'] = $original_request;
+			} else {
+				unset( $_REQUEST['ical'] );
+			}
+		}
+
+		$this->assertNotEmpty( $content );
+		$this->assertContains( 'BEGIN:VCALENDAR', $content );
+
+		foreach ( $needles as $needle ) {
+			$this->assertStringNotContainsString( $needle, $content );
+		}
+
+		$this->assertSubstringsAbsentFromQueriesSince( $needles, $query_offset );
+	}
+
+	/**
+	 * Ensures SAVEQUERIES is on so `$wpdb->queries` is populated for assertions.
+	 *
+	 * @return void
+	 */
+	private function ensure_savequeries_enabled() {
+		if ( ! defined( 'SAVEQUERIES' ) ) {
+			define( 'SAVEQUERIES', true );
+		}
+
+		$this->assertTrue(
+			(bool) SAVEQUERIES,
+			'SAVEQUERIES must be true to assert on $wpdb->queries.'
+		);
+	}
+
+	/**
+	 * Asserts none of the needles appear in SQL recorded after `$offset`.
+	 *
+	 * @param array<int, string> $needles Distinct substrings that must not appear in executed SQL.
+	 * @param int                $offset  Number of queries to skip (only check queries run during the SUT).
+	 *
+	 * @return void
+	 */
+	private function assertSubstringsAbsentFromQueriesSince( array $needles, $offset ) {
+		if ( [] === $needles ) {
+			return;
+		}
+
+		global $wpdb;
+
+		$this->assertIsArray(
+			$wpdb->queries,
+			'Expected $wpdb->queries to be an array; enable SAVEQUERIES in the test environment.'
+		);
+
+		$slice = array_slice( $wpdb->queries, $offset );
+
+		foreach ( $slice as $row ) {
+			$sql = is_array( $row ) ? $row[0] : $row;
+			foreach ( $needles as $needle ) {
+				$this->assertStringNotContainsString(
+					$needle,
+					$sql,
+					'Executed SQL must not contain malicious `ical` payload fragments.'
+				);
+			}
+		}
+	}
 }

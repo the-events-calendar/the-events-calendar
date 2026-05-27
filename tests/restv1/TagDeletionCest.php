@@ -65,6 +65,21 @@ class TagDeletionCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should return 403 if contributor tries to delete a tag
+	 *
+	 * @test
+	 */
+	public function should_return_403_if_contributor_cannot_delete_event_tag( Tester $I ) {
+		list( $id ) = $I->haveTermInDatabase( 'foo', 'post_tag' );
+
+		$I->generate_nonce_for_role( 'contributor' );
+		$I->sendDELETE( $this->tags_url . "/{$id}" );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseIsJson();
+	}
+
+	/**
 	 * It should return bad request if term ID parameter is bad
 	 *
 	 * @test

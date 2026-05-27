@@ -145,4 +145,70 @@ class Tribe__Events__MainTest extends \Codeception\TestCase\WPTestCase {
 		// Clear up state.
 		delete_user_option( $user_id, 'metaboxhidden_nav-menus', true );
 	}
+
+	/**
+	 * Simulates the broken state where WordPress create_initial_taxonomies() has
+	 * re-registered post_tag with only 'post' in object_type (e.g. on change_locale).
+	 * This was happening when the language was changed to fr_FR in the block editor. [TEC-4996]
+	 */
+	private function simulate_post_tag_reset_to_post_only(): void {
+		global $wp_taxonomies;
+
+		$this->assertArrayHasKey( 'post_tag', $wp_taxonomies, 'post_tag taxonomy should exist to simulate reset.' );
+		$wp_taxonomies['post_tag']->object_type = [ 'post' ];
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_restore_event_tag_taxonomy_on_locale_change_restores_post_tag_for_tribe_events(): void {
+		global $wp_taxonomies;
+
+		$this->assertContains( 'post_tag', get_object_taxonomies( TEC::POSTTYPE ), 'Precondition: tribe_events should have post_tag before simulation.' );
+
+		$this->simulate_post_tag_reset_to_post_only();
+
+		$this->assertNotContains( 'post_tag', get_object_taxonomies( TEC::POSTTYPE ), 'After reset simulation, tribe_events should not have post_tag.' );
+		$this->assertEquals( [ 'post' ], $wp_taxonomies['post_tag']->object_type, 'After reset simulation, post_tag object_type should be only post.' );
+
+		TEC::instance()->restore_event_tag_taxonomy_on_locale_change();
+
+		$this->assertContains( 'post_tag', get_object_taxonomies( TEC::POSTTYPE ), 'After restore, tribe_events should have post_tag again.' );
+		$this->assertContains( TEC::POSTTYPE, $wp_taxonomies['post_tag']->object_type, 'After restore, post_tag object_type should include tribe_events.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_restore_event_tag_taxonomy_on_locale_change_restores_post_tag_for_tec_calendar_embed_when_registered(): void {
+		global $wp_taxonomies;
+
+		$this->simulate_post_tag_reset_to_post_only();
+
+		TEC::instance()->restore_event_tag_taxonomy_on_locale_change();
+
+		$this->assertContains( 'tec_calendar_embed', $wp_taxonomies['post_tag']->object_type, 'When tec_calendar_embed exists, restore should add it to post_tag object_type.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_restore_event_tag_taxonomy_on_locale_change_bails_early_when_post_tag_does_not_exist(): void {
+		global $wp_taxonomies;
+
+		$this->simulate_post_tag_reset_to_post_only();
+
+		$saved_post_tag = $wp_taxonomies['post_tag'];
+		unset( $wp_taxonomies['post_tag'] );
+
+		$this->assertFalse( taxonomy_exists( 'post_tag' ), 'Precondition: post_tag should appear missing after unset.' );
+
+		// Method should return without error and without modifying anything.
+		TEC::instance()->restore_event_tag_taxonomy_on_locale_change();
+
+		// Restore so later tests and teardown are not broken.
+		$wp_taxonomies['post_tag'] = $saved_post_tag;
+
+		$this->assertTrue( taxonomy_exists( 'post_tag' ), 'post_tag should exist again after restore in test.' );
+	}
 }

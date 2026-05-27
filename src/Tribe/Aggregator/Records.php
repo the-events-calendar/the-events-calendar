@@ -469,6 +469,59 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
+	 * Ensures a scheduled import record ID is valid for an edit request and that the current user may update it.
+	 *
+	 * @since 6.15.19
+	 *
+	 * @param int                                         $post_id        Post ID submitted as the record to update.
+	 * @param Tribe__Events__Aggregator__Record__Abstract $request_record Record for the import origin from the same request.
+	 *
+	 * @return true|WP_Error True when the user may proceed, or a `WP_Error` describing the failure.
+	 */
+	public function validate_scheduled_record_edit_access( $post_id, Tribe__Events__Aggregator__Record__Abstract $request_record ) {
+		$post_id = absint( $post_id );
+
+		if ( ! $post_id ) {
+			return new WP_Error(
+				'tribe-ea-invalid-record-id',
+				__( 'The import record could not be updated.', 'the-events-calendar' )
+			);
+		}
+
+		$existing = $this->get_by_post_id( $post_id );
+
+		if ( tribe_is_error( $existing ) || ! $existing instanceof Tribe__Events__Aggregator__Record__Abstract ) {
+			return new WP_Error(
+				'tribe-ea-invalid-record',
+				__( 'The import record could not be updated.', 'the-events-calendar' )
+			);
+		}
+
+		if ( ! $existing->is_schedule ) {
+			return new WP_Error(
+				'tribe-ea-not-scheduled-record',
+				__( 'The import record could not be updated.', 'the-events-calendar' )
+			);
+		}
+
+		if ( $existing->origin !== $request_record->origin ) {
+			return new WP_Error(
+				'tribe-ea-record-origin-mismatch',
+				__( 'The import record could not be updated.', 'the-events-calendar' )
+			);
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return new WP_Error(
+				'tribe-ea-cannot-edit-record',
+				__( 'You do not have permission to edit this import.', 'the-events-calendar' )
+			);
+		}
+
+		return true;
+	}
+
+	/**
 	 * Returns an appropriate Record object for the given import ID.
 	 *
 	 * @since 4.3.0

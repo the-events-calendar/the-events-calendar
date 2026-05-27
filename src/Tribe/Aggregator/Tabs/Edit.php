@@ -68,6 +68,28 @@ class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__T
 			return;
 		}
 
+		if ( ! $this->current_user_can_edit_events() ) {
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				wp_send_json_error(
+					[
+						'message_code' => 'error:edit-import-denied',
+						'message'      => __( 'You do not have permission to edit this import.', 'the-events-calendar' ),
+					],
+					403
+				);
+			}
+
+			ob_start();
+			?>
+			<p>
+				<?php esc_html_e( 'You do not have permission to edit this import.', 'the-events-calendar' ); ?>
+			</p>
+			<?php
+			tribe_notice( 'tribe-aggregator-edit-import-denied', ob_get_clean(), 'type=error' );
+
+			return;
+		}
+
 		$submission = parent::handle_submit();
 
 		if ( empty( $submission['record'] ) || empty( $submission['post_data'] ) || empty( $submission['meta'] ) ) {

@@ -156,7 +156,7 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: pup i18n
         if: ${{ env.PRODUCTION_ZIP == 'true' }}
-        run: composer -- pup i18n
+        run: composer -- pup i18n --delay 10 --retries 5
 
       # ------------------------------------------------------------------------------
       # Run Pup Package - creates the zip file for new OR production builds
