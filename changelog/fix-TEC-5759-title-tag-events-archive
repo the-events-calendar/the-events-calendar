@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensure no past Event dates are shown in the Title meta tag on Events archive and single views. [TEC-5759]
