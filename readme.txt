@@ -232,6 +232,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.16.3] 2026-05-28 =
+
+* Fix - Ensure no past Event dates are shown in the Title meta tag on Events archive and single views. [TEC-5759]
+* Fix - Resolved an issue where the category legend superpowers filter would not apply in a day with multiple events from different categories. [ECP-2016]
+* Language - 1 new strings added, 65 updated, 1 fuzzied, and 4 obsoleted.
+
 = [6.16.2] 2026-05-14 =
 
 * Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
