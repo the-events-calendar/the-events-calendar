@@ -384,7 +384,7 @@ tribe.events.categoryColors.categoryPicker = ( function () {
 	 * the first one. The container is filtered only when none of its descendants match.
 	 *
 	 * @since 6.14.0
-	 * @since TBD Check all category-bearing descendants instead of only the first match,
+	 * @since 6.16.3 Check all category-bearing descendants instead of only the first match,
 	 *            so day cells with multiple events filter correctly.
 	 * @return {void}
 	 */
