@@ -303,11 +303,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function load_action_scheduler_late() {
 		_deprecated_function( __METHOD__, '6.9.1' );
 
-		// Action Scheduler may already be loaded by Common (e.g. through Shepherd).
-		if ( function_exists( 'as_enqueue_async_action' ) ) {
-			return;
-		}
-
 		// Action Scheduler is bundled in Common. After Strauss prefixing it lives under `vendor-prefixed`.
 		$common_vendor = TEC::instance()->plugin_path . '/common/vendor';
 		$candidates    = [
