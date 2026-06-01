@@ -492,13 +492,20 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * Whether the current user can delete posts of the type managed by the endpoint or not.
 	 *
 	 * @since 4.6
+	 * @since 6.15.16.1 Add more logic to check if the user can delete the event.
+	 *
+	 * @param $request WP_REST_Request The request object.
 	 *
 	 * @return bool
 	 */
-	public function can_delete() {
-		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts;
+	public function can_delete( ?WP_REST_Request $request = null ) {
+		$id = $request['id'] ?? null;
 
-		return current_user_can( $cap );
+		if ( ! $id ) {
+			return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts );
+		}
+
+		return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_post, $id );
 	}
 
 	/**
@@ -557,11 +564,20 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * Whether the current user can update content of this type or not.
 	 *
 	 * @since 4.6
+	 * @since 6.15.16.1 Add more logic to check if the user can edit the event.
+	 *
+	 * @param $request WP_REST_Request The request object.
 	 *
 	 * @return bool Whether the current user can update or not.
 	 */
-	public function can_edit() {
-		return $this->can_create();
+	public function can_edit( ?WP_REST_Request $request = null ) {
+		$id = $request['id'] ?? null;
+
+		if ( ! $id ) {
+			return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts );
+		}
+
+		return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_post, $id );
 	}
 
 	/**

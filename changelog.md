@@ -1,5 +1,64 @@
 # Changelog
 
+### [6.16.3] 2026-05-28
+
+* Fix - Ensure no past Event dates are shown in the Title meta tag on Events archive and single views. [TEC-5759]
+* Fix - Resolved an issue where the category legend superpowers filter would not apply in a day with multiple events from different categories. [ECP-2016]
+* Language - 1 new strings added, 65 updated, 1 fuzzied, and 4 obsoleted.
+
+### [6.16.2] 2026-05-14
+
+* Tweak - Update Harbor to 1.2.0, removing the Liquid Web Products page when there are no premium plugins present.
+
+### [6.16.1] 2026-05-12
+
+* Tweak - Update Harbor to version 1.1.0 to remove the top level Liquid Web page added to the dashboard.
+
+### [6.16.0] 2026-05-11
+
+* Feature - Integrate with Nexcess Licensing and Portal.
+* Tweak - Added filters: `tec_events_aggregator_harbor_took_over`
+* Tweak - Updated branding references from StellarWP to Nexcess.
+
+### [6.15.20] 2026-04-08
+
+* Fix - Make SSR respect AJAX pagination so direct page URLs no longer return 404s. [TEC-5754]
+* Fix - Prevent 404 errors for paginated TEC list view requests on MariaDB. [TEC-5056]
+* Fix - Rewrite the day view URL to query-param form and fall back to the default view when day view is disabled, preventing a 404 after a page refresh. [TEC-5765]
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.19] 2026-04-07
+
+* Tweak - Added filters: `tec_events_views_v2_url_allowed_query_args`
+* Security - Ensure Venues and Organizers linked to an event, are still honoring their individual capabilities. [SVUL-61]
+* Security - Strengthen capability checks for categories and terms. [SVUL-64]
+* Security - Tighten capability checks and server-side validation for Event Aggregator scheduled import edits. [SVUL-63]
+* Language - 2 new strings added, 20 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.18] 2026-03-25
+
+* Fix - Add `is_array` verification to guard against non-array values passed by Elementor in some contexts. [TEC-5762]
+* Fix - Improve the URL compatibility with non-ASCII languages. [TEC-4848]
+* Fix - Verify if Elementor CSS exists before adding it to avoid a 404 response. [TEC-5752]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.17.1] 2026-03-09
+
+* Security - Strengthen file type and location checks during aggregator imports. [SVUL-54]
+
+### [6.15.17] 2026-02-25
+
+* Tweak - Changed views: `modules/meta/organizer`, `v2/components/content-title`, `v2/components/header`, `v2/day/nav`, `v2/day/top-bar/nav`, `v2/month/calendar-body/day/cell-title`, `v2/month/calendar-body/day/date`, `v2/month/top-bar/nav`
+* Tweak - Custom SEO titles set in Yoast SEO for Event Categories and Event Tags are now correctly applied to both the page `<title>` tag and `og:title` meta tag. [TEC-4952]
+* Tweak - Restore `post_tag` for events after `change_locale` action, which was being overwritten for fr_FR, causing the tags to not show with the block editor. [TEC-4996]
+* Accessibility - Add an outline on hover for the datepicker. [TEC-5740]
+* Accessibility - Increase contrast of text for past event times. [TEC-5741]
+* Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.15.16.1] 2026-02-24
+
+* Security - Strengthen user permission checks. [SVUL-48]
+
 ### [6.15.16] 2026-02-11
 
 * Fix - Evaluate correctly whether the email and phone field of a non-password protected organizer should display and by default the organizer's website opens in a new tab.[TEC-5744]

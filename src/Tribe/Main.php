@@ -5,8 +5,8 @@
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe\DB_Lock;
-use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.15.16';
+		const VERSION             = '6.16.3';
 
 		/**
 		 * Min Pro Addon.
@@ -795,6 +795,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			add_action( 'init', [ $this, 'setup_l10n_strings' ], 5 );
 			add_action( 'tribe_load_text_domains', [ $this, 'load_text_domain' ], 5 );
+			// Restore post_tag for events when WordPress re-runs create_initial_taxonomies on change_locale.
+			add_action( 'change_locale', [ $this, 'restore_event_tag_taxonomy_on_locale_change' ], 20 );
 
 			// Since TEC is active, change the base page for the Event Settings page
 			Tribe__Settings::$parent_page = 'edit.php';
@@ -2027,6 +2029,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Restores the post_tag taxonomy association for event post types after WordPress
+		 * re-runs create_initial_taxonomies on the change_locale action, which otherwise overwrites
+		 * object_type and removes tribe_events and tec_calendar_embed.
+		 *
+		 * @since 6.15.17
+		 */
+		public function restore_event_tag_taxonomy_on_locale_change(): void {
+			// Bail if post_tag taxonomy doesn't exist.
+			if ( ! taxonomy_exists( 'post_tag' ) ) {
+				return;
+			}
+
+			// Restore post_tag for tribe_events post type.
+			if ( post_type_exists( self::POSTTYPE ) ) {
+				register_taxonomy_for_object_type( 'post_tag', self::POSTTYPE );
+			}
+
+			// Restore post_tag for tec_calendar_embed post type.
+			if ( post_type_exists( 'tec_calendar_embed' ) ) {
+				register_taxonomy_for_object_type( 'post_tag', 'tec_calendar_embed' );
+			}
+		}
+
+		/**
 		 * Get the rewrite slug
 		 *
 		 * @return string
@@ -3039,6 +3065,28 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Whether the current user may publish this post (used before `wp_publish_post` on linked venues/organizers).
+		 *
+		 * @since 6.15.19
+		 *
+		 * @param int $linked_post_id Post ID.
+		 *
+		 * @return bool
+		 */
+		protected function user_can_publish_linked_post_for_user( int $linked_post_id ): bool {
+			$linked_post = get_post( $linked_post_id );
+
+			if ( ! $linked_post ) {
+				return false;
+			}
+
+			return 'publish' === $linked_post->post_status
+				? current_user_can( 'edit_post', $linked_post->ID )
+				: current_user_can( 'publish_post', $linked_post->ID );
+		}
+
+
+		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
 		 * @since 6.15.4 Added new logic to generate permalinks for Organizer/Venue when the `post_name` is blank.
@@ -3055,6 +3103,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Remove any "preview" venues and organizers (duplicates) attached to this event.
 			$this->remove_preview_venues( $post_id, true );
 			$this->remove_preview_organizers( $post_id, true );
+
+			if ( ! is_user_logged_in() ) {
+				return;
+			}
 
 			// save venue and organizer info on first pass
 			if ( isset( $post->post_status ) && $post->post_status == 'publish' ) {
@@ -3074,10 +3126,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						continue;
 					}
 
+					$expected_post_type = 'venue' === $type
+						? Tribe__Events__Venue::POSTTYPE
+						: Tribe__Events__Organizer::POSTTYPE;
+
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
+						$linked_post_id = absint( $linked_post_id );
+
 						if ( ! $linked_post_id ) {
+							continue;
+						}
+
+						$linked_post = get_post( $linked_post_id );
+
+						if ( ! $linked_post instanceof WP_Post ) {
+							continue;
+						}
+
+						if ( $linked_post->post_type !== $expected_post_type ) {
+							continue;
+						}
+
+						if ( ! $this->user_can_publish_linked_post_for_user( $linked_post_id ) ) {
 							continue;
 						}
 

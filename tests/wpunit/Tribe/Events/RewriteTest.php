@@ -724,17 +724,19 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$rewrite                         = new Rewrite();
 		$rewrite->setup( $wp_rewrite );
 
-		$clean_url = $rewrite->get_clean_url(
-			add_query_arg(
-				array_merge(
-					[
-						'post_type'    => TEC::POSTTYPE,
-						'eventDisplay' => 'default',
-					],
-					$query_args 
-				) 
-			) 
+		// Use /events/ as base so parse_request matches the events archive rule, not a post rule.
+		$input_url = add_query_arg(
+			array_merge(
+				[
+					'post_type'    => TEC::POSTTYPE,
+					'eventDisplay' => 'default',
+				],
+				$query_args
+			),
+			home_url( '/events/' )
 		);
+
+		$clean_url = $rewrite->get_clean_url( $input_url );
 
 		$this->assertEquals( $expected, str_replace( home_url(), '', urldecode( $clean_url ) ) );
 	}
@@ -778,5 +780,152 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $the_( $cached_clean_url_2 ) );
 		$this->assertEquals( $expected, $the_( $cached_canonical_url_1 ) );
 		$this->assertEquals( $expected, $the_( $cached_canonical_url_2 ) );
+	}
+
+	/**
+	 * It should decode percent-encoded taxonomy slugs in the request
+	 *
+	 * @test
+	 */
+	public function filter_request_decode_taxonomy_slugs_should_decode_encoded_event_category_slug() {
+		$rewrite = $this->make_instance();
+		$encoded = rawurlencode( 'категория' );
+		$query_vars = [
+			'post_type'    => 'tribe_events',
+			TEC::TAXONOMY  => $encoded,
+		];
+
+		$result = $rewrite->filter_request_decode_taxonomy_slugs( $query_vars );
+
+		$this->assertIsArray( $result );
+		$this->assertSame( 'категория', $result[ TEC::TAXONOMY ] );
+		$this->assertSame( 'tribe_events', $result['post_type'] );
+	}
+
+	/**
+	 * It should decode percent-encoded tag slug in the request
+	 *
+	 * @test
+	 */
+	public function filter_request_decode_taxonomy_slugs_should_decode_encoded_tag_slug() {
+		$rewrite = $this->make_instance();
+		$encoded = rawurlencode( 'тег' );
+		$query_vars = [
+			'post_type' => 'tribe_events',
+			'tag'       => $encoded,
+		];
+
+		$result = $rewrite->filter_request_decode_taxonomy_slugs( $query_vars );
+
+		$this->assertIsArray( $result );
+		$this->assertSame( 'тег', $result['tag'] );
+	}
+
+	/**
+	 * Data provider for decode taxonomy slugs with Japanese, Chinese, and Thai.
+	 *
+	 * @return \Generator<string, array{slug: string, label: string}>
+	 */
+	public function filter_request_decode_taxonomy_slugs_i18n_data_provider() {
+		yield 'Japanese category slug' => [
+			'slug'  => 'カテゴリ',
+			'label' => 'Japanese',
+		];
+		yield 'Japanese tag slug' => [
+			'slug'  => 'イベントタグ',
+			'label' => 'Japanese tag',
+		];
+		yield 'Chinese category slug' => [
+			'slug'  => '分类',
+			'label' => 'Chinese',
+		];
+		yield 'Chinese tag slug' => [
+			'slug'  => '活动标签',
+			'label' => 'Chinese tag',
+		];
+		yield 'Thai category slug' => [
+			'slug'  => 'หมวดหมู่',
+			'label' => 'Thai',
+		];
+		yield 'Thai tag slug' => [
+			'slug'  => 'ป้ายกำกับ',
+			'label' => 'Thai tag',
+		];
+	}
+
+	/**
+	 * It should decode percent-encoded taxonomy slugs for Japanese, Chinese, and Thai
+	 *
+	 * @test
+	 * @dataProvider filter_request_decode_taxonomy_slugs_i18n_data_provider
+	 */
+	public function filter_request_decode_taxonomy_slugs_should_decode_i18n_slugs( string $slug, string $label ) {
+		$rewrite = $this->make_instance();
+		$encoded = rawurlencode( $slug );
+
+		$query_vars_cat = [
+			'post_type'   => 'tribe_events',
+			TEC::TAXONOMY => $encoded,
+		];
+		$result_cat = $rewrite->filter_request_decode_taxonomy_slugs( $query_vars_cat );
+		$this->assertSame( $slug, $result_cat[ TEC::TAXONOMY ], "Failed decoding category slug for {$label}" );
+
+		$query_vars_tag = [
+			'post_type' => 'tribe_events',
+			'tag'       => $encoded,
+		];
+		$result_tag = $rewrite->filter_request_decode_taxonomy_slugs( $query_vars_tag );
+		$this->assertSame( $slug, $result_tag['tag'], "Failed decoding tag slug for {$label}" );
+	}
+
+	/**
+	 * It should leave query vars without percent encoding unchanged
+	 *
+	 * @test
+	 */
+	public function filter_request_decode_taxonomy_slugs_should_leave_plain_slugs_unchanged() {
+		$rewrite = $this->make_instance();
+		$query_vars = [
+			TEC::TAXONOMY => 'test-category',
+			'tag'         => 'test-tag',
+		];
+
+		$result = $rewrite->filter_request_decode_taxonomy_slugs( $query_vars );
+
+		$this->assertSame( 'test-category', $result[ TEC::TAXONOMY ] );
+		$this->assertSame( 'test-tag', $result['tag'] );
+	}
+
+	/**
+	 * It should return non-array input unchanged
+	 *
+	 * @test
+	 */
+	public function filter_request_decode_taxonomy_slugs_should_return_non_array_unchanged() {
+		$rewrite = $this->make_instance();
+
+		$this->assertNull( $rewrite->filter_request_decode_taxonomy_slugs( null ) );
+		$this->assertSame( 'string', $rewrite->filter_request_decode_taxonomy_slugs( 'string' ) );
+	}
+
+	/**
+	 * It should not touch other query vars
+	 *
+	 * @test
+	 */
+	public function filter_request_decode_taxonomy_slugs_should_not_touch_other_query_vars() {
+		$rewrite = $this->make_instance();
+		$encoded_cat = rawurlencode( 'категория' );
+		$query_vars = [
+			TEC::TAXONOMY => $encoded_cat,
+			'eventDisplay' => 'list',
+			'paged'        => 2,
+		];
+
+		$result = $rewrite->filter_request_decode_taxonomy_slugs( $query_vars );
+
+		$this->assertSame( 'категория', $result[ TEC::TAXONOMY ] );
+		$this->assertSame( 'list', $result['eventDisplay'] );
+		$this->assertSame( 2, $result['paged'] );
 	}
 }

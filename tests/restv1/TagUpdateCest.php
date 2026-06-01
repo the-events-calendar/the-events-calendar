@@ -67,6 +67,25 @@ class TagUpdateCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should return 403 if contributor tries to update a tag
+	 *
+	 * @test
+	 */
+	public function should_return_403_if_contributor_cannot_update_terms( Tester $I ) {
+		list( $id ) = $I->haveTermInDatabase( 'old-foo', 'post_tag' );
+
+		$I->generate_nonce_for_role( 'contributor' );
+		$I->sendPOST( $this->tags_url . "/{$id}", [
+			'name'        => 'foo',
+			'description' => 'Term description',
+			'slug'        => 'foo-bar',
+		] );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->seeResponseIsJson();
+	}
+
+	/**
 	 * It should return bad request if passing bad request parameters
 	 *
 	 * @test

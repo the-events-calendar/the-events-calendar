@@ -1026,7 +1026,7 @@ class View implements View_Interface {
 			$query_args[ $this->page_key ] = $this->url->get_current_page() + 1;
 
 			// Default to the current URL.
-			$url = $url ?: home_url( add_query_arg( [] ) );
+			$url = $url ?: Url::get_current_url();
 
 			$query_args = $this->filter_query_args( $query_args, $url );
 			$query_args = array_filter( $query_args );
@@ -1089,7 +1089,7 @@ class View implements View_Interface {
 			$query_args = array_merge( $query_args, $page_query_args );
 
 			// Default to the current URL.
-			$url = $url ?: home_url( add_query_arg( [] ) );
+			$url = $url ?: Url::get_current_url();
 
 			if ( $paged === 1 ) {
 				$url = remove_query_arg( $this->page_key, $url );
@@ -1609,6 +1609,7 @@ class View implements View_Interface {
 	 * @since 5.2.1 Add the `rest_method` to the template variables.
 	 * @since 6.14.0 Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
 	 * @since 6.15.7 Added `backlink` support to template variables, allowing views to display a back link instead of breadcrumbs.
+	 * @since 6.15.20 Added the `day_view_disabled` to the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */

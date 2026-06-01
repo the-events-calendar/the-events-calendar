@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 use Tribe__Main;
+use Tribe__Events__Main as TEC;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Elementor_Controller;
 
 class ControllerTest extends \Codeception\TestCase\WPTestCase {
@@ -86,6 +87,51 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 
 		// Verify the setting remains unchanged.
 		$this->assertEquals( '', tribe_get_option( 'tribeEventsTemplate' ) );
+	}
+
+	/**
+	 * It should return an empty array when null is passed as query args.
+	 *
+	 * Covers the PHP Fatal TypeError introduced when Elementor fires the
+	 * `elementor/query/query_args` filter with null instead of an array.
+	 *
+	 * @test
+	 */
+	public function it_should_return_empty_array_when_query_args_is_null(): void {
+		$controller = tribe( Controller::class );
+
+		$result = $controller->suppress_query_filters( null );
+
+		$this->assertSame( [], $result );
+	}
+
+	/**
+	 * It should return query args unmodified when post type is not tribe_events.
+	 *
+	 * @test
+	 */
+	public function it_should_return_query_args_unmodified_when_post_type_is_not_tribe_events(): void {
+		$controller = tribe( Controller::class );
+		$query_args = [ 'post_type' => 'post' ];
+
+		$result = $controller->suppress_query_filters( $query_args );
+
+		$this->assertSame( $query_args, $result );
+		$this->assertArrayNotHasKey( 'tribe_suppress_query_filters', $result );
+	}
+
+	/**
+	 * It should set tribe_suppress_query_filters to true when post type is tribe_events.
+	 *
+	 * @test
+	 */
+	public function it_should_set_tribe_suppress_query_filters_when_post_type_is_tribe_events(): void {
+		$controller = tribe( Controller::class );
+		$query_args = [ 'post_type' => TEC::POSTTYPE ];
+
+		$result = $controller->suppress_query_filters( $query_args );
+
+		$this->assertTrue( $result['tribe_suppress_query_filters'] );
 	}
 
 	/**
