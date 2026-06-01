@@ -348,7 +348,7 @@ class Url {
 	public static function get_current_url() {
 		$raw_url = home_url( add_query_arg( [] ) );
 
-		$parsed = parse_url( $raw_url );
+		$parsed = wp_parse_url( $raw_url );
 
 		if ( empty( $parsed['query'] ) ) {
 			return $raw_url;
@@ -367,24 +367,27 @@ class Url {
 		 *
 		 * @param array $allowed The default allowed parameter names.
 		 */
-		$allowed = apply_filters( 'tec_events_views_v2_url_allowed_query_args', [
-			'eventDisplay',
-			'eventDate',
-			'event_date',
-			'event-date',
-			'tribe_events_cat',
-			'post_type',
-			'tag',
-			'post_tag',
-			'paged',
-			'page',
-			'featured',
-			'hide_subsequent_recurrences',
-			's',
-			'tribe_redirected',
-			'tribe_event_display',
-			'tec_render',
-		] );
+		$allowed = apply_filters(
+			'tec_events_views_v2_url_allowed_query_args',
+			[
+				'eventDisplay',
+				'eventDate',
+				'event_date',
+				'event-date',
+				'tribe_events_cat',
+				'post_type',
+				'tag',
+				'post_tag',
+				'paged',
+				'page',
+				'featured',
+				'hide_subsequent_recurrences',
+				's',
+				'tribe_redirected',
+				'tribe_event_display',
+				'tec_render',
+			]
+		);
 
 		$allowed_exact = array_flip( $allowed );
 		$allowed_lower = [];

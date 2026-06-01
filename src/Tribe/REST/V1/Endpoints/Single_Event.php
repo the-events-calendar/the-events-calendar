@@ -494,7 +494,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can delete the event.
 	 *
-	 * @param $request WP_REST_Request The request object.
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return bool
 	 */
@@ -566,7 +566,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can edit the event.
 	 *
-	 * @param $request WP_REST_Request The request object.
+	 * @param WP_REST_Request $request The request object.
 	 *
 	 * @return bool Whether the current user can update or not.
 	 */

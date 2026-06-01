@@ -302,8 +302,25 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function load_action_scheduler_late() {
 		_deprecated_function( __METHOD__, '6.9.1' );
-		$action_scheduler_file = TEC::instance()->plugin_path . '/common/vendor/woocommerce/action-scheduler/action-scheduler.php';
-		require_once $action_scheduler_file;
+
+		// Action Scheduler may already be loaded by Common (e.g. through Shepherd).
+		if ( function_exists( 'as_enqueue_async_action' ) ) {
+			return;
+		}
+
+		// Action Scheduler is bundled in Common. After Strauss prefixing it lives under `vendor-prefixed`.
+		$common_vendor = TEC::instance()->plugin_path . '/common/vendor';
+		$candidates    = [
+			$common_vendor . '/vendor-prefixed/woocommerce/action-scheduler/action-scheduler.php',
+			$common_vendor . '/woocommerce/action-scheduler/action-scheduler.php',
+		];
+
+		foreach ( $candidates as $action_scheduler_file ) {
+			if ( file_exists( $action_scheduler_file ) ) {
+				require_once $action_scheduler_file;
+				return;
+			}
+		}
 	}
 
 	/**
