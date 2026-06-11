@@ -209,7 +209,10 @@ class Tribe__Events__Aggregator__Cron {
 		// Adds the Min frequency to WordPress cron schedules
 		$schedules['tribe-every15mins'] = [
 			'interval' => MINUTE_IN_SECONDS * 15,
-			'display'  => esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+			// Core can fire `cron_schedules` before `init`; translating then triggers a `_doing_it_wrong` on WP 6.8+.
+			'display'  => did_action( 'init' )
+				? esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' )
+				: 'Every 15 minutes',
 		];
 
 		return $schedules;
