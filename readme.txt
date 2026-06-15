@@ -232,8 +232,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.16.4] 2026-06-11 =
+= [6.16.4] 2026-06-15 =
 
+* Tweak - Resolve license key validation server not available message on licenses screen. [CONS-478]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.16.3] 2026-05-28 =
