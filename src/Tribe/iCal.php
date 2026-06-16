@@ -510,8 +510,11 @@ class Tribe__Events__iCal {
 	protected function set_headers() {
 		header( 'HTTP/1.0 200 OK', true, 200 );
 		header( 'Content-type: text/calendar; charset=UTF-8' );
+
+		// Strip quotes and CR/LF so a filtered filename cannot inject extra headers.
+		$filename = str_replace( [ '"', "\r", "\n" ], '', $this->get_file_name() );
 		header(
-			'Content-Disposition: attachment; filename="' . $this->get_file_name() . '"'
+			'Content-Disposition: attachment; filename="' . $filename . '"'
 		);
 	}
 
@@ -566,8 +569,8 @@ class Tribe__Events__iCal {
 	 * @return string The beginning of the iCal feed containing calendar information.
 	 */
 	protected function get_start() {
-		$blog_home    = get_bloginfo( 'url' );
-		$blog_name    = get_bloginfo( 'name' );
+		$blog_home = $this->strip_ical_line_breaks( esc_url_raw( get_bloginfo( 'url' ) ) );
+		$blog_name = $this->strip_ical_line_breaks( get_bloginfo( 'name' ) );
 
 		$content  = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
@@ -585,7 +588,7 @@ class Tribe__Events__iCal {
 		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blog_name );
 
 		if ( ! empty( $x_wr_calname ) && 'ical' === $this->type ) {
-			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
+			$content .= 'X-WR-CALNAME:' . $this->strip_ical_line_breaks( $x_wr_calname ) . "\r\n";
 		}
 
 		$content .= 'X-ORIGINAL-URL:' . $blog_home . "\r\n";
@@ -880,7 +883,8 @@ class Tribe__Events__iCal {
 			$item['DTEND']   = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
 		}
 
-		$item['DTSTAMP']       = 'DTSTAMP:' . Tribe__Date_Utils::build_date_object()->format( $full_format );
+		// Tie DTSTAMP to the event's modified time so the feed is byte-stable across requests (was wall-clock).
+		$item['DTSTAMP']       = 'DTSTAMP:' . $tzoned->modified;
 		$item['CREATED']       = 'CREATED:' . $tzoned->created;
 		$item['LAST-MODIFIED'] = 'LAST-MODIFIED:' . $tzoned->modified;
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
@@ -996,6 +1000,20 @@ class Tribe__Events__iCal {
 	 */
 	protected function html_decode( $text = '' ) {
 		return html_entity_decode( $text, ENT_QUOTES );
+	}
+
+	/**
+	 * Strip CR/LF from a value before it is written onto an iCal property or HTTP
+	 * header line, so it cannot open an injected line.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value The raw value destined for a single property/header line.
+	 *
+	 * @return string The value with any line breaks collapsed to a single space.
+	 */
+	protected function strip_ical_line_breaks( string $value ): string {
+		return preg_replace( '/[\r\n]+/', ' ', $value ) ?? '';
 	}
 
 	/**
