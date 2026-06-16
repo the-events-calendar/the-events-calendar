@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Remove bottom padding from "Event Venue" block to be compatible with Wordpress 7 styles. [SMTNC-1181]
+Remove bottom padding from "Event Venue" block to be compatible with Wordpress 7 styles. 
