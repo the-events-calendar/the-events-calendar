@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Removed bottom padding from "Event Venue" block to be compatible with Wordpress 7 styles. 
