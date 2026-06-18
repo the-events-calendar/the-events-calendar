@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.16.4.1] 2026-06-18
+
+* Security - Make the iCal export feed produce deterministic output and harden calendar header values against line-break injection.
+
 ### [6.16.4] 2026-06-15
 
 * Tweak - Resolve license key validation server not available message on licenses screen. [CONS-478]
