@@ -2,6 +2,10 @@
 
 ### [6.16.4.1] 2026-06-19
 
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.16.4.1] 2026-06-19
+
 * Security - Make the iCal export feed produce deterministic output and harden calendar header values against line-break injection.
 
 ### [6.16.4] 2026-06-15
