@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.16.4.1] 2026-06-18
+### [6.16.4.1] 2026-06-19
 
 * Security - Make the iCal export feed produce deterministic output and harden calendar header values against line-break injection.
 
