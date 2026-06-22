@@ -671,6 +671,100 @@ multiple lines",
 	}
 
 	/**
+	 * The feed must be reproducible: DTSTAMP is derived from the event's modified
+	 * time, not the request time, so two identical requests produce identical bytes.
+	 *
+	 * @test
+	 */
+	public function should_emit_a_deterministic_dtstamp_tied_to_event_modified_time() {
+		$utc_format = 'Ymd\THis\Z';
+		$event      = get_post( $this->factory()->event->create() );
+
+		// Same transform the feed applies to post_modified.
+		$expected_dtstamp = \Tribe__Date_Utils::build_date_object(
+			\Tribe__Date_Utils::wp_strtotime( $event->post_modified )
+		)->format( $utc_format );
+
+		$first = $this->make_instance()->generate_ical_feed( $event, false );
+
+		$this->assertContains( 'DTSTAMP:' . $expected_dtstamp, $first );
+
+		// Two back-to-back exports must be byte-identical (the scanner-regression assertion).
+		$second = $this->make_instance()->generate_ical_feed( $event, false );
+
+		$this->assertSame( $first, $second );
+	}
+
+	/**
+	 * The search term only filters the query; it must never be reflected into the
+	 * .ics output (the `tribe-bar-search` parameter flagged by the PCI scanner).
+	 *
+	 * @test
+	 */
+	public function should_not_reflect_the_search_parameter_in_the_feed() {
+		global $wp_query;
+
+		$payload = '</ foo>';
+
+		$this->factory()->event->create(
+			[
+				'post_type'  => \Tribe__Events__Main::POSTTYPE,
+				'meta_input' => [
+					'_EventStartDate' => gmdate( \Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( '+1 day' ) ),
+				],
+			]
+		);
+
+		$original_get     = isset( $_GET['tribe-bar-search'] ) ? $_GET['tribe-bar-search'] : null;
+		$original_request = isset( $_REQUEST['tribe-bar-search'] ) ? $_REQUEST['tribe-bar-search'] : null;
+
+		$_GET['tribe-bar-search']     = $payload;
+		$_REQUEST['tribe-bar-search'] = $payload;
+
+		try {
+			$wp_query = tribe_get_events( [ 'posts_per_page' => 10 ], true );
+			$content  = $this->make_instance()->generate_ical_feed( null, false );
+		} finally {
+			if ( null !== $original_get ) {
+				$_GET['tribe-bar-search'] = $original_get;
+			} else {
+				unset( $_GET['tribe-bar-search'] );
+			}
+			if ( null !== $original_request ) {
+				$_REQUEST['tribe-bar-search'] = $original_request;
+			} else {
+				unset( $_REQUEST['tribe-bar-search'] );
+			}
+		}
+
+		$this->assertContains( 'BEGIN:VCALENDAR', $content );
+		$this->assertStringNotContainsString( $payload, $content );
+		$this->assertStringNotContainsString( 'foo>', $content );
+	}
+
+	/**
+	 * A filtered calendar name containing CR/LF must not open a new iCal property line.
+	 *
+	 * @test
+	 */
+	public function should_strip_line_breaks_from_the_calendar_name_header() {
+		$event = get_post( $this->factory()->event->create() );
+
+		add_filter(
+			'tribe_ical_feed_calname',
+			static function () {
+				return "Evil\r\nX-INJECTED:pwned";
+			}
+		);
+
+		$content = $this->make_instance()->generate_ical_feed( $event, false );
+
+		// The CR/LF collapses to a space: the name stays on one line, no injected property.
+		$this->assertContains( 'X-WR-CALNAME:Evil X-INJECTED:pwned', $content );
+		$this->assertStringNotContainsString( "\r\nX-INJECTED:pwned", $content );
+	}
+
+	/**
 	 * Ensures SAVEQUERIES is on so `$wpdb->queries` is populated for assertions.
 	 *
 	 * @return void
