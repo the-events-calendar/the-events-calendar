@@ -641,6 +641,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Shortcodes
 			tribe_singleton( 'tec.shortcodes.event-details', 'Tribe__Events__Shortcode__Event_Details', [ 'hook' ] );
+			tribe_singleton( 'tec.shortcodes.future-events-carousel', 'Tribe__Events__Shortcode__Future_Events_Carousel', [ 'hook' ] );
 
 			// Ignored Events
 			tribe_singleton( 'tec.ignored-events', 'Tribe__Events__Ignored_Events', [ 'hook' ] );
@@ -967,6 +968,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			tribe( 'events-aggregator.main' );
 			tribe( 'tec.shortcodes.event-details' );
+			tribe( 'tec.shortcodes.future-events-carousel' );
 			tribe( 'tec.ignored-events' );
 			tribe( 'tec.assets' );
 			tribe( 'tec.iCal' );
