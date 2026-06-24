@@ -101,8 +101,7 @@ class Controller {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param int                  $post_id The post ID, not guaranteed to be an Event post ID,
-	 *                                      if this method is not called from this class!
+	 * @param int                  $post_id The post ID, not guaranteed to be an Event post ID if this method is not called from this class.
 	 *
 	 * @param WP_REST_Request|null $request A reference to the object modeling the current request,
 	 *                                      or `null` to build a request from the current HTTP data.
