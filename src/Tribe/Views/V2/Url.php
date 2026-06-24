@@ -207,14 +207,14 @@ class Url {
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param              string $var The name of the variable to search an alias for.
-	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
+	 * @param string       $variable The name of the variable to search an alias for.
+	 * @param Context|null $context  The Context object to use to fetch locations, if `null` the global Context will be
 	 *                              used.
 	 *
 	 * @return false|string The variable alias set in the URL query args, or `false` if no alias was found.
 	 */
-	public function get_query_arg_alias_of( $var, ?Context $context = null ) {
-		$aliases = $this->get_query_args_aliases_of( $var, $context, false );
+	public function get_query_arg_alias_of( $variable, ?Context $context = null ) {
+		$aliases = $this->get_query_args_aliases_of( $variable, $context, false );
 
 
 		return count( $aliases ) ? reset( $aliases ) : false;
@@ -239,13 +239,13 @@ class Url {
 	 *
 	 * @since 4.9.9
 	 *
-	 * @param string       $var     The name of the variable to search the aliases for.
-	 * @param Context|null $context The Context object to use to fetch locations, if `null` the global Context will be
+	 * @param string       $variable The name of the variable to search the aliases for.
+	 * @param Context|null $context  The Context object to use to fetch locations, if `null` the global Context will be
 	 *                              used.
 	 *
 	 * @return array An array of the variable aliases set in the URL query args.
 	 */
-	public function get_query_args_aliases_of( $var, ?Context $context = null ) {
+	public function get_query_args_aliases_of( $variable, ?Context $context = null ) {
 		$context    = $context ?: tribe_context();
 		$query_args = $this->get_query_args();
 		$aliases    = $context->translate_sub_locations(
@@ -258,12 +258,12 @@ class Url {
 			return [];
 		}
 
-		$query_aliases   = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::QUERY_VAR ], [] );
-		$request_aliases = (array) Arr::get( $context->get_locations(), [ $var, 'read', Context::REQUEST_VAR ], [] );
+		$query_aliases   = (array) Arr::get( $context->get_locations(), [ $variable, 'read', Context::QUERY_VAR ], [] );
+		$request_aliases = (array) Arr::get( $context->get_locations(), [ $variable, 'read', Context::REQUEST_VAR ], [] );
 		$context_aliases = array_unique( array_merge( $query_aliases, $request_aliases ) );
 
 		$matches = array_intersect(
-			array_unique( array_merge( $context_aliases, [ $var ] ) ),
+			array_unique( array_merge( $context_aliases, [ $variable ] ) ),
 			array_keys( array_merge( $query_args, tribe_get_request_vars() ) )
 		);
 

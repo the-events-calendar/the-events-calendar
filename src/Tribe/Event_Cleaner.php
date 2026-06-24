@@ -29,6 +29,11 @@ class Tribe__Events__Event_Cleaner {
 	 */
 	public $key_delete_events = 'delete-past-events';
 
+	/**
+	 * Tribe__Events__Event_Cleaner constructor.
+	 *
+	 * @param Tribe__Events__Event_Cleaner_Scheduler|null $scheduler The scheduler instance to use, or `null` to build a default one.
+	 */
 	public function __construct( ?Tribe__Events__Event_Cleaner_Scheduler $scheduler = null ) {
 		$this->scheduler = $scheduler ? $scheduler : new Tribe__Events__Event_Cleaner_Scheduler();
 	}
