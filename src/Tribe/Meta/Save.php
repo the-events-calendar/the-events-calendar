@@ -31,7 +31,7 @@ class Tribe__Events__Meta__Save {
 	 * @param WP_Post                           $post
 	 * @param Tribe__Events__Meta__Context|null $context
 	 */
-	public function __construct( $post_id, WP_Post $post, Tribe__Events__Meta__Context $context = null ) {
+	public function __construct( $post_id, WP_Post $post, ?Tribe__Events__Meta__Context $context = null ) {
 		$this->post_id = $post_id;
 		$this->post    = $post;
 		$this->context = $context ? $context : new Tribe__Events__Meta__Context();

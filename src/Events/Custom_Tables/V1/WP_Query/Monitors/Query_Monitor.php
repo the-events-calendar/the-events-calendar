@@ -79,7 +79,7 @@ trait Query_Monitor {
 	 * @param Container|null $container    Either a reference to a specific container, or `null` to use the
 	 *                                              global one.
 	 */
-	public function __construct( Container $container = null ) {
+	public function __construct( ?Container $container = null ) {
 		$this->modifiers = new SplObjectStorage();
 		$this->container = $container ?: tribe();
 		// By default the monitor will be enabled.
@@ -135,7 +135,7 @@ trait Query_Monitor {
 	 * @return array<WP_Query_Modifier> An array of references to the Modifier instances that attached to the
 	 *                                  query instance, if any.
 	 */
-	public function attach( WP_Query $query = null ) {
+	public function attach( ?WP_Query $query = null ) {
 		if ( ! $this->enabled ) {
 			return [];
 		}

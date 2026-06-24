@@ -121,7 +121,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @param Tribe__Events__Importer__File_Reader                  $file_reader             The file reader class.
 	 * @param Tribe__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader The featured image uploader class.
 	 */
-	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
+	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, ?Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader                  = $file_reader;
 		$this->featured_image_uploader = $featured_image_uploader;
 		$this->limit                   = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );

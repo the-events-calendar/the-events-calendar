@@ -213,7 +213,7 @@ class Url {
 	 *
 	 * @return false|string The variable alias set in the URL query args, or `false` if no alias was found.
 	 */
-	public function get_query_arg_alias_of( $var, Context $context = null ) {
+	public function get_query_arg_alias_of( $var, ?Context $context = null ) {
 		$aliases = $this->get_query_args_aliases_of( $var, $context, false );
 
 
@@ -245,7 +245,7 @@ class Url {
 	 *
 	 * @return array An array of the variable aliases set in the URL query args.
 	 */
-	public function get_query_args_aliases_of( $var, Context $context = null ) {
+	public function get_query_args_aliases_of( $var, ?Context $context = null ) {
 		$context    = $context ?: tribe_context();
 		$query_args = $this->get_query_args();
 		$aliases    = $context->translate_sub_locations(

@@ -213,7 +213,7 @@ function tec_events_get_today_button_label( $view = null ) {
  *
  * @param string      $slug
  */
-function tribe_get_template_part( $slug, $name = null, array $data = null ) {
+function tribe_get_template_part( $slug, $name = null, ?array $data = null ) {
 
 	// Execute code for this part
 	do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name, $data );

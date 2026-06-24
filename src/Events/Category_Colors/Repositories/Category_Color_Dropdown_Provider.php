@@ -56,7 +56,7 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @return bool True if the legend should be displayed, false otherwise.
 	 */
-	public function should_display_on_view( View $view = null ): bool {
+	public function should_display_on_view( ?View $view = null ): bool {
 		// Only check shortcode context if we have a view object.
 		if ( $view !== null && ! $this->is_valid_shortcode_context( $view ) ) {
 			return false;

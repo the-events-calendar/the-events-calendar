@@ -220,7 +220,7 @@ class Migration_Notice {
 	 *
 	 * @return string Button HTML.
 	 */
-	protected function get_migration_action_button( string $text = null, string $style_class = 'button button-primary' ): string {
+	protected function get_migration_action_button( ?string $text = null, string $style_class = 'button button-primary' ): string {
 		$url = wp_nonce_url(
 			admin_url( 'admin-post.php?action=tec_start_category_colors_migration' ),
 			'tec_start_category_colors_migration'

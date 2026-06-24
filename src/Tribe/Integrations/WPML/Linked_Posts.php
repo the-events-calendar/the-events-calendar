@@ -33,7 +33,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	 *
 	 * @param Tribe__Cache|null $cache
 	 */
-	public function __construct( Tribe__Cache $cache = null ) {
+	public function __construct( ?Tribe__Cache $cache = null ) {
 		$this->cache = null !== $cache ? $cache : tribe( 'cache' );
 	}
 

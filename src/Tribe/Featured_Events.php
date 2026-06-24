@@ -60,7 +60,7 @@ class Tribe__Events__Featured_Events {
 	 *
 	 * @return bool
 	 */
-	public function is_featured_query( WP_Query $query = null ) {
+	public function is_featured_query( ?WP_Query $query = null ) {
 		if ( null === $query ) {
 			$query = $GLOBALS['wp_query'];
 		}

@@ -146,7 +146,7 @@ class iCalendar_Handler extends Service_Provider {
 	 *
 	 * @return array The filtered template variables.
 	 */
-	public function filter_template_vars( array $template_vars, View $view = null ) {
+	public function filter_template_vars( array $template_vars, ?View $view = null ) {
 		// Set up the section of the $template vars for the links.
 		$template_vars['subscribe_links'] = $this->get_subscribe_links( $view );
 
@@ -162,7 +162,7 @@ class iCalendar_Handler extends Service_Provider {
 	 *
 	 * @return array
 	 */
-	public function get_subscribe_links( View $view = null ) {
+	public function get_subscribe_links( ?View $view = null ) {
 		// Set up the list of links.
 		$subscribe_links = [];
 

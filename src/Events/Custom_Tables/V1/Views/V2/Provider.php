@@ -58,7 +58,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return array<int,stdClass> The prepared day results.
 	 */
-	public function prepare_by_day_view_day_results( array $day_results = null, array $event_ids = [] ) {
+	public function prepare_by_day_view_day_results( ?array $day_results = null, array $event_ids = [] ) {
 		return $this->container->make( By_Day_View_Compatibility::class )
 		                       ->prepare_day_results( $event_ids );
 	}

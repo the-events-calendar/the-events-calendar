@@ -339,7 +339,7 @@ class Title {
 	 *
 	 * @return $this For chaining.
 	 */
-	public function set_context( Context $context = null ) {
+	public function set_context( ?Context $context = null ) {
 		$this->context = $context;
 
 		return $this;
@@ -357,7 +357,7 @@ class Title {
 	 *
 	 * @return $this For chaining.
 	 */
-	public function set_posts( array $posts = null ) {
+	public function set_posts( ?array $posts = null ) {
 		$this->posts = $posts;
 
 		return $this;

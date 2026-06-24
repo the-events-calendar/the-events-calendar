@@ -18,7 +18,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	 *
 	 * @return array
 	 */
-	public static function get_wpml_i18n_strings( array $strings, $locale = null, array $domains = null ) {
+	public static function get_wpml_i18n_strings( array $strings, $locale = null, ?array $domains = null ) {
 		array_multisort( $strings );
 		$cache     = new Tribe__Cache();
 		$cache_key = 'wpml-i18n-strings_' . md5( serialize( $strings ) . $locale . serialize( $domains ) );

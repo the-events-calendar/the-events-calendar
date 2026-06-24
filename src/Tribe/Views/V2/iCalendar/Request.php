@@ -49,7 +49,7 @@ class Request {
 	 *                              iCalendar exports handler, or `null` to use the one provided
 	 *                              by the `tribe` Service Locator.
 	 */
-	public function __construct( Context $context = null, iCal $ical = null ) {
+	public function __construct( ?Context $context = null, ?iCal $ical = null ) {
 		$this->ical    = $ical ?: tribe( 'tec.iCal' );
 		$this->context = $context ?: tribe_context();
 	}

@@ -90,7 +90,7 @@ interface View_Interface extends View_Url_Provider_Interface, Repository_User_In
 	 *
 	 * @param \Tribe__Context|null $context Either a context instance or null to make the View use the global one.
 	 */
-	public function set_context( Context $context = null );
+	public function set_context( ?Context $context = null );
 
 	/**
 	 * Sets the View slug, usually the one it was registered with in the `tribe_events_views` filter.
@@ -190,7 +190,7 @@ interface View_Interface extends View_Url_Provider_Interface, Repository_User_In
 	 *                           arguments by the View, or `null` to use the current URL.
 	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
-	public function set_url( array $args = null, $merge = false );
+	public function set_url( ?array $args = null, $merge = false );
 
 	/**
 	 * Returns the post IDs of the posts the View is displaying in the order it's displaying them.

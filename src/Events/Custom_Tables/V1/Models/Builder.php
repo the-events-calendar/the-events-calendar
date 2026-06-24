@@ -299,7 +299,7 @@ class Builder {
 	 *
 	 * @return false|int The rows affected flag or false on failure.
 	 */
-	public function upsert( array $unique_by, array $data = null ) {
+	public function upsert( array $unique_by, ?array $data = null ) {
 		$working_unique_by = $unique_by;
 		$working_data      = $data;
 

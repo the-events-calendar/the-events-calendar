@@ -35,7 +35,7 @@ class Tribe__Events__Admin__Bar__Admin_Bar {
 	 * @param Tribe__Events__Admin__Bar__Configurator_Interface $config    An admin bar configurator.
 	 * @param Tribe__Events__Constants                          $constants A constants access proxy.
 	 */
-	public function __construct( Tribe__Events__Admin__Bar__Configurator_Interface $config = null, Tribe__Events__Constants $constants = null ) {
+	public function __construct( ?Tribe__Events__Admin__Bar__Configurator_Interface $config = null, ?Tribe__Events__Constants $constants = null ) {
 		$this->config    = $config ? $config : new Tribe__Events__Admin__Bar__Default_Configurator();
 		$this->constants = $constants ? $constants : new Tribe__Events__Constants();
 	}
@@ -57,7 +57,7 @@ class Tribe__Events__Admin__Bar__Admin_Bar {
 	 *
 	 * @param WP_Admin_Bar|null $wp_admin_bar
 	 */
-	public function init( WP_Admin_Bar $wp_admin_bar = null ) {
+	public function init( ?WP_Admin_Bar $wp_admin_bar = null ) {
 		if ( empty( $wp_admin_bar ) ) {
 			global /** @var WP_Admin_Bar $wp_admin_bar */
 			$wp_admin_bar;

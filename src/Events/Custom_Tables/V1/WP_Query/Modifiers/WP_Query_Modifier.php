@@ -84,5 +84,5 @@ interface WP_Query_Modifier {
 	 *
 	 * @return bool If the current modifier should be applied or not.
 	 */
-	public function applies_to( WP_Query $query = null );
+	public function applies_to( ?WP_Query $query = null );
 }

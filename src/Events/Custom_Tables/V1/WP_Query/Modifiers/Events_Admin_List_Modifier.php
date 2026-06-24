@@ -24,7 +24,7 @@ class Events_Admin_List_Modifier extends Base_Modifier {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function applies_to( WP_Query $query = null ) {
+	public function applies_to( ?WP_Query $query = null ) {
 		return is_admin() && $query->is_main_query() && $query->get( 'post_type' ) === TEC::POSTTYPE;
 	}
 

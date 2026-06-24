@@ -418,7 +418,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return array An array of injected posts, or the original array of posts if no post injection is required.
 	 */
-	public function filter_posts_pre_query( $posts = null, \WP_Query $query = null ) {
+	public function filter_posts_pre_query( $posts = null, ?\WP_Query $query = null ) {
 		if ( is_admin() ) {
 			return $posts;
 		}

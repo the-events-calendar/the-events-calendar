@@ -88,7 +88,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	 *
 	 * @return bool Whether the `WP_Query` instance is the target one or not.
 	 */
-	protected function is_target_query( WP_Query $query = null ) {
+	protected function is_target_query( ?WP_Query $query = null ) {
 		return $query === $this->query;
 	}
 }

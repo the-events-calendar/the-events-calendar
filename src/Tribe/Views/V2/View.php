@@ -270,7 +270,7 @@ class View implements View_Interface {
 	 *
 	 * @param Messages|null $messages An instance of the messages collection.
 	 */
-	public function __construct( Messages $messages = null ) {
+	public function __construct( ?Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
 		$this->rewrite  = TEC_Rewrite::instance();
 		$this->slug     = static::$view_slug; // @todo Kept for back-compat, remove when we finally remove the non-static prop.
@@ -435,7 +435,7 @@ class View implements View_Interface {
 	 *
 	 * @return View_Interface An instance of the built view.
 	 */
-	public static function make( $view = null, Context $context = null ) {
+	public static function make( $view = null, ?Context $context = null ) {
 		$manager = tribe( Manager::class );
 
 		$default_view = $manager->get_default_view();
@@ -819,7 +819,7 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_context( Context $context = null ) {
+	public function set_context( ?Context $context = null ) {
 		$this->context = $context;
 	}
 
@@ -1161,7 +1161,7 @@ class View implements View_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_repository( Repository $repository = null ) {
+	public function set_repository( ?Repository $repository = null ) {
 		$this->repository = $repository;
 	}
 
@@ -1228,7 +1228,7 @@ class View implements View_Interface {
 	 *                           arguments by the View, or `null` to use the current URL.
 	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
-	public function set_url( array $args = null, $merge = false ) {
+	public function set_url( ?array $args = null, $merge = false ) {
 		if ( ! isset( $this->url ) ) {
 			$this->url = new Url();
 		}
@@ -1259,7 +1259,7 @@ class View implements View_Interface {
 	 *
 	 * @return array An associative array of query arguments mapped from the input ones.
 	 */
-	protected function map_args_to_query_args( array $args = null ) {
+	protected function map_args_to_query_args( ?array $args = null ) {
 		if ( empty( $args ) ) {
 			return [];
 		}
@@ -1858,7 +1858,7 @@ class View implements View_Interface {
 	 *
 	 * @return array The filtered repository arguments.
 	 */
-	protected function filter_repository_args( array $repository_args, Context $context = null ) {
+	protected function filter_repository_args( array $repository_args, ?Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		/**

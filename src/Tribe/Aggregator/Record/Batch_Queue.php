@@ -70,7 +70,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * @param array|string|null                                     $items The items to build the Queue.
 	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner The cleaner to remove duplicates.
 	 */
-	public function __construct( $record, $items = null, Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
+	public function __construct( $record, $items = null, ?Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		if ( is_numeric( $record ) ) {
 			$record = Records::instance()->get_by_post_id( $record );
 		}

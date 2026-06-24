@@ -349,7 +349,7 @@ class Event_Modifier {
 	 *
 	 * @return string Filtered date format.
 	 */
-	protected function get_date_format( string $location = null ): string {
+	protected function get_date_format( ?string $location = null ): string {
 		/**
 		 * Filters the date format used in the Apple Wallet passes.
 		 *
@@ -372,7 +372,7 @@ class Event_Modifier {
 	 *
 	 * @return string Filtered time format.
 	 */
-	protected function get_time_format( string $location = null ): string {
+	protected function get_time_format( ?string $location = null ): string {
 		/**
 		 * Filters the time format used in the Apple Wallet passes.
 		 *

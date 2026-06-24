@@ -51,7 +51,7 @@ class Event_Query_Controller {
 	 *
 	 * @return array|null A populated list of posts, or the original value if the filtering should not apply.
 	 */
-	public function inject_posts( $posts = null, \WP_Query $query = null ) {
+	public function inject_posts( $posts = null, ?\WP_Query $query = null ) {
 		if ( ! $query instanceof \WP_Query ) {
 			return $posts;
 		}

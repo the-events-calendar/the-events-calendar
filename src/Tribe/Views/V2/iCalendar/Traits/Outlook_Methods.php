@@ -174,7 +174,7 @@ trait Outlook_Methods {
 	 *
 	 * @return string The subscribe url.
 	 */
-	public function generate_outlook_subscribe_url( View $view = null ) {
+	public function generate_outlook_subscribe_url( ?View $view = null ) {
 		$base_url = 'https://outlook.' . static::$calendar_slug . '.com/owa?path=/calendar/action/compose';
 
 		if ( null !== $view ) {
@@ -231,7 +231,7 @@ trait Outlook_Methods {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_uri( View $view = null ) {
+	public function get_uri( ?View $view = null ) {
 		if ( is_single() ) {
 			return $this->generate_outlook_full_url();
 		}

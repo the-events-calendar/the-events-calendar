@@ -75,7 +75,7 @@ trait With_WP_Query_Introspection {
 	 *
 	 * @return bool Whether a `WP_Query` is only querying the Event post type or not.
 	 */
-	protected function is_query_for_post_type( WP_Query $query = null, $post_type = '' ) {
+	protected function is_query_for_post_type( ?WP_Query $query = null, $post_type = '' ) {
 		return $query instanceof WP_Query && array_values( array_filter( (array) $query->get( 'post_type' ) ) ) === [ $post_type ];
 	}
 

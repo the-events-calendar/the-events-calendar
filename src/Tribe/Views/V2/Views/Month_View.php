@@ -273,7 +273,7 @@ class Month_View extends By_Day_View {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function setup_repository_args( Context $context = null ) {
+	protected function setup_repository_args( ?Context $context = null ) {
 		// Let's apply the arguments common to all Views.
 		$args = parent::setup_repository_args( $context );
 
