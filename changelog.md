@@ -2,10 +2,10 @@
 
 ### [6.16.5] 2026-06-24
 
-* Feature - Added "SEO & URL Handling" settings, allowing site owners to configure out-of-range URL behavior [TEC-5750]
-* Fix - Dated List view URLs carrying ?tribe-bar-date outside the known event range now return HTTP 404 by default, and can be configured to use a soft noindex response instead, helping prevent accumulation of low-value indexed pages in search engines. [TEC-5750]
+* Feature - Added "SEO & URL Handling" settings, allowing site owners to configure out-of-range URL behavior.
+* Fix - Dated List view URLs carrying ?tribe-bar-date outside the known event range now return HTTP 404 by default, and can be configured to use a soft noindex response instead, helping prevent accumulation of low-value indexed pages in search engines.
 * Fix - Removed bottom padding from "Event Venue" block to be compatible with Wordpress 7 styles.
-* Fix - URLs specifying a disabled view slug via ?eventDisplay now return HTTP 404 instead of 200. [TEC-5750]
+* Fix - URLs specifying a disabled view slug via ?eventDisplay now return HTTP 404 instead of 200.
 * Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
 * Language - 13 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
