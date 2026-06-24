@@ -27,7 +27,7 @@ use WP_Query;
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
-class Provider extends Service_Provider implements Serializable, Provider_Contract {
+class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Register the filters and bindings required to integrate the plugin custom tables in the normal
 	 * WP_Query flow.
