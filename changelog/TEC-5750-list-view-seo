@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Dated List view URLs carrying ?tribe-bar-date outside the known event range now return HTTP 404 by default, and can be configured to use a soft noindex response instead, helping prevent accumulation of low-value indexed pages in search engines. [TEC-5750]

@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-URLs specifying a disabled view slug via ?eventDisplay now return HTTP 404 instead of 200. [TEC-5750]
