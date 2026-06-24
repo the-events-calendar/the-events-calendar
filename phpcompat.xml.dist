@@ -3,7 +3,7 @@
 	<description>Detects PHP 8.0–8.4 deprecations and removals. Run via bin/php-compat.sh.</description>
 
 	<!-- Target the supported PHP range (min supported – production runtime). -->
-	<config name="testVersion" value="8.0-8.4"/>
+	<config name="testVersion" value="7.4-8.4"/>
 
 	<rule ref="PHPCompatibility"/>
 
