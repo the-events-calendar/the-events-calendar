@@ -260,9 +260,11 @@ class List_View extends View {
 	}
 
 	/**
+	 * @since TBD Made argument $context explicity nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	protected function setup_repository_args( Tribe__Context $context = null ) {
+	protected function setup_repository_args( ?Tribe__Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		$args = parent::setup_repository_args( $context );
