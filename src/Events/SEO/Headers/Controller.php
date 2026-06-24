@@ -271,7 +271,7 @@ class Controller extends Controller_Contract {
 	 * the requested date is in the current month, validation is skipped so the live list
 	 * view is not erroneously suppressed.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @param object $wp_query      The global WP_Query object.
 	 * @param array  $enabled_views An array of the enabled view slugs.
@@ -331,7 +331,7 @@ class Controller extends Controller_Contract {
 	 * robots directive is injected via the wp_robots filter, so search engines
 	 * will not index the URL without surfacing a 404 error page to visitors.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @param object $wp_query The global WP_Query object.
 	 */

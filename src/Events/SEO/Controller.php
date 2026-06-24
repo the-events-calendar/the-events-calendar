@@ -239,7 +239,7 @@ class Controller extends Controller_Contract {
 	 *     add_filter( 'tec_events_seo_robots_meta_include_list', '__return_false' );
 	 *
 	 * @since 6.2.6
-	 * @since TBD Also returns true when ?tribe-bar-date is present.
+	 * @since 6.16.5 Also returns true when ?tribe-bar-date is present.
 	 *
 	 * @param View_Interface $instance The view instance.
 	 *

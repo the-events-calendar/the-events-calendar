@@ -6,7 +6,7 @@
  * exposing options that control how TEC handles URL parameters and SEO
  * directives to reduce duplicate-content crawl problems.
  *
- * @since TBD
+ * @since 6.16.5
  *
  * @package TEC\Events\SEO
  */
@@ -26,7 +26,7 @@ use TEC\Common\Admin\Entities\Paragraph;
  *
  * Manages the admin-facing settings for TEC SEO & URL Handling.
  *
- * @since TBD
+ * @since 6.16.5
  *
  * @package TEC\Events\SEO
  */
@@ -40,7 +40,7 @@ class Settings {
 	 *   'hard_404'    — return HTTP 404 Not Found (default, recommended for SEO).
 	 *   'soft_noindex' — return HTTP 200 with a noindex robots directive instead.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ class Settings {
 	 * The canonical tag already points to the base /events/list/ URL, so these
 	 * parameterised URLs add no independent SEO value.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @var string
 	 */
@@ -63,7 +63,7 @@ class Settings {
 	 * Option key: whether to return HTTP 404 when a URL specifies a view slug
 	 * (via ?eventDisplay) that is currently disabled in TEC settings.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @var string
 	 */
@@ -72,7 +72,7 @@ class Settings {
 	/**
 	 * Identifier used to register the sub-tab inside the Display tab.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @var string
 	 */
@@ -81,7 +81,7 @@ class Settings {
 	/**
 	 * Registers the hooks needed to inject the settings tab.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @return void
 	 */
@@ -92,7 +92,7 @@ class Settings {
 	/**
 	 * Removes the hooks added by add_hooks().
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @return void
 	 */
@@ -103,7 +103,7 @@ class Settings {
 	/**
 	 * Creates the "SEO & URL Handling" sub-tab and attaches it to the Display tab.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @param Tribe__Settings_Tab $display_tab The parent Display settings tab object.
 	 *
@@ -131,7 +131,7 @@ class Settings {
 		 * Fires after the SEO & URL Handling settings tab has been created, allowing
 		 * add-ons or site-specific code to attach additional fields or sub-tabs.
 		 *
-		 * @since TBD
+		 * @since 6.16.5
 		 *
 		 * @param Tribe__Settings_Tab $tab The SEO settings tab instance.
 		 */
@@ -143,7 +143,7 @@ class Settings {
 	/**
 	 * Builds the settings fields array for the SEO & URL Handling tab.
 	 *
-	 * @since TBD
+	 * @since 6.16.5
 	 *
 	 * @return array<string,mixed> Settings fields keyed by option name.
 	 */
