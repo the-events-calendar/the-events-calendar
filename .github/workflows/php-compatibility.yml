@@ -1,0 +1,39 @@
+name: 'PHP Compatibility'
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: php-compat-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-compat:
+    # Allow opting out on a specific PR with [skip-php-compat] in the description.
+    if: "!contains(github.event.pull_request.body, '[skip-php-compat]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer
+
+      # Cache the downloaded phpcs phar + PHPCompatibility/PHPCSUtils standards.
+      # Key is bound to bin/php-compat.sh, so bumping the pinned versions there
+      # automatically invalidates the cache.
+      - name: Cache PHP compatibility toolchain
+        uses: actions/cache@v4
+        with:
+          path: dev/php-compat
+          key: php-compat-${{ runner.os }}-${{ hashFiles('bin/php-compat.sh') }}
+
+      # Runs `bash bin/php-compat.sh`, which scans the paths in phpcompat.xml.dist
+      # against testVersion 8.0-8.4 and exits non-zero on any finding (hard gate).
+      - name: Run PHP 8 compatibility scan
+        run: composer compat
