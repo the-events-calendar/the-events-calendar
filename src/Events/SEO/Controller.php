@@ -10,6 +10,7 @@
  namespace TEC\Events\SEO;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\SEO\Settings;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe\Events\Views\V2\Views;
 use Tribe__Date_Utils as Dates;
@@ -50,6 +51,11 @@ class Controller extends Controller_Contract {
 
 		// Hook to determine robots noindex.
 		add_action( 'wp', [ $this, 'hook_issue_noindex' ] );
+
+		// Register admin settings for SEO & URL Handling.
+		/** @var Settings $settings */
+		$settings = $this->container->make( Settings::class );
+		$settings->add_hooks();
 	}
 
 	/**
@@ -58,6 +64,10 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
 		remove_action( 'tec_events_before_view_html_cache', [ $this, 'issue_noindex' ] );
+
+		/** @var Settings $settings */
+		$settings = $this->container->make( Settings::class );
+		$settings->unregister_hooks();
 	}
 
 	/**
@@ -214,9 +224,22 @@ class Controller extends Controller_Contract {
 
 
 	/**
-	 * Determine if a nonindex should be added for list based views that don't have events.
+	 * Determine if a noindex should be added for list-based views.
+	 *
+	 * Returns true when:
+	 * - The view has no events (existing behaviour).
+	 * - The URL carries ?tribe-bar-date as a raw query parameter, meaning the user
+	 *   navigated to a date-specific List view URL. These parameterised URLs produce
+	 *   duplicate content — the canonical tag already points to the base /events/list/
+	 *   URL — so adding noindex closes the indexing loop without removing content.
+	 *
+	 * To allow date-parameterised List view URLs to be indexed (e.g. for sites that
+	 * intentionally expose dated list views), add:
+	 *
+	 *     add_filter( 'tec_events_seo_robots_meta_include_list', '__return_false' );
 	 *
 	 * @since 6.2.6
+	 * @since TBD Also returns true when ?tribe-bar-date is present.
 	 *
 	 * @param View_Interface $instance The view instance.
 	 *
@@ -227,6 +250,16 @@ class Controller extends Controller_Contract {
 
 		if ( ! $context->is( 'tec_post_type' ) ) {
 			return false;
+		}
+
+		// Any dated List view URL (?tribe-bar-date present) is a parameterised variant
+		// of the canonical base URL and should not be independently indexed.
+		// This can be disabled per-site via Settings > Display > SEO & URL Handling.
+		if (
+			! empty( tribe_get_request_var( 'tribe-bar-date' ) )
+			&& tribe_get_option( Settings::OPT_NOINDEX_DATED_LIST_URLS, true )
+		) {
+			return true;
 		}
 
 		$events = $instance->get_repository();
