@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.16.4.1\n"
+"Project-Id-Version: The Events Calendar 6.16.5\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-19T13:16:15+00:00\n"
+"POT-Creation-Date: 2026-06-24T14:09:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -6005,6 +6005,60 @@ msgstr ""
 
 #: src/Events/REST/TEC/V1/Tags/TEC_Tag.php:45
 msgid "These operations are introduced by The Events Calendar."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:120
+msgid "SEO & URL Handling"
+msgstr ""
+
+#: src/Events/SEO/Settings.php:157
+msgctxt "SEO settings section header"
+msgid "SEO & URL Handling"
+msgstr ""
+
+#: src/Events/SEO/Settings.php:166
+msgid "Manage SEO and URL handling settings to prevent duplicate-content crawl problems."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:180
+msgctxt "SEO settings sub-section header"
+msgid "URL & Crawl Protection"
+msgstr ""
+
+#: src/Events/SEO/Settings.php:184
+msgid "Control how The Events Calendar handles URL parameters and robots directives to reduce duplicate-content crawl problems."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:190
+msgid "Out-of-range date URL behavior"
+msgstr ""
+
+#: src/Events/SEO/Settings.php:191
+msgid "What to do when a visitor or search engine requests an event listing page with a date that falls before the earliest event or after the latest event on record."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:195
+msgid "Return HTTP 404 Not Found — recommended for SEO, prevents these URLs from being indexed."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:196
+msgid "Return HTTP 200 with a noindex directive — softer behaviour, the events page is still shown to visitors."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:201
+msgid "Add noindex to dated List view URLs"
+msgstr ""
+
+#: src/Events/SEO/Settings.php:202
+msgid "Adds a noindex robots directive to any List view URL that carries a ?tribe-bar-date query parameter. The canonical tag already points to the base /events/list/ URL, so these parameterised URLs produce duplicate content. Disable if you intentionally expose dated list views as standalone pages."
+msgstr ""
+
+#: src/Events/SEO/Settings.php:208
+msgid "Return 404 for disabled view URLs"
+msgstr ""
+
+#: src/Events/SEO/Settings.php:209
+msgid "Returns HTTP 404 when a URL specifies a view (e.g. ?eventDisplay=photo) that is currently disabled under Events > Settings > Display. This prevents accumulation of disabled-view URLs in search indexes."
 msgstr ""
 
 #: src/Events/Site_Health/Info_Section.php:74

@@ -198,6 +198,10 @@ trait CT1_Fixtures {
 	}
 
 	private function given_action_scheduler_is_loaded() {
+		if ( function_exists( 'as_enqueue_async_action' ) ) {
+			return;
+		}
+
 		tribe( Provider::class )->load_action_scheduler_late();
 	}
 
