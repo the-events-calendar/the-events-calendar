@@ -510,8 +510,10 @@ class Tribe__Events__iCal {
 	protected function set_headers() {
 		header( 'HTTP/1.0 200 OK', true, 200 );
 		header( 'Content-type: text/calendar; charset=UTF-8' );
+
+		$filename = sanitize_file_name( $this->get_file_name() );
 		header(
-			'Content-Disposition: attachment; filename="' . $this->get_file_name() . '"'
+			'Content-Disposition: attachment; filename="' . $filename . '"'
 		);
 	}
 
@@ -566,8 +568,8 @@ class Tribe__Events__iCal {
 	 * @return string The beginning of the iCal feed containing calendar information.
 	 */
 	protected function get_start() {
-		$blog_home    = get_bloginfo( 'url' );
-		$blog_name    = get_bloginfo( 'name' );
+		$blog_home = esc_url_raw( get_bloginfo( 'url' ) );
+		$blog_name = sanitize_text_field( get_bloginfo( 'name' ) );
 
 		$content  = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
@@ -585,7 +587,7 @@ class Tribe__Events__iCal {
 		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blog_name );
 
 		if ( ! empty( $x_wr_calname ) && 'ical' === $this->type ) {
-			$content .= 'X-WR-CALNAME:' . $x_wr_calname . "\r\n";
+			$content .= 'X-WR-CALNAME:' . sanitize_text_field( $x_wr_calname ) . "\r\n";
 		}
 
 		$content .= 'X-ORIGINAL-URL:' . $blog_home . "\r\n";
@@ -880,7 +882,8 @@ class Tribe__Events__iCal {
 			$item['DTEND']   = 'DTEND;TZID=' . $timezone->getName() . ':' . $dtend;
 		}
 
-		$item['DTSTAMP']       = 'DTSTAMP:' . Tribe__Date_Utils::build_date_object()->format( $full_format );
+		// Tie DTSTAMP to the event's modified time so the feed is byte-stable across requests (was wall-clock).
+		$item['DTSTAMP']       = 'DTSTAMP:' . $tzoned->modified;
 		$item['CREATED']       = 'CREATED:' . $tzoned->created;
 		$item['LAST-MODIFIED'] = 'LAST-MODIFIED:' . $tzoned->modified;
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
