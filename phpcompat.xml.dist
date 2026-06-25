@@ -5,7 +5,7 @@
 	<!-- Target the supported PHP range (min supported – production runtime). -->
 	<config name="testVersion" value="7.4-8.4"/>
 
-	<rule ref="PHPCompatibility"/>
+	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Only PHP files. -->
 	<arg name="extensions" value="php"/>
