@@ -271,6 +271,8 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
+	 * @since TBD Made $context explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( ?Context $context = null ) {

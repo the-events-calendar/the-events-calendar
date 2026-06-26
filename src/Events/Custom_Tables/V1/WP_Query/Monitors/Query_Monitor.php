@@ -75,6 +75,7 @@ trait Query_Monitor {
 	 * Monitor constructor.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made $container explicitly nullable.
 	 *
 	 * @param Container|null $container    Either a reference to a specific container, or `null` to use the
 	 *                                              global one.
@@ -128,6 +129,7 @@ trait Query_Monitor {
 	 * Attaches a Modifier to a WP_Query, if required.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param WP_Query $query A reference to the WP Query object that is currently running.
 	 *

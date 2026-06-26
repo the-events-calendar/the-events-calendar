@@ -62,6 +62,8 @@ class Outlook_Export extends Link_Abstract {
 	}
 
 	/**
+	 * @since TBD Made $view explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	public function get_uri( ?View $view = null ) {

@@ -918,6 +918,7 @@ class Event_Period implements Core_Read_Interface {
 	 * a defined interval.
 	 *
 	 * @since 4.9.13
+	 * @since TBD Made $post_ids explicitly nullable.
 	 *
 	 * @param int        $limit           The value of the LIMIT that should be respected to send queries (in respect
 	 *                                    to the
@@ -1284,6 +1285,7 @@ class Event_Period implements Core_Read_Interface {
 	 * Sets, or unsets if the passed value is `null`, the base repository used by this repository.
 	 *
 	 * @since 4.9.13
+	 * @since TBD Made $base_repository explicitly nullable.
 	 *
 	 * @param Core_Read_Interface $base_repository The base repository this repository should use; a `null` value will
 	 *                                             unset it.

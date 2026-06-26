@@ -22,6 +22,8 @@ use WP_Query;
 class Events_Admin_List_Modifier extends Base_Modifier {
 
 	/**
+	 * @since TBD Made $query explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	public function applies_to( ?WP_Query $query = null ) {

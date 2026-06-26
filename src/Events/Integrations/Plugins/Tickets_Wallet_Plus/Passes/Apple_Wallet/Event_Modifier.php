@@ -344,6 +344,7 @@ class Event_Modifier {
 	 * Gets the filtered date format.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Made $location explicitly nullable.
 	 *
 	 * @param string|null $location Location where the date formatting is used.
 	 *
@@ -367,6 +368,7 @@ class Event_Modifier {
 	 * Gets the filtered time format.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Made $location explicitly nullable.
 	 *
 	 * @param string|null $location Location where the time formatting is used.
 	 *

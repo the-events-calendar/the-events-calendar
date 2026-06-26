@@ -45,6 +45,8 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Constructor!
 	 *
+	 * @since TBD Made $cache explicitly nullable.
+	 *
 	 * @param Tribe__Cache|null $cache
 	 */
 	public function __construct( ?Tribe__Cache $cache = null ) {

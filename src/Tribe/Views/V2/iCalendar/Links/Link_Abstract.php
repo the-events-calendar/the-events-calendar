@@ -197,6 +197,8 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	}
 
 	/**
+	 * @since TBD Made $view explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	public function get_label( ?View $view = null ): string {
@@ -216,6 +218,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 * Filters the label for the link.
 	 *
 	 * @since 6.8.2.1
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param string    $value The label to filter.
 	 * @param View|null $view  The current View object.
@@ -240,6 +243,8 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	}
 
 	/**
+	 * @since TBD Made $view explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	public function get_single_label( ?View $view = null ): string {
@@ -259,6 +264,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 * Filters the single label for the link.
 	 *
 	 * @since 6.8.2.1
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param string    $value The label to filter.
 	 * @param View|null $view  The current View object.
@@ -301,6 +307,8 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	}
 
 	/**
+	 * @since TBD Made $view explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	public function get_uri( ?View $view = null ) {
@@ -350,6 +358,8 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 * The URL generated is also inert to the Permalink and Rewrite Rule settings
 	 * in WordPress, so it will work out of the box on any website, even if
 	 * the settings are changed or break.
+	 *
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param View $view The View we're being called from.
 	 *

@@ -32,6 +32,8 @@ class Tribe__Events__Event_Cleaner {
 	/**
 	 * Tribe__Events__Event_Cleaner constructor.
 	 *
+	 * @since TBD Made $scheduler explicitly nullable.
+	 *
 	 * @param Tribe__Events__Event_Cleaner_Scheduler|null $scheduler The scheduler instance to use, or `null` to build a default one.
 	 */
 	public function __construct( ?Tribe__Events__Event_Cleaner_Scheduler $scheduler = null ) {

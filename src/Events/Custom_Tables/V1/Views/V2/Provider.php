@@ -51,6 +51,7 @@ class Provider extends Service_Provider {
 	 * Returns the prepared `By_Day_View` day results.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made $day_results explicitly nullable.
 	 *
 	 * @param array<int,stdClass>|null $day_results  Either the prepared day results, or `null`
 	 *                                               if the day results have not been prepared yet.

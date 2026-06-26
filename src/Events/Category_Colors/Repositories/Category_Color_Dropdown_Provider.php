@@ -51,6 +51,7 @@ class Category_Color_Dropdown_Provider {
 	 * Determines if the category color legend should be displayed on a given view.
 	 *
 	 * @since 6.14.0
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param View $view The View object.
 	 *

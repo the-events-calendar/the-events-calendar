@@ -43,6 +43,7 @@ class Request {
 	 * Request constructor.
 	 *
 	 * @since 4.6.0
+	 * @since TBD Made $context and $ical explicitly nullable.
 	 *
 	 * @param Context|null $context Which context was used to prepare this request for iCal.
 	 * @param iCal|null    $ical    Either a reference to an explicit instance of the base

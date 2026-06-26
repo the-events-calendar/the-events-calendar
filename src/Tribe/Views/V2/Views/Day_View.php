@@ -243,6 +243,8 @@ class Day_View extends View {
 	}
 
 	/**
+	 * @since TBD Made $context explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( ?\Tribe__Context $context = null ) {

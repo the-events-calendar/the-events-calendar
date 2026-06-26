@@ -140,6 +140,7 @@ class iCalendar_Handler extends Service_Provider {
 	 * @see   `tribe_events_views_v2_view_template_vars` filter.
 	 *
 	 * @since 5.12.0
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param array<string,mixed> $template_vars The View template variables.
 	 * @param View|null           $view          The View implementation.
@@ -157,6 +158,7 @@ class iCalendar_Handler extends Service_Provider {
 	 * Builds the subscribe links in a separate process.
 	 *
 	 * @since 5.12.0
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param View|null $view
 	 *

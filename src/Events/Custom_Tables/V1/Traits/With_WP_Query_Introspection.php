@@ -69,6 +69,7 @@ trait With_WP_Query_Introspection {
 	 * Returns whether a `WP_Query` is only querying the specified post type or not.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param  WP_Query  $query      A reference to the `WP_Query` instance to check.
 	 * @param  string    $post_type  The post type to check the `WP_Query` for.

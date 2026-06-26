@@ -21,6 +21,8 @@ class Tribe__Events__Revisions__Event extends Tribe__Events__Revisions__Post {
 	/**
 	 * Tribe__Events__Revisions__Event constructor.
 	 *
+	 * @since TBD Made $meta_save explicitly nullable.
+	 *
 	 * @param Tribe__Events__Meta__Save|null $meta_save
 	 */
 	public function __construct( WP_Post $post, ?Tribe__Events__Meta__Save $meta_save = null ) {

@@ -207,6 +207,8 @@ function tec_events_get_today_button_label( $view = null ) {
  *
  * @uses Tribe__Templates::getTemplateHierarchy
  *
+ * @since TBD Made $data explicitly nullable.
+ *
  * @param string      $slug The base slug of the template part to include.
  *
  * @param null|string $name Optional name of the template part variant to include.

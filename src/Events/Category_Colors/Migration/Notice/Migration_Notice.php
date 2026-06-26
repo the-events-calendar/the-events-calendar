@@ -214,6 +214,7 @@ class Migration_Notice {
 	 * Gets a migration action button.
 	 *
 	 * @since 6.14.0
+	 * @since TBD Made $text explicitly nullable.
 	 *
 	 * @param string|null $text  Optional. Button text override.
 	 * @param string      $style_class Optional. Button class.

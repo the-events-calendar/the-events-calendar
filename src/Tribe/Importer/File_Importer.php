@@ -117,6 +117,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * Constructor.
 	 *
 	 * @since 3.2.0
+	 * @since TBD Made $featured_image_uploader explicitly nullable.
 	 *
 	 * @param Tribe__Events__Importer__File_Reader                  $file_reader             The file reader class.
 	 * @param Tribe__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader The featured image uploader class.

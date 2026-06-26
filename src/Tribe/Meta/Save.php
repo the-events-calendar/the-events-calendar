@@ -27,6 +27,8 @@ class Tribe__Events__Meta__Save {
 	/**
 	 * Tribe__Events__Meta__Save constructor.
 	 *
+	 * @since TBD Made $context explicitly nullable.
+	 *
 	 * @param                                   $post_id
 	 * @param WP_Post                           $post
 	 * @param Tribe__Events__Meta__Context|null $context
