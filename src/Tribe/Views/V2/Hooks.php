@@ -412,13 +412,14 @@ class Hooks extends Service_Provider {
 	 * inject posts in it, if needed.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param  null|array  $posts The posts to filter, a `null` value by default or an array if set by other methods.
 	 * @param  \WP_Query|null  $query The query object to (maybe) control and whose posts will be populated.
 	 *
 	 * @return array An array of injected posts, or the original array of posts if no post injection is required.
 	 */
-	public function filter_posts_pre_query( $posts = null, \WP_Query $query = null ) {
+	public function filter_posts_pre_query( $posts = null, ?\WP_Query $query = null ) {
 		if ( is_admin() ) {
 			return $posts;
 		}

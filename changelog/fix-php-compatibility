@@ -1,0 +1,4 @@
+Significance: patch
+Type: compatibility
+
+Improved PHP compatibility for versions 7.4 and up to 8.4.

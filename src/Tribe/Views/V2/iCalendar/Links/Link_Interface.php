@@ -69,32 +69,35 @@ interface Link_Interface {
 	 * Getter function for the label property.
 	 *
 	 * @since 5.12.0
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The current View object.
 	 *
 	 * @return string The translated link text/label.
 	 */
-	public function get_label( View $view = null );
+	public function get_label( ?View $view = null );
 
 	/**
 	 * Getter function for the single label property.
 	 *
 	 * @since 5.12.0
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The current View object.
 	 *
 	 * @return string The translated link text/label for the single event view.
 	 */
-	public function get_single_label( View $view = null );
+	public function get_single_label( ?View $view = null );
 
 	/**
 	 * Getter function for the uri property.
 	 *
 	 * @since 5.12.0
+	 * @since TBD Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The current View object.
 	 *
 	 * @return string The url for the link calendar subscription "feed", or download.
 	 */
-	public function get_uri( View $view = null );
+	public function get_uri( ?View $view = null );
 }

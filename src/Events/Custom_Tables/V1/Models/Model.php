@@ -182,10 +182,12 @@ abstract class Model implements Serializable {
 	/**
 	 * Model constructor.
 	 *
+	 * @since TBD Marked $container as explicitly nullable.
+	 *
 	 * @param  array                    $data       An array with key => value pairs used to populate the model on creation of the object.
 	 * @param  Container|null  $container  A reference to the current Dependency Injection container instance.
 	 */
-	public function __construct( array $data = [], Container $container = null ) {
+	public function __construct( array $data = [], ?Container $container = null ) {
 		$this->data = $data;
 		$this->container = $container ?: tribe();
 
@@ -240,12 +242,13 @@ abstract class Model implements Serializable {
 	 * Validates the Entry to make sure all of its data is valid and consistent.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Marked $columns as explicitly nullable.
 	 *
 	 * @param  array|null  $columns
 	 *
 	 * @return bool Whether the Entry is valid and consistent or not.
 	 */
-	public function validate( array $columns = null ) {
+	public function validate( ?array $columns = null ) {
 		// Reset all the columns before start.
 		$this->valid_columns   = [];
 		$this->errors          = [];

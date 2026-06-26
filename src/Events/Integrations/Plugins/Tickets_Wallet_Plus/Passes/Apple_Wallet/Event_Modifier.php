@@ -344,12 +344,13 @@ class Event_Modifier {
 	 * Gets the filtered date format.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Made $location explicitly nullable.
 	 *
 	 * @param string|null $location Location where the date formatting is used.
 	 *
 	 * @return string Filtered date format.
 	 */
-	protected function get_date_format( string $location = null ): string {
+	protected function get_date_format( ?string $location = null ): string {
 		/**
 		 * Filters the date format used in the Apple Wallet passes.
 		 *
@@ -367,12 +368,13 @@ class Event_Modifier {
 	 * Gets the filtered time format.
 	 *
 	 * @since 6.3.2
+	 * @since TBD Made $location explicitly nullable.
 	 *
 	 * @param string|null $location Location where the time formatting is used.
 	 *
 	 * @return string Filtered time format.
 	 */
-	protected function get_time_format( string $location = null ): string {
+	protected function get_time_format( ?string $location = null ): string {
 		/**
 		 * Filters the time format used in the Apple Wallet passes.
 		 *

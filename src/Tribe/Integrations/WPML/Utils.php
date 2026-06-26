@@ -11,6 +11,8 @@ class Tribe__Events__Integrations__WPML__Utils {
 	/**
 	 * Returns the translation of an array of strings using WPML supported languages to do so.
 	 *
+	 * @since TBD Made $domains explicitly nullable.
+	 *
 	 * @param array  $strings
 	 *
 	 * @param string $locale    Optional; the locale the strings should be translated to;
@@ -18,7 +20,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	 *
 	 * @return array
 	 */
-	public static function get_wpml_i18n_strings( array $strings, $locale = null, array $domains = null ) {
+	public static function get_wpml_i18n_strings( array $strings, $locale = null, ?array $domains = null ) {
 		array_multisort( $strings );
 		$cache     = new Tribe__Cache();
 		$cache_key = 'wpml-i18n-strings_' . md5( serialize( $strings ) . $locale . serialize( $domains ) );

@@ -64,3 +64,6 @@ bin/strauss.phar
 
 # Packaged assets.
 build
+
+# PHP compatibility checker cache (downloaded phpcs phar + standards)
+dev/php-compat/

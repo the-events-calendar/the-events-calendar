@@ -207,13 +207,15 @@ function tec_events_get_today_button_label( $view = null ) {
  *
  * @uses Tribe__Templates::getTemplateHierarchy
  *
- * @param null|string $name
+ * @since TBD Made $data explicitly nullable.
  *
- * @param array       $data optional array of vars to inject into the template part
+ * @param string      $slug The base slug of the template part to include.
  *
- * @param string      $slug
+ * @param null|string $name Optional name of the template part variant to include.
+ *
+ * @param array|null  $data Optional array of vars to inject into the template part.
  */
-function tribe_get_template_part( $slug, $name = null, array $data = null ) {
+function tribe_get_template_part( $slug, $name = null, ?array $data = null ) {
 
 	// Execute code for this part
 	do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name, $data );
