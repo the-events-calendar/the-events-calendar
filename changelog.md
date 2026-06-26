@@ -1,5 +1,18 @@
 # Changelog
 
+### [6.16.5] 2026-06-24
+
+* Feature - Added "SEO & URL Handling" settings, allowing site owners to configure out-of-range URL behavior.
+* Fix - Dated List view URLs carrying ?tribe-bar-date outside the known event range now return HTTP 404 by default, and can be configured to use a soft noindex response instead, helping prevent accumulation of low-value indexed pages in search engines.
+* Fix - Removed bottom padding from "Event Venue" block to be compatible with Wordpress 7 styles.
+* Fix - URLs specifying a disabled view slug via ?eventDisplay now return HTTP 404 instead of 200.
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
+* Language - 13 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.16.4.1] 2026-06-19
+
+* Security - Make the iCal export feed produce deterministic output and harden calendar header values against line-break injection.
+
 ### [6.16.4] 2026-06-15
 
 * Tweak - Resolve license key validation server not available message on licenses screen. [CONS-478]

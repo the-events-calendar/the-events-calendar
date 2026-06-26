@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.16.4
-Requires at least: 6.7
-Tested up to: 6.9
+Stable tag: 6.16.5
+Requires at least: 6.8
+Tested up to: 7.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,19 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.16.5] 2026-06-24 =
+
+* Feature - Added "SEO & URL Handling" settings, allowing site owners to configure out-of-range URL behavior.
+* Fix - Dated List view URLs carrying ?tribe-bar-date outside the known event range now return HTTP 404 by default, and can be configured to use a soft noindex response instead, helping prevent accumulation of low-value indexed pages in search engines.
+* Fix - Removed bottom padding from "Event Venue" block to be compatible with Wordpress 7 styles.
+* Fix - URLs specifying a disabled view slug via ?eventDisplay now return HTTP 404 instead of 200.
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted.
+* Language - 13 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.16.4.1] 2026-06-19 =
+
+* Security - Make the iCal export feed produce deterministic output and harden calendar header values against line-break injection.
 
 = [6.16.4] 2026-06-15 =
 
