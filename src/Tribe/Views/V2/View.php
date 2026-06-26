@@ -1331,7 +1331,7 @@ class View implements View_Interface {
 	 * @since 4.9.3
 	 * @since 6.0.5 Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
 	 *                primary repository query.
-	 * @since TBD Made $context explicty nullable.
+	 * @since TBD Made $context explicity nullable.
 	 *
 	 * @param Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
