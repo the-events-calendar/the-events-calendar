@@ -61,11 +61,13 @@ class Tribe__Events__Aggregator__Record__Queue implements Tribe__Events__Aggrega
 	/**
 	 * Tribe__Events__Aggregator__Record__Queue constructor.
 	 *
+	 * @since TBD Made $cleaner explicitly nullable.
+	 *
 	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record
 	 * @param array                                                 $items
 	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
 	 */
-	public function __construct( $record, $items = [], Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
+	public function __construct( $record, $items = [], ?Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		tribe( 'chunker' );
 
 		if ( is_numeric( $record ) ) {

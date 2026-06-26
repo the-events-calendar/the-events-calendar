@@ -100,18 +100,18 @@ class Controller {
 	 * and will not be automatically updated again during the request.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made $request explicitly nullable.
+	 *
+	 * @param int                  $post_id The post ID, not guaranteed to be an Event post ID if this method is not called from this class.
 	 *
 	 * @param WP_REST_Request|null $request A reference to the object modeling the current request,
 	 *                                      or `null` to build a request from the current HTTP data.
 	 *                                      Mind the WP_REST_Request class can be used to
 	 *                                      model a non-REST API request too|
 	 *
-	 * @param int                  $post_id The post ID, not guaranteed to be an Event post ID if this
-	 *                                      method is not called from this class!
-	 *
 	 * @return bool Whether the post updates were correctly applied or not.
 	 */
-	public function commit_post_updates( $post_id, WP_REST_Request $request = null ) {
+	public function commit_post_updates( $post_id, ?WP_REST_Request $request = null ) {
 		if ( null === $request ) {
 			$request = $this->requests->from_http_request();
 		}
@@ -306,13 +306,14 @@ class Controller {
 	 *
 	 * @since 6.0.0
 	 * @since 6.11.1 - Ensures this is only called for Events.
+	 * @since TBD Made $request explicitly nullable.
 	 *
 	 * @param int                  $post_id The deleted Event post ID.
 	 * @param WP_REST_Request|null $request A reference to the request object triggering the deletion, if any.
 	 *
 	 * @return int|false Either the number of affected rows, or `false` on failure.
 	 */
-	public function delete_custom_tables_data( int $post_id, WP_REST_Request $request = null ) {
+	public function delete_custom_tables_data( int $post_id, ?WP_REST_Request $request = null ) {
 		if ( ! tribe_is_event( $post_id ) ) {
 			return false;
 		}

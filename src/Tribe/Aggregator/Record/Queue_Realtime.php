@@ -24,14 +24,16 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	/**
 	 * The Queue_Realtime constructor method.
 	 *
+	 * @since TBD Made $queue, $ajax_operations and $queue_processor explicitly nullable.
+	 *
 	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|null           $queue An optional Queue instance.
 	 * @param Tribe__Events__Ajax__Operations|null                    $ajax_operations An optional Ajax Operations instance.
 	 * @param Tribe__Events__Aggregator__Record__Queue_Processor|null $queue_processor An optional Queue_Processor instance.
 	 */
 	public function __construct(
-		Tribe__Events__Aggregator__Record__Queue_Interface $queue = null,
-		Tribe__Events__Ajax__Operations $ajax_operations = null,
-		Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null
+		?Tribe__Events__Aggregator__Record__Queue_Interface $queue = null,
+		?Tribe__Events__Ajax__Operations $ajax_operations = null,
+		?Tribe__Events__Aggregator__Record__Queue_Processor $queue_processor = null
 	) {
 		tribe_notice( 'aggregator-update-msg', [ $this, 'render_update_message' ], 'type=warning&dismiss=0' );
 

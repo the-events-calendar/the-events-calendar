@@ -293,13 +293,14 @@ class Builder {
 	 * @since 6.0.0
 	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.15.1 Create working copies to preserve original parameter values for debug_backtrace().
+	 * @since TBD Made $data explicitly nullable.
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
 	 * @param array<string,mixed>|null $data      The data to be inserted or updated into the table.
 	 *
 	 * @return false|int The rows affected flag or false on failure.
 	 */
-	public function upsert( array $unique_by, array $data = null ) {
+	public function upsert( array $unique_by, ?array $data = null ) {
 		$working_unique_by = $unique_by;
 		$working_data      = $data;
 

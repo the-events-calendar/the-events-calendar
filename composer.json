@@ -101,6 +101,7 @@
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
     "stop-chromedriver": "docker stop chromedriver",
+    "compat": "bash bin/php-compat.sh",
     "pup": [
       "Composer\\Config::disableProcessTimeout",
       "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.9/pup.phar",

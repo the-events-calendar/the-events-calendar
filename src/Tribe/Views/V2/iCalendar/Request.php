@@ -43,13 +43,14 @@ class Request {
 	 * Request constructor.
 	 *
 	 * @since 4.6.0
+	 * @since TBD Made $context and $ical explicitly nullable.
 	 *
 	 * @param Context|null $context Which context was used to prepare this request for iCal.
 	 * @param iCal|null    $ical    Either a reference to an explicit instance of the base
 	 *                              iCalendar exports handler, or `null` to use the one provided
 	 *                              by the `tribe` Service Locator.
 	 */
-	public function __construct( Context $context = null, iCal $ical = null ) {
+	public function __construct( ?Context $context = null, ?iCal $ical = null ) {
 		$this->ical    = $ical ?: tribe( 'tec.iCal' );
 		$this->context = $context ?: tribe_context();
 	}

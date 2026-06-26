@@ -214,13 +214,14 @@ class Migration_Notice {
 	 * Gets a migration action button.
 	 *
 	 * @since 6.14.0
+	 * @since TBD Made $text explicitly nullable.
 	 *
 	 * @param string|null $text  Optional. Button text override.
 	 * @param string      $style_class Optional. Button class.
 	 *
 	 * @return string Button HTML.
 	 */
-	protected function get_migration_action_button( string $text = null, string $style_class = 'button button-primary' ): string {
+	protected function get_migration_action_button( ?string $text = null, string $style_class = 'button button-primary' ): string {
 		$url = wp_nonce_url(
 			admin_url( 'admin-post.php?action=tec_start_category_colors_migration' ),
 			'tec_start_category_colors_migration'

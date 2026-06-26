@@ -61,9 +61,11 @@ class iCalendar_Export extends Link_Abstract {
 	}
 
 	/**
+	 * @since TBD Made $view explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	public function get_uri( View $view = null ) {
+	public function get_uri( ?View $view = null ) {
 		if ( null === $view || is_single( Tribe__Events__Main::POSTTYPE ) ) {
 			// Try to construct it for the event single.
 			return add_query_arg( [ 'ical' => 1 ], get_the_permalink() );

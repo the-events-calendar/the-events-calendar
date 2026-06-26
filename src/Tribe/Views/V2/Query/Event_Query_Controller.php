@@ -43,6 +43,7 @@ class Event_Query_Controller {
 	 * are all supported by the Event_Query_Controller.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param \WP_Query|null $query The query object currently being filtered, if any.
 	 *
@@ -51,7 +52,7 @@ class Event_Query_Controller {
 	 *
 	 * @return array|null A populated list of posts, or the original value if the filtering should not apply.
 	 */
-	public function inject_posts( $posts = null, \WP_Query $query = null ) {
+	public function inject_posts( $posts = null, ?\WP_Query $query = null ) {
 		if ( ! $query instanceof \WP_Query ) {
 			return $posts;
 		}
