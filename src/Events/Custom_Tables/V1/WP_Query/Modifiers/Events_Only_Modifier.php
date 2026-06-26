@@ -27,9 +27,11 @@ class Events_Only_Modifier extends Base_Modifier {
 	use With_WP_Query_Introspection;
 
 	/**
+	 * @since TBD Made $query explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	public function applies_to( WP_Query $query = null ) {
+	public function applies_to( ?WP_Query $query = null ) {
 		if ( is_admin() && ! wp_doing_ajax() ) {
 			return false;
 		}

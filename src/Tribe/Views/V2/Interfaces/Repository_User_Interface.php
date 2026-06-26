@@ -23,10 +23,11 @@ interface Repository_User_Interface {
 	 * Sets the repository the instance should use.
 	 *
 	 * @since 4.9.3
+	 * @since TBD Made $repository explicitly nullable.
 	 *
 	 * @param  Repository  $repository The repository object the instance should use or `null` to unset it.
 	 */
-	public function set_repository( Repository $repository = null );
+	public function set_repository( ?Repository $repository = null );
 
 	/**
 	 * Returns the repository currently used by the instance, if any.

@@ -36,12 +36,13 @@ class Query_Modifier extends Events_Only_Modifier {
 	 * Whether this query modifier should handle the query or not.
 	 *
 	 * @since 6.0.11
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param WP_Query|null $query The query object that will be modified.
 	 *
 	 * @return bool Whether this query modifier should handle the query or not.
 	 */
-	public function applies_to( WP_Query $query = null ) {
+	public function applies_to( ?WP_Query $query = null ) {
 		return $this->handle
 		       && $query !== null
 		       && ! $query instanceof Custom_Tables_Query

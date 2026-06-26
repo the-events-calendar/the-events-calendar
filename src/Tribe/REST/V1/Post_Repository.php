@@ -15,7 +15,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 */
 	protected $messages;
 
-	public function __construct( Tribe__REST__Messages_Interface $messages = null ) {
+	/**
+	 * Tribe__Events__REST__V1__Post_Repository constructor.
+	 *
+	 * @since TBD Made $messages explicitly nullable.
+	 *
+	 * @param Tribe__REST__Messages_Interface|null $messages The messages handler to use, or `null` to build a default one.
+	 */
+	public function __construct( ?Tribe__REST__Messages_Interface $messages = null ) {
 		$this->types_get_map = array(
 			Tribe__Events__Main::POSTTYPE            => array( $this, 'get_event_data' ),
 			Tribe__Events__Main::VENUE_POST_TYPE     => array( $this, 'get_venue_data' ),

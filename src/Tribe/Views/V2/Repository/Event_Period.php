@@ -918,6 +918,7 @@ class Event_Period implements Core_Read_Interface {
 	 * a defined interval.
 	 *
 	 * @since 4.9.13
+	 * @since TBD Made $post_ids explicitly nullable.
 	 *
 	 * @param int        $limit           The value of the LIMIT that should be respected to send queries (in respect
 	 *                                    to the
@@ -935,7 +936,7 @@ class Event_Period implements Core_Read_Interface {
 	 * @see   Tribe__Feature_Detection::mysql_limit_for_example for the method that should be used to set the limit.
 	 * @see   wpdb::prepare() for the format of the placeholders to use to prepare the query.
 	 */
-	protected function query_for_meta( $limit, $meta_key, array $post_ids = null, $join = 'INNER' ) {
+	protected function query_for_meta( $limit, $meta_key, ?array $post_ids = null, $join = 'INNER' ) {
 		global $wpdb;
 		$post_type = TEC::POSTTYPE;
 
@@ -1284,11 +1285,12 @@ class Event_Period implements Core_Read_Interface {
 	 * Sets, or unsets if the passed value is `null`, the base repository used by this repository.
 	 *
 	 * @since 4.9.13
+	 * @since TBD Made $base_repository explicitly nullable.
 	 *
 	 * @param Core_Read_Interface $base_repository The base repository this repository should use; a `null` value will
 	 *                                             unset it.
 	 */
-	public function set_base_repository( Core_Read_Interface $base_repository = null ) {
+	public function set_base_repository( ?Core_Read_Interface $base_repository = null ) {
 		$this->base_repository = $base_repository;
 	}
 }

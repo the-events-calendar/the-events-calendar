@@ -10,7 +10,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
-use Serializable;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
@@ -27,7 +26,7 @@ use WP_Query;
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
-class Provider extends Service_Provider implements Serializable, Provider_Contract {
+class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Register the filters and bindings required to integrate the plugin custom tables in the normal
 	 * WP_Query flow.
@@ -99,24 +98,30 @@ class Provider extends Service_Provider implements Serializable, Provider_Contra
 	 * Closures, will not be part of the serialized data.
 	 *
 	 * @since 6.0.0
+	 * @deprecated TBD Use __serialize() instead.
 	 *
 	 * @return string An empty string, to not serialize the object.
 	 */
 	public function serialize() {
-		return '';
+		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+
+		return maybe_serialize( $this->__serialize() );
 	}
 
 	/**
 	 * Returns void to not spawn the object from serialized data.
 	 *
 	 * @since 6.0.0
+	 * @deprecated TBD Use __unserialize() instead.
 	 *
 	 * @param string $data The data to unserialize.
 	 *
 	 * @return void Return void to not spawn the object from serialized data.
 	 */
 	public function unserialize( $data ) {
-		return;
+		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+
+		$this->__unserialize( maybe_unserialize( $data ) );
 	}
 
 	/**

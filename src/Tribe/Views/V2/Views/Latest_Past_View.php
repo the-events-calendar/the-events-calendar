@@ -169,9 +169,11 @@ class Latest_Past_View extends List_View {
 	protected static $date_in_url = false;
 
 	/**
+	 * @since TBD Made $context argument explicity nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	protected function setup_repository_args( Tribe__Context $context = null ) {
+	protected function setup_repository_args( ?Tribe__Context $context = null ) {
 		$this->repository = tribe_events();
 		$context        ??= $this->context;
 		$args             = parent::setup_repository_args( $context );

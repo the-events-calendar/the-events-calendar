@@ -333,13 +333,14 @@ class Title {
 	 * Sets the context this title object should use to build the title.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Made $context explicitly nullable.
 	 *
 	 * @param Context|null $context The context to use, `null` values will unset it causing the object to use the
 	 *                              global context.
 	 *
 	 * @return $this For chaining.
 	 */
-	public function set_context( Context $context = null ) {
+	public function set_context( ?Context $context = null ) {
 		$this->context = $context;
 
 		return $this;
@@ -351,13 +352,14 @@ class Title {
 	 * We build some title components with notion of what events we found for a View. Here we set them.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Made $posts explicitly nullable.
 	 *
 	 * @param array|null $posts  An array of posts matching the context query, `null` will unset it causing the object
 	 *                           to use the posts found by the global `$wp_query` object.
 	 *
 	 * @return $this For chaining.
 	 */
-	public function set_posts( array $posts = null ) {
+	public function set_posts( ?array $posts = null ) {
 		$this->posts = $posts;
 
 		return $this;

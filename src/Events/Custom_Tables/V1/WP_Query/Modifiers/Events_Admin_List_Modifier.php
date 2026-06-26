@@ -22,10 +22,12 @@ use WP_Query;
 class Events_Admin_List_Modifier extends Base_Modifier {
 
 	/**
+	 * @since TBD Made $query explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	public function applies_to( WP_Query $query = null ) {
-		return is_admin() && $query->is_main_query() && $query->get( 'post_type' ) === TEC::POSTTYPE;
+	public function applies_to( ?WP_Query $query = null ) {
+		return is_admin() && null !== $query && $query->is_main_query() && $query->get( 'post_type' ) === TEC::POSTTYPE;
 	}
 
 	/**

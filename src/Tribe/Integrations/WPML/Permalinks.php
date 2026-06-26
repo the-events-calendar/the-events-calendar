@@ -21,9 +21,11 @@ class Tribe__Events__Integrations__WPML__Permalinks {
 	/**
 	 * Tribe__Events__Integrations__WPML__Permalinks constructor.
 	 *
+	 * @since TBD Made $supported_post_types explicitly nullable.
+	 *
 	 * @param array|null $supported_post_types An injectable array of supported post types.
 	 */
-	public function __construct( array $supported_post_types = null ) {
+	public function __construct( ?array $supported_post_types = null ) {
 		$this->supported_post_types = null !== $supported_post_types ? $supported_post_types : [
 			Tribe__Events__Organizer::POSTTYPE,
 			Tribe__Events__Venue::POSTTYPE,

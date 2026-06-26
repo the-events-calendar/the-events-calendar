@@ -42,6 +42,7 @@ class Tribe__Events__Service_Providers__ORM extends Service_Provider {
 	 * The arguments will be already set in the arguments of the query.
 	 *
 	 * @since 4.9
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param array          $args An array of query arguments that will be used to check if there are next or previous
 	 *                             events.
@@ -50,7 +51,7 @@ class Tribe__Events__Service_Providers__ORM extends Service_Provider {
 	 * @return array A filtered array of arguments where the date-related contents of the meta query are removed to
 	 *               avoid duplicates.
 	 */
-	public function maybe_remove_date_meta_queries( array $args = [], WP_Query $query = null ) {
+	public function maybe_remove_date_meta_queries( array $args = [], ?WP_Query $query = null ) {
 		if ( empty( $args['meta_query'] ) || ! $query instanceof WP_Query ) {
 			return $args;
 		}

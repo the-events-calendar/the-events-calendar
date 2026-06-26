@@ -43,10 +43,11 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	 * Tribe__Events__Aggregator__Admin_Bar constructor.
 	 *
 	 * @since  4.5.12
+	 * @since TBD Made $constants explicitly nullable.
 	 *
 	 * @param  Tribe__Events__Constants  $constants A constants access proxy.
 	 */
-	public function __construct( Tribe__Events__Constants $constants = null ) {
+	public function __construct( ?Tribe__Events__Constants $constants = null ) {
 		$this->constants = $constants ? $constants : new Tribe__Events__Constants();
 	}
 
@@ -68,10 +69,11 @@ class Tribe__Events__Aggregator__Admin_Bar {
 	 * Adds menus, groups and nodes to the admin bar according the configuration.
 	 *
 	 * @since  4.5.12
+	 * @since TBD Made $wp_admin_bar explicitly nullable.
 	 *
 	 * @param WP_Admin_Bar|null $wp_admin_bar
 	 */
-	public function init( WP_Admin_Bar $wp_admin_bar = null ) {
+	public function init( ?WP_Admin_Bar $wp_admin_bar = null ) {
 		if ( empty( $wp_admin_bar ) ) {
 			global $wp_admin_bar;
 		}
