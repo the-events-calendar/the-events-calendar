@@ -1,0 +1,4 @@
+Significance: patch
+Type: compatibility
+
+Guard editEntityRecord calls with getCurrentPostType() check to prevent crash in the FSE site editor when the tribe_events entity config is not registered in core-data

@@ -22,6 +22,7 @@ jest.mock( '@moderntribe/common/utils', () => {
 	};
 	const selectModule = {
 		getCurrentPostId: jest.fn( () => {} ),
+		getCurrentPostType: jest.fn( () => 'tribe_events' ),
 		getBlocks: jest.fn( () => {} ),
 	};
 
@@ -211,6 +212,23 @@ describe( '[STORE] - Organizers subscribers', () => {
 		expect( organizerActions.removeOrganizerInClassic ).toHaveBeenCalledTimes( 0 );
 		expect( formActions.removeVolatile ).toHaveBeenCalledTimes( 0 );
 		expect( organizerSelectors.getOrganizersInClassic ).toHaveBeenCalledTimes( 0 );
+		expect( globals.wpData.select( 'core/editor' ).getCurrentPostId ).toHaveBeenCalledTimes( 0 );
+		expect( globals.wpData.dispatch( 'core' ).editEntityRecord ).toHaveBeenCalledTimes( 0 );
+	} );
+
+	it( 'Should not call editEntityRecord when current post type is not tribe_events (e.g. FSE site editor)', () => { // eslint-disable-line max-len
+		globals.wpData.select( 'core/editor' ).getCurrentPostType.mockReturnValueOnce( 'wp_template' );
+
+		const organizerBlockWithOrganizer = {
+			name: 'tribe/event-organizer',
+			clientId: 'organizer-1',
+			attributes: { organizer: 99 },
+		};
+
+		handleBlockRemoved( [] )( organizerBlockWithOrganizer );
+		expect( organizerActions.removeOrganizerInClassic ).toHaveBeenCalledTimes( 1 );
+		expect( formActions.removeVolatile ).toHaveBeenCalledTimes( 1 );
+		expect( globals.wpData.select( 'core/editor' ).getCurrentPostType ).toHaveBeenCalledTimes( 1 );
 		expect( globals.wpData.select( 'core/editor' ).getCurrentPostId ).toHaveBeenCalledTimes( 0 );
 		expect( globals.wpData.dispatch( 'core' ).editEntityRecord ).toHaveBeenCalledTimes( 0 );
 	} );
