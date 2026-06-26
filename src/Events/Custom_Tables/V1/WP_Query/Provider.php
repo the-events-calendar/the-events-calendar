@@ -105,7 +105,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function serialize() {
 		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
 
-		return serialize( $this->__serialize() );
+		return maybe_serialize( $this->__serialize() );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function unserialize( $data ) {
 		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
 
-		$this->__unserialize( unserialize( $data ) );
+		$this->__unserialize( maybe_unserialize( $data ) );
 	}
 
 	/**
