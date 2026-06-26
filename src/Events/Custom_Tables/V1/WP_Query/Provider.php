@@ -10,7 +10,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
-use Serializable;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
@@ -99,24 +98,30 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Closures, will not be part of the serialized data.
 	 *
 	 * @since 6.0.0
+	 * @deprecated TBD Use __serialize() instead.
 	 *
 	 * @return string An empty string, to not serialize the object.
 	 */
 	public function serialize() {
-		return '';
+		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+
+		return serialize( $this->__serialize() );
 	}
 
 	/**
 	 * Returns void to not spawn the object from serialized data.
 	 *
 	 * @since 6.0.0
+	 * @deprecated TBD Use __unserialize() instead.
 	 *
 	 * @param string $data The data to unserialize.
 	 *
 	 * @return void Return void to not spawn the object from serialized data.
 	 */
 	public function unserialize( $data ) {
-		return;
+		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+
+		$this->__unserialize( unserialize( $data ) );
 	}
 
 	/**
