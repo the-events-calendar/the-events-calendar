@@ -1,0 +1,137 @@
+name: "Release: Update WordPress Version"
+
+on:
+  workflow_dispatch:
+    inputs:
+      tested_up_to:
+        description: 'WordPress version to set as "tested up to" version (e.g. 7.0)'
+        required: true
+        type: string
+      update_min_version:
+        description: 'Also update the minimum required version (Requires at least + test runners)?'
+        required: true
+        type: choice
+        options:
+          - 'yes'
+          - 'no'
+        default: 'no'
+      min_version:
+        description: 'Minimum required version, used only when the option above is "yes" (e.g. 6.8)'
+        required: false
+        type: string
+
+jobs:
+  update-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Validate inputs
+        run: |
+          if [ "${{ github.event.inputs.update_min_version }}" = "yes" ] && [ -z "${{ github.event.inputs.min_version }}" ]; then
+            echo "::error::'Update minimum required version' is set to 'yes' but no 'min_version' was provided."
+            exit 1
+          fi
+
+      - name: Set Variables
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+
+      - name: Set up Git configuration
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+
+      - name: Create branch for changes
+        id: create-branch
+        run: |
+          BRANCH_NAME="task/update-wp-version-${{ steps.vars.outputs.timestamp }}-${{ steps.vars.outputs.sha_short }}"
+          git checkout -b "$BRANCH_NAME"
+          git push --set-upstream origin "$BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Calculate and update versions
+        id: update-versions
+        run: |
+          TESTED_VERSION="${{ github.event.inputs.tested_up_to }}"
+          MIN_VERSION="${{ github.event.inputs.min_version }}"
+          echo "MIN_VERSION=$MIN_VERSION" >> $GITHUB_OUTPUT
+
+          echo "## Version Updates" >> $GITHUB_STEP_SUMMARY
+          echo "* Tested Up To: \`$TESTED_VERSION\`" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ github.event.inputs.update_min_version }}" = "yes" ]; then
+            echo "* Minimum Required Version: \`$MIN_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "* Minimum Required Version: Unchanged" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Update readme.txt
+          if [ -f "readme.txt" ]; then
+            sed -i "s/Tested up to: [0-9.]*/Tested up to: $TESTED_VERSION/" readme.txt
+            if [ "${{ github.event.inputs.update_min_version }}" = "yes" ]; then
+              sed -i "s/Requires at least: [0-9.]*/Requires at least: $MIN_VERSION/" readme.txt
+            fi
+            echo "* Updated \`readme.txt\`" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Update the main plugin file if minimum version is being updated
+          if [ "${{ github.event.inputs.update_min_version }}" = "yes" ]; then
+            # Get plugin file from .puprc versions array that is a PHP file in the base directory
+            PLUGIN_FILE=$(jq -r '.paths.versions[] | select(.file | test("^[^/]+\\.php$")) | .file' .puprc)
+
+            if [ -n "$PLUGIN_FILE" ] && [ -f "$PLUGIN_FILE" ]; then
+              sed -i "s/Requires at least: [0-9.]*/Requires at least: $MIN_VERSION/" "$PLUGIN_FILE"
+              echo "* Updated \`$PLUGIN_FILE\`" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+          # Update test runner workflow files if minimum version is being updated (skips self)
+          if [ "${{ github.event.inputs.update_min_version }}" = "yes" ] && [ -d ".github/workflows" ]; then
+            for wf in .github/workflows/*.yml; do
+              [ "$(basename "$wf")" = "release-update-wp-version.yml" ] && continue
+              if grep -q "wp core update --force --version=" "$wf"; then
+                sed -i "s/wp core update --force --version=[0-9.]*/wp core update --force --version=$MIN_VERSION/" "$wf"
+                echo "* Updated \`$wf\`" >> $GITHUB_STEP_SUMMARY
+              fi
+            done
+          fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        id: cpr
+        with:
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+          base: ${{ github.ref_name }}
+          branch: ${{ steps.create-branch.outputs.branch_name }}
+          title: "[BOT] Update WordPress version requirements"
+          body: |
+            This PR updates the WordPress version requirements:
+
+            - Sets tested up to version to ${{ github.event.inputs.tested_up_to }}
+            ${{ github.event.inputs.update_min_version == 'yes' && format('* Sets minimum required version to {0}', steps.update-versions.outputs.MIN_VERSION) || '* Keeps minimum required version unchanged' }}
+
+            This is an automated PR created by ${{ github.actor }}.
+            Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            [skip-changelog] [skip-lint] [skip-phpcs]
+          labels: "automation"
+          commit-message: |
+            Update WordPress version requirements
+
+            - Set tested up to version to ${{ github.event.inputs.tested_up_to }}
+            ${{ github.event.inputs.update_min_version == 'yes' && format('* Set minimum required version to {0}', steps.update-versions.outputs.MIN_VERSION) || '* Kept minimum required version unchanged' }}
+
+            This is an automated PR created by ${{ github.actor }}.
+            Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Check outputs
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "## Pull Request"  >> $GITHUB_STEP_SUMMARY
+          echo "* Number - ${{ steps.cpr.outputs.pull-request-number }}" >> $GITHUB_STEP_SUMMARY
+          echo "* URL - [${{ steps.cpr.outputs.pull-request-url }}](${{ steps.cpr.outputs.pull-request-url }})" >> $GITHUB_STEP_SUMMARY
