@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Expanded validation of Event Aggregator imports for all statuses.
