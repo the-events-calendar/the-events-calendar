@@ -25,7 +25,7 @@ jobs:
   phpcs:
     needs: check
     if: needs.check.outputs.run_tests
-    uses: stellarwp/github-actions/.github/workflows/phpcs.yml@fix/phpcs-empty-changed-files
+    uses: stellarwp/github-actions/.github/workflows/phpcs.yml@fix/phpcs-xargs-exit-code
     with:
       ref: ${{ github.event.inputs.ref }}
       change_permissions: false
