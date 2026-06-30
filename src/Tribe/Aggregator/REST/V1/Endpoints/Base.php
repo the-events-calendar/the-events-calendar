@@ -36,7 +36,7 @@ abstract class Tribe__Events__Aggregator__REST__V1__Endpoints__Base {
 	 * shared with the service, and is validated for every request to the endpoint.
 	 *
 	 * @since 4.6.15
-	 * @since TBD Harden the batch hash validation and fail closed when no hash is present on the record.
+	 * @since 6.16.5.1 Harden the batch hash validation and fail closed when no hash is present on the record.
 	 *
 	 * @param string          $batch_hash The batch hash provided by the request.
 	 * @param WP_REST_Request $request    The current request.
