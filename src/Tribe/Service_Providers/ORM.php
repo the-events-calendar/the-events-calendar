@@ -42,7 +42,7 @@ class Tribe__Events__Service_Providers__ORM extends Service_Provider {
 	 * The arguments will be already set in the arguments of the query.
 	 *
 	 * @since 4.9
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param array          $args An array of query arguments that will be used to check if there are next or previous
 	 *                             events.

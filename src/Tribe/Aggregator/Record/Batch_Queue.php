@@ -65,7 +65,7 @@ class Batch_Queue implements Tribe__Events__Aggregator__Record__Queue_Interface 
 	 * Tribe__Events__Aggregator__Record__Queue constructor.
 	 *
 	 * @since 5.3.0
-	 * @since TBD Made $cleaner explicitly nullable.
+	 * @since 6.16.5.1 Made $cleaner explicitly nullable.
 	 *
 	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record The current record or record ID.
 	 * @param array|string|null                                     $items The items to build the Queue.

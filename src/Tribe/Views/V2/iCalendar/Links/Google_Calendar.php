@@ -66,7 +66,7 @@ class Google_Calendar extends Link_Abstract {
 	 * {@inheritDoc}
 	 *
 	 * @since 5.12.0
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The view object.
 	 */

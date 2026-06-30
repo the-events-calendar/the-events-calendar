@@ -61,7 +61,7 @@ class iCalendar_Export extends Link_Abstract {
 	}
 
 	/**
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */

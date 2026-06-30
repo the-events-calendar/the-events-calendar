@@ -306,7 +306,7 @@ class Query_Replace {
 	 * Sets the array of `LIKE` clauses that should be redirected.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Made $like explicity nullable.
+	 * @since 6.16.5.1 Made $like explicity nullable.
 	 *
 	 * @param array<string,array<string,string>>|null $like An array of `LIKE` clauses that should be redirected to
 	 *                                                      the custom tables.

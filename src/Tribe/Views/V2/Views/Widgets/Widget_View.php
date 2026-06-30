@@ -122,7 +122,7 @@ class Widget_View extends View {
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 4.9.3
-	 * @since TBD Made $context explicity nullable.
+	 * @since 6.16.5.1 Made $context explicity nullable.
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *

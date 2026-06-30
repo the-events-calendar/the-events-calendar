@@ -45,7 +45,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Constructor!
 	 *
-	 * @since TBD Made $cache explicitly nullable.
+	 * @since 6.16.5.1 Made $cache explicitly nullable.
 	 *
 	 * @param Tribe__Cache|null $cache
 	 */

@@ -21,7 +21,7 @@ class Tribe__Events__Revisions__Event extends Tribe__Events__Revisions__Post {
 	/**
 	 * Tribe__Events__Revisions__Event constructor.
 	 *
-	 * @since TBD Made $meta_save explicitly nullable.
+	 * @since 6.16.5.1 Made $meta_save explicitly nullable.
 	 *
 	 * @param Tribe__Events__Meta__Save|null $meta_save
 	 */

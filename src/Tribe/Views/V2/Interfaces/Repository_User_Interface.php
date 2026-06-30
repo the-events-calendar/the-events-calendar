@@ -23,7 +23,7 @@ interface Repository_User_Interface {
 	 * Sets the repository the instance should use.
 	 *
 	 * @since 4.9.3
-	 * @since TBD Made $repository explicitly nullable.
+	 * @since 6.16.5.1 Made $repository explicitly nullable.
 	 *
 	 * @param  Repository  $repository The repository object the instance should use or `null` to unset it.
 	 */

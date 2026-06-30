@@ -56,7 +56,7 @@ class Tribe__Events__Featured_Events {
 	 * Indicates is the specified query (or the current global WP_Query object if not
 	 * specified) relates to featured events.
 	 *
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param WP_Query|null $query
 	 *

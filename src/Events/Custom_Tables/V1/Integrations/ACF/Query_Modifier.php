@@ -36,7 +36,7 @@ class Query_Modifier extends Events_Only_Modifier {
 	 * Whether this query modifier should handle the query or not.
 	 *
 	 * @since 6.0.11
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param WP_Query|null $query The query object that will be modified.
 	 *

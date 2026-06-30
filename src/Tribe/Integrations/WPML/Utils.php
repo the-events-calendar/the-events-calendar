@@ -11,7 +11,7 @@ class Tribe__Events__Integrations__WPML__Utils {
 	/**
 	 * Returns the translation of an array of strings using WPML supported languages to do so.
 	 *
-	 * @since TBD Made $domains explicitly nullable.
+	 * @since 6.16.5.1 Made $domains explicitly nullable.
 	 *
 	 * @param array  $strings
 	 *

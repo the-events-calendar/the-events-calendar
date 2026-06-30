@@ -267,7 +267,7 @@ class View implements View_Interface {
 	 * View constructor.
 	 *
 	 * @since 4.9.11
-	 * @since TBD Made $messages explicitly nullable.
+	 * @since 6.16.5.1 Made $messages explicitly nullable.
 	 *
 	 * @param Messages|null $messages An instance of the messages collection.
 	 */
@@ -429,7 +429,7 @@ class View implements View_Interface {
 	 * Builds and returns an instance of a View by slug or class.
 	 *
 	 * @since  4.9.2
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.16.5.1 Made $context explicitly nullable.
 	 *
 	 * @param string       $view       The view slug, as registered in the `tribe_events_views` filter, or class.
 	 * @param Context|null $context    The context this view should render from; if not set then the global
@@ -819,7 +819,7 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.16.5.1 Made $context explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */
@@ -1163,7 +1163,7 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * @since TBD Made $repository explicitly nullable.
+	 * @since 6.16.5.1 Made $repository explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */
@@ -1229,7 +1229,7 @@ class View implements View_Interface {
 	 * Sets a View URL object either from some arguments or from the current URL.
 	 *
 	 * @since 4.9.3
-	 * @since TBD Made $args explicitly nullable.
+	 * @since 6.16.5.1 Made $args explicitly nullable.
 	 *
 	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
@@ -1261,7 +1261,7 @@ class View implements View_Interface {
 	 * Maps a set of arguments to query arguments, ready to be appended to a URL.
 	 *
 	 * @since 4.9.3
-	 * @since TBD Made $args explicitly nullable.
+	 * @since 6.16.5.1 Made $args explicitly nullable.
 	 *
 	 * @param array $args An associative array of arguments to map (translate) to query arguments.
 	 *
@@ -1339,7 +1339,7 @@ class View implements View_Interface {
 	 * @since 4.9.3
 	 * @since 6.0.5 Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
 	 *                primary repository query.
-	 * @since TBD Made $context explicity nullable.
+	 * @since 6.16.5.1 Made $context explicity nullable.
 	 *
 	 * @param Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -1860,7 +1860,7 @@ class View implements View_Interface {
 	 * Filters the repository arguments that will be used to set up the View repository instance.
 	 *
 	 * @since 4.9.5
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.16.5.1 Made $context explicitly nullable.
 	 *
 	 * @param array        $repository_args The repository arguments that will be used to set up the View repository instance.
 	 * @param Context|null $context         Either a specific Context or `null` to use the View current Context.

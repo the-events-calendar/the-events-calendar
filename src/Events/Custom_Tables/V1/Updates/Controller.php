@@ -100,7 +100,7 @@ class Controller {
 	 * and will not be automatically updated again during the request.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Made $request explicitly nullable.
+	 * @since 6.16.5.1 Made $request explicitly nullable.
 	 *
 	 * @param int                  $post_id The post ID, not guaranteed to be an Event post ID if this method is not called from this class.
 	 *
@@ -306,7 +306,7 @@ class Controller {
 	 *
 	 * @since 6.0.0
 	 * @since 6.11.1 - Ensures this is only called for Events.
-	 * @since TBD Made $request explicitly nullable.
+	 * @since 6.16.5.1 Made $request explicitly nullable.
 	 *
 	 * @param int                  $post_id The deleted Event post ID.
 	 * @param WP_REST_Request|null $request A reference to the request object triggering the deletion, if any.

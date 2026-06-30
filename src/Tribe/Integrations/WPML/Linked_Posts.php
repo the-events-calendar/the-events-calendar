@@ -31,7 +31,7 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 	/**
 	 * Tribe__Events__Integrations__WPML__Linked_Posts constructor.
 	 *
-	 * @since TBD Made $cache explicitly nullable.
+	 * @since 6.16.5.1 Made $cache explicitly nullable.
 	 *
 	 * @param Tribe__Cache|null $cache
 	 */

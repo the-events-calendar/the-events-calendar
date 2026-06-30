@@ -43,7 +43,7 @@ class Event_Query_Controller {
 	 * are all supported by the Event_Query_Controller.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param \WP_Query|null $query The query object currently being filtered, if any.
 	 *

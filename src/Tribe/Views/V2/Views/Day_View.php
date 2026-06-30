@@ -243,7 +243,7 @@ class Day_View extends View {
 	}
 
 	/**
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.16.5.1 Made $context explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */

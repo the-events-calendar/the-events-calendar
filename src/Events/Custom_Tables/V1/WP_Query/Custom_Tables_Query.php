@@ -47,7 +47,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * Returns an instance of this class, built using the input `WP_Query` as a model.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Made $override_args explicitly nullable.
+	 * @since 6.16.5.1 Made $override_args explicitly nullable.
 	 *
 	 * @param  WP_Query                  $wp_query       A reference to the `WP_Query` instance that
 	 *                                                   should be used as a model to build an instance

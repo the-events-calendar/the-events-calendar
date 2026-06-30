@@ -26,7 +26,7 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	/**
 	 * Tribe__Events__Integrations__WPML__Defaults constructor.
 	 *
-	 * @since TBD Made $settings_manager explicitly nullable.
+	 * @since 6.16.5.1 Made $settings_manager explicitly nullable.
 	 *
 	 * @param SitePress|null               $sitepress
 	 * @param Tribe__Settings_Manager|null $settings_manager

@@ -83,7 +83,7 @@ abstract class Base_Modifier implements WP_Query_Modifier {
 	 * Returns whether a query instance is the one this modifier should target or not.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param  WP_Query  $query  A reference to the `WP_Query` instance to check.
 	 *

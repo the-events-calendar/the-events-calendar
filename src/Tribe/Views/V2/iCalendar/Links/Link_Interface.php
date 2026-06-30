@@ -69,7 +69,7 @@ interface Link_Interface {
 	 * Getter function for the label property.
 	 *
 	 * @since 5.12.0
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The current View object.
 	 *
@@ -81,7 +81,7 @@ interface Link_Interface {
 	 * Getter function for the single label property.
 	 *
 	 * @since 5.12.0
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The current View object.
 	 *
@@ -93,7 +93,7 @@ interface Link_Interface {
 	 * Getter function for the uri property.
 	 *
 	 * @since 5.12.0
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * @param View|null $view The current View object.
 	 *

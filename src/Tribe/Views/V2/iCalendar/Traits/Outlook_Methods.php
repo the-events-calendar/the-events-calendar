@@ -171,7 +171,7 @@ trait Outlook_Methods {
 	 * Generate the subscribe URL.
 	 *
 	 * @since 5.16.0
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * @return string The subscribe url.
 	 */
@@ -230,7 +230,7 @@ trait Outlook_Methods {
 	}
 
 	/**
-	 * @since TBD Made $view explicitly nullable.
+	 * @since 6.16.5.1 Made $view explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */

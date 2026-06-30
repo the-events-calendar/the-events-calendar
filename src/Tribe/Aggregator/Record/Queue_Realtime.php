@@ -24,7 +24,7 @@ class Tribe__Events__Aggregator__Record__Queue_Realtime {
 	/**
 	 * The Queue_Realtime constructor method.
 	 *
-	 * @since TBD Made $queue, $ajax_operations and $queue_processor explicitly nullable.
+	 * @since 6.16.5.1 Made $queue, $ajax_operations and $queue_processor explicitly nullable.
 	 *
 	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|null           $queue An optional Queue instance.
 	 * @param Tribe__Events__Ajax__Operations|null                    $ajax_operations An optional Ajax Operations instance.

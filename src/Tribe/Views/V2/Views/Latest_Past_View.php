@@ -169,7 +169,7 @@ class Latest_Past_View extends List_View {
 	protected static $date_in_url = false;
 
 	/**
-	 * @since TBD Made $context argument explicity nullable.
+	 * @since 6.16.5.1 Made $context argument explicity nullable.
 	 *
 	 * {@inheritDoc}
 	 */

@@ -182,7 +182,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Model constructor.
 	 *
-	 * @since TBD Marked $container as explicitly nullable.
+	 * @since 6.16.5.1 Marked $container as explicitly nullable.
 	 *
 	 * @param  array                    $data       An array with key => value pairs used to populate the model on creation of the object.
 	 * @param  Container|null  $container  A reference to the current Dependency Injection container instance.
@@ -242,7 +242,7 @@ abstract class Model implements Serializable {
 	 * Validates the Entry to make sure all of its data is valid and consistent.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Marked $columns as explicitly nullable.
+	 * @since 6.16.5.1 Marked $columns as explicitly nullable.
 	 *
 	 * @param  array|null  $columns
 	 *

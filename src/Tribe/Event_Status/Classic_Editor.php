@@ -59,7 +59,7 @@ class Classic_Editor {
 	 * Metabox constructor.
 	 *
 	 * @since 5.11.0
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.16.5.1 Made $context explicitly nullable.
 	 *
 	 * @param Admin_Template $admin_template An instance of the plugin template handler.
 	 * @param Context|null   $context        The instance of the Context the metabox should use

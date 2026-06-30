@@ -78,7 +78,7 @@ interface WP_Query_Modifier {
 	 * Define if this modifier should be applied or not.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param  WP_Query|null  $query A reference to the query object
 	 *                               the modifier should be applied to.

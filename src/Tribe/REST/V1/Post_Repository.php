@@ -18,7 +18,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	/**
 	 * Tribe__Events__REST__V1__Post_Repository constructor.
 	 *
-	 * @since TBD Made $messages explicitly nullable.
+	 * @since 6.16.5.1 Made $messages explicitly nullable.
 	 *
 	 * @param Tribe__REST__Messages_Interface|null $messages The messages handler to use, or `null` to build a default one.
 	 */

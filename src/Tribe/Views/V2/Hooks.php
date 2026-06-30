@@ -412,7 +412,7 @@ class Hooks extends Service_Provider {
 	 * inject posts in it, if needed.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * @param  null|array  $posts The posts to filter, a `null` value by default or an array if set by other methods.
 	 * @param  \WP_Query|null  $query The query object to (maybe) control and whose posts will be populated.

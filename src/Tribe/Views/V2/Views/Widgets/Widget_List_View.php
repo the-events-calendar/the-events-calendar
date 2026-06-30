@@ -43,7 +43,7 @@ class Widget_List_View extends Widget_View {
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 5.3.0
-	 * @since TBD Made $context argument explicity nullable.
+	 * @since 6.16.5.1 Made $context argument explicity nullable.
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *

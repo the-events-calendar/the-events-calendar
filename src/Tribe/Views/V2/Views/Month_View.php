@@ -271,7 +271,7 @@ class Month_View extends By_Day_View {
 	}
 
 	/**
-	 * @since TBD Made $context explicitly nullable.
+	 * @since 6.16.5.1 Made $context explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */

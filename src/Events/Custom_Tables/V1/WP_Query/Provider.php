@@ -98,12 +98,12 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Closures, will not be part of the serialized data.
 	 *
 	 * @since 6.0.0
-	 * @deprecated TBD Use __serialize() instead.
+	 * @deprecated 6.16.5.1 Use __serialize() instead.
 	 *
 	 * @return string An empty string, to not serialize the object.
 	 */
 	public function serialize() {
-		_deprecated_function( __METHOD__, 'TBD', '__serialize()' );
+		_deprecated_function( __METHOD__, '6.16.5.1', '__serialize()' );
 
 		return maybe_serialize( $this->__serialize() );
 	}
@@ -112,14 +112,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Returns void to not spawn the object from serialized data.
 	 *
 	 * @since 6.0.0
-	 * @deprecated TBD Use __unserialize() instead.
+	 * @deprecated 6.16.5.1 Use __unserialize() instead.
 	 *
 	 * @param string $data The data to unserialize.
 	 *
 	 * @return void Return void to not spawn the object from serialized data.
 	 */
 	public function unserialize( $data ) {
-		_deprecated_function( __METHOD__, 'TBD', '__unserialize()' );
+		_deprecated_function( __METHOD__, '6.16.5.1', '__unserialize()' );
 
 		$this->__unserialize( maybe_unserialize( $data ) );
 	}

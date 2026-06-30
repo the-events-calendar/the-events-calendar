@@ -22,7 +22,7 @@ use WP_Query;
 class Events_Admin_List_Modifier extends Base_Modifier {
 
 	/**
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.16.5.1 Made $query explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */
