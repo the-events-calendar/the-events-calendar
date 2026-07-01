@@ -59,12 +59,13 @@ class Classic_Editor {
 	 * Metabox constructor.
 	 *
 	 * @since 5.11.0
+	 * @since TBD Made $context explicitly nullable.
 	 *
 	 * @param Admin_Template $admin_template An instance of the plugin template handler.
 	 * @param Context|null   $context        The instance of the Context the metabox should use
 	 *                                       or `null` to use the global one.
 	 */
-	public function __construct( Admin_Template $admin_template, Context $context = null ) {
+	public function __construct( Admin_Template $admin_template, ?Context $context = null ) {
 		$this->context        = null !== $context ? $context : tribe_context();
 		$this->admin_template = $admin_template;
 	}

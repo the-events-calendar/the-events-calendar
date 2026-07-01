@@ -87,10 +87,11 @@ interface View_Interface extends View_Url_Provider_Interface, Repository_User_In
 	 * Sets, or unset, the View context.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Made $context explicitly nullable.
 	 *
 	 * @param \Tribe__Context|null $context Either a context instance or null to make the View use the global one.
 	 */
-	public function set_context( Context $context = null );
+	public function set_context( ?Context $context = null );
 
 	/**
 	 * Sets the View slug, usually the one it was registered with in the `tribe_events_views` filter.
@@ -185,12 +186,13 @@ interface View_Interface extends View_Url_Provider_Interface, Repository_User_In
 	 * Sets a View URL object either from some arguments or from the current URL.
 	 *
 	 * @since 4.9.3
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
 	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
-	public function set_url( array $args = null, $merge = false );
+	public function set_url( ?array $args = null, $merge = false );
 
 	/**
 	 * Returns the post IDs of the posts the View is displaying in the order it's displaying them.

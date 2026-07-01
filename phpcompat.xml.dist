@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ruleset name="The Events Calendar PHP 8 Compatibility">
+	<description>Detects PHP 8.0–8.4 deprecations and removals. Run via bin/php-compat.sh.</description>
+
+	<!-- Target the supported PHP range (min supported – production runtime). -->
+	<config name="testVersion" value="7.4-8.4"/>
+
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Only PHP files. -->
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+
+	<!-- Plugin code. `common` is a separate repository and is scanned there. -->
+	<file>src</file>
+	<file>the-events-calendar.php</file>
+	<file>uninstall.php</file>
+
+	<exclude-pattern>*/common/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<!-- Compiled/minified assets and other non-source PHP. -->
+	<exclude-pattern>*/src/resources/*</exclude-pattern>
+</ruleset>

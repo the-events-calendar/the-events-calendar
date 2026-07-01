@@ -267,10 +267,11 @@ class View implements View_Interface {
 	 * View constructor.
 	 *
 	 * @since 4.9.11
+	 * @since TBD Made $messages explicitly nullable.
 	 *
 	 * @param Messages|null $messages An instance of the messages collection.
 	 */
-	public function __construct( Messages $messages = null ) {
+	public function __construct( ?Messages $messages = null ) {
 		$this->messages = $messages ?: new Messages();
 		$this->rewrite  = TEC_Rewrite::instance();
 		$this->slug     = static::$view_slug; // @todo Kept for back-compat, remove when we finally remove the non-static prop.
@@ -428,6 +429,7 @@ class View implements View_Interface {
 	 * Builds and returns an instance of a View by slug or class.
 	 *
 	 * @since  4.9.2
+	 * @since TBD Made $context explicitly nullable.
 	 *
 	 * @param string       $view       The view slug, as registered in the `tribe_events_views` filter, or class.
 	 * @param Context|null $context    The context this view should render from; if not set then the global
@@ -435,7 +437,7 @@ class View implements View_Interface {
 	 *
 	 * @return View_Interface An instance of the built view.
 	 */
-	public static function make( $view = null, Context $context = null ) {
+	public static function make( $view = null, ?Context $context = null ) {
 		$manager = tribe( Manager::class );
 
 		$default_view = $manager->get_default_view();
@@ -817,9 +819,11 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * @since TBD Made $context explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	public function set_context( Context $context = null ) {
+	public function set_context( ?Context $context = null ) {
 		$this->context = $context;
 	}
 
@@ -1159,9 +1163,11 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * @since TBD Made $repository explicitly nullable.
+	 *
 	 * {@inheritDoc}
 	 */
-	public function set_repository( Repository $repository = null ) {
+	public function set_repository( ?Repository $repository = null ) {
 		$this->repository = $repository;
 	}
 
@@ -1223,12 +1229,13 @@ class View implements View_Interface {
 	 * Sets a View URL object either from some arguments or from the current URL.
 	 *
 	 * @since 4.9.3
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param array|null $args   An associative array of arguments that will be mapped to the corresponding query
 	 *                           arguments by the View, or `null` to use the current URL.
 	 * @param bool       $merge  Whether to merge the arguments or override them.
 	 */
-	public function set_url( array $args = null, $merge = false ) {
+	public function set_url( ?array $args = null, $merge = false ) {
 		if ( ! isset( $this->url ) ) {
 			$this->url = new Url();
 		}
@@ -1254,12 +1261,13 @@ class View implements View_Interface {
 	 * Maps a set of arguments to query arguments, ready to be appended to a URL.
 	 *
 	 * @since 4.9.3
+	 * @since TBD Made $args explicitly nullable.
 	 *
 	 * @param array $args An associative array of arguments to map (translate) to query arguments.
 	 *
 	 * @return array An associative array of query arguments mapped from the input ones.
 	 */
-	protected function map_args_to_query_args( array $args = null ) {
+	protected function map_args_to_query_args( ?array $args = null ) {
 		if ( empty( $args ) ) {
 			return [];
 		}
@@ -1331,12 +1339,13 @@ class View implements View_Interface {
 	 * @since 4.9.3
 	 * @since 6.0.5 Now will merge a "global" repository arg filter, which will be applied elsewhere as well as this
 	 *                primary repository query.
+	 * @since TBD Made $context explicity nullable.
 	 *
 	 * @param Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
 	 * @return array The arguments, ready to be set on the View repository instance.
 	 */
-	protected function setup_repository_args( Context $context = null ) {
+	protected function setup_repository_args( ?Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		$context_arr = $context->to_array();
@@ -1851,13 +1860,14 @@ class View implements View_Interface {
 	 * Filters the repository arguments that will be used to set up the View repository instance.
 	 *
 	 * @since 4.9.5
+	 * @since TBD Made $context explicitly nullable.
 	 *
 	 * @param array        $repository_args The repository arguments that will be used to set up the View repository instance.
 	 * @param Context|null $context         Either a specific Context or `null` to use the View current Context.
 	 *
 	 * @return array The filtered repository arguments.
 	 */
-	protected function filter_repository_args( array $repository_args, Context $context = null ) {
+	protected function filter_repository_args( array $repository_args, ?Context $context = null ) {
 		$context = null !== $context ? $context : $this->context;
 
 		/**

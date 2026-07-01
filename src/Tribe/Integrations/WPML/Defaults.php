@@ -26,10 +26,12 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	/**
 	 * Tribe__Events__Integrations__WPML__Defaults constructor.
 	 *
+	 * @since TBD Made $settings_manager explicitly nullable.
+	 *
 	 * @param SitePress|null               $sitepress
 	 * @param Tribe__Settings_Manager|null $settings_manager
 	 */
-	public function __construct( Tribe__Settings_Manager $settings_manager = null ) {
+	public function __construct( ?Tribe__Settings_Manager $settings_manager = null ) {
 		$this->settings_manager = $settings_manager ? $settings_manager : Tribe__Settings_Manager::instance();
 	}
 

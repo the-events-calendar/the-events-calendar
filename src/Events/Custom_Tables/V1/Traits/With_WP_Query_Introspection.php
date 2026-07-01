@@ -69,13 +69,14 @@ trait With_WP_Query_Introspection {
 	 * Returns whether a `WP_Query` is only querying the specified post type or not.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made $query explicitly nullable.
 	 *
 	 * @param  WP_Query  $query      A reference to the `WP_Query` instance to check.
 	 * @param  string    $post_type  The post type to check the `WP_Query` for.
 	 *
 	 * @return bool Whether a `WP_Query` is only querying the Event post type or not.
 	 */
-	protected function is_query_for_post_type( WP_Query $query = null, $post_type = '' ) {
+	protected function is_query_for_post_type( ?WP_Query $query = null, $post_type = '' ) {
 		return $query instanceof WP_Query && array_values( array_filter( (array) $query->get( 'post_type' ) ) ) === [ $post_type ];
 	}
 

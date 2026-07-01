@@ -122,12 +122,13 @@ class Widget_View extends View {
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 4.9.3
+	 * @since TBD Made $context explicity nullable.
 	 *
 	 * @param  Context|null $context A context to use to setup the args, or `null` to use the View Context.
 	 *
 	 * @return array<string,mixed> The arguments, ready to be set on the View repository instance.
 	 */
-	protected function setup_repository_args( Context $context = null ) {
+	protected function setup_repository_args( ?Context $context = null ) {
 		$context     = null !== $context ? $context : $this->context;
 		$args        = parent::setup_repository_args( $context );
 
