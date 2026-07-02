@@ -1,7 +1,5 @@
 # Changelog
 
-Some changelog change
-
 ### [6.16.5.1] 2026-07-01
 
 * Security - Expanded validation of Event Aggregator imports for all statuses.
