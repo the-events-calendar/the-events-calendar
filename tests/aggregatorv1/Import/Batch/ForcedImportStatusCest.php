@@ -86,11 +86,11 @@ class ForcedImportStatusCest {
 	}
 
 	/**
-	 * should allow to mark an import as a failure if no next hash is present
+	 * It should reject a failure report when no next batch hash is present on the record.
 	 *
 	 * @test
 	 */
-	public function should_allow_to_mark_an_import_as_a_failure_if_no_next_hash_is_present( Aggregatorv1Tester $I ) {
+	public function should_reject_a_failure_report_when_no_next_hash_is_present( Aggregatorv1Tester $I ) {
 		$import_id = '234324234234234';
 
 		$record      = $this->make_manual_record( $import_id, [], 'pending' );
@@ -103,13 +103,92 @@ class ForcedImportStatusCest {
 		$I->sendPOST( "import/{$import_id}/state", $data );
 
 		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+
+		$status_after_processing = $I->grabFromDatabase( $posts_table, 'post_status', [ 'ID' => $record->post->ID ] );
+		$I->assertEquals(
+			Records::$status->pending,
+			$status_after_processing,
+			'A rejected failure report must leave the record in its original pending status'
+		);
+
+		$I->dontSeeInDatabase(
+			$I->grabCommentsTableName(),
+			[
+				'comment_post_ID' => $record->post->ID,
+				'comment_type'    => 'tribe-ea-error',
+			]
+		);
+	}
+
+	/**
+	 * It should reject a failure report when the batch hash does not match the expected one.
+	 *
+	 * @test
+	 */
+	public function should_reject_a_failure_report_when_the_batch_hash_is_not_expected( Aggregatorv1Tester $I ) {
+		$import_id = '234324234234234';
+
+		$record      = $this->make_manual_record( $import_id, [ 'next_batch_hash' => 'the-real-secret' ], 'pending' );
+		$posts_table = $I->grabPostsTableName();
+
+		$data = $this->make_status_data(
+			[
+				'status'     => 'failed',
+				'batch_hash' => 'junk-no-secret-needed',
+			]
+		);
+		$I->sendPOST( "import/{$import_id}/state", $data );
+
+		$I->seeResponseIsJson();
+		$I->seeResponseCodeIs( 400 );
+
+		$status_after_processing = $I->grabFromDatabase( $posts_table, 'post_status', [ 'ID' => $record->post->ID ] );
+		$I->assertEquals(
+			Records::$status->pending,
+			$status_after_processing,
+			'A failure report with a wrong batch hash must leave the record in its original pending status'
+		);
+
+		$I->dontSeeInDatabase(
+			$I->grabCommentsTableName(),
+			[
+				'comment_post_ID' => $record->post->ID,
+				'comment_type'    => 'tribe-ea-error',
+			]
+		);
+	}
+
+	/**
+	 * It should allow a failure report when the batch hash matches the expected one.
+	 *
+	 * Confirms the legitimate Event Aggregator flow still works: the service holds the negotiated
+	 * hash and can report a failure with it.
+	 *
+	 * @test
+	 */
+	public function should_allow_a_failure_report_when_the_batch_hash_is_expected( Aggregatorv1Tester $I ) {
+		$import_id = '234324234234234';
+
+		$record      = $this->make_manual_record( $import_id, [ 'next_batch_hash' => 'the-real-secret' ], 'pending' );
+		$posts_table = $I->grabPostsTableName();
+
+		$data = $this->make_status_data(
+			[
+				'status'     => 'failed',
+				'batch_hash' => 'the-real-secret',
+			]
+		);
+		$I->sendPOST( "import/{$import_id}/state", $data );
+
+		$I->seeResponseIsJson();
 		$I->seeResponseCodeIs( 200 );
 
 		$status_after_processing = $I->grabFromDatabase( $posts_table, 'post_status', [ 'ID' => $record->post->ID ] );
 		$I->assertEquals(
 			Records::$status->failed,
 			$status_after_processing,
-			'After forcing a status the record should have that status'
+			'A failure report with the expected batch hash should mark the record as failed'
 		);
 	}
 

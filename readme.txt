@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.16.5.1] 2026-07-01 =
+
+* Security - Expanded validation of Event Aggregator imports for all statuses.
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
 = [6.16.5] 2026-06-24 =
 
 * Feature - Added "SEO & URL Handling" settings, allowing site owners to configure out-of-range URL behavior.
