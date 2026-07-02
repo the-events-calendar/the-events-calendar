@@ -41,7 +41,7 @@ function tribe_events_views_v2_is_enabled() {
 	 * @param boolean $enabled Determining if V2 Views is enabled
 	 *
 	 */
-	apply_filters_deprecated( 'tribe_events_views_v2_is_enabled', [ true ] , '6.0.0', 'No replacement. Legacy views have been removed.' );
+	apply_filters_deprecated( 'tribe_events_views_v2_is_enabled', [ true ], '6.0.0', 'No replacement. Legacy views have been removed.' );
 
 	return true;
 }
