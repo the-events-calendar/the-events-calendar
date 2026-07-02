@@ -57,17 +57,20 @@ class Settings {
 
 		if ( ! is_network_admin() ) {
 			$defaults['post_type'] = Plugin::POSTTYPE;
+
+
+			
 		}
 
-		// Allow the link to be "changed" on the fly.
-		$args = wp_parse_args( $args, $defaults );
+		// Allow the link to be "changed" on the fly
+		$args = wp_parse_args($args, $defaults);
 
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 
 		if ( $args['anchor'] ?? false ) {
 			// Prepend hash character if needed.
 			if ( $args['anchor'][0] !== '#' ) {
-				$args['anchor'] = "#{$args['anchor']}";
+				$args['anchor']   = "#{$args['anchor']}";
 			}
 
 			$wp_url .= $args['anchor'];
