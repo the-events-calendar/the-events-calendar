@@ -161,7 +161,16 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
 			$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
 
-			return $timestamps[ $cache_key ] = strtotime( $datetime );
+			// Use timezone-aware parsing: strtotime() alone interprets the local date string using
+			// PHP's default timezone (often UTC on managed hosts like Pressable), which diverges
+			// from the event/site timezone and produces an incorrect Unix timestamp.
+			$tz_string = self::generate_timezone_string_from_utc_offset( $event_tz ?: self::wp_timezone_string() );
+			try {
+				$dt = new DateTime( $datetime, new DateTimeZone( $tz_string ) );
+				return $timestamps[ $cache_key ] = $dt->getTimestamp();
+			} catch ( Exception $e ) {
+				return $timestamps[ $cache_key ] = strtotime( $datetime );
+			}
 		}
 
 		// Otherwise lets load the event's UTC time and convert it
@@ -174,7 +183,15 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: $timezone;
 
 		$localized = self::to_tz( $datetime, $tzstring );
-		$timestamps[ $cache_key ] = strtotime( $localized );
+
+		// Same timezone-aware parsing fix for the UTC→local conversion path.
+		$tz_string = self::generate_timezone_string_from_utc_offset( $tzstring );
+		try {
+			$dt                       = new DateTime( $localized, new DateTimeZone( $tz_string ) );
+			$timestamps[ $cache_key ] = $dt->getTimestamp();
+		} catch ( Exception $e ) {
+			$timestamps[ $cache_key ] = strtotime( $localized );
+		}
 
 		tribe_set_var( $cache_var_name, $timestamps );
 
