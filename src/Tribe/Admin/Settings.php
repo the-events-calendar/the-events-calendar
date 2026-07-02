@@ -60,7 +60,7 @@ class Settings {
 		}
 
 		// Allow the link to be "changed" on the fly.
-		$args = wp_parse_args($args, $defaults);
+		$args = wp_parse_args( $args, $defaults );
 
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 
