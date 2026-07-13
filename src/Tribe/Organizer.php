@@ -783,7 +783,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				border: none;
 			}
 		</style>
-		<div id='eventDetails' class="inside eventForm">
+		<div id='eventDetails' class="eventForm">
 			<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 				<?php
 				$hide_organizer_title = true;
