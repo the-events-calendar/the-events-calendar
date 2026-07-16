@@ -113,7 +113,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 *
 	 * @since TBD
 	 *
-	 * @param int|string $event_id
+	 * @param int|string $event_id A numeric event ID or string representation of a numeric event ID.
 	 *
 	 * @return bool True if valid format, false otherwise.
 	 */
