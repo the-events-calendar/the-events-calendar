@@ -52,6 +52,17 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	public function is_event_id( $event_id );
 
 	/**
+	 * Whether the value is a valid event ID format (numeric and non-empty).
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string $event_id
+	 *
+	 * @return bool
+	 */
+	public function is_event_id_format( $event_id );
+
+	/**
 	 * Whether the value is the post name of an existing event or not.
 	 *
 	 * @param string $event_slug

@@ -103,7 +103,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'rest_event_not_found', $response->get_error_code() );
+		$this->assertSame( 'rest-event-not-found', $response->get_error_code() );
 		$this->assertStringContainsString( 'does not exist', $response->get_error_message() );
 		$error_data = $response->get_error_data();
 		$this->assertArrayHasKey( 'status', $error_data );

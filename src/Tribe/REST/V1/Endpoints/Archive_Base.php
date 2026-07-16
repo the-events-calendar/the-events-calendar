@@ -44,6 +44,45 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	}
 
 	/**
+	 * Validates that an event ID parameter is a valid, existing event.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $value      The parameter value to validate.
+	 * @param string $param_name The parameter name, used in error messages.
+	 *
+	 * @return true|WP_Error True if valid, or WP_Error on failure.
+	 */
+	protected function validate_event_id_param( $value, $param_name ) {
+		if ( ! $this->validator->is_event_id_format( $value ) ) {
+			return new WP_Error(
+				'rest-invalid-event-id',
+				sprintf(
+					/* translators: %s: The parameter name. */
+					__( 'The "%s" parameter must be a valid numeric event ID.', 'the-events-calendar' ),
+					$param_name
+				),
+				[ 'status' => 400 ]
+			);
+		}
+
+		$event = get_post( (int) $value );
+		if ( empty( $event ) || Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+			return new WP_Error(
+				'rest-invalid-event-id',
+				sprintf(
+					/* translators: %s: The parameter name. */
+					__( 'The specified ID for the "%s" parameter is not a valid event.', 'the-events-calendar' ),
+					$param_name
+				),
+				[ 'status' => 400 ]
+			);
+		}
+
+		return true;
+	}
+
+	/**
 	 * Parses the `per_page` argument from the request.
 	 *
 	 * @param int $per_page The `per_page` param provided by the request.
