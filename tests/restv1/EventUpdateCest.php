@@ -234,7 +234,7 @@ class EventUpdateCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should mark bad request if id is bad
+	 * It should mark not found if id does not exist
 	 *
 	 * @test
 	 */
@@ -249,7 +249,7 @@ class EventUpdateCest extends BaseRestCest {
 
 		$I->sendPOST( $this->events_url . '/2389', $params );
 
-		$I->seeResponseCodeIs( 400 );
+		$I->seeResponseCodeIs( 404 );
 	}
 
 	/**

@@ -6,14 +6,16 @@ use Tribe__Timezones as Timezones;
 
 class EventDeletionCest extends BaseRestCest {
 	/**
-	 * It should return 400 if trying to delete event passing bad event ID
+	 * It should return 404 if trying to delete event passing non-existent event ID
 	 * @test
 	 */
 	public function it_should_return_400_if_trying_to_delete_event_passing_bad_event_id( Tester $I ) {
+		$I->generate_nonce_for_role( 'administrator' );
+
 		// pass an ID that does not exist
 		$I->sendDELETE( $this->events_url . "/23" );
 
-		$I->seeResponseCodeIs( 400 );
+		$I->seeResponseCodeIs( 404 );
 		$I->seeResponseIsJson();
 	}
 
