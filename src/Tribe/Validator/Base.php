@@ -104,6 +104,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		if ( ! is_numeric( $event_id ) ) {
 			return new WP_Error(
 				'rest_invalid_param',
+				/* translators: %s: The PHP data type of the invalid event ID value. */
 				sprintf( __( 'Event ID must be a number, got: %s.', 'the-events-calendar' ), gettype( $event_id ) ),
 				[ 'status' => 400 ]
 			);
@@ -118,6 +119,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 		 * @param int|string $event_id The event ID being validated.
 		 *
 		 * @since 4.9.4
+		 * @since TBD Use $event_id instead of $event.
 		 */
 		return apply_filters( 'tribe_events_validator_is_event_id', $is_event_id, $event_id );
 	}
@@ -248,7 +250,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		$valid = array_filter(
 			$events,
-			function( $event_id ) {
+			function ( $event_id ) {
 				$result = $this->is_event_id( $event_id );
 				// Return true only if the result is exactly true (not WP_Error).
 				return $result === true;
