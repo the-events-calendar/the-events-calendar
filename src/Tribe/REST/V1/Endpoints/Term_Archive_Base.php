@@ -39,6 +39,8 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
+	 * @since TBD Added validation for post and event parameters.
+	 *
 	 * @param WP_REST_Request $request
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.

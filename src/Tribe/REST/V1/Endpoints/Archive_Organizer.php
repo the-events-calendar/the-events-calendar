@@ -83,6 +83,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
 	 * @since 4.6
+	 * @since TBD Added validation for event parameter.
 	 */
 	public function get( WP_REST_Request $request ) {
 		// Validate event parameter if provided.
