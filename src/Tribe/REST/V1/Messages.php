@@ -124,8 +124,8 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 				'The specified ID is not a valid event.',
 				'the-events-calendar'
 			),
-			'event-is-trashed'                 => __(
-				'The event is trashed',
+			'event-no-longer-available'        => __(
+				'This event is no longer available',
 				'the-events-calendar'
 			),
 		];

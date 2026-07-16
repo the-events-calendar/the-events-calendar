@@ -109,9 +109,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	protected function validate_event_accessible( $event, WP_REST_Request $request ) {
 		// Check if the event is trashed and return a specific message.
 		if ( 'trash' === $event->post_status ) {
-			$message = $this->messages->get_message( 'event-is-trashed' );
+			$message = $this->messages->get_message( 'event-no-longer-available' );
 			return new WP_Error(
-				'event-is-trashed',
+				'event-no-longer-available',
 				$message,
 				[ 'status' => 403 ]
 			);
