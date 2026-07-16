@@ -129,6 +129,10 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 				'This event is no longer available',
 				'the-events-calendar'
 			),
+			'event-is-trashed'                 => __(
+				'The event is trashed',
+				'the-events-calendar'
+			),
 		];
 	}
 

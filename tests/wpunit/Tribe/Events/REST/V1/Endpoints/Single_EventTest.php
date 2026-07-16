@@ -125,8 +125,8 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$response = $sut->get( $request );
 
 		$this->assertWPError( $response );
-		$this->assertSame( 'event-no-longer-available', $response->get_error_code() );
-		$this->assertSame( 'This event is no longer available', $response->get_error_message() );
+		$this->assertSame( 'event-is-trashed', $response->get_error_code() );
+		$this->assertSame( 'The event is trashed', $response->get_error_message() );
 		$error_data = $response->get_error_data();
 		$this->assertArrayHasKey( 'status', $error_data );
 		$this->assertSame( 403, $error_data['status'] );
