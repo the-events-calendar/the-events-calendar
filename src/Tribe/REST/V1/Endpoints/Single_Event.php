@@ -572,19 +572,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can delete the event.
+	 * @since TBD Add fallback to general capability when the post doesn't exist.
 	 *
 	 * @param $request WP_REST_Request The request object.
 	 *
 	 * @return bool
 	 */
 	public function can_delete( ?WP_REST_Request $request = null ) {
-		$id = $request['id'] ?? null;
+		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap;
+		$id  = $request['id'] ?? null;
 
-		if ( ! $id ) {
-			return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_posts );
+		// Fall back to the general capability when the post doesn't exist so the
+		// request reaches the handler, which returns a proper 404.
+		if ( ! $id || ! get_post( $id ) ) {
+			return current_user_can( $cap->delete_posts );
 		}
 
-		return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->delete_post, $id );
+		return current_user_can( $cap->delete_post, $id );
 	}
 
 	/**
@@ -652,19 +656,23 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can edit the event.
+	 * @since TBD Add fallback to general capability when the post doesn't exist.
 	 *
 	 * @param $request WP_REST_Request The request object.
 	 *
 	 * @return bool Whether the current user can update or not.
 	 */
 	public function can_edit( ?WP_REST_Request $request = null ) {
-		$id = $request['id'] ?? null;
+		$cap = get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap;
+		$id  = $request['id'] ?? null;
 
-		if ( ! $id ) {
-			return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_posts );
+		// Fall back to the general capability when the post doesn't exist so the
+		// request reaches the handler, which returns a proper 404.
+		if ( ! $id || ! get_post( $id ) ) {
+			return current_user_can( $cap->edit_posts );
 		}
 
-		return current_user_can( get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->edit_post, $id );
+		return current_user_can( $cap->edit_post, $id );
 	}
 
 	/**
