@@ -7,13 +7,14 @@ use Tribe\Events\Test\Traits\Aggregator\AggregatorMaker;
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Service;
-use Tribe\Events\Virtual\Tests\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Aggregator__Cron as Cron;
 use Tribe__Events__Aggregator__Records as Records;
 
 class CronTest extends Aggregator_TestCase {
 	use RecordMaker;
 	use AggregatorMaker;
+	use With_Uopz;
 
 	/**
 	 * @test
@@ -574,6 +575,57 @@ class CronTest extends Aggregator_TestCase {
 			'23k'         => [ 23000, 22000 ],
 			'empty value' => [ '', 100 ],
 		];
+	}
+
+	/**
+	 * It should not trigger a "translation loaded too early" notice when the cron
+	 * schedules filter runs before `init` has fired.
+	 *
+	 * @see https://github.com/the-events-calendar/the-events-calendar/pull/5701
+	 * @test
+	 */
+	public function should_not_trigger_translation_notice_when_filtering_schedules_before_init() {
+		// Simulate `init` not having fired (and not currently firing) yet.
+		$unset_did_action   = $this->set_fn_return( 'did_action', 0 );
+		$unset_doing_action = $this->set_fn_return( 'doing_action', false );
+
+		// Force the next translation lookup for our domain to go through the just-in-time loader.
+		unload_textdomain( 'the-events-calendar', true );
+
+		$notice_triggered = false;
+		add_action( 'doing_it_wrong_run', function () use ( &$notice_triggered ) {
+			$notice_triggered = true;
+		} );
+
+		$cron      = $this->make_instance();
+		$schedules = $cron->filter_add_cron_schedules( [] );
+
+		$unset_did_action();
+		$unset_doing_action();
+
+		$this->assertFalse(
+			$notice_triggered,
+			'Filtering cron schedules before init fired should not trigger a "doing it wrong" translation notice.'
+		);
+		$this->assertSame( 'Every 15 minutes', $schedules['tribe-every15mins']['display'] );
+	}
+
+	/**
+	 * It should still translate the cron schedule label once `init` has fired.
+	 *
+	 * @test
+	 */
+	public function should_translate_schedule_label_once_init_has_fired() {
+		// The WP test suite has already fired `init` by the time tests run.
+		$this->assertGreaterThan( 0, did_action( 'init' ) );
+
+		$cron      = $this->make_instance();
+		$schedules = $cron->filter_add_cron_schedules( [] );
+
+		$this->assertSame(
+			esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+			$schedules['tribe-every15mins']['display']
+		);
 	}
 
 	/**
