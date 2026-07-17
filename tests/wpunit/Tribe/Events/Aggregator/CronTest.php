@@ -35,6 +35,10 @@ class CronTest extends Aggregator_TestCase {
 		} );
 	}
 
+	public function _after() {
+		$this->reset_cron_singleton();
+	}
+
 	/**
 	 * @return Cron
 	 */
@@ -44,6 +48,25 @@ class CronTest extends Aggregator_TestCase {
 				// no side-effects constructor
 			}
 		};
+	}
+
+	/**
+	 * Builds a real, singleton-backed Cron instance (constructor side effects included), so
+	 * hook-registration timing can be exercised. Resets the private static instance first, since
+	 * `Cron::instance()` memoizes and TEC's own bootstrap has already constructed one for real.
+	 *
+	 * @return Cron
+	 */
+	private function make_real_instance() {
+		$this->reset_cron_singleton();
+
+		return Cron::instance();
+	}
+
+	private function reset_cron_singleton() {
+		$instance_property = ( new \ReflectionClass( Cron::class ) )->getProperty( 'instance' );
+		$instance_property->setAccessible( true );
+		$instance_property->setValue( null, null );
 	}
 
 	/**
@@ -578,36 +601,64 @@ class CronTest extends Aggregator_TestCase {
 	}
 
 	/**
-	 * It should not trigger a "translation loaded too early" notice when the cron
-	 * schedules filter runs before `init` has fired.
+	 * It should defer registering the `cron_schedules` filter until `init` fires, instead of
+	 * registering it directly in the constructor - so a plugin that triggers wp_schedule_event()
+	 * (and therefore the global `cron_schedules` filter) during its own early `plugins_loaded`
+	 * bootstrap never invokes our callback, and never triggers a premature translation call.
 	 *
 	 * @see https://github.com/the-events-calendar/the-events-calendar/pull/5701
 	 * @test
 	 */
-	public function should_not_trigger_translation_notice_when_filtering_schedules_before_init() {
+	public function should_defer_cron_schedules_filter_registration_until_init() {
 		// Simulate `init` not having fired (and not currently firing) yet.
 		$unset_did_action   = $this->set_fn_return( 'did_action', 0 );
 		$unset_doing_action = $this->set_fn_return( 'doing_action', false );
 
-		// Force the next translation lookup for our domain to go through the just-in-time loader.
-		unload_textdomain( 'the-events-calendar', true );
-
-		$notice_triggered = false;
-		add_action( 'doing_it_wrong_run', function () use ( &$notice_triggered ) {
-			$notice_triggered = true;
-		} );
-
-		$cron      = $this->make_instance();
-		$schedules = $cron->filter_add_cron_schedules( [] );
+		$cron = $this->make_real_instance();
 
 		$unset_did_action();
 		$unset_doing_action();
 
 		$this->assertFalse(
-			$notice_triggered,
-			'Filtering cron schedules before init fired should not trigger a "doing it wrong" translation notice.'
+			has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] ),
+			'The cron_schedules filter should not be registered before init has fired.'
 		);
-		$this->assertSame( 'Every 15 minutes', $schedules['tribe-every15mins']['display'] );
+
+		do_action( 'init' );
+
+		$this->assertNotFalse(
+			has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] ),
+			'The cron_schedules filter should be registered once init fires.'
+		);
+	}
+
+	/**
+	 * It should register the `cron_schedules` filter early enough on `init` that the
+	 * `tribe-every15mins` schedule already exists by the time `action_register_cron` (also
+	 * hooked to `init`, at the default priority) tries to use it.
+	 *
+	 * @test
+	 */
+	public function should_register_cron_schedules_filter_before_action_register_cron_runs_on_init() {
+		$unset_did_action   = $this->set_fn_return( 'did_action', 0 );
+		$unset_doing_action = $this->set_fn_return( 'doing_action', false );
+
+		$cron = $this->make_real_instance();
+
+		$unset_did_action();
+		$unset_doing_action();
+
+		$filter_registered_by_priority_5 = null;
+		add_action( 'init', function () use ( $cron, &$filter_registered_by_priority_5 ) {
+			$filter_registered_by_priority_5 = (bool) has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] );
+		}, 5 );
+
+		do_action( 'init' );
+
+		$this->assertTrue(
+			$filter_registered_by_priority_5,
+			'The cron_schedules filter should already be registered by init priority 5, before action_register_cron runs at the default priority 10.'
+		);
 	}
 
 	/**

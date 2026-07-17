@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Resolved an issue where the `_load_textdomain_just_in_time` notice could be triggered on the site.
+Resolved an issue where the `_load_textdomain_just_in_time` notice could be triggered on the site by deferring registration of the Event Aggregator `cron_schedules` filter until the `init` hook fires.
