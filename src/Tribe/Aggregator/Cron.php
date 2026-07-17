@@ -60,11 +60,11 @@ class Tribe__Events__Aggregator__Cron {
 		// Register the base cron schedule
 		add_action( 'init', [ $this, 'action_register_cron' ] );
 
-		// Register the Required Cron Schedules, but never before `init` (this filter fires on
-		// any wp_schedule_event()/wp_get_schedules() call, including from unrelated plugins
+		// Register the Required Cron Schedules on `init`, not here: this filter fires on any
+		// wp_schedule_event()/wp_get_schedules() call, including from unrelated plugins
 		// bootstrapping on `plugins_loaded`, which would otherwise force esc_html_x() to run
-		// too early and trigger a "translation loaded too early" notice).
-		tribe_run_on_action( 'init', [ $this, 'register_cron_schedules_filter' ], 0 );
+		// too early and trigger a "translation loaded too early" notice.
+		add_action( 'init', [ $this, 'register_cron_schedules_filter' ], 0 );
 
 		// Check for imports on cron action
 		add_action( self::$action, [ $this, 'run' ] );
@@ -197,8 +197,8 @@ class Tribe__Events__Aggregator__Cron {
 	}
 
 	/**
-	 * Registers the cron_schedules filter. Deferred until `init` via `tribe_run_on_action()`
-	 * in the constructor, so this never fires (and never translates its label) too early.
+	 * Registers the cron_schedules filter. Hooked to `init` from the constructor, instead of
+	 * registered directly, so this never fires (and never translates its label) too early.
 	 *
 	 * @since TBD
 	 *

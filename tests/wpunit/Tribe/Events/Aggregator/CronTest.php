@@ -7,14 +7,12 @@ use Tribe\Events\Test\Traits\Aggregator\AggregatorMaker;
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Service;
-use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Aggregator__Cron as Cron;
 use Tribe__Events__Aggregator__Records as Records;
 
 class CronTest extends Aggregator_TestCase {
 	use RecordMaker;
 	use AggregatorMaker;
-	use With_Uopz;
 
 	/**
 	 * @test
@@ -610,14 +608,7 @@ class CronTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_defer_cron_schedules_filter_registration_until_init() {
-		// Simulate `init` not having fired (and not currently firing) yet.
-		$unset_did_action   = $this->set_fn_return( 'did_action', 0 );
-		$unset_doing_action = $this->set_fn_return( 'doing_action', false );
-
 		$cron = $this->make_real_instance();
-
-		$unset_did_action();
-		$unset_doing_action();
 
 		$this->assertFalse(
 			has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] ),
@@ -640,13 +631,7 @@ class CronTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_register_cron_schedules_filter_before_action_register_cron_runs_on_init() {
-		$unset_did_action   = $this->set_fn_return( 'did_action', 0 );
-		$unset_doing_action = $this->set_fn_return( 'doing_action', false );
-
 		$cron = $this->make_real_instance();
-
-		$unset_did_action();
-		$unset_doing_action();
 
 		$filter_registered_by_priority_5 = null;
 		add_action( 'init', function () use ( $cron, &$filter_registered_by_priority_5 ) {
