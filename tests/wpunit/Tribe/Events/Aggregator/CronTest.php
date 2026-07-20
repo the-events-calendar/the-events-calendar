@@ -604,6 +604,13 @@ class CronTest extends Aggregator_TestCase {
 	 * (and therefore the global `cron_schedules` filter) during its own early `plugins_loaded`
 	 * bootstrap never invokes our callback, and never triggers a premature translation call.
 	 *
+	 * Note: this does not fire `do_action( 'init' )` directly. By the time wp-browser boots the
+	 * test suite, WordPress has already fired `init` for real, so re-firing it globally here
+	 * would re-run every other callback hooked to `init` in the process (WP core, other TEC
+	 * bootstrapping, etc.), potentially multiple times. Instead, it invokes the specific
+	 * callback the constructor hooked to `init`, which is what firing `init` would trigger for
+	 * this class.
+	 *
 	 * @see https://github.com/the-events-calendar/the-events-calendar/pull/5701
 	 * @test
 	 */
@@ -615,7 +622,8 @@ class CronTest extends Aggregator_TestCase {
 			'The cron_schedules filter should not be registered before init has fired.'
 		);
 
-		do_action( 'init' );
+		// Simulate `init` firing for this hook, without triggering the global `init` action.
+		$cron->register_cron_schedules_filter();
 
 		$this->assertNotFalse(
 			has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] ),
@@ -628,21 +636,32 @@ class CronTest extends Aggregator_TestCase {
 	 * `tribe-every15mins` schedule already exists by the time `action_register_cron` (also
 	 * hooked to `init`, at the default priority) tries to use it.
 	 *
+	 * Note: rather than firing `do_action( 'init' )` (which would re-run every other `init`
+	 * callback registered in the process), this compares the registered hook priorities
+	 * directly. `has_action()` returns the priority a callback is hooked at (or `false` if it
+	 * isn't hooked), which is enough to prove the ordering guarantee without executing anything.
+	 *
 	 * @test
 	 */
 	public function should_register_cron_schedules_filter_before_action_register_cron_runs_on_init() {
 		$cron = $this->make_real_instance();
 
-		$filter_registered_by_priority_5 = null;
-		add_action( 'init', function () use ( $cron, &$filter_registered_by_priority_5 ) {
-			$filter_registered_by_priority_5 = (bool) has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] );
-		}, 5 );
+		$register_cron_schedules_filter_priority = has_action( 'init', [ $cron, 'register_cron_schedules_filter' ] );
+		$action_register_cron_priority           = has_action( 'init', [ $cron, 'action_register_cron' ] );
 
-		do_action( 'init' );
+		$this->assertNotFalse(
+			$register_cron_schedules_filter_priority,
+			'register_cron_schedules_filter should be hooked to init.'
+		);
+		$this->assertNotFalse(
+			$action_register_cron_priority,
+			'action_register_cron should be hooked to init.'
+		);
 
-		$this->assertTrue(
-			$filter_registered_by_priority_5,
-			'The cron_schedules filter should already be registered by init priority 5, before action_register_cron runs at the default priority 10.'
+		$this->assertLessThan(
+			$action_register_cron_priority,
+			$register_cron_schedules_filter_priority,
+			'The cron_schedules filter should be registered at an earlier init priority than action_register_cron runs at.'
 		);
 	}
 
