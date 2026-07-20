@@ -622,6 +622,11 @@ class CronTest extends Aggregator_TestCase {
 			'The cron_schedules filter should not be registered before init has fired.'
 		);
 
+		$this->assertNotFalse(
+			has_action( 'init', [ $cron, 'register_cron_schedules_filter' ] ),
+			'register_cron_schedules_filter must be hooked to init.'
+		);
+
 		// Simulate `init` firing for this hook, without triggering the global `init` action.
 		$cron->register_cron_schedules_filter();
 
