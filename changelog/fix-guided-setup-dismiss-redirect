@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Stopped the guided setup redirect from firing again once the setup screen has been dismissed.
+The guided setup redirect now also respects an explicitly dismissed setup screen.
