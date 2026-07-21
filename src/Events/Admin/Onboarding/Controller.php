@@ -153,18 +153,6 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		/**
-		 * Allows bypassing the checks for if we've don't need to/have already visited the Guided Setup page.
-		 * Still respects the post type checks.
-		 *
-		 * @since 6.13.0
-		 *
-		 * @param bool $force Whether to force the redirect to the Guided Setup page.
-		 *
-		 * @return bool
-		 */
-		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
-
 		// Do not redirect if the target is not The Events Calendar-related admin pages.
 		$post_type = tec_get_request_var( 'post_type' );
 
@@ -189,36 +177,76 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		if ( ! $force ) {
-			// Do not redirect if they have been to the Guided Setup page already.
-			if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
-				return;
-			}
-
-			// Do not redirect if they dismissed the Guided Setup page.
-			if ( Landing_Page::is_dismissed() ) {
-				return;
-			}
-
-			// Do not redirect if they have older versions and are probably already set up.
-			$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
-			if ( count( $tec_versions ) > 1 ) {
-				return;
-			}
+		if ( ! $this->should_redirect_to_guided_setup() ) {
+			return;
 		}
 
-		// If we're still here, redirect to the Guided Setup page.
-		$setup_url = add_query_arg(
+		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
+		wp_safe_redirect( $this->get_guided_setup_url() );
+		tribe_exit();
+	}
+
+	/**
+	 * Whether the user should be sent to the Guided Setup page.
+	 *
+	 * Shared by the on-visit redirect and the on-activation redirect so both honor the same
+	 * conditions: skip if the page was already visited or dismissed, or if this is an upgraded
+	 * install (more than one recorded version) rather than a fresh one.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the redirect should happen.
+	 */
+	protected function should_redirect_to_guided_setup(): bool {
+		/**
+		 * Allows bypassing the checks for whether we need to/have already visited the Guided Setup page.
+		 *
+		 * @since 6.13.0
+		 *
+		 * @param bool $force Whether to force the redirect to the Guided Setup page.
+		 *
+		 * @return bool
+		 */
+		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
+
+		if ( $force ) {
+			return true;
+		}
+
+		// Do not redirect if they have been to the Guided Setup page already.
+		if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
+			return false;
+		}
+
+		// Do not redirect if they dismissed the Guided Setup page.
+		if ( Landing_Page::is_dismissed() ) {
+			return false;
+		}
+
+		// Do not redirect if they have older versions and are probably already set up.
+		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
+		if ( count( $tec_versions ) > 1 ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Builds the URL of the Guided Setup page.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The Guided Setup page URL.
+	 */
+	protected function get_guided_setup_url(): string {
+		return add_query_arg(
 			[
 				'post_type' => 'tribe_events',
 				'page'      => Landing_Page::$slug,
 			],
 			admin_url( 'edit.php' )
 		);
-
-		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
-		wp_safe_redirect( $setup_url );
-		tribe_exit();
 	}
 
 	/**
