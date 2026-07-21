@@ -88,6 +88,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.0 Changed the priority of `admin_menu` to reposition menu item.
+	 * @since TBD Redirect to the Guided Setup page on a fresh activation.
 	 */
 	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -96,6 +97,7 @@ class Controller extends Controller_Contract {
 		add_action( 'admin_post_' . Landing_Page::DISMISS_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		add_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
+		add_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'maybe_redirect_to_guided_setup_on_activation' ] );
 	}
 
 	/**
@@ -118,6 +120,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.0 Changed the priority of `admin_menu`.
+	 * @since TBD Removed the activation redirect to the Guided Setup page.
 	 */
 	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -126,6 +129,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'admin_post_' . Landing_Page::DISMISS_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
+		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'maybe_redirect_to_guided_setup_on_activation' ] );
 	}
 
 	/**
@@ -174,6 +178,48 @@ class Controller extends Controller_Contract {
 		);
 
 		if ( ! in_array( $post_type, $post_types, true ) ) {
+			return;
+		}
+
+		if ( ! $this->should_redirect_to_guided_setup() ) {
+			return;
+		}
+
+		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
+		wp_safe_redirect( $this->get_guided_setup_url() );
+		tribe_exit();
+	}
+
+	/**
+	 * Redirects to the Guided Setup page right after the plugin is activated on its own.
+	 *
+	 * A single (non-bulk) activation of The Events Calendar sets the
+	 * `_tribe_events_activation_redirect` transient in Tribe__Events__Main::activate(). On the
+	 * next admin page load we consume that transient and send the user to the Guided Setup page,
+	 * mirroring how sister plugins greet a new install.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function maybe_redirect_to_guided_setup_on_activation(): void {
+		// Set on activation in Tribe__Events__Main::activate(). Absent means this is a normal page load.
+		if ( ! get_transient( '_tribe_events_activation_redirect' ) ) {
+			return;
+		}
+
+		// Only ever act on it once, regardless of what happens below.
+		delete_transient( '_tribe_events_activation_redirect' );
+
+		// Do not hijack a bulk plugin activation. WordPress adds `activate-multi` to the Plugins
+		// screen URL after several plugins are activated together, so the user stays in context.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['activate-multi'] ) ) {
+			return;
+		}
+
+		// Do not redirect users who cannot access the Guided Setup page.
+		if ( ! current_user_can( tribe( Landing_Page::class )->required_capability() ) ) {
 			return;
 		}
 
