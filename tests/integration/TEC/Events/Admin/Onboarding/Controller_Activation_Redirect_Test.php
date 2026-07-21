@@ -10,6 +10,7 @@ namespace TEC\Events\Admin\Onboarding;
 
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
+use Tribe__Settings_Manager;
 
 /**
  * Class Controller_Activation_Redirect_Test
@@ -44,9 +45,16 @@ class Controller_Activation_Redirect_Test extends WPTestCase {
 		// The person doing the activation can access the Guided Setup page.
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
-		// Clean, first-run state: not visited, not an upgraded install.
+		// Prevent option state from leaking between tests. The tribe options live in both the WP
+		// object cache (read by get_option) and a tribe var; neither is rolled back with the DB, so
+		// clear both before establishing a known state.
+		wp_cache_flush();
+		tribe_unset_var( Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+
+		// Clean, first-run state: not visited, not dismissed, not an upgraded install.
 		delete_transient( self::ACTIVATION_TRANSIENT );
 		tribe_update_option( 'tec_onboarding_wizard_visited_guided_setup', false );
+		tribe_update_option( Landing_Page::DISMISS_PAGE_OPTION, false );
 		tribe_update_option( 'previous_ecp_versions', [] );
 	}
 
