@@ -264,8 +264,10 @@ class Controller extends Controller_Contract {
 			return false;
 		}
 
-		// Do not redirect if they dismissed the Guided Setup page.
-		if ( Landing_Page::is_dismissed() ) {
+		// Do not redirect if they dismissed the Guided Setup page. Read the option directly:
+		// the page opts out of Abstract_Admin_Page::$is_dismissible, so is_dismissed() always
+		// returns false, and dismissing should stop the redirect without hiding the menu item.
+		if ( (bool) tribe_get_option( Landing_Page::DISMISS_PAGE_OPTION, false ) ) {
 			return false;
 		}
 

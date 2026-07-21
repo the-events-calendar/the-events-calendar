@@ -145,6 +145,21 @@ class Controller_Activation_Redirect_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
+	public function it_should_not_redirect_when_the_guided_setup_was_dismissed(): void {
+		set_transient( self::ACTIVATION_TRANSIENT, 1, 30 );
+		tribe_update_option( Landing_Page::DISMISS_PAGE_OPTION, true );
+
+		$store = [];
+		$this->capture_redirects( $store );
+
+		tribe( Controller::class )->maybe_redirect_to_guided_setup_on_activation();
+
+		$this->assertCount( 0, $store, 'A dismissed setup should not redirect.' );
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_not_redirect_on_an_upgraded_install(): void {
 		set_transient( self::ACTIVATION_TRANSIENT, 1, 30 );
 		// More than one recorded version means an established install, not a fresh one.
