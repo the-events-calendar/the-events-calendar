@@ -424,6 +424,29 @@
 	margin: 0 auto;
 }
 
+/* Lays sibling buttons on one row, wrapping to their own lines when narrow. */
+.tec-events-onboarding__button-group {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--tec-spacer-4);
+	justify-content: center;
+	margin: 0 auto;
+}
+
+/*
+ * The auto side margins that centre a lone button absorb all the free space
+ * once it is a flex item, which spreads the buttons out and leaves the gap
+ * above with nothing to do. Zero them so justify-content and gap take over.
+ */
+.tec-events-onboarding__button-group > .tec-events-onboarding__button,
+.tec-events-onboarding__button-group > .tec-events-onboarding__button.is-primary,
+.tec-events-onboarding__button-group > .tec-events-onboarding__button.is-secondary,
+.tec-events-onboarding__button-group > .tec-events-onboarding__button.is-tertiary {
+	margin-left: 0;
+	margin-right: 0;
+}
+
 @media (min-width: 500px) {
 
 	.tec-events-onboarding__tab-content {

@@ -14,6 +14,10 @@ use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
 use TEC\Common\Asset;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
+use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
+use TEC\Common\LiquidWeb\Harbor\Portal\Activation_Url;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -43,6 +47,15 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @var string
 	 */
 	const DISMISS_PAGE_OPTION = 'tec_events_onboarding_page_dismissed';
+
+	/**
+	 * The product slug this plugin is licensed under in the Liquid Web catalog.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const LICENSE_PRODUCT_SLUG = 'the-events-calendar';
 
 	/**
 	 * The slug for the admin menu.
@@ -523,6 +536,8 @@ class Landing_Page extends Abstract_Admin_Page {
 			'timezones'               => tribe( Data::class )->get_timezone_list(),
 			'countries'               => tribe( Data::class )->get_country_list(),
 			'currencies'              => tribe( Data::class )->get_currency_list(),
+			/* Licensing */
+			'activationUrl'           => $this->get_license_activation_url(),
 		];
 
 
@@ -537,6 +552,108 @@ class Landing_Page extends Abstract_Admin_Page {
 		 * @return array
 		 */
 		return (array) apply_filters( 'tribe_events_onboarding_wizard_initial_data', $initial_data, $this );
+	}
+
+	/**
+	 * Get the URL that sends the user to the Liquid Web portal to activate a license.
+	 *
+	 * The portal returns the user to this page once they are done, so they pick
+	 * the wizard back up where they left it.
+	 *
+	 * When the stored license already covers this product, the URL is scoped to
+	 * the product and tier so the portal pre-selects the right subscription.
+	 * Otherwise the user lands on their subscription list and picks it
+	 * themselves, which is the best we can do without knowing what they hold.
+	 *
+	 * Returns an empty string when there is nothing for the user to do: either
+	 * the bundled Harbor library predates the activation URL API, or the site
+	 * already holds a valid activated license for this product. The wizard
+	 * treats an empty string as "hide the button".
+	 *
+	 * @since TBD
+	 *
+	 * @return string The activation URL, or an empty string when unavailable.
+	 */
+	public function get_license_activation_url(): string {
+		if ( ! class_exists( Activation_Url::class ) ) {
+			return '';
+		}
+
+		if ( $this->has_activated_license() ) {
+			return '';
+		}
+
+		$builder     = tribe( Activation_Url::class );
+		$return_url  = admin_url( 'edit.php?post_type=tribe_events&page=' . static::$slug );
+		$entitlement = $this->get_licensed_entry();
+
+		if ( ! $entitlement instanceof Product_Entry ) {
+			return $builder->get_base( $return_url );
+		}
+
+		return $builder->for_product(
+			$entitlement->get_product_slug(),
+			$entitlement->get_tier(),
+			$return_url
+		);
+	}
+
+	/**
+	 * Get the licensed entry for the calendar, whatever its activation state.
+	 *
+	 * Used to scope the activation URL. The tier is known as soon as the key
+	 * covers the product, well before it has been activated on this domain, so
+	 * this deliberately does not filter on activation.
+	 *
+	 * Returns the first entry when a key covers several tiers. Picking between
+	 * them is the portal's job, and it still receives the product either way.
+	 *
+	 * @since TBD
+	 *
+	 * @return Product_Entry|null The entry, or null when the key does not cover this product.
+	 */
+	protected function get_licensed_entry(): ?Product_Entry {
+		if ( ! class_exists( License_Repository::class ) ) {
+			return null;
+		}
+
+		$products = tribe( License_Repository::class )->get_products();
+
+		if ( ! $products instanceof Product_Collection ) {
+			return null;
+		}
+
+		$entries = $products->get_all_by_slug( self::LICENSE_PRODUCT_SLUG );
+
+		return $entries ? reset( $entries ) : null;
+	}
+
+	/**
+	 * Whether this site already holds a valid, activated license for the calendar.
+	 *
+	 * Mirrors the check Harbor's own license UI makes: an entry counts only when
+	 * it is activated against this domain and its entitlement is currently
+	 * valid. A key that exists but has not been activated here does not count,
+	 * because the user still has something to do in the portal.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True when the calendar is licensed and activated on this site.
+	 */
+	protected function has_activated_license(): bool {
+		if ( ! class_exists( License_Repository::class ) ) {
+			return false;
+		}
+
+		$products = tribe( License_Repository::class )->get_products();
+
+		if ( ! $products instanceof Product_Collection ) {
+			return false;
+		}
+
+		$entry = $products->get_activated_entry( self::LICENSE_PRODUCT_SLUG );
+
+		return $entry instanceof Product_Entry && $entry->is_valid();
 	}
 
 	/**
