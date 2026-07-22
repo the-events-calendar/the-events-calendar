@@ -27,7 +27,7 @@ class Events_Only_Modifier extends Base_Modifier {
 	use With_WP_Query_Introspection;
 
 	/**
-	 * @since TBD Made $query explicitly nullable.
+	 * @since 6.17.0 Made $query explicitly nullable.
 	 *
 	 * {@inheritDoc}
 	 */

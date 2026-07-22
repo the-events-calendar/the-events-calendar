@@ -36,6 +36,9 @@ class Events_TestCase extends WPTestCase {
 		foreach ( $this->implementation_backups as $alias => $value ) {
 			tribe_singleton( $alias, $value );
 		}
+
+		tribe_unset_var( 'Tribe__Events__Timezones::get_event_timestamp' );
+
 		parent::tearDown();
 	}
 

@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.16.5.1\n"
+"Project-Id-Version: The Events Calendar 6.17.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-30T18:46:42+00:00\n"
+"POT-Creation-Date: 2026-07-21T18:27:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: src/admin-views/admin-welcome-message.php:31
 #: src/Events/Integrations/Plugins/Elementor/Controller.php:116
 #: src/Events/Site_Health/Info_Section.php:73
-#: src/functions/template-tags/general.php:1523
+#: src/functions/template-tags/general.php:1532
 #: src/Tribe/Main.php:992
 #: src/Tribe/Main.php:1446
 #: src/Tribe/Privacy.php:29
@@ -2376,7 +2376,7 @@ msgstr ""
 
 #: src/admin-views/settings/tabs/general/general-maintenance.php:41
 #: src/admin-views/settings/tabs/general/general-maintenance.php:59
-#: src/Tribe/Views/V2/Hooks.php:1389
+#: src/Tribe/Views/V2/Hooks.php:1390
 msgid "Disabled"
 msgstr ""
 
@@ -3592,7 +3592,7 @@ msgid "The Events Calendar Category Colors plugin has been deactivated because i
 msgstr ""
 
 #: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:114
-#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:264
+#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:265
 msgid "Migration Started"
 msgstr ""
 
@@ -3618,22 +3618,22 @@ msgstr ""
 msgid "Migration Error"
 msgstr ""
 
-#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:229
+#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:230
 msgid "Start Category Colors Migration"
 msgstr ""
 
-#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:250
-#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:269
+#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:251
+#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:270
 #: src/Events/Category_Colors/Migration/Plugin_Manager.php:92
 #: src/Tribe/Aggregator/Tabs/New.php:576
 msgid "Learn More"
 msgstr ""
 
-#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:265
+#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:266
 msgid "Your category colors migration has been scheduled. The migration will run in the background. You can continue using the site while it processes."
 msgstr ""
 
-#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:267
+#: src/Events/Category_Colors/Migration/Notice/Migration_Notice.php:268
 msgid "View Categories"
 msgstr ""
 
@@ -4949,8 +4949,8 @@ msgstr ""
 
 #. Translators: %s is the singular lowercase label for an event, e.g., "event".
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:152
-#: src/functions/template-tags/general.php:644
-#: src/functions/template-tags/general.php:735
+#: src/functions/template-tags/general.php:646
+#: src/functions/template-tags/general.php:737
 msgid "Tags:"
 msgstr ""
 
@@ -6169,7 +6169,7 @@ msgid "Today"
 msgstr ""
 
 #. translators: %s is the singular translation of "Event"
-#: src/functions/template-tags/general.php:594
+#: src/functions/template-tags/general.php:596
 #, php-format
 msgctxt "category list label"
 msgid "%s Category"
@@ -6177,19 +6177,19 @@ msgid_plural "%s Categories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/functions/template-tags/general.php:855
+#: src/functions/template-tags/general.php:857
 #, php-format
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1418
+#: src/functions/template-tags/general.php:1427
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
 #. translators: %s: The Events Calendar Link element.
-#: src/functions/template-tags/general.php:1523
+#: src/functions/template-tags/general.php:1532
 #, php-format
 msgid "Calendar powered by %s"
 msgstr ""
@@ -6233,7 +6233,7 @@ msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Month and year
 #: src/functions/template-tags/loop.php:184
-#: src/Tribe/Views/V2/Template/Title.php:419
+#: src/Tribe/Views/V2/Template/Title.php:421
 #, php-format
 msgctxt "month view"
 msgid "%1$s for %2$s"
@@ -6241,7 +6241,7 @@ msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Day
 #: src/functions/template-tags/loop.php:193
-#: src/Tribe/Views/V2/Template/Title.php:447
+#: src/Tribe/Views/V2/Template/Title.php:449
 #, php-format
 msgctxt "day_view"
 msgid "%1$s for %2$s"
@@ -6445,9 +6445,9 @@ msgid "Update complete: time zone data has been added to all events in the datab
 msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:107
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:59
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:106
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:287
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:61
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:108
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:289
 #, php-format
 msgid "%d%% complete"
 msgstr ""
@@ -6515,7 +6515,7 @@ msgstr ""
 msgid "Renew your Event Aggregator Facebook token"
 msgstr ""
 
-#: src/Tribe/Aggregator/Admin_Bar.php:97
+#: src/Tribe/Aggregator/Admin_Bar.php:99
 #: src/Tribe/Aggregator/API/Origins.php:46
 #: src/Tribe/Aggregator/Service.php:939
 msgid "CSV File"
@@ -6868,7 +6868,7 @@ msgstr ""
 msgid "Unable to process this import - a breakage or conflict may have resulted in the import halting."
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Batch_Queue.php:256
+#: src/Tribe/Aggregator/Record/Batch_Queue.php:257
 msgid "The batch registered does not have all the required fields."
 msgstr ""
 
@@ -7100,27 +7100,27 @@ msgstr ""
 msgid "There was an error building the record queue: "
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:57
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:59
 msgid "Completed!"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:94
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:96
 msgid "Your import is currently in progress. Don't worry, you can safely navigate away&ndash;the import will continue in the background."
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:101
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:103
 msgid "Created:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:102
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:104
 msgid "Updated:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:103
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:105
 msgid "Skipped:"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Queue_Realtime.php:206
+#: src/Tribe/Aggregator/Record/Queue_Realtime.php:208
 msgid "Unable to continue inserting data. Please reload this page to continue/try again."
 msgstr ""
 
@@ -8170,7 +8170,7 @@ msgstr ""
 msgid "Event Organizers"
 msgstr ""
 
-#: src/Tribe/Event_Status/Classic_Editor.php:80
+#: src/Tribe/Event_Status/Classic_Editor.php:81
 msgctxt "Meta box title for the Event Status"
 msgid "Events Status"
 msgstr ""
@@ -8613,22 +8613,22 @@ msgstr ""
 msgid "No importer defined for %s"
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:286
+#: src/Tribe/Importer/File_Importer.php:287
 #, php-format
 msgid "Failed to import record in row %d."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:297
+#: src/Tribe/Importer/File_Importer.php:298
 #, php-format
 msgid "%s (post ID %d) updated."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:302
+#: src/Tribe/Importer/File_Importer.php:303
 #, php-format
 msgid "%s (post ID %d) created."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:465
+#: src/Tribe/Importer/File_Importer.php:466
 #, php-format
 msgid "Missing required fields in row %d."
 msgstr ""
@@ -8648,86 +8648,86 @@ msgctxt "Text label for control to hide restricted events on main calendar views
 msgid "Hide restricted events on calendar views."
 msgstr ""
 
-#: src/Tribe/Integrations/WPML/Defaults.php:117
+#: src/Tribe/Integrations/WPML/Defaults.php:119
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1081
+#: src/Tribe/Linked_Posts.php:1083
 #, php-format
 msgid "My %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1085
+#: src/Tribe/Linked_Posts.php:1087
 #, php-format
 msgid "Available %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1270
+#: src/Tribe/Linked_Posts.php:1272
 msgid "Create: <%= term %>"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1294
+#: src/Tribe/Linked_Posts.php:1296
 #, php-format
 msgid "No saved %s exists."
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1342
+#: src/Tribe/Linked_Posts.php:1344
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1349
+#: src/Tribe/Linked_Posts.php:1351
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1363
+#: src/Tribe/Linked_Posts.php:1365
 #, php-format
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1372
+#: src/Tribe/Linked_Posts.php:1374
 #, php-format
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1379
+#: src/Tribe/Linked_Posts.php:1381
 msgid "Create or Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1380
+#: src/Tribe/Linked_Posts.php:1382
 msgid "Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1391
+#: src/Tribe/Linked_Posts.php:1393
 #, php-format
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1400
+#: src/Tribe/Linked_Posts.php:1402
 #, php-format
 msgctxt "\"Create or Find Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1407
+#: src/Tribe/Linked_Posts.php:1409
 msgid "Create or Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1408
+#: src/Tribe/Linked_Posts.php:1410
 msgid "Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1417
+#: src/Tribe/Linked_Posts.php:1419
 #, php-format
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1426
+#: src/Tribe/Linked_Posts.php:1428
 #, php-format
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Create or Find %s"
@@ -10847,52 +10847,52 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:712
+#: src/Tribe/Views/V2/Hooks.php:713
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:799
+#: src/Tribe/Views/V2/Hooks.php:800
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:814
+#: src/Tribe/Views/V2/Hooks.php:815
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1130
+#: src/Tribe/Views/V2/Hooks.php:1131
 #, php-format
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1158
+#: src/Tribe/Views/V2/Hooks.php:1159
 #, php-format
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1186
+#: src/Tribe/Views/V2/Hooks.php:1187
 #, php-format
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1250
+#: src/Tribe/Views/V2/Hooks.php:1251
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1270
+#: src/Tribe/Views/V2/Hooks.php:1271
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1389
+#: src/Tribe/Views/V2/Hooks.php:1390
 msgid "Enabled"
 msgstr ""
 
 #. Translators: %1$s: Event singular label. %2$s: Event URL.
-#: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:272
+#: src/Tribe/Views/V2/iCalendar/Links/Google_Calendar.php:273
 #, php-format
 msgctxt "Link to full description. %1$s: pre=translated event term. %2$s: event url."
 msgid " (View Full %1$s Description Here: %2$s)"
@@ -10970,13 +10970,13 @@ msgstr ""
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1670
+#: src/Tribe/Views/V2/View.php:1679
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2341
-#: src/Tribe/Views/V2/View.php:2447
+#: src/Tribe/Views/V2/View.php:2351
+#: src/Tribe/Views/V2/View.php:2457
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/latest-past/event/date/featured.php:28
 #: src/views/v2/list/event/date/featured.php:28
@@ -10995,7 +10995,7 @@ msgid "Day"
 msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Date
-#: src/Tribe/Views/V2/Views/Day_View.php:441
+#: src/Tribe/Views/V2/Views/Day_View.php:443
 #, php-format
 msgctxt "day view content title"
 msgid "%1$s for %2$s"
@@ -11011,7 +11011,7 @@ msgctxt "The text label for the Month View."
 msgid "Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Views/Month_View.php:787
+#: src/Tribe/Views/V2/Views/Month_View.php:789
 msgctxt "A message shown in the mobile version when a day without events is selected."
 msgid "There are no events on this day."
 msgstr ""

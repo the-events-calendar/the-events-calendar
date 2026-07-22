@@ -11,8 +11,8 @@ use Tribe__Events__Aggregator__Record__CSV as CSV_Record;
  * Verifies that the method correctly validates file paths before use:
  *   1. Extension check  – only .csv files are permitted.
  *   2. Directory check  – the resolved path must be inside wp-content/uploads/.
- *   3. Reverse lookup   – if the file is outside uploads, an attachment DB lookup
- *                         is attempted via attachment_url_to_postid() before giving up.
+ *   3. Symlink support  – paths are resolved with realpath() before the directory
+ *                         check so symlinked uploads directories still import.
  *
  * Numeric values are treated as attachment IDs and resolved via get_attached_file().
  * Both the numeric and string-path routes go through the same filetype guard.
@@ -28,6 +28,12 @@ class CSVTest extends Events_TestCase {
 
 	/** @var string[] Temporary files created during a test; cleaned up in tearDown. */
 	private $temp_files = [];
+
+	/** @var string[] Symlinks created during a test; cleaned up in tearDown. */
+	private $temp_links = [];
+
+	/** @var string[] Directories created during a test; cleaned up in tearDown. */
+	private $temp_dirs = [];
 
 	// -------------------------------------------------------------------------
 	// Set-up / tear-down
@@ -45,6 +51,16 @@ class CSVTest extends Events_TestCase {
 		foreach ( $this->temp_files as $path ) {
 			if ( file_exists( $path ) ) {
 				@unlink( $path );
+			}
+		}
+		foreach ( $this->temp_links as $link ) {
+			if ( is_link( $link ) ) {
+				@unlink( $link );
+			}
+		}
+		foreach ( $this->temp_dirs as $dir ) {
+			if ( is_dir( $dir ) ) {
+				@rmdir( $dir );
 			}
 		}
 		parent::tearDown();
@@ -303,5 +319,64 @@ class CSVTest extends Events_TestCase {
 			$this->call_get_file_path( $record ),
 			'get_file_path() must return false for a numeric attachment ID whose file does not have a .csv extension.'
 		);
+	}
+
+	// -------------------------------------------------------------------------
+	// Symlinked uploads: valid .csv reached through a symlinked uploads dir
+	//
+	// Regression test: get_attached_file() returns the unresolved (symlinked)
+	// basedir path, while the directory check resolves the uploads base with
+	// realpath(). Without resolving the file path too the prefix comparison
+	// fails and a valid import is rejected as "no records to import".
+	// -------------------------------------------------------------------------
+
+	/**
+	 * @test
+	 */
+	public function it_allows_valid_csv_reached_through_a_symlinked_uploads_directory() {
+		$real = untrailingslashit( sys_get_temp_dir() ) . '/tec-real-uploads-' . uniqid();
+		$link = untrailingslashit( sys_get_temp_dir() ) . '/tec-link-uploads-' . uniqid();
+
+		wp_mkdir_p( $real );
+		$this->temp_dirs[] = $real;
+
+		if ( ! @symlink( $real, $link ) ) {
+			$this->markTestSkipped( 'Symlinks are not supported on this host.' );
+		}
+		$this->temp_links[] = $link;
+
+		// Point the uploads directory at the symlink, mirroring a symlinked uploads setup.
+		$filter = static function ( $dir ) use ( $link ) {
+			$dir['basedir'] = $link;
+			$dir['path']    = $link;
+			return $dir;
+		};
+		add_filter( 'upload_dir', $filter );
+
+		try {
+			// The CSV is created through the symlinked path, exactly as an upload would be.
+			$csv_path = trailingslashit( $link ) . 'tec-symlinked-import.csv';
+			$this->create_file( $csv_path );
+
+			$attachment_id = wp_insert_attachment(
+				[
+					'post_mime_type' => 'text/csv',
+					'post_title'     => 'tec-symlinked-import',
+					'post_status'    => 'inherit',
+				],
+				$csv_path
+			);
+			update_attached_file( $attachment_id, $csv_path );
+
+			$record = $this->make_record( (string) $attachment_id );
+
+			$this->assertSame(
+				realpath( $csv_path ),
+				$this->call_get_file_path( $record ),
+				'get_file_path() must resolve and accept a valid .csv reached through a symlinked uploads directory.'
+			);
+		} finally {
+			remove_filter( 'upload_dir', $filter );
+		}
 	}
 }

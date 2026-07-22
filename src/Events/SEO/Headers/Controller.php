@@ -114,6 +114,10 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
+		if ( $this->is_single_event_request( $wp_query ) ) {
+			return;
+		}
+
 		// 404 for any view that is currently disabled, regardless of how the URL was built.
 		// Site owners can disable this guard via Settings > Display > SEO & URL Handling.
 		if ( ! in_array( $effective_display, $enabled_views, true ) ) {
@@ -140,6 +144,36 @@ class Controller extends Controller_Contract {
 		} elseif ( 'list' === $effective_display ) {
 			$this->check_list_view( $wp_query, $enabled_views );
 		}
+	}
+
+	/**
+	 * Whether the current request targets a single event rather than an event archive.
+	 *
+	 * The disabled-view 404 guard is only meaningful for the calendar *archive* views
+	 * (list, month, day, photo, …). Single-event endpoints reuse the `eventDisplay`
+	 * query var for non-archive purposes — the Event Tickets registration page
+	 * (eventDisplay=tickets), the recurring-series `all` view and the single-event
+	 * `ical` feed — and must never be treated as a disabled archive view.
+	 *
+	 * A single event is always addressed by its slug (`name` / `tribe_events`) or its
+	 * ID (`p`) in the parsed query, which archive requests never carry. The WP
+	 * conditionals are checked first for real requests, with the raw query vars as a
+	 * fallback for early hooks or direct calls where the conditionals are not yet set.
+	 *
+	 * @since 6.17.1
+	 *
+	 * @param \WP_Query $wp_query The global WP_Query object.
+	 *
+	 * @return bool True when the request is for a single event.
+	 */
+	private function is_single_event_request( \WP_Query $wp_query ): bool {
+		if ( $wp_query->is_single || $wp_query->is_singular ) {
+			return true;
+		}
+
+		return ! empty( $wp_query->query['name'] )
+			|| ! empty( $wp_query->query['tribe_events'] )
+			|| ! empty( $wp_query->query['p'] );
 	}
 
 	/**
