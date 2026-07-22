@@ -22,4 +22,10 @@ class TecViewTestCase extends ViewTestCase {
 		);
 		parent::setUp();
 	}
+
+	public function tearDown() {
+		tribe_unset_var( 'Tribe__Events__Timezones::get_event_timestamp' );
+
+		parent::tearDown();
+	}
 }

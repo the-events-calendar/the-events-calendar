@@ -310,6 +310,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 	 *
 	 * @since 4.6.15
 	 * @since 6.15.17.1 Strengthen file type and location checks during aggregator imports.
+	 * @since 6.17.1 Resolve symlinks before validating the path so imports work on symlinked uploads directories.
 	 *
 	 * @return bool|false|string Either the absolute path to the CSV file or `false` on failure.
 	 */
@@ -321,6 +322,9 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		}
 
 		if ( $file_path ) {
+			// Resolve symlinks (e.g. a symlinked uploads directory) so the path can be compared against the uploads base below.
+			$file_path = realpath( $file_path ) ?: $file_path;
+
 			// Only allow CSV files — reject any other extension to prevent file disclosure.
 			$filetype = wp_check_filetype( $file_path );
 			if ( empty( $filetype['ext'] ) || 'csv' !== strtolower( $filetype['ext'] ) ) {

@@ -260,7 +260,7 @@ class List_View extends View {
 	}
 
 	/**
-	 * @since TBD Made argument $context explicity nullable.
+	 * @since 6.17.0 Made argument $context explicity nullable.
 	 *
 	 * {@inheritDoc}
 	 */
