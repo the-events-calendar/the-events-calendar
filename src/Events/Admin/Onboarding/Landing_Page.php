@@ -260,9 +260,28 @@ class Landing_Page extends Abstract_Admin_Page {
 						</div>
 						<?php if ( $license_link_url ) : ?>
 						<div class="step-list__item-right">
-							<a href="<?php echo esc_url( $license_link_url ); ?>" class="tec-admin-page__link">
-								<?php echo esc_html( $license_link_text ); ?>
-							</a>
+							<span class="tec-admin-page__link--external">
+								<a
+									href="<?php echo esc_url( $license_link_url ); ?>"
+									class="tec-admin-page__link"
+									<?php
+									/*
+									 * Only the management link opens in a new tab. The activation URL
+									 * carries a return address, and sending that round trip to a tab
+									 * the user has left behind would strand them on this page with a
+									 * stale step. Managing a license has no return trip, so keeping
+									 * this page open is the only way back.
+									 */
+									if ( $license_activated ) :
+										?>
+										target="_blank" rel="nofollow noopener"
+										<?php
+									endif;
+									?>
+								>
+									<?php echo esc_html( $license_link_text ); ?>
+								</a>
+							</span>
 						</div>
 						<?php endif; ?>
 					</li>
@@ -611,11 +630,33 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return string The activation URL, or an empty string when unavailable.
 	 */
 	public function get_license_activation_url(): string {
+		// Cheapest check first: with no way to build a URL there is no reason to
+		// read licensing state to find out whether we would have wanted one.
+		if ( ! $this->can_build_activation_url() ) {
+			return '';
+		}
+
 		if ( $this->has_activated_license() ) {
 			return '';
 		}
 
 		return $this->build_license_activation_url();
+	}
+
+	/**
+	 * Whether the bundled Harbor library can build an activation URL at all.
+	 *
+	 * Older copies predate the activation URL API. Both entry points guard on
+	 * this, one to skip work it would only discard and one because it cannot
+	 * proceed without it, so it lives in a single place rather than as a
+	 * duplicated class_exists() call.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True when the activation URL service is available.
+	 */
+	protected function can_build_activation_url(): bool {
+		return class_exists( Activation_Url::class );
 	}
 
 	/**
@@ -641,7 +682,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *                Harbor library cannot build one.
 	 */
 	protected function build_license_activation_url(): string {
-		if ( ! class_exists( Activation_Url::class ) ) {
+		if ( ! $this->can_build_activation_url() ) {
 			return '';
 		}
 

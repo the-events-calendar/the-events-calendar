@@ -9,6 +9,7 @@
 namespace TEC\Events\Admin\Onboarding;
 
 use ReflectionMethod;
+use RuntimeException;
 use TEC\Common\LiquidWeb\Harbor\Config;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
@@ -88,6 +89,28 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
+	 * Pull the opening anchor tag pointing at a given URL out of rendered markup,
+	 * so attributes can be asserted on that link alone rather than on the whole
+	 * checklist, which carries plenty of other links.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $markup The rendered markup.
+	 * @param string $url    The URL the anchor points at, unescaped.
+	 *
+	 * @return string The opening tag.
+	 */
+	protected function open_tag_for( string $markup, string $url ): string {
+		$pattern = '/<a\s[^>]*' . preg_quote( esc_url( $url ), '/' ) . '[^>]*>/';
+
+		preg_match( $pattern, $markup, $matches );
+
+		$this->assertNotEmpty( $matches, "No anchor found pointing at {$url}." );
+
+		return $matches[0];
+	}
+
+	/**
 	 * @test
 	 * @since TBD
 	 */
@@ -148,6 +171,38 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
+	 * Managing a license has no return trip, so the page has to stay open behind
+	 * it. Activating does have one, and sending that round trip to a tab the user
+	 * has left behind would strand them on a stale step.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_open_only_the_management_link_in_a_new_tab() {
+		$activating = $this->open_tag_for( $this->render_checklist( self::ACTIVATION_URL, false ), self::ACTIVATION_URL );
+		$activated  = $this->open_tag_for( $this->render_checklist( self::ACTIVATION_URL, true ), self::PORTAL_URL );
+
+		$this->assertStringNotContainsString( 'target=', $activating );
+		$this->assertStringContainsString( 'target="_blank"', $activated );
+		$this->assertStringContainsString( 'rel="nofollow noopener"', $activated );
+	}
+
+	/**
+	 * Both destinations leave WordPress, so both carry the external-link
+	 * affordance every other off-site link on this page uses.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_mark_both_destinations_as_external() {
+		foreach ( [ false, true ] as $activated ) {
+			$output = $this->render_checklist( self::ACTIVATION_URL, $activated );
+
+			$this->assertStringContainsString( 'tec-admin-page__link--external', $output );
+		}
+	}
+
+	/**
 	 * @test
 	 * @since TBD
 	 */
@@ -155,6 +210,57 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 		$output = $this->render_checklist( self::ACTIVATION_URL, false );
 
 		$this->assertStringNotContainsString( 'Manage license', $output );
+	}
+
+	/**
+	 * The wizard button is gated by get_license_activation_url(), which was
+	 * restructured when the builder was split out of it. These three pin the
+	 * behaviour that split could have quietly changed — most of all the button
+	 * reappearing on a site that has already activated.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_give_the_wizard_a_url_while_there_is_something_to_activate() {
+		$this->set_class_fn_return( Landing_Page::class, 'can_build_activation_url', true );
+		$this->set_class_fn_return( Landing_Page::class, 'build_license_activation_url', self::ACTIVATION_URL );
+		$this->set_class_fn_return( Landing_Page::class, 'has_activated_license', false );
+
+		$this->assertSame( self::ACTIVATION_URL, $this->landing_page->get_license_activation_url() );
+	}
+
+	/**
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_hide_the_wizard_button_once_the_license_is_activated() {
+		$this->set_class_fn_return( Landing_Page::class, 'can_build_activation_url', true );
+		$this->set_class_fn_return( Landing_Page::class, 'build_license_activation_url', self::ACTIVATION_URL );
+		$this->set_class_fn_return( Landing_Page::class, 'has_activated_license', true );
+
+		$this->assertSame( '', $this->landing_page->get_license_activation_url() );
+	}
+
+	/**
+	 * The cheap gate short-circuits before any licensing state is read, so this
+	 * also pins the ordering: a stub that would explode if reached proves
+	 * has_activated_license() is never called.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_hide_the_wizard_button_when_harbor_cannot_build_a_url() {
+		$this->set_class_fn_return( Landing_Page::class, 'can_build_activation_url', false );
+		$this->set_class_fn_return(
+			Landing_Page::class,
+			'has_activated_license',
+			static function () {
+				throw new RuntimeException( 'Licensing state should not be read when no URL can be built.' );
+			},
+			true
+		);
+
+		$this->assertSame( '', $this->landing_page->get_license_activation_url() );
 	}
 
 	/**
@@ -207,6 +313,23 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 		$this->assertStringNotContainsString( 'tec-events-onboarding-wizard-license-item', $output );
 		$this->assertStringNotContainsString( 'License activated', $output );
 		$this->assertStringNotContainsString( 'Activate license', $output );
+	}
+
+	/**
+	 * An activated license on a site whose Harbor is too old to build a URL. The
+	 * step could arguably show as complete, but there is nowhere to send the user
+	 * and no way to refresh what is shown, so it stays out of the list entirely.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_omit_the_step_when_activated_but_harbor_cannot_build_a_url() {
+		$output = $this->render_checklist( '', true );
+
+		$this->assertStringNotContainsString( 'tec-events-onboarding-wizard-license-item', $output );
+		$this->assertStringNotContainsString( 'License activated', $output );
+		$this->assertStringNotContainsString( 'Manage license', $output );
+		$this->assertRegExp( '#\d+/5 steps completed#', $output );
 	}
 
 	/**
