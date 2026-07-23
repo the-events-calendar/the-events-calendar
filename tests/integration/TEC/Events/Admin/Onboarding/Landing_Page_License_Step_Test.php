@@ -1,6 +1,7 @@
 <?php
 /**
- * Tests for the license activation step in the Setup Guide checklist.
+ * Tests for the license activation step in the Setup Guide checklist, and for
+ * the licensing questions behind it.
  *
  * @package TEC\Events\Admin\Onboarding
  * @since   TBD
@@ -8,24 +9,20 @@
 
 namespace TEC\Events\Admin\Onboarding;
 
-use ReflectionMethod;
-use RuntimeException;
-use TEC\Common\LiquidWeb\Harbor\Config;
-use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
+use RuntimeException;
 
 /**
  * Class Landing_Page_License_Step_Test
  *
- * The step is driven by two things the site cannot control from a test: whether
- * the bundled Harbor library can build an activation URL, and whether this
- * domain already holds a valid activated license. Both are stubbed here so each
- * combination can be rendered on demand.
+ * The step is driven by licensing state no test can arrange for real: whether
+ * the bundled Harbor library has the activation URL API, and whether this domain
+ * holds an activated license. Both live behind License_Data, so a stand-in bound
+ * into the container covers every combination.
  *
  * @since TBD
  */
 class Landing_Page_License_Step_Test extends WPTestCase {
-	use With_Uopz;
 
 	/**
 	 * A stand-in for a URL built by Harbor's Activation_Url service.
@@ -68,19 +65,87 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
+	 * Hand the container back a real License_Data, so a stand-in bound by one
+	 * test cannot answer for the next.
+	 *
+	 * @after
+	 *
+	 * @since TBD
+	 */
+	public function restore_license_data() {
+		tribe_singleton( License_Data::class, License_Data::class );
+	}
+
+	/**
+	 * Bind a License_Data that reports the licensing state a test needs.
+	 *
+	 * Only the three questions that read the outside world are answered here.
+	 * get_activation_url() is deliberately left alone so its real gating logic
+	 * runs against these answers rather than being stubbed out with them.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $activation_url The URL Harbor can build, or '' when it cannot.
+	 * @param bool   $activated      Whether the calendar is activated on this site.
+	 *
+	 * @return void
+	 */
+	protected function bind_license_data( string $activation_url, bool $activated ): void {
+		$stand_in = new class( $activation_url, $activated, self::PORTAL_URL ) extends License_Data {
+
+			/**
+			 * @var string
+			 */
+			private $activation_url;
+
+			/**
+			 * @var bool
+			 */
+			private $activated;
+
+			/**
+			 * @var string
+			 */
+			private $management_url;
+
+			public function __construct( string $activation_url, bool $activated, string $management_url ) {
+				$this->activation_url = $activation_url;
+				$this->activated      = $activated;
+				$this->management_url = $management_url;
+			}
+
+			public function can_build_activation_url(): bool {
+				return '' !== $this->activation_url;
+			}
+
+			public function build_activation_url( string $return_url ): string {
+				return $this->activation_url;
+			}
+
+			public function is_activated(): bool {
+				return $this->activated;
+			}
+
+			public function get_management_url(): string {
+				return $this->management_url;
+			}
+		};
+
+		tribe_singleton( License_Data::class, $stand_in );
+	}
+
+	/**
 	 * Render the checklist section and hand back its markup.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $activation_url The URL Harbor can build, or an empty string when it cannot.
-	 * @param bool   $activated      Whether the calendar is licensed and activated on this site.
+	 * @param string $activation_url The URL Harbor can build, or '' when it cannot.
+	 * @param bool   $activated      Whether the calendar is activated on this site.
 	 *
 	 * @return string The rendered markup.
 	 */
 	protected function render_checklist( string $activation_url, bool $activated ): string {
-		$this->set_class_fn_return( Landing_Page::class, 'build_license_activation_url', $activation_url );
-		$this->set_class_fn_return( Landing_Page::class, 'has_activated_license', $activated );
-		$this->set_class_fn_return( Landing_Page::class, 'get_license_management_url', self::PORTAL_URL );
+		$this->bind_license_data( $activation_url, $activated );
 
 		ob_start();
 		$this->landing_page->admin_content_checklist_section();
@@ -171,6 +236,16 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_not_offer_license_management_before_activation() {
+		$output = $this->render_checklist( self::ACTIVATION_URL, false );
+
+		$this->assertStringNotContainsString( 'Manage license', $output );
+	}
+
+	/**
 	 * Managing a license has no return trip, so the page has to stay open behind
 	 * it. Activating does have one, and sending that round trip to a tab the user
 	 * has left behind would strand them on a stale step.
@@ -200,90 +275,6 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 
 			$this->assertStringContainsString( 'tec-admin-page__link--external', $output );
 		}
-	}
-
-	/**
-	 * @test
-	 * @since TBD
-	 */
-	public function it_should_not_offer_license_management_before_activation() {
-		$output = $this->render_checklist( self::ACTIVATION_URL, false );
-
-		$this->assertStringNotContainsString( 'Manage license', $output );
-	}
-
-	/**
-	 * The wizard button is gated by get_license_activation_url(), which was
-	 * restructured when the builder was split out of it. These three pin the
-	 * behaviour that split could have quietly changed — most of all the button
-	 * reappearing on a site that has already activated.
-	 *
-	 * @test
-	 * @since TBD
-	 */
-	public function it_should_give_the_wizard_a_url_while_there_is_something_to_activate() {
-		$this->set_class_fn_return( Landing_Page::class, 'can_build_activation_url', true );
-		$this->set_class_fn_return( Landing_Page::class, 'build_license_activation_url', self::ACTIVATION_URL );
-		$this->set_class_fn_return( Landing_Page::class, 'has_activated_license', false );
-
-		$this->assertSame( self::ACTIVATION_URL, $this->landing_page->get_license_activation_url() );
-	}
-
-	/**
-	 * @test
-	 * @since TBD
-	 */
-	public function it_should_hide_the_wizard_button_once_the_license_is_activated() {
-		$this->set_class_fn_return( Landing_Page::class, 'can_build_activation_url', true );
-		$this->set_class_fn_return( Landing_Page::class, 'build_license_activation_url', self::ACTIVATION_URL );
-		$this->set_class_fn_return( Landing_Page::class, 'has_activated_license', true );
-
-		$this->assertSame( '', $this->landing_page->get_license_activation_url() );
-	}
-
-	/**
-	 * The cheap gate short-circuits before any licensing state is read, so this
-	 * also pins the ordering: a stub that would explode if reached proves
-	 * has_activated_license() is never called.
-	 *
-	 * @test
-	 * @since TBD
-	 */
-	public function it_should_hide_the_wizard_button_when_harbor_cannot_build_a_url() {
-		$this->set_class_fn_return( Landing_Page::class, 'can_build_activation_url', false );
-		$this->set_class_fn_return(
-			Landing_Page::class,
-			'has_activated_license',
-			static function () {
-				throw new RuntimeException( 'Licensing state should not be read when no URL can be built.' );
-			},
-			true
-		);
-
-		$this->assertSame( '', $this->landing_page->get_license_activation_url() );
-	}
-
-	/**
-	 * The portal's base URL carries no trailing slash, so the path has to supply
-	 * its own. Guards against that assumption drifting and producing a double
-	 * slash, or the path being dropped altogether.
-	 *
-	 * @test
-	 * @since TBD
-	 */
-	public function it_should_point_license_management_at_the_subscriptions_screen() {
-		if ( ! class_exists( Config::class ) ) {
-			$this->markTestSkipped( 'The bundled Harbor library predates the portal Config class.' );
-		}
-
-		$method = new ReflectionMethod( Landing_Page::class, 'get_license_management_url' );
-		$method->setAccessible( true );
-
-		$url = $method->invoke( $this->landing_page );
-
-		$this->assertStringStartsWith( 'http', $url );
-		$this->assertStringEndsWith( '/subscriptions/', $url );
-		$this->assertStringNotContainsString( '//subscriptions/', $url );
 	}
 
 	/**
@@ -368,5 +359,86 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 		$this->assertNotEmpty( $before, 'The incomplete render should report a tally out of 6.' );
 		$this->assertNotEmpty( $after, 'The complete render should report a tally out of 6.' );
 		$this->assertSame( (int) $before[1] + 1, (int) $after[1] );
+	}
+
+	/**
+	 * The wizard button is gated by get_activation_url(). These pin the two ways
+	 * it can come back empty, and most of all that it does so on a site which has
+	 * already activated.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_give_the_wizard_a_url_while_there_is_something_to_activate() {
+		$this->bind_license_data( self::ACTIVATION_URL, false );
+
+		$this->assertSame(
+			self::ACTIVATION_URL,
+			tribe( License_Data::class )->get_activation_url( 'https://example.com/return' )
+		);
+	}
+
+	/**
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_hide_the_wizard_button_once_the_license_is_activated() {
+		$this->bind_license_data( self::ACTIVATION_URL, true );
+
+		$this->assertSame( '', tribe( License_Data::class )->get_activation_url( 'https://example.com/return' ) );
+	}
+
+	/**
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_hide_the_wizard_button_when_harbor_cannot_build_a_url() {
+		$this->bind_license_data( '', false );
+
+		$this->assertSame( '', tribe( License_Data::class )->get_activation_url( 'https://example.com/return' ) );
+	}
+
+	/**
+	 * The cheap gate short-circuits before any licensing state is read. A
+	 * stand-in that explodes if asked proves the ordering, not just the result.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_not_read_licensing_state_when_no_url_can_be_built() {
+		$stand_in = new class extends License_Data {
+
+			public function can_build_activation_url(): bool {
+				return false;
+			}
+
+			public function is_activated(): bool {
+				throw new RuntimeException( 'Licensing state should not be read when no URL can be built.' );
+			}
+		};
+
+		tribe_singleton( License_Data::class, $stand_in );
+
+		$this->assertSame( '', tribe( License_Data::class )->get_activation_url( 'https://example.com/return' ) );
+	}
+
+	/**
+	 * The portal's base URL carries no trailing slash, so the path has to supply
+	 * its own. Guards against that assumption drifting and producing a double
+	 * slash, or the path being dropped altogether.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_point_license_management_at_the_subscriptions_screen() {
+		$url = ( new License_Data() )->get_management_url();
+
+		if ( '' === $url ) {
+			$this->markTestSkipped( 'The bundled Harbor library predates the portal Config class.' );
+		}
+
+		$this->assertStringStartsWith( 'http', $url );
+		$this->assertStringEndsWith( '/subscriptions/', $url );
+		$this->assertStringNotContainsString( '//subscriptions/', $url );
 	}
 }
