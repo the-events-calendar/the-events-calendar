@@ -16,6 +16,7 @@ use TEC\Events\Admin\Onboarding\Steps\Venue;
 use TEC\Events\Admin\Onboarding\Steps\Tickets;
 use TEC\Events\Admin\Onboarding\Data;
 use TEC\Events\Admin\Onboarding\Landing_Page;
+use TEC\Events\Admin\Onboarding\License_Data;
 use TEC\Common\StellarWP\Assets\Config;
 use Tribe__Events__Main;
 
@@ -56,6 +57,7 @@ class Controller extends Controller_Contract {
 
 		$this->container->singleton( Landing_Page::class );
 		$this->container->singleton( Data::class );
+		$this->container->singleton( License_Data::class );
 	}
 
 	/**
