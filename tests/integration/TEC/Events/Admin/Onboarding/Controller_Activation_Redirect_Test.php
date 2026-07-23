@@ -125,6 +125,25 @@ class Controller_Activation_Redirect_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
+	public function it_should_not_redirect_a_user_who_cannot_see_the_guided_setup(): void {
+		set_transient( self::ACTIVATION_TRANSIENT, 1, 30 );
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'subscriber' ] ) );
+
+		$store = [];
+		$this->capture_redirects( $store );
+
+		tribe( Controller::class )->maybe_redirect_to_guided_setup_on_activation();
+
+		$this->assertCount( 0, $store, 'A user without the capability should not be redirected.' );
+		$this->assertNotFalse(
+			get_transient( self::ACTIVATION_TRANSIENT ),
+			'The transient should survive so a capable user can still be greeted.'
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_not_redirect_without_the_activation_transient(): void {
 		// No transient set: this is a normal admin page load.
 		$store = [];
@@ -163,6 +182,10 @@ class Controller_Activation_Redirect_Test extends WPTestCase {
 		tribe( Controller::class )->maybe_redirect_to_guided_setup_on_activation();
 
 		$this->assertCount( 0, $store, 'A dismissed setup should not redirect.' );
+		$this->assertFalse(
+			get_transient( self::ACTIVATION_TRANSIENT ),
+			'The transient should be consumed once a capable user has been evaluated.'
+		);
 	}
 
 	/**

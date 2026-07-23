@@ -208,19 +208,25 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		// Only ever act on it once, regardless of what happens below.
-		delete_transient( '_tribe_events_activation_redirect' );
-
 		// Do not hijack a bulk plugin activation. WordPress adds `activate-multi` to the Plugins
 		// screen URL after several plugins are activated together, so the user stays in context.
+		// Consume the flag here too: the answer is settled for this activation, and leaving it
+		// behind would redirect the user on their very next admin page load instead.
 		if ( null !== tec_get_request_var( 'activate-multi' ) ) {
+			delete_transient( '_tribe_events_activation_redirect' );
+
 			return;
 		}
 
-		// Do not redirect users who cannot access the Guided Setup page.
+		// Do not redirect users who cannot access the Guided Setup page. Leave the flag in place:
+		// it is site-wide and short-lived, so a user who can see the page should still be greeted
+		// if they are the next one to land in the admin.
 		if ( ! current_user_can( tribe( Landing_Page::class )->required_capability() ) ) {
 			return;
 		}
+
+		// From here on the activation has been handled, whether or not we end up redirecting.
+		delete_transient( '_tribe_events_activation_redirect' );
 
 		if ( ! $this->should_redirect_to_guided_setup() ) {
 			return;
