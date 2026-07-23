@@ -248,7 +248,7 @@ class Landing_Page extends Abstract_Admin_Page {
 						<?php
 						tec_classes(
 							[
-								'step-list__item' => true,
+								'step-list__item'                            => true,
 								'tec-admin-page__onboarding-step--completed' => $license_activated,
 							]
 						);
