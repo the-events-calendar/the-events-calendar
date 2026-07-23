@@ -21,21 +21,14 @@ jobs:
         with:
           fetch-depth: 1000
           submodules: recursive
-      # enable dependencies caching
-      - name: Add composer to cache
-        uses: actions/cache@v4
+      # setup Node
+      - name: Configure Node environment
+        uses: actions/setup-node@v4
         with:
-          path: ~/.cache/composer/
-          key:  ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-      # setup PHP
-      - name: Configure PHP environment
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          tools: composer
-          coverage: none
-      # Install composer packages.
-      - run: composer self-update && composer install --no-progress --ignore-platform-reqs
+          node-version-file: '.nvmrc'
+          cache: npm
+      # Install npm packages.
+      - run: npm ci
       # Fetch the target branch before running the check.
       - name: Fetch the target origin branch
         run: git fetch origin $GITHUB_BASE_REF
