@@ -14,6 +14,7 @@ use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
 use TEC\Common\Asset;
+use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
@@ -194,6 +195,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.1 Fixed a typo.
+	 * @since TBD Added the license activation step.
 	 *
 	 * @return void
 	 */
@@ -214,6 +216,23 @@ class Landing_Page extends Abstract_Admin_Page {
 			isset( $completed_tabs[4] ) || ! empty( $organizer_data ),
 			isset( $completed_tabs[5] ) || ! empty( $venue_data ),
 		];
+
+		// An empty URL means the bundled Harbor library cannot build one, so there is no step to show.
+		$license_url       = $this->build_license_activation_url();
+		$license_activated = $this->has_activated_license();
+
+		// Order here only feeds the tally below. The steps are laid out in the markup.
+		if ( $license_url ) {
+			$condition[] = $license_activated;
+		}
+
+		// Once the license is activated there is nothing left to activate, so the
+		// step points at the portal for managing it instead.
+		$license_link_url  = $license_activated ? $this->get_license_management_url() : $license_url;
+		$license_link_text = $license_activated
+			? __( 'Manage license', 'the-events-calendar' )
+			: __( 'Activate license', 'the-events-calendar' );
+
 		$count_complete = count( array_filter( $condition ) );
 		?>
 			<div class="tec-admin-page__content-section">
@@ -223,6 +242,31 @@ class Landing_Page extends Abstract_Admin_Page {
 				</div>
 				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/' . esc_html( count( $condition ) ) . ' ' . esc_html__( 'steps completed', 'the-events-calendar' ); ?></div>
 				<ul class="tec-admin-page__content-step-list">
+					<?php if ( $license_url ) : ?>
+					<li
+						id="tec-events-onboarding-wizard-license-item"
+						<?php
+						tec_classes(
+							[
+								'step-list__item' => true,
+								'tec-admin-page__onboarding-step--completed' => $license_activated,
+							]
+						);
+						?>
+					>
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'License activated', 'the-events-calendar' ); ?>
+						</div>
+						<?php if ( $license_link_url ) : ?>
+						<div class="step-list__item-right">
+							<a href="<?php echo esc_url( $license_link_url ); ?>" class="tec-admin-page__link">
+								<?php echo esc_html( $license_link_text ); ?>
+							</a>
+						</div>
+						<?php endif; ?>
+					</li>
+					<?php endif; ?>
 					<li
 						id="tec-events-onboarding-wizard-views-item"
 						<?php
@@ -557,14 +601,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Get the URL that sends the user to the Liquid Web portal to activate a license.
 	 *
-	 * The portal returns the user to this page once they are done, so they pick
-	 * the wizard back up where they left it.
-	 *
-	 * When the stored license already covers this product, the URL is scoped to
-	 * the product and tier so the portal pre-selects the right subscription.
-	 * Otherwise the user lands on their subscription list and picks it
-	 * themselves, which is the best we can do without knowing what they hold.
-	 *
 	 * Returns an empty string when there is nothing for the user to do: either
 	 * the bundled Harbor library predates the activation URL API, or the site
 	 * already holds a valid activated license for this product. The wizard
@@ -575,11 +611,37 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return string The activation URL, or an empty string when unavailable.
 	 */
 	public function get_license_activation_url(): string {
-		if ( ! class_exists( Activation_Url::class ) ) {
+		if ( $this->has_activated_license() ) {
 			return '';
 		}
 
-		if ( $this->has_activated_license() ) {
+		return $this->build_license_activation_url();
+	}
+
+	/**
+	 * Build the URL that sends the user to the Liquid Web portal to activate a
+	 * license, whatever this site's activation state.
+	 *
+	 * The portal returns the user to this page once they are done, so they pick
+	 * up where they left off.
+	 *
+	 * When the stored license already covers this product, the URL is scoped to
+	 * the product and tier so the portal pre-selects the right subscription.
+	 * Otherwise the user lands on their subscription list and picks it
+	 * themselves, which is the best we can do without knowing what they hold.
+	 *
+	 * Callers that only want a route for a user with something left to do should
+	 * use get_license_activation_url() instead. This one answers the narrower
+	 * question of whether a URL can be built at all, which the setup guide needs
+	 * so it can show a step as done rather than hide it.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The activation URL, or an empty string when the bundled
+	 *                Harbor library cannot build one.
+	 */
+	protected function build_license_activation_url(): string {
+		if ( ! class_exists( Activation_Url::class ) ) {
 			return '';
 		}
 
@@ -596,6 +658,30 @@ class Landing_Page extends Abstract_Admin_Page {
 			$entitlement->get_tier(),
 			$return_url
 		);
+	}
+
+	/**
+	 * Get the URL of the portal's subscriptions screen, where a user manages a
+	 * license that is already activated on this site.
+	 *
+	 * There is nothing left to activate at that point, so the setup guide sends
+	 * the user straight to the screen they manage the license from rather than
+	 * back through the activation flow. This is the same destination Harbor's
+	 * own licensing UI uses for its "Manage license" link.
+	 *
+	 * The base URL carries no trailing slash, so the path supplies its own.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The subscriptions URL, or an empty string when the bundled
+	 *                Harbor library cannot supply one.
+	 */
+	protected function get_license_management_url(): string {
+		if ( ! class_exists( Config::class ) ) {
+			return '';
+		}
+
+		return Config::get_portal_base_url() . '/subscriptions/';
 	}
 
 	/**
