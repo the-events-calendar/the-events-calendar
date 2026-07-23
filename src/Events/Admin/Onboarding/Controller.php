@@ -213,8 +213,7 @@ class Controller extends Controller_Contract {
 
 		// Do not hijack a bulk plugin activation. WordPress adds `activate-multi` to the Plugins
 		// screen URL after several plugins are activated together, so the user stays in context.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET['activate-multi'] ) ) {
+		if ( null !== tec_get_request_var( 'activate-multi' ) ) {
 			return;
 		}
 
