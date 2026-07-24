@@ -135,6 +135,12 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 
 		$timestamps = tribe_get_var( $cache_var_name, [] );
 
+		if ( null === $timezone ) {
+			$timezone = self::mode();
+		}
+
+		// Build the cache key after resolving the timezone mode so `null` and the
+		// resolved mode string share the same cache entry.
 		$cache_key = "{$event_id}:{$type}:{$timezone}";
 
 		if ( isset( $timestamps[ $cache_key ] ) ) {
@@ -144,10 +150,6 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		$event    = get_post( Tribe__Events__Main::postIdHelper( $event_id ) );
 		$event_tz = get_post_meta( $event->ID, '_EventTimezone', true );
 		$site_tz  = self::wp_timezone_string();
-
-		if ( null === $timezone ) {
-			$timezone = self::mode();
-		}
 
 		// Should we use the event specific timezone or the site-wide timezone?
 		$use_event_tz = self::EVENT_TIMEZONE === $timezone;
@@ -161,7 +163,9 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
 			$datetime = get_post_meta( $event->ID, "_Event{$type}Date", true );
 
-			return $timestamps[ $cache_key ] = strtotime( $datetime );
+			$timestamps[ $cache_key ] = self::wall_clock_timestamp( $datetime );
+
+			return $timestamps[ $cache_key ];
 		}
 
 		// Otherwise lets load the event's UTC time and convert it
@@ -174,11 +178,39 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: $timezone;
 
 		$localized = self::to_tz( $datetime, $tzstring );
-		$timestamps[ $cache_key ] = strtotime( $localized );
+		$timestamps[ $cache_key ] = self::wall_clock_timestamp( $localized );
 
 		tribe_set_var( $cache_var_name, $timestamps );
 
 		return $timestamps[ $cache_key ];
+	}
+
+	/**
+	 * Converts a wall-clock datetime string into a timestamp without depending on
+	 * PHP's default timezone.
+	 *
+	 * The returned timestamp preserves the wall-clock time of the input string by
+	 * parsing it under an explicit UTC timezone. This keeps the established contract
+	 * with `date_i18n()`, which assumes timestamps were produced with a UTC default
+	 * timezone, and makes the result immune to third-party code calling
+	 * `date_default_timezone_set()`.
+	 *
+	 * @since 6.17.1
+	 *
+	 * @param string $datetime A datetime string representing a wall-clock time.
+	 *
+	 * @return int|false The timestamp preserving the wall-clock time of the input,
+	 *                   or `false` if the string could not be parsed.
+	 */
+	protected static function wall_clock_timestamp( $datetime ) {
+		$date = Tribe__Date_Utils::build_date_object( $datetime, 'UTC', false );
+
+		if ( false === $date ) {
+			// Fall back to the legacy behavior on unparsable input.
+			return strtotime( $datetime );
+		}
+
+		return $date->getTimestamp();
 	}
 
 	/**

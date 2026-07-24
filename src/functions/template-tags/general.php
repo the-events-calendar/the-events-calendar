@@ -1319,11 +1319,18 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 				$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
 
-				$end_date_full           = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
-				$end_date_full_timestamp = strtotime( $end_date_full );
+				$end_date_full = tribe_get_end_date( $event, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
+
+				// Use UTC so the wall-clock timestamps remain independent of PHP's default timezone.
+				$end_date_obj            = Tribe__Date_Utils::build_date_object( $end_date_full, 'UTC', false );
+				$end_date_full_timestamp = false !== $end_date_obj ? $end_date_obj->getTimestamp() : strtotime( $end_date_full );
+
+				$beginning_of_day_str       = tribe_beginning_of_day( $end_date_full );
+				$beginning_of_day_obj       = Tribe__Date_Utils::build_date_object( $beginning_of_day_str, 'UTC', false );
+				$beginning_of_day_timestamp = false !== $beginning_of_day_obj ? $beginning_of_day_obj->getTimestamp() : strtotime( $beginning_of_day_str );
 
 				// if the end date is <= the beginning of the day, consider it the previous day
-				if ( $end_date_full_timestamp <= strtotime( tribe_beginning_of_day( $end_date_full ) ) ) {
+				if ( $end_date_full_timestamp <= $beginning_of_day_timestamp ) {
 					$end_date = tribe_format_date( $end_date_full_timestamp - DAY_IN_SECONDS, false, $format2ndday );
 				} else {
 					$end_date = tribe_get_end_date( $event, false, $format2ndday );

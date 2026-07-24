@@ -1,5 +1,13 @@
 # Changelog
 
+### [6.17.1] 2026-07-22
+
+* Fix - Corrected CSV imports that failed to show any records on sites with a symlinked uploads folder.
+* Fix - Resolved an issue where event times rendered in UTC on WooCommerce order pages and emails when PHP's default timezone was changed by third-party code.
+* Fix - Resolved an issue where multi-day all-day events displayed an incorrect end date when PHP's default timezone was changed by third-party code.
+* Fix - Resolved an issue where the Event Tickets registration page returned a 404 when the "Return 404 for disabled view URLs" setting was enabled.
+* Language - 0 new strings added, 3 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.17.0] 2026-07-08
 
 * Compatibility - Improved PHP compatibility for versions 7.4 and up to 8.4.
