@@ -157,14 +157,8 @@
     ],
     "types": {
       "version": "Version",
-      "fix": "Fix",
-      "tweak": "Tweak",
       "performance": "Performance",
-      "security": "Security",
-      "accessibility": "Accessibility",
-      "compatibility": "Compatibility",
-      "deprecated": "Deprecated",
-      "language": "Language"
+      "accessibility": "Accessibility"
     },
     "versioning": "./bin/tec-changelog-versioning.js",
     "files": [
