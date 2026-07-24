@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.17.0
+Stable tag: 6.17.1
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -231,6 +231,14 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.17.1] 2026-07-22 =
+
+* Fix - Corrected CSV imports that failed to show any records on sites with a symlinked uploads folder.
+* Fix - Resolved an issue where event times rendered in UTC on WooCommerce order pages and emails when PHP's default timezone was changed by third-party code.
+* Fix - Resolved an issue where multi-day all-day events displayed an incorrect end date when PHP's default timezone was changed by third-party code.
+* Fix - Resolved an issue where the Event Tickets registration page returned a 404 when the "Return 404 for disabled view URLs" setting was enabled.
+* Language - 0 new strings added, 3 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.17.0] 2026-07-08 =
 

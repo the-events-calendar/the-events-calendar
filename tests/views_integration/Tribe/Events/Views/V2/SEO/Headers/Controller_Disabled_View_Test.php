@@ -180,4 +180,62 @@ class Controller_Disabled_View_Test extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertFalse( $wp_query->is_404, 'When eventDisplay is absent the guard should not fire.' );
 	}
+
+	/**
+	 * The Event Tickets registration page is served at /event/{slug}/tickets and sets
+	 * eventDisplay=tickets on a *single event* request. It is not a calendar archive view,
+	 * so the disabled-view 404 guard must never fire for it — even though 'tickets' is
+	 * absent from tribeEnableViews and the "Return 404 for disabled view URLs" option is on.
+	 *
+	 * @test
+	 */
+	public function test_single_event_tickets_endpoint_does_not_404(): void {
+		add_filter( 'tribe_get_option_tribeEnableViews', static fn() => [ 'list', 'month', 'day' ], 10, 3 );
+		add_filter( 'tribe_get_option_tec_seo_disabled_view_404', static fn() => true, 10, 3 );
+
+		global $wp_query;
+		// Mirrors the parsed query for /event/{slug}/tickets (see Tickets_View / Series_Passes rewrite).
+		$wp_query->query = [
+			'post_type'    => 'tribe_events',
+			'tribe_events' => 'my-event',
+			'name'         => 'my-event',
+			'eventDisplay' => 'tickets',
+		];
+
+		tribe_register_provider( Controller::class );
+		tribe( Controller::class )->filter_headers();
+
+		$this->assertFalse(
+			$wp_query->is_404,
+			'The single-event /tickets endpoint must not be 404\'d by the disabled-view guard.'
+		);
+	}
+
+	/**
+	 * A single-event request detected via the WP conditionals (is_single) must also be
+	 * skipped by the disabled-view guard, covering endpoints such as the single-event
+	 * `ical` feed and the recurring-series `all` view that reuse eventDisplay.
+	 *
+	 * @test
+	 */
+	public function test_single_event_request_via_conditional_does_not_404(): void {
+		add_filter( 'tribe_get_option_tribeEnableViews', static fn() => [ 'list', 'month', 'day' ], 10, 3 );
+		add_filter( 'tribe_get_option_tec_seo_disabled_view_404', static fn() => true, 10, 3 );
+
+		global $wp_query;
+		$wp_query->is_single   = true;
+		$wp_query->is_singular = true;
+		$wp_query->query       = [
+			'post_type'    => 'tribe_events',
+			'eventDisplay' => 'all',
+		];
+
+		tribe_register_provider( Controller::class );
+		tribe( Controller::class )->filter_headers();
+
+		$this->assertFalse(
+			$wp_query->is_404,
+			'A single-event request (is_single) must not be 404\'d by the disabled-view guard.'
+		);
+	}
 }
