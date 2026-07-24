@@ -214,7 +214,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		}
 
 		// Once the license is activated there is nothing left to activate, so the
-		// step points at the portal for managing it instead.
+		// step points at the in-WP license manager instead.
 		$license_link_url  = $license_activated ? $license->get_management_url() : $license_url;
 		$license_link_text = $license_activated
 			? __( 'Manage license', 'the-events-calendar' )
@@ -247,24 +247,19 @@ class Landing_Page extends Abstract_Admin_Page {
 						</div>
 						<?php if ( $license_link_url ) : ?>
 						<div class="step-list__item-right">
-							<span class="tec-admin-page__link--external">
+							<?php
+							/*
+							 * Before activation the link leaves wp-admin for the portal, so it
+							 * carries the external affordance; the management link stays in
+							 * wp-admin and so does not. Neither opens a new tab: the activation
+							 * URL carries a return address, and the in-WP manager has the browser
+							 * back button.
+							 */
+							?>
+							<span class="<?php echo esc_attr( $license_activated ? '' : 'tec-admin-page__link--external' ); ?>">
 								<a
 									href="<?php echo esc_url( $license_link_url ); ?>"
 									class="tec-admin-page__link"
-									<?php
-									/*
-									 * Only the management link opens in a new tab. The activation URL
-									 * carries a return address, and sending that round trip to a tab
-									 * the user has left behind would strand them on this page with a
-									 * stale step. Managing a license has no return trip, so keeping
-									 * this page open is the only way back.
-									 */
-									if ( $license_activated ) :
-										?>
-										target="_blank" rel="nofollow noopener"
-										<?php
-									endif;
-									?>
 								>
 									<?php echo esc_html( $license_link_text ); ?>
 								</a>

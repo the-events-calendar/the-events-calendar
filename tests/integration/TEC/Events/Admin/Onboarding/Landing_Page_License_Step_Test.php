@@ -34,13 +34,13 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	protected const ACTIVATION_URL = 'https://portal.example.com/subscriptions/?portal-referral=plugin';
 
 	/**
-	 * A stand-in for the portal's subscriptions screen.
+	 * A stand-in for the in-WP license manager page.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	protected const PORTAL_URL = 'https://portal.example.com/subscriptions/';
+	protected const MANAGEMENT_URL = 'https://site.example.com/wp-admin/options-general.php?page=lw-software-manager';
 
 	/**
 	 * The Landing_Page instance.
@@ -91,7 +91,7 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	 * @return void
 	 */
 	protected function bind_license_data( string $activation_url, bool $activated ): void {
-		$stand_in = new class( $activation_url, $activated, self::PORTAL_URL ) extends License_Data {
+		$stand_in = new class( $activation_url, $activated, self::MANAGEMENT_URL ) extends License_Data {
 
 			/**
 			 * @var string
@@ -176,6 +176,27 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
+	 * Pull the class attribute of the span wrapping the anchor for a given URL, so
+	 * a test can assert whether that link carries the external affordance.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $markup The rendered markup.
+	 * @param string $url    The URL the wrapped anchor points at, unescaped.
+	 *
+	 * @return string The wrapping span's class attribute value.
+	 */
+	protected function wrapping_span_for( string $markup, string $url ): string {
+		$pattern = '/<span class="([^"]*)">\s*<a\s[^>]*' . preg_quote( esc_url( $url ), '/' ) . '/';
+
+		preg_match( $pattern, $markup, $matches );
+
+		$this->assertNotEmpty( $matches, "No wrapped anchor found pointing at {$url}." );
+
+		return $matches[1];
+	}
+
+	/**
 	 * @test
 	 * @since TBD
 	 */
@@ -221,7 +242,7 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 
 	/**
 	 * There is nothing left to activate once the license is live, so the step
-	 * points at the portal rather than back through the activation flow.
+	 * points at the in-WP license manager rather than back through activation.
 	 *
 	 * @test
 	 * @since TBD
@@ -230,7 +251,7 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 		$output = $this->render_checklist( self::ACTIVATION_URL, true );
 
 		$this->assertStringContainsString( 'Manage license', $output );
-		$this->assertStringContainsString( esc_url( self::PORTAL_URL ), $output );
+		$this->assertStringContainsString( esc_url( self::MANAGEMENT_URL ), $output );
 		$this->assertStringNotContainsString( 'Activate license', $output );
 		$this->assertStringNotContainsString( esc_url( self::ACTIVATION_URL ), $output );
 	}
@@ -246,35 +267,40 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
-	 * Managing a license has no return trip, so the page has to stay open behind
-	 * it. Activating does have one, and sending that round trip to a tab the user
-	 * has left behind would strand them on a stale step.
+	 * Neither link opens a new tab. The activation URL carries a return address,
+	 * so a round trip to a tab the user has left behind would strand them on a
+	 * stale step; the management link stays in wp-admin, where the back button is
+	 * the way back.
 	 *
 	 * @test
 	 * @since TBD
 	 */
-	public function it_should_open_only_the_management_link_in_a_new_tab() {
+	public function it_should_not_open_either_link_in_a_new_tab() {
 		$activating = $this->open_tag_for( $this->render_checklist( self::ACTIVATION_URL, false ), self::ACTIVATION_URL );
-		$activated  = $this->open_tag_for( $this->render_checklist( self::ACTIVATION_URL, true ), self::PORTAL_URL );
+		$activated  = $this->open_tag_for( $this->render_checklist( self::ACTIVATION_URL, true ), self::MANAGEMENT_URL );
 
 		$this->assertStringNotContainsString( 'target=', $activating );
-		$this->assertStringContainsString( 'target="_blank"', $activated );
-		$this->assertStringContainsString( 'rel="nofollow noopener"', $activated );
+		$this->assertStringNotContainsString( 'target=', $activated );
 	}
 
 	/**
-	 * Both destinations leave WordPress, so both carry the external-link
-	 * affordance every other off-site link on this page uses.
+	 * The activation URL leaves WordPress for the portal, so it carries the
+	 * external-link affordance; the management link stays in wp-admin, so it does
+	 * not.
 	 *
 	 * @test
 	 * @since TBD
 	 */
-	public function it_should_mark_both_destinations_as_external() {
-		foreach ( [ false, true ] as $activated ) {
-			$output = $this->render_checklist( self::ACTIVATION_URL, $activated );
+	public function it_should_mark_only_the_activation_link_as_external() {
+		$this->assertStringContainsString(
+			'tec-admin-page__link--external',
+			$this->wrapping_span_for( $this->render_checklist( self::ACTIVATION_URL, false ), self::ACTIVATION_URL )
+		);
 
-			$this->assertStringContainsString( 'tec-admin-page__link--external', $output );
-		}
+		$this->assertStringNotContainsString(
+			'tec-admin-page__link--external',
+			$this->wrapping_span_for( $this->render_checklist( self::ACTIVATION_URL, true ), self::MANAGEMENT_URL )
+		);
 	}
 
 	/**
@@ -423,22 +449,19 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
-	 * The portal's base URL carries no trailing slash, so the path has to supply
-	 * its own. Guards against that assumption drifting and producing a double
-	 * slash, or the path being dropped altogether.
+	 * Management sends the user to the in-WP Software Manager page Harbor
+	 * registers, not the external portal.
 	 *
 	 * @test
 	 * @since TBD
 	 */
-	public function it_should_point_license_management_at_the_subscriptions_screen() {
+	public function it_should_point_license_management_at_the_in_wp_manager() {
 		$url = ( new License_Data() )->get_management_url();
 
 		if ( '' === $url ) {
-			$this->markTestSkipped( 'The bundled Harbor library predates the portal Config class.' );
+			$this->markTestSkipped( 'The bundled Harbor library predates the activation URL API.' );
 		}
 
-		$this->assertStringStartsWith( 'http', $url );
-		$this->assertStringEndsWith( '/subscriptions/', $url );
-		$this->assertStringNotContainsString( '//subscriptions/', $url );
+		$this->assertStringContainsString( 'page=lw-software-manager', $url );
 	}
 }

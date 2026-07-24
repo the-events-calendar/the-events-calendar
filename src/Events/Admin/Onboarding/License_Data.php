@@ -9,11 +9,9 @@
 
 namespace TEC\Events\Admin\Onboarding;
 
-use TEC\Common\LiquidWeb\Harbor\Config;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
-use TEC\Common\LiquidWeb\Harbor\Portal\Activation_Url;
 
 /**
  * Class License_Data
@@ -47,15 +45,21 @@ class License_Data {
 	 *
 	 * Older copies predate the activation URL API. Callers guard on this, some
 	 * to skip work they would only discard and some because they cannot proceed
-	 * without it, so it lives here rather than as a duplicated class_exists()
+	 * without it, so it lives here rather than as a duplicated function_exists()
 	 * call at each site.
+	 *
+	 * We reach Harbor through its stable global functions rather than resolving
+	 * its classes directly: the functions always resolve to the loaded,
+	 * highest-version Harbor copy, so we are never at the mercy of whichever
+	 * version our own bundled copy happens to be.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True when the activation URL service is available.
+	 * @return bool True when the activation URL functions are available.
 	 */
 	public function can_build_activation_url(): bool {
-		return class_exists( Activation_Url::class );
+		return function_exists( 'lw_harbor_get_activation_url' )
+			&& function_exists( 'lw_harbor_get_product_activation_url' );
 	}
 
 	/**
@@ -112,18 +116,22 @@ class License_Data {
 	 *                Harbor library cannot build one.
 	 */
 	public function build_activation_url( string $return_url ): string {
-		if ( ! $this->can_build_activation_url() ) {
+		// Guarded inline (not only via can_build_activation_url()) so static
+		// analysis can see the functions are called only when they exist.
+		if (
+			! function_exists( 'lw_harbor_get_activation_url' )
+			|| ! function_exists( 'lw_harbor_get_product_activation_url' )
+		) {
 			return '';
 		}
 
-		$builder     = tribe( Activation_Url::class );
 		$entitlement = $this->get_licensed_entry();
 
 		if ( ! $entitlement instanceof Product_Entry ) {
-			return $builder->get_base( $return_url );
+			return lw_harbor_get_activation_url( $return_url );
 		}
 
-		return $builder->for_product(
+		return lw_harbor_get_product_activation_url(
 			$entitlement->get_product_slug(),
 			$entitlement->get_tier(),
 			$return_url
@@ -131,27 +139,24 @@ class License_Data {
 	}
 
 	/**
-	 * Get the URL of the portal's subscriptions screen, where a user manages a
-	 * license that is already activated on this site.
+	 * Get the URL of the in-WP page where a user manages their Liquid Web
+	 * licenses.
 	 *
-	 * There is nothing left to activate at that point, so callers send the user
-	 * straight to the screen they manage the license from rather than back
-	 * through the activation flow. This is the same destination Harbor's own
-	 * licensing UI uses for its "Manage license" link.
-	 *
-	 * The base URL carries no trailing slash, so the path supplies its own.
+	 * This is the Software Manager settings page Harbor registers, not the
+	 * external portal: an activated user manages their products without leaving
+	 * the site. Returns an empty string when Harbor is not active, so callers can
+	 * treat that as "hide the button".
 	 *
 	 * @since TBD
 	 *
-	 * @return string The subscriptions URL, or an empty string when the bundled
-	 *                Harbor library cannot supply one.
+	 * @return string The management page URL, or an empty string when unavailable.
 	 */
 	public function get_management_url(): string {
-		if ( ! class_exists( Config::class ) ) {
+		if ( ! function_exists( 'lw_harbor_get_license_page_url' ) ) {
 			return '';
 		}
 
-		return Config::get_portal_base_url() . '/subscriptions/';
+		return lw_harbor_get_license_page_url();
 	}
 
 	/**
