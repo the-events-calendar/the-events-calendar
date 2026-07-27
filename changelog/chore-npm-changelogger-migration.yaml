@@ -1,0 +1,5 @@
+significance: patch
+type: tweak
+entry: Switched changelog tooling from jetpack-changelogger to
+  @stellarwp/changelogger.
+timestamp: 2026-07-23T20:57:55.658Z
