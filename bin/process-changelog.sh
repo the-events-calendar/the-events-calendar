@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# npm/@stellarwp/changelogger variant of process-changelog.sh.
+#
+# @stellarwp/changelogger's `write` command merges new entries into an existing version
+# section (matched by header) instead of duplicating the header, and it updates every
+# configured output file (changelog.md, readme.txt) in one pass. That means the old
+# jetpack-changelogger "generate" vs "amend" distinction - including the separate perl-based
+# readme.txt re-merge - collapses into a single `write` call here. "amend-version" (relabeling
+# an existing header's placeholder date when there are no new pending entries left to write) is
+# unchanged, since `write` intentionally no-ops when there are no pending changelog/*.yaml files.
+
 RELEASE_VERSION=${1-}
 CURRENT_VERSION=${2-}
 ACTION_TYPE=${3-generate}
@@ -42,17 +52,9 @@ echo "RELEASE_DATE=$RELEASE_DATE"
 
 if [ "$ACTION_TYPE" == "amend-version" ]; then
 	sed_compatible "s/^### \[$CURRENT_VERSION\] .*$/### [$RELEASE_VERSION] $RELEASE_DATE/" changelog.md
+	sed_compatible "s/^= \[$CURRENT_VERSION\] .* =$/= [$RELEASE_VERSION] $RELEASE_DATE =/" readme.txt
 else
-	if [ "$ACTION_TYPE" == "generate" ]; then
-		CHANGELOG_FLAG=""
-		echo "Generating the changelog entries."
-	else
-		CHANGELOG_FLAG="--amend"
-		echo "Amending the changelog entries."
-	fi
-
-	# Run changelogger through the project's base dir.
-	./vendor/bin/changelogger write --use-version="$RELEASE_VERSION" --release-date="$RELEASE_DATE" $CHANGELOG_FLAG --no-interaction --yes
+	npx @stellarwp/changelogger write --overwrite-version "$RELEASE_VERSION" --date "$RELEASE_DATE"
 fi
 
 CHANGELOG=$(awk '/^### / { if (p) { exit }; p=1; next } p && NF' changelog.md)
@@ -63,13 +65,3 @@ CHANGELOG=${CHANGELOG//$'\n'/\\n}
 CHANGELOG=${CHANGELOG//&/\\&}
 
 echo "CHANGELOG=$CHANGELOG"
-
-if [ "$ACTION_TYPE" == "amend-version" ]; then
-	sed_compatible "s/^= \[$CURRENT_VERSION\] .* =$/= [$RELEASE_VERSION] $RELEASE_DATE =/" readme.txt
-else
-	if [ "$ACTION_TYPE" == "amend" ]; then
-	perl -i -p0e "s/= \[$RELEASE_VERSION\].*? =(.*?)(\n){2}(?==)//s" readme.txt # Delete the existing changelog for the release version first
-	fi
-
-	sed_compatible -r "s|(== Changelog ==)|\1\n\n= [$RELEASE_VERSION] $RELEASE_DATE =\n\n$CHANGELOG|" readme.txt
-fi
