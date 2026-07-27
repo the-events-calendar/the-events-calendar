@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# npm/@stellarwp/changelogger variant of check-changelog.sh.
+# Uses @stellarwp/changelogger (npm) instead of jetpack-changelogger (composer).
 
 BASE=${1-origin/main}
 HEAD=${2-HEAD}
