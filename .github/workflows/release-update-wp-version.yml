@@ -4,21 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       tested_up_to:
-        description: 'WordPress version to set as "tested up to" version (e.g. 7.0)'
+        description: 'WordPress version to set as "tested up to" version (e.g. 6.8.1)'
         required: true
         type: string
       update_min_version:
-        description: 'Also update the minimum required version (Requires at least + test runners)?'
+        description: 'Update minimum required version to 2 minor versions behind tested version? (e.g. 6.8.1 -> 6.6)'
         required: true
         type: choice
         options:
           - 'yes'
           - 'no'
         default: 'no'
-      min_version:
-        description: 'Minimum required version, used only when the option above is "yes" (e.g. 6.8)'
-        required: false
-        type: string
 
 jobs:
   update-versions:
@@ -28,13 +24,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
-
-      - name: Validate inputs
-        run: |
-          if [ "${{ github.event.inputs.update_min_version }}" = "yes" ] && [ -z "${{ github.event.inputs.min_version }}" ]; then
-            echo "::error::'Update minimum required version' is set to 'yes' but no 'min_version' was provided."
-            exit 1
-          fi
 
       - name: Set Variables
         id: vars
@@ -59,8 +48,12 @@ jobs:
         id: update-versions
         run: |
           TESTED_VERSION="${{ github.event.inputs.tested_up_to }}"
-          MIN_VERSION="${{ github.event.inputs.min_version }}"
-          echo "MIN_VERSION=$MIN_VERSION" >> $GITHUB_OUTPUT
+          IFS='.' read -r -a tested_parts <<< "$TESTED_VERSION"
+
+          # Calculate minimum version (2 minor versions behind, using only major.minor)
+          min_major=$((tested_parts[0]))
+          min_minor=$((tested_parts[1] - 2))
+          MIN_VERSION="$min_major.$min_minor"
 
           echo "## Version Updates" >> $GITHUB_STEP_SUMMARY
           echo "* Tested Up To: \`$TESTED_VERSION\`" >> $GITHUB_STEP_SUMMARY
@@ -80,25 +73,23 @@ jobs:
             echo "* Updated \`readme.txt\`" >> $GITHUB_STEP_SUMMARY
           fi
 
-          # Update the main plugin file if minimum version is being updated
+          # Update plugin.php if minimum version is being updated
           if [ "${{ github.event.inputs.update_min_version }}" = "yes" ]; then
             # Get plugin file from .puprc versions array that is a PHP file in the base directory
             PLUGIN_FILE=$(jq -r '.paths.versions[] | select(.file | test("^[^/]+\\.php$")) | .file' .puprc)
 
-            if [ -n "$PLUGIN_FILE" ] && [ -f "$PLUGIN_FILE" ]; then
+            if [ -f "$PLUGIN_FILE" ]; then
               sed -i "s/Requires at least: [0-9.]*/Requires at least: $MIN_VERSION/" "$PLUGIN_FILE"
               echo "* Updated \`$PLUGIN_FILE\`" >> $GITHUB_STEP_SUMMARY
             fi
           fi
 
-          # Update test runner workflow files if minimum version is being updated (skips self)
+          # Update tests-php.yml and other workflow files if minimum version is being updated (skips self)
           if [ "${{ github.event.inputs.update_min_version }}" = "yes" ] && [ -d ".github/workflows" ]; then
             for wf in .github/workflows/*.yml; do
-              [ "$(basename "$wf")" = "release-update-wp-version.yml" ] && continue
-              if grep -q "wp core update --force --version=" "$wf"; then
-                sed -i "s/wp core update --force --version=[0-9.]*/wp core update --force --version=$MIN_VERSION/" "$wf"
-                echo "* Updated \`$wf\`" >> $GITHUB_STEP_SUMMARY
-              fi
+              [ "$(basename "$wf")" = "update-wp-version.yml" ] && continue
+              sed -i "s/-wp core update --force --version=[0-9.]*/wp core update --force --version=$MIN_VERSION/" "$wf"
+              echo "* Updated \`$wf\`" >> $GITHUB_STEP_SUMMARY
             done
           fi
 
