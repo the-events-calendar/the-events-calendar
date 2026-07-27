@@ -47,10 +47,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: npm
-
-      - name: Install npm dependencies
-        run: npm ci
 
       - name: Set Variables
         id: vars
