@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+# npm/@stellarwp/changelogger variant of check-changelog.sh.
+
 BASE=${1-origin/main}
 HEAD=${2-HEAD}
 
 # Get only added files from git diff.
-CHANGELOG_FILES=$(git diff --name-only --diff-filter=A "$BASE" "$HEAD"  | grep '^changelog\/')
+CHANGELOG_FILES=$(git diff --name-only --diff-filter=A "$BASE" "$HEAD" | grep '^changelog\/')
 
 if [[ -n "$CHANGELOG_FILES" ]]; then
 	echo "Found changelog file(s):"
@@ -18,10 +20,4 @@ else
 fi
 
 echo "Validating changelog files..."
-CHECK=$(./vendor/bin/changelogger validate --gh-action)
-if [[ -z "$CHECK" ]]; then
-	echo "All changelog files are valid."
-else
-	echo $CHECK
-	exit 1
-fi
+npx @stellarwp/changelogger validate
