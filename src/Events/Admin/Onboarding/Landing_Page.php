@@ -203,9 +203,13 @@ class Landing_Page extends Abstract_Admin_Page {
 			isset( $completed_tabs[5] ) || ! empty( $venue_data ),
 		];
 
-		// An empty URL means there is no activation route to offer, so no step to show either.
+		// An empty URL means there is no activation route to offer, so no step to show
+		// either. The calendar is free, so the step only earns its place on a site
+		// running a premium plugin a license would unlock.
 		$license           = tribe( License_Data::class );
-		$license_url       = $license->build_activation_url( $this->get_return_url() );
+		$license_url       = $license->has_active_premium_plugin()
+			? $license->build_activation_url( $this->get_return_url() )
+			: '';
 		$license_activated = $license->is_activated();
 
 		// Order here only feeds the tally below. The steps are laid out in the markup.

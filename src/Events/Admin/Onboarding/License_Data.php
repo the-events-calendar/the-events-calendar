@@ -12,6 +12,7 @@ namespace TEC\Events\Admin\Onboarding;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
 use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
+use Tribe__Dependency;
 
 /**
  * Class License_Data
@@ -63,13 +64,34 @@ class License_Data {
 	}
 
 	/**
+	 * Whether this site runs an active premium plugin a license would unlock.
+	 *
+	 * The calendar is free, and a license only unlocks the premium plugins built
+	 * on top of it. Offering activation UI to a site running none of them would
+	 * imply a license is needed to publish events at all, so onboarding asks this
+	 * first and stays silent when the answer is no.
+	 *
+	 * Delegates to Common's shared answer rather than keeping a second list of
+	 * premium plugins here. That answer is only reliable once plugins have
+	 * registered themselves, which is long settled by the time an admin page
+	 * renders.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True when a premium plugin is active on this site.
+	 */
+	public function has_active_premium_plugin(): bool {
+		return Tribe__Dependency::instance()->has_active_premium_plugin();
+	}
+
+	/**
 	 * Get the URL that sends a user to the portal to activate a license, for
 	 * callers that only want one while the user still has something to do.
 	 *
-	 * Returns an empty string when there is nothing to be done: either the
-	 * bundled Harbor library predates the activation URL API, or the site
-	 * already holds a valid activated license. The onboarding wizard treats an
-	 * empty string as "hide the button".
+	 * Returns an empty string when there is nothing to be done: the site runs no
+	 * premium plugin a license would unlock, the bundled Harbor library predates
+	 * the activation URL API, or the site already holds a valid activated
+	 * license. The onboarding wizard treats an empty string as "hide the button".
 	 *
 	 * @since TBD
 	 *
@@ -78,8 +100,14 @@ class License_Data {
 	 * @return string The activation URL, or an empty string when unavailable.
 	 */
 	public function get_activation_url( string $return_url ): string {
-		// Cheapest check first: with no way to build a URL there is no reason to
-		// read licensing state to find out whether we would have wanted one.
+		// Most fundamental question first: on a site with nothing a license would
+		// unlock there is no reason to ask anything else, or to offer any UI.
+		if ( ! $this->has_active_premium_plugin() ) {
+			return '';
+		}
+
+		// With no way to build a URL there is no reason to read licensing state to
+		// find out whether we would have wanted one.
 		if ( ! $this->can_build_activation_url() ) {
 			return '';
 		}

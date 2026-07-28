@@ -87,11 +87,14 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	 *
 	 * @param string $activation_url The URL Harbor can build, or '' when it cannot.
 	 * @param bool   $activated      Whether the calendar is activated on this site.
+	 * @param bool   $premium        Whether a premium plugin is active on this site.
+	 *                               Defaults to true: the licensing states below are
+	 *                               only reachable on a site that has one.
 	 *
 	 * @return void
 	 */
-	protected function bind_license_data( string $activation_url, bool $activated ): void {
-		$stand_in = new class( $activation_url, $activated, self::MANAGEMENT_URL ) extends License_Data {
+	protected function bind_license_data( string $activation_url, bool $activated, bool $premium = true ): void {
+		$stand_in = new class( $activation_url, $activated, self::MANAGEMENT_URL, $premium ) extends License_Data {
 
 			/**
 			 * @var string
@@ -108,10 +111,20 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 			 */
 			private $management_url;
 
-			public function __construct( string $activation_url, bool $activated, string $management_url ) {
+			/**
+			 * @var bool
+			 */
+			private $premium;
+
+			public function __construct( string $activation_url, bool $activated, string $management_url, bool $premium ) {
 				$this->activation_url = $activation_url;
 				$this->activated      = $activated;
 				$this->management_url = $management_url;
+				$this->premium        = $premium;
+			}
+
+			public function has_active_premium_plugin(): bool {
+				return $this->premium;
 			}
 
 			public function can_build_activation_url(): bool {
@@ -141,11 +154,12 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	 *
 	 * @param string $activation_url The URL Harbor can build, or '' when it cannot.
 	 * @param bool   $activated      Whether the calendar is activated on this site.
+	 * @param bool   $premium        Whether a premium plugin is active on this site.
 	 *
 	 * @return string The rendered markup.
 	 */
-	protected function render_checklist( string $activation_url, bool $activated ): string {
-		$this->bind_license_data( $activation_url, $activated );
+	protected function render_checklist( string $activation_url, bool $activated, bool $premium = true ): string {
+		$this->bind_license_data( $activation_url, $activated, $premium );
 
 		ob_start();
 		$this->landing_page->admin_content_checklist_section();
@@ -434,12 +448,83 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	public function it_should_not_read_licensing_state_when_no_url_can_be_built() {
 		$stand_in = new class extends License_Data {
 
+			public function has_active_premium_plugin(): bool {
+				return true;
+			}
+
 			public function can_build_activation_url(): bool {
 				return false;
 			}
 
 			public function is_activated(): bool {
 				throw new RuntimeException( 'Licensing state should not be read when no URL can be built.' );
+			}
+		};
+
+		tribe_singleton( License_Data::class, $stand_in );
+
+		$this->assertSame( '', tribe( License_Data::class )->get_activation_url( 'https://example.com/return' ) );
+	}
+
+	/**
+	 * The calendar is free. A site running no premium plugin has nothing a license
+	 * would unlock, so the step stays out of the checklist entirely rather than
+	 * implying activation is part of setting up the calendar.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_omit_the_step_when_no_premium_plugin_is_active() {
+		$output = $this->render_checklist( self::ACTIVATION_URL, false, false );
+
+		$this->assertStringNotContainsString( 'tec-events-onboarding-wizard-license-item', $output );
+		$this->assertStringNotContainsString( 'License activated', $output );
+		$this->assertStringNotContainsString( 'Activate license', $output );
+		$this->assertRegExp( '#\d+/5 steps completed#', $output );
+	}
+
+	/**
+	 * The same holds once the license is activated: without a premium plugin there
+	 * is nothing to manage from here either.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_omit_the_step_when_activated_but_no_premium_plugin_is_active() {
+		$output = $this->render_checklist( self::ACTIVATION_URL, true, false );
+
+		$this->assertStringNotContainsString( 'tec-events-onboarding-wizard-license-item', $output );
+		$this->assertStringNotContainsString( 'Manage license', $output );
+		$this->assertRegExp( '#\d+/5 steps completed#', $output );
+	}
+
+	/**
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_hide_the_wizard_button_when_no_premium_plugin_is_active() {
+		$this->bind_license_data( self::ACTIVATION_URL, false, false );
+
+		$this->assertSame( '', tribe( License_Data::class )->get_activation_url( 'https://example.com/return' ) );
+	}
+
+	/**
+	 * The premium gate is the first question asked, so a site with nothing to
+	 * unlock never reaches the Harbor version check behind it. A stand-in that
+	 * explodes if asked proves the ordering, not just the result.
+	 *
+	 * @test
+	 * @since TBD
+	 */
+	public function it_should_not_ask_about_harbor_when_no_premium_plugin_is_active() {
+		$stand_in = new class extends License_Data {
+
+			public function has_active_premium_plugin(): bool {
+				return false;
+			}
+
+			public function can_build_activation_url(): bool {
+				throw new RuntimeException( 'Harbor should not be asked when no premium plugin is active.' );
 			}
 		};
 
