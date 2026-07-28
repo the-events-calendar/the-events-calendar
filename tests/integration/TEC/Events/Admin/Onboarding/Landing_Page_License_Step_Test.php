@@ -25,7 +25,7 @@ use RuntimeException;
 class Landing_Page_License_Step_Test extends WPTestCase {
 
 	/**
-	 * A stand-in for a URL built by Harbor's Activation_Url service.
+	 * A stand-in for a URL built by Harbor's activation URL API.
 	 *
 	 * @since TBD
 	 *

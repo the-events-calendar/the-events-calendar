@@ -59,7 +59,7 @@ class License_Data {
 	 * @return bool True when the activation URL functions are available.
 	 */
 	public function can_build_activation_url(): bool {
-		return function_exists( 'lw_harbor_get_activation_url' )
+		return function_exists( 'lw_harbor_get_activation_base_url' )
 			&& function_exists( 'lw_harbor_get_product_activation_url' );
 	}
 
@@ -147,7 +147,7 @@ class License_Data {
 		// Guarded inline (not only via can_build_activation_url()) so static
 		// analysis can see the functions are called only when they exist.
 		if (
-			! function_exists( 'lw_harbor_get_activation_url' )
+			! function_exists( 'lw_harbor_get_activation_base_url' )
 			|| ! function_exists( 'lw_harbor_get_product_activation_url' )
 		) {
 			return '';
@@ -156,7 +156,7 @@ class License_Data {
 		$entitlement = $this->get_licensed_entry();
 
 		if ( ! $entitlement instanceof Product_Entry ) {
-			return lw_harbor_get_activation_url( $return_url );
+			return lw_harbor_get_activation_base_url( $return_url );
 		}
 
 		return lw_harbor_get_product_activation_url(
