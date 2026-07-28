@@ -136,6 +136,10 @@ class License_Data {
 	 * of whether a URL can be built at all, which the setup guide needs so it
 	 * can show a step as done rather than hide it.
 	 *
+	 * Harbor returns null when it has no URL to give; that is folded into the
+	 * empty string this returns, because both mean the same thing here — there
+	 * is nothing to link to.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $return_url Where the portal returns the user afterwards.
@@ -156,14 +160,14 @@ class License_Data {
 		$entitlement = $this->get_licensed_entry();
 
 		if ( ! $entitlement instanceof Product_Entry ) {
-			return lw_harbor_get_activation_base_url( $return_url );
+			return lw_harbor_get_activation_base_url( $return_url ) ?? '';
 		}
 
 		return lw_harbor_get_product_activation_url(
 			$entitlement->get_product_slug(),
 			$entitlement->get_tier(),
 			$return_url
-		);
+		) ?? '';
 	}
 
 	/**
