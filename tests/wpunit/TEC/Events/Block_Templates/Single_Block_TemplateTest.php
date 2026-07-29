@@ -67,9 +67,10 @@ class Single_Block_TemplateTest extends WPTestCase {
 		$this->given_a_template_post( '<!-- wp:paragraph --><p>Default markup</p><!-- /wp:paragraph -->', 30 );
 		$canonical_id = $this->given_a_template_post( '<!-- wp:paragraph --><p>Customer layout</p><!-- /wp:paragraph -->' );
 
-		/* The Site Editor lists the templates before it can save one. */
-		tribe( Single_Block_Template::class )->get_block_template();
-
+		/*
+		 * Nothing lists the templates first: opening a template by its URL resolves it straight by ID,
+		 * which is the path the save runs through and the one that used to skip consolidation.
+		 */
 		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 
 		$edited  = '<!-- wp:heading --><h2>Edited layout</h2><!-- /wp:heading -->';
