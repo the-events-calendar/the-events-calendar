@@ -86,7 +86,7 @@ trait With_Canonical_Block_Template {
 					'modified' => 'DESC',
 					'ID'       => 'DESC',
 				],
-				'tax_query'           => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+				'tax_query'           => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- The `wp_theme` term is how a block template is namespaced; there is no other way to scope this lookup.
 					[
 						'taxonomy' => 'wp_theme',
 						'field'    => 'name',
