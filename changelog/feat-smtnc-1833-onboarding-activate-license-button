@@ -1,4 +1,4 @@
 Significance: minor
-Type: feat
+Type: tweak
 
-Added an "Activate license" button to the first step of the guided setup, and a matching "License activated" step to the Setup Guide checklist. Both send the user to the Liquid Web portal to activate, and bring them back where they left off once they are done. The wizard button is hidden after the calendar is licensed and activated on the site. The checklist step stays on show, marked as complete, and offers a "Manage license" link to the portal instead.
+Improved the unified licensing page experience.
