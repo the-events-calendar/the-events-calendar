@@ -7,6 +7,7 @@ use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
 use WP_Block_Template;
 use TEC\Events\Block_Templates\Block_Template_Contract;
+use TEC\Events\Block_Templates\With_Canonical_Block_Template;
 
 /**
  * Class Archive_Block_Template
@@ -17,6 +18,8 @@ use TEC\Events\Block_Templates\Block_Template_Contract;
  * @package TEC\Events\Block_Templates\Archive_Events
  */
 class Archive_Block_Template implements Block_Template_Contract {
+	use With_Canonical_Block_Template;
+
 	/**
 	 * @since 6.3.3
 	 *
@@ -95,11 +98,12 @@ class Archive_Block_Template implements Block_Template_Contract {
 	 * Creates if non-existent theme post, then returns the WP_Block_Template object for archive events.
 	 *
 	 * @since 6.2.7
+	 * @since TBD Resolves a single canonical post when duplicates claim our slug.
 	 *
 	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
 	public function get_block_template(): ?WP_Block_Template {
-		$wp_block_template = Template_Utils::find_block_template_by_post( $this->block->slug(), $this->block->get_namespace() );
+		$wp_block_template = $this->find_canonical_block_template( $this->block->slug(), $this->block->get_namespace() );
 
 		// If empty, this is our first time loading our Block Template. Let's create it.
 		if ( ! $wp_block_template ) {
