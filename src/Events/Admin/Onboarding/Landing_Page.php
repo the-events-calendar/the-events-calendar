@@ -233,45 +233,6 @@ class Landing_Page extends Abstract_Admin_Page {
 				</div>
 				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/' . esc_html( count( $condition ) ) . ' ' . esc_html__( 'steps completed', 'the-events-calendar' ); ?></div>
 				<ul class="tec-admin-page__content-step-list">
-					<?php if ( $license_url ) : ?>
-					<li
-						id="tec-events-onboarding-wizard-license-item"
-						<?php
-						tec_classes(
-							[
-								'step-list__item'                            => true,
-								'tec-admin-page__onboarding-step--completed' => $license_activated,
-							]
-						);
-						?>
-					>
-						<div class="step-list__item-left">
-							<span class="step-list__item-icon" role="presentation"></span>
-							<?php esc_html_e( 'License activated', 'the-events-calendar' ); ?>
-						</div>
-						<?php if ( $license_link_url ) : ?>
-						<div class="step-list__item-right">
-							<?php
-							/*
-							 * Before activation the link leaves wp-admin for the portal, so it
-							 * carries the external affordance; the management link stays in
-							 * wp-admin and so does not. Neither opens a new tab: the activation
-							 * URL carries a return address, and the in-WP manager has the browser
-							 * back button.
-							 */
-							?>
-							<span class="<?php echo esc_attr( $license_activated ? '' : 'tec-admin-page__link--external' ); ?>">
-								<a
-									href="<?php echo esc_url( $license_link_url ); ?>"
-									class="tec-admin-page__link"
-								>
-									<?php echo esc_html( $license_link_text ); ?>
-								</a>
-							</span>
-						</div>
-						<?php endif; ?>
-					</li>
-					<?php endif; ?>
 					<li
 						id="tec-events-onboarding-wizard-views-item"
 						<?php
@@ -382,6 +343,45 @@ class Landing_Page extends Abstract_Admin_Page {
 							</a>
 						</div>
 					</li>
+					<?php if ( $license_url ) : ?>
+					<li
+						id="tec-events-onboarding-wizard-license-item"
+						<?php
+						tec_classes(
+							[
+								'step-list__item'                            => true,
+								'tec-admin-page__onboarding-step--completed' => $license_activated,
+							]
+						);
+						?>
+					>
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'License activated', 'the-events-calendar' ); ?>
+						</div>
+						<?php if ( $license_link_url ) : ?>
+						<div class="step-list__item-right">
+							<?php
+							/*
+							 * Before activation the link leaves wp-admin for the portal, so it
+							 * carries the external affordance; the management link stays in
+							 * wp-admin and so does not. Neither opens a new tab: the activation
+							 * URL carries a return address, and the in-WP manager has the browser
+							 * back button.
+							 */
+							?>
+							<span class="<?php echo esc_attr( $license_activated ? '' : 'tec-admin-page__link--external' ); ?>">
+								<a
+									href="<?php echo esc_url( $license_link_url ); ?>"
+									class="tec-admin-page__link"
+								>
+									<?php echo esc_html( $license_link_text ); ?>
+								</a>
+							</span>
+						</div>
+						<?php endif; ?>
+					</li>
+					<?php endif; ?>
 				</ul>
 				<div class="tec-admin-page__content-section-mid">
 					<h2 class="tec-admin-page__content-header">

@@ -318,20 +318,28 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 	}
 
 	/**
-	 * Activating is the first thing a user should do, so the step leads the list.
+	 * The checklist keeps leading with the calendar setup a new user came here to
+	 * do, so the license step closes the list rather than opening it.
+	 *
+	 * Pinned against the venue step, which is the last of the calendar steps: an
+	 * assertion against only the first step would still pass if the license item
+	 * landed somewhere in the middle.
 	 *
 	 * @test
 	 * @since TBD
 	 */
-	public function it_should_place_the_license_step_first_in_the_list() {
+	public function it_should_place_the_license_step_last_in_the_list() {
 		$output = $this->render_checklist( self::ACTIVATION_URL, false );
 
 		$license_position = strpos( $output, 'tec-events-onboarding-wizard-license-item' );
 		$views_position   = strpos( $output, 'tec-events-onboarding-wizard-views-item' );
+		$venue_position   = strpos( $output, 'tec-events-onboarding-wizard-venue-item' );
 
 		$this->assertNotFalse( $license_position, 'The license step should be rendered.' );
 		$this->assertNotFalse( $views_position, 'The calendar views step should be rendered.' );
-		$this->assertLessThan( $views_position, $license_position );
+		$this->assertNotFalse( $venue_position, 'The event venue step should be rendered.' );
+		$this->assertGreaterThan( $views_position, $license_position );
+		$this->assertGreaterThan( $venue_position, $license_position );
 	}
 
 	/**
