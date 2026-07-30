@@ -9,9 +9,6 @@
 
 namespace TEC\Events\Admin\Onboarding;
 
-use TEC\Common\LiquidWeb\Harbor\Licensing\Product_Collection;
-use TEC\Common\LiquidWeb\Harbor\Licensing\Repositories\License_Repository;
-use TEC\Common\LiquidWeb\Harbor\Licensing\Results\Product_Entry;
 use Tribe__Dependency;
 
 /**
@@ -59,8 +56,7 @@ class License_Data {
 	 * @return bool True when the activation URL functions are available.
 	 */
 	public function can_build_activation_url(): bool {
-		return function_exists( 'lw_harbor_get_activation_base_url' )
-			&& function_exists( 'lw_harbor_get_product_activation_url' );
+		return function_exists( 'lw_harbor_get_product_activation_url' );
 	}
 
 	/**
@@ -125,11 +121,11 @@ class License_Data {
 	 * The portal returns the user to the given address once they are done, so
 	 * they pick up where they left off.
 	 *
-	 * When the stored license already covers the calendar, the URL is scoped to
-	 * the product and tier so the portal pre-selects the right subscription.
-	 * Otherwise the user lands on their subscription list and picks it
-	 * themselves, which is the best that can be done without knowing what they
-	 * hold.
+	 * The URL is scoped to the tier when Harbor names one, so the portal
+	 * pre-selects the right subscription. When it cannot — the key does not cover
+	 * the calendar, or covers it at several tiers — the tier is null and the
+	 * portal shows its own picker, still limited to this domain. That is the right
+	 * screen for a genuine choice, and better than guessing on the user's behalf.
 	 *
 	 * Callers that only want a URL for a user with something left to do should
 	 * use get_activation_url() instead. This one answers the narrower question
@@ -150,24 +146,18 @@ class License_Data {
 	public function build_activation_url( string $return_url ): string {
 		// Guarded inline (not only via can_build_activation_url()) so static
 		// analysis can see the functions are called only when they exist.
-		if (
-			! function_exists( 'lw_harbor_get_activation_base_url' )
-			|| ! function_exists( 'lw_harbor_get_product_activation_url' )
-		) {
+		if ( ! function_exists( 'lw_harbor_get_product_activation_url' ) ) {
 			return '';
 		}
 
-		$entitlement = $this->get_licensed_entry();
+		// A null tier is passed through deliberately: the portal answers an
+		// unscoped sku with its own product and tier picker, still limited to
+		// this domain, which is the right screen when the tier is unknown.
+		$tier = function_exists( 'lw_harbor_get_product_tier' )
+			? lw_harbor_get_product_tier( self::PRODUCT_SLUG )
+			: null;
 
-		if ( ! $entitlement instanceof Product_Entry ) {
-			return lw_harbor_get_activation_base_url( $return_url ) ?? '';
-		}
-
-		return lw_harbor_get_product_activation_url(
-			$entitlement->get_product_slug(),
-			$entitlement->get_tier(),
-			$return_url
-		) ?? '';
+		return lw_harbor_get_product_activation_url( self::PRODUCT_SLUG, $tier, $return_url ) ?? '';
 	}
 
 	/**
@@ -204,61 +194,7 @@ class License_Data {
 	 * @return bool True when the calendar is licensed and activated on this site.
 	 */
 	public function is_activated(): bool {
-		$products = $this->get_products();
-
-		if ( ! $products instanceof Product_Collection ) {
-			return false;
-		}
-
-		$entry = $products->get_activated_entry( self::PRODUCT_SLUG );
-
-		return $entry instanceof Product_Entry && $entry->is_valid();
-	}
-
-	/**
-	 * Get the licensed entry for the calendar, whatever its activation state.
-	 *
-	 * Used to scope the activation URL. The tier is known as soon as the key
-	 * covers the product, well before it has been activated on this domain, so
-	 * this deliberately does not filter on activation.
-	 *
-	 * Returns the first entry when a key covers several tiers. Picking between
-	 * them is the portal's job, and it still receives the product either way.
-	 *
-	 * @since TBD
-	 *
-	 * @return Product_Entry|null The entry, or null when the key does not cover the calendar.
-	 */
-	protected function get_licensed_entry(): ?Product_Entry {
-		$products = $this->get_products();
-
-		if ( ! $products instanceof Product_Collection ) {
-			return null;
-		}
-
-		$entries = $products->get_all_by_slug( self::PRODUCT_SLUG );
-
-		return $entries ? reset( $entries ) : null;
-	}
-
-	/**
-	 * Get the licensed products Harbor holds for this site.
-	 *
-	 * Harbor returns a WP_Error when its last fetch failed, and null when it has
-	 * never fetched. Neither is something the onboarding UI can act on, so both
-	 * are flattened to null here and read by callers as "no license".
-	 *
-	 * @since TBD
-	 *
-	 * @return Product_Collection|null The products, or null when unavailable.
-	 */
-	protected function get_products(): ?Product_Collection {
-		if ( ! class_exists( License_Repository::class ) ) {
-			return null;
-		}
-
-		$products = tribe( License_Repository::class )->get_products();
-
-		return $products instanceof Product_Collection ? $products : null;
+		return function_exists( 'lw_harbor_is_product_license_active' )
+			&& lw_harbor_is_product_license_active( self::PRODUCT_SLUG );
 	}
 }
