@@ -303,6 +303,37 @@ class BaseTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Test is_event_id_format with valid numeric values
+	 *
+	 * @test
+	 */
+	public function test_is_event_id_format_accepts_numeric_values() {
+		$sut = $this->make_instance();
+
+		$this->assertTrue( $sut->is_event_id_format( 123 ) );
+		$this->assertTrue( $sut->is_event_id_format( '123' ) );
+		$this->assertTrue( $sut->is_event_id_format( 0 ) );
+		$this->assertTrue( $sut->is_event_id_format( '0' ) );
+		$this->assertTrue( $sut->is_event_id_format( PHP_INT_MAX ) );
+		$this->assertTrue( $sut->is_event_id_format( 999999 ) );
+	}
+
+	/**
+	 * Test is_event_id_format with invalid values
+	 *
+	 * @test
+	 */
+	public function test_is_event_id_format_rejects_invalid_values() {
+		$sut = $this->make_instance();
+
+		$this->assertFalse( $sut->is_event_id_format( null ) );
+		$this->assertFalse( $sut->is_event_id_format( false ) );
+		$this->assertFalse( $sut->is_event_id_format( '' ) );
+		$this->assertFalse( $sut->is_event_id_format( 'foo' ) );
+		$this->assertFalse( $sut->is_event_id_format( 'not-a-number' ) );
+	}
+
+	/**
 	 * Test is_event_slug with the wrong slug
 	 *
 	 * @test
