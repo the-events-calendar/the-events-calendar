@@ -2,11 +2,56 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
+use DateTimeImmutable;
 use Spatie\Snapshots\MatchesSnapshots;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
 
 class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
+
+	/**
+	 * Creates an Event with 2 additional Occurrences (3 total), all sharing the same post_id.
+	 *
+	 * @return \WP_Post The Event post the additional Occurrences were created for.
+	 */
+	private function given_an_event_with_multiple_occurrences(): \WP_Post {
+		$post = tribe_events()->set_args( [
+			'post_title'  => 'Recurring Event',
+			'post_status' => 'publish',
+			'start_date'  => '+1 day 10 am',
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create();
+
+		$first = Occurrence::where( 'post_id', '=', $post->ID )->first();
+		$proto  = [
+			'event_id'       => $first->event_id,
+			'post_id'        => $first->post_id,
+			'start_date'     => $first->start_date,
+			'start_date_utc' => $first->start_date_utc,
+			'end_date'       => $first->end_date,
+			'end_date_utc'   => $first->end_date_utc,
+			'duration'       => $first->duration,
+			'hash'           => $first->hash,
+			'updated_at'     => $first->updated_at,
+		];
+
+		foreach ( [ '+1 week', '+2 weeks' ] as $offset ) {
+			$start = ( new DateTimeImmutable( $proto['start_date'] ) )->modify( $offset );
+			$end   = ( new DateTimeImmutable( $proto['end_date'] ) )->modify( $offset );
+			Occurrence::insert( array_merge( $proto, [
+				'start_date'     => $start->format( 'Y-m-d H:i:s' ),
+				'start_date_utc' => $start->format( 'Y-m-d H:i:s' ),
+				'end_date'       => $end->format( 'Y-m-d H:i:s' ),
+				'end_date_utc'   => $end->format( 'Y-m-d H:i:s' ),
+				'hash'           => sha1( microtime() . $offset ),
+			] ) );
+		}
+
+		$this->assertEquals( 3, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		return $post;
+	}
 
 	/**
 	 * @before
@@ -185,6 +230,60 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		// We do not really care about the ORDER here, just the set nature.
 		$this->assertEqualsCanonicalizing( $events, $found );
 		$this->assertMatchesSnapshot( $logged_queries );
+	}
+
+	/**
+	 * It should deduplicate multiple Occurrences of the same Event by default
+	 *
+	 * @test
+	 */
+	public function should_deduplicate_multiple_occurrences_of_same_event_by_default(): void {
+		$post = $this->given_an_event_with_multiple_occurrences();
+
+		$wp_query = new \WP_Query();
+		$found    = $wp_query->query( [
+			'fields'    => 'ids',
+			'post_type' => TEC::POSTTYPE,
+			'post__in'  => [ $post->ID ],
+		] );
+
+		$this->assertEquals(
+			[ $post->ID ],
+			$found,
+			'Without an add-on declaring support for recurring Occurrences, only one row per Event should be returned.'
+		);
+	}
+
+	/**
+	 * It should not deduplicate multiple Occurrences of the same Event when an add-on declares support
+	 *
+	 * @test
+	 */
+	public function should_not_deduplicate_multiple_occurrences_when_addon_declares_support(): void {
+		$post = $this->given_an_event_with_multiple_occurrences();
+
+		// Simulate an add-on wiring up real per-Occurrence SELECT redirection.
+		$identity = static function ( $select_fields ) {
+			return $select_fields;
+		};
+		add_filter( 'tec_events_custom_tables_v1_occurrence_select_fields', $identity );
+
+		try {
+			$wp_query = new \WP_Query();
+			$found    = $wp_query->query( [
+				'fields'    => 'ids',
+				'post_type' => TEC::POSTTYPE,
+				'post__in'  => [ $post->ID ],
+			] );
+		} finally {
+			remove_filter( 'tec_events_custom_tables_v1_occurrence_select_fields', $identity );
+		}
+
+		$this->assertCount(
+			3,
+			$found,
+			'When an add-on declares support for recurring Occurrences, one row per Occurrence should be returned.'
+		);
 	}
 
 	public function orderby_data_provider(): \Generator {
