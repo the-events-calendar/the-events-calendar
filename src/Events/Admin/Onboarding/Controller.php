@@ -88,7 +88,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.0 Changed the priority of `admin_menu` to reposition menu item.
-	 * @since TBD Redirect to the Guided Setup page on a fresh activation.
+	 * @since 6.17.2 Redirect to the Guided Setup page on a fresh activation.
 	 */
 	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -120,7 +120,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.0 Changed the priority of `admin_menu`.
-	 * @since TBD Removed the activation redirect to the Guided Setup page.
+	 * @since 6.17.2 Removed the activation redirect to the Guided Setup page.
 	 */
 	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -198,7 +198,7 @@ class Controller extends Controller_Contract {
 	 * next admin page load we consume that transient and send the user to the Guided Setup page,
 	 * mirroring how sister plugins greet a new install.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @return void
 	 */
@@ -244,7 +244,7 @@ class Controller extends Controller_Contract {
 	 * conditions: skip if the page was already visited or dismissed, or if this is an upgraded
 	 * install (more than one recorded version) rather than a fresh one.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @return bool Whether the redirect should happen.
 	 */
@@ -288,7 +288,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Builds the URL of the Guided Setup page.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @return string The Guided Setup page URL.
 	 */

@@ -200,7 +200,7 @@ class Tribe__Events__Aggregator__Cron {
 	 * Registers the cron_schedules filter. Hooked to `init` from the constructor, instead of
 	 * registered directly, so this never fires (and never translates its label) too early.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @return void
 	 */

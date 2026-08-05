@@ -64,7 +64,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	/**
 	 * Validates that an event exists and is the correct post type.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param int $event_id The event ID to validate.
 	 *
@@ -99,7 +99,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	/**
 	 * Validates that an event is accessible for reading.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param WP_Post         $event   The event post object.
 	 * @param WP_REST_Request $request The REST request object.
@@ -136,7 +136,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	/**
 	 * GET request via API.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param WP_REST_Request $request The REST request object.
 	 *
@@ -572,7 +572,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can delete the event.
-	 * @since TBD Fall back to general capability for non-existent posts.
+	 * @since 6.17.2 Fall back to general capability for non-existent posts.
 	 *
 	 * @param $request WP_REST_Request The request object.
 	 *
@@ -656,7 +656,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * @since 4.6
 	 * @since 6.15.16.1 Add more logic to check if the user can edit the event.
-	 * @since TBD Fall back to general capability for non-existent posts.
+	 * @since 6.17.2 Fall back to general capability for non-existent posts.
 	 *
 	 * @param $request WP_REST_Request The request object.
 	 *
