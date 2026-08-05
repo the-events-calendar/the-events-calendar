@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Resolved an issue where saving the Single Event or Calendar Views
+  template in the Site Editor could move the customization onto a numbered
+  template and restore the default layout.
+timestamp: 2026-07-29T14:02:16.624Z

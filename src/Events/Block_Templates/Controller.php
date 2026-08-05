@@ -67,6 +67,7 @@ class Controller extends Controller_Contract {
 	 */
 	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
+		add_filter( 'pre_get_block_template', [ $this, 'filter_pre_get_block_template' ], 10, 3 );
 		add_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10, 3 );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
@@ -90,6 +91,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_filters() {
 		remove_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25 );
+		remove_filter( 'pre_get_block_template', [ $this, 'filter_pre_get_block_template' ], 10 );
 		remove_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10 );
 		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
@@ -200,6 +202,30 @@ class Controller extends Controller_Contract {
 		}
 
 		return $query_result;
+	}
+
+	/**
+	 * Answers for our Block Templates before WordPress queries for them.
+	 *
+	 * WordPress resolves a template ID straight from the database and returns on the first hit, so the
+	 * `get_block_template` filter never runs once a post exists. Answering here keeps our own lookup in
+	 * charge of picking which post owns the slug, which the Site Editor save path depends on when it
+	 * loads a template directly instead of through the template list.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|WP_Block_Template $block_template The filtered template.
+	 * @param string                 $id             The block template ID.
+	 * @param string                 $template_type  The template type.
+	 *
+	 * @return null|WP_Block_Template The template when the ID is one of ours, otherwise the input.
+	 */
+	public function filter_pre_get_block_template( $block_template, $id, $template_type ) {
+		if ( null !== $block_template ) {
+			return $block_template;
+		}
+
+		return $this->filter_include_template_by_id( $block_template, $id, $template_type );
 	}
 
 	/**
