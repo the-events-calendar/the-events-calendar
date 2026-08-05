@@ -60,8 +60,11 @@ class Tribe__Events__Aggregator__Cron {
 		// Register the base cron schedule
 		add_action( 'init', [ $this, 'action_register_cron' ] );
 
-		// Register the Required Cron Schedules
-		add_filter( 'cron_schedules', [ $this, 'filter_add_cron_schedules' ] );
+		// Register the Required Cron Schedules on `init`, not here: this filter fires on any
+		// wp_schedule_event()/wp_get_schedules() call, including from unrelated plugins
+		// bootstrapping on `plugins_loaded`, which would otherwise force esc_html_x() to run
+		// too early and trigger a "translation loaded too early" notice.
+		add_action( 'init', [ $this, 'register_cron_schedules_filter' ], 0 );
 
 		// Check for imports on cron action
 		add_action( self::$action, [ $this, 'run' ] );
@@ -194,6 +197,18 @@ class Tribe__Events__Aggregator__Cron {
 	}
 
 	/**
+	 * Registers the cron_schedules filter. Hooked to `init` from the constructor, instead of
+	 * registered directly, so this never fires (and never translates its label) too early.
+	 *
+	 * @since 6.17.2
+	 *
+	 * @return void
+	 */
+	public function register_cron_schedules_filter() {
+		add_filter( 'cron_schedules', [ $this, 'filter_add_cron_schedules' ] );
+	}
+
+	/**
 	 * Adds the Frequency to WP cron schedules
 	 * Instead of having cron be scheduled to specific times, we will check every 30 minutes
 	 * to make sure we can insert without having to expire cache.
@@ -206,7 +221,7 @@ class Tribe__Events__Aggregator__Cron {
 		// Ensure schedules is an array.
 		$schedules = is_array( $schedules ) ? $schedules : [];
 
-		// Adds the Min frequency to WordPress cron schedules
+		// Adds the Min frequency to WordPress cron schedules.
 		$schedules['tribe-every15mins'] = [
 			'interval' => MINUTE_IN_SECONDS * 15,
 			'display'  => esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),

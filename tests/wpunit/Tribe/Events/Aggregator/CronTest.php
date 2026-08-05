@@ -7,7 +7,6 @@ use Tribe\Events\Test\Traits\Aggregator\AggregatorMaker;
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Service;
-use Tribe\Events\Virtual\Tests\Traits\With_Uopz;
 use Tribe__Events__Aggregator__Cron as Cron;
 use Tribe__Events__Aggregator__Records as Records;
 
@@ -34,6 +33,10 @@ class CronTest extends Aggregator_TestCase {
 		} );
 	}
 
+	public function _after() {
+		$this->reset_cron_singleton();
+	}
+
 	/**
 	 * @return Cron
 	 */
@@ -43,6 +46,25 @@ class CronTest extends Aggregator_TestCase {
 				// no side-effects constructor
 			}
 		};
+	}
+
+	/**
+	 * Builds a real, singleton-backed Cron instance (constructor side effects included), so
+	 * hook-registration timing can be exercised. Resets the private static instance first, since
+	 * `Cron::instance()` memoizes and TEC's own bootstrap has already constructed one for real.
+	 *
+	 * @return Cron
+	 */
+	private function make_real_instance() {
+		$this->reset_cron_singleton();
+
+		return Cron::instance();
+	}
+
+	private function reset_cron_singleton() {
+		$instance_property = ( new \ReflectionClass( Cron::class ) )->getProperty( 'instance' );
+		$instance_property->setAccessible( true );
+		$instance_property->setValue( null, null );
 	}
 
 	/**
@@ -574,6 +596,96 @@ class CronTest extends Aggregator_TestCase {
 			'23k'         => [ 23000, 22000 ],
 			'empty value' => [ '', 100 ],
 		];
+	}
+
+	/**
+	 * It should defer registering the `cron_schedules` filter until `init` fires, instead of
+	 * registering it directly in the constructor - so a plugin that triggers wp_schedule_event()
+	 * (and therefore the global `cron_schedules` filter) during its own early `plugins_loaded`
+	 * bootstrap never invokes our callback, and never triggers a premature translation call.
+	 *
+	 * Note: this does not fire `do_action( 'init' )` directly. By the time wp-browser boots the
+	 * test suite, WordPress has already fired `init` for real, so re-firing it globally here
+	 * would re-run every other callback hooked to `init` in the process (WP core, other TEC
+	 * bootstrapping, etc.), potentially multiple times. Instead, it invokes the specific
+	 * callback the constructor hooked to `init`, which is what firing `init` would trigger for
+	 * this class.
+	 *
+	 * @see https://github.com/the-events-calendar/the-events-calendar/pull/5701
+	 * @test
+	 */
+	public function should_defer_cron_schedules_filter_registration_until_init() {
+		$cron = $this->make_real_instance();
+
+		$this->assertFalse(
+			has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] ),
+			'The cron_schedules filter should not be registered before init has fired.'
+		);
+
+		$this->assertNotFalse(
+			has_action( 'init', [ $cron, 'register_cron_schedules_filter' ] ),
+			'register_cron_schedules_filter must be hooked to init.'
+		);
+
+		// Simulate `init` firing for this hook, without triggering the global `init` action.
+		$cron->register_cron_schedules_filter();
+
+		$this->assertNotFalse(
+			has_filter( 'cron_schedules', [ $cron, 'filter_add_cron_schedules' ] ),
+			'The cron_schedules filter should be registered once init fires.'
+		);
+	}
+
+	/**
+	 * It should register the `cron_schedules` filter early enough on `init` that the
+	 * `tribe-every15mins` schedule already exists by the time `action_register_cron` (also
+	 * hooked to `init`, at the default priority) tries to use it.
+	 *
+	 * Note: rather than firing `do_action( 'init' )` (which would re-run every other `init`
+	 * callback registered in the process), this compares the registered hook priorities
+	 * directly. `has_action()` returns the priority a callback is hooked at (or `false` if it
+	 * isn't hooked), which is enough to prove the ordering guarantee without executing anything.
+	 *
+	 * @test
+	 */
+	public function should_register_cron_schedules_filter_before_action_register_cron_runs_on_init() {
+		$cron = $this->make_real_instance();
+
+		$register_cron_schedules_filter_priority = has_action( 'init', [ $cron, 'register_cron_schedules_filter' ] );
+		$action_register_cron_priority           = has_action( 'init', [ $cron, 'action_register_cron' ] );
+
+		$this->assertNotFalse(
+			$register_cron_schedules_filter_priority,
+			'register_cron_schedules_filter should be hooked to init.'
+		);
+		$this->assertNotFalse(
+			$action_register_cron_priority,
+			'action_register_cron should be hooked to init.'
+		);
+
+		$this->assertLessThan(
+			$action_register_cron_priority,
+			$register_cron_schedules_filter_priority,
+			'The cron_schedules filter should be registered at an earlier init priority than action_register_cron runs at.'
+		);
+	}
+
+	/**
+	 * It should still translate the cron schedule label once `init` has fired.
+	 *
+	 * @test
+	 */
+	public function should_translate_schedule_label_once_init_has_fired() {
+		// The WP test suite has already fired `init` by the time tests run.
+		$this->assertGreaterThan( 0, did_action( 'init' ) );
+
+		$cron      = $this->make_instance();
+		$schedules = $cron->filter_add_cron_schedules( [] );
+
+		$this->assertSame(
+			esc_html_x( 'Every 15 minutes', 'aggregator schedule frequency', 'the-events-calendar' ),
+			$schedules['tribe-every15mins']['display']
+		);
 	}
 
 	/**

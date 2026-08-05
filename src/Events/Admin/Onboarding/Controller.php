@@ -88,6 +88,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.0 Changed the priority of `admin_menu` to reposition menu item.
+	 * @since 6.17.2 Redirect to the Guided Setup page on a fresh activation.
 	 */
 	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -96,6 +97,7 @@ class Controller extends Controller_Contract {
 		add_action( 'admin_post_' . Landing_Page::DISMISS_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		add_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
+		add_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'maybe_redirect_to_guided_setup_on_activation' ] );
 	}
 
 	/**
@@ -118,6 +120,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.0 Changed the priority of `admin_menu`.
+	 * @since 6.17.2 Removed the activation redirect to the Guided Setup page.
 	 */
 	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -126,6 +129,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'admin_post_' . Landing_Page::DISMISS_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
+		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'maybe_redirect_to_guided_setup_on_activation' ] );
 	}
 
 	/**
@@ -153,18 +157,6 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		/**
-		 * Allows bypassing the checks for if we've don't need to/have already visited the Guided Setup page.
-		 * Still respects the post type checks.
-		 *
-		 * @since 6.13.0
-		 *
-		 * @param bool $force Whether to force the redirect to the Guided Setup page.
-		 *
-		 * @return bool
-		 */
-		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
-
 		// Do not redirect if the target is not The Events Calendar-related admin pages.
 		$post_type = tec_get_request_var( 'post_type' );
 
@@ -189,36 +181,125 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		if ( ! $force ) {
-			// Do not redirect if they have been to the Guided Setup page already.
-			if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
-				return;
-			}
-
-			// Do not redirect if they dismissed the Guided Setup page.
-			if ( Landing_Page::is_dismissed() ) {
-				return;
-			}
-
-			// Do not redirect if they have older versions and are probably already set up.
-			$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
-			if ( count( $tec_versions ) > 1 ) {
-				return;
-			}
+		if ( ! $this->should_redirect_to_guided_setup() ) {
+			return;
 		}
 
-		// If we're still here, redirect to the Guided Setup page.
-		$setup_url = add_query_arg(
+		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
+		wp_safe_redirect( $this->get_guided_setup_url() );
+		tribe_exit();
+	}
+
+	/**
+	 * Redirects to the Guided Setup page right after the plugin is activated on its own.
+	 *
+	 * A single (non-bulk) activation of The Events Calendar sets the
+	 * `_tribe_events_activation_redirect` transient in Tribe__Events__Main::activate(). On the
+	 * next admin page load we consume that transient and send the user to the Guided Setup page,
+	 * mirroring how sister plugins greet a new install.
+	 *
+	 * @since 6.17.2
+	 *
+	 * @return void
+	 */
+	public function maybe_redirect_to_guided_setup_on_activation(): void {
+		// Set on activation in Tribe__Events__Main::activate(). Absent means this is a normal page load.
+		if ( ! get_transient( '_tribe_events_activation_redirect' ) ) {
+			return;
+		}
+
+		// Do not hijack a bulk plugin activation. WordPress adds `activate-multi` to the Plugins
+		// screen URL after several plugins are activated together, so the user stays in context.
+		// Consume the flag here too: the answer is settled for this activation, and leaving it
+		// behind would redirect the user on their very next admin page load instead.
+		if ( null !== tec_get_request_var( 'activate-multi' ) ) {
+			delete_transient( '_tribe_events_activation_redirect' );
+
+			return;
+		}
+
+		// Do not redirect users who cannot access the Guided Setup page. Leave the flag in place:
+		// it is site-wide and short-lived, so a user who can see the page should still be greeted
+		// if they are the next one to land in the admin.
+		if ( ! current_user_can( tribe( Landing_Page::class )->required_capability() ) ) {
+			return;
+		}
+
+		// From here on the activation has been handled, whether or not we end up redirecting.
+		delete_transient( '_tribe_events_activation_redirect' );
+
+		if ( ! $this->should_redirect_to_guided_setup() ) {
+			return;
+		}
+
+		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
+		wp_safe_redirect( $this->get_guided_setup_url() );
+		tribe_exit();
+	}
+
+	/**
+	 * Whether the user should be sent to the Guided Setup page.
+	 *
+	 * Shared by the on-visit redirect and the on-activation redirect so both honor the same
+	 * conditions: skip if the page was already visited or dismissed, or if this is an upgraded
+	 * install (more than one recorded version) rather than a fresh one.
+	 *
+	 * @since 6.17.2
+	 *
+	 * @return bool Whether the redirect should happen.
+	 */
+	protected function should_redirect_to_guided_setup(): bool {
+		/**
+		 * Allows bypassing the checks for whether we need to/have already visited the Guided Setup page.
+		 *
+		 * @since 6.13.0
+		 *
+		 * @param bool $force Whether to force the redirect to the Guided Setup page.
+		 *
+		 * @return bool
+		 */
+		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
+
+		if ( $force ) {
+			return true;
+		}
+
+		// Do not redirect if they have been to the Guided Setup page already.
+		if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
+			return false;
+		}
+
+		// Do not redirect if they dismissed the Guided Setup page. Read the option directly:
+		// the page opts out of Abstract_Admin_Page::$is_dismissible, so is_dismissed() always
+		// returns false, and dismissing should stop the redirect without hiding the menu item.
+		if ( (bool) tribe_get_option( Landing_Page::DISMISS_PAGE_OPTION, false ) ) {
+			return false;
+		}
+
+		// Do not redirect if they have older versions and are probably already set up.
+		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
+		if ( count( $tec_versions ) > 1 ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Builds the URL of the Guided Setup page.
+	 *
+	 * @since 6.17.2
+	 *
+	 * @return string The Guided Setup page URL.
+	 */
+	protected function get_guided_setup_url(): string {
+		return add_query_arg(
 			[
 				'post_type' => 'tribe_events',
 				'page'      => Landing_Page::$slug,
 			],
 			admin_url( 'edit.php' )
 		);
-
-		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
-		wp_safe_redirect( $setup_url );
-		tribe_exit();
 	}
 
 	/**
