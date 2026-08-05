@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.17.2] 2026-08-05 =
 
+* Language - 5 new strings added, 95 updated, 0 fuzzied, and 0 obsoleted.
 * Tweak - Improved the unified licensing page experience.
 * Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
 
