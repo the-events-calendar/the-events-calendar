@@ -111,7 +111,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	 * endpoint handlers where existence checks need to return proper HTTP
 	 * status codes (e.g. 404) rather than validation errors (400).
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param int|string $event_id A numeric event ID or string representation of a numeric event ID.
 	 *

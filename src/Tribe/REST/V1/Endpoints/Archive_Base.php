@@ -46,7 +46,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	/**
 	 * Validates that an event ID parameter is a valid, existing event.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param mixed  $value      The parameter value to validate.
 	 * @param string $param_name The parameter name, used in error messages.

@@ -54,7 +54,7 @@ interface Tribe__Events__Validator__Interface extends Tribe__Validator__Interfac
 	/**
 	 * Whether the value is a valid event ID format (numeric and non-empty).
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param int|string $event_id A numeric event ID or string representation of a numeric event ID.
 	 *

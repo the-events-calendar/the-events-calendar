@@ -138,7 +138,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * has no functional effect: every row would still resolve back to the same Event post and the
 	 * same static post meta. This intentionally cannot be toggled by declaring support alone.
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @return bool Whether an active add-on supports rendering multiple Occurrences of the same Event.
 	 */
@@ -658,7 +658,7 @@ class Custom_Tables_Query extends WP_Query {
 	 * same Event post would otherwise appear multiple times in the results. This filter keeps only
 	 * the first Occurrence of each post_id (respecting the query's ORDER BY).
 	 *
-	 * @since TBD
+	 * @since 6.17.2
 	 *
 	 * @param array    $posts The posts returned by the query.
 	 * @param WP_Query $query The WP_Query instance.

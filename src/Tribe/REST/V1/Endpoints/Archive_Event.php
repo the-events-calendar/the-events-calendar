@@ -53,7 +53,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
-	 * @since TBD Added validation for post_parent parameter.
+	 * @since 6.17.2 Added validation for post_parent parameter.
 	 *
 	 * @param WP_REST_Request $request
 	 *
