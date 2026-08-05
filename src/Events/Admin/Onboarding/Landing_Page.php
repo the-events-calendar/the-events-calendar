@@ -181,6 +181,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 6.8.4
 	 * @since 6.11.1 Fixed a typo.
+	 * @since TBD Added the license activation step.
 	 *
 	 * @return void
 	 */
@@ -201,6 +202,28 @@ class Landing_Page extends Abstract_Admin_Page {
 			isset( $completed_tabs[4] ) || ! empty( $organizer_data ),
 			isset( $completed_tabs[5] ) || ! empty( $venue_data ),
 		];
+
+		// An empty URL means there is no activation route to offer, so no step to show
+		// either. The calendar is free, so the step only earns its place on a site
+		// running a premium plugin a license would unlock.
+		$license           = tribe( License_Data::class );
+		$license_url       = $license->has_active_premium_plugin()
+			? $license->build_activation_url( $this->get_return_url() )
+			: '';
+		$license_activated = $license->is_activated();
+
+		// Order here only feeds the tally below. The steps are laid out in the markup.
+		if ( $license_url ) {
+			$condition[] = $license_activated;
+		}
+
+		// Once the license is activated there is nothing left to activate, so the
+		// step points at the in-WP license manager instead.
+		$license_link_url  = $license_activated ? $license->get_management_url() : $license_url;
+		$license_link_text = $license_activated
+			? __( 'Manage license', 'the-events-calendar' )
+			: __( 'Activate license', 'the-events-calendar' );
+
 		$count_complete = count( array_filter( $condition ) );
 		?>
 			<div class="tec-admin-page__content-section">
@@ -320,6 +343,45 @@ class Landing_Page extends Abstract_Admin_Page {
 							</a>
 						</div>
 					</li>
+					<?php if ( $license_url ) : ?>
+					<li
+						id="tec-events-onboarding-wizard-license-item"
+						<?php
+						tec_classes(
+							[
+								'step-list__item'                            => true,
+								'tec-admin-page__onboarding-step--completed' => $license_activated,
+							]
+						);
+						?>
+					>
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'License activated', 'the-events-calendar' ); ?>
+						</div>
+						<?php if ( $license_link_url ) : ?>
+						<div class="step-list__item-right">
+							<?php
+							/*
+							 * Before activation the link leaves wp-admin for the portal, so it
+							 * carries the external affordance; the management link stays in
+							 * wp-admin and so does not. Neither opens a new tab: the activation
+							 * URL carries a return address, and the in-WP manager has the browser
+							 * back button.
+							 */
+							?>
+							<span class="<?php echo esc_attr( $license_activated ? '' : 'tec-admin-page__link--external' ); ?>">
+								<a
+									href="<?php echo esc_url( $license_link_url ); ?>"
+									class="tec-admin-page__link"
+								>
+									<?php echo esc_html( $license_link_text ); ?>
+								</a>
+							</span>
+						</div>
+						<?php endif; ?>
+					</li>
+					<?php endif; ?>
 				</ul>
 				<div class="tec-admin-page__content-section-mid">
 					<h2 class="tec-admin-page__content-header">
@@ -523,6 +585,8 @@ class Landing_Page extends Abstract_Admin_Page {
 			'timezones'               => tribe( Data::class )->get_timezone_list(),
 			'countries'               => tribe( Data::class )->get_country_list(),
 			'currencies'              => tribe( Data::class )->get_currency_list(),
+			/* Licensing */
+			'activationUrl'           => tribe( License_Data::class )->get_activation_url( $this->get_return_url() ),
 		];
 
 
@@ -537,6 +601,18 @@ class Landing_Page extends Abstract_Admin_Page {
 		 * @return array
 		 */
 		return (array) apply_filters( 'tribe_events_onboarding_wizard_initial_data', $initial_data, $this );
+	}
+
+	/**
+	 * Get this page's own address, for handing to anything that sends the user
+	 * off site and needs somewhere to send them back to.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The URL of the guided setup page.
+	 */
+	protected function get_return_url(): string {
+		return admin_url( 'edit.php?post_type=tribe_events&page=' . static::$slug );
 	}
 
 	/**

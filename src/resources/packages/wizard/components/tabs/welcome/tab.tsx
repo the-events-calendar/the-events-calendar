@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import SetupButton from '../../buttons/setup';
+import ActivateButton from '../../buttons/activate';
 import ExitButton from '../../buttons/exit';
 import OptInCheckbox from './inputs/opt-in';
 import Illustration from './img/wizard-welcome-img.png';
@@ -46,7 +47,10 @@ const WelcomeContent = ( { moveToNextTab, skipToNextTab } ) => {
 				</p>
 			</div>
 			<div className="tec-events-onboarding__tab-content">
-				<SetupButton tabSettings={ tabSettings } moveToNextTab={ moveToNextTab } />
+				<div className="tec-events-onboarding__button-group">
+					<SetupButton tabSettings={ tabSettings } moveToNextTab={ moveToNextTab } />
+					<ActivateButton />
+				</div>
 				<ExitButton />
 			</div>
 			<div className="tec-events-onboarding__tab-footer">
