@@ -16,7 +16,6 @@ use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Site_Report;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
-use Tribe__Events__Main as TEC;
 
 /**
  * Class Provider.
@@ -302,8 +301,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 */
 	public function load_action_scheduler_late() {
 		_deprecated_function( __METHOD__, '6.9.1' );
-		$action_scheduler_file = TEC::instance()->plugin_path . '/common/vendor/woocommerce/action-scheduler/action-scheduler.php';
-		require_once $action_scheduler_file;
+
+		// Action Scheduler is now always loaded by Shepherd in Common, so there is nothing left to load here.
 	}
 
 	/**
