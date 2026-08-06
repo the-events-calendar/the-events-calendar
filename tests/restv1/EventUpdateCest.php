@@ -234,11 +234,11 @@ class EventUpdateCest extends BaseRestCest {
 	}
 
 	/**
-	 * It should mark bad request if id is bad
+	 * It should mark not found if id does not exist
 	 *
 	 * @test
 	 */
-	public function it_should_mark_bad_request_if_id_is_bad( Tester $I ) {
+	public function it_should_mark_not_found_if_id_does_not_exist( Tester $I ) {
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$params = [
@@ -249,7 +249,7 @@ class EventUpdateCest extends BaseRestCest {
 
 		$I->sendPOST( $this->events_url . '/2389', $params );
 
-		$I->seeResponseCodeIs( 400 );
+		$I->seeResponseCodeIs( 404 );
 	}
 
 	/**
