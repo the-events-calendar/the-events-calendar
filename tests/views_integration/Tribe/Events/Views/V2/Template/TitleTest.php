@@ -3,13 +3,30 @@
 namespace Tribe\Events\Views\V2\Template;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Views\V2\Utils\View as Utils_View;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe__Events__Main as TEC;
+use WP_Post;
 use WP_Query;
 
 class TitleTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use With_Post_Remapping;
+
+	/**
+	 * @var array<string, mixed> The global query objects as they stood before the current test.
+	 */
+	private $global_query_backup = [];
+
+	/**
+	 * @var string The request URI as it stood before the current test.
+	 */
+	private $request_uri_backup = '';
+
+	/**
+	 * @var mixed The `posts_per_page` option as it stood before the current test, restored verbatim.
+	 */
+	private $posts_per_page_backup;
 
 	public function setUp() {
 		parent::setUp();
@@ -17,6 +34,34 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			return 'http://products.tribe';
 		};
 		add_filter( 'option_home', $return_mock_url );
+
+		$this->global_query_backup   = [
+			'wp'           => $GLOBALS['wp'] ?? null,
+			'wp_query'     => $GLOBALS['wp_query'] ?? null,
+			'wp_the_query' => $GLOBALS['wp_the_query'] ?? null,
+			'page'         => $GLOBALS['page'] ?? null,
+			'paged'        => $GLOBALS['paged'] ?? null,
+		];
+		$this->request_uri_backup    = $_SERVER['REQUEST_URI'] ?? '';
+		$this->posts_per_page_backup = get_option( 'posts_per_page' );
+	}
+
+	public function tearDown() {
+		/*
+		 * A simulated request outlives the test that made it: a leftover `paged` pages every later
+		 * title, a leftover request URI pages every later View URL, and a leftover page size
+		 * offsets every later View query.
+		 */
+		foreach ( $this->global_query_backup as $global => $value ) {
+			$GLOBALS[ $global ] = $value;
+		}
+
+		$_SERVER['REQUEST_URI'] = $this->request_uri_backup;
+
+		update_option( 'posts_per_page', $this->posts_per_page_backup );
+		tribe_context()->refresh();
+
+		parent::tearDown();
 	}
 
 
@@ -383,6 +428,76 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
+	public function should_query_only_upcoming_events_for_the_archive_when_posts_are_not_injected() {
+		/* A full page of past events is what pushes every upcoming one out of the unconstrained query. */
+		[ , $upcoming ] = $this->given_events_on_the_archive( 5, 5, 2 );
+
+		$this->when_visiting_the_archive();
+		$this->assertTrue( is_post_type_archive( TEC::POSTTYPE ) );
+
+		$title = new Title();
+
+		$this->assertEqualSets(
+			wp_list_pluck( $upcoming, 'ID' ),
+			wp_list_pluck( $title->get_posts(), 'ID' )
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_build_the_archive_title_from_upcoming_events_when_posts_are_not_injected() {
+		[ $past, $upcoming ] = $this->given_events_on_the_archive( 5, 5, 2 );
+
+		$this->when_visiting_the_archive();
+
+		$title = ( new Title() )->build_title();
+
+		$first = tribe_get_start_date( reset( $upcoming ), false );
+		$last  = tribe_get_start_date( end( $upcoming ), false );
+
+		$this->assertStringContainsString( "$first - $last", $title );
+
+		foreach ( $past as $past_event ) {
+			$this->assertStringNotContainsString( tribe_get_start_date( $past_event, false ), $title );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_query_the_most_recent_past_events_for_the_past_archive() {
+		[ $past ] = $this->given_events_on_the_archive( 5, 5, 2 );
+
+		$this->when_visiting_the_archive( [ Utils_View::get_past_event_display_key() => 'past' ] );
+
+		$posts = ( new Title() )->get_posts();
+
+		$this->assertEqualSets( wp_list_pluck( $past, 'ID' ), wp_list_pluck( $posts, 'ID' ) );
+		$this->assertSame( end( $past )->ID, reset( $posts )->ID );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_query_the_requested_page_of_upcoming_events_for_the_archive() {
+		$per_page = 2;
+
+		[ , $upcoming ] = $this->given_events_on_the_archive( $per_page, 0, 5 );
+
+		$this->when_visiting_the_archive( [ 'paged' => 2 ] );
+
+		$expected = array_slice( $upcoming, $per_page, $per_page );
+
+		$this->assertSame(
+			wp_list_pluck( $expected, 'ID' ),
+			array_values( wp_list_pluck( ( new Title() )->get_posts(), 'ID' ) )
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function should_have_correct_title_on_venue_single() {
 		global $wp_query;
 		$old_q   = clone $wp_query;
@@ -426,5 +541,57 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 
 		// put old query back to avoid state bleed.
 		$wp_query = $old_q;
+	}
+
+	/**
+	 * Simulates a front-end request for the events archive.
+	 *
+	 * The Context is a singleton that caches what it reads, so it is refreshed afterwards to make it
+	 * report the request just simulated rather than the one before it.
+	 *
+	 * @param array<string, string|int> $query_args Query arguments to add to the archive URL.
+	 */
+	private function when_visiting_the_archive( array $query_args = [] ): void {
+		$this->go_to( add_query_arg( [ 'post_type' => TEC::POSTTYPE ] + $query_args, '/' ) );
+
+		tribe_context()->refresh();
+	}
+
+	/**
+	 * Populates the events archive and sets how many events one page of it holds.
+	 *
+	 * `events_per_page` reads back from the `posts_per_page` option, so the one value sizes both the
+	 * page and the unconstrained query the archive title used to run.
+	 *
+	 * @param int $per_page       How many events a page of the archive holds.
+	 * @param int $past_count     How many past events to create.
+	 * @param int $upcoming_count How many upcoming events to create.
+	 *
+	 * @return array{0: WP_Post[], 1: WP_Post[]} The past events and the upcoming ones, both oldest first.
+	 */
+	private function given_events_on_the_archive( int $per_page, int $past_count, int $upcoming_count ): array {
+		update_option( 'posts_per_page', $per_page );
+
+		$past = [];
+		for ( $i = $past_count; $i > 0; $i-- ) {
+			$past[] = tribe_events()->set_args( [
+				'start_date' => "-$i years",
+				'duration'   => HOUR_IN_SECONDS,
+				'title'      => "Past Event $i",
+				'status'     => 'publish',
+			] )->create();
+		}
+
+		$upcoming = [];
+		for ( $i = 1; $i <= $upcoming_count; $i++ ) {
+			$upcoming[] = tribe_events()->set_args( [
+				'start_date' => "+$i months",
+				'duration'   => HOUR_IN_SECONDS,
+				'title'      => "Upcoming Event $i",
+				'status'     => 'publish',
+			] )->create();
+		}
+
+		return [ $past, $upcoming ];
 	}
 }
