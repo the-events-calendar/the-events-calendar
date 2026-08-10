@@ -1620,7 +1620,7 @@ class View implements View_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return array<\WP_Post> The events the View would display for its current context and page.
+	 * @return array<int, WP_Post> The events the View would display for its current context and page.
 	 */
 	public function fetch_events(): array {
 		if ( empty( $this->repository_args ) ) {
@@ -1631,7 +1631,7 @@ class View implements View_Interface {
 		$events = array_filter(
 			$this->repository->all(),
 			static function ( $event ) {
-				return $event instanceof \WP_Post;
+				return $event instanceof WP_Post;
 			}
 		);
 

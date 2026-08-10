@@ -429,8 +429,10 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_query_only_upcoming_events_for_the_archive_when_posts_are_not_injected() {
-		/* A full page of past events is what pushes every upcoming one out of the unconstrained query. */
-		[ , $upcoming ] = $this->given_events_on_the_archive( 5, 5, 2 );
+		/* Filling the page with past events is what pushes every upcoming one out of the unconstrained query. */
+		$per_page = 5;
+
+		[ , $upcoming ] = $this->given_events_on_the_archive( $per_page, $per_page, 2 );
 
 		$this->when_visiting_the_archive();
 		$this->assertTrue( is_post_type_archive( TEC::POSTTYPE ) );
@@ -447,7 +449,10 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_build_the_archive_title_from_upcoming_events_when_posts_are_not_injected() {
-		[ $past, $upcoming ] = $this->given_events_on_the_archive( 5, 5, 2 );
+		/* With a full page of past events the range ends in the past too, so nothing clamps the start date. */
+		$per_page = 5;
+
+		[ $past, $upcoming ] = $this->given_events_on_the_archive( $per_page, $per_page, 2 );
 
 		$this->when_visiting_the_archive();
 
@@ -467,7 +472,10 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_query_the_most_recent_past_events_for_the_past_archive() {
-		[ $past ] = $this->given_events_on_the_archive( 5, 5, 2 );
+		/* Past view reads the same page size; a full page proves it orders by most recent, not oldest. */
+		$per_page = 5;
+
+		[ $past ] = $this->given_events_on_the_archive( $per_page, $per_page, 2 );
 
 		$this->when_visiting_the_archive( [ Utils_View::get_past_event_display_key() => 'past' ] );
 
@@ -481,6 +489,7 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_query_the_requested_page_of_upcoming_events_for_the_archive() {
+		/* A page smaller than the upcoming events gives page 2 something to hold; no past events needed. */
 		$per_page = 2;
 
 		[ , $upcoming ] = $this->given_events_on_the_archive( $per_page, 0, 5 );
