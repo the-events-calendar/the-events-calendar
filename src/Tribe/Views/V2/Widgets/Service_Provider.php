@@ -106,13 +106,13 @@ class Service_Provider extends Provider_Contract {
 
 	/**
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
-	 * 
+	 *
 	 * @since 6.11.1
-	 * 
+	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.
 	 * @param WP_REST_Request $request The REST request.
-	 * 
+	 *
 	 * @return mixed The result of the rest request.
 	 */
 	public function enable_widget_copy_paste( $result, $server, $request ) {
@@ -120,10 +120,10 @@ class Service_Provider extends Provider_Contract {
 		if ( null !== $result ) {
 			return $result;
 		}
-	
+
 		// Get the route being requested.
 		$route = $request->get_route();
-		
+
 		// Check if this matches our target endpoint.
 		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/(?:encode|render)$#', $route, $matches ) ) {
 			return $result;
@@ -133,10 +133,10 @@ class Service_Provider extends Provider_Contract {
 		if ( ! isset( $matches[1] ) ) {
 			return $result;
 		}
-	
+
 		// Get the widget type ID from the route.
 		$widget_type_id = $matches[1];
-	
+
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
 			return $result;
@@ -181,7 +181,7 @@ class Service_Provider extends Provider_Contract {
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
 	 * @param string          $route   The route of the request.
-	 * 
+	 *
 	 * @return mixed The result of the rest request.
 	 */
 	public function enable_saving_widget_copied( $result, $request, $route ) {
@@ -194,19 +194,19 @@ class Service_Provider extends Provider_Contract {
 		if ( ! is_string( $route ) ) {
 			return $result;
 		}
-		
+
 		// Check if this matches our target endpoint.
 		if ( ! str_starts_with( $route, '/wp/v2/widgets' ) ) {
 			return $result;
 		}
-		
+
 		$widget_type_id = $request->get_param( 'id_base' );
 
 		// Bail if the widget type ID is not a string.
 		if ( ! is_string( $widget_type_id ) ) {
 			return $result;
 		}
-	
+
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
 			return $result;
@@ -249,7 +249,7 @@ class Service_Provider extends Provider_Contract {
 	 * @since 6.11.2
 	 *
 	 * @param array $parsed_block The parsed block.
-	 * 
+	 *
 	 * @return array The parsed block.
 	 */
 	public function enable_rendering_widget_copied( $parsed_block ) {
@@ -264,7 +264,7 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		$instance = $parsed_block['attrs']['instance'] ?? [];
-		
+
 		if ( ! isset( $instance['encoded'], $instance['hash'] ) ) {
 			return $parsed_block;
 		}
@@ -284,7 +284,7 @@ class Service_Provider extends Provider_Contract {
 	}
 
 	/**
-	 * Whether a copied widget instance passes validation before its hash is regenerated.
+	 * Whether a copied widget instance passes validation.
 	 *
 	 * @since TBD
 	 *
