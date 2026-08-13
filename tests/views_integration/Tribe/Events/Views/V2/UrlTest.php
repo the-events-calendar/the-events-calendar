@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Generator;
 use Tribe__Context as Context;
 
 class UrlTest extends \Codeception\TestCase\WPTestCase {
@@ -370,5 +371,53 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 		} finally {
 			remove_filter( 'tec_events_views_v2_url_allowed_query_args', $filter );
 		}
+	}
+
+	/**
+	 * @return Generator<string, array{0: string, 1: int}>
+	 */
+	public function current_page_data_set(): Generator {
+		yield 'no_pagination_args' => [ '', 1 ];
+		yield 'paged' => [ '?paged=3', 3 ];
+		yield 'page' => [ '?page=4', 4 ];
+		yield 'paged_takes_precedence_over_page' => [ '?paged=3&page=7', 3 ];
+		yield 'paged_in_the_path' => [ 'page/2/', 2 ];
+		yield 'non_numeric_paged' => [ '?paged=abc', 1 ];
+		yield 'non_numeric_paged_w_numeric_page' => [ '?paged=abc&page=5', 1 ];
+		yield 'array_paged_w_numeric_page' => [ '?paged[]=2&page=5', 1 ];
+		yield 'zero_paged' => [ '?paged=0', 1 ];
+		yield 'negative_paged' => [ '?paged=-3', 1 ];
+	}
+
+	/**
+	 * It should always return a page number of 1 or greater as an integer
+	 *
+	 * @test
+	 * @dataProvider current_page_data_set
+	 *
+	 * @param string $query    The query string, or path fragment, to append to the archive URL.
+	 * @param int    $expected The page number the URL should resolve to.
+	 */
+	public function should_always_return_a_page_number_of_one_or_greater_as_an_integer( string $query, int $expected ) {
+		$url = new Url( home_url( '/events/list/' ) . $query );
+
+		$this->assertSame( $expected, $url->get_current_page() );
+	}
+
+	/**
+	 * `View::next_url()` and `View::prev_url()` do arithmetic on this value, which is a fatal
+	 * "Unsupported operand types" for anything that is not a number.
+	 *
+	 * @test
+	 * @dataProvider current_page_data_set
+	 *
+	 * @param string $query The query string, or path fragment, to append to the archive URL.
+	 */
+	public function should_return_a_page_number_that_can_be_used_in_arithmetic( string $query ) {
+		$url  = new Url( home_url( '/events/list/' ) . $query );
+		$page = $url->get_current_page();
+
+		$this->assertGreaterThanOrEqual( 1, $page + 1 );
+		$this->assertGreaterThanOrEqual( 0, $page - 1 );
 	}
 }
