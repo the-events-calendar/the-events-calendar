@@ -286,7 +286,7 @@ class Service_Provider extends Provider_Contract {
 	/**
 	 * Whether a copied widget instance passes validation.
 	 *
-	 * @since TBD
+	 * @since 6.17.2.1
 	 *
 	 * @param string $serialized The decoded widget instance.
 	 *
@@ -303,7 +303,7 @@ class Service_Provider extends Provider_Contract {
 	/**
 	 * Recursively determine whether a value holds any object.
 	 *
-	 * @since TBD
+	 * @since 6.17.2.1
 	 *
 	 * @param mixed $data The value to inspect.
 	 *
