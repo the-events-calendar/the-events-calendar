@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.17.2.1] 2026-08-17
+
+* Security - Hardened validation of copied legacy widget instances.
+
 ### [6.17.2] 2026-08-05
 
 * Language - 5 new strings added, 95 updated, 0 fuzzied, and 0 obsoleted.
