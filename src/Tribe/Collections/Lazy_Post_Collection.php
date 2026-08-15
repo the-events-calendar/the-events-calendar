@@ -86,6 +86,34 @@ class Lazy_Post_Collection extends Lazy_Collection {
 			return null;
 		}
 
-		return array_map( $unserialized['callback'], $unserialized['ids'] );
+		/*
+		 * Restore the callback on the instance.
+		 *
+		 * `__unserialize()` does not run the constructor, so `$unserialize_callback`
+		 * is `null` on a restored collection. Without this, the next
+		 * `before_serialize()` stores `'callback' => null` and the round trip after
+		 * that has nothing to rebuild the posts with.
+		 */
+		if ( ! empty( $unserialized['callback'] ) ) {
+			$this->unserialize_callback = $unserialized['callback'];
+		}
+
+		$callback = ! empty( $unserialized['callback'] )
+			? $unserialized['callback']
+			: $this->unserialize_callback;
+
+		/*
+		 * Guard the callback before mapping with it.
+		 *
+		 * `array_map( null, $ids )` is the zip form: given a single array it
+		 * returns that array unchanged. A missing callback would therefore leave
+		 * the collection holding bare post IDs rather than posts, with no error
+		 * raised at any point.
+		 */
+		if ( ! is_callable( $callback ) ) {
+			return null;
+		}
+
+		return array_map( $callback, $unserialized['ids'] );
 	}
 }
