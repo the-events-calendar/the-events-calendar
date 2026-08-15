@@ -286,6 +286,33 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		);
 	}
 
+	/**
+	 * It should redirect the date clauses of a query built after an earlier one on the same Repository
+	 *
+	 * A Repository builds a new WP_Query per fetch but keeps one set of Query Filters. An early consumer,
+	 * like the no-index check in TEC\Events\SEO\Controller that only runs on a full page load, must not
+	 * freeze the custom tables redirection for the queries built after it.
+	 *
+	 * @test
+	 */
+	public function should_redirect_date_clauses_of_a_query_built_after_an_earlier_one_on_same_repository(): void {
+		$post       = $this->given_an_event_with_multiple_occurrences();
+		$last       = Occurrence::where( 'post_id', '=', $post->ID )->order_by( 'start_date', 'DESC' )->first();
+		$day        = ( new DateTimeImmutable( $last->start_date ) )->format( 'Y-m-d' );
+		$repository = tribe_events();
+
+		// Consume the Repository once before the date filters are set on it.
+		$repository->count();
+
+		$repository->by( 'date_overlaps', $day . ' 00:00:00', $day . ' 23:59:59' );
+
+		$this->assertEquals(
+			[ $post->ID ],
+			$repository->get_ids(),
+			'The Occurrence date, not the Event post meta date, should filter the query.'
+		);
+	}
+
 	public function orderby_data_provider(): \Generator {
 		yield 'no orderby specified' => [ [] ];
 		yield 'event_date' => [ [ 'orderby' => 'event_date' ] ];
