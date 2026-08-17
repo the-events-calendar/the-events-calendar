@@ -10,6 +10,8 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Factories\Event as Event_Factory;
 use Tribe\Tests\Traits\With_Log_Recording;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe__Events__API as API;
+use Tribe__Events__Main as TEC;
 use WP_Post;
 
 class EventsTest extends WPTestCase {
@@ -128,6 +130,44 @@ class EventsTest extends WPTestCase {
 		$this->assertCount( 0, $this->get_log_records() );
 		$this->assertInstanceOf( Event::class, Event::find( $event_id, 'post_id' ) );
 		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $event_id )->count() );
+	}
+
+	/**
+	 * Shortening an all-day event should rewrite occurrence dates instead of leaving a stale row.
+	 *
+	 * @test
+	 */
+	public function should_update_occurrence_dates_when_all_day_event_is_shortened() {
+		$id = static::factory()->post->create();
+		global $wpdb;
+		$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_type = %s WHERE ID = %d", TEC::POSTTYPE, $id ) );
+
+		API::saveEventMeta( $id, [
+			'EventAllDay'    => 'yes',
+			'EventStartDate' => '2023-08-08',
+			'EventEndDate'   => '2023-08-11',
+			'EventTimezone'  => 'America/Chicago',
+		] );
+
+		$events = new Events();
+		$this->assertTrue( $events->update( $id ) );
+
+		API::saveEventMeta( $id, [
+			'EventAllDay'    => 'yes',
+			'EventStartDate' => '2023-08-08',
+			'EventEndDate'   => '2023-08-10',
+			'EventTimezone'  => 'America/Chicago',
+		] );
+
+		$updated = $events->update( $id );
+
+		$this->assertTrue( $updated );
+		$this->assertCount( 0, $this->get_log_records() );
+
+		$occurrence = Occurrence::where( 'post_id', '=', $id )->first();
+		$this->assertInstanceOf( Occurrence::class, $occurrence );
+		$this->assertEquals( '2023-08-08 00:00:00', $occurrence->start_date );
+		$this->assertEquals( '2023-08-10 23:59:59', $occurrence->end_date );
 	}
 
 	/**

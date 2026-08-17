@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+All-day events now persist a recalculated duration when their date range changes, so shortening an all-day event updates custom table occurrence dates and continues to appear in List view.
