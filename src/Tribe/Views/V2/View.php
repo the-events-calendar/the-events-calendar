@@ -1361,7 +1361,7 @@ class View implements View_Interface {
 	 *
 	 * @return int The bounded number of events per page.
 	 */
-	protected function get_events_per_page( Context $context = null ) {
+	protected function get_events_per_page( ?Context $context = null ) {
 		$context ??= $this->get_context();
 		$per_page = absint( $context->get( 'events_per_page', 12 ) );
 
