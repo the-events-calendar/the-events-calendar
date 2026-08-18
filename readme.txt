@@ -239,6 +239,12 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolved an issue where Events archive pages could return a fatal error when the request included non-numeric or array pagination parameters.
 * Language - 0 new strings added, 99 updated, 0 fuzzied, and 5 obsoleted.
 
+= [6.17.2] 2026-08-05 =
+
+* Language - 5 new strings added, 95 updated, 0 fuzzied, and 0 obsoleted.
+* Tweak - Improved the unified licensing page experience.
+* Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
+
 = [6.17.1] 2026-07-22 =
 
 * Fix - Corrected CSV imports that failed to show any records on sites with a symlinked uploads folder.
