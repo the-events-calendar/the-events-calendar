@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.17.1\n"
+"Project-Id-Version: The Events Calendar 6.17.3\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-21T18:27:49+00:00\n"
+"POT-Creation-Date: 2026-08-18T18:25:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -6233,7 +6233,7 @@ msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Month and year
 #: src/functions/template-tags/loop.php:184
-#: src/Tribe/Views/V2/Template/Title.php:421
+#: src/Tribe/Views/V2/Template/Title.php:413
 #, php-format
 msgctxt "month view"
 msgid "%1$s for %2$s"
@@ -6241,7 +6241,7 @@ msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Day
 #: src/functions/template-tags/loop.php:193
-#: src/Tribe/Views/V2/Template/Title.php:449
+#: src/Tribe/Views/V2/Template/Title.php:441
 #, php-format
 msgctxt "day_view"
 msgid "%1$s for %2$s"
@@ -10970,13 +10970,13 @@ msgstr ""
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1679
+#: src/Tribe/Views/V2/View.php:1715
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2351
-#: src/Tribe/Views/V2/View.php:2457
+#: src/Tribe/Views/V2/View.php:2387
+#: src/Tribe/Views/V2/View.php:2493
 #: src/views/v2/day/event/date/featured.php:28
 #: src/views/v2/latest-past/event/date/featured.php:28
 #: src/views/v2/list/event/date/featured.php:28
