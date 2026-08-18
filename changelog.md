@@ -2,6 +2,7 @@
 
 ### [6.17.3] 2026-08-19
 
+* Security - Hardened validation of copied legacy widget instances.
 * Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
 * Fix - Resolved an issue where the events archive page title showed the date range of the oldest events in the calendar rather than the events listed on the page.
 * Fix - Resolved an issue where Events archive pages could return a fatal error when the request included non-numeric or array pagination parameters.
