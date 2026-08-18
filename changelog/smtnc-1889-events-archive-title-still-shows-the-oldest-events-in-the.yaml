@@ -1,6 +1,0 @@
-significance: patch
-type: fix
-entry: Resolved an issue where the events archive page title showed the date
-  range of the oldest events in the calendar rather than the events listed on
-  the page.
-timestamp: 2026-08-07T20:43:26.176Z
