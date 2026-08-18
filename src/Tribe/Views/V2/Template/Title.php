@@ -243,7 +243,7 @@ class Title {
 	 *
 	 * @since 4.9.10
 	 * @since 6.0.14 Changed function scope, and moved internal var to param.
-	 * @since TBD Only stand in for the first event date when a date was actually selected.
+	 * @since 6.17.3 Only stand in for the first event date when a date was actually selected.
 	 *
 	 * @param Context $context    The context to use to build the title.
 	 * @param mixed   $event_date The event date object, string or timestamp.
