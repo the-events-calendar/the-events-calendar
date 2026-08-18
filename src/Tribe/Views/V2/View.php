@@ -1618,7 +1618,7 @@ class View implements View_Interface {
 	 * Callers that need the events before the View runs cannot use `get_html()` for it: rendering
 	 * also fires the HTML cache and SEO hooks, and out of order those produce the wrong directives.
 	 *
-	 * @since TBD
+	 * @since 6.17.3
 	 *
 	 * @return array<int, WP_Post> The events the View would display for its current context and page.
 	 */

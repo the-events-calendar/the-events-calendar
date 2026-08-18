@@ -131,7 +131,7 @@ class Url {
 	 * or arrays; callers do arithmetic on the page number, so it's normalized here.
 	 *
 	 * @since 4.9.3
-	 * @since TBD Normalized the return value to a positive integer.
+	 * @since 6.17.3 Normalized the return value to a positive integer.
 	 *
 	 * @return int The current page number if specified in the URL or the default value.
 	 */
