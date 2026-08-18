@@ -128,6 +128,25 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Determines whether an active add-on has wired up genuine support for rendering multiple
+	 * Occurrences of the same Event (e.g. each date of a recurring series) as distinct entries.
+	 *
+	 * This is determined by checking whether anything has hooked the
+	 * `tec_events_custom_tables_v1_occurrence_select_fields` filter: the extension point an add-on
+	 * must use to redirect the query `SELECT` to per-Occurrence identifiers. Declaring support
+	 * without implementing that redirection, and the post and meta hydration that depends on it,
+	 * has no functional effect: every row would still resolve back to the same Event post and the
+	 * same static post meta. This intentionally cannot be toggled by declaring support alone.
+	 *
+	 * @since 6.17.2
+	 *
+	 * @return bool Whether an active add-on supports rendering multiple Occurrences of the same Event.
+	 */
+	public static function recurring_occurrences_supported(): bool {
+		return (bool) has_filter( 'tec_events_custom_tables_v1_occurrence_select_fields' );
+	}
+
+	/**
 	 * Overrides the base method to replace the Meta Query with one that will redirect
 	 * to the plugin custom tables.
 	 *
@@ -150,8 +169,9 @@ class Custom_Tables_Query extends WP_Query {
 		// While not ideal, this is the only way to intervene on `GROUP BY` in the `get_posts()` method.
 		add_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
-		add_filter( 'posts_where', [ $this, 'filter_where' ], 10, 2 );
+		add_filter( 'posts_where', [ $this, 'filter_where' ], 20, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
+		add_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5, 2 );
 		// This is the last filter in the `WP_Query` class: use this as an action to clean up.
 		add_filter( 'the_posts', [ $this, 'remove_late_filters' ], 10, 2 );
 		add_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200, 2 );
@@ -323,6 +343,12 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
+
+		if ( ! self::recurring_occurrences_supported() ) {
+			// Without an add-on able to render each Occurrence as a distinct entry, group by the
+			// Event post ID so only one row per Event is returned, instead of one row per Occurrence.
+			return $groupby;
+		}
 
 		$occurrences = Occurrences::table_name( true );
 		global $wpdb;
@@ -617,9 +643,59 @@ class Custom_Tables_Query extends WP_Query {
 		remove_filter( 'posts_where', [ $this, 'filter_by_date' ] );
 		remove_filter( 'posts_where', [ $this, 'filter_where' ] );
 		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ] );
+		remove_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5 );
 		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
 		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
 		remove_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200 );
+	}
+
+	/**
+	 * Deduplicates posts by post_id when no active add-on knows how to render multiple
+	 * Occurrences of the same Event.
+	 *
+	 * The occurrences table can contain multiple rows per post_id (e.g. each date of a recurring
+	 * series). Without an add-on able to correctly render each Occurrence as a distinct entry, the
+	 * same Event post would otherwise appear multiple times in the results. This filter keeps only
+	 * the first Occurrence of each post_id (respecting the query's ORDER BY).
+	 *
+	 * @since 6.17.2
+	 *
+	 * @param array    $posts The posts returned by the query.
+	 * @param WP_Query $query The WP_Query instance.
+	 *
+	 * @return array The deduplicated posts array.
+	 */
+	public function deduplicate_posts_when_pro_inactive( $posts, $query ) {
+		if ( $query !== $this ) {
+			// Only target this class' own instance.
+			return $posts;
+		}
+
+		remove_filter( 'the_posts', [ $this, 'deduplicate_posts_when_pro_inactive' ], 5 );
+
+		if ( self::recurring_occurrences_supported() ) {
+			return $posts;
+		}
+
+		if ( empty( $posts ) || ! is_array( $posts ) ) {
+			return $posts;
+		}
+
+		$seen     = [];
+		$filtered = [];
+
+		foreach ( $posts as $post ) {
+			$post_id = $post instanceof WP_Post ? $post->ID : (int) $post;
+
+			if ( isset( $seen[ $post_id ] ) ) {
+				continue;
+			}
+
+			$seen[ $post_id ] = true;
+			$filtered[]       = $post;
+		}
+
+		return $filtered;
 	}
 
 	/**

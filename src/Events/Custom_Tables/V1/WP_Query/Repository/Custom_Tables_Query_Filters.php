@@ -321,6 +321,12 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 
 		$this->redirect();
 
+		if ( ! Custom_Tables_Query::recurring_occurrences_supported() ) {
+			// Without an add-on able to render each Occurrence as a distinct entry, keep grouping by
+			// the Event post ID so only one row per Event is returned, instead of one row per Occurrence.
+			return $groupby;
+		}
+
 		global $wpdb;
 
 		return str_replace(
