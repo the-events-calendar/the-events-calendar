@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-The guided setup redirect now also respects an explicitly dismissed setup screen.
