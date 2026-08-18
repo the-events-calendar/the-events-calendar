@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.17.2.1] 2026-08-17
+### [6.17.3] 2026-08-19
 
 * Security - Hardened validation of copied legacy widget instances.
 

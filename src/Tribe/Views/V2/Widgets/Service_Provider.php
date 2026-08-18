@@ -286,7 +286,7 @@ class Service_Provider extends Provider_Contract {
 	/**
 	 * Whether a copied widget instance passes validation.
 	 *
-	 * @since 6.17.2.1
+	 * @since 6.17.3
 	 *
 	 * @param string $serialized The decoded widget instance.
 	 *
@@ -294,6 +294,7 @@ class Service_Provider extends Provider_Contract {
 	 */
 	protected function is_safe_widget_instance( $serialized ) {
 		$data = is_string( $serialized )
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 			? @unserialize( $serialized, [ 'allowed_classes' => false ] )
 			: false;
 
@@ -303,7 +304,7 @@ class Service_Provider extends Provider_Contract {
 	/**
 	 * Recursively determine whether a value holds any object.
 	 *
-	 * @since 6.17.2.1
+	 * @since 6.17.3
 	 *
 	 * @param mixed $data The value to inspect.
 	 *
