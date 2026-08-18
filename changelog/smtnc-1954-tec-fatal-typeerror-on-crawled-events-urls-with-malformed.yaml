@@ -1,5 +1,0 @@
-significance: patch
-type: fix
-entry: Resolved an issue where Events archive pages could return a fatal error
-  when the request included non-numeric or array pagination parameters.
-timestamp: 2026-08-11T04:46:48.072Z

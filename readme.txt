@@ -232,6 +232,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.17.3] 2026-08-19 =
+
+* Tweak - Switched changelog tooling from jetpack-changelogger to @stellarwp/changelogger.
+* Fix - Resolved an issue where the events archive page title showed the date range of the oldest events in the calendar rather than the events listed on the page.
+* Fix - Resolved an issue where Events archive pages could return a fatal error when the request included non-numeric or array pagination parameters.
+* Language - 0 new strings added, 99 updated, 0 fuzzied, and 5 obsoleted.
+
 = [6.17.1] 2026-07-22 =
 
 * Fix - Corrected CSV imports that failed to show any records on sites with a symlinked uploads folder.
