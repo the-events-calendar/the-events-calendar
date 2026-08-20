@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolved an issue where recurring events showed duplicated entries when "The Events Calendar Pro" was deactivated.

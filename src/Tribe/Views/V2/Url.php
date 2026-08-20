@@ -127,12 +127,18 @@ class Url {
 	/**
 	 * Returns the current page number for the URL.
 	 *
+	 * The `paged` and `page` query arguments come from the request and might be non-numeric, negative
+	 * or arrays; callers do arithmetic on the page number, so it's normalized here.
+	 *
 	 * @since 4.9.3
+	 * @since 6.17.3 Normalized the return value to a positive integer.
 	 *
 	 * @return int The current page number if specified in the URL or the default value.
 	 */
 	public function get_current_page() {
-		return Arr::get_first_set( $this->get_query_args(), [ 'paged', 'page' ], 1 );
+		$page = Arr::get_first_set( $this->get_query_args(), [ 'paged', 'page' ], 1 );
+
+		return is_numeric( $page ) && $page > 0 ? absint( $page ) : 1;
 	}
 
 	/**
