@@ -6,8 +6,8 @@ use Step\Restv1\RestGuy as Tester;
  * Tests per-post capability checks for REST API endpoints.
  *
  * Ensures that the Events, Venues, and Organizers REST endpoints enforce
- * object-level authorization: users can only edit/delete posts they own
- * unless they have the appropriate "edit/delete others" capability.
+ * object-level authorization: users can only read, edit or delete posts they
+ * own unless they have the appropriate "read/edit/delete others" capability.
  *
  * @package TEC\Tests\REST\V1\Endpoints
  * @since 6.15.16.1
@@ -365,12 +365,39 @@ class AuthorizationCest extends BaseRestCest {
 	}
 
 	/**
-	 * Contributor does not see another user's draft event in the archive.
+	 * Logs in as a Contributor and returns their user ID.
+	 */
+	private function login_as_contributor( Tester $I ): int {
+		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
+
+		$I->loginAs( 'contributor_user', 'contributor' );
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
+		wp_set_current_user( $contributor_id );
+		$I->haveHttpHeader( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
+
+		return $contributor_id;
+	}
+
+	/**
+	 * Grabs the IDs returned for an archive request.
+	 */
+	private function grab_archive_ids( Tester $I, string $url, array $params, string $key ): array {
+		$I->sendGET( $url, $params );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+
+		return array_map( 'intval', array_column( $response[ $key ], 'id' ) );
+	}
+
+	/**
+	 * Contributor sees their own draft event but not another user's in the archive.
 	 *
 	 * @test
 	 */
 	public function contributor_cannot_list_admin_draft_event( Tester $I ) {
-		$admin_id = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+		$admin_id    = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
 		$admin_draft = $I->haveEventInDatabase( [
 			'post_title'  => 'Admin Draft Event',
 			'when'        => '+1 day 9am',
@@ -378,23 +405,7 @@ class AuthorizationCest extends BaseRestCest {
 			'post_status' => 'draft',
 		] );
 
-		$I->generate_nonce_for_role( 'contributor' );
-		$I->sendGET( $this->events_url, [ 'status' => 'draft' ] );
-
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
-
-		$I->assertNotContains( $admin_draft, array_column( $response['events'], 'id' ) );
-	}
-
-	/**
-	 * Contributor still sees their own draft event in the archive.
-	 *
-	 * @test
-	 */
-	public function contributor_can_list_own_draft_event( Tester $I ) {
-		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
+		$contributor_id = $this->login_as_contributor( $I );
 		$own_draft      = $I->haveEventInDatabase( [
 			'post_title'  => 'Contributor Draft Event',
 			'when'        => '+1 day 9am',
@@ -402,22 +413,42 @@ class AuthorizationCest extends BaseRestCest {
 			'post_status' => 'draft',
 		] );
 
-		$I->loginAs( 'contributor_user', 'contributor' );
-		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
-		wp_set_current_user( $contributor_id );
-		$I->haveHttpHeader( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
+		$ids = $this->grab_archive_ids( $I, $this->events_url, [ 'status' => 'draft' ], 'events' );
 
-		$I->sendGET( $this->events_url, [ 'status' => 'draft' ] );
-
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
-
-		$I->assertContains( $own_draft, array_column( $response['events'], 'id' ) );
+		$I->assertContains( $own_draft, $ids );
+		$I->assertNotContains( $admin_draft, $ids );
 	}
 
 	/**
-	 * Contributor does not see another user's draft venue in the archive.
+	 * Contributor does not see another user's draft event when no status is requested.
+	 *
+	 * @test
+	 */
+	public function contributor_cannot_list_admin_draft_event_without_a_status( Tester $I ) {
+		$admin_id    = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+		$admin_draft = $I->haveEventInDatabase( [
+			'post_title'  => 'Admin Draft Event',
+			'when'        => '+1 day 9am',
+			'post_author' => $admin_id,
+			'post_status' => 'draft',
+		] );
+
+		$contributor_id = $this->login_as_contributor( $I );
+		$own_draft      = $I->haveEventInDatabase( [
+			'post_title'  => 'Contributor Draft Event',
+			'when'        => '+1 day 9am',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		$ids = $this->grab_archive_ids( $I, $this->events_url, [], 'events' );
+
+		$I->assertContains( $own_draft, $ids );
+		$I->assertNotContains( $admin_draft, $ids );
+	}
+
+	/**
+	 * Contributor sees their own draft venue but not another user's in the archive.
 	 *
 	 * @test
 	 */
@@ -429,18 +460,21 @@ class AuthorizationCest extends BaseRestCest {
 			'post_status' => 'draft',
 		] );
 
-		$I->generate_nonce_for_role( 'contributor' );
-		$I->sendGET( $this->venues_url, [ 'status' => 'draft' ] );
+		$contributor_id = $this->login_as_contributor( $I );
+		$own_draft      = $I->haveVenueInDatabase( [
+			'post_title'  => 'Contributor Draft Venue',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
 
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
+		$ids = $this->grab_archive_ids( $I, $this->venues_url, [ 'status' => 'draft' ], 'venues' );
 
-		$I->assertNotContains( $admin_draft, array_column( $response['venues'], 'id' ) );
+		$I->assertContains( $own_draft, $ids );
+		$I->assertNotContains( $admin_draft, $ids );
 	}
 
 	/**
-	 * Contributor does not see another user's draft organizer in the archive.
+	 * Contributor sees their own draft organizer but not another user's in the archive.
 	 *
 	 * @test
 	 */
@@ -452,13 +486,16 @@ class AuthorizationCest extends BaseRestCest {
 			'post_status' => 'draft',
 		] );
 
-		$I->generate_nonce_for_role( 'contributor' );
-		$I->sendGET( $this->organizers_url, [ 'status' => 'draft' ] );
+		$contributor_id = $this->login_as_contributor( $I );
+		$own_draft      = $I->haveOrganizerInDatabase( [
+			'post_title'  => 'Contributor Draft Organizer',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
 
-		$I->seeResponseCodeIs( 200 );
-		$I->seeResponseIsJson();
-		$response = json_decode( $I->grabResponse(), true );
+		$ids = $this->grab_archive_ids( $I, $this->organizers_url, [ 'status' => 'draft' ], 'organizers' );
 
-		$I->assertNotContains( $admin_draft, array_column( $response['organizers'], 'id' ) );
+		$I->assertContains( $own_draft, $ids );
+		$I->assertNotContains( $admin_draft, $ids );
 	}
 }
