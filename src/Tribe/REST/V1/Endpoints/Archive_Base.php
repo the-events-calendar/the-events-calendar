@@ -191,6 +191,29 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	}
 
 	/**
+	 * Whether the current user is allowed to read a post returned by the archive.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID to check.
+	 *
+	 * @return bool Whether the post can be read by the current user.
+	 */
+	protected function is_post_readable( $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		if ( 'publish' === $post->post_status ) {
+			return true;
+		}
+
+		return current_user_can( get_post_type_object( $this->post_type )->cap->read_post, $post->ID );
+	}
+
+	/**
 	 * Filters a list of post stati returning only those accessible by the current user for the post type
 	 * managed by the endpoint.
 	 *

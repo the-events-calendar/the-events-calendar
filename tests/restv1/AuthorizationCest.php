@@ -363,4 +363,102 @@ class AuthorizationCest extends BaseRestCest {
 
 		$I->seeResponseCodeIs( 401 );
 	}
+
+	/**
+	 * Contributor does not see another user's draft event in the archive.
+	 *
+	 * @test
+	 */
+	public function contributor_cannot_list_admin_draft_event( Tester $I ) {
+		$admin_id = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+		$admin_draft = $I->haveEventInDatabase( [
+			'post_title'  => 'Admin Draft Event',
+			'when'        => '+1 day 9am',
+			'post_author' => $admin_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->generate_nonce_for_role( 'contributor' );
+		$I->sendGET( $this->events_url, [ 'status' => 'draft' ] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertNotContains( $admin_draft, array_column( $response['events'], 'id' ) );
+	}
+
+	/**
+	 * Contributor still sees their own draft event in the archive.
+	 *
+	 * @test
+	 */
+	public function contributor_can_list_own_draft_event( Tester $I ) {
+		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
+		$own_draft      = $I->haveEventInDatabase( [
+			'post_title'  => 'Contributor Draft Event',
+			'when'        => '+1 day 9am',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->loginAs( 'contributor_user', 'contributor' );
+		$_COOKIE[ LOGGED_IN_COOKIE ] = $I->grabCookie( LOGGED_IN_COOKIE );
+		wp_set_current_user( $contributor_id );
+		$I->haveHttpHeader( 'X-WP-Nonce', wp_create_nonce( 'wp_rest' ) );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'draft' ] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertContains( $own_draft, array_column( $response['events'], 'id' ) );
+	}
+
+	/**
+	 * Contributor does not see another user's draft venue in the archive.
+	 *
+	 * @test
+	 */
+	public function contributor_cannot_list_admin_draft_venue( Tester $I ) {
+		$admin_id    = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+		$admin_draft = $I->haveVenueInDatabase( [
+			'post_title'  => 'Admin Draft Venue',
+			'post_author' => $admin_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->generate_nonce_for_role( 'contributor' );
+		$I->sendGET( $this->venues_url, [ 'status' => 'draft' ] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertNotContains( $admin_draft, array_column( $response['venues'], 'id' ) );
+	}
+
+	/**
+	 * Contributor does not see another user's draft organizer in the archive.
+	 *
+	 * @test
+	 */
+	public function contributor_cannot_list_admin_draft_organizer( Tester $I ) {
+		$admin_id    = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+		$admin_draft = $I->haveOrganizerInDatabase( [
+			'post_title'  => 'Admin Draft Organizer',
+			'post_author' => $admin_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->generate_nonce_for_role( 'contributor' );
+		$I->sendGET( $this->organizers_url, [ 'status' => 'draft' ] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertNotContains( $admin_draft, array_column( $response['organizers'], 'id' ) );
+	}
 }

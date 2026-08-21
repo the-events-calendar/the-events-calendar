@@ -84,6 +84,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @since 4.6
 	 * @since 6.17.2 Added validation for event parameter.
+	 * @since TBD Only return organizers the current user is allowed to read.
 	 */
 	public function get( WP_REST_Request $request ) {
 		// Validate event parameter if provided.
@@ -162,6 +163,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::ORGANIZER_POST_TYPE );
 
 			foreach ( $ids as $organizer_id ) {
+				if ( ! $this->is_post_readable( $organizer_id ) ) {
+					continue;
+				}
+
 				$filter_added = false;
 
 				if ( post_password_required( $organizer_id ) && $rest_controller->can_access_password_content( get_post( $organizer_id ), $request ) ) {

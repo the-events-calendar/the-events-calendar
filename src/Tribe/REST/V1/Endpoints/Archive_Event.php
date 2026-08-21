@@ -54,6 +54,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * Handles GET requests on the endpoint.
 	 *
 	 * @since 6.17.2 Added validation for post_parent parameter.
+	 * @since TBD Only return events the current user is allowed to read.
 	 *
 	 * @param WP_REST_Request $request
 	 *
@@ -267,6 +268,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			}
 
 			foreach ( $events as $event_id ) {
+				if ( ! $this->is_post_readable( $event_id ) ) {
+					continue;
+				}
+
 				$event = $this->repository->get_event_data( $event_id );
 
 				if ( $event && ! is_wp_error( $event ) ) {

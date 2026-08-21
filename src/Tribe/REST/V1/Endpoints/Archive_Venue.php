@@ -82,6 +82,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * @since 4.6
 	 * @since 6.15.3 Added password protection check.
 	 * @since 6.17.2 Added validation for event parameter.
+	 * @since TBD Only return venues the current user is allowed to read.
 	 */
 	public function get( WP_REST_Request $request ) {
 		// Validate event parameter if provided.
@@ -161,6 +162,10 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::VENUE_POST_TYPE );
 
 			foreach ( $ids as $venue_id ) {
+				if ( ! $this->is_post_readable( $venue_id ) ) {
+					continue;
+				}
+
 				$filter_added = false;
 
 				if ( post_password_required( $venue_id ) && $rest_controller->can_access_password_content( get_post( $venue_id ), $request ) ) {
