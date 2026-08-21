@@ -2918,7 +2918,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Flag a single-site activation so we can redirect to the onboarding wizard on the next
 			// admin load. Bulk activations are filtered out there, where WordPress exposes the
 			// `activate-multi` flag; it is not yet set while this activation hook runs.
-			if ( ! is_network_admin() ) {
+			// Only arm the redirect on real admin-side activations: CLI, REST and automated
+			// (test) activations run with is_admin() false and must not hijack the next request.
+			if ( ! is_network_admin() && is_admin() ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
 		}
