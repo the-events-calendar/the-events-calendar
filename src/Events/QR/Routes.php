@@ -274,8 +274,8 @@ class Routes extends Controller {
 			throw new \InvalidArgumentException( 'Invalid QR code hash format.' );
 		}
 
-		// Extract the data parts.
-		$parts = explode( ':', $decoded );
+		// Extract the data parts. Limit to 3 so a salt that itself contains a `:` is not split apart.
+		$parts = explode( ':', $decoded, 3 );
 		if ( count( $parts ) !== 3 ) {
 			throw new \InvalidArgumentException( 'Invalid QR code data format.' );
 		}
