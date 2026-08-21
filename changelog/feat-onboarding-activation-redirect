@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-The Events Calendar now opens the guided setup wizard automatically after a single-site activation, so a fresh install lands straight in onboarding. Bulk plugin activations are left in place on the Plugins screen.
