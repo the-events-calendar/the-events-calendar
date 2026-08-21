@@ -498,4 +498,41 @@ class AuthorizationCest extends BaseRestCest {
 		$I->assertContains( $own_draft, $ids );
 		$I->assertNotContains( $admin_draft, $ids );
 	}
+
+	/**
+	 * The reported total and total_pages for a contributor's draft event archive match the
+	 * number of events actually returned, not the raw count of every matching draft.
+	 *
+	 * @test
+	 */
+	public function contributor_archive_totals_match_readable_events( Tester $I ) {
+		$admin_id = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+
+		for ( $i = 0; $i < 3; $i++ ) {
+			$I->haveEventInDatabase( [
+				'post_title'  => "Admin Draft Event {$i}",
+				'when'        => '+1 day 9am',
+				'post_author' => $admin_id,
+				'post_status' => 'draft',
+			] );
+		}
+
+		$contributor_id = $this->login_as_contributor( $I );
+		$I->haveEventInDatabase( [
+			'post_title'  => 'Contributor Draft Event',
+			'when'        => '+1 day 9am',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->sendGET( $this->events_url, [ 'status' => 'draft' ] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+
+		$I->assertCount( 1, $response['events'] );
+		$I->assertEquals( 1, $response['total'] );
+		$I->assertEquals( 1, $response['total_pages'] );
+	}
 }

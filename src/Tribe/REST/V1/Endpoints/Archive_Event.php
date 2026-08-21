@@ -245,29 +245,61 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			 */
 			$args = apply_filters( 'tribe_events_archive_get_args', $args, $data, $request );
 
-			$events = tribe_get_events( $args );
-
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
-			if ( empty( $events ) && (int) $page > 1 ) {
-				$message = $this->messages->get_message( 'event-archive-page-not-found' );
+			if ( $this->is_publish_only_status( $args['post_status'] ) ) {
+				$events = tribe_get_events( $args );
 
-				return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
+				if ( empty( $events ) && (int) $page > 1 ) {
+					$message = $this->messages->get_message( 'event-archive-page-not-found' );
+
+					return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
+				}
+
+				$event_ids = wp_list_pluck( $events, 'ID' );
+
+				unset( $args['fields'] );
+
+				$has_next     = $this->has_next( $args, $page );
+				$has_previous = $this->has_previous( $page, $args );
+				$total        = $this->get_total( $args );
+				$total_pages  = $this->get_total_pages( $total, $args['posts_per_page'] );
+			} else {
+				$all_events = tribe_get_events( array_merge( $args, [
+					'paged'                  => 1,
+					'posts_per_page'         => -1,
+					'update_post_meta_cache' => false,
+					'update_post_term_cache' => false,
+				] ) );
+
+				unset( $args['fields'] );
+
+				$all_event_ids = wp_list_pluck( $all_events, 'ID' );
+
+				$pagination = $this->paginate_readable_ids( $all_event_ids, $page, $args['posts_per_page'] );
+
+				if ( empty( $pagination['ids'] ) && (int) $page > 1 ) {
+					$message = $this->messages->get_message( 'event-archive-page-not-found' );
+
+					return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
+				}
+
+				$event_ids    = $pagination['ids'];
+				$has_next     = $pagination['has_next'];
+				$has_previous = $pagination['has_previous'];
+				$total        = $pagination['total'];
+				$total_pages  = $pagination['total_pages'];
 			}
 
-			$events = wp_list_pluck( $events, 'ID' );
-
-			unset( $args['fields'] );
-
-			if ( $this->has_next( $args, $page ) ) {
+			if ( $has_next ) {
 				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 			}
 
-			if ( $this->has_previous( $page, $args ) ) {
+			if ( $has_previous ) {
 				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 			}
 
-			foreach ( $events as $event_id ) {
+			foreach ( $event_ids as $event_id ) {
 				if ( ! $this->is_post_readable( $event_id ) ) {
 					continue;
 				}
@@ -279,8 +311,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				}
 			}
 
-			$data['total']       = $total = $this->get_total( $args );
-			$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+			$data['total']       = $total;
+			$data['total_pages'] = $total_pages;
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}

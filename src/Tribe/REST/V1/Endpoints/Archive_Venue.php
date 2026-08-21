@@ -151,11 +151,51 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 		if ( ! is_array( $data ) ) {
 			$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
-			$venues         = isset( $venues ) ? $venues : tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
+			$page           = Tribe__Utils__Array::get( $args, 'paged', 1 );
 
-			unset( $args['fields'] );
+			if ( $this->is_publish_only_status( $args['post_status'] ) ) {
+				$venues = isset( $venues ) ? $venues : tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
 
-			$ids = wp_list_pluck( $venues, 'ID' );
+				unset( $args['fields'] );
+
+				if ( empty( $venues ) && (int) $page > 1 ) {
+					$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+
+					return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+				}
+
+				$ids          = wp_list_pluck( $venues, 'ID' );
+				$has_next     = $this->has_next( $args, $page, $only_with_upcoming );
+				$has_previous = $this->has_previous( $page, $args, $only_with_upcoming );
+				$total        = $this->get_total( $args, $only_with_upcoming );
+				$total_pages  = $this->get_total_pages( $total, $posts_per_page );
+			} else {
+				$all_ids = isset( $venues )
+					? wp_list_pluck( $venues, 'ID' )
+					: tribe_get_venues( $only_with_upcoming, -1, true, array_merge( $args, [
+						'paged'                  => 1,
+						'posts_per_page'         => -1,
+						'fields'                 => 'ids',
+						'update_post_meta_cache' => false,
+						'update_post_term_cache' => false,
+					] ) );
+
+				unset( $args['fields'] );
+
+				$pagination = $this->paginate_readable_ids( $all_ids, $page, $posts_per_page );
+
+				if ( empty( $pagination['ids'] ) && (int) $page > 1 ) {
+					$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+
+					return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+				}
+
+				$ids          = $pagination['ids'];
+				$has_next     = $pagination['has_next'];
+				$has_previous = $pagination['has_previous'];
+				$total        = $pagination['total'];
+				$total_pages  = $pagination['total_pages'];
+			}
 
 			$data = array( 'venues' => array() );
 
@@ -186,24 +226,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 			$data['rest_url'] = $this->get_current_rest_url( $args );
 
-			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
-
-			if ( empty( $venues ) && (int) $page > 1 ) {
-				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
-
-				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
-			}
-
-			if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
+			if ( $has_next ) {
 				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 			}
 
-			if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
+			if ( $has_previous ) {
 				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 			}
 
-			$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-			$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
+			$data['total']       = $total;
+			$data['total_pages'] = $total_pages;
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}

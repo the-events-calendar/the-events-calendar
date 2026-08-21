@@ -214,6 +214,61 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	}
 
 	/**
+	 * Whether the requested post stati resolve to `publish` only.
+	 *
+	 * When this is the case every post matching the query is readable by any user, since
+	 * `is_post_readable()` always allows published posts, and the pagination metadata can safely be
+	 * derived from the raw query results.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $post_status The `post_status` value used for the query.
+	 *
+	 * @return bool Whether the requested post stati resolve to `publish` only.
+	 */
+	protected function is_publish_only_status( $post_status ) {
+		return array_values( (array) $post_status ) === [ 'publish' ];
+	}
+
+	/**
+	 * Filters a list of post IDs down to those readable by the current user, then slices the result to
+	 * the requested page.
+	 *
+	 * Used whenever the request can match non-public post stati (e.g. `draft`) so that the reported
+	 * `total`, `total_pages`, `has_next` and `has_previous` values match the posts that will actually
+	 * be returned instead of the raw, unfiltered query results.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $ids      The full, unpaginated list of post IDs matching the request.
+	 * @param int   $page     The requested page number.
+	 * @param int   $per_page The number of posts per page.
+	 *
+	 * @return array {
+	 *      @type array $ids           The post IDs to display on the requested page.
+	 *      @type int   $total         The total number of readable posts.
+	 *      @type int   $total_pages   The total number of pages of readable posts.
+	 *      @type bool  $has_next      Whether there is a next page.
+	 *      @type bool  $has_previous  Whether there is a previous page.
+	 * }
+	 */
+	protected function paginate_readable_ids( array $ids, $page, $per_page ) {
+		$readable_ids = array_values( array_filter( $ids, [ $this, 'is_post_readable' ] ) );
+
+		$page        = max( 1, (int) $page );
+		$total       = count( $readable_ids );
+		$total_pages = $this->get_total_pages( $total, $per_page );
+
+		return [
+			'ids'          => array_slice( $readable_ids, ( $page - 1 ) * $per_page, $per_page ),
+			'total'        => $total,
+			'total_pages'  => $total_pages,
+			'has_next'     => $page < $total_pages,
+			'has_previous' => $page > 1,
+		];
+	}
+
+	/**
 	 * Filters a list of post stati returning only those accessible by the current user for the post type
 	 * managed by the endpoint.
 	 *
