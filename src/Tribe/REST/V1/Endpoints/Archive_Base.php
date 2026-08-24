@@ -214,58 +214,129 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	}
 
 	/**
-	 * Whether the requested post stati resolve to `publish` only.
+	 * Whether the current user can read posts of any status, no matter who authored them.
 	 *
-	 * When this is the case every post matching the query is readable by any user, since
-	 * `is_post_readable()` always allows published posts, and the pagination metadata can safely be
-	 * derived from the raw query results.
+	 * When this is the case the archive queries need no further constraining.
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed $post_status The `post_status` value used for the query.
-	 *
-	 * @return bool Whether the requested post stati resolve to `publish` only.
+	 * @return bool Whether the current user can read every post the query could match.
 	 */
-	protected function is_publish_only_status( $post_status ) {
-		return array_values( (array) $post_status ) === [ 'publish' ];
+	protected function can_read_others_posts() {
+		$post_type_object = get_post_type_object( $this->post_type );
+
+		if ( ! $post_type_object instanceof WP_Post_Type ) {
+			return false;
+		}
+
+		return current_user_can( $post_type_object->cap->edit_others_posts )
+			&& current_user_can( $post_type_object->cap->read_private_posts );
 	}
 
 	/**
-	 * Filters a list of post IDs down to those readable by the current user, then slices the result to
-	 * the requested page.
+	 * Returns the post stati the current user can read for the endpoint post type, for any author.
 	 *
-	 * Used whenever the request can match non-public post stati (e.g. `draft`) so that the reported
-	 * `total`, `total_pages`, `has_next` and `has_previous` values match the posts that will actually
-	 * be returned instead of the raw, unfiltered query results.
+	 * Mirrors the `read_post` meta capability mapping done by WordPress in `map_meta_cap()`.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $ids      The full, unpaginated list of post IDs matching the request.
-	 * @param int   $page     The requested page number.
-	 * @param int   $per_page The number of posts per page.
-	 *
-	 * @return array {
-	 *      @type array $ids           The post IDs to display on the requested page.
-	 *      @type int   $total         The total number of readable posts.
-	 *      @type int   $total_pages   The total number of pages of readable posts.
-	 *      @type bool  $has_next      Whether there is a next page.
-	 *      @type bool  $has_previous  Whether there is a previous page.
-	 * }
+	 * @return array<string> A list of post stati readable by the current user for any author.
 	 */
-	protected function paginate_readable_ids( array $ids, $page, $per_page ) {
-		$readable_ids = array_values( array_filter( $ids, [ $this, 'is_post_readable' ] ) );
+	protected function get_readable_post_stati() {
+		$post_type_object = get_post_type_object( $this->post_type );
 
-		$page        = max( 1, (int) $page );
-		$total       = count( $readable_ids );
-		$total_pages = $this->get_total_pages( $total, $per_page );
+		if ( ! $post_type_object instanceof WP_Post_Type ) {
+			return [];
+		}
 
-		return [
-			'ids'          => array_slice( $readable_ids, ( $page - 1 ) * $per_page, $per_page ),
-			'total'        => $total,
-			'total_pages'  => $total_pages,
-			'has_next'     => $page < $total_pages,
-			'has_previous' => $page > 1,
-		];
+		$readable = [];
+
+		foreach ( get_post_stati( [], 'objects' ) as $status => $status_object ) {
+			// Readable by anyone, logged out users included.
+			if ( 'publish' === $status ) {
+				$readable[] = $status;
+				continue;
+			}
+
+			if ( ! empty( $status_object->public ) ) {
+				$cap = $post_type_object->cap->read;
+			} elseif ( ! empty( $status_object->private ) ) {
+				$cap = $post_type_object->cap->read_private_posts;
+			} else {
+				$cap = $post_type_object->cap->edit_others_posts;
+			}
+
+			if ( current_user_can( $cap ) ) {
+				$readable[] = $status;
+			}
+		}
+
+		return $readable;
+	}
+
+	/**
+	 * Constrains an archive query to the posts the current user is allowed to read.
+	 *
+	 * The constraint is applied to the query rather than to its results so that the pagination and
+	 * `found_posts` count stay consistent with the posts that are returned. A post qualifies when its
+	 * status is one the user can read for any author, or when the user authored it.
+	 *
+	 * @since TBD
+	 *
+	 * @param string        $where The `WHERE` clause of the query.
+	 * @param WP_Query|null $query The query being filtered.
+	 *
+	 * @return string The filtered `WHERE` clause.
+	 */
+	public function filter_readable_posts_where( $where, $query = null ) {
+		global $wpdb;
+
+		// Only constrain queries for the post type this endpoint manages.
+		if ( $query instanceof WP_Query && ! in_array( $this->post_type, (array) $query->get( 'post_type' ), true ) ) {
+			return $where;
+		}
+
+		$clauses = [];
+		$stati   = $this->get_readable_post_stati();
+
+		if ( ! empty( $stati ) ) {
+			$clauses[] = "{$wpdb->posts}.post_status IN ( '" . implode( "', '", array_map( 'esc_sql', $stati ) ) . "' )";
+		}
+
+		$user_id = get_current_user_id();
+
+		if ( ! empty( $user_id ) ) {
+			$clauses[] = $wpdb->prepare( "{$wpdb->posts}.post_author = %d", $user_id );
+		}
+
+		// With no readable status and no author to match on, match nothing.
+		$where .= empty( $clauses )
+			? ' AND 1=0 '
+			: ' AND ( ' . implode( ' OR ', $clauses ) . ' ) ';
+
+		return $where;
+	}
+
+	/**
+	 * Starts constraining archive queries to the posts readable by the current user.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function restrict_queries_to_readable_posts() {
+		add_filter( 'posts_where', [ $this, 'filter_readable_posts_where' ], 10, 2 );
+	}
+
+	/**
+	 * Stops constraining archive queries to the posts readable by the current user.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function unrestrict_queries_to_readable_posts() {
+		remove_filter( 'posts_where', [ $this, 'filter_readable_posts_where' ], 10 );
 	}
 
 	/**

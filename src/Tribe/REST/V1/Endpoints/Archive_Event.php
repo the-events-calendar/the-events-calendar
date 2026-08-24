@@ -54,7 +54,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * Handles GET requests on the endpoint.
 	 *
 	 * @since 6.17.2 Added validation for post_parent parameter.
-	 * @since TBD Only return events the current user is allowed to read.
+	 * @since TBD Constrained the query to the posts readable by the current user.
 	 *
 	 * @param WP_REST_Request $request
 	 *
@@ -247,48 +247,31 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 
 			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
 
-			if ( $this->is_publish_only_status( $args['post_status'] ) ) {
-				$events = tribe_get_events( $args );
+			$restrict_to_readable = ! $this->can_read_others_posts();
 
-				if ( empty( $events ) && (int) $page > 1 ) {
-					$message = $this->messages->get_message( 'event-archive-page-not-found' );
+			if ( $restrict_to_readable ) {
+				$this->restrict_queries_to_readable_posts();
+			}
 
-					return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
-				}
+			$events = tribe_get_events( $args );
 
-				$event_ids = wp_list_pluck( $events, 'ID' );
+			$event_ids = wp_list_pluck( $events, 'ID' );
 
-				unset( $args['fields'] );
+			unset( $args['fields'] );
 
-				$has_next     = $this->has_next( $args, $page );
-				$has_previous = $this->has_previous( $page, $args );
-				$total        = $this->get_total( $args );
-				$total_pages  = $this->get_total_pages( $total, $args['posts_per_page'] );
-			} else {
-				$all_events = tribe_get_events( array_merge( $args, [
-					'paged'                  => 1,
-					'posts_per_page'         => -1,
-					'update_post_meta_cache' => false,
-					'update_post_term_cache' => false,
-				] ) );
+			$has_next     = $this->has_next( $args, $page );
+			$has_previous = $this->has_previous( $page, $args );
+			$total        = $this->get_total( $args );
+			$total_pages  = $this->get_total_pages( $total, $args['posts_per_page'] );
 
-				unset( $args['fields'] );
+			if ( $restrict_to_readable ) {
+				$this->unrestrict_queries_to_readable_posts();
+			}
 
-				$all_event_ids = wp_list_pluck( $all_events, 'ID' );
+			if ( empty( $events ) && (int) $page > 1 ) {
+				$message = $this->messages->get_message( 'event-archive-page-not-found' );
 
-				$pagination = $this->paginate_readable_ids( $all_event_ids, $page, $args['posts_per_page'] );
-
-				if ( empty( $pagination['ids'] ) && (int) $page > 1 ) {
-					$message = $this->messages->get_message( 'event-archive-page-not-found' );
-
-					return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
-				}
-
-				$event_ids    = $pagination['ids'];
-				$has_next     = $pagination['has_next'];
-				$has_previous = $pagination['has_previous'];
-				$total        = $pagination['total'];
-				$total_pages  = $pagination['total_pages'];
+				return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
 			}
 
 			if ( $has_next ) {

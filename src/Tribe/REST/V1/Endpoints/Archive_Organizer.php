@@ -84,7 +84,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @since 4.6
 	 * @since 6.17.2 Added validation for event parameter.
-	 * @since TBD Only return organizers the current user is allowed to read.
+	 * @since TBD Constrained the query to the posts readable by the current user.
 	 */
 	public function get( WP_REST_Request $request ) {
 		// Validate event parameter if provided.
@@ -136,11 +136,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			$matches     = $linked_post->find_like( $args['s'] );
 			unset( $args['s'] );
 
-			if ( ! empty( $matches ) ) {
-				$args['post__in'] = $matches;
-			} else {
-				$organizers = [];
-			}
+			// An empty `post__in` would be ignored: use an ID that cannot match instead.
+			$args['post__in'] = ! empty( $matches ) ? $matches : [ 0 ];
 		}
 
 		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
@@ -154,48 +151,34 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		if ( ! is_array( $data ) ) {
 			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
 
-			if ( $this->is_publish_only_status( $args['post_status'] ) ) {
-				$organizers = isset( $organizers ) ? $organizers : tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
+			$restrict_to_readable = ! $this->can_read_others_posts();
 
-				unset( $args['fields'] );
+			if ( $restrict_to_readable ) {
+				// `tribe_get_organizers()` suppresses query filters by default; `$args` takes precedence
+				// over the positional parameter.
+				$args['suppress_filters'] = false;
 
-				if ( empty( $organizers ) && (int) $page > 1 ) {
-					$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
+				$this->restrict_queries_to_readable_posts();
+			}
 
-					return new WP_Error( 'organizer-archive-page-not-found', $message, [ 'status' => 404 ] );
-				}
+			$organizers = tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
 
-				$ids          = wp_list_pluck( $organizers, 'ID' );
-				$has_next     = $this->has_next( $args, $page, $only_with_upcoming );
-				$has_previous = $this->has_previous( $page, $args, $only_with_upcoming );
-				$total        = $this->get_total( $args, $only_with_upcoming );
-				$total_pages  = $this->get_total_pages( $total, $posts_per_page );
-			} else {
-				$all_ids = isset( $organizers )
-					? wp_list_pluck( $organizers, 'ID' )
-					: tribe_get_organizers( $only_with_upcoming, -1, true, array_merge( $args, [
-						'paged'                  => 1,
-						'posts_per_page'         => -1,
-						'fields'                 => 'ids',
-						'update_post_meta_cache' => false,
-						'update_post_term_cache' => false,
-					] ) );
+			unset( $args['fields'] );
 
-				unset( $args['fields'] );
+			$ids          = wp_list_pluck( $organizers, 'ID' );
+			$has_next     = $this->has_next( $args, $page, $only_with_upcoming );
+			$has_previous = $this->has_previous( $page, $args, $only_with_upcoming );
+			$total        = $this->get_total( $args, $only_with_upcoming );
+			$total_pages  = $this->get_total_pages( $total, $posts_per_page );
 
-				$pagination = $this->paginate_readable_ids( $all_ids, $page, $posts_per_page );
+			if ( $restrict_to_readable ) {
+				$this->unrestrict_queries_to_readable_posts();
+			}
 
-				if ( empty( $pagination['ids'] ) && (int) $page > 1 ) {
-					$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
+			if ( empty( $organizers ) && (int) $page > 1 ) {
+				$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
 
-					return new WP_Error( 'organizer-archive-page-not-found', $message, [ 'status' => 404 ] );
-				}
-
-				$ids          = $pagination['ids'];
-				$has_next     = $pagination['has_next'];
-				$has_previous = $pagination['has_previous'];
-				$total        = $pagination['total'];
-				$total_pages  = $pagination['total_pages'];
+				return new WP_Error( 'organizer-archive-page-not-found', $message, [ 'status' => 404 ] );
 			}
 
 			$data = [ 'organizers' => [] ];
