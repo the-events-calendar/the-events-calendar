@@ -21,6 +21,19 @@ use Tribe\Utils\Lazy_Collection;
  */
 class Lazy_Post_Collection extends Lazy_Collection {
 	/**
+	 * Callbacks allowed to rebuild the collection during unserialization.
+	 *
+	 * @since TBD
+	 *
+	 * @var string[]
+	 */
+	protected const ALLOWED_UNSERIALIZE_CALLBACKS = [
+		'get_post',
+		'tribe_get_organizer_object',
+		'tribe_get_venue_object',
+	];
+
+	/**
 	 * The callback function that should be called to rebuild the collection items from an array of post IDs.
 	 *
 	 * @since 5.0.0
@@ -73,6 +86,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 * the serialized post IDs.
 	 *
 	 * @since 5.0.0
+	 * @since TBD Only rebuild through an allowed callback.
 	 *
 	 * @param string $serialized The serialized values, usually an array of post IDs.
 	 *
@@ -80,9 +94,13 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 *                             unserialized.
 	 */
 	protected function custom_unserialize( $serialized ) {
-		$unserialized = unserialize( $serialized );
+		$unserialized = unserialize( $serialized, [ 'allowed_classes' => false ] );
 
-		if ( false === $unserialized || ! is_array( $unserialized ) ) {
+		if ( ! is_array( $unserialized ) || ! isset( $unserialized['callback'], $unserialized['ids'] ) || ! is_array( $unserialized['ids'] ) ) {
+			return null;
+		}
+
+		if ( ! in_array( $unserialized['callback'], self::ALLOWED_UNSERIALIZE_CALLBACKS, true ) ) {
 			return null;
 		}
 
