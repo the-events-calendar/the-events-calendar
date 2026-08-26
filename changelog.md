@@ -1,5 +1,10 @@
 # Changelog
 
+### [6.17.3.1] 2026-08-26
+
+* Security - Harden capability checks on REST API archive endpoints.
+* Security - Harden validation of copied widget instance data.
+
 ### [6.17.3] 2026-08-20
 
 * Security - Hardened validation of copied legacy widget instances.

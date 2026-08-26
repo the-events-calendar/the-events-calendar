@@ -287,7 +287,7 @@ class Service_Provider extends Provider_Contract {
 	 * Whether a copied widget instance passes validation.
 	 *
 	 * @since 6.17.3
-	 * @since TBD Only accept instances that unserialize to a plain array.
+	 * @since 6.17.3.1 Only accept instances that unserialize to a plain array.
 	 *
 	 * @param string $serialized The decoded widget instance.
 	 *

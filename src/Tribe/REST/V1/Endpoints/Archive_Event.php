@@ -54,7 +54,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	 * Handles GET requests on the endpoint.
 	 *
 	 * @since 6.17.2 Added validation for post_parent parameter.
-	 * @since TBD Constrained the query to the posts readable by the current user.
+	 * @since 6.17.3.1 Constrained the query to the posts readable by the current user.
 	 *
 	 * @param WP_REST_Request $request
 	 *

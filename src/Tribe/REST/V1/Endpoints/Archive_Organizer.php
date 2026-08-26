@@ -84,7 +84,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 *
 	 * @since 4.6
 	 * @since 6.17.2 Added validation for event parameter.
-	 * @since TBD Constrained the query to the posts readable by the current user.
+	 * @since 6.17.3.1 Constrained the query to the posts readable by the current user.
 	 */
 	public function get( WP_REST_Request $request ) {
 		// Validate event parameter if provided.

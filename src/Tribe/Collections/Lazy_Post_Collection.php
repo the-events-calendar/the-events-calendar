@@ -23,7 +23,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	/**
 	 * Callbacks allowed to rebuild the collection during unserialization.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @var string[]
 	 */
@@ -86,7 +86,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 * the serialized post IDs.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Only rebuild through an allowed callback.
+	 * @since 6.17.3.1 Only rebuild through an allowed callback.
 	 *
 	 * @param string $serialized The serialized values, usually an array of post IDs.
 	 *

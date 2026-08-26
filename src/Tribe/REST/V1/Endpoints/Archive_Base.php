@@ -193,7 +193,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	/**
 	 * Whether the current user is allowed to read a post returned by the archive.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @param int $post_id The post ID to check.
 	 *
@@ -218,7 +218,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 *
 	 * When this is the case the archive queries need no further constraining.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @return bool Whether the current user can read every post the query could match.
 	 */
@@ -238,7 +238,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 *
 	 * Mirrors the `read_post` meta capability mapping done by WordPress in `map_meta_cap()`.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @return array<string> A list of post stati readable by the current user for any author.
 	 */
@@ -281,7 +281,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	 * `found_posts` count stay consistent with the posts that are returned. A post qualifies when its
 	 * status is one the user can read for any author, or when the user authored it.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @param string        $where The `WHERE` clause of the query.
 	 * @param WP_Query|null $query The query being filtered.
@@ -320,7 +320,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	/**
 	 * Starts constraining archive queries to the posts readable by the current user.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @return void
 	 */
@@ -331,7 +331,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	/**
 	 * Stops constraining archive queries to the posts readable by the current user.
 	 *
-	 * @since TBD
+	 * @since 6.17.3.1
 	 *
 	 * @return void
 	 */
