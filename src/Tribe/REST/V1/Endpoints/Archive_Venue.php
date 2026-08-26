@@ -82,6 +82,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 	 * @since 4.6
 	 * @since 6.15.3 Added password protection check.
 	 * @since 6.17.2 Added validation for event parameter.
+	 * @since TBD Constrained the query to the posts readable by the current user.
 	 */
 	public function get( WP_REST_Request $request ) {
 		// Validate event parameter if provided.
@@ -133,11 +134,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			$linked_post = tribe( 'tec.linked-posts.venue' );
 			$matches     = $linked_post->find_like( $args['s'] );
 			unset( $args['s'] );
-			if ( ! empty( $matches ) ) {
-				$args['post__in'] = $matches;
-			} else {
-				$venues = array();
-			}
+
+			// An empty `post__in` would be ignored: use an ID that cannot match instead.
+			$args['post__in'] = ! empty( $matches ) ? $matches : array( 0 );
 		}
 
 		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
@@ -150,17 +149,47 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 		if ( ! is_array( $data ) ) {
 			$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
-			$venues         = isset( $venues ) ? $venues : tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
+			$page           = Tribe__Utils__Array::get( $args, 'paged', 1 );
+
+			$restrict_to_readable = ! $this->can_read_others_posts();
+
+			if ( $restrict_to_readable ) {
+				// `tribe_get_venues()` suppresses query filters by default; `$args` takes precedence
+				// over the positional parameter.
+				$args['suppress_filters'] = false;
+
+				$this->restrict_queries_to_readable_posts();
+			}
+
+			$venues = tribe_get_venues( $only_with_upcoming, $posts_per_page, true, $args );
 
 			unset( $args['fields'] );
 
-			$ids = wp_list_pluck( $venues, 'ID' );
+			$ids          = wp_list_pluck( $venues, 'ID' );
+			$has_next     = $this->has_next( $args, $page, $only_with_upcoming );
+			$has_previous = $this->has_previous( $page, $args, $only_with_upcoming );
+			$total        = $this->get_total( $args, $only_with_upcoming );
+			$total_pages  = $this->get_total_pages( $total, $posts_per_page );
+
+			if ( $restrict_to_readable ) {
+				$this->unrestrict_queries_to_readable_posts();
+			}
+
+			if ( empty( $venues ) && (int) $page > 1 ) {
+				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
+
+				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+			}
 
 			$data = array( 'venues' => array() );
 
 			$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::VENUE_POST_TYPE );
 
 			foreach ( $ids as $venue_id ) {
+				if ( ! $this->is_post_readable( $venue_id ) ) {
+					continue;
+				}
+
 				$filter_added = false;
 
 				if ( post_password_required( $venue_id ) && $rest_controller->can_access_password_content( get_post( $venue_id ), $request ) ) {
@@ -181,24 +210,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 
 			$data['rest_url'] = $this->get_current_rest_url( $args );
 
-			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
-
-			if ( empty( $venues ) && (int) $page > 1 ) {
-				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
-
-				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
-			}
-
-			if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
+			if ( $has_next ) {
 				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 			}
 
-			if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
+			if ( $has_previous ) {
 				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 			}
 
-			$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-			$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
+			$data['total']       = $total;
+			$data['total_pages'] = $total_pages;
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}
