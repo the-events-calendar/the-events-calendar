@@ -94,6 +94,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 *                             unserialized.
 	 */
 	protected function custom_unserialize( $serialized ) {
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 		$unserialized = unserialize( $serialized, [ 'allowed_classes' => false ] );
 
 		if ( ! is_array( $unserialized ) || ! isset( $unserialized['callback'], $unserialized['ids'] ) || ! is_array( $unserialized['ids'] ) ) {

@@ -136,7 +136,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			unset( $args['s'] );
 
 			// An empty `post__in` would be ignored: use an ID that cannot match instead.
-			$args['post__in'] = ! empty( $matches ) ? $matches : array( 0 );
+			$args['post__in'] = ! empty( $matches ) ? $matches : [ 0 ];
 		}
 
 		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
@@ -178,7 +178,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			if ( empty( $venues ) && (int) $page > 1 ) {
 				$message = $this->messages->get_message( 'venue-archive-page-not-found' );
 
-				return new WP_Error( 'venue-archive-page-not-found', $message, array( 'status' => 404 ) );
+				return new WP_Error( 'venue-archive-page-not-found', $message, [ 'status' => 404 ] );
 			}
 
 			$data = array( 'venues' => array() );
