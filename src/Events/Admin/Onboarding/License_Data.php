@@ -53,7 +53,7 @@ class License_Data {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True when the activation URL functions are available.
+	 * @return bool True when the activation URL function is available.
 	 */
 	public function can_build_activation_url(): bool {
 		return function_exists( 'lw_harbor_get_product_activation_url' );
@@ -121,10 +121,10 @@ class License_Data {
 	 * The portal returns the user to the given address once they are done, so
 	 * they pick up where they left off.
 	 *
-	 * The URL is scoped to the tier when Harbor names one, so the portal
-	 * pre-selects the right subscription. When it cannot — the key does not cover
-	 * the calendar, or covers it at several tiers — the tier is null and the
-	 * portal shows its own picker, still limited to this domain. That is the right
+	 * Harbor scopes the URL to the tier the license covers the calendar at, so
+	 * the portal pre-selects the right subscription. Where it cannot — the key
+	 * does not cover the calendar, or covers it at several tiers — the portal
+	 * shows its own picker, still limited to this domain. That is the right
 	 * screen for a genuine choice, and better than guessing on the user's behalf.
 	 *
 	 * Callers that only want a URL for a user with something left to do should
@@ -145,19 +145,12 @@ class License_Data {
 	 */
 	public function build_activation_url( string $return_url ): string {
 		// Guarded inline (not only via can_build_activation_url()) so static
-		// analysis can see the functions are called only when they exist.
+		// analysis can see the function is called only when it exists.
 		if ( ! function_exists( 'lw_harbor_get_product_activation_url' ) ) {
 			return '';
 		}
 
-		// A null tier is passed through deliberately: the portal answers an
-		// unscoped sku with its own product and tier picker, still limited to
-		// this domain, which is the right screen when the tier is unknown.
-		$tier = function_exists( 'lw_harbor_get_product_tier' )
-			? lw_harbor_get_product_tier( self::PRODUCT_SLUG )
-			: null;
-
-		return lw_harbor_get_product_activation_url( self::PRODUCT_SLUG, $tier, $return_url ) ?? '';
+		return lw_harbor_get_product_activation_url( self::PRODUCT_SLUG, $return_url ) ?? '';
 	}
 
 	/**
