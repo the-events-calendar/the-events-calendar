@@ -108,7 +108,7 @@ class License_Data {
 			return '';
 		}
 
-		if ( $this->is_activated() ) {
+		if ( ! $this->needs_activation() ) {
 			return '';
 		}
 
@@ -172,6 +172,24 @@ class License_Data {
 		}
 
 		return lw_harbor_get_license_page_url();
+	}
+
+	/**
+	 * Whether the key entitles this site to the calendar's premium plugins
+	 * without having activated here yet — the one state a prompt is for.
+	 *
+	 * Harbor pairs the entitlement and activation checks so consumers do not
+	 * each rewrite the conditional. Asking only whether the license is active
+	 * would offer activation to someone with no entitlement, who would then
+	 * reach a portal with nothing for them.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True when entitled but not activated here.
+	 */
+	public function needs_activation(): bool {
+		return function_exists( 'lw_harbor_product_needs_activation' )
+			&& lw_harbor_product_needs_activation( self::PRODUCT_SLUG );
 	}
 
 	/**

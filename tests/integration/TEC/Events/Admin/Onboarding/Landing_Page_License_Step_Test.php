@@ -139,6 +139,10 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 				return $this->activated;
 			}
 
+			public function needs_activation(): bool {
+				return ! $this->activated;
+			}
+
 			public function get_management_url(): string {
 				return $this->management_url;
 			}
@@ -464,7 +468,7 @@ class Landing_Page_License_Step_Test extends WPTestCase {
 				return false;
 			}
 
-			public function is_activated(): bool {
+			public function needs_activation(): bool {
 				throw new RuntimeException( 'Licensing state should not be read when no URL can be built.' );
 			}
 		};
