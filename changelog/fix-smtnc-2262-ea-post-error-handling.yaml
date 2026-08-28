@@ -1,0 +1,4 @@
+significance: patch
+type: tweak
+entry: Improve specificity of error handling when syncing event with Event Aggregator.
+timestamp: 2026-08-28T16:05:44.919Z
