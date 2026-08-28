@@ -314,18 +314,34 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
-		// we know it is not a 404 or 403 at this point.
+		// A transport-level failure (DNS, TLS, refused connection, timeout) never carries a
+		// response code, so this has to be checked before `$code` is read: a `WP_Error` would
+		// otherwise yield `0` and get reported as a generic server-side problem.
+		if ( is_wp_error( $response ) ) {
+			tribe( 'logger' )->log_debug(
+				'Request failed during the creation: ' . $response->get_error_message(),
+				'EA Service'
+			);
+
+			return $response;
+		}
+
 		$code = (int) wp_remote_retrieve_response_code( $response );
+
+		if ( 403 === $code ) {
+			return new WP_Error(
+				'core:aggregator:request-denied',
+				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
+			);
+		}
+
+		// we know it is not a 403 at this point.
 		if ( $code >= 300 || $code < 200 ) {
 			tribe( 'logger' )->log_debug( "Invalid response code: {$code} - during the creation.", 'EA Service' );
 			return new WP_Error(
 				'core:aggregator:bad-response',
 				esc_html__( 'There may be an issue with the Event Aggregator server. Please try your import again later.', 'the-events-calendar' )
 			);
-		}
-
-		if ( is_wp_error( $response ) ) {
-			return $response;
 		}
 
 		$json = json_decode( wp_remote_retrieve_body( $response ) );
