@@ -196,7 +196,8 @@ class Blocks_Provider extends Service_Provider {
 			'enabled'        => true,
 			'locked'         => ! $is_occurrence && $post_id > 0 && $guard->is_rule_locked( $post_id ),
 			'isOccurrence'   => $is_occurrence,
-			'parentEditLink' => $is_occurrence ? (string) get_edit_post_link( Occurrence::normalize_id( $post_id ), 'raw' ) : '',
+			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
+			'parentEditLink' => $is_occurrence ? admin_url( 'post.php?post=' . Occurrence::normalize_id( $post_id ) . '&action=edit' ) : '',
 		];
 
 		return $editor_config;

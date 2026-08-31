@@ -19,8 +19,12 @@ import eventWebsite from '@moderntribe/events/blocks/event-website';
 import FeaturedImage from '@moderntribe/events/blocks/featured-image';
 import archiveEvents from '@moderntribe/events/blocks/archive-events';
 import singleEvent from '@moderntribe/events/blocks/single-event';
+import { hook as hookEventDates } from '@moderntribe/events/blocks/event-datetime/dashboard/event-dates';
 import { initStore } from '@moderntribe/events/data';
 import './style.pcss';
+
+// The free Event Dates panel yields to the Events Calendar Pro recurrence UI.
+hookEventDates();
 
 // Used by events-pro blocks
 export const controls = {

@@ -100,7 +100,8 @@ class Admin_Provider extends Service_Provider {
 		$rows                 = [];
 
 		if ( $is_occurrence ) {
-			$occurrence_edit_link = (string) get_edit_post_link( Occurrence::normalize_id( $event_id ), 'raw' );
+			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
+			$occurrence_edit_link = admin_url( 'post.php?post=' . Occurrence::normalize_id( $event_id ) . '&action=edit' );
 		} elseif ( ! $is_locked && $event_id > 0 ) {
 			$rows = array_map(
 				static function ( array $period ): array {
