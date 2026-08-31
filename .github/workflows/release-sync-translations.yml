@@ -27,12 +27,12 @@ jobs:
         run: |
           branch_name="${{ github.head_ref || github.ref_name }}"
           should_glotpress=0
-          if [[ "$branch_name" =~ ^release/.* || "$branch_name" == "master" || "$branch_name" == "main" ]]; then
+          if [[ "$branch_name" =~ ^release/.* || "$branch_name" == "main" ]]; then
               should_glotpress=1
           fi
           echo "should_glotpress=$should_glotpress" >> $GITHUB_OUTPUT
           echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
-          
+
       - name: Fetch Plugin Slug from .puprc
         id: puprc
         run: |
@@ -67,13 +67,13 @@ jobs:
           significance: patch
           type: language
           entry: "${{ steps.push-translations.outputs.glotpress-result }}"
-      
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         id: create-pull-request
         with:
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
-          base: ${{ github.head_ref || github.ref_name }} 
+          base: ${{ github.head_ref || github.ref_name }}
           branch: "task/i18n-update-${{ github.head_ref || github.ref_name }}-with-${{ steps.vars.outputs.sha_short }}"
           title: "[BOT] Generate POT file for '${{ github.head_ref || github.ref_name }}'"
           assignees: ${{ github.actor }}

@@ -1612,6 +1612,42 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Applies the View repository arguments and returns the events the View would display, without
+	 * rendering it.
+	 *
+	 * Callers that need the events before the View runs cannot use `get_html()` for it: rendering
+	 * also fires the HTML cache and SEO hooks, and out of order those produce the wrong directives.
+	 *
+	 * @since 6.17.3
+	 *
+	 * @return array<int, WP_Post> The events the View would display for its current context and page.
+	 */
+	public function fetch_events(): array {
+		if ( empty( $this->repository_args ) ) {
+			$this->repository_args = $this->get_repository_args();
+			$this->repository->by_args( $this->repository_args );
+		}
+
+		$events = array_filter(
+			$this->repository->all(),
+			static function ( $event ) {
+				return $event instanceof WP_Post;
+			}
+		);
+
+		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10 );
+
+		$is_paginated = isset( $this->repository_args['posts_per_page'] ) && - 1 !== $this->repository_args['posts_per_page'];
+
+		/* The repository asks for one event more than the page holds; see setup_repository_args(). */
+		if ( $is_paginated && $this->has_next_event( $events ) ) {
+			array_pop( $events );
+		}
+
+		return $events;
+	}
+
+	/**
 	 * Sets up the View template variables.
 	 *
 	 * @since 4.9.4

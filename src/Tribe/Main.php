@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.17.1';
+		const VERSION             = '6.17.3.1';
 
 		/**
 		 * Min Pro Addon.
@@ -2916,7 +2916,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				self::clear_ct1_activation_state();
 			}
 
-			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
+			// Flag a single-site activation so we can redirect to the onboarding wizard on the next
+			// admin load. Bulk activations are filtered out there, where WordPress exposes the
+			// `activate-multi` flag; it is not yet set while this activation hook runs.
+			if ( ! is_network_admin() ) {
 				set_transient( '_tribe_events_activation_redirect', 1, 30 );
 			}
 		}

@@ -53,11 +53,22 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
+	 * @since 6.17.2 Added validation for post_parent parameter.
+	 * @since 6.17.3.1 Constrained the query to the posts readable by the current user.
+	 *
 	 * @param WP_REST_Request $request
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 */
 	public function get( WP_REST_Request $request ) {
+		// Validate post_parent parameter if provided.
+		if ( isset( $request['post_parent'] ) && null !== $request['post_parent'] ) {
+			$validation = $this->validate_event_id_param( $request['post_parent'], 'post_parent' );
+			if ( is_wp_error( $validation ) ) {
+				return $validation;
+			}
+		}
+
 		$args        = [];
 		$date_format = Tribe__Date_Utils::DBDATETIMEFORMAT;
 		$relative_dates = false;
@@ -234,9 +245,28 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			 */
 			$args = apply_filters( 'tribe_events_archive_get_args', $args, $data, $request );
 
+			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
+
+			$restrict_to_readable = ! $this->can_read_others_posts();
+
+			if ( $restrict_to_readable ) {
+				$this->restrict_queries_to_readable_posts();
+			}
+
 			$events = tribe_get_events( $args );
 
-			$page = $this->parse_page( $request ) ? $this->parse_page( $request ) : 1;
+			$event_ids = wp_list_pluck( $events, 'ID' );
+
+			unset( $args['fields'] );
+
+			$has_next     = $this->has_next( $args, $page );
+			$has_previous = $this->has_previous( $page, $args );
+			$total        = $this->get_total( $args );
+			$total_pages  = $this->get_total_pages( $total, $args['posts_per_page'] );
+
+			if ( $restrict_to_readable ) {
+				$this->unrestrict_queries_to_readable_posts();
+			}
 
 			if ( empty( $events ) && (int) $page > 1 ) {
 				$message = $this->messages->get_message( 'event-archive-page-not-found' );
@@ -244,19 +274,19 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				return new WP_Error( 'event-archive-page-not-found', $message, [ 'status' => 404 ] );
 			}
 
-			$events = wp_list_pluck( $events, 'ID' );
-
-			unset( $args['fields'] );
-
-			if ( $this->has_next( $args, $page ) ) {
+			if ( $has_next ) {
 				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 			}
 
-			if ( $this->has_previous( $page, $args ) ) {
+			if ( $has_previous ) {
 				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 			}
 
-			foreach ( $events as $event_id ) {
+			foreach ( $event_ids as $event_id ) {
+				if ( ! $this->is_post_readable( $event_id ) ) {
+					continue;
+				}
+
 				$event = $this->repository->get_event_data( $event_id );
 
 				if ( $event && ! is_wp_error( $event ) ) {
@@ -264,8 +294,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 				}
 			}
 
-			$data['total']       = $total = $this->get_total( $args );
-			$data['total_pages'] = $this->get_total_pages( $total, $args['posts_per_page'] );
+			$data['total']       = $total;
+			$data['total_pages'] = $total_pages;
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}

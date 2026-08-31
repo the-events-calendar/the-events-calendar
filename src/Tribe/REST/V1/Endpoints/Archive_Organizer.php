@@ -83,8 +83,18 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
 	 * @since 4.6
+	 * @since 6.17.2 Added validation for event parameter.
+	 * @since 6.17.3.1 Constrained the query to the posts readable by the current user.
 	 */
 	public function get( WP_REST_Request $request ) {
+		// Validate event parameter if provided.
+		if ( isset( $request['event'] ) && null !== $request['event'] ) {
+			$validation = $this->validate_event_id_param( $request['event'], 'event' );
+			if ( is_wp_error( $validation ) ) {
+				return $validation;
+			}
+		}
+
 		$args = [
 			'posts_per_page' => $request['per_page'],
 			'paged'          => $request['page'],
@@ -126,11 +136,8 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			$matches     = $linked_post->find_like( $args['s'] );
 			unset( $args['s'] );
 
-			if ( ! empty( $matches ) ) {
-				$args['post__in'] = $matches;
-			} else {
-				$organizers = [];
-			}
+			// An empty `post__in` would be ignored: use an ID that cannot match instead.
+			$args['post__in'] = ! empty( $matches ) ? $matches : [ 0 ];
 		}
 
 		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
@@ -142,17 +149,47 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 		$data = $cache->get( $cache_key, 'save_post' );
 
 		if ( ! is_array( $data ) ) {
-			$organizers = isset( $organizers ) ? $organizers : tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
+			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
+
+			$restrict_to_readable = ! $this->can_read_others_posts();
+
+			if ( $restrict_to_readable ) {
+				// `tribe_get_organizers()` suppresses query filters by default; `$args` takes precedence
+				// over the positional parameter.
+				$args['suppress_filters'] = false;
+
+				$this->restrict_queries_to_readable_posts();
+			}
+
+			$organizers = tribe_get_organizers( $only_with_upcoming, $posts_per_page, true, $args );
 
 			unset( $args['fields'] );
 
-			$ids = wp_list_pluck( $organizers, 'ID' );
+			$ids          = wp_list_pluck( $organizers, 'ID' );
+			$has_next     = $this->has_next( $args, $page, $only_with_upcoming );
+			$has_previous = $this->has_previous( $page, $args, $only_with_upcoming );
+			$total        = $this->get_total( $args, $only_with_upcoming );
+			$total_pages  = $this->get_total_pages( $total, $posts_per_page );
+
+			if ( $restrict_to_readable ) {
+				$this->unrestrict_queries_to_readable_posts();
+			}
+
+			if ( empty( $organizers ) && (int) $page > 1 ) {
+				$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
+
+				return new WP_Error( 'organizer-archive-page-not-found', $message, [ 'status' => 404 ] );
+			}
 
 			$data = [ 'organizers' => [] ];
 
 			$rest_controller = new WP_REST_Posts_Controller( Tribe__Events__Main::ORGANIZER_POST_TYPE );
 
 			foreach ( $ids as $organizer_id ) {
+				if ( ! $this->is_post_readable( $organizer_id ) ) {
+					continue;
+				}
+
 				$filter_added = false;
 
 				if ( post_password_required( $organizer_id ) && $rest_controller->can_access_password_content( get_post( $organizer_id ), $request ) ) {
@@ -173,24 +210,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 
 			$data['rest_url'] = $this->get_current_rest_url( $args );
 
-			$page = Tribe__Utils__Array::get( $args, 'paged', 1 );
-
-			if ( empty( $organizers ) && (int) $page > 1 ) {
-				$message = $this->messages->get_message( 'organizer-archive-page-not-found' );
-
-				return new WP_Error( 'organizer-archive-page-not-found', $message, [ 'status' => 404 ] );
-			}
-
-			if ( $this->has_next( $args, $page, $only_with_upcoming ) ) {
+			if ( $has_next ) {
 				$data['next_rest_url'] = $this->get_next_rest_url( $data['rest_url'], $page );
 			}
 
-			if ( $this->has_previous( $page, $args, $only_with_upcoming ) ) {
+			if ( $has_previous ) {
 				$data['previous_rest_url'] = $this->get_previous_rest_url( $data['rest_url'], $page );;
 			}
 
-			$data['total']       = $total = $this->get_total( $args, $only_with_upcoming );
-			$data['total_pages'] = $this->get_total_pages( $total, $posts_per_page );
+			$data['total']       = $total;
+			$data['total_pages'] = $total_pages;
 
 			$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 		}

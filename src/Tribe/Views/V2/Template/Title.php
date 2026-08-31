@@ -243,6 +243,7 @@ class Title {
 	 *
 	 * @since 4.9.10
 	 * @since 6.0.14 Changed function scope, and moved internal var to param.
+	 * @since 6.17.3 Only stand in for the first event date when a date was actually selected.
 	 *
 	 * @param Context $context    The context to use to build the title.
 	 * @param mixed   $event_date The event date object, string or timestamp.
@@ -251,8 +252,9 @@ class Title {
 	 * @return array The built post range title.
 	 */
 	public static function build_post_range_title( Context $context, $event_date, array $posts ) {
-		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
-		$is_past    = 'past' === $context->get( 'event_display_mode' );
+		$has_selected_date = ! empty( $event_date );
+		$event_date        = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
+		$is_past           = 'past' === $context->get( 'event_display_mode' );
 
 		if ( $is_past ) {
 			$first = end( $posts );
@@ -269,10 +271,11 @@ class Title {
 
 		/*
 		 * If we are on page 1 then we may wish to use the *selected* start date in place of the
-		 * first returned event date.
+		 * first returned event date. An absent date normalizes to today above, which is not a
+		 * selection, and standing it in would name a date the page does not show.
 		 */
 		$page = $context->get( 'paged', 1 );
-		if ( 1 == $page && $event_date < $first_returned_date ) {
+		if ( $has_selected_date && 1 == $page && $event_date < $first_returned_date ) {
 			$first_event_date    = tribe_format_date( $event_date, false );
 			$first_returned_date = $event_date;
 		}
@@ -381,23 +384,12 @@ class Title {
 			$posts = null !== $wp_query->posts ? $wp_query->posts : $wp_query->get_posts();
 
 			if ( is_post_type_archive( 'tribe_events' ) ) {
-				/**
-				 * We create the View, we call get_html() to setup the repository with
-				 * all query args and then we get all the events. This is needed to fix title
-				 * filters that were fired before the View was setup.
-				 *
-				 * We pop the last one when needed. See:
-				 * setup_template_vars() in src/Tribe/Views/V2/View.php
+				/*
+				 * On classic themes the title is built during `wp_head`, before the View has run and
+				 * handed its events over through `set_posts()`, so query them here. The List View
+				 * arguments are context driven, which covers the past and Photo views too.
 				 */
-				$view  = View::make( 'list' );
-				$repo  = $view->get_repository();
-				$posts = $repo->all();
-
-				$is_paginated    = isset( $repo->query_args['posts_per_page'] ) && - 1 !== $repo->query_args['posts_per_page'];
-				$has_next_events = count( $posts ) > (int) $view->get_context()->get( 'events_per_page', 12 );
-				if ( $is_paginated && $has_next_events ) {
-					array_pop( $posts );
-				}
+				$posts = View::make( 'list' )->fetch_events();
 			}
 		}
 

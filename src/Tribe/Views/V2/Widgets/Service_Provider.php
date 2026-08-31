@@ -106,13 +106,13 @@ class Service_Provider extends Provider_Contract {
 
 	/**
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
-	 * 
+	 *
 	 * @since 6.11.1
-	 * 
+	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.
 	 * @param WP_REST_Request $request The REST request.
-	 * 
+	 *
 	 * @return mixed The result of the rest request.
 	 */
 	public function enable_widget_copy_paste( $result, $server, $request ) {
@@ -120,10 +120,10 @@ class Service_Provider extends Provider_Contract {
 		if ( null !== $result ) {
 			return $result;
 		}
-	
+
 		// Get the route being requested.
 		$route = $request->get_route();
-		
+
 		// Check if this matches our target endpoint.
 		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/(?:encode|render)$#', $route, $matches ) ) {
 			return $result;
@@ -133,10 +133,10 @@ class Service_Provider extends Provider_Contract {
 		if ( ! isset( $matches[1] ) ) {
 			return $result;
 		}
-	
+
 		// Get the widget type ID from the route.
 		$widget_type_id = $matches[1];
-	
+
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
 			return $result;
@@ -157,8 +157,14 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		// Set the new instance.
-		$new_instance         = $request['instance'];
-		$serialized_instance  = base64_decode( $request['instance']['encoded'] );
+		$new_instance        = $request['instance'];
+		$serialized_instance = base64_decode( $request['instance']['encoded'] );
+
+		// Skip instances that do not pass validation.
+		if ( ! $this->is_safe_widget_instance( $serialized_instance ) ) {
+			return $result;
+		}
+
 		$new_instance['hash'] = wp_hash( $serialized_instance );
 
 		// Override the instance.
@@ -169,13 +175,13 @@ class Service_Provider extends Provider_Contract {
 
 	/**
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
-	 * 
+	 *
 	 * @since 6.11.2
-	 * 
+	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
 	 * @param string          $route   The route of the request.
-	 * 
+	 *
 	 * @return mixed The result of the rest request.
 	 */
 	public function enable_saving_widget_copied( $result, $request, $route ) {
@@ -188,19 +194,19 @@ class Service_Provider extends Provider_Contract {
 		if ( ! is_string( $route ) ) {
 			return $result;
 		}
-		
+
 		// Check if this matches our target endpoint.
 		if ( ! str_starts_with( $route, '/wp/v2/widgets' ) ) {
 			return $result;
 		}
-		
+
 		$widget_type_id = $request->get_param( 'id_base' );
 
 		// Bail if the widget type ID is not a string.
 		if ( ! is_string( $widget_type_id ) ) {
 			return $result;
 		}
-	
+
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
 			return $result;
@@ -221,8 +227,14 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		// Set the new instance.
-		$new_instance         = $request['instance'];
-		$serialized_instance  = base64_decode( $request['instance']['encoded'] );
+		$new_instance        = $request['instance'];
+		$serialized_instance = base64_decode( $request['instance']['encoded'] );
+
+		// Skip instances that do not pass validation.
+		if ( ! $this->is_safe_widget_instance( $serialized_instance ) ) {
+			return $result;
+		}
+
 		$new_instance['hash'] = wp_hash( $serialized_instance );
 
 		// Override the instance.
@@ -233,11 +245,11 @@ class Service_Provider extends Provider_Contract {
 
 	/**
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
-	 * 
+	 *
 	 * @since 6.11.2
-	 * 
+	 *
 	 * @param array $parsed_block The parsed block.
-	 * 
+	 *
 	 * @return array The parsed block.
 	 */
 	public function enable_rendering_widget_copied( $parsed_block ) {
@@ -252,17 +264,69 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		$instance = $parsed_block['attrs']['instance'] ?? [];
-		
+
 		if ( ! isset( $instance['encoded'], $instance['hash'] ) ) {
 			return $parsed_block;
 		}
 
 		$serialized_instance = base64_decode( $instance['encoded'] );
-		$instance['hash']    = wp_hash( $serialized_instance );
-		
+
+		// Skip instances that do not pass validation.
+		if ( ! $this->is_safe_widget_instance( $serialized_instance ) ) {
+			return $parsed_block;
+		}
+
+		$instance['hash'] = wp_hash( $serialized_instance );
+
 		$parsed_block['attrs']['instance'] = $instance;
-		
+
 		return $parsed_block;
+	}
+
+	/**
+	 * Whether a copied widget instance passes validation.
+	 *
+	 * @since 6.17.3
+	 * @since 6.17.3.1 Only accept instances that unserialize to a plain array.
+	 *
+	 * @param string $serialized The decoded widget instance.
+	 *
+	 * @return bool Whether the instance passed validation.
+	 */
+	protected function is_safe_widget_instance( $serialized ) {
+		if ( ! is_string( $serialized ) ) {
+			return false;
+		}
+
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+		$data = @unserialize( $serialized, [ 'allowed_classes' => false ] );
+
+		return is_array( $data ) && ! $this->contains_object( $data );
+	}
+
+	/**
+	 * Recursively determine whether a value holds any object.
+	 *
+	 * @since 6.17.3
+	 *
+	 * @param mixed $data The value to inspect.
+	 *
+	 * @return bool Whether an object was found.
+	 */
+	protected function contains_object( $data ) {
+		if ( is_object( $data ) ) {
+			return true;
+		}
+
+		if ( is_array( $data ) ) {
+			foreach ( $data as $value ) {
+				if ( $this->contains_object( $value ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**

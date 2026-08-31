@@ -44,6 +44,45 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 	}
 
 	/**
+	 * Validates that an event ID parameter is a valid, existing event.
+	 *
+	 * @since 6.17.2
+	 *
+	 * @param mixed  $value      The parameter value to validate.
+	 * @param string $param_name The parameter name, used in error messages.
+	 *
+	 * @return true|WP_Error True if valid, or WP_Error on failure.
+	 */
+	protected function validate_event_id_param( $value, $param_name ) {
+		if ( ! $this->validator->is_event_id_format( $value ) ) {
+			return new WP_Error(
+				'rest-invalid-event-id',
+				sprintf(
+					/* translators: %s: The parameter name. */
+					__( 'The "%s" parameter must be a valid numeric event ID.', 'the-events-calendar' ),
+					$param_name
+				),
+				[ 'status' => 400 ]
+			);
+		}
+
+		$event = get_post( (int) $value );
+		if ( empty( $event ) || Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
+			return new WP_Error(
+				'rest-invalid-event-id',
+				sprintf(
+					/* translators: %s: The parameter name. */
+					__( 'The specified ID for the "%s" parameter is not a valid event.', 'the-events-calendar' ),
+					$param_name
+				),
+				[ 'status' => 400 ]
+			);
+		}
+
+		return true;
+	}
+
+	/**
 	 * Parses the `per_page` argument from the request.
 	 *
 	 * @param int $per_page The `per_page` param provided by the request.
@@ -149,6 +188,155 @@ abstract class Tribe__Events__REST__V1__Endpoints__Archive_Base
 		$rest_url = remove_query_arg( 'page', $rest_url );
 
 		return 2 === $page ? $rest_url : add_query_arg( [ 'page' => $page - 1 ], $rest_url );
+	}
+
+	/**
+	 * Whether the current user is allowed to read a post returned by the archive.
+	 *
+	 * @since 6.17.3.1
+	 *
+	 * @param int $post_id The post ID to check.
+	 *
+	 * @return bool Whether the post can be read by the current user.
+	 */
+	protected function is_post_readable( $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		if ( 'publish' === $post->post_status ) {
+			return true;
+		}
+
+		return current_user_can( get_post_type_object( $this->post_type )->cap->read_post, $post->ID );
+	}
+
+	/**
+	 * Whether the current user can read posts of any status, no matter who authored them.
+	 *
+	 * When this is the case the archive queries need no further constraining.
+	 *
+	 * @since 6.17.3.1
+	 *
+	 * @return bool Whether the current user can read every post the query could match.
+	 */
+	protected function can_read_others_posts() {
+		$post_type_object = get_post_type_object( $this->post_type );
+
+		if ( ! $post_type_object instanceof WP_Post_Type ) {
+			return false;
+		}
+
+		return current_user_can( $post_type_object->cap->edit_others_posts )
+			&& current_user_can( $post_type_object->cap->read_private_posts );
+	}
+
+	/**
+	 * Returns the post stati the current user can read for the endpoint post type, for any author.
+	 *
+	 * Mirrors the `read_post` meta capability mapping done by WordPress in `map_meta_cap()`.
+	 *
+	 * @since 6.17.3.1
+	 *
+	 * @return array<string> A list of post stati readable by the current user for any author.
+	 */
+	protected function get_readable_post_stati() {
+		$post_type_object = get_post_type_object( $this->post_type );
+
+		if ( ! $post_type_object instanceof WP_Post_Type ) {
+			return [];
+		}
+
+		$readable = [];
+
+		foreach ( get_post_stati( [], 'objects' ) as $status => $status_object ) {
+			// Readable by anyone, logged out users included.
+			if ( 'publish' === $status ) {
+				$readable[] = $status;
+				continue;
+			}
+
+			if ( ! empty( $status_object->public ) ) {
+				$cap = $post_type_object->cap->read;
+			} elseif ( ! empty( $status_object->private ) ) {
+				$cap = $post_type_object->cap->read_private_posts;
+			} else {
+				$cap = $post_type_object->cap->edit_others_posts;
+			}
+
+			if ( current_user_can( $cap ) ) {
+				$readable[] = $status;
+			}
+		}
+
+		return $readable;
+	}
+
+	/**
+	 * Constrains an archive query to the posts the current user is allowed to read.
+	 *
+	 * The constraint is applied to the query rather than to its results so that the pagination and
+	 * `found_posts` count stay consistent with the posts that are returned. A post qualifies when its
+	 * status is one the user can read for any author, or when the user authored it.
+	 *
+	 * @since 6.17.3.1
+	 *
+	 * @param string        $where The `WHERE` clause of the query.
+	 * @param WP_Query|null $query The query being filtered.
+	 *
+	 * @return string The filtered `WHERE` clause.
+	 */
+	public function filter_readable_posts_where( $where, $query = null ) {
+		global $wpdb;
+
+		// Only constrain queries for the post type this endpoint manages.
+		if ( $query instanceof WP_Query && ! in_array( $this->post_type, (array) $query->get( 'post_type' ), true ) ) {
+			return $where;
+		}
+
+		$clauses = [];
+		$stati   = $this->get_readable_post_stati();
+
+		if ( ! empty( $stati ) ) {
+			$clauses[] = "{$wpdb->posts}.post_status IN ( '" . implode( "', '", array_map( 'esc_sql', $stati ) ) . "' )";
+		}
+
+		$user_id = get_current_user_id();
+
+		if ( ! empty( $user_id ) ) {
+			$clauses[] = $wpdb->prepare( "{$wpdb->posts}.post_author = %d", $user_id );
+		}
+
+		// With no readable status and no author to match on, match nothing.
+		$where .= empty( $clauses )
+			? ' AND 1=0 '
+			: ' AND ( ' . implode( ' OR ', $clauses ) . ' ) ';
+
+		return $where;
+	}
+
+	/**
+	 * Starts constraining archive queries to the posts readable by the current user.
+	 *
+	 * @since 6.17.3.1
+	 *
+	 * @return void
+	 */
+	protected function restrict_queries_to_readable_posts() {
+		add_filter( 'posts_where', [ $this, 'filter_readable_posts_where' ], 10, 2 );
+	}
+
+	/**
+	 * Stops constraining archive queries to the posts readable by the current user.
+	 *
+	 * @since 6.17.3.1
+	 *
+	 * @return void
+	 */
+	protected function unrestrict_queries_to_readable_posts() {
+		remove_filter( 'posts_where', [ $this, 'filter_readable_posts_where' ], 10 );
 	}
 
 	/**
