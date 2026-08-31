@@ -114,6 +114,14 @@ class Provider extends Service_Provider implements Provider_Contract {
 			add_filter( 'get_post_metadata', [ $this, 'hydrate_cache_on_occurrence' ], 10, 4 );
 		}
 
+		if ( ! has_filter( 'get_post_metadata', [ $this, 'hydrate_tec_occurrence_meta' ] ) ) {
+			/*
+			 * Attached at registration, not only when the Provisional_Post_Meta singleton
+			 * is first built: `$post->_tec_occurrence` must hydrate on the first access.
+			 */
+			add_filter( 'get_post_metadata', [ $this, 'hydrate_tec_occurrence_meta' ], 10, 3 );
+		}
+
 		if ( ! has_filter( 'posts_results', [ $this, 'replace_posts_results' ] ) ) {
 			add_filter( 'posts_results', [ $this, 'replace_posts_results' ], 10, 2 );
 		}
