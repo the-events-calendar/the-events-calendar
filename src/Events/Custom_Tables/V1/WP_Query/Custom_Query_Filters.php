@@ -3,7 +3,7 @@
  * Handles the interaction of the plugin with the Custom Tables Queries
  * set up in The Events Calendar plugin.
  *
- * @since   6.0.0
+ * @since 6.0.0
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
@@ -17,7 +17,6 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
 use TEC\Events\Custom_Tables\V1\Events\Event_Sequence;
-use TEC\Events\Custom_Tables\V1\Events\Provisional\ID_Generator;
 use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
 use Tribe__Cache;
 use Tribe__Cache_Listener;
@@ -28,13 +27,13 @@ use WP_Query;
 /**
  * Class Custom_Query_Filters
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
 class Custom_Query_Filters {
 
-	const POST_IN = 'tec_ct1_post__in';
+	const POST_IN     = 'tec_ct1_post__in';
 	const POST_NOT_IN = 'tec_ct1_post__not_in';
 
 	/**
@@ -80,14 +79,12 @@ class Custom_Query_Filters {
 		$occurrences_table            = Occurrences::table_name( true );
 		$occurrences_table_uid_column = Occurrences::uid_column();
 
-		$occurrence_id_field = sprintf(
+		return sprintf(
 			'(%1$s.%2$s + %3$d) as %2$s',
 			$occurrences_table,
 			$occurrences_table_uid_column,
 			$this->provisional_id_base
 		);
-
-		return $occurrence_id_field;
 	}
 
 	/**
@@ -102,7 +99,7 @@ class Custom_Query_Filters {
 	 */
 	public function filter_query_vars( array $query_vars ) {
 		$keys = [
-			'post__not_in' => self::POST_NOT_IN,
+			'post__not_in' => self::POST_NOT_IN, // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- Map key, not a query argument.
 			'post__in'     => self::POST_IN,
 		];
 
@@ -125,7 +122,7 @@ class Custom_Query_Filters {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param string   $where The `WHERE` statement as produced
+	 * @param string   $where The `WHERE` statement as produced.
 	 * @param WP_Query $query A reference to the Query being filtered.
 	 *
 	 * @return string The filtered `WHERE` statement.
@@ -138,7 +135,7 @@ class Custom_Query_Filters {
 		$not__in = $query->get( self::POST_NOT_IN );
 		if ( ! empty( $not__in ) ) {
 			[ $post_ids, $occurrence_provisional_ids ] = $this->divide_ids( $not__in );
-			$sql   = $this->build_in_sql_for( 'post__not_in', $post_ids, $occurrence_provisional_ids );
+			$sql                                       = $this->build_in_sql_for( 'post__not_in', $post_ids, $occurrence_provisional_ids );
 
 			if ( strpos( $where, $sql ) === false ) {
 				$where .= " AND ($sql)";
@@ -148,7 +145,7 @@ class Custom_Query_Filters {
 		$in = $query->get( self::POST_IN );
 		if ( ! empty( $in ) ) {
 			[ $post_ids, $occurrence_provisional_ids ] = $this->divide_ids( $in );
-			$sql   = $this->build_in_sql_for( 'post__in', $post_ids, $occurrence_provisional_ids );
+			$sql                                       = $this->build_in_sql_for( 'post__in', $post_ids, $occurrence_provisional_ids );
 
 			if ( strpos( $where, $sql ) === false ) {
 				$where .= " AND ($sql)";
@@ -162,7 +159,7 @@ class Custom_Query_Filters {
 	 * Divides the IDs found in a `post__not_in` or `post__in` query var between
 	 * real post IDs and Occurrence Provisional post IDs.
 	 *
-	 * @param array<int> $not__in List of IDs
+	 * @param array<int> $not__in List of IDs.
 	 *
 	 * @return array<array<int>> Two arrays, one of real post IDs, the other of
 	 *                           Occurrence provisional post IDs.
@@ -178,7 +175,7 @@ class Custom_Query_Filters {
 			}
 		}
 
-		return array( $post_ids, $occurrence_provisional_ids );
+		return [ $post_ids, $occurrence_provisional_ids ];
 	}
 
 	/**
@@ -209,10 +206,16 @@ class Custom_Query_Filters {
 		$occurrence_table = Occurrences::table_name();
 		$id_statements    = [];
 		if ( count( $occurrence_provisional_ids ) ) {
-			$interval        = implode( ',', array_map( [
-				$this->provisional_post,
-				'normalize_provisional_post_id'
-			], $occurrence_provisional_ids ) );
+			$interval        = implode(
+				',',
+				array_map(
+					[
+						$this->provisional_post,
+						'normalize_provisional_post_id',
+					],
+					$occurrence_provisional_ids 
+				) 
+			);
 			$id_statements[] = "{$occurrence_table}.occurrence_id {$in_operator} ({$interval})";
 		}
 		if ( count( $post_ids ) ) {
@@ -273,11 +276,11 @@ class Custom_Query_Filters {
 		$post_already_set = ! empty( $wp_query->get( 'post__in' ) ) || ( is_numeric( $wp_query->get( 'p' ) ) && $wp_query->get( 'p' ) > 0 );
 
 		if ( ! is_numeric( $sequence_number )
-		     || $post_already_set
-		     || ! $wp_query->is_main_query()
-		     || empty( $date )
-		     || empty( $slug )
-		     || (array) $wp_query->get( 'post_type' ) !== [ Tribe__Events__Main::POSTTYPE ] ) {
+			|| $post_already_set
+			|| ! $wp_query->is_main_query()
+			|| empty( $date )
+			|| empty( $slug )
+			|| (array) $wp_query->get( 'post_type' ) !== [ Tribe__Events__Main::POSTTYPE ] ) {
 			return; // We shouldn't be here.
 		}
 
@@ -294,10 +297,10 @@ class Custom_Query_Filters {
 			return;
 		}
 
-		// Get our post ID
+		// Get our post ID.
 		$post_query = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s LIMIT 1";
-		$post_query = $wpdb->prepare( $post_query, $slug, Tribe__Events__Main::POSTTYPE );
-		$post_id    = $wpdb->get_var( $post_query );
+		$post_query = $wpdb->prepare( $post_query, $slug, Tribe__Events__Main::POSTTYPE ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Placeholders are in the statement above.
+		$post_id    = $wpdb->get_var( $post_query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Prepared on the line above.
 
 		if ( empty( $post_id ) ) {
 			// Something went wrong, bail.
@@ -318,22 +321,23 @@ class Custom_Query_Filters {
 		$occurrence = Event_Sequence::find_occurrence_by_sequence( $post_id, $sequence_number, $date );
 		if ( ! $occurrence instanceof Occurrence ) {
 			// Check if there is a valid sequence that was not generated yet?
-			$other_occurrence = Event_Sequence::get_occurrence_on_same_day( $post_id, $date );;
+			$other_occurrence = Event_Sequence::get_occurrence_on_same_day( $post_id, $date );
+
 			if ( ! $other_occurrence instanceof Occurrence ) {
-				// This is a 404
-				$wp_query->query_vars = array();
+				// This is a 404.
+				$wp_query->query_vars = [];
 				$wp_query->set_404();
-				status_header(404);
+				status_header( 404 );
 				return;
 			}
 			Event_Sequence::sync_sequences_for( $other_occurrence );
 			$occurrence = Event_Sequence::find_occurrence_by_sequence( $post_id, $sequence_number, $date );
 			// Ensure this is an occurrence.
 			if ( ! $occurrence instanceof Occurrence ) {
-				// This is a 404
-				$wp_query->query_vars = array();
+				// This is a 404.
+				$wp_query->query_vars = [];
 				$wp_query->set_404();
-				status_header(404);
+				status_header( 404 );
 				return;
 			}
 		}

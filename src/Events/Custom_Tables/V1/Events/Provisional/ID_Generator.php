@@ -2,7 +2,7 @@
 /**
  * Handles the generation and update of the Occurrences Provisional post ID.
  *
- * @since   6.0.0
+ * @since 6.0.0
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Provisional
@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 /**
  * Class ID_Generator
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Provisional
  */
@@ -72,13 +72,15 @@ class ID_Generator {
 		global $wpdb;
 
 		return (int) $wpdb->get_var(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				'
 			SELECT `AUTO_INCREMENT`
 			FROM  INFORMATION_SCHEMA.TABLES
 			WHERE TABLE_SCHEMA = DATABASE()
-			  AND TABLE_NAME = %s",
+			  AND TABLE_NAME = %s',
 				$wpdb->posts
-			) );
+			) 
+		);
 	}
 
 	/**
@@ -193,9 +195,7 @@ class ID_Generator {
 			return 0;
 		}
 
-		$current     = $this->current();
-		$baseless_id = $occurrence_id > $current ? $occurrence_id - $current : $occurrence_id;
-
-		return $baseless_id;
+		$current = $this->current();
+		return $occurrence_id > $current ? $occurrence_id - $current : $occurrence_id;
 	}
 }

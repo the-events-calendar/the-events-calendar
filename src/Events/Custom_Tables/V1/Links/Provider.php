@@ -2,7 +2,7 @@
 /**
  * Handles the registration of link modifications.
  *
- * @since   6.0.11
+ * @since 6.0.11
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Links
@@ -16,7 +16,7 @@ use WP_Post;
 /**
  * Class Provider.
  *
- * @since   6.0.11
+ * @since 6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Links;
  */
@@ -33,14 +33,22 @@ class Provider extends Service_Provider {
 		$this->container->singleton( __CLASS__, $this );
 		$this->container->singleton( Links::class, Links::class );
 
-		if ( ! has_filter( "tec_events_pro_recurring_event_permalink_sequence_number", [
-			$this,
-			'filter_recurring_event_sequence_number'
-		] ) ) {
-			add_filter( "tec_events_pro_recurring_event_permalink_sequence_number", [
+		if ( ! has_filter(
+			'tec_events_pro_recurring_event_permalink_sequence_number',
+			[
 				$this,
-				'filter_recurring_event_sequence_number'
-			], 10, 2 );
+				'filter_recurring_event_sequence_number',
+			] 
+		) ) {
+			add_filter(
+				'tec_events_pro_recurring_event_permalink_sequence_number',
+				[
+					$this,
+					'filter_recurring_event_sequence_number',
+				],
+				10,
+				2 
+			);
 		}
 
 		// The following filters are used to filter the edit and permalinks for recurring Events in Admin and non-Admin context.
@@ -58,10 +66,13 @@ class Provider extends Service_Provider {
 	 * Unregister hooks.
 	 */
 	public function unregister() {
-		remove_filter( "tec_events_pro_recurring_event_permalink_sequence_number", [
-			$this,
-			'filter_recurring_event_sequence_number'
-		] );
+		remove_filter(
+			'tec_events_pro_recurring_event_permalink_sequence_number',
+			[
+				$this,
+				'filter_recurring_event_sequence_number',
+			] 
+		);
 		remove_filter( 'get_edit_post_link', [ $this, 'update_event_edit_link' ], );
 		remove_filter( 'post_type_link', [ $this, 'update_recurrence_view_link' ], 20 );
 	}
@@ -106,7 +117,7 @@ class Provider extends Service_Provider {
 		}
 
 		return $this->container->make( Links::class )
-		                       ->update_recurrence_view_link( $post_link, $post, $leavename, $sample );
+								->update_recurrence_view_link( $post_link, $post, $leavename, $sample );
 	}
 
 	/**
@@ -121,6 +132,6 @@ class Provider extends Service_Provider {
 	 */
 	public function filter_recurring_event_sequence_number( $sequence_number, WP_Post $post ) {
 		return $this->container->make( Event_Links::class )
-		                       ->filter_recurring_event_sequence_number( $sequence_number, $post );
+								->filter_recurring_event_sequence_number( $sequence_number, $post );
 	}
 }

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Models the sequence of updates an Event and its Occurrences went through.
+ *
+ * @since 7.4.5
+ * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
+ *
+ * @package TEC\Events\Custom_Tables\V1\Events
+ */
 
 namespace TEC\Events\Custom_Tables\V1\Events;
 
@@ -9,7 +17,7 @@ use Tribe__Date_Utils;
 /**
  * Class Event_Sequence.
  *
- * @since   7.4.5
+ * @since 7.4.5
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Events;

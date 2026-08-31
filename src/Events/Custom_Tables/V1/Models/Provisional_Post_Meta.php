@@ -2,7 +2,7 @@
 /**
  * Handles the generation of a provisional post ID given an occurrence ID.
  *
- * @since   7.3.0
+ * @since 7.3.0
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Models

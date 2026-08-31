@@ -2,7 +2,7 @@
 /**
  * Handles the modification and validation of links in the context of the Administration UI.
  *
- * @since   6.0.0
+ * @since 6.0.0
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Links
@@ -21,7 +21,7 @@ use WP_Post;
 /**
  * Class Links
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Links
  */
@@ -91,9 +91,9 @@ class Links {
 		try {
 			$current_date = Dates::immutable( 'now', new DateTimeZone( 'UTC' ) );
 			$upcoming     = Occurrence::where( 'event_id', $event->event_id )
-			                          ->where( 'end_date_utc', '>', $current_date )
-			                          ->order_by( 'start_date' )
-			                          ->first();
+										->where( 'end_date_utc', '>', $current_date )
+										->order_by( 'start_date' )
+										->first();
 
 			if ( $upcoming instanceof Occurrence ) {
 				return $upcoming;
@@ -102,8 +102,8 @@ class Links {
 			// If the most recent event has passed, open the one closest to the end date of the event, meaning
 			// the closest to the current date.
 			$last = Occurrence::where( 'event_id', $event->event_id )
-			                  ->order_by( 'start_date', 'DESC' )
-			                  ->first();
+								->order_by( 'start_date', 'DESC' )
+								->first();
 
 			if ( $last instanceof Occurrence ) {
 				return $last;
@@ -111,11 +111,16 @@ class Links {
 
 			return null;
 		} catch ( Exception $exception ) {
-			do_action( 'tribe_log', 'error', __CLASS__, [
-				'message' => 'Error while getting next Occurrence.',
-				'error'   => $exception->getMessage(),
-				'post_id' => $event->post_id,
-			] );
+			do_action(
+				'tribe_log',
+				'error',
+				__CLASS__,
+				[
+					'message' => 'Error while getting next Occurrence.',
+					'error'   => $exception->getMessage(),
+					'post_id' => $event->post_id,
+				] 
+			);
 
 			return null;
 		}
@@ -171,12 +176,12 @@ class Links {
 			return $post_link;
 		}
 
-		// URL Arguments on home_url() pre-check
-		$url_query           = @parse_url( $post_link, PHP_URL_QUERY );
+		// URL Arguments on home_url() pre-check.
+		$url_query           = wp_parse_url( $post_link, PHP_URL_QUERY );
 		$url_args            = wp_parse_args( $url_query, [] );
 		$permalink_structure = get_option( 'permalink_structure' );
 
-		// Remove the "args"
+		// Remove the "args".
 		if ( ! empty( $url_query ) && '' !== $permalink_structure ) {
 			$post_link = str_replace( '?' . $url_query, '', $post_link );
 		}
@@ -188,11 +193,16 @@ class Links {
 			$start_date = Dates::immutable( $occurrence->start_date, new DateTimeZone( 'UTC' ) );
 			$date       = $start_date->format( 'Y-m-d' );
 		} catch ( Exception $exception ) {
-			do_action( 'tribe_log', 'error', __CLASS__, [
-				'message' => 'Error while building Occurrence start date.',
-				'error'   => $exception->getMessage(),
-				'post_id' => $event->post_id,
-			] );
+			do_action(
+				'tribe_log',
+				'error',
+				__CLASS__,
+				[
+					'message' => 'Error while building Occurrence start date.',
+					'error'   => $exception->getMessage(),
+					'post_id' => $event->post_id,
+				] 
+			);
 
 			return $post_link;
 		}
@@ -240,7 +250,7 @@ class Links {
 			$post_link = $reconstructed_url;
 		}
 
-		// Add the Arguments back
+		// Add the Arguments back.
 		return add_query_arg( $url_args, $post_link );
 	}
 }

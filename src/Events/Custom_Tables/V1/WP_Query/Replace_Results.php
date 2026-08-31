@@ -8,7 +8,6 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query;
 
-
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
@@ -23,7 +22,7 @@ use function get_post;
 /**
  * Class Replace_Results
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package src\WP_Query
  */
@@ -44,7 +43,7 @@ class Replace_Results {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  \TEC\Events\Custom_Tables\V1\Models\Provisional_Post $provisional_post
+	 * @param \TEC\Events\Custom_Tables\V1\Models\Provisional_Post $provisional_post A reference to the Provisional Post handler.
 	 */
 	public function __construct( Provisional_Post $provisional_post ) {
 		$this->provisional_post = $provisional_post;
@@ -57,8 +56,8 @@ class Replace_Results {
 	 * @since 6.0.0
 	 * @since 7.8.0 Made $wp_query explicitly nullable.
 	 *
-	 * @param                 $posts
-	 * @param  WP_Query|null  $wp_query
+	 * @param mixed         $posts    The posts as found by the query.
+	 * @param WP_Query|null $wp_query A reference to the query being processed.
 	 *
 	 * @return mixed
 	 */
@@ -142,10 +141,13 @@ class Replace_Results {
 				return $occurrence_ids;
 			case 'id=>parent':
 				$mapped                    = [];
-				$unprovided_occurrence_ids = array_map( [
-					tribe( ID_Generator::class ),
-					'unprovide_id'
-				], $occurrence_ids );
+				$unprovided_occurrence_ids = array_map(
+					[
+						tribe( ID_Generator::class ),
+						'unprovide_id',
+					],
+					$occurrence_ids 
+				);
 				foreach ( Occurrence::where_in( 'occurrence_id', $unprovided_occurrence_ids )->all() as $occurrence ) {
 					$mapped[ $occurrence->provisional_id ] = $occurrence->post_id;
 				}

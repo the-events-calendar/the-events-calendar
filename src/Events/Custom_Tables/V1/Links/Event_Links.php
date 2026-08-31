@@ -2,7 +2,7 @@
 /**
  * Handles the Event's link modifications.
  *
- * @since   6.0.11
+ * @since 6.0.11
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Links
@@ -10,21 +10,17 @@
 
 namespace TEC\Events\Custom_Tables\V1\Links;
 
-use DateTime;
-use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Events\Event_Sequence;
 use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
-use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Query_Filters;
 use Tribe__Cache;
 use Tribe__Cache_Listener;
-use Tribe__Date_Utils;
 use WP_Post;
 
 /**
  * Handles modifying the Event Permalink.
  *
- * @since   6.0.11
+ * @since 6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Links
  */
@@ -80,7 +76,8 @@ class Event_Links {
 
 			if ( ! $sequence ) {
 				// Something went wrong, tell about it.
-				do_action( 'tribe_log',
+				do_action(
+					'tribe_log',
 					'error',
 					__METHOD__,
 					[ 'message' => "Failed to locate this occurrence in the set of occurrences for this day. Post $post->ID in eventSequence permalink generation." ]

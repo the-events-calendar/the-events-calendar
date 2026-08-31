@@ -2,7 +2,7 @@
 /**
  * Updates event metadata using the real post ID.
  *
- * @since   7.4.1
+ * @since 7.4.1
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Provisional
@@ -16,7 +16,7 @@ use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
 /**
  * Class Meta
  *
- * @since   7.4.1
+ * @since 7.4.1
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Provisional
  */
@@ -26,7 +26,7 @@ class Meta {
 	 * Third-party plugins might try to update the post meta by using the provisional post ID.
 	 * This method preempts that by updating the metadata before using the real post ID.
 	 *
-	 * @see   update_metadata() wp-includes/meta.php:182
+	 * @see update_metadata() wp-includes/meta.php:182
 	 *
 	 * @since 7.4.1
 	 *

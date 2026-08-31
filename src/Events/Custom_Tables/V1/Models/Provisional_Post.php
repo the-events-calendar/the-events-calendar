@@ -2,7 +2,7 @@
 /**
  * Handles the generation of a provisional post ID given an occurrence ID.
  *
- * @since   6.0.0
+ * @since 6.0.0
  * @since TBD Migrated to The Events Calendar from Events Calendar Pro.
  *
  * @package TEC\Events\Custom_Tables\V1\Models
@@ -20,7 +20,7 @@ use Tribe__Cache as Cache;
 /**
  * Class Provisional_Post
  *
- * @since   6.0.0
+ * @since 6.0.0
  *
  * @package TEC\Events\Custom_Tables\V1\Models
  */
@@ -63,10 +63,10 @@ class Provisional_Post {
 	 * @param WP_Queries             $queries    A reference to the WP_Query handler.
 	 * @param Cache                  $cache      A cache instance.
 	 */
-	public function __construct( Provisional_Post_Cache $post_cache, WP_Queries $queries, Cache $cache) {
+	public function __construct( Provisional_Post_Cache $post_cache, WP_Queries $queries, Cache $cache ) {
 		$this->queries    = $queries;
 		$this->post_cache = $post_cache;
-		$this->cache = $cache;
+		$this->cache      = $cache;
 	}
 
 	/**
@@ -188,8 +188,8 @@ class Provisional_Post {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  array<int>  $ids  An arbitrary set of Occurrences Provisional Post IDs to hydrate the caches
-	 *                           for.
+	 * @param array<int> $ids  An arbitrary set of Occurrences Provisional Post IDs to hydrate the caches
+	 *                          for.
 	 *
 	 * @return bool|null
 	 */
@@ -215,7 +215,7 @@ class Provisional_Post {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param $post_id
+	 * @param int $post_id The post ID to check.
 	 *
 	 * @return bool
 	 */
@@ -228,7 +228,7 @@ class Provisional_Post {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  int  $post_id  The post ID to normalize.
+	 * @param int $post_id  The post ID to normalize.
 	 *
 	 * @return int The normalized Provisional post ID.
 	 */
@@ -275,18 +275,23 @@ class Provisional_Post {
 		 */
 		$posts_columns_excl_id = array_diff( $this->get_posts_table_columns(), [ 'ID' ] );
 		$posts_table           = $wpdb->posts;
-		$other_post_fields     = implode( ', ', array_map( static function ( $post_field ) use ( $posts_table ) {
-			return $posts_table . '.' . $post_field;
-		}, $posts_columns_excl_id ) );
+		$other_post_fields     = implode(
+			', ',
+			array_map(
+				static function ( $post_field ) use ( $posts_table ) {
+					return $posts_table . '.' . $post_field;
+				},
+				$posts_columns_excl_id 
+			) 
+		);
 
 		// Prepare a query that will return a realistic post row, the ID replaced by the Occurrence ID.
-		$sql = $wpdb->prepare(
+		return $wpdb->prepare(
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Field list and table name cannot be placeholders.
 			"SELECT %d as ID, {$other_post_fields} FROM {$wpdb->posts} WHERE ID = %d LIMIT 1",
 			$provisional_id,
 			$original_post_id
 		);
-
-		return $sql;
 	}
 
 	/**
@@ -333,7 +338,7 @@ class Provisional_Post {
 
 		// Attempt to fetch from memoized cache.
 		$cache_key = 'event_occurrence_' . $occurrence_id;
-		$cache = tribe_cache();
+		$cache     = tribe_cache();
 
 		// Check if we already memoized this.
 		if ( $cache[ $cache_key ] instanceof Occurrence ) {
@@ -341,7 +346,8 @@ class Provisional_Post {
 		}
 
 		// Could not be found in memory, fetch again.
-		$fetched = $occurrence = Occurrence::find( $occurrence_id, 'occurrence_id' );
+		$occurrence = Occurrence::find( $occurrence_id, 'occurrence_id' );
+		$fetched    = $occurrence;
 
 		if ( $fetched instanceof Occurrence ) {
 			$cache[ $cache_key ] = $occurrence;
