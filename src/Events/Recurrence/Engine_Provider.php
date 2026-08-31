@@ -78,6 +78,56 @@ class Engine_Provider extends Service_Provider {
 		if ( ! has_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] ) ) {
 			add_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
 		}
+
+		if ( ! has_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $this, 'derive_dates_rset_from_meta' ] ) ) {
+			add_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $this, 'derive_dates_rset_from_meta' ], 10, 2 );
+		}
+	}
+
+	/**
+	 * Derives the Event RSET from a dates-only `_EventRecurrence` meta value.
+	 *
+	 * Keeps the RSET in sync when the Event dates change through flows that do not go
+	 * through the Dates_Service (e.g. a classic editor date edit). A rule engine
+	 * providing its own derivation (Events Calendar Pro) wins: when the RSET was already
+	 * derived by an earlier filter, or the meta contains anything beyond date rules, the
+	 * data is left untouched.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed>|mixed $data    The Event data, as derived from the post.
+	 * @param int|null                  $post_id The Event post ID.
+	 *
+	 * @return array<string,mixed>|mixed The Event data, the `rset` entry derived when applicable.
+	 */
+	public function derive_dates_rset_from_meta( $data, $post_id = null ) {
+		if ( ! is_array( $data ) || empty( $post_id ) || ! empty( $data['rset'] ) ) {
+			return $data;
+		}
+
+		$recurrence_meta = get_post_meta( (int) $post_id, '_EventRecurrence', true );
+
+		if ( ! Date_Rules::is_dates_only_meta( $recurrence_meta ) ) {
+			return $data;
+		}
+
+		try {
+			$timezone    = new \DateTimeZone( (string) ( $data['timezone'] ?? 'UTC' ) );
+			$event_start = new \DateTimeImmutable( (string) $data['start_date'], $timezone );
+			$event_end   = new \DateTimeImmutable( (string) $data['end_date'], $timezone );
+		} catch ( \Exception $e ) {
+			return $data;
+		}
+
+		$periods = Date_Rules::to_periods( $recurrence_meta, $event_start, $event_end, $timezone );
+
+		if ( null === $periods ) {
+			return $data;
+		}
+
+		$data['rset'] = Dates::serialize( $event_start, $event_end, $periods );
+
+		return $data;
 	}
 
 	/**
@@ -192,6 +242,7 @@ class Engine_Provider extends Service_Provider {
 		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_freeze_generator' ], 100 );
 		remove_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ], 9 );
 		remove_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
+		remove_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $this, 'derive_dates_rset_from_meta' ] );
 
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
 	}

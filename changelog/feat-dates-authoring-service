@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Added the Dates_Service to author the explicit dates of an event: the legacy _EventRecurrence meta stays the canonical format in the Events Calendar Pro readable shape, the RSET is derived from it (also re-derived when event dates change), and occurrences are regenerated.

@@ -1,0 +1,164 @@
+<?php
+/**
+ * The public service to author the explicit dates of an Event.
+ *
+ * The canonical authored format is the legacy `_EventRecurrence` meta (as date rules);
+ * the Event `rset` is derived from it, and the Occurrence rows are regenerated from the
+ * RSET. Events Calendar Pro reads and writes the same formats, so dates authored here
+ * can be extended with recurrence rules there, and vice versa.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Recurrence
+ */
+
+declare( strict_types=1 );
+
+namespace TEC\Events\Recurrence;
+
+use DateTimeImmutable;
+use DateTimeZone;
+use Exception;
+use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+
+/**
+ * Class Dates_Service.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Recurrence
+ */
+class Dates_Service {
+	/**
+	 * Sets the additional dates of an Event, regenerating its Occurrences.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                                                                              $post_id The Event post ID (a provisional ID is accepted).
+	 * @param array<int,array{start: DateTimeImmutable|string, end: DateTimeImmutable|string}> $dates The additional dates; strings are parsed in the
+	 *                                                                                                Event timezone.
+	 *
+	 * @return bool Whether the dates were set and the Occurrences regenerated or not.
+	 */
+	public function set_dates( int $post_id, array $dates ): bool {
+		$post_id = Occurrence::normalize_id( $post_id );
+		$event   = Event::find( $post_id, 'post_id' );
+
+		if ( ! $event instanceof Event ) {
+			return false;
+		}
+
+		try {
+			$timezone    = new DateTimeZone( (string) $event->timezone );
+			$event_start = new DateTimeImmutable( (string) $event->start_date, $timezone );
+			$event_end   = new DateTimeImmutable( (string) $event->end_date, $timezone );
+
+			$periods = [];
+			foreach ( $dates as $date ) {
+				$start = $date['start'] instanceof DateTimeImmutable ? $date['start'] : new DateTimeImmutable( (string) $date['start'], $timezone );
+				$end   = $date['end'] instanceof DateTimeImmutable ? $date['end'] : new DateTimeImmutable( (string) $date['end'], $timezone );
+
+				$periods[] = [
+					'start' => $start,
+					'end'   => $end,
+				];
+			}
+		} catch ( Exception $e ) {
+			return false;
+		}
+
+		if ( ! count( $periods ) ) {
+			return $this->remove_dates( $post_id );
+		}
+
+		// The legacy meta is the canonical authored format.
+		update_post_meta( $post_id, '_EventRecurrence', Date_Rules::to_meta( $periods, $event_start, $event_end ) );
+
+		// The RSET is derived from it.
+		$rset = Dates::serialize( $event_start, $event_end, $periods );
+		$event->update( [ 'rset' => $rset ] );
+
+		$this->regenerate( $post_id );
+
+		return true;
+	}
+
+	/**
+	 * Removes all the additional dates of an Event, collapsing it to a single Occurrence.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The Event post ID (a provisional ID is accepted).
+	 *
+	 * @return bool Whether the dates were removed or not.
+	 */
+	public function remove_dates( int $post_id ): bool {
+		$post_id = Occurrence::normalize_id( $post_id );
+		$event   = Event::find( $post_id, 'post_id' );
+
+		if ( ! $event instanceof Event ) {
+			return false;
+		}
+
+		$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
+
+		if ( ! empty( $recurrence_meta ) && ! Date_Rules::is_dates_only_meta( $recurrence_meta ) ) {
+			// Rule-based recurrence is not authored here.
+			return false;
+		}
+
+		delete_post_meta( $post_id, '_EventRecurrence' );
+		$event->update( [ 'rset' => '' ] );
+
+		$this->regenerate( $post_id );
+
+		return true;
+	}
+
+	/**
+	 * Returns the dates of all the Occurrences of an Event, from the Occurrences table.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The Event post ID (a provisional ID is accepted).
+	 *
+	 * @return array<int,array{start: string, end: string, occurrence_id: int, provisional_id: ?int}> The Occurrence dates, ascending.
+	 */
+	public function get_dates( int $post_id ): array {
+		$post_id = Occurrence::normalize_id( $post_id );
+
+		$dates = [];
+
+		foreach ( Occurrence::where( 'post_id', '=', $post_id )->order_by( 'start_date', 'ASC' )->all() as $occurrence ) {
+			$dates[] = [
+				'start'          => $occurrence->start_date,
+				'end'            => $occurrence->end_date,
+				'occurrence_id'  => (int) $occurrence->occurrence_id,
+				'provisional_id' => $occurrence->provisional_id,
+			];
+		}
+
+		return $dates;
+	}
+
+	/**
+	 * Regenerates the Occurrences of an Event from its current RSET.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The Event post ID.
+	 *
+	 * @return void
+	 */
+	private function regenerate( int $post_id ): void {
+		// Clear the per-request match cache: the set is being rebuilt.
+		wp_cache_delete( $post_id, 'tec_occurrence_matches' );
+
+		$event = Event::find( $post_id, 'post_id' );
+
+		if ( $event instanceof Event ) {
+			$event->occurrences()->save_occurrences();
+		}
+	}
+}
