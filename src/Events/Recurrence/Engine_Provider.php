@@ -51,6 +51,15 @@ class Engine_Provider extends Service_Provider {
 		$this->container->singleton( Provisional_Queries_Provider::class );
 		$this->container->make( Provisional_Queries_Provider::class )->register();
 
+		/*
+		 * By Day Views (e.g. Month) receive provisional post IDs when the engine is
+		 * active: swap the base compatibility for the provisional-aware one.
+		 */
+		$this->container->singleton(
+			\TEC\Events\Custom_Tables\V1\Views\V2\By_Day_View_Compatibility::class,
+			\TEC\Events\Custom_Tables\V1\Views\V2\Provisional_By_Day_View_Compatibility::class
+		);
+
 		$occurrences = Occurrences::table_name( false );
 		if ( ! has_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] ) ) {
 			add_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] );
@@ -250,6 +259,12 @@ class Engine_Provider extends Service_Provider {
 		remove_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ], 9 );
 		remove_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
 		remove_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $this, 'derive_dates_rset_from_meta' ] );
+
+		// Restore the base By Day compatibility: it expects real post IDs again.
+		$this->container->singleton(
+			\TEC\Events\Custom_Tables\V1\Views\V2\By_Day_View_Compatibility::class,
+			\TEC\Events\Custom_Tables\V1\Views\V2\By_Day_View_Compatibility::class
+		);
 
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
 	}

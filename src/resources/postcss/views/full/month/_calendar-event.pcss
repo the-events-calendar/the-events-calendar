@@ -78,3 +78,36 @@
 		color: var(--tec-color-text-event-date);
 	}
 }
+
+/* -----------------------------------------------------------------------------
+ * Calendar Event: Recurring Marker
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-calendar-month__calendar-event-datetime-recurring-link,
+	.tribe-events-calendar-month__calendar-event-multiday-recurring-link {
+		color: var(--tec-color-text-primary);
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-month__calendar-event-datetime-recurring-icon-svg path {
+				fill: currentcolor;
+				stroke: currentcolor;
+			}
+		}
+	}
+
+	.tribe-events-calendar-month__calendar-event-tooltip-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-month__calendar-event-tooltip-datetime-recurring-icon-svg path {
+				fill: currentcolor;
+				stroke: currentcolor;
+			}
+		}
+	}
+}

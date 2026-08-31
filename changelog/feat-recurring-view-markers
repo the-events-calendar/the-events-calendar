@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Views v2 now mark multi-date events with a recurring icon in list, day and month views when the free Recurrence feature is active; the event object is decorated with the recurring flag and the all-occurrences permalink, and By Day views resolve provisional occurrence IDs.

@@ -154,6 +154,8 @@ class Controller extends Controller_Contract {
 		$this->container->make( Engine_Provider::class )->register();
 		$this->container->singleton( Frontend_Provider::class );
 		$this->container->make( Frontend_Provider::class )->register();
+		$this->container->singleton( Views_Provider::class );
+		$this->container->make( Views_Provider::class )->register();
 
 		// Further sub-controllers (Admin, Settings) register here as they land.
 	}
@@ -174,6 +176,10 @@ class Controller extends Controller_Contract {
 
 		if ( $this->container->isBound( Frontend_Provider::class ) ) {
 			$this->container->make( Frontend_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( Views_Provider::class ) ) {
+			$this->container->make( Views_Provider::class )->unregister();
 		}
 	}
 }
