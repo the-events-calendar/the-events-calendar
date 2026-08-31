@@ -135,14 +135,20 @@ class Dates {
 					$end   = $start->add( new DateInterval( "PT{$default_duration}S" ) );
 				}
 
-				$periods[ $start->format( self::RSET_DATETIME_FORMAT ) ] = [
+				/*
+				 * Key by timestamp, not local wall time: two distinct instants can share a
+				 * wall time (the repeated DST hour, values in different timezones). Derived
+				 * with `format( 'U' )`: on PHP < 8 `getTimestamp()` re-derives a wrong epoch
+				 * for wall times in the repeated DST hour.
+				 */
+				$periods[ (int) $start->format( 'U' ) ] = [
 					'start' => $start,
 					'end'   => $end,
 				];
 			}
 
 			if ( $dtstart instanceof DateTimeImmutable ) {
-				$key = $dtstart->format( self::RSET_DATETIME_FORMAT );
+				$key = (int) $dtstart->format( 'U' );
 
 				if ( ! isset( $periods[ $key ] ) ) {
 					// The DTSTART models the first Occurrence when no RDATE covers it.
@@ -161,7 +167,7 @@ class Dates {
 			return null;
 		}
 
-		ksort( $periods );
+		ksort( $periods, SORT_NUMERIC );
 
 		return [
 			'timezone' => $timezone,

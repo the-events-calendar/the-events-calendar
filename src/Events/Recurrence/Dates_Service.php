@@ -56,6 +56,11 @@ class Dates_Service {
 
 			$periods = [];
 			foreach ( $dates as $date ) {
+				if ( ! is_array( $date ) || ! isset( $date['start'], $date['end'] ) ) {
+					// A malformed entry would silently author an Occurrence at the current time.
+					return false;
+				}
+
 				$start = $date['start'] instanceof DateTimeImmutable ? $date['start'] : new DateTimeImmutable( (string) $date['start'], $timezone );
 				$end   = $date['end'] instanceof DateTimeImmutable ? $date['end'] : new DateTimeImmutable( (string) $date['end'], $timezone );
 

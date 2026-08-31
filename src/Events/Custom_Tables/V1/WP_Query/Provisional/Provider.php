@@ -16,6 +16,7 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query\Provisional;
 
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Events\Provisional\ID_Generator as Provisional_ID_Generator;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
 use TEC\Events\Custom_Tables\V1\Models\Provisional_Post_Cache;
 use TEC\Events\Custom_Tables\V1\Models\Provisional_Post_Meta;
@@ -181,7 +182,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$provisional_post = tribe( Provisional_Post::class );
 		if ( $provisional_post->is_provisional_post_id( $object_id ) ) {
 			$occurrence = $provisional_post->get_occurrence_row( $object_id );
-			$check      = add_post_meta( $occurrence->post_id, $meta_key, $meta_value, $unique );
+
+			if ( $occurrence instanceof Occurrence ) {
+				$check = add_post_meta( $occurrence->post_id, $meta_key, $meta_value, $unique );
+			} else {
+				// The Occurrence row is gone: block the write, or core would store meta for a non-existing post ID.
+				$check = false;
+			}
 		}
 		add_filter( 'add_post_metadata', [ $this, 'add_post_metadata_filter' ], 10, 5 );
 

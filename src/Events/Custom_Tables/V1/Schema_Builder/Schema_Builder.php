@@ -145,13 +145,19 @@ class Schema_Builder {
 			if ( $schema instanceof Table_Schema_Interface ) {
 				$key = 'table:' . $schema::table_name( true );
 			} elseif ( $schema instanceof Field_Schema_Interface ) {
-				$version_option = constant( get_class( $schema ) . '::SCHEMA_VERSION_OPTION' );
+				// The interface does not declare the constant: implementations might not define it.
+				$version_option = defined( get_class( $schema ) . '::SCHEMA_VERSION_OPTION' )
+					? constant( get_class( $schema ) . '::SCHEMA_VERSION_OPTION' )
+					: '';
 				$key            = $version_option ?
 					'field:' . $version_option
 					: 'field:' . get_class( $schema );
-			} else {
+			} elseif ( is_object( $schema ) ) {
 				// Not a schema this builder knows how to identify: let it through untouched.
-				$key = 'unknown:' . spl_object_hash( (object) $schema );
+				$key = 'unknown:' . spl_object_hash( $schema );
+			} else {
+				// Not even an object (e.g. a class-name string): key it by value.
+				$key = 'unknown:' . gettype( $schema ) . ':' . md5( (string) wp_json_encode( $schema ) );
 			}
 
 			if ( isset( $deduped[ $key ] ) ) {

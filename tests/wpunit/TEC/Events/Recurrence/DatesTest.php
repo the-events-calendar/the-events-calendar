@@ -165,4 +165,36 @@ class DatesTest extends WPTestCase {
 		$this->assertEquals( '2026-11-05 09:00:00', $parsed['periods'][0]['start']->format( 'Y-m-d H:i:s' ) );
 		$this->assertEquals( '2026-11-20 09:00:00', $parsed['periods'][1]['start']->format( 'Y-m-d H:i:s' ) );
 	}
+
+	/**
+	 * It should keep distinct instants sharing a local wall time in the repeated DST hour
+	 *
+	 * @test
+	 */
+	public function should_keep_distinct_instants_sharing_a_local_wall_time_in_the_repeated_dst_hour(): void {
+		/*
+		 * America/New_York falls back on 2026-11-01: 05:30Z is 01:30 EDT and 06:30Z is
+		 * 01:30 EST. Both are distinct instants sharing the same local wall time.
+		 */
+		$rset = "DTSTART;TZID=America/New_York:20261101T003000\n"
+				. "RDATE;VALUE=DATE-TIME:20261101T053000Z\n"
+				. 'RDATE;VALUE=DATE-TIME:20261101T063000Z';
+
+		$parsed = Dates::parse( $rset );
+
+		$this->assertIsArray( $parsed );
+		$this->assertCount( 3, $parsed['periods'] );
+
+		$utc_starts = array_map(
+			static function ( array $period ): string {
+				return $period['start']->setTimezone( new DateTimeZone( 'UTC' ) )->format( 'Y-m-d H:i:s' );
+			},
+			$parsed['periods']
+		);
+
+		$this->assertEquals(
+			[ '2026-11-01 04:30:00', '2026-11-01 05:30:00', '2026-11-01 06:30:00' ],
+			$utc_starts
+		);
+	}
 }

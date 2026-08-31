@@ -145,7 +145,8 @@ class Date_Rules {
 			return null;
 		}
 
-		$duration = $event_end->getTimestamp() - $event_start->getTimestamp();
+		// Duration via `format( 'U' )`: PHP < 8 `getTimestamp()` is wrong in the repeated DST hour.
+		$duration = (int) $event_end->format( 'U' ) - (int) $event_start->format( 'U' );
 		$periods  = [];
 
 		try {

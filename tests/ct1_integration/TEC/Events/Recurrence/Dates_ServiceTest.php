@@ -142,8 +142,26 @@ class Dates_ServiceTest extends WPTestCase {
 		$this->assertTrue( $removed );
 		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
 		$this->assertEquals( '', (string) Event::find( $post->ID, 'post_id' )->rset );
-		$this->assertCount( 1, $service->get_dates( $post->ID ) );
+		$dates = $service->get_dates( $post->ID );
+		$this->assertCount( 1, $dates );
+		// The surviving Occurrence must be the Event's own, not a stale extra date row.
+		$this->assertEquals( '2026-11-05 09:00:00', $dates[0]['start'] );
 		$this->assertFalse( tribe_is_recurring_event( $post->ID ) );
+	}
+
+	/**
+	 * It should reject a date entry missing its start or end
+	 *
+	 * @test
+	 */
+	public function should_reject_a_date_entry_missing_its_start_or_end(): void {
+		$post    = $this->given_an_event();
+		$service = tribe( Dates_Service::class );
+
+		$this->assertFalse( $service->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00' ] ] ) );
+		$this->assertFalse( $service->set_dates( $post->ID, [ 'not-an-array' ] ) );
+		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
+		$this->assertCount( 1, $service->get_dates( $post->ID ) );
 	}
 
 	/**

@@ -85,7 +85,8 @@ class Dates_Generator {
 					'start_date_utc' => $start->setTimezone( $utc ),
 					'end_date'       => $end,
 					'end_date_utc'   => $end->setTimezone( $utc ),
-					'duration'       => $end->getTimestamp() - $start->getTimestamp(),
+					// Durations via `format( 'U' )`: PHP < 8 `getTimestamp()` is wrong in the repeated DST hour.
+					'duration'       => (int) $end->format( 'U' ) - (int) $start->format( 'U' ),
 					'updated_at'     => new DateTime( 'now', $utc ),
 					'has_recurrence' => $has_recurrence,
 					'sequence'       => $new_sequence,

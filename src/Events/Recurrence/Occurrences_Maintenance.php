@@ -100,6 +100,26 @@ class Occurrences_Maintenance {
 	 * @return int|false The number of Occurrences deleted, or `false` if there is no sequence.
 	 */
 	public function prune_occurrences( int $post_id ) {
+		$event = Event::find( $post_id, 'post_id' );
+
+		if ( $event instanceof Event && '' === trim( (string) $event->rset ) ) {
+			/*
+			 * The Event collapsed back to a single Occurrence (e.g. its dates were removed):
+			 * the base save logic reused the first row, so every other row is stale. The
+			 * sequence-based pruning below cannot catch these, since stale rows can carry
+			 * the highest sequence while the reused row was reset to a `NULL` one.
+			 */
+			$kept = Occurrence::where( 'post_id', '=', $post_id )->first();
+
+			if ( ! $kept instanceof Occurrence ) {
+				return false;
+			}
+
+			return Occurrence::where( 'post_id', $post_id )
+							->where_raw( '`occurrence_id` != %d', (int) $kept->occurrence_id )
+							->delete();
+		}
+
 		$current_sequence = Occurrence_Extension::get_sequence( $post_id );
 
 		/*

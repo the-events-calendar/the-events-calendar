@@ -267,6 +267,7 @@ class Engine_Provider extends Service_Provider {
 		);
 
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
+		$this->container->make( Provisional_Provider::class )->unregister();
 	}
 
 	/**
