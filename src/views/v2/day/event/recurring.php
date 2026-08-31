@@ -31,7 +31,7 @@ if ( empty( $icon_description ) ) {
 	href="<?php echo esc_url( $event->permalink_all ); ?>"
 	class="tribe-events-calendar-day__event-datetime-recurring-link"
 >
-	<span class="tribe-events-calendar-day__event-datetime-recurring-icon">
+	<span class="tribe-events-calendar-day__event-datetime-recurring-icon" >
 		<?php $this->template( 'components/icons/recurring', [ 'classes' => [ 'tribe-events-calendar-day__event-datetime-recurring-icon-svg' ] ] ); ?>
 	</span>
 	<span class="tribe-events-calendar-day__event-datetime-recurring-text tribe-common-a11y-visual-hide">
