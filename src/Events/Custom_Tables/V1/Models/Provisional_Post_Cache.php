@@ -279,12 +279,18 @@ class Provisional_Post_Cache {
 		$occurrences             = $this->get_array_from_cache( $post_id );
 		$occurrences[ $post_id ] = true;
 		$cache                   = tribe_cache();
+		$base                    = $this->get_base();
 
 		unset( $cache[ "event_occurrence_$post_id" ] );
 
 		foreach ( array_keys( $occurrences ) as $provisional_id ) {
 			wp_cache_delete( $provisional_id, 'posts' );
 			wp_cache_delete( $provisional_id, 'post_meta' );
+
+			if ( $provisional_id > $base ) {
+				// The Occurrence model memoization is keyed by Occurrence ID, not post ID.
+				unset( $cache[ 'event_occurrence_' . ( $provisional_id - $base ) ] );
+			}
 		}
 
 		wp_cache_delete( $post_id, self::CACHE_GROUP );
