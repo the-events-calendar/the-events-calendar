@@ -96,7 +96,9 @@ class Schema_Builder {
 		 * @param array<Table_Schema_Interface> $table_schemas An array of table schema objects;
 		 *                                                     empty by default.
 		 */
-		return apply_filters( 'tec_events_custom_tables_v1_table_schemas', [] );
+		$schemas = apply_filters( 'tec_events_custom_tables_v1_table_schemas', [] );
+
+		return $this->dedupe_schemas( (array) $schemas );
 	}
 
 	/**
@@ -115,7 +117,51 @@ class Schema_Builder {
 		 * @param array<Field_Schema_Interface> $field_schemas An array of field schema objects;
 		 *                                                     empty by default.
 		 */
-		return apply_filters( 'tec_events_custom_tables_v1_field_schemas', [] );
+		$schemas = apply_filters( 'tec_events_custom_tables_v1_field_schemas', [] );
+
+		return $this->dedupe_schemas( (array) $schemas );
+	}
+
+	/**
+	 * Dedupes a list of registered schemas by their managed identity.
+	 *
+	 * Two plugins can legitimately register a schema for the same table, or field set,
+	 * during a transition window; e.g. when the ownership of a schema is moving from one
+	 * plugin to the other. Only the first registered schema for a given identity is kept:
+	 * the identity is the prefixed table name for table schemas, and the schema version
+	 * option for field schemas.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<Field_Schema_Interface|Table_Schema_Interface> $schemas The registered schemas.
+	 *
+	 * @return array<Field_Schema_Interface|Table_Schema_Interface> The deduped schemas, first
+	 *                                                              registration wins.
+	 */
+	protected function dedupe_schemas( array $schemas ): array {
+		$deduped = [];
+
+		foreach ( $schemas as $schema ) {
+			if ( $schema instanceof Table_Schema_Interface ) {
+				$key = 'table:' . $schema::table_name( true );
+			} elseif ( $schema instanceof Field_Schema_Interface ) {
+				$version_option = constant( get_class( $schema ) . '::SCHEMA_VERSION_OPTION' );
+				$key            = $version_option ?
+					'field:' . $version_option
+					: 'field:' . get_class( $schema );
+			} else {
+				// Not a schema this builder knows how to identify: let it through untouched.
+				$key = 'unknown:' . spl_object_hash( (object) $schema );
+			}
+
+			if ( isset( $deduped[ $key ] ) ) {
+				continue;
+			}
+
+			$deduped[ $key ] = $schema;
+		}
+
+		return array_values( $deduped );
 	}
 
 

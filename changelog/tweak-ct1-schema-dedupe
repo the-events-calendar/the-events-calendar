@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Deduplicated Custom Tables V1 schema registrations by managed table and schema version option, so two plugins registering the same schema during an ownership transition no longer double-register.
