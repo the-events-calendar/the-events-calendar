@@ -1,11 +1,12 @@
 <?php
 /**
- * Registers the admin authoring surface of the Recurrence feature.
+ * Registers the Classic Editor authoring surface of the Recurrence feature.
  *
- * The Event Dates metabox lets an editor author the additional, explicit dates of an
+ * The Event Dates section lets an editor author the additional, explicit dates of an
  * Event one by one; rule-based recurrence stays an Events Calendar Pro feature. The
- * metabox is a plain WordPress one, so it renders both in the Classic Editor and in
- * the Block Editor metaboxes area.
+ * section renders inside the Events datetime metabox section, where Events Calendar
+ * Pro mounts its recurrence UI, and its rows map to the AUTHORED `_EventRecurrence`
+ * date rules, mirroring the Pro authoring model.
  *
  * @since TBD
  *
@@ -17,8 +18,8 @@ declare( strict_types=1 );
 namespace TEC\Events\Recurrence;
 
 use TEC\Common\Contracts\Service_Provider;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
-use WP_Post;
 
 /**
  * Class Admin_Provider.
@@ -36,14 +37,14 @@ class Admin_Provider extends Service_Provider {
 	public const FIELD = 'tec_events_recurrence_dates';
 
 	/**
-	 * The nonce action of the metabox.
+	 * The nonce action of the Event Dates section.
 	 *
 	 * @since TBD
 	 */
 	public const NONCE_ACTION = 'tec_events_recurrence_dates_save';
 
 	/**
-	 * Registers the metabox and its save handler.
+	 * Registers the Event Dates section and its save handler.
 	 *
 	 * @since TBD
 	 *
@@ -57,12 +58,14 @@ class Admin_Provider extends Service_Provider {
 			return;
 		}
 
-		if ( ! has_action( 'add_meta_boxes', [ $this, 'register_metabox' ] ) ) {
-			add_action( 'add_meta_boxes', [ $this, 'register_metabox' ] );
+		if ( ! has_action( 'tribe_events_date_display', [ $this, 'render_section' ] ) ) {
+			// Below the date picker, above the Events Calendar Pro upsell (18); Pro renders at 10.
+			add_action( 'tribe_events_date_display', [ $this, 'render_section' ], 15 );
 		}
 
-		if ( ! has_action( 'save_post_' . TEC::POSTTYPE, [ $this, 'save_dates' ] ) ) {
-			add_action( 'save_post_' . TEC::POSTTYPE, [ $this, 'save_dates' ], 20, 2 );
+		if ( ! has_action( 'tribe_events_update_meta', [ $this, 'save_dates' ] ) ) {
+			// The same hook and priority Events Calendar Pro consumes classic recurrence on.
+			add_action( 'tribe_events_update_meta', [ $this, 'save_dates' ], 20 );
 		}
 	}
 
@@ -74,80 +77,83 @@ class Admin_Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_action( 'add_meta_boxes', [ $this, 'register_metabox' ] );
-		remove_action( 'save_post_' . TEC::POSTTYPE, [ $this, 'save_dates' ], 20 );
+		remove_action( 'tribe_events_date_display', [ $this, 'render_section' ], 15 );
+		remove_action( 'tribe_events_update_meta', [ $this, 'save_dates' ], 20 );
 	}
 
 	/**
-	 * Registers the Event Dates metabox on the Event edit screen.
+	 * Renders the Event Dates section inside the Events datetime metabox section.
 	 *
 	 * @since TBD
 	 *
-	 * @return void
-	 */
-	public function register_metabox(): void {
-		add_meta_box(
-			'tec-events-recurrence-dates',
-			__( 'Event Dates', 'the-events-calendar' ),
-			[ $this, 'render_metabox' ],
-			TEC::POSTTYPE,
-			'normal',
-			'high'
-		);
-	}
-
-	/**
-	 * Renders the Event Dates metabox.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Post $post The Event post being edited.
+	 * @param int|mixed $event_id The Event post ID; `0` when a new Event is being created.
 	 *
 	 * @return void
 	 */
-	public function render_metabox( WP_Post $post ): void {
-		$dates = $this->container->make( Dates_Service::class )->get_dates( $post->ID );
+	public function render_section( $event_id = 0 ): void {
+		$event_id = (int) $event_id;
+		$guard    = $this->container->make( Authoring_Guard::class );
 
-		// The first Occurrence is the Event date itself; the metabox authors the additional ones.
-		$additional = array_slice( $dates, 1 );
+		$is_occurrence        = $event_id > 0 && $guard->is_occurrence_edit( $event_id );
+		$is_locked            = ! $is_occurrence && $event_id > 0 && $guard->is_rule_locked( $event_id );
+		$occurrence_edit_link = '';
+		$rows                 = [];
 
-		$recurrence_meta = get_post_meta( $post->ID, '_EventRecurrence', true );
-		$has_rules       = ! empty( $recurrence_meta ) && ! Date_Rules::is_dates_only_meta( $recurrence_meta );
+		if ( $is_occurrence ) {
+			$occurrence_edit_link = (string) get_edit_post_link( Occurrence::normalize_id( $event_id ), 'raw' );
+		} elseif ( ! $is_locked && $event_id > 0 ) {
+			$rows = array_map(
+				static function ( array $period ): array {
+					return [
+						'date'  => $period['start']->format( 'Y-m-d' ),
+						'start' => $period['start']->format( 'H:i' ),
+						'end'   => $period['end']->format( 'H:i' ),
+					];
+				},
+				$guard->get_authored_periods( $event_id )
+			);
+		}
 
 		include TEC::instance()->pluginPath . 'src/admin-views/recurrence/event-dates.php';
 	}
 
 	/**
-	 * Saves the additional dates posted from the metabox.
+	 * Saves the additional dates posted from the Event Dates section.
+	 *
+	 * Runs on `tribe_events_update_meta`, after the Event date meta was saved. The
+	 * Dates_Service might read the pre-save Event row dates within this request;
+	 * the Custom Tables update re-derives the RSET from the canonical meta at
+	 * commit time, so the state converges.
 	 *
 	 * @since TBD
 	 *
-	 * @param int     $post_id The Event post ID.
-	 * @param WP_Post $post    The Event post being saved.
+	 * @param int|mixed $event_id The Event post ID.
 	 *
 	 * @return void
 	 */
-	public function save_dates( $post_id, $post ): void {
+	public function save_dates( $event_id ): void {
 		$nonce = tribe_get_request_var( self::NONCE_ACTION . '_nonce' );
 
 		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, self::NONCE_ACTION ) ) {
-			// The metabox was not rendered on this save.
+			// The Event Dates section was not rendered on this save.
 			return;
 		}
 
+		$event_id = (int) $event_id;
+
 		if (
 			( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
-			|| wp_is_post_revision( $post_id )
-			|| wp_is_post_autosave( $post_id )
-			|| ! current_user_can( 'edit_post', $post_id )
+			|| wp_is_post_revision( $event_id )
+			|| wp_is_post_autosave( $event_id )
+			|| ! current_user_can( 'edit_post', $event_id )
 		) {
 			return;
 		}
 
-		$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
+		$guard = $this->container->make( Authoring_Guard::class );
 
-		if ( ! empty( $recurrence_meta ) && ! Date_Rules::is_dates_only_meta( $recurrence_meta ) ) {
-			// Rule-based recurrence is not authored here: leave the Pro data untouched.
+		if ( $guard->is_occurrence_edit( $event_id ) || $guard->is_rule_locked( $event_id ) ) {
+			// A single Occurrence screen, or Pro rule data: not authored here.
 			return;
 		}
 
@@ -181,9 +187,9 @@ class Admin_Provider extends Service_Provider {
 		$service = $this->container->make( Dates_Service::class );
 
 		if ( count( $dates ) ) {
-			$service->set_dates( (int) $post_id, $dates );
+			$service->set_dates( $event_id, $dates );
 		} else {
-			$service->remove_dates( (int) $post_id );
+			$service->remove_dates( $event_id );
 		}
 	}
 }
