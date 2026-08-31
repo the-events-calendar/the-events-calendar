@@ -5,7 +5,8 @@
  * The functions were historically defined by Events Calendar Pro; every Pro version
  * wraps its own definitions in `function_exists` checks, so the definitions here take
  * precedence when both plugins are active. The implementations are data driven and
- * behave identically for Pro-authored recurring Events.
+ * behave identically for Pro-authored recurring Events, including legacy (pre-6.0)
+ * child-post ones and sites where the Custom Tables are not in use.
  *
  * @since TBD
  */
@@ -56,7 +57,7 @@ if ( ! function_exists( 'tribe_is_recurring_event' ) ) {
 			}
 		}
 
-		if ( ! $recurring && class_exists( Occurrence::class ) ) {
+		if ( ! $recurring && tribe()->getVar( 'ct1_fully_activated', false ) ) {
 			// An Event with more than one Occurrence row is a recurring one.
 			$normalized_id = Occurrence::normalize_id( (int) $post_id );
 			$recurring     = Occurrence::where( 'post_id', '=', $normalized_id )->count() > 1;
@@ -79,7 +80,8 @@ if ( ! function_exists( 'tribe_get_recurrence_start_dates' ) ) {
 	 * Returns the start dates of all the Occurrences of an Event, in ascending order.
 	 *
 	 * @since TBD Moved to The Events Calendar from Events Calendar Pro; the dates are
-	 *            now read from the Occurrences custom table.
+	 *            read from the Occurrences custom table when the Custom Tables are in
+	 *            use, from the legacy child-post structure otherwise.
 	 *
 	 * @param int|WP_Post|null $post_id The Event post ID, or object, or `null` to use the current post.
 	 *
@@ -88,24 +90,46 @@ if ( ! function_exists( 'tribe_get_recurrence_start_dates' ) ) {
 	function tribe_get_recurrence_start_dates( $post_id = null ) {
 		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
 
-		if ( empty( $post_id ) || ! class_exists( Occurrence::class ) ) {
+		if ( empty( $post_id ) ) {
 			return [];
 		}
 
-		$normalized_id = Occurrence::normalize_id( (int) $post_id );
+		// Pre-6.0 recurring Events are parent/child posts: resolve the parent first.
+		$ancestors = get_post_ancestors( $post_id );
+		$parent_id = empty( $ancestors ) ? (int) $post_id : (int) end( $ancestors );
 
-		$start_dates = [];
+		global $wpdb;
 
-		foreach ( Occurrence::where( 'post_id', '=', $normalized_id )->order_by( 'start_date', 'ASC' )->all() as $occurrence ) {
-			$start_dates[] = $occurrence->start_date;
+		$start_dates = (array) $wpdb->get_col(
+			$wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table names cannot be placeholders.
+				"SELECT m.meta_value FROM {$wpdb->postmeta} m
+				JOIN {$wpdb->posts} p ON p.ID = m.post_id
+				WHERE m.meta_key = '_EventStartDate'
+				AND ( p.ID = %d OR p.post_parent = %d )
+				AND p.post_type = %s
+				ORDER BY m.meta_value ASC",
+				$parent_id,
+				$parent_id,
+				Tribe__Events__Main::POSTTYPE
+			)
+		);
+
+		if ( count( $start_dates ) > 1 ) {
+			// A legacy child-post recurring Event: the meta values are the dates.
+			return $start_dates;
 		}
 
-		if ( ! count( $start_dates ) ) {
-			// Fall back to the Event start date meta.
-			$start_date = get_post_meta( $normalized_id, '_EventStartDate', true );
+		if ( tribe()->getVar( 'ct1_fully_activated', false ) ) {
+			$normalized_id    = Occurrence::normalize_id( $parent_id );
+			$occurrence_dates = [];
 
-			if ( ! empty( $start_date ) ) {
-				$start_dates[] = $start_date;
+			foreach ( Occurrence::where( 'post_id', '=', $normalized_id )->order_by( 'start_date', 'ASC' )->all() as $occurrence ) {
+				$occurrence_dates[] = $occurrence->start_date;
+			}
+
+			if ( count( $occurrence_dates ) ) {
+				return $occurrence_dates;
 			}
 		}
 
