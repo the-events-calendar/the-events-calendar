@@ -55,6 +55,16 @@ class Event {
 			array_unique( array_merge( $extensions['hashed_keys'] ?? [], [ 'rset' ] ) )
 		);
 
+		$extensions['methods'] = wp_parse_args(
+			$extensions['methods'] ?? [],
+			[
+				'has_recurrence' => function () {
+					/** @var \TEC\Events\Custom_Tables\V1\Models\Event $this Bound at run time to the Closure. */
+					return ! empty( $this->rset );
+				},
+			]
+		);
+
 		return $extensions;
 	}
 }
