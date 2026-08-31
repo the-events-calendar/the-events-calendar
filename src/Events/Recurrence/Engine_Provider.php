@@ -11,9 +11,14 @@ declare( strict_types=1 );
 
 namespace TEC\Events\Recurrence;
 
+use Generator;
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Events\Provisional\Provider as Provisional_Provider;
+use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Models\Extensions\Event as Event_Extension;
 use TEC\Events\Custom_Tables\V1\Models\Extensions\Occurrence as Occurrence_Extension;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Tables\Events;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provisional\Provider as Provisional_Queries_Provider;
 
@@ -44,9 +49,130 @@ class Engine_Provider extends Service_Provider {
 			add_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] );
 		}
 
+		$events = Events::table_name( false );
+		if ( ! has_filter( "tec_custom_tables_{$events}_model_v1_extensions", [ $this, 'extend_event_model' ] ) ) {
+			add_filter( "tec_custom_tables_{$events}_model_v1_extensions", [ $this, 'extend_event_model' ] );
+		}
+
 		if ( ! has_filter( 'tec_events_custom_tables_v1_normalize_occurrence_id', [ $this, 'normalize_occurrence_id' ] ) ) {
 			add_filter( 'tec_events_custom_tables_v1_normalize_occurrence_id', [ $this, 'normalize_occurrence_id' ] );
 		}
+
+		/*
+		 * The dates generator runs before (9) any rule engine (Events Calendar Pro hooks
+		 * at 10): dates-only RSETs are expanded here, rule-based ones are left for the
+		 * rule engine. The freeze generator runs last (100): a rule-based RSET no rule
+		 * engine claimed keeps its existing Occurrences instead of collapsing.
+		 */
+		if ( ! has_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_dates_generator' ] ) ) {
+			add_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_dates_generator' ], 9, 2 );
+		}
+		if ( ! has_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_freeze_generator' ] ) ) {
+			add_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_freeze_generator' ], 100, 2 );
+		}
+
+		if ( ! has_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ] ) ) {
+			add_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ], 9, 3 );
+		}
+
+		if ( ! has_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] ) ) {
+			add_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
+		}
+	}
+
+	/**
+	 * Provides the Generator expanding a dates-only RSET into Occurrences.
+	 *
+	 * @since TBD
+	 *
+	 * @param Generator|null $generator A reference to the Generator provided by previous
+	 *                                  filters; when not `null` it will not be replaced.
+	 * @param Event|null     $event     A reference to the Event model Occurrences are being
+	 *                                  generated for.
+	 *
+	 * @return Generator|null Either the dates Generator, or the input value.
+	 */
+	public function get_dates_generator( ?Generator $generator = null, ?Event $event = null ): ?Generator {
+		if ( null !== $generator || ! $event instanceof Event ) {
+			return $generator;
+		}
+
+		return $this->container->make( Dates_Generator::class )->get_occurrences_generator( $event );
+	}
+
+	/**
+	 * Provides the Generator freezing the Occurrences of a rule-based RSET no rule engine claimed.
+	 *
+	 * @since TBD
+	 *
+	 * @param Generator|null $generator A reference to the Generator provided by previous
+	 *                                  filters; when not `null` it will not be replaced.
+	 * @param Event|null     $event     A reference to the Event model Occurrences are being
+	 *                                  generated for.
+	 *
+	 * @return Generator|null Either the freeze Generator, or the input value.
+	 */
+	public function get_freeze_generator( ?Generator $generator = null, ?Event $event = null ): ?Generator {
+		if ( null !== $generator || ! $event instanceof Event ) {
+			return $generator;
+		}
+
+		if ( '' === trim( (string) $event->rset ) ) {
+			// No RSET: the default single Occurrence logic applies.
+			return $generator;
+		}
+
+		/**
+		 * Fires when the Occurrences of an Event with a rule-based RSET are preserved
+		 * because no plugin providing a rule engine is active.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $post_id The Event post ID.
+		 */
+		do_action( 'tec_events_recurrence_rules_frozen', (int) $event->post_id );
+
+		return $this->container->make( Dates_Generator::class )->get_freeze_generator( $event );
+	}
+
+	/**
+	 * Filters the Occurrence match to return one matched by dates and post ID.
+	 *
+	 * @since TBD
+	 *
+	 * @param Occurrence|null $occurrence Either a reference to an existing, matching, Occurrence
+	 *                                    or `null`.
+	 * @param Occurrence|null $result     A reference to the Occurrence model instance that will be
+	 *                                    inserted if a matching Occurrence cannot be found.
+	 * @param int|null        $post_id    The post ID of the Event the match is being searched for.
+	 *
+	 * @return Occurrence|null Either the reference to an existing Occurrence matching the one
+	 *                         that should be inserted, or `null` to indicate none was found.
+	 */
+	public function get_occurrence_match( ?Occurrence $occurrence = null, ?Occurrence $result = null, ?int $post_id = null ): ?Occurrence {
+		if ( ! $result instanceof Occurrence || empty( $post_id ) ) {
+			return $occurrence;
+		}
+
+		return $this->container->make( Occurrences_Maintenance::class )
+			->get_occurrence_match( $occurrence, $result, (int) $post_id );
+	}
+
+	/**
+	 * Prunes the Occurrences of an Event left behind by a previous sequence.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|mixed $post_id The ID of the Event post the Occurrences are being saved for.
+	 *
+	 * @return void
+	 */
+	public function prune_occurrences_by_sequence( $post_id ): void {
+		if ( ! is_numeric( $post_id ) ) {
+			return;
+		}
+
+		$this->container->make( Occurrences_Maintenance::class )->prune_occurrences( (int) $post_id );
 	}
 
 	/**
@@ -59,9 +185,29 @@ class Engine_Provider extends Service_Provider {
 	public function unregister(): void {
 		$occurrences = Occurrences::table_name( false );
 		remove_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] );
+		$events = Events::table_name( false );
+		remove_filter( "tec_custom_tables_{$events}_model_v1_extensions", [ $this, 'extend_event_model' ] );
 		remove_filter( 'tec_events_custom_tables_v1_normalize_occurrence_id', [ $this, 'normalize_occurrence_id' ] );
+		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_dates_generator' ], 9 );
+		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_freeze_generator' ], 100 );
+		remove_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ], 9 );
+		remove_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
 
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
+	}
+
+	/**
+	 * Extends the Event base model to add the `rset` field.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,array<string,mixed>> $extensions A map of the current Model
+	 *                                                      extensions.
+	 *
+	 * @return array<string,array<string,mixed>> The filtered extensions map.
+	 */
+	public function extend_event_model( array $extensions = [] ): array {
+		return $this->container->make( Event_Extension::class )->extend( $extensions );
 	}
 
 	/**

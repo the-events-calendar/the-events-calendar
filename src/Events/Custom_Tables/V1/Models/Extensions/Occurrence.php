@@ -84,25 +84,37 @@ class Occurrence {
 	 * @return array<string,array<string,mixed>> The filtered extensions map.
 	 */
 	public function extend( array $extensions = [] ): array {
-		return wp_parse_args(
+		/*
+		 * The free entries are defaults: a plugin providing a richer implementation
+		 * wins on the same key, no matter the order the extensions apply in.
+		 */
+		$extensions['validators'] = wp_parse_args(
+			$extensions['validators'] ?? [],
 			[
-				'validators' => [
-					'has_recurrence' => Ignore_Validator::class,
-					'sequence'       => Ignore_Validator::class,
-					'is_rdate'       => Ignore_Validator::class,
-				],
-				'formatters' => [
-					'has_recurrence' => Boolean_Formatter::class,
-					'sequence'       => Integer_Key_Formatter::class,
-					'is_rdate'       => Boolean_Formatter::class,
-				],
-				'properties' => [
-					'provisional_id' => [ $this, 'get_provisional_id' ],
-					'is_rdate'       => [ $this, 'get_is_rdate' ],
-				],
-			],
-			$extensions
+				'has_recurrence' => Ignore_Validator::class,
+				'sequence'       => Ignore_Validator::class,
+				'is_rdate'       => Ignore_Validator::class,
+			]
 		);
+
+		$extensions['formatters'] = wp_parse_args(
+			$extensions['formatters'] ?? [],
+			[
+				'has_recurrence' => Boolean_Formatter::class,
+				'sequence'       => Integer_Key_Formatter::class,
+				'is_rdate'       => Boolean_Formatter::class,
+			]
+		);
+
+		$extensions['properties'] = wp_parse_args(
+			$extensions['properties'] ?? [],
+			[
+				'provisional_id' => [ $this, 'get_provisional_id' ],
+				'is_rdate'       => [ $this, 'get_is_rdate' ],
+			]
+		);
+
+		return $extensions;
 	}
 
 	/**
