@@ -41,8 +41,15 @@ class Engine_Provider extends Service_Provider {
 	public function register() {
 		$this->container->singleton( self::class, $this );
 
-		$this->container->register( Provisional_Provider::class );
-		$this->container->register( Provisional_Queries_Provider::class );
+		/*
+		 * Registered directly (not through the container provider registry) so a
+		 * register/unregister/register cycle re-attaches the hooks; both providers
+		 * register idempotently.
+		 */
+		$this->container->singleton( Provisional_Provider::class );
+		$this->container->make( Provisional_Provider::class )->register();
+		$this->container->singleton( Provisional_Queries_Provider::class );
+		$this->container->make( Provisional_Queries_Provider::class )->register();
 
 		$occurrences = Occurrences::table_name( false );
 		if ( ! has_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] ) ) {

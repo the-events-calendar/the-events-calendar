@@ -145,8 +145,15 @@ class Controller extends Controller_Contract {
 	protected function do_register(): void {
 		$this->container->setVar( 'tec_events_recurrence_fully_activated', true );
 
-		$this->container->register( Engine_Provider::class );
-		$this->container->register( Frontend_Provider::class );
+		/*
+		 * The sub-providers are singletons registered directly: unlike a container-level
+		 * provider registration, a register/unregister/register cycle (e.g. in tests)
+		 * re-attaches their hooks; each provider registration is idempotent.
+		 */
+		$this->container->singleton( Engine_Provider::class );
+		$this->container->make( Engine_Provider::class )->register();
+		$this->container->singleton( Frontend_Provider::class );
+		$this->container->make( Frontend_Provider::class )->register();
 
 		// Further sub-controllers (Admin, Settings) register here as they land.
 	}
