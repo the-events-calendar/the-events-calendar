@@ -146,8 +146,9 @@ class Controller extends Controller_Contract {
 		$this->container->setVar( 'tec_events_recurrence_fully_activated', true );
 
 		$this->container->register( Engine_Provider::class );
+		$this->container->register( Frontend_Provider::class );
 
-		// Further sub-controllers (Admin, Frontend, Settings) register here as they land.
+		// Further sub-controllers (Admin, Settings) register here as they land.
 	}
 
 	/**
@@ -162,6 +163,10 @@ class Controller extends Controller_Contract {
 
 		if ( $this->container->isBound( Engine_Provider::class ) ) {
 			$this->container->make( Engine_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( Frontend_Provider::class ) ) {
+			$this->container->make( Frontend_Provider::class )->unregister();
 		}
 	}
 }

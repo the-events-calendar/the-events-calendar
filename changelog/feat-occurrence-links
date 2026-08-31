@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Per-occurrence view and edit links, and the rewrite rules resolving date-based single event URLs, are now provided by The Events Calendar behind the Recurrence feature gate.
