@@ -109,6 +109,16 @@ class Provider extends Service_Provider {
 			$this->add_filters();
 
 			/*
+			 * The free Recurrence (Occurrences) feature builds on top of the custom
+			 * tables; its own gate decides whether it should activate or not. It is
+			 * registered late, on `tribe_plugins_loaded`, so every plugin (e.g. Events
+			 * Calendar Pro) had a chance to load before the gate is evaluated.
+			 *
+			 * @since TBD
+			 */
+			$this->container->register_on_action( 'tribe_plugins_loaded', \TEC\Events\Recurrence\Controller::class );
+
+			/*
 			 * Integrations with 3rd party code are registered last to
 			 * allow for their registration to happen on the "ready"
 			 * state of the container.

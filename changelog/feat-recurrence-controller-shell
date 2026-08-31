@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Added the TEC\Events\Recurrence\Controller feature gate — the dark-shipped on-switch and capability handshake for the free Occurrences infrastructure. Inactive by default; yields automatically to Events Calendar Pro versions that ship their own occurrence engine.
