@@ -119,6 +119,11 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			return $subscribe_links;
 		}
 
+		// An earlier filter may have replaced the list with a non-array; don't append to it.
+		if ( ! is_array( $subscribe_links ) ) {
+			return $subscribe_links;
+		}
+
 		$subscribe_links[ self::get_slug() ] = $this;
 
 		return $subscribe_links;
