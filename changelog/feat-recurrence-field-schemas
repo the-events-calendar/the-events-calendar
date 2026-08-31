@@ -1,0 +1,4 @@
+Significance: patch
+Type: feat
+
+The rset, has_recurrence, sequence and is_rdate custom table columns are now defined and managed by The Events Calendar, keeping the schema versions and option keys previously used by Events Calendar Pro so no schema update is triggered.
