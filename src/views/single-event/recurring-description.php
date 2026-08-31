@@ -9,12 +9,12 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.7.2
+ * @version TBD
  *
  */
 
-$recurrence_data = get_post_meta( $post_id, '_EventRecurrence', true );
-$recurrence_description = $recurrence_data['description'] ? $recurrence_data['description'] : esc_html__( 'Recurring event', 'the-events-calendar' );
+$recurrence_data        = get_post_meta( $post_id, '_EventRecurrence', true );
+$recurrence_description = ! empty( $recurrence_data['description'] ) ? $recurrence_data['description'] : esc_html__( 'Recurring event', 'the-events-calendar' );
 ?>
 
 <div class="tribe-events-single-event-recurrence-description">
@@ -22,8 +22,10 @@ $recurrence_description = $recurrence_data['description'] ? $recurrence_data['de
 
 	<span><?php echo $recurrence_description ?></span>
 
-	<a href="<?php echo esc_url( tribe_all_occurrences_link( $post_id, false ) ) ?>">
-		<?php echo __( 'see all', 'the-events-calendar' ) ?>
-	</a>
+	<?php if ( function_exists( 'tribe_all_occurrences_link' ) ) : ?>
+		<a href="<?php echo esc_url( tribe_all_occurrences_link( $post_id, false ) ) ?>">
+			<?php echo __( 'see all', 'the-events-calendar' ) ?>
+		</a>
+	<?php endif; ?>
 
 </div>
