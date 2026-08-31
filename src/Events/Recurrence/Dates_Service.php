@@ -49,6 +49,11 @@ class Dates_Service {
 			return false;
 		}
 
+		if ( tribe( Authoring_Guard::class )->is_rule_locked( $post_id ) ) {
+			// Rule-based recurrence is not authored here: writing dates would destroy the rules.
+			return false;
+		}
+
 		try {
 			$timezone    = new DateTimeZone( (string) $event->timezone );
 			$event_start = new DateTimeImmutable( (string) $event->start_date, $timezone );
