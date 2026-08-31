@@ -16,7 +16,13 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function activate_recurrence_engine(): void {
 		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 		tribe()->setVar( 'ct1_fully_activated', true );
-		tribe()->register( Controller::class );
+		// The WordPress test case restores the hooks state after each test: force a re-registration.
+		tribe()->setVar( Controller::class . '_registered', false );
+		tribe( Controller::class )->register();
+		// Reset the Model static extensions cache: it may have been locked before the engine registered.
+		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
+		$extensions->setAccessible( true );
+		$extensions->setValue( null, [] );
 	}
 
 	/**
@@ -24,6 +30,12 @@ class Dates_GeneratorTest extends WPTestCase {
 	 */
 	public function reset_registration_state(): void {
 		remove_all_filters( 'tec_events_recurrence_enabled' );
+		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
+		tribe( Controller::class )->unregister();
+		tribe()->setVar( Controller::class . '_registered', false );
+		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
+		$extensions->setAccessible( true );
+		$extensions->setValue( null, [] );
 	}
 
 	/**
