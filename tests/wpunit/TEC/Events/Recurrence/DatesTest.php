@@ -197,4 +197,114 @@ class DatesTest extends WPTestCase {
 			$utc_starts
 		);
 	}
+
+	/**
+	 * It should reject empty and malformed rset strings
+	 *
+	 * @test
+	 */
+	public function should_reject_empty_and_malformed_rset_strings(): void {
+		$this->assertFalse( Dates::is_dates_only( '' ) );
+		$this->assertFalse( Dates::is_dates_only( "   \n " ) );
+		$this->assertFalse( Dates::is_dates_only( 'FOO:bar' ) );
+		$this->assertFalse( Dates::is_dates_only( "DTSTART;TZID=UTC:20261105T090000\nGARBAGE" ) );
+
+		$this->assertNull( Dates::parse( '' ) );
+		$this->assertNull( Dates::parse( 'FOO:bar' ) );
+	}
+
+	/**
+	 * It should reject rsets carrying exclusions
+	 *
+	 * @test
+	 */
+	public function should_reject_rsets_carrying_exclusions(): void {
+		$rset = "DTSTART;TZID=UTC:20261105T090000\n"
+				. "RDATE;VALUE=DATE-TIME:20261112T090000\n"
+				. 'EXDATE;VALUE=DATE-TIME:20261112T090000';
+
+		// The dates-only contract is DTSTART, DTEND and RDATE lines: nothing else.
+		$this->assertFalse( Dates::is_dates_only( $rset ) );
+		$this->assertNull( Dates::parse( $rset ) );
+	}
+
+	/**
+	 * It should apply the dtstart time and default duration to plain date values
+	 *
+	 * @test
+	 */
+	public function should_apply_the_dtstart_time_and_default_duration_to_plain_date_values(): void {
+		$rset = "DTSTART;TZID=UTC:20261105T091500\n"
+				. 'RDATE;VALUE=DATE:20261112';
+
+		$parsed = Dates::parse( $rset, 1800 );
+
+		$this->assertIsArray( $parsed );
+		$this->assertCount( 2, $parsed['periods'] );
+
+		$rdate_period = end( $parsed['periods'] );
+		$this->assertEquals( '2026-11-12 09:15:00', $rdate_period['start']->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2026-11-12 09:45:00', $rdate_period['end']->format( 'Y-m-d H:i:s' ) );
+	}
+
+	/**
+	 * It should support duration expressed periods including zero length ones
+	 *
+	 * @test
+	 */
+	public function should_support_duration_expressed_periods_including_zero_length_ones(): void {
+		$rset = "DTSTART;TZID=UTC:20261105T090000\n"
+				. "RDATE;VALUE=PERIOD:20261112T090000/PT2H30M\n"
+				. 'RDATE;VALUE=PERIOD:20261113T090000/P0D';
+
+		$parsed = Dates::parse( $rset );
+
+		$this->assertIsArray( $parsed );
+		$this->assertCount( 3, $parsed['periods'] );
+
+		$this->assertEquals( '2026-11-12 11:30:00', $parsed['periods'][1]['end']->format( 'Y-m-d H:i:s' ) );
+		// A zero-length period is preserved as authored.
+		$this->assertEquals( '2026-11-13 09:00:00', $parsed['periods'][2]['end']->format( 'Y-m-d H:i:s' ) );
+	}
+
+	/**
+	 * It should respect a per line timezone parameter
+	 *
+	 * @test
+	 */
+	public function should_respect_a_per_line_timezone_parameter(): void {
+		$rset = "DTSTART;TZID=UTC:20261105T090000\n"
+				. 'RDATE;VALUE=DATE-TIME;TZID=America/Sao_Paulo:20261112T090000';
+
+		$parsed = Dates::parse( $rset );
+
+		$this->assertIsArray( $parsed );
+		$this->assertCount( 2, $parsed['periods'] );
+
+		$rdate_period = end( $parsed['periods'] );
+		$this->assertEquals( 'America/Sao_Paulo', $rdate_period['start']->getTimezone()->getName() );
+		$this->assertEquals(
+			'2026-11-12 12:00:00',
+			$rdate_period['start']->setTimezone( new DateTimeZone( 'UTC' ) )->format( 'Y-m-d H:i:s' )
+		);
+	}
+
+	/**
+	 * It should keep the last entry when two share the same instant
+	 *
+	 * @test
+	 */
+	public function should_keep_the_last_entry_when_two_share_the_same_instant(): void {
+		$rset = "DTSTART;TZID=UTC:20261105T090000\n"
+				. "RDATE;VALUE=PERIOD:20261112T090000/PT1H\n"
+				. 'RDATE;VALUE=PERIOD:20261112T090000/PT3H';
+
+		$parsed = Dates::parse( $rset );
+
+		$this->assertIsArray( $parsed );
+		// Deduplicated by start instant.
+		$this->assertCount( 2, $parsed['periods'] );
+		// The later authored entry wins.
+		$this->assertEquals( '2026-11-12 12:00:00', $parsed['periods'][1]['end']->format( 'Y-m-d H:i:s' ) );
+	}
 }

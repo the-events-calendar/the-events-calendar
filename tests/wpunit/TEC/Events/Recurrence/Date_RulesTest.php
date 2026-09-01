@@ -155,4 +155,131 @@ class Date_RulesTest extends WPTestCase {
 		$this->assertFalse( Date_Rules::is_dates_only_meta( '' ) );
 		$this->assertFalse( Date_Rules::is_dates_only_meta( [ 'rules' => [] ] ) );
 	}
+
+	private function date_rule( array $custom_overrides = [] ): array {
+		return [
+			'type'   => 'Custom',
+			'custom' => array_merge(
+				[
+					'interval'   => 1,
+					'type'       => 'Date',
+					'date'       => [ 'date' => '2026-11-12' ],
+					'same-time'  => 'no',
+					'start-time' => '9:00am',
+					'end-time'   => '10:00am',
+					'end-day'    => 'same-day',
+				],
+				$custom_overrides
+			),
+		];
+	}
+
+	/**
+	 * It should reject every non date rule shape
+	 *
+	 * @test
+	 */
+	public function should_reject_every_non_date_rule_shape(): void {
+		// A rule that is not Custom.
+		$rule           = $this->date_rule();
+		$rule['type']   = 'Weekly';
+		$this->assertFalse( Date_Rules::is_dates_only_meta( [ 'rules' => [ $rule ] ] ) );
+
+		// A Custom rule that is not a Date one.
+		$this->assertFalse(
+			Date_Rules::is_dates_only_meta( [ 'rules' => [ $this->date_rule( [ 'type' => 'Week' ] ) ] ] )
+		);
+
+		// A Date rule missing its date.
+		$rule = $this->date_rule();
+		unset( $rule['custom']['date'] );
+		$this->assertFalse( Date_Rules::is_dates_only_meta( [ 'rules' => [ $rule ] ] ) );
+
+		// A mix of a Date rule and a pattern rule.
+		$this->assertFalse(
+			Date_Rules::is_dates_only_meta(
+				[
+					'rules' => [
+						$this->date_rule(),
+						$this->date_rule( [ 'type' => 'Week' ] ),
+					],
+				]
+			)
+		);
+	}
+
+	/**
+	 * It should apply the event times to same time rules
+	 *
+	 * @test
+	 */
+	public function should_apply_the_event_times_to_same_time_rules(): void {
+		$timezone    = new DateTimeZone( 'UTC' );
+		$event_start = new DateTimeImmutable( '2026-11-05 09:30:15', $timezone );
+		$event_end   = new DateTimeImmutable( '2026-11-05 11:00:15', $timezone );
+
+		$periods = Date_Rules::to_periods(
+			[ 'rules' => [ $this->date_rule( [ 'same-time' => 'yes' ] ) ] ],
+			$event_start,
+			$event_end,
+			$timezone
+		);
+
+		$this->assertIsArray( $periods );
+		$this->assertCount( 1, $periods );
+		$this->assertEquals( '2026-11-12 09:30:15', $periods[0]['start']->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2026-11-12 11:00:15', $periods[0]['end']->format( 'Y-m-d H:i:s' ) );
+	}
+
+	/**
+	 * It should support multi day date rules
+	 *
+	 * @test
+	 */
+	public function should_support_multi_day_date_rules(): void {
+		$timezone    = new DateTimeZone( 'UTC' );
+		$event_start = new DateTimeImmutable( '2026-11-05 09:00:00', $timezone );
+		$event_end   = new DateTimeImmutable( '2026-11-05 10:00:00', $timezone );
+
+		$periods = Date_Rules::to_periods(
+			[
+				'rules' => [
+					$this->date_rule(
+						[
+							'start-time' => '8:00pm',
+							'end-time'   => '2:00am',
+							'end-day'    => 1,
+						]
+					),
+				],
+			],
+			$event_start,
+			$event_end,
+			$timezone
+		);
+
+		$this->assertIsArray( $periods );
+		$this->assertEquals( '2026-11-12 20:00:00', $periods[0]['start']->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2026-11-13 02:00:00', $periods[0]['end']->format( 'Y-m-d H:i:s' ) );
+	}
+
+	/**
+	 * It should return null for an invalid rule date
+	 *
+	 * @test
+	 */
+	public function should_return_null_for_an_invalid_rule_date(): void {
+		$timezone    = new DateTimeZone( 'UTC' );
+		$event_start = new DateTimeImmutable( '2026-11-05 09:00:00', $timezone );
+		$event_end   = new DateTimeImmutable( '2026-11-05 10:00:00', $timezone );
+
+		$this->assertNull(
+			Date_Rules::to_periods(
+				[ 'rules' => [ $this->date_rule( [ 'date' => [ 'date' => 'not-a-date' ] ] ) ] ],
+				$event_start,
+				$event_end,
+				$timezone
+			)
+		);
+	}
 }
