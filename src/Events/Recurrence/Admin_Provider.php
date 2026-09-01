@@ -171,10 +171,14 @@ class Admin_Provider extends Service_Provider {
 
 			$rows = array_map(
 				static function ( array $period ) use ( $date_format, $time_format ): array {
+					// The authored meta stores times without seconds: an all-day date spans 00:00 to 23:59.
+					$all_day = '00:00' === $period['start']->format( 'H:i' ) && '23:59' === $period['end']->format( 'H:i' );
+
 					return [
-						'date'  => $period['start']->format( $date_format ),
-						'start' => $period['start']->format( $time_format ),
-						'end'   => $period['end']->format( $time_format ),
+						'date'   => $period['start']->format( $date_format ),
+						'start'  => $period['start']->format( $time_format ),
+						'end'    => $period['end']->format( $time_format ),
+						'allday' => $all_day,
 					];
 				},
 				$guard->get_authored_periods( $event_id )
@@ -253,13 +257,24 @@ class Admin_Provider extends Service_Provider {
 		$datepicker_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
 		foreach ( (array) $rows as $row ) {
-			if ( ! is_array( $row ) || empty( $row['date'] ) || empty( $row['start'] ) || empty( $row['end'] ) ) {
+			$all_day = is_array( $row ) && tribe_is_truthy( $row['allday'] ?? '' );
+
+			if ( ! is_array( $row ) || empty( $row['date'] ) || ( ! $all_day && ( empty( $row['start'] ) || empty( $row['end'] ) ) ) ) {
 				continue;
 			}
 
 			$date = \Tribe__Date_Utils::datetime_from_format( $datepicker_format, sanitize_text_field( (string) $row['date'] ) );
 
 			if ( ! is_string( $date ) || '' === $date || false === strtotime( $date ) ) {
+				continue;
+			}
+
+			if ( $all_day ) {
+				$dates[] = [
+					'start' => "{$date} 00:00:00",
+					'end'   => "{$date} 23:59:59",
+				];
+
 				continue;
 			}
 

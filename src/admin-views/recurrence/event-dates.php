@@ -72,9 +72,10 @@ if ( $is_locked ) {
 $tec_dates_is_24hr       = Tribe__View_Helpers::is_24hr_format();
 $tec_dates_default_start = $tec_dates_is_24hr ? '08:00' : '8:00am';
 $tec_dates_default_end   = $tec_dates_is_24hr ? '17:00' : '5:00pm';
-$tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dates_is_24hr ) {
+$tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dates_is_24hr, $tec_dates_default_start, $tec_dates_default_end ) {
+	$tec_dates_all_day = ! empty( $row['allday'] );
 	?>
-	<div class="tec-events-recurrence-dates-row">
+	<div class="tec-events-recurrence-dates-row<?php echo $tec_dates_all_day ? ' tec-events-recurrence-dates-row--allday' : ''; ?>">
 		<input
 			autocomplete="off"
 			type="text"
@@ -89,7 +90,7 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
 			data-step="30"
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][start]"
-			value="<?php echo esc_attr( $row['start'] ); ?>"
+			value="<?php echo esc_attr( $tec_dates_all_day ? $tec_dates_default_start : $row['start'] ); ?>"
 		/>
 		<span class="tribe-datetime-separator"> <?php echo esc_html_x( 'to', 'Start Date Time "to" End Date Time', 'the-events-calendar' ); ?> </span>
 		<input
@@ -99,8 +100,18 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
 			data-step="30"
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][end]"
-			value="<?php echo esc_attr( $row['end'] ); ?>"
+			value="<?php echo esc_attr( $tec_dates_all_day ? $tec_dates_default_end : $row['end'] ); ?>"
 		/>
+		<label class="tec-events-recurrence-dates-allday">
+			<input
+				type="checkbox"
+				class="tec-events-recurrence-dates-allday-input"
+				name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][allday]"
+				value="yes"
+				<?php checked( $tec_dates_all_day ); ?>
+			/>
+			<?php esc_html_e( 'All Day', 'the-events-calendar' ); ?>
+		</label>
 		<button type="button" class="button tec-events-recurrence-dates-remove" aria-label="<?php esc_attr_e( 'Remove this date', 'the-events-calendar' ); ?>">
 			<svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 10h12"/></svg>
 		</button>
@@ -163,6 +174,9 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-remove svg,
 			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add svg { display: block; }
 			.tec-events-recurrence-dates-row:not(:last-child) .tec-events-recurrence-dates-add { display: none; }
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-allday { align-items: center; align-self: center; display: inline-flex; gap: 4px; }
+			.tec-events-recurrence-dates-row--allday .tribe-timepicker,
+			.tec-events-recurrence-dates-row--allday .tribe-datetime-separator { display: none; }
 			#tec-events-recurrence-dates-rows > .description { margin: 12px 0 16px; }
 		</style>
 
@@ -194,12 +208,43 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 					}
 				}
 
+				function nextDateValue() {
+					if ( ! window.jQuery || ! window.jQuery.datepicker || ! window.tribe_datepicker_opts ) {
+						return '';
+					}
+
+					// The previous row's date, or the event's own date, plus one day.
+					var rows = list.querySelectorAll( '.tec-events-recurrence-dates-row .tribe-datepicker' );
+					var base = rows.length ? rows[ rows.length - 1 ].value : '';
+
+					if ( ! base ) {
+						var eventStart = document.getElementById( 'EventStartDate' );
+						base = eventStart ? eventStart.value : '';
+					}
+
+					if ( ! base ) {
+						return '';
+					}
+
+					try {
+						var format = window.tribe_datepicker_opts.dateFormat;
+						var parsed = window.jQuery.datepicker.parseDate( format, base );
+						parsed.setDate( parsed.getDate() + 1 );
+
+						return window.jQuery.datepicker.formatDate( format, parsed );
+					} catch ( error ) {
+						return '';
+					}
+				}
+
 				function addRow() {
+					var prefill = nextDateValue();
 					var container = document.createElement( 'div' );
 					container.innerHTML = rowTemplate.innerHTML.replace( /__index__/g, String( nextIndex ) );
 					nextIndex++;
 
 					var row = container.querySelector( '.tec-events-recurrence-dates-row' );
+					row.querySelector( '.tribe-datepicker' ).value = prefill;
 					list.appendChild( row );
 					initPickers( row );
 				}
@@ -222,21 +267,34 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 				} );
 
 				wrapper.addEventListener( 'click', function ( event ) {
-					var target = event.target;
-
-					if ( target.classList.contains( 'tec-events-recurrence-dates-add' ) ) {
+					// closest(): the click may land on the SVG inside the button.
+					if ( event.target.closest( '.tec-events-recurrence-dates-add' ) ) {
 						addRow();
 						return;
 					}
 
-					if ( ! target.classList.contains( 'tec-events-recurrence-dates-remove' ) ) {
+					var removeButton = event.target.closest( '.tec-events-recurrence-dates-remove' );
+
+					if ( ! removeButton ) {
 						return;
 					}
 
-					var row = target.closest( '.tec-events-recurrence-dates-row' );
+					var row = removeButton.closest( '.tec-events-recurrence-dates-row' );
 
 					if ( row ) {
 						row.parentNode.removeChild( row );
+					}
+				} );
+
+				wrapper.addEventListener( 'change', function ( event ) {
+					if ( ! event.target.classList.contains( 'tec-events-recurrence-dates-allday-input' ) ) {
+						return;
+					}
+
+					var row = event.target.closest( '.tec-events-recurrence-dates-row' );
+
+					if ( row ) {
+						row.classList.toggle( 'tec-events-recurrence-dates-row--allday', event.target.checked );
 					}
 				} );
 

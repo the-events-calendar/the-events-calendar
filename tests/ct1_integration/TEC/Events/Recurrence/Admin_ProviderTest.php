@@ -256,4 +256,25 @@ class Admin_ProviderTest extends WPTestCase {
 
 		$this->assertCount( 1, tribe( Dates_Service::class )->get_dates( $post->ID ) );
 	}
+
+	/**
+	 * It should author an all day date ignoring the row times
+	 *
+	 * @test
+	 */
+	public function should_author_an_all_day_date_ignoring_the_row_times(): void {
+		$post = $this->given_an_event();
+
+		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00', 'allday' => 'yes' ] ] );
+		tribe( Admin_Provider::class )->save_dates( $post->ID );
+
+		$dates = tribe( Dates_Service::class )->get_dates( $post->ID );
+		$this->assertCount( 2, $dates );
+		$this->assertEquals( '2026-11-12 00:00:00', $dates[1]['start'] );
+		// The authored meta stores times without seconds: 23:59 either way.
+		$this->assertStringStartsWith( '2026-11-12 23:59', $dates[1]['end'] );
+
+		// The row renders back as an all-day one.
+		$this->assertStringContainsString( 'tec-events-recurrence-dates-row--allday', $this->render_section( $post->ID ) );
+	}
 }

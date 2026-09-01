@@ -33,7 +33,28 @@ const parseRows = ( dates ) => {
 	}
 };
 
-const defaultRow = () => ( { date: '', start: '08:00:00', end: '17:00:00' } );
+const ALL_DAY_START = '00:00:00';
+// The authored meta stores times without seconds: match all-day ends on HH:mm.
+const isAllDayRow = ( row ) => ALL_DAY_START === row.start && 0 === ( row.end || '' ).indexOf( '23:59' );
+
+/**
+ * Builds a new row, one day after the last authored date (or the event's own date).
+ *
+ * @param {Array}  rows  The current rows.
+ * @param {string} start The event start datetime, from the dashboard props.
+ *
+ * @return {Object} The new row.
+ */
+const defaultRow = ( rows = [], start = '' ) => {
+	const base = rows.length ? rows[ rows.length - 1 ].date : ( start || '' ).substring( 0, 10 );
+	const parsed = moment( base, 'YYYY-MM-DD' );
+
+	return {
+		date: parsed.isValid() ? parsed.add( 1, 'day' ).format( 'YYYY-MM-DD' ) : '',
+		start: '08:00:00',
+		end: '17:00:00',
+	};
+};
 
 /**
  * The Event Dates panel: authors the additional, explicit dates of an Event.
@@ -50,7 +71,7 @@ const defaultRow = () => ( { date: '', start: '08:00:00', end: '17:00:00' } );
  * @return {JSX.Element} The Event Dates panel.
  */
 const EventDates = ( props ) => {
-	const { attributes = {}, setAttributes } = props;
+	const { attributes = {}, setAttributes, start } = props;
 	const config = getConfig();
 	const rows = parseRows( attributes.dates );
 
@@ -75,7 +96,7 @@ const EventDates = ( props ) => {
 	const onToggle = ( checked ) => {
 		if ( checked ) {
 			if ( ! rows.length ) {
-				updateRows( stash.current.length ? stash.current : [ defaultRow() ] );
+				updateRows( stash.current.length ? stash.current : [ defaultRow( [], start ) ] );
 			}
 		} else {
 			// Kept around so toggling back on before saving restores the rows.
@@ -102,6 +123,8 @@ const EventDates = ( props ) => {
 
 		return (
 			<TimePicker
+				allDay={ isAllDayRow( row ) }
+				showAllDay={ true }
 				current={ current }
 				start={ timeUtil.START_OF_DAY }
 				end={ timeUtil.END_OF_DAY }
@@ -119,7 +142,14 @@ const EventDates = ( props ) => {
 					setEditing( nextEditing );
 				} }
 				onClick={ ( value, onClose ) => {
-					if ( 'all-day' !== value ) {
+					if ( 'all-day' === value ) {
+						// Both ends move together: the whole date becomes all-day.
+						updateRows(
+							rows.map( ( r, i ) =>
+								i === index ? { ...r, start: ALL_DAY_START, end: '23:59:59' } : r
+							)
+						);
+					} else {
 						updateRow( index, field, `${ timeUtil.fromSeconds( value, timeUtil.TIME_FORMAT_HH_MM ) }:00` );
 					}
 
@@ -213,7 +243,7 @@ const EventDates = ( props ) => {
 									type="button"
 									className="tribe-editor__event-dates__control tribe-editor__event-dates__add"
 									aria-label={ __( 'Add another date', 'the-events-calendar' ) }
-									onClick={ () => updateRows( [ ...rows, defaultRow() ] ) }
+									onClick={ () => updateRows( [ ...rows, defaultRow( rows, start ) ] ) }
 								>
 									<Plus />
 								</button>
