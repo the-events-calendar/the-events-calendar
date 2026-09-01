@@ -73,22 +73,39 @@ const DateChip = ( { chip } ) => {
 
 	return (
 		<li>
-			<Tooltip text={ tooltip } position="top center">
-				{ chip.permalink ? (
-					<a
-						className={ chipClassName( chip.status ) }
-						href={ chip.permalink }
+			<span className="tribe-editor__event-dates__chip-group">
+				<Tooltip text={ tooltip } position="top center">
+					{ chip.permalink ? (
+						<a
+							className={ chipClassName( chip.status ) }
+							href={ chip.permalink }
+							target="_blank"
+							rel="noreferrer noopener"
+						>
+							{ chip.label }
+						</a>
+					) : (
+						<span className={ chipClassName( chip.status ) } tabIndex={ 0 }>
+							{ chip.label }
+						</span>
+					) }
+				</Tooltip>
+				{ chip.editLink && (
+					<Button
+						className="tribe-editor__event-dates__chip-edit"
+						href={ chip.editLink }
+						icon="edit"
+						label={ sprintf(
+							/* translators: %s: the date of the occurrence. */
+							__( 'Edit the occurrence on %s (opens in a new tab)', 'the-events-calendar' ),
+							chip.label
+						) }
+						size="small"
 						target="_blank"
 						rel="noreferrer noopener"
-					>
-						{ chip.label }
-					</a>
-				) : (
-					<span className={ chipClassName( chip.status ) } tabIndex={ 0 }>
-						{ chip.label }
-					</span>
+					/>
 				) }
-			</Tooltip>
+			</span>
 		</li>
 	);
 };
@@ -98,6 +115,7 @@ DateChip.propTypes = {
 		label: PropTypes.string,
 		tooltip: PropTypes.arrayOf( PropTypes.string ),
 		permalink: PropTypes.string,
+		editLink: PropTypes.string,
 		status: PropTypes.string,
 	} ).isRequired,
 };

@@ -137,3 +137,40 @@
 	margin: 0 0 8px;
 	padding: 0;
 }
+
+/* Chip + edit button as one pill group. */
+.tribe-editor__event-dates__chip-group {
+	align-items: stretch;
+	display: inline-flex;
+}
+
+.tribe-editor__event-dates__chip-group .tribe-editor__event-dates__chip {
+	border-bottom-right-radius: 0;
+	border-right: 0;
+	border-top-right-radius: 0;
+}
+
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button {
+	background-color: #fff;
+	border: 1px solid var(--tec-color-border-secondary, #e1e3e6);
+	border-radius: 0 999px 999px 0;
+	color: var(--tec-color-text-secondary, #5d5d5d);
+	height: auto;
+	min-width: 0;
+	padding: 0 8px 0 6px;
+}
+
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button:hover,
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button:focus {
+	border-color: var(--tec-color-text-primary, #141827);
+	color: var(--tec-color-text-primary, #141827);
+}
+
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button svg {
+	height: 16px;
+	width: 16px;
+}
+
+.tribe-editor__event-dates__chip-group:has(.tribe-editor__event-dates__chip--next) .tribe-editor__event-dates__chip-edit.components-button {
+	border-color: var(--tec-color-accent-primary, #334aff);
+}

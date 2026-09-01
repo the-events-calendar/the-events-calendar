@@ -201,7 +201,12 @@ class Blocks_Provider extends Service_Provider {
 			$list = $this->container->make( Occurrences_List::class );
 
 			foreach ( $list->get_scheduled_dates( $post_id ) as $row ) {
-				$summary['dates'][] = $list->format_chip( $row );
+				$chip = $list->format_chip( $row );
+				// The editor config uses camelCase keys.
+				$chip['editLink'] = $chip['edit_link'];
+				unset( $chip['edit_link'] );
+
+				$summary['dates'][] = $chip;
 			}
 
 			$summary['count'] = count( $summary['dates'] );

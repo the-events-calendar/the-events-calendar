@@ -182,7 +182,9 @@ class Blocks_ProviderTest extends WPTestCase {
 		$this->assertCount( 1, $recurrence_dates['summary']['dates'] );
 
 		$chip = $recurrence_dates['summary']['dates'][0];
-		$this->assertEquals( [ 'label', 'tooltip', 'permalink', 'status' ], array_keys( $chip ) );
+		$this->assertEquals( [ 'label', 'tooltip', 'permalink', 'status', 'editLink' ], array_keys( $chip ) );
+		$this->assertStringContainsString( 'post.php?post=', $chip['editLink'] );
+		$this->assertStringContainsString( 'action=edit', $chip['editLink'] );
 		$this->assertIsString( $chip['label'] );
 		$this->assertNotEmpty( $chip['label'] );
 		$this->assertCount( 3, $chip['tooltip'] );

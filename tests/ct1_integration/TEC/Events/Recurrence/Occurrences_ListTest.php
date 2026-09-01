@@ -262,6 +262,8 @@ class Occurrences_ListTest extends WPTestCase {
 			$this->assertStringContainsString( 'June 15, 2050 @ 6:00 pm – 7:00 pm', $chip['tooltip'][0] );
 			$this->assertEquals( 'Next occurrence', $chip['tooltip'][1] );
 			$this->assertEquals( 'next', $chip['status'] );
+			// The edit link targets the Occurrence's provisional post directly.
+			$this->assertStringContainsString( 'post.php?post=' . $rows[0]['provisional_id'] . '&action=edit', $chip['edit_link'] );
 		} finally {
 			update_option( 'timezone_string', $site_timezone );
 		}

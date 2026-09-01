@@ -172,6 +172,10 @@ class Admin_ProviderTest extends WPTestCase {
 		$this->assertEquals( 1, substr_count( $html, 'tec-events-recurrence-dates__chip--upcoming' ) );
 		$this->assertEquals( 1, substr_count( $html, 'tec-events-recurrence-dates__chip--past' ) );
 		$this->assertStringContainsString( 'Next occurrence', $html );
+		// Each chip pairs with an edit button opening the occurrence edit screen in a new tab.
+		$this->assertEquals( 3, substr_count( $html, 'tec-events-recurrence-dates__chip-edit' ) );
+		// `esc_url()` encodes the query separator as `&#038;`.
+		$this->assertEquals( 3, preg_match_all( '/post\.php\?post=\d+(?:&|&amp;|&#038;)action=edit/', $html ) );
 		// The past date is collapsed behind the toggle.
 		$this->assertStringContainsString( 'Show 1 past date<', $html );
 		$this->assertStringContainsString( 'tec-events-recurrence-dates__chips--past', $html );

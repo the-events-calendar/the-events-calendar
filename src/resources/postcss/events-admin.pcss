@@ -1157,3 +1157,56 @@ h3.tec-update-notice__title {
 		transition: none;
 	}
 }
+
+/* Chip + edit button as one pill group. */
+.tec-events-recurrence-dates__chip-group {
+	align-items: stretch;
+	display: inline-flex;
+}
+
+.tec-events-recurrence-dates__chip-group .tec-events-recurrence-dates__chip {
+	border-bottom-right-radius: 0;
+	border-right: 0;
+	border-top-right-radius: 0;
+}
+
+.tec-events-recurrence-dates__chip-edit {
+	align-items: center;
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-border-default);
+	border-radius: 0 999px 999px 0;
+	box-shadow: none;
+	color: var(--tec-color-text-secondary);
+	display: inline-flex;
+	padding: 0 var(--tec-spacer-1) 0 calc(var(--tec-spacer-0) + 2px);
+	text-decoration: none;
+}
+
+.tec-events-recurrence-dates__chip-edit .dashicons {
+	font-size: 14px;
+	height: 14px;
+	width: 14px;
+}
+
+.tec-events-recurrence-dates__chip-edit:hover,
+.tec-events-recurrence-dates__chip-edit:focus {
+	border-color: var(--tec-color-text-primary);
+	color: var(--tec-color-text-primary);
+	outline: none;
+}
+
+.tec-events-recurrence-dates__chip-edit:focus-visible {
+	box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
+}
+
+.tec-events-recurrence-dates__chip-group:has(.tec-events-recurrence-dates__chip--next) .tec-events-recurrence-dates__chip-edit {
+	border-color: var(--tec-color-accent-primary);
+}
+
+.tec-events-recurrence-dates__chip-group:has(.tec-events-recurrence-dates__chip--past) {
+	opacity: 0.65;
+}
+
+.tec-events-recurrence-dates__chip-group:has(.tec-events-recurrence-dates__chip--past) .tec-events-recurrence-dates__chip--past {
+	opacity: 1;
+}

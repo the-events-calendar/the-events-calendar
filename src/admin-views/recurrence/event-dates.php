@@ -46,17 +46,26 @@ if ( $is_locked ) {
 		$classes = 'tec-events-recurrence-dates__chip tec-events-recurrence-dates__chip--' . sanitize_html_class( $chip['status'] );
 		?>
 	<li class="tec-events-recurrence-dates__chip-wrap">
-		<?php if ( '' !== $chip['permalink'] ) : ?>
+		<span class="tec-events-recurrence-dates__chip-group">
+			<?php if ( '' !== $chip['permalink'] ) : ?>
+				<a
+					class="<?php echo esc_attr( $classes ); ?>"
+					href="<?php echo esc_url( $chip['permalink'] ); ?>"
+					target="_blank"
+					rel="noreferrer noopener"
+					aria-describedby="<?php echo esc_attr( $tip_id ); ?>"
+				><?php echo esc_html( $chip['label'] ); ?></a>
+			<?php else : ?>
+				<span class="<?php echo esc_attr( $classes ); ?>" tabindex="0" aria-describedby="<?php echo esc_attr( $tip_id ); ?>"><?php echo esc_html( $chip['label'] ); ?></span>
+			<?php endif; ?>
 			<a
-				class="<?php echo esc_attr( $classes ); ?>"
-				href="<?php echo esc_url( $chip['permalink'] ); ?>"
+				class="tec-events-recurrence-dates__chip-edit"
+				href="<?php echo esc_url( $chip['edit_link'] ); ?>"
 				target="_blank"
 				rel="noreferrer noopener"
-				aria-describedby="<?php echo esc_attr( $tip_id ); ?>"
-			><?php echo esc_html( $chip['label'] ); ?></a>
-		<?php else : ?>
-			<span class="<?php echo esc_attr( $classes ); ?>" tabindex="0" aria-describedby="<?php echo esc_attr( $tip_id ); ?>"><?php echo esc_html( $chip['label'] ); ?></span>
-		<?php endif; ?>
+				aria-label="<?php echo esc_attr( sprintf( /* translators: %s: the date of the occurrence. */ __( 'Edit the occurrence on %s (opens in a new tab)', 'the-events-calendar' ), $chip['label'] ) ); ?>"
+			><span class="dashicons dashicons-edit" aria-hidden="true"></span></a>
+		</span>
 		<span role="tooltip" id="<?php echo esc_attr( $tip_id ); ?>" class="tec-events-recurrence-dates__chip-tooltip">
 			<?php foreach ( $chip['tooltip'] as $tec_dates_line ) : ?>
 				<span class="tec-events-recurrence-dates__chip-tooltip-line"><?php echo esc_html( $tec_dates_line ); ?></span>

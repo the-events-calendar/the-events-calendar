@@ -284,10 +284,9 @@ class Occurrences_List {
 	 * @param array<string,mixed> $row One scheduled date, as returned by `get_scheduled_dates()`: `provisional_id`,
 	 *                                 `start` and `end` (DateTimeImmutable), `status` and `permalink`.
 	 *
-	 * @return array{label: string, tooltip: array<int,string>, permalink: string, status: string} The chip data: a short
-	 *                                                                                              date label, the tooltip
-	 *                                                                                              lines, the Occurrence
-	 *                                                                                              link and the status.
+	 * @return array{label: string, tooltip: array<int,string>, permalink: string, edit_link: string, status: string} The
+	 *                                                       chip data: a short date label, the tooltip lines, the Occurrence
+	 *                                                       view and edit links, and the status.
 	 */
 	public function format_chip( array $row ): array {
 		$timezone        = $row['start']->getTimezone();
@@ -319,6 +318,8 @@ class Occurrences_List {
 				__( 'Opens the occurrence in a new tab.', 'the-events-calendar' ),
 			],
 			'permalink' => (string) $row['permalink'],
+			// Built directly: the link filters would rewrite the Occurrence edit link back to the Event.
+			'edit_link' => admin_url( 'post.php?post=' . (int) $row['provisional_id'] . '&action=edit' ),
 			'status'    => (string) $row['status'],
 		];
 	}
