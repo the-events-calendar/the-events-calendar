@@ -1,8 +1,7 @@
 .tribe-editor__event-dates {
 	border-top: 1px solid var(--tec-color-border-secondary, #e1e3e6);
-	margin-top: 16px;
-	padding-top: 16px;
-	width: 100%;
+	box-sizing: border-box;
+	padding: 15px 22px;
 
 	.tribe-editor__event-dates__title {
 		font-size: 14px;
@@ -10,10 +9,16 @@
 	}
 
 	.tribe-editor__event-dates__description,
-	.tribe-editor__event-dates__notice {
+	.tribe-editor__event-dates__notice,
+	.tribe-editor__event-dates__summary {
 		color: var(--tec-color-text-secondary, #5d5d5d);
 		font-size: 13px;
 		margin: 0 0 12px;
+	}
+
+	.tribe-editor__event-dates__notice:last-child,
+	.tribe-editor__event-dates__summary:last-child {
+		margin-bottom: 0;
 	}
 
 	.tribe-editor__event-dates__row {
