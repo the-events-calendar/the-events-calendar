@@ -132,7 +132,11 @@ class Migration_Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function ensure_engine(): void {
-		$this->container->singleton( Engine_Provider::class );
+		if ( ! $this->container->isBound( Engine_Provider::class ) ) {
+			// Re-binding an existing singleton would drop the resolved instance.
+			$this->container->singleton( Engine_Provider::class );
+		}
+
 		$this->container->make( Engine_Provider::class )->register();
 
 		/*
