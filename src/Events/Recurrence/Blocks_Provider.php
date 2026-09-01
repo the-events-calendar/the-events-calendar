@@ -18,7 +18,6 @@ declare( strict_types=1 );
 
 namespace TEC\Events\Recurrence;
 
-use DateTimeImmutable;
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -194,23 +193,18 @@ class Blocks_Provider extends Service_Provider {
 		$is_occurrence = $post_id > 0 && $guard->is_occurrence_edit( $post_id );
 		$is_locked     = ! $is_occurrence && $post_id > 0 && $guard->is_rule_locked( $post_id );
 		$summary       = [
-			'count'     => 0,
-			'nextDates' => [],
+			'count' => 0,
+			'dates' => [],
 		];
 
 		if ( $is_locked ) {
-			$raw_summary = $guard->get_dates_summary( $post_id );
-			$format      = tribe_get_datetime_format( true );
+			$list = $this->container->make( Occurrences_List::class );
 
-			$summary = [
-				'count'     => $raw_summary['count'],
-				'nextDates' => array_map(
-					static function ( DateTimeImmutable $date ) use ( $format ): string {
-						return date_i18n( $format, (int) $date->format( 'U' ) );
-					},
-					$raw_summary['next_dates']
-				),
-			];
+			foreach ( $list->get_scheduled_dates( $post_id ) as $row ) {
+				$summary['dates'][] = $list->format_chip( $row );
+			}
+
+			$summary['count'] = count( $summary['dates'] );
 		}
 
 		$editor_config['events']['recurrenceDates'] = [

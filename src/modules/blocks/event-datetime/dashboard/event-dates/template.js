@@ -8,7 +8,7 @@ import moment from 'moment';
 /**
  * WordPress dependencies
  */
-import { ToggleControl } from '@wordpress/components';
+import { Button, ToggleControl, Tooltip } from '@wordpress/components';
 import { __, _n, sprintf } from '@wordpress/i18n';
 
 /**
@@ -54,6 +54,131 @@ const defaultRow = ( rows = [], start = '' ) => {
 		start: '08:00:00',
 		end: '17:00:00',
 	};
+};
+
+const chipClassName = ( status ) => `tribe-editor__event-dates__chip tribe-editor__event-dates__chip--${ status }`;
+
+/**
+ * One scheduled date of a rule-locked Event: a chip linking to the Occurrence, with a tooltip.
+ *
+ * @since TBD
+ *
+ * @param {Object} props      The component props.
+ * @param {Object} props.chip The chip data: `label`, `tooltip` lines, `permalink` and `status`.
+ *
+ * @return {JSX.Element} The chip.
+ */
+const DateChip = ( { chip } ) => {
+	const tooltip = Array.isArray( chip.tooltip ) ? chip.tooltip.join( ' · ' ) : '';
+
+	return (
+		<li>
+			<Tooltip text={ tooltip } position="top center">
+				{ chip.permalink ? (
+					<a
+						className={ chipClassName( chip.status ) }
+						href={ chip.permalink }
+						target="_blank"
+						rel="noreferrer noopener"
+					>
+						{ chip.label }
+					</a>
+				) : (
+					<span className={ chipClassName( chip.status ) } tabIndex={ 0 }>
+						{ chip.label }
+					</span>
+				) }
+			</Tooltip>
+		</li>
+	);
+};
+
+DateChip.propTypes = {
+	chip: PropTypes.shape( {
+		label: PropTypes.string,
+		tooltip: PropTypes.arrayOf( PropTypes.string ),
+		permalink: PropTypes.string,
+		status: PropTypes.string,
+	} ).isRequired,
+};
+
+/**
+ * The scheduled dates of a rule-locked Event as chips: the upcoming ones always
+ * visible, the past ones collapsed behind a toggle.
+ *
+ * @since TBD
+ *
+ * @param {Object} props         The component props.
+ * @param {Object} props.summary The `recurrenceDates.summary` editor config: `count` and `dates`.
+ *
+ * @return {JSX.Element|null} The chips, or nothing when no date is scheduled.
+ */
+const LockedDates = ( { summary } ) => {
+	const [ showPast, setShowPast ] = useState( false );
+	const dates = Array.isArray( summary.dates ) ? summary.dates : [];
+
+	if ( ! dates.length ) {
+		return null;
+	}
+
+	const upcoming = dates.filter( ( chip ) => 'past' !== chip.status );
+	const past = dates.filter( ( chip ) => 'past' === chip.status );
+	const toggleLabel = showPast
+		? /* translators: %d: the number of past scheduled dates of the event. */
+		  _n( 'Hide %d past date', 'Hide %d past dates', past.length, 'the-events-calendar' )
+		: /* translators: %d: the number of past scheduled dates of the event. */
+		  _n( 'Show %d past date', 'Show %d past dates', past.length, 'the-events-calendar' );
+
+	return (
+		<Fragment>
+			<p className="tribe-editor__event-dates__summary">
+				{ sprintf(
+					/* translators: %d: the number of scheduled dates of the event. */
+					_n( '%d date is scheduled.', '%d dates are scheduled.', dates.length, 'the-events-calendar' ),
+					dates.length
+				) }
+			</p>
+			{ upcoming.length > 0 && (
+				<ul
+					className="tribe-editor__event-dates__chips"
+					aria-label={ __( 'Upcoming dates', 'the-events-calendar' ) }
+				>
+					{ upcoming.map( ( chip, index ) => (
+						<DateChip key={ `upcoming-${ index }` } chip={ chip } />
+					) ) }
+				</ul>
+			) }
+			{ past.length > 0 && (
+				<Fragment>
+					<Button
+						variant="link"
+						className="tribe-editor__event-dates__toggle"
+						aria-expanded={ showPast }
+						onClick={ () => setShowPast( ! showPast ) }
+					>
+						{ sprintf( toggleLabel, past.length ) }
+					</Button>
+					{ showPast && (
+						<ul
+							className="tribe-editor__event-dates__chips tribe-editor__event-dates__chips--past"
+							aria-label={ __( 'Past dates', 'the-events-calendar' ) }
+						>
+							{ past.map( ( chip, index ) => (
+								<DateChip key={ `past-${ index }` } chip={ chip } />
+							) ) }
+						</ul>
+					) }
+				</Fragment>
+			) }
+		</Fragment>
+	);
+};
+
+LockedDates.propTypes = {
+	summary: PropTypes.shape( {
+		count: PropTypes.number,
+		dates: PropTypes.array,
+	} ).isRequired,
 };
 
 /**
@@ -175,9 +300,6 @@ const EventDates = ( props ) => {
 	}
 
 	if ( config.locked ) {
-		const summary = config.summary || {};
-		const nextDates = Array.isArray( summary.nextDates ) ? summary.nextDates : [];
-
 		return (
 			<div className="tribe-editor__event-dates">
 				<p className="tribe-editor__event-dates__notice">
@@ -186,17 +308,7 @@ const EventDates = ( props ) => {
 						'the-events-calendar'
 					) }
 				</p>
-				{ summary.count > 0 && (
-					<p className="tribe-editor__event-dates__summary">
-						{ sprintf(
-							/* translators: %d: the number of scheduled dates of the event. */
-							_n( '%d date is scheduled:', '%d dates are scheduled:', summary.count, 'the-events-calendar' ),
-							summary.count
-						) }{ ' ' }
-						{ nextDates.join( ', ' ) }
-						{ summary.count > nextDates.length ? ', …' : '' }
-					</p>
-				) }
+				<LockedDates summary={ config.summary || {} } />
 			</div>
 		);
 	}

@@ -179,8 +179,14 @@ class Blocks_ProviderTest extends WPTestCase {
 		$this->assertTrue( $recurrence_dates['locked'] );
 		// The event's own occurrence is the only generated row here.
 		$this->assertEquals( 1, $recurrence_dates['summary']['count'] );
-		$this->assertCount( 1, $recurrence_dates['summary']['nextDates'] );
-		$this->assertIsString( $recurrence_dates['summary']['nextDates'][0] );
+		$this->assertCount( 1, $recurrence_dates['summary']['dates'] );
+
+		$chip = $recurrence_dates['summary']['dates'][0];
+		$this->assertEquals( [ 'label', 'tooltip', 'permalink', 'status' ], array_keys( $chip ) );
+		$this->assertIsString( $chip['label'] );
+		$this->assertNotEmpty( $chip['label'] );
+		$this->assertCount( 3, $chip['tooltip'] );
+		$this->assertContains( $chip['status'], [ 'past', 'next', 'upcoming' ] );
 	}
 
 	/**
@@ -200,6 +206,6 @@ class Blocks_ProviderTest extends WPTestCase {
 
 		$recurrence_dates = $config['events']['recurrenceDates'];
 		$this->assertFalse( $recurrence_dates['locked'] );
-		$this->assertEquals( [ 'count' => 0, 'nextDates' => [] ], $recurrence_dates['summary'] );
+		$this->assertEquals( [ 'count' => 0, 'dates' => [] ], $recurrence_dates['summary'] );
 	}
 }
