@@ -25,9 +25,9 @@
 		margin-bottom: 0;
 	}
 
-	/* The date input sets the row height: every other control stretches to it. */
+	/* Every control in a row shares one fixed height: the buttons stay square. */
 	.tribe-editor__event-dates__row {
-		align-items: stretch;
+		align-items: center;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
@@ -47,8 +47,9 @@
 		color: inherit;
 		font-family: Helvetica, sans-serif;
 		font-size: 14px;
+		height: 40px;
 		line-height: 1.5;
-		padding: 5px 10px;
+		padding: 0 10px;
 	}
 
 	.tribe-editor__event-dates__row .tribe-editor__timepicker {
@@ -56,7 +57,8 @@
 	}
 
 	.tribe-editor__event-dates__row .tribe-editor__timepicker__toggle {
-		height: 100%;
+		box-sizing: border-box;
+		height: 40px;
 	}
 
 	.tribe-editor__event-dates__separator {
@@ -73,6 +75,7 @@
 		color: #545d66;
 		cursor: pointer;
 		display: inline-flex;
+		height: 40px;
 		justify-content: center;
 		padding: 0;
 		width: 40px;
