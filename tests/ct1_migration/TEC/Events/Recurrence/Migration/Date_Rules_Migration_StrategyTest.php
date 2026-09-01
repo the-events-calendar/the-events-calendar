@@ -84,7 +84,7 @@ class Date_Rules_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$event_report = $this->apply_strategy_to( $strategy, $post_id, false );
 
 		$this->assertInstanceOf( Event_Report::class, $event_report );
-		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 'success', $event_report->status, (string) $event_report->error );
 		$this->assertEquals( [ Date_Rules_Migration_Strategy::get_slug() ], $event_report->strategies_applied );
 		$this->assertEquals( 1, Event::where( 'post_id', '=', $post_id )->count() );
 
@@ -116,7 +116,7 @@ class Date_Rules_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$event_report = $this->apply_strategy_to( $strategy, $post_id, true );
 
 		$this->assertInstanceOf( Event_Report::class, $event_report );
-		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 'success', $event_report->status, (string) $event_report->error );
 		$this->assertEquals( 0, Event::where( 'post_id', '=', $post_id )->count() );
 		$this->assertEquals( 0, Occurrence::where( 'post_id', '=', $post_id )->count() );
 	}
@@ -176,7 +176,7 @@ class Date_Rules_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 
 		$event_report = $this->apply_strategy_to( $this->make_strategy( $post_id ), $post_id, false );
 
-		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 'success', $event_report->status, (string) $event_report->error );
 		// Event date + 2 additional dates: the duplicate collapsed.
 		$this->assertEquals( 3, Occurrence::where( 'post_id', '=', $post_id )->count() );
 	}
@@ -190,7 +190,7 @@ class Date_Rules_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		[ 'parent' => $parent, 'children' => $children ] = $this->given_a_non_migrated_dates_only_event_with_legacy_children( 2 );
 
 		$event_report = $this->apply_strategy_to( $this->make_strategy( $parent->ID ), $parent->ID, false );
-		$this->assertEquals( 'success', $event_report->status );
+		$this->assertEquals( 'success', $event_report->status, (string) $event_report->error );
 
 		foreach ( $children as $child_id ) {
 			$child = get_post( $child_id );
