@@ -179,4 +179,52 @@ class Blocks_ProviderTest extends WPTestCase {
 		$mirror = json_decode( (string) get_post_meta( $post->ID, Blocks_Provider::META_KEY, true ), true );
 		$this->assertEquals( [ [ 'date' => '2026-11-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ], $mirror );
 	}
+
+	/**
+	 * It should expose the locked event dates summary in the editor config
+	 *
+	 * @test
+	 */
+	public function should_expose_the_locked_dates_summary_in_the_editor_config(): void {
+		$post = $this->given_an_event();
+
+		// A rule-based rset with no authored meta: locked for free authoring.
+		Event::find( $post->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+		);
+
+		$_GET['post'] = $post->ID;
+		try {
+			$config = tribe( Blocks_Provider::class )->add_editor_config( [ 'events' => [] ] );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$recurrence_dates = $config['events']['recurrenceDates'];
+		$this->assertTrue( $recurrence_dates['locked'] );
+		// The event's own occurrence is the only generated row here.
+		$this->assertEquals( 1, $recurrence_dates['summary']['count'] );
+		$this->assertCount( 1, $recurrence_dates['summary']['nextDates'] );
+		$this->assertIsString( $recurrence_dates['summary']['nextDates'][0] );
+	}
+
+	/**
+	 * It should expose an empty summary for unlocked events
+	 *
+	 * @test
+	 */
+	public function should_expose_an_empty_summary_for_unlocked_events(): void {
+		$post = $this->given_an_event();
+
+		$_GET['post'] = $post->ID;
+		try {
+			$config = tribe( Blocks_Provider::class )->add_editor_config( [ 'events' => [] ] );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$recurrence_dates = $config['events']['recurrenceDates'];
+		$this->assertFalse( $recurrence_dates['locked'] );
+		$this->assertEquals( [ 'count' => 0, 'nextDates' => [] ], $recurrence_dates['summary'] );
+	}
 }

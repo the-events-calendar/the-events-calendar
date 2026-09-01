@@ -17,6 +17,7 @@ declare( strict_types=1 );
 
 namespace TEC\Events\Recurrence;
 
+use DateTimeImmutable;
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -98,11 +99,17 @@ class Admin_Provider extends Service_Provider {
 		$is_locked            = ! $is_occurrence && $event_id > 0 && $guard->is_rule_locked( $event_id );
 		$occurrence_edit_link = '';
 		$rows                 = [];
+		$summary              = [
+			'count'      => 0,
+			'next_dates' => [],
+		];
 
 		if ( $is_occurrence ) {
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
 			$occurrence_edit_link = admin_url( 'post.php?post=' . Occurrence::normalize_id( $event_id ) . '&action=edit' );
-		} elseif ( ! $is_locked && $event_id > 0 ) {
+		} elseif ( $is_locked ) {
+			$summary = $this->format_summary( $guard->get_dates_summary( $event_id ) );
+		} elseif ( $event_id > 0 ) {
 			$rows = array_map(
 				static function ( array $period ): array {
 					return [
@@ -116,6 +123,28 @@ class Admin_Provider extends Service_Provider {
 		}
 
 		include TEC::instance()->pluginPath . 'src/admin-views/recurrence/event-dates.php';
+	}
+
+	/**
+	 * Formats the dates summary of a locked Event for display.
+	 *
+	 * @since TBD
+	 *
+	 * @param array{count: int, next_dates: array<int,DateTimeImmutable>} $summary The dates summary.
+	 *
+	 * @return array{count: int, next_dates: array<int,string>} The summary with the dates formatted for display.
+	 */
+	private function format_summary( array $summary ): array {
+		$format = tribe_get_datetime_format( true );
+
+		$summary['next_dates'] = array_map(
+			static function ( DateTimeImmutable $date ) use ( $format ): string {
+				return date_i18n( $format, (int) $date->format( 'U' ) );
+			},
+			$summary['next_dates']
+		);
+
+		return $summary;
 	}
 
 	/**

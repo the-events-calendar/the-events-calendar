@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Added the Event Dates authoring UI: with the Recurrence feature active and Events Calendar Pro absent, additional explicit dates can be authored one by one from the datetime section of the Classic Editor and from the datetime block of the Block Editor. The rows map to the authored recurrence meta, rule-based events show a protected notice, single occurrences link back to their recurring event, and the Events Calendar Pro upsell banner now sells the recurrence rule patterns specifically.
+Added the Event Dates authoring UI: with the Recurrence feature active and Events Calendar Pro absent, additional explicit dates can be authored one by one from the datetime section of the Classic Editor and from the datetime block of the Block Editor. The rows map to the authored recurrence meta, rule-based events show a protected notice with a read-only summary of the scheduled dates, single occurrences link back to their recurring event, and the Events Calendar Pro upsell banner now sells the recurrence rule patterns specifically.

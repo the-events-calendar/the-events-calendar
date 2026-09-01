@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -72,6 +72,9 @@ const EventDates = ( props ) => {
 	}
 
 	if ( config.locked ) {
+		const summary = config.summary || {};
+		const nextDates = Array.isArray( summary.nextDates ) ? summary.nextDates : [];
+
 		return (
 			<div className="tribe-editor__event-dates">
 				<p className="tribe-editor__event-dates__notice">
@@ -80,6 +83,17 @@ const EventDates = ( props ) => {
 						'the-events-calendar'
 					) }
 				</p>
+				{ summary.count > 0 && (
+					<p className="tribe-editor__event-dates__summary">
+						{ sprintf(
+							/* translators: %d: the number of scheduled dates of the event. */
+							_n( '%d date is scheduled:', '%d dates are scheduled:', summary.count, 'the-events-calendar' ),
+							summary.count
+						) }{ ' ' }
+						{ nextDates.join( ', ' ) }
+						{ summary.count > nextDates.length ? ', …' : '' }
+					</p>
+				) }
 			</div>
 		);
 	}

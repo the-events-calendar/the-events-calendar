@@ -12,6 +12,7 @@
  * @var bool                                                 $is_locked            Whether the Event recurrence is rule-based (Events Calendar Pro data).
  * @var bool                                                 $is_occurrence        Whether a single Occurrence is being edited.
  * @var string                                               $occurrence_edit_link The edit link of the recurring Event the Occurrence belongs to.
+ * @var array{count: int, next_dates: array<int,string>}     $summary              The scheduled dates summary of a locked Event, formatted for display.
  */
 
 use TEC\Events\Recurrence\Admin_Provider;
@@ -43,6 +44,24 @@ if ( $is_locked ) {
 			<p>
 				<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Activate Events Calendar Pro to edit them; the existing dates are preserved meanwhile.', 'the-events-calendar' ); ?>
 			</p>
+			<?php if ( ! empty( $summary['count'] ) ) : ?>
+				<p class="description">
+					<?php
+					echo esc_html(
+						sprintf(
+							/* translators: %d: the number of scheduled dates of the event. */
+							_n( '%d date is scheduled:', '%d dates are scheduled:', $summary['count'], 'the-events-calendar' ),
+							$summary['count']
+						)
+					);
+					echo ' ' . esc_html( implode( ', ', $summary['next_dates'] ) );
+
+					if ( $summary['count'] > count( $summary['next_dates'] ) ) {
+						echo esc_html_x( ', …', 'The scheduled dates list of the event continues past the ones shown.', 'the-events-calendar' );
+					}
+					?>
+				</p>
+			<?php endif; ?>
 		</td>
 	</tr>
 	<?php

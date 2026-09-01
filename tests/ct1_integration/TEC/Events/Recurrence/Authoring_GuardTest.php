@@ -195,4 +195,95 @@ class Authoring_GuardTest extends WPTestCase {
 		$this->assertTrue( $guard->is_occurrence_edit( $provisional_id ) );
 		$this->assertFalse( $guard->is_occurrence_edit( $post->ID ) );
 	}
+
+	/**
+	 * It should summarize the scheduled dates counting all and listing the next upcoming ones
+	 *
+	 * @test
+	 */
+	public function should_summarize_the_scheduled_dates(): void {
+		$post = tribe_events()->set_args(
+			[
+				'title'      => 'Summary Test Event',
+				'status'     => 'publish',
+				'start_date' => date( 'Y-m-d 09:00:00', strtotime( '+10 days' ) ),
+				'end_date'   => date( 'Y-m-d 10:00:00', strtotime( '+10 days' ) ),
+				'timezone'   => 'America/Sao_Paulo',
+			]
+		)->create();
+		$this->assertInstanceOf( WP_Post::class, $post );
+
+		tribe( Dates_Service::class )->set_dates(
+			$post->ID,
+			[
+				[ 'start' => date( 'Y-m-d 09:00:00', strtotime( '+20 days' ) ), 'end' => date( 'Y-m-d 10:00:00', strtotime( '+20 days' ) ) ],
+				[ 'start' => date( 'Y-m-d 09:00:00', strtotime( '+30 days' ) ), 'end' => date( 'Y-m-d 10:00:00', strtotime( '+30 days' ) ) ],
+				[ 'start' => date( 'Y-m-d 09:00:00', strtotime( '+40 days' ) ), 'end' => date( 'Y-m-d 10:00:00', strtotime( '+40 days' ) ) ],
+			]
+		);
+
+		$summary = tribe( Authoring_Guard::class )->get_dates_summary( $post->ID );
+
+		$this->assertEquals( 4, $summary['count'] );
+		$this->assertCount( 3, $summary['next_dates'] );
+		$this->assertEquals(
+			[
+				date( 'Y-m-d 09:00:00', strtotime( '+10 days' ) ),
+				date( 'Y-m-d 09:00:00', strtotime( '+20 days' ) ),
+				date( 'Y-m-d 09:00:00', strtotime( '+30 days' ) ),
+			],
+			array_map( static fn( $date ) => $date->format( 'Y-m-d H:i:s' ), $summary['next_dates'] )
+		);
+	}
+
+	/**
+	 * It should fall back to the final dates when every date is in the past
+	 *
+	 * @test
+	 */
+	public function should_fall_back_to_the_final_dates_when_all_past(): void {
+		$post = tribe_events()->set_args(
+			[
+				'title'      => 'Past Summary Test Event',
+				'status'     => 'publish',
+				'start_date' => date( 'Y-m-d 09:00:00', strtotime( '-40 days' ) ),
+				'end_date'   => date( 'Y-m-d 10:00:00', strtotime( '-40 days' ) ),
+				'timezone'   => 'America/Sao_Paulo',
+			]
+		)->create();
+		$this->assertInstanceOf( WP_Post::class, $post );
+
+		tribe( Dates_Service::class )->set_dates(
+			$post->ID,
+			[
+				[ 'start' => date( 'Y-m-d 09:00:00', strtotime( '-30 days' ) ), 'end' => date( 'Y-m-d 10:00:00', strtotime( '-30 days' ) ) ],
+			]
+		);
+
+		$summary = tribe( Authoring_Guard::class )->get_dates_summary( $post->ID );
+
+		$this->assertEquals( 2, $summary['count'] );
+		$this->assertEquals(
+			[
+				date( 'Y-m-d 09:00:00', strtotime( '-40 days' ) ),
+				date( 'Y-m-d 09:00:00', strtotime( '-30 days' ) ),
+			],
+			array_map( static fn( $date ) => $date->format( 'Y-m-d H:i:s' ), $summary['next_dates'] )
+		);
+	}
+
+	/**
+	 * It should return an empty summary when the Custom Tables are not fully activated
+	 *
+	 * @test
+	 */
+	public function should_return_an_empty_summary_without_ct1(): void {
+		$post = $this->given_an_event();
+
+		tribe()->setVar( 'ct1_fully_activated', false );
+		$summary = tribe( Authoring_Guard::class )->get_dates_summary( $post->ID );
+		tribe()->setVar( 'ct1_fully_activated', true );
+
+		$this->assertEquals( [ 'count' => 0, 'next_dates' => [] ], $summary );
+	}
 }

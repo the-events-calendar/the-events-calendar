@@ -146,4 +146,70 @@ class Authoring_Guard {
 			)
 		);
 	}
+
+	/**
+	 * Returns a read-only summary of the Event's scheduled dates.
+	 *
+	 * The locked authoring UI uses the summary to still show WHAT is scheduled — the
+	 * generated Occurrence rows — while the rules that generated them stay Events
+	 * Calendar Pro territory. Reading the Occurrence rows is display-only here, never
+	 * an authoring source.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The Event post ID (a provisional ID is accepted).
+	 * @param int $limit   The maximum number of dates to include in the summary.
+	 *
+	 * @return array{count: int, next_dates: array<int,DateTimeImmutable>} The total scheduled dates
+	 *                                                                     and the next upcoming ones.
+	 */
+	public function get_dates_summary( int $post_id, int $limit = 3 ): array {
+		$summary = [
+			'count'      => 0,
+			'next_dates' => [],
+		];
+
+		if ( ! tribe()->getVar( 'ct1_fully_activated', false ) ) {
+			// The Occurrences table might not exist at all.
+			return $summary;
+		}
+
+		$post_id = Occurrence::normalize_id( $post_id );
+		$count   = (int) Occurrence::where( 'post_id', '=', $post_id )->count();
+
+		if ( 0 === $count ) {
+			return $summary;
+		}
+
+		$summary['count'] = $count;
+
+		$occurrences = Occurrence::where( 'post_id', '=', $post_id )
+								->where( 'start_date', '>=', current_time( 'mysql' ) )
+								->order_by( 'start_date', 'ASC' )
+								->limit( $limit )
+								->all();
+		$occurrences = iterator_to_array( $occurrences, false );
+
+		if ( ! count( $occurrences ) ) {
+			// All the dates are in the past: show the final ones instead.
+			$occurrences = iterator_to_array(
+				Occurrence::where( 'post_id', '=', $post_id )
+						->order_by( 'start_date', 'DESC' )
+						->limit( $limit )
+						->all(),
+				false
+			);
+			$occurrences = array_reverse( $occurrences );
+		}
+
+		foreach ( $occurrences as $occurrence ) {
+			try {
+				$summary['next_dates'][] = new DateTimeImmutable( (string) $occurrence->start_date );
+			} catch ( Exception $e ) {
+				continue;
+			}
+		}
+
+		return $summary;
+	}
 }
