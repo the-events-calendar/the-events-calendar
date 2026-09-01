@@ -14,6 +14,7 @@ use DateTimeZone;
 use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use WP_Post;
@@ -130,6 +131,9 @@ class Links {
 	 * Updates the link to view an Occurrence in the context of the Administration UI.
 	 *
 	 * @since 6.0.0
+	 * @since TBD A provisional Occurrence post now links to ITS date: the Event lookup normalizes
+	 *            the provisional ID (it would find nothing and bail before) and the hydrated
+	 *            Occurrence wins over the next-upcoming one.
 	 *
 	 * @param string  $post_link   The View post link, as produced by WordPress and previous filters.
 	 * @param WP_Post $post        A reference to the Post instance.
@@ -148,7 +152,7 @@ class Links {
 			return $post_link;
 		}
 
-		$event = Event::find( $post->ID, 'post_id' );
+		$event = Event::find( Occurrence::normalize_id( (int) $post->ID ), 'post_id' );
 
 		if ( ! $event instanceof Event ) {
 			return $post_link;
@@ -158,7 +162,20 @@ class Links {
 			return $post_link;
 		}
 
-		$occurrence = $this->get_next_occurrence( $event );
+		$occurrence  = null;
+		$provisional = tribe( Provisional_Post::class );
+
+		if ( $provisional->is_provisional_post_id( (int) $post->ID ) ) {
+			// A provisional Occurrence post links to the date of the Occurrence it represents.
+			$hydrated   = $post->_tec_occurrence ?? null;
+			$occurrence = $hydrated instanceof Occurrence
+				? $hydrated
+				: Occurrence::find( $provisional->normalize_provisional_post_id( (int) $post->ID ), 'occurrence_id' );
+		}
+
+		if ( ! $occurrence instanceof Occurrence ) {
+			$occurrence = $this->get_next_occurrence( $event );
+		}
 
 		if ( ! $occurrence instanceof Occurrence ) {
 			return $post_link;
@@ -176,10 +193,10 @@ class Links {
 			return $post_link;
 		}
 
-		// URL Arguments on home_url() pre-check.
+		// URL Arguments on home_url() pre-check. A missing permalink structure option returns `false`: plain permalinks either way.
 		$url_query           = wp_parse_url( $post_link, PHP_URL_QUERY );
 		$url_args            = wp_parse_args( $url_query, [] );
-		$permalink_structure = get_option( 'permalink_structure' );
+		$permalink_structure = (string) get_option( 'permalink_structure' );
 
 		// Remove the "args".
 		if ( ! empty( $url_query ) && '' !== $permalink_structure ) {
