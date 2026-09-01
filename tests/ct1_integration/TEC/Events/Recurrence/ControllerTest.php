@@ -164,4 +164,65 @@ class ControllerTest extends WPTestCase {
 
 		$this->assertFalse( Controller::is_registered() );
 	}
+
+	/**
+	 * It should provide occurrences independently of the activation option and filter
+	 *
+	 * The static capability read is the pre-boot handshake: it must be true whenever the
+	 * infrastructure is available, even while the feature is switched off at runtime.
+	 *
+	 * @test
+	 */
+	public function should_provide_occurrences_independently_of_the_runtime_state(): void {
+		tribe()->setVar( 'ct1_fully_activated', true );
+		update_option( Controller::ACTIVE_OPTION, false );
+
+		$this->assertTrue( Controller::provides_occurrences() );
+		$this->assertFalse( $this->controller()->is_active() );
+
+		add_filter( 'tec_events_recurrence_enabled', '__return_false' );
+
+		$this->assertTrue( Controller::provides_occurrences() );
+	}
+
+	/**
+	 * It should not provide occurrences under the environment kill switch
+	 *
+	 * @test
+	 */
+	public function should_not_provide_occurrences_under_the_environment_kill_switch(): void {
+		tribe()->setVar( 'ct1_fully_activated', true );
+
+		putenv( Controller::DISABLED . '=1' );
+
+		$this->assertFalse( Controller::provides_occurrences() );
+
+		putenv( Controller::DISABLED );
+
+		$this->assertTrue( Controller::provides_occurrences() );
+	}
+
+	/**
+	 * It should not provide occurrences without full CT1 activation
+	 *
+	 * @test
+	 */
+	public function should_not_provide_occurrences_without_full_ct1_activation(): void {
+		tribe()->setVar( 'ct1_fully_activated', false );
+
+		$this->assertFalse( Controller::provides_occurrences() );
+	}
+
+	/**
+	 * It should not provide occurrences when an incompatible Pro is active
+	 *
+	 * @test
+	 */
+	public function should_not_provide_occurrences_when_an_incompatible_pro_is_active(): void {
+		tribe()->setVar( 'ct1_fully_activated', true );
+
+		$this->set_class_fn_return( Controller::class, 'is_incompatible_pro_active', true );
+
+		$this->assertFalse( Controller::provides_occurrences() );
+	}
 }
