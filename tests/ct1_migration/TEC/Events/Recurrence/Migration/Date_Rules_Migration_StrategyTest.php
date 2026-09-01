@@ -22,6 +22,8 @@ class Date_Rules_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 	 * @before
 	 */
 	public function set_migration_phase(): void {
+		// Earlier suite classes drop the custom tables without restoring them.
+		$this->given_the_custom_tables_do_exist();
 		$this->given_the_current_migration_phase_is( State::PHASE_MIGRATION_IN_PROGRESS );
 	}
 

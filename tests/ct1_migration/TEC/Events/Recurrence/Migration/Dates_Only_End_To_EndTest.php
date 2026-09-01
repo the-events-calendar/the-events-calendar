@@ -14,6 +14,14 @@ class Dates_Only_End_To_EndTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
 	use CT1_Test_Utils;
 
+	/**
+	 * @before
+	 */
+	public function ensure_custom_tables(): void {
+		// Earlier suite classes drop the custom tables without restoring them.
+		$this->given_the_custom_tables_do_exist();
+	}
+
 	private function make_worker(): Process_Worker {
 		$events = new Events();
 
