@@ -284,6 +284,12 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 					if ( row ) {
 						row.parentNode.removeChild( row );
 					}
+
+					if ( ! list.querySelector( '.tec-events-recurrence-dates-row' ) ) {
+						// The last row is gone: the event is back to a single date.
+						toggle.checked = false;
+						syncDisabled();
+					}
 				} );
 
 				wrapper.addEventListener( 'change', function ( event ) {
