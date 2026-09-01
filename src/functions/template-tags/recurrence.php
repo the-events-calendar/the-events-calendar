@@ -136,3 +136,53 @@ if ( ! function_exists( 'tribe_get_recurrence_start_dates' ) ) {
 		return $start_dates;
 	}
 }
+
+if ( ! function_exists( 'tribe_all_occurrences_link' ) ) {
+	/**
+	 * Returns, and optionally echoes, the link to the archive of all the Occurrences of
+	 * an Event, e.g. `/event/some-event/all/`.
+	 *
+	 * @since TBD Moved to The Events Calendar from Events Calendar Pro; provisional
+	 *            Occurrence post IDs are normalized to the Event post ID.
+	 *
+	 * @param int|WP_Post|null $post_id The Event post ID, or object, or `null` to use the current post.
+	 * @param bool             $echo    Whether to echo the link too or not.
+	 *
+	 * @return string The link to the archive of all the Occurrences of the Event.
+	 */
+	function tribe_all_occurrences_link( $post_id = null, $echo = true ) {
+		$cache_key_links = __FUNCTION__ . ':links';
+		$cache_links     = tribe_get_var( $cache_key_links, [] );
+
+		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+
+		if ( empty( $post_id ) ) {
+			return '';
+		}
+
+		// Pre-6.0 recurring Events are parent/child posts; Occurrences are provisional IDs.
+		$parent_id = wp_get_post_parent_id( $post_id );
+		$cache_id  = $parent_id ? (int) $parent_id : Occurrence::normalize_id( (int) $post_id );
+
+		if ( ! isset( $cache_links[ $cache_id ] ) ) {
+			/**
+			 * Filters the link to the archive of all the Occurrences of an Event.
+			 *
+			 * @since TBD Moved to The Events Calendar from Events Calendar Pro.
+			 *
+			 * @param string $link The link to the archive of all the Occurrences of the Event.
+			 */
+			$cache_links[ $cache_id ] = apply_filters(
+				'tribe_all_occurrences_link',
+				Tribe__Events__Main::instance()->getLink( 'all', $cache_id )
+			);
+			tribe_set_var( $cache_key_links, $cache_links );
+		}
+
+		if ( $echo ) {
+			echo esc_url( $cache_links[ $cache_id ] );
+		}
+
+		return $cache_links[ $cache_id ];
+	}
+}

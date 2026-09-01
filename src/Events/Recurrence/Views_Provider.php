@@ -108,11 +108,7 @@ class Views_Provider extends Service_Provider {
 		$post->recurring = $recurring;
 
 		if ( ! isset( $post->permalink_all ) ) {
-			/*
-			 * Until the all-Occurrences archive lands in this plugin the marker links to
-			 * the Event permalink; Events Calendar Pro's decoration provides the `/all/`
-			 * URL when active.
-			 */
+			// The `function_exists` check is belt-and-braces: the plugin defines the tag.
 			$post->permalink_all = $recurring ?
 				( function_exists( 'tribe_all_occurrences_link' )
 					? tribe_all_occurrences_link( $post->ID, false )
