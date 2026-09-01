@@ -1,0 +1,5 @@
+significance: patch
+type: compatibility
+entry: Registered the plugin's editor blocks with Block API version 3 so they
+  render correctly inside the iframed block editor introduced in WordPress 6.9.
+timestamp: 2026-08-30T03:04:21.788Z

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
  * External Dependencies
  */
 const { __ } = wp.i18n;
-const { useBlockProps } = wp.blockEditor;
 
 /**
  * Small component to simplify some pseudo event blocks.
@@ -34,11 +33,8 @@ export default {
 	category: 'tribe-events',
 	keywords: [ __( 'Single Event', 'the-events-calendar' ), __( 'The Events Calendar', 'the-events-calendar' ) ],
 	edit: ( props ) => {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const { className, ...blockProps } = useBlockProps();
-
 		return (
-			<div className={ `${ className } ${ props.className }` } { ...blockProps }>
+			<div className={ props.className }>
 				<h3>{ __( 'Event Title', 'the-events-calendar' ) }</h3>
 				<p>
 					<strong>{ __( 'EVENT DATE/TIME', 'the-events-calendar' ) }</strong>
