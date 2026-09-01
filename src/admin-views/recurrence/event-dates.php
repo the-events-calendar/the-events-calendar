@@ -155,11 +155,11 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 		<style>
 			/* Every control in a row shares one fixed height: the buttons stay square. */
 			.tec-events-recurrence-dates-row { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-			.tec-events-recurrence-dates-row .tribe-datepicker { box-sizing: border-box; height: 40px; width: 8em; }
-			.tec-events-recurrence-dates-row .tribe-timepicker { box-sizing: border-box; height: 40px; width: 6.5em; }
+			.tec-events-recurrence-dates-row .tribe-datepicker { box-sizing: border-box; height: 42px; width: 8em; }
+			.tec-events-recurrence-dates-row .tribe-timepicker { box-sizing: border-box; height: 42px; width: 6.5em; }
 			.tec-events-recurrence-dates-row .tribe-datetime-separator { align-self: center; }
 			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-remove,
-			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add { align-items: center; display: inline-flex; height: 40px; justify-content: center; padding: 0; width: 40px; }
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add { align-items: center; display: inline-flex; height: 42px; justify-content: center; padding: 0; width: 42px; }
 			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-remove svg,
 			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add svg { display: block; }
 			.tec-events-recurrence-dates-row:not(:last-child) .tec-events-recurrence-dates-add { display: none; }
