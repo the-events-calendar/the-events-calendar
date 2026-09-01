@@ -12,7 +12,11 @@
  * @var bool                                                 $is_locked            Whether the Event recurrence is rule-based (Events Calendar Pro data).
  * @var bool                                                 $is_occurrence        Whether a single Occurrence is being edited.
  * @var string                                               $occurrence_edit_link The edit link of the recurring Event the Occurrence belongs to.
- * @var array{count: int, next_dates: array<int,string>}     $summary              The scheduled dates summary of a locked Event, formatted for display.
+ * @var array{
+ *     count: int,
+ *     upcoming: array<int,array{label: string, tooltip: array<int,string>, permalink: string, status: string}>,
+ *     past: array<int,array{label: string, tooltip: array<int,string>, permalink: string, status: string}>
+ * } $chips The scheduled dates of a locked Event as chips: upcoming (the next one first) and past (oldest first).
  */
 
 use TEC\Events\Recurrence\Admin_Provider;
@@ -37,6 +41,30 @@ if ( $is_occurrence ) {
 }
 
 if ( $is_locked ) {
+	$tec_dates_past_list_id = 'tec-events-recurrence-dates-past';
+	$tec_dates_render_chip  = static function ( array $chip, string $tip_id ): void {
+		$classes = 'tec-events-recurrence-dates__chip tec-events-recurrence-dates__chip--' . sanitize_html_class( $chip['status'] );
+		?>
+	<li class="tec-events-recurrence-dates__chip-wrap">
+		<?php if ( '' !== $chip['permalink'] ) : ?>
+			<a
+				class="<?php echo esc_attr( $classes ); ?>"
+				href="<?php echo esc_url( $chip['permalink'] ); ?>"
+				target="_blank"
+				rel="noreferrer noopener"
+				aria-describedby="<?php echo esc_attr( $tip_id ); ?>"
+			><?php echo esc_html( $chip['label'] ); ?></a>
+		<?php else : ?>
+			<span class="<?php echo esc_attr( $classes ); ?>" tabindex="0" aria-describedby="<?php echo esc_attr( $tip_id ); ?>"><?php echo esc_html( $chip['label'] ); ?></span>
+		<?php endif; ?>
+		<span role="tooltip" id="<?php echo esc_attr( $tip_id ); ?>" class="tec-events-recurrence-dates__chip-tooltip">
+			<?php foreach ( $chip['tooltip'] as $tec_dates_line ) : ?>
+				<span class="tec-events-recurrence-dates__chip-tooltip-line"><?php echo esc_html( $tec_dates_line ); ?></span>
+			<?php endforeach; ?>
+		</span>
+	</li>
+		<?php
+	};
 	?>
 	<tr class="tec-events-recurrence-dates tec-events-recurrence-dates--locked">
 		<td class="label"><?php esc_html_e( 'Event Dates', 'the-events-calendar' ); ?></td>
@@ -44,23 +72,70 @@ if ( $is_locked ) {
 			<p>
 				<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Activate Events Calendar Pro to edit them; the existing dates are preserved meanwhile.', 'the-events-calendar' ); ?>
 			</p>
-			<?php if ( ! empty( $summary['count'] ) ) : ?>
-				<p class="description">
+			<?php if ( ! empty( $chips['count'] ) ) : ?>
+				<p class="description tec-events-recurrence-dates__count">
 					<?php
 					echo esc_html(
 						sprintf(
 							/* translators: %d: the number of scheduled dates of the event. */
-							_n( '%d date is scheduled:', '%d dates are scheduled:', $summary['count'], 'the-events-calendar' ),
-							$summary['count']
+							_n( '%d date is scheduled.', '%d dates are scheduled.', $chips['count'], 'the-events-calendar' ),
+							$chips['count']
 						)
 					);
-					echo ' ' . esc_html( implode( ', ', $summary['next_dates'] ) );
-
-					if ( $summary['count'] > count( $summary['next_dates'] ) ) {
-						echo esc_html_x( ', …', 'The scheduled dates list of the event continues past the ones shown.', 'the-events-calendar' );
-					}
 					?>
 				</p>
+				<?php if ( count( $chips['upcoming'] ) ) : ?>
+					<ul class="tec-events-recurrence-dates__chips" aria-label="<?php esc_attr_e( 'Upcoming dates', 'the-events-calendar' ); ?>">
+						<?php foreach ( $chips['upcoming'] as $tec_dates_index => $tec_dates_chip ) : ?>
+							<?php $tec_dates_render_chip( $tec_dates_chip, 'tec-events-recurrence-dates-tip-upcoming-' . (int) $tec_dates_index ); ?>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+				<?php if ( count( $chips['past'] ) ) : ?>
+					<?php
+					/* translators: %d: the number of past scheduled dates of the event. */
+					$tec_dates_show_label = sprintf( _n( 'Show %d past date', 'Show %d past dates', count( $chips['past'] ), 'the-events-calendar' ), count( $chips['past'] ) );
+					/* translators: %d: the number of past scheduled dates of the event. */
+					$tec_dates_hide_label = sprintf( _n( 'Hide %d past date', 'Hide %d past dates', count( $chips['past'] ), 'the-events-calendar' ), count( $chips['past'] ) );
+					?>
+					<button
+						type="button"
+						class="button-link tec-events-recurrence-dates__toggle"
+						aria-expanded="false"
+						aria-controls="<?php echo esc_attr( $tec_dates_past_list_id ); ?>"
+						data-show-label="<?php echo esc_attr( $tec_dates_show_label ); ?>"
+						data-hide-label="<?php echo esc_attr( $tec_dates_hide_label ); ?>"
+					><?php echo esc_html( $tec_dates_show_label ); ?></button>
+					<ul
+						id="<?php echo esc_attr( $tec_dates_past_list_id ); ?>"
+						class="tec-events-recurrence-dates__chips tec-events-recurrence-dates__chips--past"
+						aria-label="<?php esc_attr_e( 'Past dates', 'the-events-calendar' ); ?>"
+						hidden
+					>
+						<?php foreach ( $chips['past'] as $tec_dates_index => $tec_dates_chip ) : ?>
+							<?php $tec_dates_render_chip( $tec_dates_chip, 'tec-events-recurrence-dates-tip-past-' . (int) $tec_dates_index ); ?>
+						<?php endforeach; ?>
+					</ul>
+					<script>
+						( function () {
+							var listId = <?php echo wp_json_encode( $tec_dates_past_list_id ); ?>;
+							var toggle = document.querySelector( '.tec-events-recurrence-dates__toggle[aria-controls="' + listId + '"]' );
+							var list   = document.getElementById( listId );
+
+							if ( ! toggle || ! list ) {
+								return;
+							}
+
+							toggle.addEventListener( 'click', function () {
+								var expanded = 'true' === toggle.getAttribute( 'aria-expanded' );
+
+								toggle.setAttribute( 'aria-expanded', expanded ? 'false' : 'true' );
+								toggle.textContent = expanded ? toggle.getAttribute( 'data-show-label' ) : toggle.getAttribute( 'data-hide-label' );
+								list.hidden        = expanded;
+							} );
+						} )();
+					</script>
+				<?php endif; ?>
 			<?php endif; ?>
 		</td>
 	</tr>

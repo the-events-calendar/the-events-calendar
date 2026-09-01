@@ -64,8 +64,8 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 		$_SERVER['REQUEST_URI'] = $this->request_uri_backup;
 	}
 
-	private function given_a_pinned_event( array $dates = [], string $slug = 'admin-snapshot-event' ): WP_Post {
-		$post = $this->given_a_multi_date_event( $dates, [ 'title' => 'Admin Snapshot Event' ] );
+	private function given_a_pinned_event( array $dates = [], string $slug = 'admin-snapshot-event', array $event_args = [] ): WP_Post {
+		$post = $this->given_a_multi_date_event( $dates, array_merge( [ 'title' => 'Admin Snapshot Event' ], $event_args ) );
 		wp_update_post(
 			[
 				'ID'        => $post->ID,
@@ -130,14 +130,20 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 			[
 				[ 'start' => '2050-01-10 09:00:00', 'end' => '2050-01-10 10:00:00' ],
 			],
-			'admin-snapshot-locked-event'
+			'admin-snapshot-locked-event',
+			// Far future too: the chip statuses (next/upcoming/past) depend on the current time.
+			[ 'start_date' => '2050-01-03 09:00:00', 'end_date' => '2050-01-03 10:00:00' ]
 		);
 
-		// A rule-based RSET locks the section; the engine freezes the existing rows.
+		// A rule-based RSET with no authored meta locks the section; the engine freezes the existing rows.
+		delete_post_meta( $post->ID, '_EventRecurrence' );
 		\TEC\Events\Custom_Tables\V1\Models\Event::find( $post->ID, 'post_id' )
 			->update( [ 'rset' => "DTSTART;TZID=UTC:20500103T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ] );
 
-		$this->assertMatchesSnapshot( $this->render_section_html( $post->ID ) );
+		$html = $this->render_section_html( $post->ID );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--locked', $html );
+		$this->assertMatchesSnapshot( $html );
 	}
 
 	/**

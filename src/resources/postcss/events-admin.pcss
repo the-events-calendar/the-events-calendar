@@ -1060,3 +1060,100 @@ h3.tec-update-notice__title {
 		}
 	}
 }
+
+/* Event Dates section: scheduled dates chips of a rule-locked Event. */
+.tec-events-recurrence-dates__count {
+	margin-bottom: var(--tec-spacer-1);
+}
+
+.tec-events-recurrence-dates__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--tec-spacer-1);
+	list-style: none;
+	margin: 0 0 var(--tec-spacer-1);
+	padding: 0;
+}
+
+.tec-events-recurrence-dates__chip-wrap {
+	margin: 0;
+	position: relative;
+}
+
+.tec-events-recurrence-dates__chip {
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-border-default);
+	border-radius: 999px;
+	box-shadow: none;
+	color: var(--tec-color-text-primary);
+	display: inline-block;
+	font-size: var(--tec-font-size-1);
+	line-height: 1.6;
+	padding: 0 var(--tec-spacer-1);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.tec-events-recurrence-dates__chip:hover,
+.tec-events-recurrence-dates__chip:focus {
+	border-color: var(--tec-color-text-primary);
+	color: var(--tec-color-text-primary);
+	outline: none;
+}
+
+.tec-events-recurrence-dates__chip:focus-visible {
+	box-shadow: 0 0 0 2px var(--tec-color-accent-primary);
+}
+
+.tec-events-recurrence-dates__chip--next {
+	border-color: var(--tec-color-accent-primary);
+	font-weight: 600;
+}
+
+.tec-events-recurrence-dates__chip--past {
+	opacity: 0.65;
+}
+
+/* The tooltip sits above its chip and shows on hover or keyboard focus. */
+.tec-events-recurrence-dates__chip-tooltip {
+	background-color: var(--tec-color-text-primary);
+	border-radius: var(--tec-border-radius-default);
+	bottom: calc(100% + 6px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	color: var(--tec-color-background);
+	font-size: var(--tec-font-size-1);
+	left: 0;
+	line-height: 1.4;
+	max-width: 280px;
+	opacity: 0;
+	padding: var(--tec-spacer-1) var(--tec-spacer-2);
+	position: absolute;
+	transition: opacity 0.12s ease-in-out;
+	visibility: hidden;
+	width: max-content;
+	z-index: 100;
+}
+
+.tec-events-recurrence-dates__chip-wrap:hover .tec-events-recurrence-dates__chip-tooltip,
+.tec-events-recurrence-dates__chip-wrap:focus-within .tec-events-recurrence-dates__chip-tooltip {
+	opacity: 1;
+	visibility: visible;
+}
+
+.tec-events-recurrence-dates__chip-tooltip-line {
+	display: block;
+}
+
+.tec-events-recurrence-dates__chip-tooltip-line:first-child {
+	font-weight: 600;
+}
+
+.tec-events-recurrence-dates__toggle {
+	margin: 0 0 var(--tec-spacer-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tec-events-recurrence-dates__chip-tooltip {
+		transition: none;
+	}
+}

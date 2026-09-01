@@ -17,7 +17,6 @@ declare( strict_types=1 );
 
 namespace TEC\Events\Recurrence;
 
-use DateTimeImmutable;
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -154,16 +153,17 @@ class Admin_Provider extends Service_Provider {
 		$is_locked            = ! $is_occurrence && $event_id > 0 && $guard->is_rule_locked( $event_id );
 		$occurrence_edit_link = '';
 		$rows                 = [];
-		$summary              = [
-			'count'      => 0,
-			'next_dates' => [],
+		$chips                = [
+			'count'    => 0,
+			'upcoming' => [],
+			'past'     => [],
 		];
 
 		if ( $is_occurrence ) {
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
 			$occurrence_edit_link = admin_url( 'post.php?post=' . Occurrence::normalize_id( $event_id ) . '&action=edit' );
 		} elseif ( $is_locked ) {
-			$summary = $this->format_summary( $guard->get_dates_summary( $event_id ) );
+			$chips = $this->get_chips( $event_id );
 		} elseif ( $event_id > 0 ) {
 			// The same display formats the Start/End pickers above the section use.
 			$date_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
@@ -189,25 +189,34 @@ class Admin_Provider extends Service_Provider {
 	}
 
 	/**
-	 * Formats the dates summary of a locked Event for display.
+	 * Builds the scheduled dates chips of a locked Event, split between upcoming and past.
 	 *
 	 * @since TBD
 	 *
-	 * @param array{count: int, next_dates: array<int,DateTimeImmutable>} $summary The dates summary.
+	 * @param int $event_id The Event post ID.
 	 *
-	 * @return array{count: int, next_dates: array<int,string>} The summary with the dates formatted for display.
+	 * @return array{
+	 *     count: int,
+	 *     upcoming: array<int,array{label: string, tooltip: array<int,string>, permalink: string, status: string}>,
+	 *     past: array<int,array{label: string, tooltip: array<int,string>, permalink: string, status: string}>
+	 * } The chips: the upcoming ones (the next one first) and the past ones, oldest first.
 	 */
-	private function format_summary( array $summary ): array {
-		$format = tribe_get_datetime_format( true );
+	private function get_chips( int $event_id ): array {
+		$list  = $this->container->make( Occurrences_List::class );
+		$chips = [
+			'count'    => 0,
+			'upcoming' => [],
+			'past'     => [],
+		];
 
-		$summary['next_dates'] = array_map(
-			static function ( DateTimeImmutable $date ) use ( $format ): string {
-				return date_i18n( $format, (int) $date->format( 'U' ) );
-			},
-			$summary['next_dates']
-		);
+		foreach ( $list->get_scheduled_dates( $event_id ) as $row ) {
+			$chip = $list->format_chip( $row );
 
-		return $summary;
+			$chips[ 'past' === $chip['status'] ? 'past' : 'upcoming' ][] = $chip;
+			++$chips['count'];
+		}
+
+		return $chips;
 	}
 
 	/**

@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+The Event Dates section of a rule-locked recurring event now lists every scheduled date as a chip in both editors: each chip links to its occurrence and carries a tooltip with the full date range and status, with past dates collapsed behind a toggle.

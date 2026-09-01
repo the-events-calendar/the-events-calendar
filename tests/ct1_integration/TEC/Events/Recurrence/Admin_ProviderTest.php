@@ -143,6 +143,42 @@ class Admin_ProviderTest extends WPTestCase {
 	}
 
 	/**
+	 * It should render every scheduled date of a locked event as a chip, past ones collapsed
+	 *
+	 * @test
+	 */
+	public function should_render_the_scheduled_dates_of_a_locked_event_as_chips(): void {
+		$post = $this->given_a_multi_date_event(
+			[
+				[ 'start' => date( 'Y-m-d 09:00:00', strtotime( '+10 days' ) ), 'end' => date( 'Y-m-d 10:00:00', strtotime( '+10 days' ) ) ],
+				[ 'start' => date( 'Y-m-d 09:00:00', strtotime( '+20 days' ) ), 'end' => date( 'Y-m-d 10:00:00', strtotime( '+20 days' ) ) ],
+			],
+			[
+				'start_date' => date( 'Y-m-d 09:00:00', strtotime( '-10 days' ) ),
+				'end_date'   => date( 'Y-m-d 10:00:00', strtotime( '-10 days' ) ),
+			]
+		);
+		// A rule-based RSET with no authored meta locks the section; the engine freezes the existing rows.
+		delete_post_meta( $post->ID, '_EventRecurrence' );
+		Event::find( $post->ID, 'post_id' )->update( [ 'rset' => "DTSTART;TZID=UTC:20500103T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ] );
+
+		$html = $this->render_section( $post->ID );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--locked', $html );
+		$this->assertStringContainsString( '3 dates are scheduled.', $html );
+		$this->assertEquals( 3, substr_count( $html, 'class="tec-events-recurrence-dates__chip ' ) );
+		$this->assertEquals( 3, substr_count( $html, 'role="tooltip"' ) );
+		$this->assertEquals( 1, substr_count( $html, 'tec-events-recurrence-dates__chip--next' ) );
+		$this->assertEquals( 1, substr_count( $html, 'tec-events-recurrence-dates__chip--upcoming' ) );
+		$this->assertEquals( 1, substr_count( $html, 'tec-events-recurrence-dates__chip--past' ) );
+		$this->assertStringContainsString( 'Next occurrence', $html );
+		// The past date is collapsed behind the toggle.
+		$this->assertStringContainsString( 'Show 1 past date<', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates__chips--past', $html );
+		$this->assertStringNotContainsString( '<input', $html );
+	}
+
+	/**
 	 * It should show the occurrence notice on provisional edit screens
 	 *
 	 * @test
