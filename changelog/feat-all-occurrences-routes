@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Added the `/event/{slug}/all/` rewrite routes and `all` rewrite base resolving the archive of all the Occurrences of an Event, matching the rules Events Calendar Pro registers for the same URLs, along with the canonical URL plumbing resolving the archive query variables back to the pretty URL form.
