@@ -120,8 +120,15 @@
 
 .tribe-editor__event-dates__chip:hover,
 .tribe-editor__event-dates__chip:focus {
-	border-color: var(--tec-color-text-primary, #141827);
 	color: var(--tec-color-text-primary, #141827);
+}
+
+/* Hovering anywhere on the group darkens the whole outline, chip and edit button alike. */
+.tribe-editor__event-dates__chip-group:hover .tribe-editor__event-dates__chip,
+.tribe-editor__event-dates__chip-group:hover .tribe-editor__event-dates__chip-edit.components-button,
+.tribe-editor__event-dates__chip-group:focus-within .tribe-editor__event-dates__chip,
+.tribe-editor__event-dates__chip-group:focus-within .tribe-editor__event-dates__chip-edit.components-button {
+	border-color: var(--tec-color-text-secondary, #5d5d5d);
 }
 
 .tribe-editor__event-dates__chip--next {
@@ -160,15 +167,16 @@
 	padding: 0 8px 0 6px;
 }
 
+/* The edit action reads as an action: WordPress admin blue on hover and focus. */
 .tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button:hover,
 .tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button:focus {
-	border-color: var(--tec-color-text-primary, #141827);
-	color: var(--tec-color-text-primary, #141827);
+	color: var(--wp-admin-theme-color, #2271b1);
 }
 
 .tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button svg {
-	height: 14px;
-	width: 14px;
+	fill: currentColor;
+	height: 12px;
+	width: 12px;
 }
 
 .tribe-editor__event-dates__chip-group:has(.tribe-editor__event-dates__chip--next) .tribe-editor__event-dates__chip-edit.components-button {

@@ -1096,9 +1096,16 @@ h3.tec-update-notice__title {
 
 .tec-events-recurrence-dates__chip:hover,
 .tec-events-recurrence-dates__chip:focus {
-	border-color: var(--tec-color-text-primary);
 	color: var(--tec-color-text-primary);
 	outline: none;
+}
+
+/* Hovering anywhere on the group darkens the whole outline, chip and edit button alike. */
+.tec-events-recurrence-dates__chip-group:hover .tec-events-recurrence-dates__chip,
+.tec-events-recurrence-dates__chip-group:hover .tec-events-recurrence-dates__chip-edit,
+.tec-events-recurrence-dates__chip-group:focus-within .tec-events-recurrence-dates__chip,
+.tec-events-recurrence-dates__chip-group:focus-within .tec-events-recurrence-dates__chip-edit {
+	border-color: var(--tec-color-text-secondary);
 }
 
 .tec-events-recurrence-dates__chip:focus-visible {
@@ -1183,15 +1190,15 @@ h3.tec-update-notice__title {
 }
 
 .tec-events-recurrence-dates__chip-edit .dashicons {
-	font-size: 12px;
-	height: 12px;
-	width: 12px;
+	font-size: 10px;
+	height: 10px;
+	width: 10px;
 }
 
+/* The edit action reads as an action: WordPress admin blue on hover and focus. */
 .tec-events-recurrence-dates__chip-edit:hover,
 .tec-events-recurrence-dates__chip-edit:focus {
-	border-color: var(--tec-color-text-primary);
-	color: var(--tec-color-text-primary);
+	color: var(--wp-admin-theme-color, #2271b1);
 	outline: none;
 }
 
