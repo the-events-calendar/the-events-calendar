@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added a Model extensions reset API used when the Occurrence engine registers in the middle of a request, e.g. during a migration run.

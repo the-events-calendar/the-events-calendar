@@ -91,6 +91,14 @@ class Provider extends Service_Provider {
 			$this->container->singleton( 'tec.custom-tables.v1.provider', self::class );
 			$this->container->register( Tables\Provider::class );
 			$this->container->register( Migration\Provider::class );
+			/*
+			 * The date-list migration strategy must be selectable WHILE the migration runs,
+			 * when the Recurrence feature Controller (gated on full activation) is inactive:
+			 * it registers with the always-on migration machinery, not with the feature.
+			 *
+			 * @since TBD
+			 */
+			$this->container->register( \TEC\Events\Recurrence\Migration\Migration_Provider::class );
 			// *NOTE* - Ensure only adding providers that are always required in here,
 			// versus most features that should go in the `Full_Activation_Provider`.
 
