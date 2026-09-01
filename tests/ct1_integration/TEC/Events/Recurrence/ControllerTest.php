@@ -166,23 +166,29 @@ class ControllerTest extends WPTestCase {
 	}
 
 	/**
-	 * It should provide occurrences independently of the activation option and filter
+	 * It should mirror is_active in the static capability read
 	 *
-	 * The static capability read is the pre-boot handshake: it must be true whenever the
-	 * infrastructure is available, even while the feature is switched off at runtime.
+	 * The static read is the pre-boot handshake other plugins evaluate without
+	 * constructing the controller: the two answers must be one and the same through
+	 * every layer of the gate.
 	 *
 	 * @test
 	 */
-	public function should_provide_occurrences_independently_of_the_runtime_state(): void {
+	public function should_mirror_is_active_in_the_static_capability_read(): void {
 		tribe()->setVar( 'ct1_fully_activated', true );
+
 		update_option( Controller::ACTIVE_OPTION, false );
+		$this->assertFalse( Controller::provides_occurrences() );
+		$this->assertSame( $this->controller()->is_active(), Controller::provides_occurrences() );
 
+		update_option( Controller::ACTIVE_OPTION, true );
 		$this->assertTrue( Controller::provides_occurrences() );
-		$this->assertFalse( $this->controller()->is_active() );
+		$this->assertSame( $this->controller()->is_active(), Controller::provides_occurrences() );
 
-		add_filter( 'tec_events_recurrence_enabled', '__return_false' );
-
+		update_option( Controller::ACTIVE_OPTION, false );
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 		$this->assertTrue( Controller::provides_occurrences() );
+		$this->assertSame( $this->controller()->is_active(), Controller::provides_occurrences() );
 	}
 
 	/**
@@ -192,6 +198,7 @@ class ControllerTest extends WPTestCase {
 	 */
 	public function should_not_provide_occurrences_under_the_environment_kill_switch(): void {
 		tribe()->setVar( 'ct1_fully_activated', true );
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 
 		putenv( Controller::DISABLED . '=1' );
 
@@ -209,6 +216,7 @@ class ControllerTest extends WPTestCase {
 	 */
 	public function should_not_provide_occurrences_without_full_ct1_activation(): void {
 		tribe()->setVar( 'ct1_fully_activated', false );
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 
 		$this->assertFalse( Controller::provides_occurrences() );
 	}
@@ -220,6 +228,7 @@ class ControllerTest extends WPTestCase {
 	 */
 	public function should_not_provide_occurrences_when_an_incompatible_pro_is_active(): void {
 		tribe()->setVar( 'ct1_fully_activated', true );
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 
 		$this->set_class_fn_return( Controller::class, 'is_incompatible_pro_active', true );
 

@@ -71,19 +71,20 @@ class Controller extends Controller_Contract {
 	/**
 	 * Whether this plugin provides the Occurrence infrastructure on this site or not.
 	 *
-	 * This is the pre-boot side of the capability handshake: a static, side-effect-free
+	 * This is the pre-boot side of the capability handshake: the full gate as a static
 	 * read other plugins (e.g. Events Calendar Pro) can evaluate as early as
 	 * `plugins_loaded::1` to decide what to register, before this controller exists and
 	 * before the `tec_events_recurrence_registered` action could possibly have fired.
-	 * Nothing is constructed and no filter runs: the method reads the kill-switch
-	 * constant, the environment variable, the Custom Tables V1 full-activation container
-	 * var (set on `tribe_common_loaded`, before `plugins_loaded::1` callbacks run) and
-	 * the incompatible-Pro governor.
+	 * Nothing is constructed: the method reads the kill-switch constant, the environment
+	 * variable, the Custom Tables V1 full-activation container var (set on
+	 * `tribe_common_loaded`, before `plugins_loaded::1` callbacks run), the
+	 * incompatible-Pro governor, the activation option and the runtime filter.
 	 *
-	 * The activation option and the `tec_events_recurrence_enabled` filter are runtime
-	 * state and deliberately not part of this read: a Pro version that builds on the
-	 * feature force-enables it anyway, so they cannot change a consumer's registration
-	 * decision. `is_active()` remains the runtime truth.
+	 * The option and filter layers are part of the read on purpose: providing the
+	 * infrastructure means the feature will actually be ON, not merely shipped. A
+	 * consumer that force-enables the feature (Pro's dual-ship switch) must add its
+	 * `tec_events_recurrence_enabled` callback BEFORE evaluating this method, so the
+	 * answer it acts on is the answer its own callback produces.
 	 *
 	 * @since TBD
 	 *
@@ -113,26 +114,6 @@ class Controller extends Controller_Contract {
 			return false;
 		}
 
-		return true;
-	}
-
-	/**
-	 * Whether the feature is active on this site or not.
-	 *
-	 * The gate layers, in order of precedence: the static capability read (kill-switch
-	 * constant, environment variable, Custom Tables V1 full-activation precondition,
-	 * incompatible-Pro governor), the activation option, and finally the runtime filter.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the feature is active or not.
-	 */
-	public function is_active(): bool {
-		if ( ! self::provides_occurrences() ) {
-			// The infrastructure is not provided on this site: the feature cannot be active.
-			return false;
-		}
-
 		$active = (bool) get_option( self::ACTIVE_OPTION, false );
 
 		/**
@@ -149,6 +130,20 @@ class Controller extends Controller_Contract {
 		 *                     value of the `tec_events_recurrence_active` option.
 		 */
 		return (bool) apply_filters( 'tec_events_recurrence_enabled', $active );
+	}
+
+	/**
+	 * Whether the feature is active on this site or not.
+	 *
+	 * Delegates to the static capability read: the two answers are one and the same,
+	 * this instance method being the Controller contract's runtime API.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the feature is active or not.
+	 */
+	public function is_active(): bool {
+		return self::provides_occurrences();
 	}
 
 	/**
