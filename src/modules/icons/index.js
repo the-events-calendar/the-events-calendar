@@ -16,3 +16,4 @@ export { ReactComponent as EventsList } from './events-list.svg';
 export { ReactComponent as QrCode } from './qr-code.svg';
 export { ReactComponent as Plus } from './plus.svg';
 export { ReactComponent as Minus } from './minus.svg';
+export { ReactComponent as Pencil } from './pencil.svg';

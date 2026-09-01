@@ -21,7 +21,7 @@
 				target="_blank"
 				rel="noreferrer noopener"
 				aria-label="Edit the occurrence on January 3, 2050 (opens in a new tab)"
-			><span class="dashicons dashicons-edit" aria-hidden="true"></span></a>
+			><svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M13.5 3.5l3 3-9 9h-3v-3l9-9zM11.5 5.5l3 3"/></svg></a>
 		</span>
 		<span role="tooltip" id="tec-events-recurrence-dates-tip-upcoming-0" class="tec-events-recurrence-dates__chip-tooltip">
 							<span class="tec-events-recurrence-dates__chip-tooltip-line">Monday, January 3, 2050 @ 9:00 am – 10:00 am</span>
@@ -44,7 +44,7 @@
 				target="_blank"
 				rel="noreferrer noopener"
 				aria-label="Edit the occurrence on January 10, 2050 (opens in a new tab)"
-			><span class="dashicons dashicons-edit" aria-hidden="true"></span></a>
+			><svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M13.5 3.5l3 3-9 9h-3v-3l9-9zM11.5 5.5l3 3"/></svg></a>
 		</span>
 		<span role="tooltip" id="tec-events-recurrence-dates-tip-upcoming-1" class="tec-events-recurrence-dates__chip-tooltip">
 							<span class="tec-events-recurrence-dates__chip-tooltip-line">Monday, January 10, 2050 @ 9:00 am – 10:00 am</span>

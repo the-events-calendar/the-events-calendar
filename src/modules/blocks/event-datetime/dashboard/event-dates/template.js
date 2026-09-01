@@ -16,7 +16,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
  */
 import { TimePicker } from '@moderntribe/common/elements';
 import { date as dateUtil, moment as momentUtil, time as timeUtil, globals } from '@moderntribe/common/utils';
-import { Minus, Plus } from '@moderntribe/events/icons';
+import { Minus, Pencil, Plus } from '@moderntribe/events/icons';
 import './style.pcss';
 
 const { tec } = globals;
@@ -94,7 +94,7 @@ const DateChip = ( { chip } ) => {
 					<Button
 						className="tribe-editor__event-dates__chip-edit"
 						href={ chip.editLink }
-						icon="edit"
+						icon={ <Pencil /> }
 						label={ sprintf(
 							/* translators: %s: the date of the occurrence. */
 							__( 'Edit the occurrence on %s (opens in a new tab)', 'the-events-calendar' ),

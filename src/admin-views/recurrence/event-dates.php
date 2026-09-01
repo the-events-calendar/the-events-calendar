@@ -64,7 +64,7 @@ if ( $is_locked ) {
 				target="_blank"
 				rel="noreferrer noopener"
 				aria-label="<?php echo esc_attr( sprintf( /* translators: %s: the date of the occurrence. */ __( 'Edit the occurrence on %s (opens in a new tab)', 'the-events-calendar' ), $chip['label'] ) ); ?>"
-			><span class="dashicons dashicons-edit" aria-hidden="true"></span></a>
+			><svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M13.5 3.5l3 3-9 9h-3v-3l9-9zM11.5 5.5l3 3"/></svg></a>
 		</span>
 		<span role="tooltip" id="<?php echo esc_attr( $tip_id ); ?>" class="tec-events-recurrence-dates__chip-tooltip">
 			<?php foreach ( $chip['tooltip'] as $tec_dates_line ) : ?>
