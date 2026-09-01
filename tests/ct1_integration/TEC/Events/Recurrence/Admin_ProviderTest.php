@@ -15,6 +15,8 @@ class Admin_ProviderTest extends WPTestCase {
 	public function activate_recurrence_engine(): void {
 		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 		tribe()->setVar( 'ct1_fully_activated', true );
+		// The rows render dates in the datepicker display format: pin it for the assertions.
+		tribe_update_option( 'datepickerFormat', 0 );
 		// The WordPress test case restores the hooks state after each test: force a re-registration.
 		tribe()->setVar( Controller::class . '_registered', false );
 		tribe( Controller::class )->register();

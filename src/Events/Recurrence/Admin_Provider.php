@@ -165,12 +165,16 @@ class Admin_Provider extends Service_Provider {
 		} elseif ( $is_locked ) {
 			$summary = $this->format_summary( $guard->get_dates_summary( $event_id ) );
 		} elseif ( $event_id > 0 ) {
+			// The same display formats the Start/End pickers above the section use.
+			$date_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			$time_format = \Tribe__View_Helpers::is_24hr_format() ? 'H:i' : 'g:ia';
+
 			$rows = array_map(
-				static function ( array $period ): array {
+				static function ( array $period ) use ( $date_format, $time_format ): array {
 					return [
-						'date'  => $period['start']->format( 'Y-m-d' ),
-						'start' => $period['start']->format( 'H:i' ),
-						'end'   => $period['end']->format( 'H:i' ),
+						'date'  => $period['start']->format( $date_format ),
+						'start' => $period['start']->format( $time_format ),
+						'end'   => $period['end']->format( $time_format ),
 					];
 				},
 				$guard->get_authored_periods( $event_id )
@@ -245,16 +249,24 @@ class Admin_Provider extends Service_Provider {
 		$rows  = tribe_get_request_var( self::FIELD, [] );
 		$dates = [];
 
+		// The rows post the same formats the Start/End pickers do: parse them the way the API does.
+		$datepicker_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 		foreach ( (array) $rows as $row ) {
 			if ( ! is_array( $row ) || empty( $row['date'] ) || empty( $row['start'] ) || empty( $row['end'] ) ) {
 				continue;
 			}
 
-			$date  = sanitize_text_field( (string) $row['date'] );
-			$start = sanitize_text_field( (string) $row['start'] );
-			$end   = sanitize_text_field( (string) $row['end'] );
+			$date = \Tribe__Date_Utils::datetime_from_format( $datepicker_format, sanitize_text_field( (string) $row['date'] ) );
 
-			if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $date ) || ! preg_match( '/^\d{2}:\d{2}$/', $start ) || ! preg_match( '/^\d{2}:\d{2}$/', $end ) ) {
+			if ( ! is_string( $date ) || '' === $date || false === strtotime( $date ) ) {
+				continue;
+			}
+
+			$start = strtotime( $date . ' ' . sanitize_text_field( (string) $row['start'] ) );
+			$end   = strtotime( $date . ' ' . sanitize_text_field( (string) $row['end'] ) );
+
+			if ( false === $start || false === $end ) {
 				continue;
 			}
 
@@ -264,8 +276,9 @@ class Admin_Provider extends Service_Provider {
 			}
 
 			$dates[] = [
-				'start' => "{$date} {$start}:00",
-				'end'   => "{$date} {$end}:00",
+				// The strings were parsed as UTC: gmdate() round-trips the wall time exactly.
+				'start' => gmdate( 'Y-m-d H:i:s', $start ),
+				'end'   => gmdate( 'Y-m-d H:i:s', $end ),
 			];
 		}
 

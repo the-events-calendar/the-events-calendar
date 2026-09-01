@@ -68,105 +68,170 @@ if ( $is_locked ) {
 	return;
 }
 ?>
+<?php
+$tec_dates_is_24hr       = Tribe__View_Helpers::is_24hr_format();
+$tec_dates_default_start = $tec_dates_is_24hr ? '08:00' : '8:00am';
+$tec_dates_default_end   = $tec_dates_is_24hr ? '17:00' : '5:00pm';
+$tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dates_is_24hr ) {
+	?>
+	<div class="tec-events-recurrence-dates-row">
+		<input
+			autocomplete="off"
+			type="text"
+			class="tribe-datepicker"
+			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][date]"
+			value="<?php echo esc_attr( $row['date'] ); ?>"
+		/>
+		<input
+			autocomplete="off"
+			type="text"
+			class="tribe-timepicker"
+			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
+			data-step="30"
+			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][start]"
+			value="<?php echo esc_attr( $row['start'] ); ?>"
+		/>
+		<span class="tribe-datetime-separator"> <?php echo esc_html_x( 'to', 'Start Date Time "to" End Date Time', 'the-events-calendar' ); ?> </span>
+		<input
+			autocomplete="off"
+			type="text"
+			class="tribe-timepicker"
+			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
+			data-step="30"
+			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][end]"
+			value="<?php echo esc_attr( $row['end'] ); ?>"
+		/>
+		<button type="button" class="button tec-events-recurrence-dates-remove" aria-label="<?php esc_attr_e( 'Remove this date', 'the-events-calendar' ); ?>">&minus;</button>
+		<button type="button" class="button tec-events-recurrence-dates-add" aria-label="<?php esc_attr_e( 'Add another date', 'the-events-calendar' ); ?>">+</button>
+	</div>
+	<?php
+};
+?>
 <tr class="tec-events-recurrence-dates">
 	<td class="label"><?php esc_html_e( 'Event Dates', 'the-events-calendar' ); ?></td>
-	<td>
+	<td class="tribe-datetime-block">
 		<?php wp_nonce_field( Admin_Provider::NONCE_ACTION, Admin_Provider::NONCE_ACTION . '_nonce' ); ?>
-		<p class="description">
-			<?php esc_html_e( 'Add more dates to this event, one by one. Each date becomes its own entry on the calendar, with its own link. The event date above is always included.', 'the-events-calendar' ); ?>
-		</p>
-
-		<table class="widefat striped" id="tec-events-recurrence-dates-table">
-			<thead>
-				<tr>
-					<th><?php esc_html_e( 'Date', 'the-events-calendar' ); ?></th>
-					<th><?php esc_html_e( 'Start time', 'the-events-calendar' ); ?></th>
-					<th><?php esc_html_e( 'End time', 'the-events-calendar' ); ?></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ( $rows as $i => $row ) : ?>
-					<tr>
-						<td>
-							<input
-								type="date"
-								name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo (int) $i; ?>][date]"
-								value="<?php echo esc_attr( $row['date'] ); ?>"
-							/>
-						</td>
-						<td>
-							<input
-								type="time"
-								name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo (int) $i; ?>][start]"
-								value="<?php echo esc_attr( $row['start'] ); ?>"
-							/>
-						</td>
-						<td>
-							<input
-								type="time"
-								name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo (int) $i; ?>][end]"
-								value="<?php echo esc_attr( $row['end'] ); ?>"
-							/>
-						</td>
-						<td>
-							<button type="button" class="button-link-delete tec-events-recurrence-dates-remove">
-								<?php esc_html_e( 'Remove', 'the-events-calendar' ); ?>
-							</button>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
 
 		<p>
-			<button type="button" class="button" id="tec-events-recurrence-dates-add">
-				<?php esc_html_e( 'Add another date', 'the-events-calendar' ); ?>
-			</button>
+			<input
+				type="checkbox"
+				id="tec-events-recurrence-dates-toggle"
+				<?php checked( count( $rows ) > 0 ); ?>
+			/>
+			<label for="tec-events-recurrence-dates-toggle">
+				<?php esc_html_e( 'Schedule this event on more dates', 'the-events-calendar' ); ?>
+			</label>
 		</p>
 
+		<div id="tec-events-recurrence-dates-rows" <?php echo count( $rows ) ? '' : 'style="display:none"'; ?>>
+			<p class="description">
+				<?php esc_html_e( 'Each date becomes its own entry on the calendar, with its own link. The event date above is always included.', 'the-events-calendar' ); ?>
+			</p>
+
+			<div class="tec-events-recurrence-dates-list" id="tec-events-recurrence-dates-list">
+				<?php foreach ( $rows as $i => $row ) : ?>
+					<?php $tec_dates_render_row( $i, $row ); ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
 		<script type="text/template" id="tec-events-recurrence-dates-row">
-			<tr>
-				<td><input type="date" name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[__index__][date]" value="" /></td>
-				<td><input type="time" name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[__index__][start]" value="" /></td>
-				<td><input type="time" name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[__index__][end]" value="" /></td>
-				<td>
-					<button type="button" class="button-link-delete tec-events-recurrence-dates-remove">
-						<?php esc_html_e( 'Remove', 'the-events-calendar' ); ?>
-					</button>
-				</td>
-			</tr>
+			<?php
+			$tec_dates_render_row(
+				'__index__',
+				[
+					'date'  => '',
+					'start' => $tec_dates_default_start,
+					'end'   => $tec_dates_default_end,
+				]
+			);
+			?>
 		</script>
+
+		<style>
+			.tec-events-recurrence-dates-row { margin-bottom: 8px; }
+			.tec-events-recurrence-dates-row .tribe-datepicker { width: 8em; }
+			.tec-events-recurrence-dates-row .tribe-timepicker { width: 6.5em; }
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-remove,
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add { min-width: 32px; padding: 0 6px; }
+			.tec-events-recurrence-dates-row:not(:last-child) .tec-events-recurrence-dates-add { display: none; }
+		</style>
 
 		<script>
 			( function () {
-				var table = document.getElementById( 'tec-events-recurrence-dates-table' );
-				var addButton = document.getElementById( 'tec-events-recurrence-dates-add' );
+				var toggle = document.getElementById( 'tec-events-recurrence-dates-toggle' );
+				var wrapper = document.getElementById( 'tec-events-recurrence-dates-rows' );
+				var list = document.getElementById( 'tec-events-recurrence-dates-list' );
 				var rowTemplate = document.getElementById( 'tec-events-recurrence-dates-row' );
 				var nextIndex = <?php echo (int) count( $rows ); ?>;
 
-				if ( ! table || ! addButton || ! rowTemplate ) {
+				if ( ! toggle || ! wrapper || ! list || ! rowTemplate ) {
 					return;
 				}
 
-				addButton.addEventListener( 'click', function () {
-					var container = document.createElement( 'tbody' );
-					container.innerHTML = rowTemplate.innerHTML.replace( /__index__/g, String( nextIndex ) );
-					nextIndex++;
-					table.querySelector( 'tbody' ).appendChild( container.querySelector( 'tr' ) );
-				} );
-
-				table.addEventListener( 'click', function ( event ) {
-					if ( ! event.target.classList.contains( 'tec-events-recurrence-dates-remove' ) ) {
+				function initPickers( row ) {
+					if ( ! window.jQuery ) {
 						return;
 					}
 
-					var row = event.target.closest( 'tr' );
+					var $ = window.jQuery;
+
+					if ( $.fn.datepicker && window.tribe_datepicker_opts ) {
+						$( row ).find( '.tribe-datepicker' ).datepicker( window.tribe_datepicker_opts );
+					}
+
+					if ( window.tribe_timepickers && window.tribe_timepickers.setup_timepickers ) {
+						window.tribe_timepickers.setup_timepickers( $( row ).find( '.tribe-timepicker' ) );
+					}
+				}
+
+				function addRow() {
+					var container = document.createElement( 'div' );
+					container.innerHTML = rowTemplate.innerHTML.replace( /__index__/g, String( nextIndex ) );
+					nextIndex++;
+
+					var row = container.querySelector( '.tec-events-recurrence-dates-row' );
+					list.appendChild( row );
+					initPickers( row );
+				}
+
+				function syncDisabled() {
+					var active = toggle.checked;
+					wrapper.style.display = active ? '' : 'none';
+					list.querySelectorAll( 'input' ).forEach( function ( input ) {
+						// Disabled inputs are not posted: toggling off and saving removes the dates.
+						input.disabled = ! active;
+					} );
+				}
+
+				toggle.addEventListener( 'change', function () {
+					if ( toggle.checked && ! list.querySelector( '.tec-events-recurrence-dates-row' ) ) {
+						addRow();
+					}
+
+					syncDisabled();
+				} );
+
+				wrapper.addEventListener( 'click', function ( event ) {
+					var target = event.target;
+
+					if ( target.classList.contains( 'tec-events-recurrence-dates-add' ) ) {
+						addRow();
+						return;
+					}
+
+					if ( ! target.classList.contains( 'tec-events-recurrence-dates-remove' ) ) {
+						return;
+					}
+
+					var row = target.closest( '.tec-events-recurrence-dates-row' );
 
 					if ( row ) {
 						row.parentNode.removeChild( row );
 					}
 				} );
+
+				syncDisabled();
 			}() );
 		</script>
 	</td>
