@@ -156,6 +156,8 @@ class Controller extends Controller_Contract {
 		$this->container->make( Frontend_Provider::class )->register();
 		$this->container->singleton( Views_Provider::class );
 		$this->container->make( Views_Provider::class )->register();
+		$this->container->singleton( All_Occurrences_Provider::class );
+		$this->container->make( All_Occurrences_Provider::class )->register();
 		$this->container->singleton( Admin_Provider::class );
 		$this->container->make( Admin_Provider::class )->register();
 		$this->container->singleton( Blocks_Provider::class );
@@ -184,6 +186,10 @@ class Controller extends Controller_Contract {
 
 		if ( $this->container->isBound( Views_Provider::class ) ) {
 			$this->container->make( Views_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( All_Occurrences_Provider::class ) ) {
+			$this->container->make( All_Occurrences_Provider::class )->unregister();
 		}
 
 		if ( $this->container->isBound( Admin_Provider::class ) ) {
