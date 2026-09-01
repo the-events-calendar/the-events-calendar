@@ -3,8 +3,11 @@
 namespace TEC\Events\Recurrence;
 
 use Codeception\TestCase\WPTestCase;
+use Tribe\Tests\Traits\With_Uopz;
 
 class ControllerTest extends WPTestCase {
+	use With_Uopz;
+
 	/**
 	 * @var mixed The `ct1_fully_activated` container value before the test.
 	 */
@@ -136,5 +139,29 @@ class ControllerTest extends WPTestCase {
 
 		$this->assertFalse( Controller::is_registered() );
 		$this->assertFalse( (bool) tribe()->getVar( 'tec_events_recurrence_fully_activated', false ) );
+	}
+
+	/**
+	 * It should stay inactive when an incompatible pro is active
+	 *
+	 * The raw version comparison against `Tribe__Events__Pro__Main::VERSION` cannot run
+	 * here: defining the real Events Calendar Pro class name would poison every later
+	 * test in the suite process. The gate wiring is what this test pins; the real
+	 * class_exists + version_compare combination runs in the Events Calendar Pro CI,
+	 * where both plugins are active.
+	 *
+	 * @test
+	 */
+	public function should_stay_inactive_when_an_incompatible_pro_is_active(): void {
+		tribe()->setVar( 'ct1_fully_activated', true );
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
+
+		$this->set_class_fn_return( Controller::class, 'is_incompatible_pro_active', true );
+
+		$this->assertFalse( $this->controller()->is_active() );
+
+		$this->controller()->register();
+
+		$this->assertFalse( Controller::is_registered() );
 	}
 }

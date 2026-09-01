@@ -100,6 +100,13 @@ class Occurrences_Maintenance {
 	 * @return int|false The number of Occurrences deleted, or `false` if there is no sequence.
 	 */
 	public function prune_occurrences( int $post_id ) {
+		/*
+		 * The matching set was built from the pre-save rows: invalidate it so a further
+		 * save in the same request (e.g. a second authoring commit) matches against the
+		 * rows that exist now, keeping Occurrence IDs stable.
+		 */
+		wp_cache_delete( $post_id, 'tec_occurrence_matches' );
+
 		$event = Event::find( $post_id, 'post_id' );
 
 		if ( $event instanceof Event && '' === trim( (string) $event->rset ) ) {

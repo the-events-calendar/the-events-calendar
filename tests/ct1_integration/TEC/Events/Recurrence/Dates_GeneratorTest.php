@@ -282,4 +282,73 @@ class Dates_GeneratorTest extends WPTestCase {
 
 		$this->assertEquals( [ '2026-11-05 09:00:00', '2026-11-12 09:00:00' ], $start_dates );
 	}
+
+	/**
+	 * It should not freeze when an earlier generator claimed the event
+	 *
+	 * @test
+	 */
+	public function should_not_freeze_when_an_earlier_generator_claimed_the_event(): void {
+		$post  = $this->given_an_event_with_dates(
+			[
+				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+			]
+		);
+		$event = Event::find( $post->ID, 'post_id' );
+
+		$claimed = ( static function () {
+			yield from [];
+		} )();
+
+		$fired_before = did_action( 'tec_events_recurrence_rules_frozen' );
+
+		// A generator provided by an earlier filter (e.g. a rule engine) wins.
+		$this->assertSame( $claimed, tribe( Engine_Provider::class )->get_freeze_generator( $claimed, $event ) );
+		$this->assertEquals( $fired_before, did_action( 'tec_events_recurrence_rules_frozen' ) );
+	}
+
+	/**
+	 * It should not freeze events without an rset
+	 *
+	 * @test
+	 */
+	public function should_not_freeze_events_without_an_rset(): void {
+		$post = tribe_events()->set_args(
+			[
+				'title'      => 'No RSET Event',
+				'status'     => 'publish',
+				'start_date' => '2026-11-06 09:00:00',
+				'end_date'   => '2026-11-06 10:00:00',
+				'timezone'   => 'UTC',
+			]
+		)->create();
+
+		$event        = Event::find( $post->ID, 'post_id' );
+		$fired_before = did_action( 'tec_events_recurrence_rules_frozen' );
+
+		// No RSET: the default single Occurrence logic applies, nothing is frozen.
+		$this->assertNull( tribe( Engine_Provider::class )->get_freeze_generator( null, $event ) );
+		$this->assertEquals( $fired_before, did_action( 'tec_events_recurrence_rules_frozen' ) );
+	}
+
+	/**
+	 * It should decline generating from a rule based rset
+	 *
+	 * @test
+	 */
+	public function should_decline_generating_from_a_rule_based_rset(): void {
+		$post = $this->given_an_event_with_dates(
+			[
+				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+			]
+		);
+
+		Event::find( $post->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=UTC:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ]
+		);
+		$event = Event::find( $post->ID, 'post_id' );
+
+		// The dates generator only handles dates-only RSETs: rule-based ones are left alone.
+		$this->assertNull( tribe( Engine_Provider::class )->get_dates_generator( null, $event ) );
+	}
 }
