@@ -145,12 +145,12 @@ if ( ! function_exists( 'tribe_all_occurrences_link' ) ) {
 	 * @since TBD Moved to The Events Calendar from Events Calendar Pro; provisional
 	 *            Occurrence post IDs are normalized to the Event post ID.
 	 *
-	 * @param int|WP_Post|null $post_id The Event post ID, or object, or `null` to use the current post.
-	 * @param bool             $echo    Whether to echo the link too or not.
+	 * @param int|WP_Post|null $post_id      The Event post ID, or object, or `null` to use the current post.
+	 * @param bool             $should_echo  Whether to echo the link too or not.
 	 *
 	 * @return string The link to the archive of all the Occurrences of the Event.
 	 */
-	function tribe_all_occurrences_link( $post_id = null, $echo = true ) {
+	function tribe_all_occurrences_link( $post_id = null, $should_echo = true ) {
 		$cache_key_links = __FUNCTION__ . ':links';
 		$cache_links     = tribe_get_var( $cache_key_links, [] );
 
@@ -179,7 +179,7 @@ if ( ! function_exists( 'tribe_all_occurrences_link' ) ) {
 			tribe_set_var( $cache_key_links, $cache_links );
 		}
 
-		if ( $echo ) {
+		if ( $should_echo ) {
 			echo esc_url( $cache_links[ $cache_id ] );
 		}
 

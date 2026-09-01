@@ -132,7 +132,7 @@ class All_View extends List_View {
 	protected function setup_repository_args( ?Context $context = null ) {
 		$args = parent::setup_repository_args( $context );
 
-		$context = $context ?? $this->context;
+		$context ??= $this->context;
 
 		$post_name = $context->get( 'name', false );
 
