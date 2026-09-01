@@ -64,13 +64,15 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	private $query_vars_mask;
 
 	/**
-	 * A flag property to indicate whether the Custom Table redirections have been already applied or not.
+	 * The query vars the Custom Table redirections were last applied to, `null` if they did not apply yet.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Replaced the boolean flag: a Repository builds a new query per fetch while keeping one
+	 *            instance of this class, so the redirections have to apply again when the clauses change.
 	 *
-	 * @var bool
+	 * @var array<string,mixed>|null
 	 */
-	private $redirected = false;
+	private $redirected_query_vars;
 	/**
 	 * Reference to the class used to replace values from the request.
 	 *
@@ -118,9 +120,10 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * to the Custom Tables where required.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Applies again when the query vars changed since the last redirection.
 	 */
 	private function redirect() {
-		if ( $this->redirected ) {
+		if ( $this->query_vars === $this->redirected_query_vars ) {
 			return;
 		}
 
@@ -156,7 +159,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		$this->query_vars[ $after_order_by_index ] = $redirected_query_vars[ $after_order_by_index ];
 		$this->query_vars['fields']                = $redirected_query_vars['fields'];
 
-		$this->redirected = true;
+		$this->redirected_query_vars = $this->query_vars;
 	}
 
 	/**
