@@ -202,9 +202,12 @@ class Authoring_Guard {
 			$occurrences = array_reverse( $occurrences );
 		}
 
+		$timezone = tribe( Occurrences_List::class )->get_event_timezone( $post_id );
+
 		foreach ( $occurrences as $occurrence ) {
 			try {
-				$summary['next_dates'][] = new DateTimeImmutable( (string) $occurrence->start_date );
+				// The table stores Event-local wall-clock values: build them in the Event timezone.
+				$summary['next_dates'][] = new DateTimeImmutable( (string) $occurrence->start_date, $timezone );
 			} catch ( Exception $e ) {
 				continue;
 			}

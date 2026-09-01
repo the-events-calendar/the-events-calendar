@@ -65,10 +65,12 @@ $tec_dates_all_url         = add_query_arg( Occurrences_List::VIEW_VAR, 'all', $
 			<tbody>
 				<?php foreach ( $data['rows'] as $tec_dates_row ) : ?>
 					<?php
-					$tec_dates_start = date_i18n( $tec_dates_datetime_format, (int) $tec_dates_row['start']->format( 'U' ) );
-					$tec_dates_end   = $tec_dates_row['start']->format( 'Y-m-d' ) === $tec_dates_row['end']->format( 'Y-m-d' )
-						? date_i18n( $tec_dates_time_format, (int) $tec_dates_row['end']->format( 'U' ) )
-						: date_i18n( $tec_dates_datetime_format, (int) $tec_dates_row['end']->format( 'U' ) );
+					// `wp_date()` over `date_i18n()`: the rows carry real timestamps in the site timezone.
+					$tec_dates_timezone = $tec_dates_row['start']->getTimezone();
+					$tec_dates_start    = wp_date( $tec_dates_datetime_format, (int) $tec_dates_row['start']->format( 'U' ), $tec_dates_timezone );
+					$tec_dates_end      = $tec_dates_row['start']->format( 'Y-m-d' ) === $tec_dates_row['end']->format( 'Y-m-d' )
+						? wp_date( $tec_dates_time_format, (int) $tec_dates_row['end']->format( 'U' ), $tec_dates_timezone )
+						: wp_date( $tec_dates_datetime_format, (int) $tec_dates_row['end']->format( 'U' ), $tec_dates_timezone );
 					?>
 					<tr>
 						<td>
