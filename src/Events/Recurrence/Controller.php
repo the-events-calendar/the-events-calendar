@@ -148,20 +148,26 @@ class Controller extends Controller_Contract {
 		/*
 		 * The sub-providers are singletons registered directly: unlike a container-level
 		 * provider registration, a register/unregister/register cycle (e.g. in tests)
-		 * re-attaches their hooks; each provider registration is idempotent.
+		 * re-attaches their hooks; each provider registration is idempotent. Binding is
+		 * guarded: re-binding a resolved singleton would orphan the instance carrying
+		 * the attached hooks.
 		 */
-		$this->container->singleton( Engine_Provider::class );
-		$this->container->make( Engine_Provider::class )->register();
-		$this->container->singleton( Frontend_Provider::class );
-		$this->container->make( Frontend_Provider::class )->register();
-		$this->container->singleton( Views_Provider::class );
-		$this->container->make( Views_Provider::class )->register();
-		$this->container->singleton( All_Occurrences_Provider::class );
-		$this->container->make( All_Occurrences_Provider::class )->register();
-		$this->container->singleton( Admin_Provider::class );
-		$this->container->make( Admin_Provider::class )->register();
-		$this->container->singleton( Blocks_Provider::class );
-		$this->container->make( Blocks_Provider::class )->register();
+		$providers = [
+			Engine_Provider::class,
+			Frontend_Provider::class,
+			Views_Provider::class,
+			All_Occurrences_Provider::class,
+			Admin_Provider::class,
+			Blocks_Provider::class,
+		];
+
+		foreach ( $providers as $provider ) {
+			if ( ! $this->container->isBound( $provider ) ) {
+				$this->container->singleton( $provider );
+			}
+
+			$this->container->make( $provider )->register();
+		}
 
 		// Further sub-controllers (Settings) register here as they land.
 	}

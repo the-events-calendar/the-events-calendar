@@ -5,40 +5,27 @@ namespace TEC\Events\Recurrence;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use Tribe\Events\Test\Traits\With_Recurrence_Engine;
 use Tribe__Events__Editor as Editor;
 use WP_Post;
 
 class Editor_ConversionTest extends WPTestCase {
+	use With_Recurrence_Engine;
+
 	/**
 	 * @before
 	 */
-	public function activate_recurrence_engine(): void {
-		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
+	public function force_blocks_editor(): void {
 		// After the blocks-toggle Compatibility filter (100): the toggle is off in the test database.
 		add_filter( 'tribe_editor_should_load_blocks', '__return_true', PHP_INT_MAX );
-		tribe()->setVar( 'ct1_fully_activated', true );
-		// The WordPress test case restores the hooks state after each test: force a re-registration.
-		tribe()->setVar( Controller::class . '_registered', false );
-		tribe( Controller::class )->register();
-		// Reset the Model static extensions cache: it may have been locked before the engine registered.
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
 	}
 
 	/**
 	 * @after
 	 */
-	public function reset_registration_state(): void {
+	public function reset_request_state(): void {
 		unset( $_GET['post'] );
-		remove_all_filters( 'tec_events_recurrence_enabled' );
 		remove_all_filters( 'tribe_editor_should_load_blocks' );
-		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
-		tribe( Controller::class )->unregister();
-		tribe()->setVar( Controller::class . '_registered', false );
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
 	}
 
 	private function given_a_classic_content_event(): WP_Post {

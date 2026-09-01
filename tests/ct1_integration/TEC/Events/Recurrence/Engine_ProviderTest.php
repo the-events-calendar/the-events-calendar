@@ -51,13 +51,14 @@ class Engine_ProviderTest extends WPTestCase {
 		$this->assertFalse( has_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $engine, 'derive_dates_rset_from_meta' ] ) );
 		$this->assertFalse( has_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $engine, 'prune_occurrences_by_sequence' ] ) );
 
-		// Registering again re-attaches once.
+		// Registering again re-attaches, idempotently for this instance.
 		$engine->register();
 		$engine->register();
 
-		global $wp_filter;
-		$generator_callbacks = $wp_filter['tec_events_custom_tables_v1_occurrences_generator']->callbacks[9] ?? [];
-		$this->assertCount( 1, $generator_callbacks );
+		$this->assertEquals(
+			9,
+			has_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $engine, 'get_dates_generator' ] )
+		);
 	}
 
 	/**

@@ -5,37 +5,18 @@ namespace TEC\Events\Recurrence;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Custom_Tables\V1\Events\Provisional\ID_Generator;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use Tribe\Events\Test\Traits\With_Recurrence_Engine;
 use WP_Post;
 
 class Occurrences_ListTest extends WPTestCase {
-	/**
-	 * @before
-	 */
-	public function activate_recurrence_engine(): void {
-		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
-		tribe()->setVar( 'ct1_fully_activated', true );
-		// The WordPress test case restores the hooks state after each test: force a re-registration.
-		tribe()->setVar( Controller::class . '_registered', false );
-		tribe( Controller::class )->register();
-		// Reset the Model static extensions cache: it may have been locked before the engine registered.
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
-	}
+	use With_Recurrence_Engine;
 
 	/**
 	 * @after
 	 */
-	public function reset_registration_state(): void {
+	public function reset_list_state(): void {
 		unset( $_GET[ Occurrences_List::VIEW_VAR ], $_GET[ Occurrences_List::PAGE_VAR ] );
-		remove_all_filters( 'tec_events_recurrence_enabled' );
 		remove_all_filters( 'tec_events_recurrence_occurrences_list_per_page' );
-		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
-		tribe( Controller::class )->unregister();
-		tribe()->setVar( Controller::class . '_registered', false );
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
 	}
 
 	private function given_an_event_with_dates( array $dates, string $start = '' ): WP_Post {

@@ -6,58 +6,10 @@ use Codeception\TestCase\WPTestCase;
 use Tribe__Events__Main as TEC;
 use Tribe__Template;
 use WP_Post;
+use Tribe\Events\Test\Traits\With_Recurrence_Engine;
 
 class Views_ProviderTest extends WPTestCase {
-	/**
-	 * @before
-	 */
-	public function activate_recurrence_engine(): void {
-		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
-		tribe()->setVar( 'ct1_fully_activated', true );
-		// The WordPress test case restores the hooks state after each test: force a re-registration.
-		tribe()->setVar( Controller::class . '_registered', false );
-		tribe( Controller::class )->register();
-		// Reset the Model static extensions cache: it may have been locked before the engine registered.
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
-	}
-
-	/**
-	 * @after
-	 */
-	public function reset_registration_state(): void {
-		remove_all_filters( 'tec_events_recurrence_enabled' );
-		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
-		tribe( Controller::class )->unregister();
-		tribe()->setVar( Controller::class . '_registered', false );
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
-	}
-
-	private function given_a_multi_date_event(): WP_Post {
-		$post = tribe_events()->set_args(
-			[
-				'title'      => 'Views Provider Test Event',
-				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
-				'timezone'   => 'UTC',
-			]
-		)->create();
-
-		$this->assertInstanceOf( WP_Post::class, $post );
-
-		tribe( Dates_Service::class )->set_dates(
-			$post->ID,
-			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-			]
-		);
-
-		return $post;
-	}
+	use With_Recurrence_Engine;
 
 	private function events_template(): Tribe__Template {
 		$template = new Tribe__Template();

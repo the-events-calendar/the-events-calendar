@@ -31,6 +31,21 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 	public function pin_dynamic_values(): void {
 		tribe_update_option( 'datepickerFormat', 0 );
 		$this->set_fn_return( 'wp_create_nonce', '2ab7cc6b39' );
+
+		/*
+		 * Push the post IDs into a range no date or time text can contain: a small Event
+		 * ID (e.g. 17) would make the placeholder normalization ambiguous ("January 17").
+		 * Inserting with an explicit ID advances AUTO_INCREMENT without DDL.
+		 */
+		if ( ! get_post( 90000000 ) ) {
+			wp_insert_post(
+				[
+					'import_id'  => 90000000,
+					'post_type'  => 'post',
+					'post_title' => 'auto increment filler',
+				]
+			);
+		}
 		// The referer field and pagination links read the request URI: pin it.
 		$this->request_uri_backup  = $_SERVER['REQUEST_URI'] ?? null;
 		$_SERVER['REQUEST_URI'] = '/wp-admin/post.php';

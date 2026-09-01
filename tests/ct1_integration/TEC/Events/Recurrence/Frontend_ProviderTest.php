@@ -3,29 +3,12 @@
 namespace TEC\Events\Recurrence;
 
 use Codeception\TestCase\WPTestCase;
+use Tribe\Events\Test\Traits\With_Recurrence_Engine;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as TEC_Rewrite;
 
 class Frontend_ProviderTest extends WPTestCase {
-	/**
-	 * @before
-	 */
-	public function activate_recurrence_engine(): void {
-		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
-		tribe()->setVar( 'ct1_fully_activated', true );
-		// The WordPress test case restores the hooks state after each test: force a re-registration.
-		tribe()->setVar( Controller::class . '_registered', false );
-		tribe( Controller::class )->register();
-	}
-
-	/**
-	 * @after
-	 */
-	public function reset_registration_state(): void {
-		remove_all_filters( 'tec_events_recurrence_enabled' );
-		tribe( Controller::class )->unregister();
-		tribe()->setVar( Controller::class . '_registered', false );
-	}
+	use With_Recurrence_Engine;
 
 	/**
 	 * It should add the all base slug

@@ -39,20 +39,12 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 		return false;
 	}
 
+	use \Tribe\Events\Test\Traits\With_Recurrence_Engine;
+
 	/**
 	 * @before
 	 */
-	public function activate_recurrence_engine(): void {
-		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
-		tribe()->setVar( 'ct1_fully_activated', true );
-		// The WordPress test case restores the hooks state after each test: force a re-registration.
-		tribe()->setVar( Controller::class . '_registered', false );
-		tribe( Controller::class )->register();
-		// Reset the Model static extensions cache: it may have been locked before the engine registered.
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
-
+	public function capture_redirects(): void {
 		// Capture redirects instead of sending headers and dying.
 		self::$redirected_to = null;
 		add_filter( 'wp_redirect', [ self::class, 'capture_redirect' ], 0 );
@@ -62,34 +54,9 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	/**
 	 * @after
 	 */
-	public function reset_registration_state(): void {
-		remove_all_filters( 'tec_events_recurrence_enabled' );
+	public function release_redirect_capture(): void {
 		remove_all_filters( 'tribe_exit' );
 		remove_filter( 'wp_redirect', [ self::class, 'capture_redirect' ], 0 );
-		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
-		tribe( Controller::class )->unregister();
-		tribe()->setVar( Controller::class . '_registered', false );
-		$extensions = new \ReflectionProperty( \TEC\Events\Custom_Tables\V1\Models\Model::class, 'extensions' );
-		$extensions->setAccessible( true );
-		$extensions->setValue( null, [] );
-	}
-
-	private function given_a_multi_date_event( array $dates, string $start = '2026-11-05 09:00:00', string $end = '2026-11-05 10:00:00' ): WP_Post {
-		$post = tribe_events()->set_args(
-			[
-				'title'      => 'All Occurrences Test Event',
-				'status'     => 'publish',
-				'start_date' => $start,
-				'end_date'   => $end,
-				'timezone'   => 'UTC',
-			]
-		)->create();
-
-		$this->assertInstanceOf( WP_Post::class, $post );
-
-		$this->assertTrue( tribe( Dates_Service::class )->set_dates( $post->ID, $dates ) );
-
-		return $post;
 	}
 
 	private function given_a_dateless_main_query_for( WP_Post $post ): WP_Query {
@@ -266,8 +233,10 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 			[
 				[ 'start' => '2020-02-12 09:00:00', 'end' => '2020-02-12 10:00:00' ],
 			],
-			'2020-02-05 09:00:00',
-			'2020-02-05 10:00:00'
+			[
+				'start_date' => '2020-02-05 09:00:00',
+				'end_date'   => '2020-02-05 10:00:00',
+			]
 		);
 
 		$this->given_a_dateless_main_query_for( $post );
