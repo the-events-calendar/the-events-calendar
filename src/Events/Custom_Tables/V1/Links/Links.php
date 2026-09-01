@@ -83,12 +83,13 @@ class Links {
 	 * current date.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Made public: the dateless single Event redirect resolves its target with it.
 	 *
 	 * @param Event $event The instance of the event used to find the occurrence.
 	 *
 	 * @return Occurrence|null The found occurrence `null` otherwise.
 	 */
-	private function get_next_occurrence( Event $event ): ?Occurrence {
+	public function get_next_occurrence( Event $event ): ?Occurrence {
 		try {
 			$current_date = Dates::immutable( 'now', new DateTimeZone( 'UTC' ) );
 			$upcoming     = Occurrence::where( 'event_id', $event->event_id )
@@ -133,7 +134,9 @@ class Links {
 	 * @since 6.0.0
 	 * @since TBD A provisional Occurrence post now links to ITS date: the Event lookup normalizes
 	 *            the provisional ID (it would find nothing and bail before) and the hydrated
-	 *            Occurrence wins over the next-upcoming one.
+	 *            Occurrence wins over the next-upcoming one. Provisional posts are handled on
+	 *            the front end too, so each Occurrence card links its own date; real Event
+	 *            posts keep the dateless permalink outside the Administration UI.
 	 *
 	 * @param string  $post_link   The View post link, as produced by WordPress and previous filters.
 	 * @param WP_Post $post        A reference to the Post instance.
@@ -144,11 +147,12 @@ class Links {
 	 * @return string The updated view link, if required.
 	 */
 	public function update_recurrence_view_link( string $post_link, WP_Post $post, bool $leavename, bool $sample ): string {
-		if ( ! is_admin() ) {
+		if ( $post->post_type !== TEC::POSTTYPE ) {
 			return $post_link;
 		}
 
-		if ( $post->post_type !== TEC::POSTTYPE ) {
+		if ( ! is_admin() && ! tribe( Provisional_Post::class )->is_provisional_post_id( (int) $post->ID ) ) {
+			// On the front end only provisional Occurrence posts get a dated permalink.
 			return $post_link;
 		}
 

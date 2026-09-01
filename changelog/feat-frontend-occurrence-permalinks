@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Provisional Occurrence posts now resolve to their own date-based permalink on the front end too: each Occurrence shown on the List, Month and Day views links to its own date URL instead of the dateless Event URL.
