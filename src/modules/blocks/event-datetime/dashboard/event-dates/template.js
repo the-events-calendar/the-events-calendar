@@ -16,6 +16,7 @@ import { __, _n, sprintf } from '@wordpress/i18n';
  */
 import { TimePicker } from '@moderntribe/common/elements';
 import { date as dateUtil, moment as momentUtil, time as timeUtil, globals } from '@moderntribe/common/utils';
+import { Minus, Plus } from '@moderntribe/events/icons';
 import './style.pcss';
 
 const { tec } = globals;
@@ -205,7 +206,7 @@ const EventDates = ( props ) => {
 								aria-label={ __( 'Remove this date', 'the-events-calendar' ) }
 								onClick={ () => removeRow( index ) }
 							>
-								&minus;
+								<Minus />
 							</button>
 							{ index === rows.length - 1 && (
 								<button
@@ -214,7 +215,7 @@ const EventDates = ( props ) => {
 									aria-label={ __( 'Add another date', 'the-events-calendar' ) }
 									onClick={ () => updateRows( [ ...rows, defaultRow() ] ) }
 								>
-									+
+									<Plus />
 								</button>
 							) }
 						</div>

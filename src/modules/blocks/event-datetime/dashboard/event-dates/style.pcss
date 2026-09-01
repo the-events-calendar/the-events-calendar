@@ -16,6 +16,10 @@
 		margin: 0 0 12px;
 	}
 
+	.tribe-editor__event-dates__description {
+		margin: 12px 0 16px;
+	}
+
 	.tribe-editor__event-dates__notice:last-child,
 	.tribe-editor__event-dates__summary:last-child {
 		margin-bottom: 0;
@@ -26,32 +30,51 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
-		margin-bottom: 8px;
+		margin: 0 0 8px;
 	}
 
+	.tribe-editor__event-dates__row:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Match the TimePicker toggle metrics: white box, 1px border, 14px Helvetica. */
 	.tribe-editor__event-dates__date {
-		border: 1px solid var(--tec-color-border-secondary, #e1e3e6);
-		border-radius: 4px;
-		font-size: 13px;
-		padding: 4px 8px;
+		background-color: #fff;
+		border: 1px solid #e1e3e6;
+		border-radius: 2px;
+		box-sizing: border-box;
+		color: inherit;
+		font-family: Helvetica, sans-serif;
+		font-size: 14px;
+		line-height: 1.5;
+		padding: 5px 10px;
 	}
 
 	.tribe-editor__event-dates__separator {
-		font-size: 13px;
+		font-size: 14px;
 	}
 
 	.tribe-editor__event-dates__control {
-		background: none;
-		border: 1px solid var(--tec-color-border-secondary, #e1e3e6);
-		border-radius: 4px;
+		align-items: center;
+		background-color: #fff;
+		border: 1px solid #e1e3e6;
+		border-radius: 2px;
+		box-sizing: border-box;
+		color: #545d66;
 		cursor: pointer;
-		font-size: 16px;
-		line-height: 1;
-		min-width: 28px;
-		padding: 4px 6px;
+		display: inline-flex;
+		height: 34px;
+		justify-content: center;
+		padding: 0;
+		width: 34px;
 	}
 
-	.tribe-editor__event-dates__remove {
-		color: var(--tec-color-text-error, #b32d2e);
+	.tribe-editor__event-dates__control:hover,
+	.tribe-editor__event-dates__control:focus {
+		border-color: #545d66;
+	}
+
+	.tribe-editor__event-dates__control svg {
+		display: block;
 	}
 }
