@@ -101,8 +101,12 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][end]"
 			value="<?php echo esc_attr( $row['end'] ); ?>"
 		/>
-		<button type="button" class="button tec-events-recurrence-dates-remove" aria-label="<?php esc_attr_e( 'Remove this date', 'the-events-calendar' ); ?>">&minus;</button>
-		<button type="button" class="button tec-events-recurrence-dates-add" aria-label="<?php esc_attr_e( 'Add another date', 'the-events-calendar' ); ?>">+</button>
+		<button type="button" class="button tec-events-recurrence-dates-remove" aria-label="<?php esc_attr_e( 'Remove this date', 'the-events-calendar' ); ?>">
+			<svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 10h12"/></svg>
+		</button>
+		<button type="button" class="button tec-events-recurrence-dates-add" aria-label="<?php esc_attr_e( 'Add another date', 'the-events-calendar' ); ?>">
+			<svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M10 4v12M4 10h12"/></svg>
+		</button>
 	</div>
 	<?php
 };
@@ -149,12 +153,17 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 		</script>
 
 		<style>
-			.tec-events-recurrence-dates-row { margin-bottom: 8px; }
+			/* The date input sets the row height: every other control stretches to it. */
+			.tec-events-recurrence-dates-row { align-items: stretch; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
 			.tec-events-recurrence-dates-row .tribe-datepicker { width: 8em; }
 			.tec-events-recurrence-dates-row .tribe-timepicker { width: 6.5em; }
+			.tec-events-recurrence-dates-row .tribe-datetime-separator { align-self: center; }
 			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-remove,
-			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add { min-width: 32px; padding: 0 6px; }
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add { align-items: center; display: inline-flex; height: auto; justify-content: center; padding: 0; width: 40px; }
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-remove svg,
+			.tec-events-recurrence-dates-row .tec-events-recurrence-dates-add svg { display: block; }
 			.tec-events-recurrence-dates-row:not(:last-child) .tec-events-recurrence-dates-add { display: none; }
+			#tec-events-recurrence-dates-rows > .description { margin: 12px 0 16px; }
 		</style>
 
 		<script>

@@ -25,8 +25,9 @@
 		margin-bottom: 0;
 	}
 
+	/* The date input sets the row height: every other control stretches to it. */
 	.tribe-editor__event-dates__row {
-		align-items: center;
+		align-items: stretch;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
@@ -50,7 +51,16 @@
 		padding: 5px 10px;
 	}
 
+	.tribe-editor__event-dates__row .tribe-editor__timepicker {
+		display: inline-flex;
+	}
+
+	.tribe-editor__event-dates__row .tribe-editor__timepicker__toggle {
+		height: 100%;
+	}
+
 	.tribe-editor__event-dates__separator {
+		align-self: center;
 		font-size: 14px;
 	}
 
@@ -63,10 +73,9 @@
 		color: #545d66;
 		cursor: pointer;
 		display: inline-flex;
-		height: 34px;
 		justify-content: center;
 		padding: 0;
-		width: 34px;
+		width: 40px;
 	}
 
 	.tribe-editor__event-dates__control:hover,
