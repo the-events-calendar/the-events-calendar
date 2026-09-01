@@ -143,6 +143,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * When initially loading a post in gutenberg flags if came from classic editor
 	 *
 	 * @since 4.7
+	 * @since TBD Retries the blocks content conversion when a previous, flagged attempt never rewrote the content.
 	 *
 	 * @return bool
 	 */
@@ -179,9 +180,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		$has_flag_classic_editor = metadata_exists( 'post', $post, $this->key_flag_classic_editor );
 
-		// If we already have a flag we bail
+		// Flagged, yet the content still has no blocks: a previous conversion was interrupted, retry it.
 		if ( $has_flag_classic_editor ) {
-			return false;
+			return (bool) $this->update_post_content_to_blocks( $post );
 		}
 
 		// Update with the flag for the update process
@@ -206,6 +207,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Making sure we have correct post content for blocks after going into Gutenberg
 	 *
 	 * @since 4.7
+	 * @since TBD Logs a debug line and returns `false` when the content update fails.
 	 *
 	 * @param  int $post Which post we will migrate
 	 *
@@ -268,6 +270,18 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			'ID'           => $post->ID,
 			'post_content' => $content,
 		] );
+
+		if ( empty( $status ) || is_wp_error( $status ) ) {
+			$context = [
+				'method'  => __METHOD__,
+				'post_id' => $post->ID,
+				'error'   => is_wp_error( $status ) ? $status->get_error_message() : 'wp_update_post returned 0',
+			];
+
+			do_action( 'tribe_log', 'debug', 'Classic to blocks content conversion failed.', $context );
+
+			return false;
+		}
 
 		return $status;
 	}
