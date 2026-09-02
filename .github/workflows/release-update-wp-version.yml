@@ -28,6 +28,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
 
       - name: Validate inputs
         run: |
