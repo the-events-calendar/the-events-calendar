@@ -196,7 +196,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		// permanently overwrite it - get_importer() needs the option set to build the
 		// importer with *this* submission's map, but we must not let a rejected map stick
 		// around as the default for the next preview if we end up returning an error.
-		$previous_map = get_option( $option_key, array() );
+		$previous_map = get_option( $option_key, [] );
 		update_option( $option_key, $data['column_map'] );
 
 		try {
