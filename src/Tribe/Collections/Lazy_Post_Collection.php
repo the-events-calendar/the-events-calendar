@@ -89,7 +89,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 *
 	 * @since 5.0.0
 	 * @since 6.17.3.1 Only rebuild through an allowed callback.
-	 * @since TBD Restore the unserialize callback, so the collection can be serialized again.
+	 * @since 6.17.4 Restore the unserialize callback, so the collection can be serialized again.
 	 *
 	 * @param string $serialized The serialized values, usually an array of post IDs.
 	 *
@@ -110,7 +110,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 		 * The callback name is read back from serialized data and is not to be trusted: only add callbacks
 		 * that are safe to call with an arbitrary post ID.
 		 *
-		 * @since TBD
+		 * @since 6.17.4
 		 *
 		 * @param string[] $allowed_callbacks The names of the callbacks allowed to rebuild the collection.
 		 */
