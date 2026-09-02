@@ -192,19 +192,15 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		$content_type = $this->get_csv_content_type();
 		$option_key   = 'tribe_events_import_column_mapping_' . $content_type;
-		// Remember the last-known-good mapping so an invalid submission below doesn't
-		// permanently overwrite it - get_importer() needs the option set to build the
-		// importer with *this* submission's map, but we must not let a rejected map stick
-		// around as the default for the next preview if we end up returning an error.
-		$previous_map = get_option( $option_key, [] );
-		update_option( $option_key, $data['column_map'] );
 
 		try {
 			$importer = $this->get_importer();
 		} catch ( InvalidArgumentException $e ) {
-			update_option( $option_key, $previous_map );
 			return tribe_error( 'core:aggregator:missing-csv-file' );
 		}
+
+		// Validate against this submission's map directly; don't persist it until validation passes.
+		$importer->set_map( $data['column_map'] );
 
 		if ( ! empty( $data['category'] ) ) {
 			$importer = $this->maybe_set_default_category( $importer );
@@ -218,8 +214,6 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$missing         = array_diff( $required_fields, $data['column_map'] );
 
 		if ( ! empty( $missing ) ) {
-			update_option( $option_key, $previous_map );
-
 			$mapper = new Tribe__Events__Importer__Column_Mapper( $content_type );
 
 			/**
@@ -236,6 +230,8 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 				$message
 			);
 		}
+
+		update_option( $option_key, $data['column_map'] );
 
 		return $importer;
 	}
