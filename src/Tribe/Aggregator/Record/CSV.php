@@ -201,11 +201,8 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 
 		try {
 			$importer = $this->get_importer();
-		} catch ( RuntimeException $e ) {
-			// Only roll back if nothing else has saved a newer mapping since our write above.
-			if ( get_option( $option_key ) === $data['column_map'] ) {
-				update_option( $option_key, $previous_map );
-			}
+		} catch ( InvalidArgumentException $e ) {
+			update_option( $option_key, $previous_map );
 			return tribe_error( 'core:aggregator:missing-csv-file' );
 		}
 
@@ -221,10 +218,7 @@ class Tribe__Events__Aggregator__Record__CSV extends Tribe__Events__Aggregator__
 		$missing         = array_diff( $required_fields, $data['column_map'] );
 
 		if ( ! empty( $missing ) ) {
-			// Only roll back if nothing else has saved a newer mapping since our write above.
-			if ( get_option( $option_key ) === $data['column_map'] ) {
-				update_option( $option_key, $previous_map );
-			}
+			update_option( $option_key, $previous_map );
 
 			$mapper = new Tribe__Events__Importer__Column_Mapper( $content_type );
 
