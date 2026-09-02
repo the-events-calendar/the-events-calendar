@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Fixed the scheduled dates shown in the Event Dates section and the Scheduled Dates metabox rendering shifted times on sites whose timezone is not UTC.
+Resolved an issue where the Event Dates section and the Scheduled Dates metabox showed shifted times on sites with a non-UTC timezone.

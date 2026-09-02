@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Added the dates-only Occurrence engine behind the Recurrence feature gate: events can carry multiple explicitly listed dates, serialized in the same RSET shape Events Calendar Pro derives for date-based recurrence, with stable occurrence IDs across edits, sequence-based pruning, and a freeze guard preserving rule-based occurrences when no rule engine is active.
+Added the dates-only occurrence engine behind the Recurrence feature gate, allowing an event to carry multiple explicit dates; rule-based occurrences are preserved when no rule engine is active.

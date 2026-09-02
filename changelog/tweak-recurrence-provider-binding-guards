@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-The Recurrence feature sub-providers and the migration loader no longer re-bind their resolved container singletons on repeated registrations, preventing orphaned instances from keeping stale hooks attached.
+Prevented the Recurrence providers from re-binding resolved container singletons on repeated registrations.

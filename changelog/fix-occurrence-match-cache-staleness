@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Fixed the Occurrence matching set going stale after a save: a further save of the same Event in the same request could churn the Occurrence IDs (and the date URLs derived from them) of its additional dates.
+Resolved an issue where saving a multi-date event twice in the same request could change the IDs and URLs of its occurrences.

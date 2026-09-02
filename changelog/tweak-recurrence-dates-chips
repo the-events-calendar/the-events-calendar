@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-The Event Dates section of a rule-locked recurring event now lists every scheduled date as a chip in both editors: each chip links to its occurrence, carries a tooltip with the full date range and status, and pairs with a button opening the occurrence edit screen in a new tab; past dates collapse behind a toggle.
+The Event Dates section of a rule-locked event now lists every scheduled date as a chip with a tooltip and an edit button, with past dates collapsed.

@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Retry the classic-to-blocks content conversion when a previous, interrupted attempt flagged the event without ever rewriting its content: such events now regain the datetime block (and its sections) when opened in the Block Editor, and a failed conversion is logged.
+Resolved an issue where an interrupted classic-to-blocks conversion left an event without its datetime block in the Block Editor.

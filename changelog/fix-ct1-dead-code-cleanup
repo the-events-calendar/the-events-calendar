@@ -1,4 +1,4 @@
 Significance: patch
 Type: fix
 
-Removed dead Custom Tables V1 code: the unloaded Series template-tags file, the unregistered Feedback subsystem, a dangling Post_Ops container binding, and an unused Events Calendar Pro class import.
+Removed unused Custom Tables V1 code.

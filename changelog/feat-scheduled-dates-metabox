@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Added the Scheduled Dates metabox to the Event edit screen: every date a multi-date event is scheduled on is listed with Upcoming/All views, pagination, and a per-date View link. The View link of a provisional Occurrence now points at that Occurrence's own date.
+Added the Scheduled Dates metabox listing every date of a multi-date event, with Upcoming and All views and a View link per date.

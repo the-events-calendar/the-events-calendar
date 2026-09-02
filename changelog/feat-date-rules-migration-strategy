@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Events whose recurrence is a list of explicit dates now migrate to the new events system without Events Calendar Pro active, each date becoming an Occurrence of the one Event; rule-based recurring events still require Events Calendar Pro to migrate.
+Events recurring on a list of explicit dates now migrate to the new events system without Events Calendar Pro; rule-based recurring events still require it.

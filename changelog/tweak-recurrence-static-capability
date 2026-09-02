@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Added the static `Controller::provides_occurrences()` capability read so other plugins can detect the free Occurrence infrastructure at boot without constructing the Recurrence controller; `is_active()` now builds on it with no behavior change.
+Added a static capability check so other plugins can detect the free occurrence infrastructure at boot without instantiating the Recurrence controller.

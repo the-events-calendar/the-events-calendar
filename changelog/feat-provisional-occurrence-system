@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-Migrated the provisional Occurrence post ID system (ID generator, provisional post hydration, query and metadata integration, Occurrence model extension) from Events Calendar Pro into The Events Calendar, registered behind the dark-shipped Recurrence feature gate.
+Moved the provisional occurrence post ID system from Events Calendar Pro into The Events Calendar, behind the Recurrence feature gate.

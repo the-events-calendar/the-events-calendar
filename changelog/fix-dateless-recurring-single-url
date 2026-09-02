@@ -1,4 +1,4 @@
 Significance: minor
 Type: fix
 
-The dateless single URL of an Event with multiple Occurrences no longer renders the single Event template once per Occurrence: it redirects to the next upcoming Occurrence date URL — or to the `/all/` Occurrences archive when every date is past — via the new `tec_events_recurrence_dateless_redirect_url` filter, and feed or embed requests resolve to the next upcoming Occurrence.
+Resolved an issue where the dateless URL of a multi-date event rendered the single event template once per occurrence; it now redirects to the next upcoming occurrence, or to the occurrences archive when all dates are past.

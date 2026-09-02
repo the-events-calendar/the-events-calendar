@@ -1,4 +1,4 @@
 Significance: minor
 Type: feat
 
-tribe_is_recurring_event() and tribe_get_recurrence_start_dates() are now defined by The Events Calendar, reading from the Occurrences custom table; Events Calendar Pro's function_exists-guarded definitions yield automatically.
+Added the tribe_is_recurring_event() and tribe_get_recurrence_start_dates() template tags to The Events Calendar.
