@@ -179,7 +179,7 @@ class iCalendar_Handler extends Service_Provider {
 		 */
 		$subscribe_links = apply_filters( 'tec_views_v2_subscribe_links', $subscribe_links, $view );
 
-		// Snippets commonly hide the links with `__return_false`; consumers are documented an array.
+		// Consumers are documented an array; a snippet hiding the links can return anything.
 		return is_array( $subscribe_links ) ? $subscribe_links : [];
 	}
 
