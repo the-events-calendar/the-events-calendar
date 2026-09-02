@@ -1,6 +1,0 @@
-significance: patch
-type: fix
-entry: Resolved an issue where the Day View direct URL omitted recurring event
-  occurrences because an earlier query on the same repository froze the custom
-  tables date redirection.
-timestamp: 2026-08-15T00:33:21.611Z
