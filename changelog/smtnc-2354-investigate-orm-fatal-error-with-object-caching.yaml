@@ -1,8 +1,0 @@
-significance: patch
-type: fix
-entry: Fixed a fatal error when reading an event's venues or organizers on sites
-  running a persistent object cache, caused by a cached lazy collection losing the
-  callback it needs to rebuild itself. Also added the
-  `tec_events_lazy_post_collection_allowed_unserialize_callbacks` filter so
-  third-party code can register its own rebuild callbacks.
-timestamp: 2026-09-02T00:00:00.000Z
