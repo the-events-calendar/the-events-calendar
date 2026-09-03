@@ -304,10 +304,6 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * A transport-level failure has no response code, so `post()` has to check for it before
-	 * reading one. Regression: the code check used to run first, turning every cURL failure
-	 * into `core:aggregator:bad-response` and discarding the real reason.
-	 *
 	 * @test
 	 * it should return the transport error when the post request fails at the transport level
 	 */
@@ -351,9 +347,6 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * The generic message is still correct for a genuine server-side fault; it just must not be
-	 * the catch-all for causes the client can tell apart.
-	 *
 	 * @test
 	 * it should report a bad response when the post request returns a server error
 	 */
@@ -378,9 +371,11 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @since TBD
+	 *
 	 * @param int $code The HTTP status code the mocked response should carry.
 	 *
-	 * @return array
+	 * @return array{response: array{code: string}, headers: array{content-type: string}, body: string} A mocked `wp_remote_post()` response carrying the given status code.
 	 */
 	protected function make_mock_response_with_code( $code ) {
 		return [

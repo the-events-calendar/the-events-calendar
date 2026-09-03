@@ -288,10 +288,12 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Performs a POST request against the Event Aggregator service
 	 *
-	 * @param string $endpoint   Endpoint for the Event Aggregator service
-	 * @param array  $data       Parameters to send to the endpoint
+	 * @since TBD Moved the transport-error check ahead of the response-code read and added distinct handling for a blocked (403) response.
 	 *
-	 * @return stdClass|WP_Error
+	 * @param string $endpoint Endpoint for the Event Aggregator service.
+	 * @param array  $data     Parameters to send to the endpoint.
+	 *
+	 * @return stdClass|WP_Error The decoded response body, or a WP_Error describing the failure.
 	 */
 	public function post( $endpoint, $data = [] ) {
 		$url = $this->build_url( $endpoint );
@@ -314,9 +316,11 @@ class Tribe__Events__Aggregator__Service {
 
 		$response = $this->requests->post( esc_url_raw( $url ), $args );
 
-		// A transport-level failure (DNS, TLS, refused connection, timeout) never carries a
-		// response code, so this has to be checked before `$code` is read: a `WP_Error` would
-		// otherwise yield `0` and get reported as a generic server-side problem.
+		/*
+		 * A transport-level failure (DNS, TLS, refused connection, timeout) never carries a
+		 * response code, so this has to be checked before `$code` is read: a `WP_Error` would
+		 * otherwise yield `0` and get reported as a generic server-side problem.
+		 */
 		if ( is_wp_error( $response ) ) {
 			tribe( 'logger' )->log_debug(
 				'Request failed during the creation: ' . $response->get_error_message(),
@@ -329,6 +333,8 @@ class Tribe__Events__Aggregator__Service {
 		$code = (int) wp_remote_retrieve_response_code( $response );
 
 		if ( 403 === $code ) {
+			tribe( 'logger' )->log_debug( 'Request denied with a 403 - during the creation.', 'EA Service' );
+
 			return new WP_Error(
 				'core:aggregator:request-denied',
 				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
