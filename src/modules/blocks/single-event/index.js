@@ -32,9 +32,9 @@ export default {
 	icon: 'calendar-alt',
 	category: 'tribe-events',
 	keywords: [ __( 'Single Event', 'the-events-calendar' ), __( 'The Events Calendar', 'the-events-calendar' ) ],
-	edit: ( props ) => {
+	edit: () => {
 		return (
-			<div className={ props.className }>
+			<div>
 				<h3>{ __( 'Event Title', 'the-events-calendar' ) }</h3>
 				<p>
 					<strong>{ __( 'EVENT DATE/TIME', 'the-events-calendar' ) }</strong>
