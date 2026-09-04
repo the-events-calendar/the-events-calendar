@@ -51,7 +51,15 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	public function register() {
-		$this->container->singleton( self::class, self::class );
+		/*
+		 * Guarded: re-binding this resolved singleton would hand the next `make()` a fresh instance
+		 * and orphan this one with its hooks attached, so a later `unregister()` could not remove
+		 * them. The other bindings below are refreshed on purpose: they carry per-instance caches,
+		 * no hooks of their own, and their factories re-attach the query hydration to this instance.
+		 */
+		if ( ! $this->container->isBound( self::class ) ) {
+			$this->container->singleton( self::class, self::class );
+		}
 		$this->container->singleton( Replace_Results::class, Replace_Results::class );
 		$this->container->singleton(
 			Provisional_Post::class,

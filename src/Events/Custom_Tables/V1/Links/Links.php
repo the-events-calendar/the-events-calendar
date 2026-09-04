@@ -101,8 +101,10 @@ class Links {
 				return $upcoming;
 			}
 
-			// If the most recent event has passed, open the one closest to the end date of the event, meaning
-			// the closest to the current date.
+			/*
+			 * If the most recent event has passed, open the one closest to the end date of the event,
+			 * meaning the closest to the current date.
+			 */
 			$last = Occurrence::where( 'event_id', $event->event_id )
 								->order_by( 'start_date', 'DESC' )
 								->first();

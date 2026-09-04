@@ -11,6 +11,7 @@
 namespace TEC\Events\Custom_Tables\V1\Models;
 
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use WP_Post;
 
 /**
  * Class Provisional_Post_Meta
@@ -118,6 +119,12 @@ class Provisional_Post_Meta {
 		}
 
 		$post = get_post( $object_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			// A provisional ID not backed by a live Occurrence: a deleted one, a stale link or a hand-typed ID.
+			return $meta_value;
+		}
+
 		// Maybe already hydrated? Use `get_object_vars` as `isset` will trigger the `WP_Post::__get` method.
 		$occurrence_id = get_object_vars( $post )['_tec_occurrence_id'] ?? null;
 

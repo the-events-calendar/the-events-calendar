@@ -45,12 +45,16 @@ class Engine_Provider extends Service_Provider {
 		/*
 		 * Registered directly (not through the container provider registry) so a
 		 * register/unregister/register cycle re-attaches the hooks; both providers
-		 * register idempotently.
+		 * register idempotently. The bindings are guarded: re-binding a resolved
+		 * singleton would orphan the instance carrying the attached hooks.
 		 */
-		$this->container->singleton( Provisional_Provider::class );
-		$this->container->make( Provisional_Provider::class )->register();
-		$this->container->singleton( Provisional_Queries_Provider::class );
-		$this->container->make( Provisional_Queries_Provider::class )->register();
+		foreach ( [ Provisional_Provider::class, Provisional_Queries_Provider::class ] as $provider ) {
+			if ( ! $this->container->isBound( $provider ) ) {
+				$this->container->singleton( $provider );
+			}
+
+			$this->container->make( $provider )->register();
+		}
 
 		// Saving an Occurrence edit screen moves that Occurrence only.
 		if ( ! $this->container->isBound( Single_Occurrence_Update::class ) ) {

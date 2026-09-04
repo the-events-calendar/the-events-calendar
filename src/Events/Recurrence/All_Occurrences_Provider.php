@@ -396,7 +396,7 @@ class All_Occurrences_Provider extends Service_Provider {
 	 * @since TBD
 	 *
 	 * @param WP_Query $query           The query to check.
-	 * @param bool     $check_surfaces  Whether to exclude feed, embed and 404 requests too;
+	 * @param bool     $check_surfaces  Whether to exclude feed, embed, 404 and preview requests too;
 	 *                                  the redirect excludes them, the results collapse
 	 *                                  covers them.
 	 *
@@ -420,7 +420,7 @@ class All_Occurrences_Provider extends Service_Provider {
 			return false;
 		}
 
-		if ( $check_surfaces && ( $query->is_feed() || $query->is_embed() || $query->is_404() ) ) {
+		if ( $check_surfaces && ( $query->is_feed() || $query->is_embed() || $query->is_404() || $query->is_preview() ) ) {
 			return false;
 		}
 

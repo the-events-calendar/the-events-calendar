@@ -129,7 +129,7 @@ class Controller extends Controller_Contract {
 		 * @param bool $active Whether the feature is active or not; defaults to the
 		 *                     value of the `tec_events_recurrence_active` option.
 		 */
-		return (bool) apply_filters( 'tec_events_recurrence_enabled', $active );
+		return tribe_is_truthy( apply_filters( 'tec_events_recurrence_enabled', $active ) );
 	}
 
 	/**
@@ -160,6 +160,44 @@ class Controller extends Controller_Contract {
 		}
 
 		return version_compare( \Tribe__Events__Pro__Main::VERSION, self::MINIMUM_PRO_VERSION, '<' );
+	}
+
+	/**
+	 * Removes the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unregister(): void {
+		$this->container->setVar( 'tec_events_recurrence_fully_activated', false );
+
+		if ( $this->container->isBound( Engine_Provider::class ) ) {
+			$this->container->make( Engine_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( Frontend_Provider::class ) ) {
+			$this->container->make( Frontend_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( Views_Provider::class ) ) {
+			$this->container->make( Views_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( All_Occurrences_Provider::class ) ) {
+			$this->container->make( All_Occurrences_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( Admin_Provider::class ) ) {
+			$this->container->make( Admin_Provider::class )->unregister();
+		}
+
+		if ( $this->container->isBound( Blocks_Provider::class ) ) {
+			$this->container->make( Blocks_Provider::class )->unregister();
+		}
+
+		// Let a later `register()` run `do_register()` again: the base contract only ever sets this flag.
+		$this->container->setVar( self::class . '_registered', false );
 	}
 
 	/**
@@ -197,40 +235,5 @@ class Controller extends Controller_Contract {
 		}
 
 		// Further sub-controllers (Settings) register here as they land.
-	}
-
-	/**
-	 * Removes the filters and actions hooks added by the controller.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function unregister(): void {
-		$this->container->setVar( 'tec_events_recurrence_fully_activated', false );
-
-		if ( $this->container->isBound( Engine_Provider::class ) ) {
-			$this->container->make( Engine_Provider::class )->unregister();
-		}
-
-		if ( $this->container->isBound( Frontend_Provider::class ) ) {
-			$this->container->make( Frontend_Provider::class )->unregister();
-		}
-
-		if ( $this->container->isBound( Views_Provider::class ) ) {
-			$this->container->make( Views_Provider::class )->unregister();
-		}
-
-		if ( $this->container->isBound( All_Occurrences_Provider::class ) ) {
-			$this->container->make( All_Occurrences_Provider::class )->unregister();
-		}
-
-		if ( $this->container->isBound( Admin_Provider::class ) ) {
-			$this->container->make( Admin_Provider::class )->unregister();
-		}
-
-		if ( $this->container->isBound( Blocks_Provider::class ) ) {
-			$this->container->make( Blocks_Provider::class )->unregister();
-		}
 	}
 }

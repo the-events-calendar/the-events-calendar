@@ -1,5 +1,6 @@
 significance: patch
 type: fix
 entry: Resolved an issue where an interrupted classic-to-blocks conversion left
-  an event without its datetime block in the Block Editor.
+  an event without its datetime block in the Block Editor; the conversion is
+  retried a limited number of times.
 timestamp: 2026-09-04T18:04:38.979Z

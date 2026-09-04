@@ -127,16 +127,18 @@ class Schema_Builder {
 	 *
 	 * Two plugins can legitimately register a schema for the same table, or field set,
 	 * during a transition window; e.g. when the ownership of a schema is moving from one
-	 * plugin to the other. Only the first registered schema for a given identity is kept:
-	 * the identity is the prefixed table name for table schemas, and the schema version
-	 * option for field schemas.
+	 * plugin to the other. The identity is the prefixed table name for table schemas, and
+	 * the schema version option for field schemas. For table schemas the first registered
+	 * one is kept. For field schemas the one declaring the highest `SCHEMA_VERSION` is kept,
+	 * the first registered one on a tie: two plugins can declare different versions of the
+	 * same fields during the transition, and dropping the newer definition would skip its
+	 * `dbDelta` while its version option is still written by the surviving one.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<Field_Schema_Interface|Table_Schema_Interface> $schemas The registered schemas.
 	 *
-	 * @return array<Field_Schema_Interface|Table_Schema_Interface> The deduped schemas, first
-	 *                                                              registration wins.
+	 * @return array<Field_Schema_Interface|Table_Schema_Interface> The deduped schemas.
 	 */
 	protected function dedupe_schemas( array $schemas ): array {
 		$deduped = [];
@@ -160,16 +162,38 @@ class Schema_Builder {
 				$key = 'unknown:' . gettype( $schema ) . ':' . md5( (string) wp_json_encode( $schema ) );
 			}
 
-			if ( isset( $deduped[ $key ] ) ) {
+			if ( ! isset( $deduped[ $key ] ) ) {
+				$deduped[ $key ] = $schema;
 				continue;
 			}
 
-			$deduped[ $key ] = $schema;
+			if (
+				$schema instanceof Field_Schema_Interface
+				&& version_compare( $this->get_declared_schema_version( $schema ), $this->get_declared_schema_version( $deduped[ $key ] ), '>' )
+			) {
+				// A newer definition of the same fields: it owns the `dbDelta` run.
+				$deduped[ $key ] = $schema;
+			}
 		}
 
 		return array_values( $deduped );
 	}
 
+	/**
+	 * Returns the schema version a field schema declares, `0` when it declares none.
+	 *
+	 * @since TBD
+	 *
+	 * @param Field_Schema_Interface $schema The field schema.
+	 *
+	 * @return string The declared `SCHEMA_VERSION`, or `0`.
+	 */
+	private function get_declared_schema_version( Field_Schema_Interface $schema ): string {
+		// The interface does not declare the constant: implementations might not define it.
+		return defined( get_class( $schema ) . '::SCHEMA_VERSION' )
+			? (string) constant( get_class( $schema ) . '::SCHEMA_VERSION' )
+			: '0';
+	}
 
 	/**
 	 * Trigger actions to drop the custom tables.

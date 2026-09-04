@@ -66,6 +66,13 @@ class Dates_Service {
 					return false;
 				}
 
+				foreach ( [ 'start', 'end' ] as $bound ) {
+					if ( ! $date[ $bound ] instanceof DateTimeImmutable && '' === trim( (string) $date[ $bound ] ) ) {
+						// An empty string passes `isset()` and would resolve to the current time.
+						return false;
+					}
+				}
+
 				$start = $date['start'] instanceof DateTimeImmutable ? $date['start'] : new DateTimeImmutable( (string) $date['start'], $timezone );
 				$end   = $date['end'] instanceof DateTimeImmutable ? $date['end'] : new DateTimeImmutable( (string) $date['end'], $timezone );
 

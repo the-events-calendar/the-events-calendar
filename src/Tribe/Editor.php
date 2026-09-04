@@ -10,6 +10,16 @@ use Tribe__Events__Main as TEC;
 class Tribe__Events__Editor extends Tribe__Editor {
 
 	/**
+	 * How many times the classic-to-blocks content conversion is attempted for a flagged post
+	 * whose content still has no blocks. The attempts are counted in the flag meta value.
+	 *
+	 * @since TBD
+	 *
+	 * @var int
+	 */
+	const MAX_CONVERSION_ATTEMPTS = 3;
+
+	/**
 	 * Hooks actions from the editor into the correct places
 	 *
 	 * @since 4.7
@@ -143,7 +153,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * When initially loading a post in gutenberg flags if came from classic editor
 	 *
 	 * @since 4.7
-	 * @since TBD Retries the blocks content conversion when a previous, flagged attempt never rewrote the content.
+	 * @since TBD Retries the blocks content conversion, up to `MAX_CONVERSION_ATTEMPTS` times, when a previous, flagged attempt never rewrote the content.
 	 *
 	 * @return bool
 	 */
@@ -180,8 +190,20 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		$has_flag_classic_editor = metadata_exists( 'post', $post, $this->key_flag_classic_editor );
 
-		// Flagged, yet the content still has no blocks: a previous conversion was interrupted, retry it.
 		if ( $has_flag_classic_editor ) {
+			/*
+			 * Flagged, yet the content still has no blocks: a previous conversion was interrupted.
+			 * Retry a bounded number of times, counting the attempts in the flag meta itself, so a
+			 * conversion that cannot produce blocks does not rewrite the post on every edit screen load.
+			 */
+			$attempts = max( 1, (int) get_post_meta( $post, $this->key_flag_classic_editor, true ) );
+
+			if ( $attempts >= self::MAX_CONVERSION_ATTEMPTS ) {
+				return false;
+			}
+
+			update_post_meta( $post, $this->key_flag_classic_editor, $attempts + 1 );
+
 			return (bool) $this->update_post_content_to_blocks( $post );
 		}
 
@@ -265,6 +287,21 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 * @param  array   $blocks  Which blocks we are updating with
 		 */
 		$content = apply_filters( 'tribe_blocks_editor_update_classic_content', $content, $post, $blocks );
+
+		if ( ! has_blocks( $content ) ) {
+			// Nothing to gain from writing block-less content back: the post would be converted again on the next load.
+			do_action(
+				'tribe_log',
+				'debug',
+				'Classic to blocks content conversion produced no blocks.',
+				[
+					'method'  => __METHOD__,
+					'post_id' => $post->ID,
+				]
+			);
+
+			return false;
+		}
 
 		$status = wp_update_post( [
 			'ID'           => $post->ID,

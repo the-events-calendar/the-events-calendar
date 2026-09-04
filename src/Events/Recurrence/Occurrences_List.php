@@ -116,9 +116,10 @@ class Occurrences_List {
 		$count_builder = Occurrence::where( 'post_id', '=', $post_id );
 
 		if ( 'upcoming' === $view ) {
-			$now = current_time( 'mysql' );
-			$builder->where( 'end_date', '>=', $now );
-			$count_builder->where( 'end_date', '>=', $now );
+			// The `end_date` column holds the Event's local wall clock: compare in UTC, like the ordering below.
+			$now = current_time( 'mysql', true );
+			$builder->where( 'end_date_utc', '>=', $now );
+			$count_builder->where( 'end_date_utc', '>=', $now );
 		}
 
 		$data['total']       = (int) $count_builder->count();
