@@ -21,6 +21,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provisional\Provider as Provisional_Queries_Provider;
+use TEC\Events\Recurrence\Updates\Single_Occurrence_Update;
 
 /**
  * Class Engine_Provider.
@@ -50,6 +51,12 @@ class Engine_Provider extends Service_Provider {
 		$this->container->make( Provisional_Provider::class )->register();
 		$this->container->singleton( Provisional_Queries_Provider::class );
 		$this->container->make( Provisional_Queries_Provider::class )->register();
+
+		// Saving an Occurrence edit screen moves that Occurrence only.
+		if ( ! $this->container->isBound( Single_Occurrence_Update::class ) ) {
+			$this->container->singleton( Single_Occurrence_Update::class );
+		}
+		$this->container->make( Single_Occurrence_Update::class )->register();
 
 		/*
 		 * By Day Views (e.g. Month) receive provisional post IDs when the engine is
@@ -268,6 +275,10 @@ class Engine_Provider extends Service_Provider {
 
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
 		$this->container->make( Provisional_Provider::class )->unregister();
+
+		if ( $this->container->isBound( Single_Occurrence_Update::class ) ) {
+			$this->container->make( Single_Occurrence_Update::class )->unregister();
+		}
 	}
 
 	/**
