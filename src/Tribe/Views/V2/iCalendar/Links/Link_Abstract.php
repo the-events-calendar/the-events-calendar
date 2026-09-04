@@ -112,10 +112,17 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD Return the value untouched when an earlier callback replaced it with a non-array.
 	 */
 	public function filter_tec_views_v2_subscribe_links( $subscribe_links ) {
 		// Bail early if we're not supposed to show this link.
 		if ( ! $this->is_visible() ) {
+			return $subscribe_links;
+		}
+
+		// An earlier filter may have replaced the list with a non-array; don't append to it.
+		if ( ! is_array( $subscribe_links ) ) {
 			return $subscribe_links;
 		}
 

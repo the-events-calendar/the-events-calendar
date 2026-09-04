@@ -159,6 +159,7 @@ class iCalendar_Handler extends Service_Provider {
 	 *
 	 * @since 5.12.0
 	 * @since 6.17.0 Made $view explicitly nullable.
+	 * @since TBD Normalize the filtered value so a non-array return cannot reach consumers.
 	 *
 	 * @param View|null $view
 	 *
@@ -176,7 +177,10 @@ class iCalendar_Handler extends Service_Provider {
 		 * @param array<string|object> $subscribe_links The array of links.
 		 * @param View|null            $view            The View implementation.
 		 */
-		return apply_filters( 'tec_views_v2_subscribe_links', $subscribe_links, $view );
+		$subscribe_links = apply_filters( 'tec_views_v2_subscribe_links', $subscribe_links, $view );
+
+		// Consumers are documented an array; a snippet hiding the links can return anything.
+		return is_array( $subscribe_links ) ? $subscribe_links : [];
 	}
 
 	/**
