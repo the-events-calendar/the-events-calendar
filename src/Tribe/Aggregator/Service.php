@@ -337,7 +337,7 @@ class Tribe__Events__Aggregator__Service {
 
 			return new WP_Error(
 				'core:aggregator:request-denied',
-				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support to know why.', 'the-events-calendar' )
+				esc_html__( 'Event Aggregator server has blocked your request. Please try your import again later or contact support.', 'the-events-calendar' )
 			);
 		}
 
