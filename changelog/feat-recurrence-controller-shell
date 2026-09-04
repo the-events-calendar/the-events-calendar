@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the Recurrence feature gate, inactive by default and yielding to Events Calendar Pro versions that ship their own occurrence engine.

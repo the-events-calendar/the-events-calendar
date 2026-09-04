@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the dates-only occurrence engine behind the Recurrence feature gate, allowing an event to carry multiple explicit dates; rule-based occurrences are preserved when no rule engine is active.

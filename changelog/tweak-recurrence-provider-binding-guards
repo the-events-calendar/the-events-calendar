@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Prevented the Recurrence providers from re-binding resolved container singletons on repeated registrations.

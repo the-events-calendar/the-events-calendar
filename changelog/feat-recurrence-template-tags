@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the tribe_is_recurring_event() and tribe_get_recurrence_start_dates() template tags to The Events Calendar.

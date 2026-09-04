@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Added the tribe_all_occurrences_link() template tag; the recurring event
+  markers in List, Month and Day views now link to the event's occurrences
+  archive.
+timestamp: 2026-09-04T18:04:38.237Z

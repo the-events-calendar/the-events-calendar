@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the recurring event marker to List, Day and Month views for multi-date events when the Recurrence feature is active.

@@ -1,4 +1,0 @@
-Significance: patch
-Type: feat
-
-The Events Calendar now manages the rset, has_recurrence, sequence and is_rdate columns previously defined by Events Calendar Pro, without triggering a schema update.

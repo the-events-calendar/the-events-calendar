@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Resolved an issue where the dateless URL of a multi-date event rendered the single event template once per occurrence; it now redirects to the next upcoming occurrence, or to the occurrences archive when all dates are past.

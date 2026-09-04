@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolved an issue where an interrupted classic-to-blocks conversion left an event without its datetime block in the Block Editor.

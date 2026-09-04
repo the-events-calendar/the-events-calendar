@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Each occurrence of a multi-date event now links to its own dated URL in List, Month and Day views.

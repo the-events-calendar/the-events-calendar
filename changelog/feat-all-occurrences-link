@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the tribe_all_occurrences_link() template tag; the recurring event markers in List, Month and Day views now link to the event's occurrences archive.

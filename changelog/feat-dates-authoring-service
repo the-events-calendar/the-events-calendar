@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added a service to author the explicit dates of an event, keeping the recurrence meta as the canonical format and regenerating occurrences on change.

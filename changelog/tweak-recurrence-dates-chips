@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-The Event Dates section of a rule-locked event now lists every scheduled date as a chip with a tooltip and an edit button, with past dates collapsed.

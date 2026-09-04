@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Changing the dates of a single occurrence of a multi-date event now moves only that occurrence, in both editors; rule-based events record the move as Events Calendar Pro does.

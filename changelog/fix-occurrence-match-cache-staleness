@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolved an issue where saving a multi-date event twice in the same request could change the IDs and URLs of its occurrences.

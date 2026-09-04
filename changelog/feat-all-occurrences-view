@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the All view listing every occurrence of an event at /event/{slug}/all/ when Events Calendar Pro is not active, with upcoming and past modes and pagination.

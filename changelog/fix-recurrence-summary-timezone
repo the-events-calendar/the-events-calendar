@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Resolved an issue where the Event Dates section and the Scheduled Dates metabox showed shifted times on sites with a non-UTC timezone.

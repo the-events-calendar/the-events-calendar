@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Events recurring on a list of explicit dates now migrate to the new events system without Events Calendar Pro; rule-based recurring events still require it.

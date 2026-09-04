@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Moved the provisional occurrence post ID system from Events Calendar Pro into The Events Calendar, behind the Recurrence feature gate.

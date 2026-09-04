@@ -1,4 +1,0 @@
-Significance: minor
-Type: feat
-
-Added the /event/{slug}/all/ rewrite rules for the archive of all occurrences of an event, matching the URLs Events Calendar Pro registers.
