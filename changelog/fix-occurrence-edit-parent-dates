@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Resolved an issue where saving an occurrence of a multi-date event moved the parent event's own date and dropped its first occurrence.

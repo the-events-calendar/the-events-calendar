@@ -306,10 +306,13 @@ const EventDates = ( props ) => {
 		return (
 			<div className="tribe-editor__event-dates">
 				<p className="tribe-editor__event-dates__notice">
-					{ __( 'This is a single occurrence.', 'the-events-calendar' ) }{ ' ' }
+					{ __(
+						'This is a single occurrence: changing the dates above moves only this date.',
+						'the-events-calendar'
+					) }{ ' ' }
 					{ config.parentEditLink && (
 						<a href={ config.parentEditLink }>
-							{ __( 'Edit the recurring event to change its dates.', 'the-events-calendar' ) }
+							{ __( 'Edit the recurring event to change the other dates.', 'the-events-calendar' ) }
 						</a>
 					) }
 				</p>

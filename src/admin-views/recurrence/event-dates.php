@@ -27,10 +27,10 @@ if ( $is_occurrence ) {
 		<td class="label"><?php esc_html_e( 'Event Dates', 'the-events-calendar' ); ?></td>
 		<td>
 			<p>
-				<?php esc_html_e( 'This is a single occurrence.', 'the-events-calendar' ); ?>
+				<?php esc_html_e( 'This is a single occurrence: changing the dates above moves only this date.', 'the-events-calendar' ); ?>
 				<?php if ( ! empty( $occurrence_edit_link ) ) : ?>
 					<a href="<?php echo esc_url( $occurrence_edit_link ); ?>">
-						<?php esc_html_e( 'Edit the recurring event to change its dates.', 'the-events-calendar' ); ?>
+						<?php esc_html_e( 'Edit the recurring event to change the other dates.', 'the-events-calendar' ); ?>
 					</a>
 				<?php endif; ?>
 			</p>
