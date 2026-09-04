@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.17.3.1
+Stable tag: 6.17.4
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -231,6 +231,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.17.4] 2026-09-03 =
+
+* Fix - Resolved an issue where the Day View direct URL omitted recurring event occurrences because an earlier query on the same repository froze the custom tables date redirection.
+* Fix - Fixed a fatal error when reading an event's venues or organizers on sites running a persistent object cache, caused by a cached lazy collection losing the callback it needs to rebuild itself. Also added the `tec_events_lazy_post_collection_allowed_unserialize_callbacks` filter so third-party code can register its own rebuild callbacks.
+* Language - 0 new strings added, 100 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.17.3.1] 2026-08-26 =
 
