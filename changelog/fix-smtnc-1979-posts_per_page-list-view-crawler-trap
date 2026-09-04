@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Resolved an issue where the List view exposed an internal pagination look-ahead value in generated navigation and canonical URLs, and capped the number of events fetched per page to prevent unbounded queries.

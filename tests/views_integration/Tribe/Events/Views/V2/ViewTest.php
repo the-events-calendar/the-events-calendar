@@ -253,6 +253,43 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '', $page_1_view->prev_url() );
 	}
 
+	/**
+	 * It should not expose the posts_per_page look-ahead value in the View URL.
+	 *
+	 * @test
+	 */
+	public function should_not_expose_posts_per_page_in_the_view_url() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+
+		global $wp;
+		$wp->public_query_vars = array_unique( array_merge( $wp->public_query_vars, [ 'posts_per_page' ] ) );
+
+		$view = View::make( 'test' );
+		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertArrayNotHasKey( 'posts_per_page', $view->get_url_object()->get_query_args() );
+	}
+
+	/**
+	 * It should cap the events per page repository argument.
+	 *
+	 * @test
+	 */
+	public function should_cap_the_events_per_page_repository_argument() {
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+
+		$view = View::make( 'test' );
+		$view->set_context( tribe_context()->alter( [ 'events_per_page' => 3517 ] ) );
+
+		$repository_args = $view->_public_repository_args();
+
+		$this->assertEquals( View::MAX_EVENTS_PER_PAGE + 1, $repository_args['posts_per_page'] );
+	}
+
 	public static function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 	}

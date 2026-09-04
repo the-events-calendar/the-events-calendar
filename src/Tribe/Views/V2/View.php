@@ -48,6 +48,16 @@ class View implements View_Interface {
 	use Json_Ld_Data;
 
 	/**
+	 * The maximum number of events a View will fetch per page.
+	 *
+	 * The `posts_per_page` request variable can drive the number of events per page through the Context,
+	 * so the value is capped to keep unauthenticated requests from forcing unbounded queries.
+	 *
+	 * @since TBD
+	 */
+	const MAX_EVENTS_PER_PAGE = 200;
+
+	/**
 	 * An instance of the DI container.
 	 *
 	 * @var Container
@@ -1275,6 +1285,12 @@ class View implements View_Interface {
 		// By default let's use the locations set in the Context to map the arguments to query args.
 		$query_args = tribe_context()->map_to_read( $args, Context::REQUEST_VAR );
 
+		/*
+		 * `posts_per_page` is an internal repository argument carrying the pagination look-ahead value; it must
+		 * never be reflected into a generated View URL or an unbounded, self-generating crawl space results.
+		 */
+		unset( $query_args['posts_per_page'] );
+
 		global $wp;
 
 		return array_intersect_key( $query_args, array_combine( $wp->public_query_vars, $wp->public_query_vars ) );
@@ -1334,6 +1350,25 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Returns the number of events a View should show per page, bounded to a safe maximum.
+	 *
+	 * The value can be driven by the `posts_per_page` request variable through the Context, so it is
+	 * capped here to keep unauthenticated requests from forcing unbounded repository queries.
+	 *
+	 * @since TBD
+	 *
+	 * @param Context|null $context The context to read the value from, or `null` to use the View Context.
+	 *
+	 * @return int The bounded number of events per page.
+	 */
+	protected function get_events_per_page( ?Context $context = null ) {
+		$context ??= $this->get_context();
+		$per_page = absint( $context->get( 'events_per_page', 12 ) );
+
+		return min( $per_page, static::MAX_EVENTS_PER_PAGE );
+	}
+
+	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
 	 * @since 4.9.3
@@ -1358,7 +1393,7 @@ class View implements View_Interface {
 		 * @since 5.0.0
 		*/
 		$args = [
-			'posts_per_page'       => (int) $context_arr['events_per_page'] + 1,
+			'posts_per_page'       => $this->get_events_per_page( $context ) + 1,
 			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
 				'paged',
 				'page',
@@ -1427,7 +1462,7 @@ class View implements View_Interface {
 			1
 		);
 
-		return ( $current_page - 1 ) * (int) $context->get( 'events_per_page' );
+		return ( $current_page - 1 ) * $this->get_events_per_page();
 	}
 
 	/**
@@ -1592,7 +1627,7 @@ class View implements View_Interface {
 	 * @return mixed                   Weather the array of events has a next page.
 	 */
 	public function has_next_event( array $events, $overwrite_flag = true ) {
-		$has_next_events = count( $events ) > (int) $this->get_context()->get( 'events_per_page', 12 );
+		$has_next_events = count( $events ) > $this->get_events_per_page();
 		if ( (bool) $overwrite_flag ) {
 			$this->set_has_next_event( $has_next_events );
 		}
