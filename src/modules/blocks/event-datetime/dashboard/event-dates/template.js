@@ -253,6 +253,8 @@ const EventDates = ( props ) => {
 	const removeRow = ( index ) => {
 		const nextRows = rows.filter( ( unused, i ) => i !== index );
 		updateRows( nextRows );
+		// The in-progress time text is keyed by row index: it would show up on the wrong row after a removal.
+		setEditing( {} );
 
 		if ( ! nextRows.length ) {
 			stash.current = [];
