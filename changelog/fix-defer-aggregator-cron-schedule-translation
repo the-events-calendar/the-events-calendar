@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Avoid translating the Event Aggregator cron schedule label before `init` to prevent `_doing_it_wrong` notices for early textdomain loading on WordPress 6.8+.
