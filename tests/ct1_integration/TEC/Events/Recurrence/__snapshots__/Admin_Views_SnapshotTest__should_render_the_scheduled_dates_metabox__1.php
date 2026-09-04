@@ -18,9 +18,9 @@
 			<tbody>
 														<tr>
 						<td>
-							November 5, 2026 @ 9:00 am – 10:00 am						</td>
+							January 5, 2050 @ 9:00 am – 10:00 am						</td>
 						<td>
-							<a href="http://wordpress.test/?tribe_events=admin-snapshot-metabox-event&#038;eventDate=2026-11-05" target="_blank" rel="noreferrer noopener">
+							<a href="http://wordpress.test/?tribe_events=admin-snapshot-metabox-event&#038;eventDate=2050-01-05" target="_blank" rel="noreferrer noopener">
 								View							</a>
 						</td>
 					</tr>

@@ -15,8 +15,8 @@ class Blocks_ProviderTest extends WPTestCase {
 			[
 				'title'      => 'Blocks Provider Test Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'America/Sao_Paulo',
 			]
 		)->create();
@@ -39,7 +39,7 @@ class Blocks_ProviderTest extends WPTestCase {
 			Blocks_Provider::META_KEY,
 			wp_json_encode(
 				[
-					[ 'date' => '2026-11-12', 'start' => '09:00:00', 'end' => '10:00:00' ],
+					[ 'date' => '2050-01-12', 'start' => '09:00:00', 'end' => '10:00:00' ],
 					[ 'date' => 'bogus', 'start' => 'xx', 'end' => 'yy' ],
 				]
 			)
@@ -60,7 +60,7 @@ class Blocks_ProviderTest extends WPTestCase {
 	public function should_not_consume_when_the_mirror_meta_is_absent(): void {
 		$post = $this->given_an_event();
 
-		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 		delete_post_meta( $post->ID, Blocks_Provider::META_KEY );
 
 		tribe( Blocks_Provider::class )->consume_blocks_dates( get_post( $post->ID ) );
@@ -77,14 +77,14 @@ class Blocks_ProviderTest extends WPTestCase {
 	public function should_refuse_consuming_into_a_rule_locked_event(): void {
 		$post = $this->given_an_event();
 		Event::find( $post->ID, 'post_id' )->update(
-			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
 		);
 		$rset = (string) Event::find( $post->ID, 'post_id' )->rset;
 
 		update_post_meta(
 			$post->ID,
 			Blocks_Provider::META_KEY,
-			wp_json_encode( [ [ 'date' => '2026-11-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ] )
+			wp_json_encode( [ [ 'date' => '2050-01-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ] )
 		);
 
 		tribe( Blocks_Provider::class )->consume_blocks_dates( get_post( $post->ID ) );
@@ -100,7 +100,7 @@ class Blocks_ProviderTest extends WPTestCase {
 	 */
 	public function should_collapse_the_event_when_the_mirror_is_an_empty_list(): void {
 		$post = $this->given_an_event();
-		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 
 		update_post_meta( $post->ID, Blocks_Provider::META_KEY, '[]' );
 		tribe( Blocks_Provider::class )->consume_blocks_dates( get_post( $post->ID ) );
@@ -116,11 +116,11 @@ class Blocks_ProviderTest extends WPTestCase {
 	public function should_keep_the_mirror_in_sync_with_the_canonical_meta(): void {
 		$post = $this->given_an_event();
 
-		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 
 		$mirror = json_decode( (string) get_post_meta( $post->ID, Blocks_Provider::META_KEY, true ), true );
 		$this->assertEquals(
-			[ [ 'date' => '2026-11-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ],
+			[ [ 'date' => '2050-01-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ],
 			$mirror
 		);
 
@@ -135,7 +135,7 @@ class Blocks_ProviderTest extends WPTestCase {
 	 */
 	public function should_add_the_dates_attribute_and_rehydrate_a_stale_mirror(): void {
 		$post = $this->given_an_event();
-		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 
 		// Stale the mirror, as a Pro-era edit would.
 		update_post_meta( $post->ID, Blocks_Provider::META_KEY, '[{"date":"2020-01-01","start":"09:00:00","end":"10:00:00"}]' );
@@ -152,7 +152,7 @@ class Blocks_ProviderTest extends WPTestCase {
 			$block_data['attributes']['dates']
 		);
 		$mirror = json_decode( (string) get_post_meta( $post->ID, Blocks_Provider::META_KEY, true ), true );
-		$this->assertEquals( [ [ 'date' => '2026-11-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ], $mirror );
+		$this->assertEquals( [ [ 'date' => '2050-01-12', 'start' => '09:00:00', 'end' => '10:00:00' ] ], $mirror );
 	}
 
 	/**
@@ -165,7 +165,7 @@ class Blocks_ProviderTest extends WPTestCase {
 
 		// A rule-based rset with no authored meta: locked for free authoring.
 		Event::find( $post->ID, 'post_id' )->update(
-			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
 		);
 
 		$_GET['post'] = $post->ID;

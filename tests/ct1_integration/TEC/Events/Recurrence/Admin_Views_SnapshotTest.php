@@ -96,6 +96,11 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 
 		// IDs appear as `post=<id>`, `value="<id>"` or path fragments: match whole numbers only.
 		foreach ( $ids as $i => $id ) {
+			if ( $id <= 0 ) {
+				// A `0` Event ID would match every bare zero in the markup (`viewBox`, paddings).
+				continue;
+			}
+
 			$placeholder = 0 === $i ? '{{EVENT_ID}}' : '{{OCCURRENCE_ID_' . $i . '}}';
 			// The boundary classes exclude date and time adjacency: `2050-01-10`, `10:00am`.
 			$html = preg_replace( '/(?<![\w.\-:])' . preg_quote( (string) $id, '/' ) . '(?![\w.\-:])/', $placeholder, $html );

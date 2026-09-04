@@ -32,8 +32,8 @@ class Admin_ProviderTest extends WPTestCase {
 			[
 				'title'      => 'Admin Provider Test Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'America/Sao_Paulo',
 			]
 		)->create();
@@ -47,7 +47,7 @@ class Admin_ProviderTest extends WPTestCase {
 		$post = $this->given_an_event();
 
 		Event::find( $post->ID, 'post_id' )->update(
-			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
 		);
 
 		return $post;
@@ -76,9 +76,9 @@ class Admin_ProviderTest extends WPTestCase {
 
 		$this->post_dates(
 			[
-				[ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ],
+				[ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ],
 				[ 'date' => 'not-a-date', 'start' => '09:00', 'end' => '10:00' ],
-				[ 'date' => '2026-11-19', 'start' => '11:00', 'end' => '10:00' ], // End before start.
+				[ 'date' => '2050-01-19', 'start' => '11:00', 'end' => '10:00' ], // End before start.
 			]
 		);
 
@@ -86,7 +86,7 @@ class Admin_ProviderTest extends WPTestCase {
 
 		$dates = tribe( Dates_Service::class )->get_dates( $post->ID );
 		$this->assertCount( 2, $dates );
-		$this->assertEquals( '2026-11-12 09:00:00', $dates[1]['start'] );
+		$this->assertEquals( '2050-01-12 09:00:00', $dates[1]['start'] );
 		$this->assertTrue( tribe_is_recurring_event( $post->ID ) );
 		// The Links layer calls this as a Model method: the extension must provide it.
 		$this->assertTrue( Event::find( $post->ID, 'post_id' )->has_recurrence() );
@@ -102,16 +102,16 @@ class Admin_ProviderTest extends WPTestCase {
 
 		// One date EARLIER than the event date: the rows must not be positional.
 		$rows = [
-			[ 'date' => '2026-11-01', 'start' => '08:00', 'end' => '09:00' ],
-			[ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ],
+			[ 'date' => '2050-01-01', 'start' => '08:00', 'end' => '09:00' ],
+			[ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ],
 		];
 		$this->post_dates( $rows );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		$html = $this->render_section( $post->ID );
-		$this->assertStringContainsString( 'value="2026-11-01"', $html );
-		$this->assertStringContainsString( 'value="2026-11-12"', $html );
-		$this->assertStringNotContainsString( 'value="2026-11-05"', $html );
+		$this->assertStringContainsString( 'value="2050-01-01"', $html );
+		$this->assertStringContainsString( 'value="2050-01-12"', $html );
+		$this->assertStringNotContainsString( 'value="2050-01-05"', $html );
 
 		// Re-saving the same rows twice must be stable: no date silently eaten.
 		$this->post_dates( $rows );
@@ -135,7 +135,7 @@ class Admin_ProviderTest extends WPTestCase {
 		$this->assertStringContainsString( 'recurrence rules', $html );
 		$this->assertStringNotContainsString( '<input', $html );
 
-		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ] ] );
+		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		$this->assertEquals( $rset, (string) Event::find( $post->ID, 'post_id' )->rset );
@@ -189,7 +189,7 @@ class Admin_ProviderTest extends WPTestCase {
 	 */
 	public function should_show_the_occurrence_notice_on_provisional_edit_screens(): void {
 		$post = $this->given_an_event();
-		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ] ] );
+		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		$occurrence     = Occurrence::where( 'post_id', '=', $post->ID )->first();
@@ -214,16 +214,16 @@ class Admin_ProviderTest extends WPTestCase {
 		$post = $this->given_an_event();
 		Event::find( $post->ID, 'post_id' )->update(
 			[
-				'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\n"
-						. "RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20261112T090000/20261112T100000\n"
-						. 'RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20261105T090000/20261105T100000',
+				'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\n"
+						. "RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20500112T090000/20500112T100000\n"
+						. 'RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20500105T090000/20500105T100000',
 			]
 		);
 
 		$html = $this->render_section( $post->ID );
-		$this->assertStringContainsString( 'value="2026-11-12"', $html );
+		$this->assertStringContainsString( 'value="2050-01-12"', $html );
 
-		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ] ] );
+		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		// Saving repaired the canonical meta from the derived rows.
@@ -241,7 +241,7 @@ class Admin_ProviderTest extends WPTestCase {
 	public function should_collapse_the_event_when_all_rows_are_removed(): void {
 		$post = $this->given_an_event();
 
-		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ] ] );
+		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 		$this->assertCount( 2, tribe( Dates_Service::class )->get_dates( $post->ID ) );
 
@@ -250,7 +250,7 @@ class Admin_ProviderTest extends WPTestCase {
 
 		$dates = tribe( Dates_Service::class )->get_dates( $post->ID );
 		$this->assertCount( 1, $dates );
-		$this->assertEquals( '2026-11-05 09:00:00', $dates[0]['start'] );
+		$this->assertEquals( '2050-01-05 09:00:00', $dates[0]['start'] );
 		$this->assertFalse( tribe_is_recurring_event( $post->ID ) );
 	}
 
@@ -264,7 +264,7 @@ class Admin_ProviderTest extends WPTestCase {
 		$meta = [ 'rules' => [ [ 'type' => 'Weekly' ] ] ];
 		update_post_meta( $post->ID, '_EventRecurrence', $meta );
 
-		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ] ] );
+		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		$this->assertEquals( $meta, get_post_meta( $post->ID, '_EventRecurrence', true ) );
@@ -278,7 +278,7 @@ class Admin_ProviderTest extends WPTestCase {
 	public function should_ignore_a_save_without_the_section_nonce(): void {
 		$post = $this->given_an_event();
 
-		$_POST[ Admin_Provider::FIELD ] = [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00' ] ];
+		$_POST[ Admin_Provider::FIELD ] = [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ] ];
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		$this->assertCount( 1, tribe( Dates_Service::class )->get_dates( $post->ID ) );
@@ -292,14 +292,14 @@ class Admin_ProviderTest extends WPTestCase {
 	public function should_author_an_all_day_date_ignoring_the_row_times(): void {
 		$post = $this->given_an_event();
 
-		$this->post_dates( [ [ 'date' => '2026-11-12', 'start' => '09:00', 'end' => '10:00', 'allday' => 'yes' ] ] );
+		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00', 'allday' => 'yes' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );
 
 		$dates = tribe( Dates_Service::class )->get_dates( $post->ID );
 		$this->assertCount( 2, $dates );
-		$this->assertEquals( '2026-11-12 00:00:00', $dates[1]['start'] );
+		$this->assertEquals( '2050-01-12 00:00:00', $dates[1]['start'] );
 		// The authored meta stores times without seconds: 23:59 either way.
-		$this->assertStringStartsWith( '2026-11-12 23:59', $dates[1]['end'] );
+		$this->assertStringStartsWith( '2050-01-12 23:59', $dates[1]['end'] );
 
 		// The row renders back as an all-day one.
 		$this->assertStringContainsString( 'tec-events-recurrence-dates-row--allday', $this->render_section( $post->ID ) );

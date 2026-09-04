@@ -16,8 +16,8 @@ class Dates_ServiceTest extends WPTestCase {
 			[
 				'title'      => 'Dates Service Test Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'America/Sao_Paulo',
 			]
 		)->create();
@@ -39,8 +39,8 @@ class Dates_ServiceTest extends WPTestCase {
 		$set = $service->set_dates(
 			$post->ID,
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-20 14:00:00', 'end' => '2026-11-20 15:30:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-20 14:00:00', 'end' => '2050-01-20 15:30:00' ],
 			]
 		);
 
@@ -59,7 +59,7 @@ class Dates_ServiceTest extends WPTestCase {
 		$dates = $service->get_dates( $post->ID );
 		$this->assertCount( 3, $dates );
 		$this->assertEquals(
-			[ '2026-11-05 09:00:00', '2026-11-12 09:00:00', '2026-11-20 14:00:00' ],
+			[ '2050-01-05 09:00:00', '2050-01-12 09:00:00', '2050-01-20 14:00:00' ],
 			array_column( $dates, 'start' )
 		);
 		$this->assertTrue( tribe_is_recurring_event( $post->ID ) );
@@ -77,7 +77,7 @@ class Dates_ServiceTest extends WPTestCase {
 		$service->set_dates(
 			$post->ID,
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -86,8 +86,8 @@ class Dates_ServiceTest extends WPTestCase {
 		$set = $service->set_dates(
 			$second->provisional_id,
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-27 09:00:00', 'end' => '2026-11-27 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-27 09:00:00', 'end' => '2050-01-27 10:00:00' ],
 			]
 		);
 
@@ -107,7 +107,7 @@ class Dates_ServiceTest extends WPTestCase {
 		$service->set_dates(
 			$post->ID,
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 		$this->assertCount( 2, $service->get_dates( $post->ID ) );
@@ -120,7 +120,7 @@ class Dates_ServiceTest extends WPTestCase {
 		$dates = $service->get_dates( $post->ID );
 		$this->assertCount( 1, $dates );
 		// The surviving Occurrence must be the Event's own, not a stale extra date row.
-		$this->assertEquals( '2026-11-05 09:00:00', $dates[0]['start'] );
+		$this->assertEquals( '2050-01-05 09:00:00', $dates[0]['start'] );
 		$this->assertFalse( tribe_is_recurring_event( $post->ID ) );
 	}
 
@@ -133,7 +133,7 @@ class Dates_ServiceTest extends WPTestCase {
 		$post    = $this->given_an_event();
 		$service = tribe( Dates_Service::class );
 
-		$this->assertFalse( $service->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00' ] ] ) );
+		$this->assertFalse( $service->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00' ] ] ) );
 		$this->assertFalse( $service->set_dates( $post->ID, [ 'not-an-array' ] ) );
 		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
 		$this->assertCount( 1, $service->get_dates( $post->ID ) );
@@ -174,17 +174,17 @@ class Dates_ServiceTest extends WPTestCase {
 		$service->set_dates(
 			$post->ID,
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
 		$rset_before = (string) Event::find( $post->ID, 'post_id' )->rset;
 
 		// Move the Event (first Occurrence) one hour later, as an editor date save would.
-		update_post_meta( $post->ID, '_EventStartDate', '2026-11-05 10:00:00' );
-		update_post_meta( $post->ID, '_EventEndDate', '2026-11-05 11:00:00' );
-		update_post_meta( $post->ID, '_EventStartDateUTC', '2026-11-05 13:00:00' );
-		update_post_meta( $post->ID, '_EventEndDateUTC', '2026-11-05 14:00:00' );
+		update_post_meta( $post->ID, '_EventStartDate', '2050-01-05 10:00:00' );
+		update_post_meta( $post->ID, '_EventEndDate', '2050-01-05 11:00:00' );
+		update_post_meta( $post->ID, '_EventStartDateUTC', '2050-01-05 13:00:00' );
+		update_post_meta( $post->ID, '_EventEndDateUTC', '2050-01-05 14:00:00' );
 
 		// Run the update pipeline entry the Meta_Watcher would trigger.
 		wp_cache_delete( $post->ID, 'tec_occurrence_matches' );
@@ -195,8 +195,27 @@ class Dates_ServiceTest extends WPTestCase {
 		$rset_after = (string) Event::find( $post->ID, 'post_id' )->rset;
 
 		$this->assertNotEquals( $rset_before, $rset_after );
-		$this->assertStringContainsString( 'DTSTART;TZID=America/Sao_Paulo:20261105T100000', $rset_after );
+		$this->assertStringContainsString( 'DTSTART;TZID=America/Sao_Paulo:20500105T100000', $rset_after );
 		// The additional date is preserved.
-		$this->assertStringContainsString( '20261112T090000', $rset_after );
+		$this->assertStringContainsString( '20500112T090000', $rset_after );
+	}
+
+	/**
+	 * It should refuse an empty date bound instead of authoring an occurrence at the current time
+	 *
+	 * `isset()` passes an empty string, and `new DateTimeImmutable( '' )` is "now".
+	 *
+	 * @test
+	 */
+	public function should_refuse_an_empty_date_bound(): void {
+		$post    = $this->given_an_event();
+		$service = tribe( Dates_Service::class );
+
+		foreach ( [ [ 'start' => '', 'end' => '2050-01-12 10:00:00' ], [ 'start' => '2050-01-12 09:00:00', 'end' => ' ' ] ] as $date ) {
+			$this->assertFalse( $service->set_dates( $post->ID, [ $date ] ) );
+		}
+
+		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
 	}
 }

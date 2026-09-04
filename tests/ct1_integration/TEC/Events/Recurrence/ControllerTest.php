@@ -234,4 +234,32 @@ class ControllerTest extends WPTestCase {
 
 		$this->assertFalse( Controller::provides_occurrences() );
 	}
+
+	/**
+	 * It should register again after an unregister
+	 *
+	 * `unregister()` clears the base contract's registered flag: a later `register()`
+	 * runs `do_register()` again and re-fires the handshake.
+	 *
+	 * @test
+	 */
+	public function should_register_again_after_an_unregister(): void {
+		tribe()->setVar( 'ct1_fully_activated', true );
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
+
+		tribe()->register( Controller::class );
+		$this->assertTrue( Controller::is_registered() );
+		$fired_before = did_action( 'tec_events_recurrence_registered' );
+
+		$this->controller()->unregister();
+		$this->assertFalse( Controller::is_registered() );
+		$this->assertFalse( (bool) tribe()->getVar( 'tec_events_recurrence_fully_activated', false ) );
+
+		tribe()->register( Controller::class );
+		$this->assertTrue( Controller::is_registered() );
+		$this->assertTrue( (bool) tribe()->getVar( 'tec_events_recurrence_fully_activated', false ) );
+		$this->assertGreaterThan( $fired_before, did_action( 'tec_events_recurrence_registered' ) );
+
+		$this->controller()->unregister();
+	}
 }

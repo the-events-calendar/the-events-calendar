@@ -17,8 +17,8 @@ class Authoring_GuardTest extends WPTestCase {
 			[
 				'title'      => 'Authoring Guard Test Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'America/Sao_Paulo',
 			]
 		)->create();
@@ -32,7 +32,7 @@ class Authoring_GuardTest extends WPTestCase {
 		$post = $this->given_an_event();
 
 		Event::find( $post->ID, 'post_id' )->update(
-			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
 		);
 
 		return $post;
@@ -43,9 +43,9 @@ class Authoring_GuardTest extends WPTestCase {
 
 		Event::find( $post->ID, 'post_id' )->update(
 			[
-				'rset' => "DTSTART;TZID=America/Sao_Paulo:20261105T090000\n"
-						. "RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20261112T090000/20261112T100000\n"
-						. 'RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20261105T090000/20261105T100000',
+				'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\n"
+						. "RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20500112T090000/20500112T100000\n"
+						. 'RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20500105T090000/20500105T100000',
 			]
 		);
 
@@ -64,7 +64,7 @@ class Authoring_GuardTest extends WPTestCase {
 		$this->assertFalse( $guard->is_rule_locked( $plain->ID ) );
 
 		$dates = $this->given_an_event();
-		tribe( Dates_Service::class )->set_dates( $dates->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		tribe( Dates_Service::class )->set_dates( $dates->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 		$this->assertFalse( $guard->is_rule_locked( $dates->ID ) );
 
 		$rset_dates = $this->given_a_dates_only_rset_event_without_meta();
@@ -96,7 +96,7 @@ class Authoring_GuardTest extends WPTestCase {
 		$post = $this->given_a_rset_only_rrule_event();
 		$rset = (string) Event::find( $post->ID, 'post_id' )->rset;
 
-		$set = tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		$set = tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 
 		$this->assertFalse( $set );
 		$this->assertEquals( $rset, (string) Event::find( $post->ID, 'post_id' )->rset );
@@ -114,8 +114,8 @@ class Authoring_GuardTest extends WPTestCase {
 			$post->ID,
 			[
 				// An added date EARLIER than the event date: rows must not be positional.
-				[ 'start' => '2026-11-01 08:00:00', 'end' => '2026-11-01 09:00:00' ],
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-01 08:00:00', 'end' => '2050-01-01 09:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -124,7 +124,7 @@ class Authoring_GuardTest extends WPTestCase {
 		$this->assertCount( 2, $periods );
 		$starts = array_map( static fn( array $period ): string => $period['start']->format( 'Y-m-d H:i:s' ), $periods );
 		sort( $starts );
-		$this->assertEquals( [ '2026-11-01 08:00:00', '2026-11-12 09:00:00' ], $starts );
+		$this->assertEquals( [ '2050-01-01 08:00:00', '2050-01-12 09:00:00' ], $starts );
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Authoring_GuardTest extends WPTestCase {
 
 		// The DTSTART period (the Event's own date) is excluded.
 		$this->assertCount( 1, $periods );
-		$this->assertEquals( '2026-11-12 09:00:00', $periods[0]['start']->format( 'Y-m-d H:i:s' ) );
+		$this->assertEquals( '2050-01-12 09:00:00', $periods[0]['start']->format( 'Y-m-d H:i:s' ) );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Authoring_GuardTest extends WPTestCase {
 	 */
 	public function should_detect_provisional_occurrence_ids(): void {
 		$post = $this->given_an_event();
-		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ] ] );
+		tribe( Dates_Service::class )->set_dates( $post->ID, [ [ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ] ] );
 
 		$occurrence = Occurrence::where( 'post_id', '=', $post->ID )->first();
 		$this->assertInstanceOf( Occurrence::class, $occurrence );

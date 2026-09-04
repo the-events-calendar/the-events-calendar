@@ -268,4 +268,42 @@ class Occurrences_ListTest extends WPTestCase {
 			update_option( 'timezone_string', $site_timezone );
 		}
 	}
+
+	/**
+	 * It should filter the upcoming view in UTC regardless of the site and event timezones
+	 *
+	 * The `end_date` column holds the Event's local wall clock: comparing it against the
+	 * site's local clock put boundary occurrences in the wrong bucket, and the total and
+	 * page count with them.
+	 *
+	 * @test
+	 */
+	public function should_filter_the_upcoming_view_in_utc(): void {
+		$site_timezone = get_option( 'timezone_string' );
+		// Site UTC+9, event UTC-3: the two local clocks are twelve hours apart.
+		update_option( 'timezone_string', 'Asia/Tokyo' );
+
+		try {
+			// An occurrence that ended six hours ago in UTC: past, whatever the local clocks say.
+			$past_start = gmdate( 'Y-m-d H:i:00', strtotime( '-7 hours' ) - 3 * HOUR_IN_SECONDS );
+			// An occurrence starting in six hours in UTC: upcoming.
+			$next_start = gmdate( 'Y-m-d H:i:00', strtotime( '+6 hours' ) - 3 * HOUR_IN_SECONDS );
+
+			$post = $this->given_an_event_with_dates(
+				[
+					[ 'start' => $next_start, 'end' => gmdate( 'Y-m-d H:i:00', strtotime( $next_start ) + HOUR_IN_SECONDS ) ],
+				],
+				$past_start
+			);
+
+			$data = tribe( Occurrences_List::class )->get_page_data( $post->ID );
+
+			$this->assertEquals( 'upcoming', $data['view'] );
+			$this->assertEquals( 1, $data['total'], 'Only the occurrence still ahead in UTC is upcoming.' );
+			$this->assertCount( 1, $data['rows'] );
+			$this->assertEquals( $next_start, $data['rows'][0]['start']->format( 'Y-m-d H:i:s' ) );
+		} finally {
+			update_option( 'timezone_string', $site_timezone );
+		}
+	}
 }

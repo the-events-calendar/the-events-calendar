@@ -33,8 +33,8 @@ class Editor_ConversionTest extends WPTestCase {
 			[
 				'title'      => 'Editor Conversion Test Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'America/Sao_Paulo',
 			]
 		)->create();
@@ -88,7 +88,7 @@ class Editor_ConversionTest extends WPTestCase {
 	 */
 	public function should_preserve_a_rule_locked_event_through_the_conversion(): void {
 		$post = $this->given_a_classic_content_event();
-		$rset = "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=10";
+		$rset = "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10";
 
 		Event::find( $post->ID, 'post_id' )->update( [ 'rset' => $rset ] );
 		update_post_meta( $post->ID, tribe( 'editor' )->key_flag_classic_editor, 1 );
@@ -125,5 +125,54 @@ class Editor_ConversionTest extends WPTestCase {
 
 		$this->assertFalse( ( new Editor() )->flag_post_from_classic_editor() );
 		$this->assertEmpty( get_post_meta( $post->ID, tribe( 'editor' )->key_flag_classic_editor ) );
+	}
+
+	/**
+	 * It should not rewrite a flagged post when the conversion produces no blocks
+	 *
+	 * A site filtering the converted content to something block-less would otherwise get
+	 * the post rewritten, and a revision spawned, on every edit screen load.
+	 *
+	 * @test
+	 */
+	public function should_not_rewrite_a_flagged_post_when_the_conversion_produces_no_blocks(): void {
+		$post = $this->given_a_classic_content_event();
+		update_post_meta( $post->ID, tribe( 'editor' )->key_flag_classic_editor, 1 );
+		$modified_before = get_post( $post->ID )->post_modified_gmt;
+
+		add_filter( 'tribe_blocks_editor_update_classic_content', '__return_empty_string' );
+
+		$_GET['post'] = $post->ID;
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		try {
+			$this->assertFalse( ( new Editor() )->flag_post_from_classic_editor() );
+		} finally {
+			remove_filter( 'tribe_blocks_editor_update_classic_content', '__return_empty_string' );
+		}
+
+		$this->assertFalse( has_blocks( $post->ID ) );
+		$this->assertEquals( 'A classic, block-less event description.', get_post( $post->ID )->post_content );
+		$this->assertEquals( $modified_before, get_post( $post->ID )->post_modified_gmt );
+		// The attempt was counted.
+		$this->assertEquals( 2, (int) get_post_meta( $post->ID, tribe( 'editor' )->key_flag_classic_editor, true ) );
+	}
+
+	/**
+	 * It should stop retrying the conversion after the maximum number of attempts
+	 *
+	 * @test
+	 */
+	public function should_stop_retrying_the_conversion_after_the_maximum_attempts(): void {
+		$post = $this->given_a_classic_content_event();
+		update_post_meta( $post->ID, tribe( 'editor' )->key_flag_classic_editor, Editor::MAX_CONVERSION_ATTEMPTS );
+
+		$_GET['post'] = $post->ID;
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$this->assertFalse( ( new Editor() )->flag_post_from_classic_editor() );
+
+		$this->assertFalse( has_blocks( $post->ID ) );
+		$this->assertEquals( Editor::MAX_CONVERSION_ATTEMPTS, (int) get_post_meta( $post->ID, tribe( 'editor' )->key_flag_classic_editor, true ) );
 	}
 }

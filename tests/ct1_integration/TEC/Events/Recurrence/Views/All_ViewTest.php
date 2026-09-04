@@ -22,8 +22,8 @@ class All_ViewTest extends TecViewTestCase {
 	public function should_render_the_occurrences_archive_of_an_event(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 			],
 			[ 'title' => 'All View Render Event' ]
 		);
@@ -39,9 +39,9 @@ class All_ViewTest extends TecViewTestCase {
 				'view'          => 'all',
 				'name'          => 'all-view-render-event',
 				'event_display' => 'all',
-				'today'         => '2026-11-01 09:00:00',
-				'now'           => '2026-11-01 09:00:00',
-				'event_date'    => '2026-11-01',
+				'today'         => '2050-01-01 09:00:00',
+				'now'           => '2050-01-01 09:00:00',
+				'event_date'    => '2050-01-01',
 			]
 		);
 
@@ -56,7 +56,7 @@ class All_ViewTest extends TecViewTestCase {
 		$this->assertEquals( 3, substr_count( $html, 'tribe-events-calendar-list__event-row' ) );
 
 		// Every Occurrence links its own date URL (plain permalinks in this suite).
-		foreach ( [ '2026-11-05', '2026-11-12', '2026-11-19' ] as $date ) {
+		foreach ( [ '2050-01-05', '2050-01-12', '2050-01-19' ] as $date ) {
 			$this->assertStringContainsString( "eventDate={$date}", $html );
 		}
 
@@ -72,7 +72,7 @@ class All_ViewTest extends TecViewTestCase {
 	public function should_build_the_past_url_title_and_breadcrumbs(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			],
 			[ 'title' => 'All View Support Event' ]
 		);

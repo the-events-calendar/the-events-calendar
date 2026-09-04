@@ -25,8 +25,8 @@ class Dates_GeneratorTest extends WPTestCase {
 			[
 				'title'      => 'Dates Generator Test Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'America/Sao_Paulo',
 			]
 		)->create();
@@ -47,8 +47,8 @@ class Dates_GeneratorTest extends WPTestCase {
 	private function apply_dates( int $post_id, array $dates ): void {
 		$tz   = new DateTimeZone( 'America/Sao_Paulo' );
 		$rset = Dates::serialize(
-			new DateTimeImmutable( '2026-11-05 09:00:00', $tz ),
-			new DateTimeImmutable( '2026-11-05 10:00:00', $tz ),
+			new DateTimeImmutable( '2050-01-05 09:00:00', $tz ),
+			new DateTimeImmutable( '2050-01-05 10:00:00', $tz ),
 			$dates
 		);
 
@@ -75,8 +75,8 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_expand_a_dates_only_rset_into_occurrences(): void {
 		$post = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
-				$this->date( '2026-11-20 14:00:00', '2026-11-20 15:30:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
+				$this->date( '2050-01-20 14:00:00', '2050-01-20 15:30:00' ),
 			]
 		);
 
@@ -87,10 +87,10 @@ class Dates_GeneratorTest extends WPTestCase {
 
 		$this->assertCount( 3, $occurrences );
 		$this->assertEquals(
-			[ '2026-11-05 09:00:00', '2026-11-12 09:00:00', '2026-11-20 14:00:00' ],
+			[ '2050-01-05 09:00:00', '2050-01-12 09:00:00', '2050-01-20 14:00:00' ],
 			array_map( static fn( Occurrence $o ) => $o->start_date, $occurrences )
 		);
-		$this->assertEquals( '2026-11-20 15:30:00', end( $occurrences )->end_date );
+		$this->assertEquals( '2050-01-20 15:30:00', end( $occurrences )->end_date );
 
 		foreach ( $occurrences as $occurrence ) {
 			$this->assertTrue( (bool) $occurrence->has_recurrence );
@@ -107,8 +107,8 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_keep_occurrence_ids_stable_and_prune_removed_dates_on_edit(): void {
 		$post = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
-				$this->date( '2026-11-20 14:00:00', '2026-11-20 15:30:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
+				$this->date( '2050-01-20 14:00:00', '2050-01-20 15:30:00' ),
 			]
 		);
 
@@ -121,8 +121,8 @@ class Dates_GeneratorTest extends WPTestCase {
 		$this->apply_dates(
 			$post->ID,
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
-				$this->date( '2026-11-27 09:00:00', '2026-11-27 10:00:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
+				$this->date( '2050-01-27 09:00:00', '2050-01-27 10:00:00' ),
 			]
 		);
 
@@ -132,12 +132,12 @@ class Dates_GeneratorTest extends WPTestCase {
 		}
 
 		$this->assertCount( 3, $after );
-		$this->assertArrayNotHasKey( '2026-11-20 14:00:00', $after );
-		$this->assertArrayHasKey( '2026-11-27 09:00:00', $after );
+		$this->assertArrayNotHasKey( '2050-01-20 14:00:00', $after );
+		$this->assertArrayHasKey( '2050-01-27 09:00:00', $after );
 
 		// Kept dates keep their Occurrence IDs, so provisional IDs and URLs stay stable.
-		$this->assertEquals( $before['2026-11-05 09:00:00'], $after['2026-11-05 09:00:00']->occurrence_id );
-		$this->assertEquals( $before['2026-11-12 09:00:00'], $after['2026-11-12 09:00:00']->occurrence_id );
+		$this->assertEquals( $before['2050-01-05 09:00:00'], $after['2050-01-05 09:00:00']->occurrence_id );
+		$this->assertEquals( $before['2050-01-12 09:00:00'], $after['2050-01-12 09:00:00']->occurrence_id );
 
 		foreach ( $after as $occurrence ) {
 			$this->assertEquals( 2, (int) $occurrence->sequence );
@@ -152,7 +152,7 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_resolve_occurrences_through_provisional_post_ids(): void {
 		$post = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
 			]
 		);
 
@@ -171,7 +171,7 @@ class Dates_GeneratorTest extends WPTestCase {
 		$this->assertEquals( $post->post_title, $provisional_post->post_title );
 		$this->assertInstanceOf( Occurrence::class, $provisional_post->_tec_occurrence );
 		$this->assertEquals(
-			'2026-11-12 09:00:00',
+			'2050-01-12 09:00:00',
 			get_post_meta( $provisional_id, '_EventStartDate', true )
 		);
 	}
@@ -184,7 +184,7 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_freeze_the_occurrences_of_a_rule_based_rset_when_no_rule_engine_is_active(): void {
 		$post = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
 			]
 		);
 
@@ -201,7 +201,7 @@ class Dates_GeneratorTest extends WPTestCase {
 			}
 		);
 
-		$rules_rset = "DTSTART;TZID=America/Sao_Paulo:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=5";
+		$rules_rset = "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=5";
 		Event::find( $post->ID, 'post_id' )->update( [ 'rset' => $rules_rset ] );
 		wp_cache_delete( $post->ID, 'tec_occurrence_matches' );
 		Event::find( $post->ID, 'post_id' )->occurrences()->save_occurrences();
@@ -225,8 +225,8 @@ class Dates_GeneratorTest extends WPTestCase {
 			[
 				'title'      => 'Plain Single Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();
@@ -247,7 +247,7 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_report_multi_date_events_as_recurring(): void {
 		$post = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
 			]
 		);
 
@@ -255,7 +255,7 @@ class Dates_GeneratorTest extends WPTestCase {
 
 		$start_dates = tribe_get_recurrence_start_dates( $post->ID );
 
-		$this->assertEquals( [ '2026-11-05 09:00:00', '2026-11-12 09:00:00' ], $start_dates );
+		$this->assertEquals( [ '2050-01-05 09:00:00', '2050-01-12 09:00:00' ], $start_dates );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_not_freeze_when_an_earlier_generator_claimed_the_event(): void {
 		$post  = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
 			]
 		);
 		$event = Event::find( $post->ID, 'post_id' );
@@ -292,8 +292,8 @@ class Dates_GeneratorTest extends WPTestCase {
 			[
 				'title'      => 'No RSET Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-06 09:00:00',
-				'end_date'   => '2026-11-06 10:00:00',
+				'start_date' => '2050-01-06 09:00:00',
+				'end_date'   => '2050-01-06 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();
@@ -314,12 +314,12 @@ class Dates_GeneratorTest extends WPTestCase {
 	public function should_decline_generating_from_a_rule_based_rset(): void {
 		$post = $this->given_an_event_with_dates(
 			[
-				$this->date( '2026-11-12 09:00:00', '2026-11-12 10:00:00' ),
+				$this->date( '2050-01-12 09:00:00', '2050-01-12 10:00:00' ),
 			]
 		);
 
 		Event::find( $post->ID, 'post_id' )->update(
-			[ 'rset' => "DTSTART;TZID=UTC:20261105T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ]
+			[ 'rset' => "DTSTART;TZID=UTC:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ]
 		);
 		$event = Event::find( $post->ID, 'post_id' );
 

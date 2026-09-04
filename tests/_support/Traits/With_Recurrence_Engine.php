@@ -20,15 +20,32 @@ use WP_Post;
 
 trait With_Recurrence_Engine {
 	/**
+	 * The `ct1_fully_activated` container state before the engine activation, restored after the test.
+	 *
+	 * @var bool
+	 */
+	private $previous_ct1_activation = false;
+
+	/**
 	 * Activates the Recurrence engine, forcing a re-registration of the gated feature.
 	 *
 	 * @before
 	 */
 	public function activate_recurrence_engine(): void {
+		/*
+		 * PHPUnit runs `@before` methods BEFORE `setUp()`, and the test case takes its hooks
+		 * snapshot once per process, inside the first `setUp()`. Were this the first test of the
+		 * run, the snapshot would contain the engine hooks and every later test's teardown would
+		 * restore them: take the snapshot now, while the hooks are clean.
+		 */
+		if ( ! self::$hooks_saved ) {
+			$this->_backup_hooks();
+		}
+
 		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
+		$this->previous_ct1_activation = (bool) tribe()->getVar( 'ct1_fully_activated', false );
 		tribe()->setVar( 'ct1_fully_activated', true );
-		// The test case restores the hooks state after each test: force a re-registration.
-		tribe()->setVar( Controller::class . '_registered', false );
+		// The test case restores the hooks state after each test; `unregister()` cleared the registered flag.
 		tribe( Controller::class )->register();
 		// Reset the Model extensions cache: it may have been locked before the engine registered.
 		Model::reset_extensions();
@@ -43,13 +60,16 @@ trait With_Recurrence_Engine {
 		remove_all_filters( 'tec_events_recurrence_enabled' );
 		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
 		tribe( Controller::class )->unregister();
-		tribe()->setVar( Controller::class . '_registered', false );
+		tribe()->setVar( 'ct1_fully_activated', $this->previous_ct1_activation );
 		Model::reset_extensions();
 	}
 
 	/**
 	 * Creates a published Event with additional explicit dates authored through the
 	 * Dates_Service, i.e. a multi-Occurrence (recurring) Event.
+	 *
+	 * The default dates are pinned far in the future: time-relative output (upcoming filters,
+	 * next/past statuses) must not flip as the calendar advances.
 	 *
 	 * @param array<int,array{start: string, end: string}> $dates      The additional dates; a default
 	 *                                                                 one-week-later date when empty.
@@ -63,8 +83,8 @@ trait With_Recurrence_Engine {
 				[
 					'title'      => 'Multi Date Test Event',
 					'status'     => 'publish',
-					'start_date' => '2026-11-05 09:00:00',
-					'end_date'   => '2026-11-05 10:00:00',
+					'start_date' => '2050-01-05 09:00:00',
+					'end_date'   => '2050-01-05 10:00:00',
 					'timezone'   => 'UTC',
 				],
 				$event_args
@@ -76,8 +96,8 @@ trait With_Recurrence_Engine {
 		if ( ! $dates ) {
 			$dates = [
 				[
-					'start' => '2026-11-12 09:00:00',
-					'end'   => '2026-11-12 10:00:00',
+					'start' => '2050-01-12 09:00:00',
+					'end'   => '2050-01-12 10:00:00',
 				],
 			];
 		}

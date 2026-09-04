@@ -38,8 +38,8 @@ class Views_ProviderTest extends WPTestCase {
 			[
 				'title'      => 'Plain Single',
 				'status'     => 'publish',
-				'start_date' => '2026-11-06 09:00:00',
-				'end_date'   => '2026-11-06 10:00:00',
+				'start_date' => '2050-01-06 09:00:00',
+				'end_date'   => '2050-01-06 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();

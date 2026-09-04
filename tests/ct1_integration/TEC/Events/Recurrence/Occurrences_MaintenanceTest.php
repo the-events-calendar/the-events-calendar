@@ -17,7 +17,7 @@ class Occurrences_MaintenanceTest extends WPTestCase {
 	public function should_match_a_regenerated_occurrence_to_its_existing_row(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -123,8 +123,8 @@ class Occurrences_MaintenanceTest extends WPTestCase {
 			[
 				'title'      => 'Plain Single Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-06 09:00:00',
-				'end_date'   => '2026-11-06 10:00:00',
+				'start_date' => '2050-01-06 09:00:00',
+				'end_date'   => '2050-01-06 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();
@@ -158,12 +158,12 @@ class Occurrences_MaintenanceTest extends WPTestCase {
 	public function should_prune_only_the_stale_rows_of_the_target_event(): void {
 		$post  = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 		$other = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-13 09:00:00', 'end' => '2026-11-13 10:00:00' ],
+				[ 'start' => '2050-01-13 09:00:00', 'end' => '2050-01-13 10:00:00' ],
 			],
 			[ 'title' => 'Other Multi Date Event' ]
 		);
@@ -175,7 +175,7 @@ class Occurrences_MaintenanceTest extends WPTestCase {
 			tribe( Dates_Service::class )->set_dates(
 				$post->ID,
 				[
-					[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+					[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 				]
 			)
 		);
@@ -194,8 +194,8 @@ class Occurrences_MaintenanceTest extends WPTestCase {
 	public function should_keep_a_single_row_when_the_event_collapses_to_one_date(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 			]
 		);
 
@@ -216,8 +216,8 @@ class Occurrences_MaintenanceTest extends WPTestCase {
 			[
 				'title'      => 'Sequenceless Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-06 09:00:00',
-				'end_date'   => '2026-11-06 10:00:00',
+				'start_date' => '2050-01-06 09:00:00',
+				'end_date'   => '2050-01-06 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();

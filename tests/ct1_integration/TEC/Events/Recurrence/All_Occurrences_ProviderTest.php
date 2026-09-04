@@ -97,8 +97,8 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_scope_the_all_view_repository_to_the_event_occurrences(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 			]
 		);
 
@@ -134,7 +134,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_build_the_all_view_url_from_its_query_vars(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -166,7 +166,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_build_the_all_occurrences_link_for_real_and_provisional_ids(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -191,7 +191,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_decorate_events_with_the_all_occurrences_permalink(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -209,8 +209,8 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_redirect_the_dateless_url_to_the_next_upcoming_occurrence(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 			]
 		);
 
@@ -220,7 +220,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 
 		$this->assertNotNull( self::$redirected_to, 'A redirect should have been triggered.' );
 		// The event date is in the future: the first Occurrence is the next upcoming one.
-		$this->assertStringContainsString( 'eventDate=2026-11-05', self::$redirected_to );
+		$this->assertStringContainsString( 'eventDate=2050-01-05', self::$redirected_to );
 	}
 
 	/**
@@ -257,8 +257,8 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 			[
 				'title'      => 'Single Occurrence Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();
@@ -271,14 +271,14 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	}
 
 	/**
-	 * It should not redirect dated, archive, feed or embed requests
+	 * It should not redirect dated, archive, feed, embed or preview requests
 	 *
 	 * @test
 	 */
-	public function should_not_redirect_dated_archive_feed_or_embed_requests(): void {
+	public function should_not_redirect_dated_archive_feed_embed_or_preview_requests(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -286,7 +286,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 
 		// A dated request resolves to a single Occurrence already.
 		$query                          = $this->given_a_dateless_main_query_for( $post );
-		$query->query_vars['eventDate'] = '2026-11-12';
+		$query->query_vars['eventDate'] = '2050-01-12';
 		$provider->redirect_dateless_request();
 		$this->assertNull( self::$redirected_to );
 
@@ -311,6 +311,12 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 		$query->is_embed = true;
 		$provider->redirect_dateless_request();
 		$this->assertNull( self::$redirected_to );
+
+		// Preview Changes on a published multi-date event reuses the pretty permalink: the author must see the draft.
+		$query             = $this->given_a_dateless_main_query_for( $post );
+		$query->is_preview = true;
+		$provider->redirect_dateless_request();
+		$this->assertNull( self::$redirected_to );
 	}
 
 	/**
@@ -321,7 +327,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_allow_filtering_the_redirect_url(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -350,8 +356,8 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_collapse_the_dateless_singular_query_results(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 			]
 		);
 
@@ -385,8 +391,8 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_not_collapse_the_occurrences_archive_query_results(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
-				[ 'start' => '2026-11-19 09:00:00', 'end' => '2026-11-19 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
+				[ 'start' => '2050-01-19 09:00:00', 'end' => '2050-01-19 10:00:00' ],
 			]
 		);
 
@@ -447,7 +453,7 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 	public function should_produce_dated_front_end_permalinks_for_provisional_posts_only(): void {
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
@@ -462,6 +468,6 @@ class All_Occurrences_ProviderTest extends WPTestCase {
 		$provisional_id = tribe( ID_Generator::class )->current() + (int) $occurrence->occurrence_id;
 		tribe( \TEC\Events\Custom_Tables\V1\Models\Provisional_Post::class )->hydrate_caches( [ $provisional_id ] );
 
-		$this->assertStringContainsString( 'eventDate=2026-11-05', get_permalink( $provisional_id ) );
+		$this->assertStringContainsString( 'eventDate=2050-01-05', get_permalink( $provisional_id ) );
 	}
 }

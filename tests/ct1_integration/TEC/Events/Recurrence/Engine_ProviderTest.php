@@ -91,8 +91,8 @@ class Engine_ProviderTest extends WPTestCase {
 		$data = [
 			'rset'       => 'RULE-ENGINE-DERIVED',
 			'timezone'   => 'UTC',
-			'start_date' => '2026-11-05 09:00:00',
-			'end_date'   => '2026-11-05 10:00:00',
+			'start_date' => '2050-01-05 09:00:00',
+			'end_date'   => '2050-01-05 10:00:00',
 		];
 
 		$filtered = tribe( Engine_Provider::class )->derive_dates_rset_from_meta( $data, $post->ID );
@@ -111,8 +111,8 @@ class Engine_ProviderTest extends WPTestCase {
 			[
 				'title'      => 'Rule Meta Event',
 				'status'     => 'publish',
-				'start_date' => '2026-11-05 09:00:00',
-				'end_date'   => '2026-11-05 10:00:00',
+				'start_date' => '2050-01-05 09:00:00',
+				'end_date'   => '2050-01-05 10:00:00',
 				'timezone'   => 'UTC',
 			]
 		)->create();
@@ -132,8 +132,8 @@ class Engine_ProviderTest extends WPTestCase {
 
 		$data = [
 			'timezone'   => 'UTC',
-			'start_date' => '2026-11-05 09:00:00',
-			'end_date'   => '2026-11-05 10:00:00',
+			'start_date' => '2050-01-05 09:00:00',
+			'end_date'   => '2050-01-05 10:00:00',
 		];
 
 		$filtered = tribe( Engine_Provider::class )->derive_dates_rset_from_meta( $data, $post->ID );
@@ -151,8 +151,8 @@ class Engine_ProviderTest extends WPTestCase {
 
 		$data = [
 			'timezone'   => 'UTC',
-			'start_date' => '2026-11-05 09:00:00',
-			'end_date'   => '2026-11-05 10:00:00',
+			'start_date' => '2050-01-05 09:00:00',
+			'end_date'   => '2050-01-05 10:00:00',
 		];
 
 		$filtered = tribe( Engine_Provider::class )->derive_dates_rset_from_meta( $data, $post->ID );

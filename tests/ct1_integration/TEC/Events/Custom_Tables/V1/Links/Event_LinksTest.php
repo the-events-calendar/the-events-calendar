@@ -33,7 +33,7 @@ class Event_LinksTest extends WPTestCase {
 		// Two Occurrences on the same day: the date URL alone cannot address them.
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-05 14:00:00', 'end' => '2026-11-05 15:00:00' ],
+				[ 'start' => '2050-01-05 14:00:00', 'end' => '2050-01-05 15:00:00' ],
 			]
 		);
 
@@ -67,7 +67,7 @@ class Event_LinksTest extends WPTestCase {
 		// One Occurrence per day: the date URL is enough, no sequence needed.
 		$post = $this->given_a_multi_date_event(
 			[
-				[ 'start' => '2026-11-12 09:00:00', 'end' => '2026-11-12 10:00:00' ],
+				[ 'start' => '2050-01-12 09:00:00', 'end' => '2050-01-12 10:00:00' ],
 			]
 		);
 
