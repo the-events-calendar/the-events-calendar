@@ -179,6 +179,32 @@ class Freeze_GuardTest extends WPTestCase {
 	}
 
 	/**
+	 * It should record refusals handed over through a provisional id
+	 *
+	 * The single Occurrence update hands the guard the moves it refuses on a rule-based
+	 * Event; they land on the Event and fire the action like the guard's own refusals.
+	 *
+	 * @test
+	 */
+	public function should_record_refusals_handed_over_through_a_provisional_id(): void {
+		$post           = $this->given_a_rule_locked_event();
+		$occurrence     = Occurrence::where( 'post_id', '=', $post->ID )->order_by( 'start_date', 'DESC' )->first();
+		$provisional_id = tribe( ID_Generator::class )->provide_id( $occurrence->occurrence_id );
+		$guard          = tribe( Freeze_Guard::class );
+
+		$guard->record_refusal( $provisional_id, '_EventStartDate' );
+
+		$this->assertEquals( [ '_EventStartDate' ], $guard->get_refused( $post->ID ) );
+		$this->assertEquals( [ '_EventStartDate' ], $guard->get_refused( $provisional_id ) );
+		$this->assertEquals( [ [ $post->ID, '_EventStartDate' ] ], self::$refusals );
+
+		// The classic save notice follows, as for the guard's own refusals.
+		do_action( 'tribe_events_update_meta', $provisional_id, [], get_post( $post->ID ) );
+		$notice = get_transient( Admin_Notice::TRANSIENT . get_current_user_id() );
+		$this->assertEquals( 'warning', $notice['type'] );
+	}
+
+	/**
 	 * It should let writes through on dates only and single events
 	 *
 	 * @test

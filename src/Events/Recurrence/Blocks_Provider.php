@@ -202,8 +202,10 @@ class Blocks_Provider extends Service_Provider {
 		$guard   = $this->container->make( Authoring_Guard::class );
 
 		$is_occurrence = $post_id > 0 && $guard->is_occurrence_edit( $post_id );
-		$is_locked     = ! $is_occurrence && $post_id > 0 && $guard->is_rule_locked( $post_id );
-		$summary       = [
+		// An Occurrence of a rule-based Event is as locked as the Event: the lock is about the Event.
+		$is_locked = $post_id > 0 && $guard->is_rule_locked( $post_id );
+		$event_id  = $post_id > 0 ? Occurrence::normalize_id( $post_id ) : 0;
+		$summary   = [
 			'count' => 0,
 			'dates' => [],
 		];
@@ -211,7 +213,7 @@ class Blocks_Provider extends Service_Provider {
 		if ( $is_locked ) {
 			$list = $this->container->make( Occurrences_List::class );
 
-			foreach ( $list->get_scheduled_dates( $post_id ) as $row ) {
+			foreach ( $list->get_scheduled_dates( $event_id ) as $row ) {
 				$chip = $list->format_chip( $row );
 				// The editor config uses camelCase keys.
 				$chip['editLink'] = $chip['edit_link'];
@@ -231,7 +233,7 @@ class Blocks_Provider extends Service_Provider {
 			$settings     = $this->container->make( Settings::class );
 			$lock_enabled = $settings->is_lock_enabled();
 			$settings_url = $settings->get_settings_url();
-			$can_convert  = $settings->can_convert( $post_id ) && current_user_can( 'edit_post', $post_id );
+			$can_convert  = $settings->can_convert( $event_id ) && current_user_can( 'edit_post', $event_id );
 		}
 
 		$editor_config['events']['recurrenceDates'] = [
@@ -239,7 +241,7 @@ class Blocks_Provider extends Service_Provider {
 			'locked'         => $is_locked,
 			'isOccurrence'   => $is_occurrence,
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
-			'parentEditLink' => $is_occurrence ? admin_url( 'post.php?post=' . Occurrence::normalize_id( $post_id ) . '&action=edit' ) : '',
+			'parentEditLink' => $is_occurrence ? admin_url( 'post.php?post=' . $event_id . '&action=edit' ) : '',
 			'summary'        => $summary,
 			'lockEnabled'    => $lock_enabled,
 			'settingsUrl'    => $settings_url,
@@ -247,9 +249,10 @@ class Blocks_Provider extends Service_Provider {
 			'convertUrl'     => Rules_Conversion_Request::get_action_url(),
 			'convertAction'  => Rules_Conversion_Request::ACTION,
 			'ackField'       => Rules_Conversion_Request::ACK_FIELD,
-			// The nonce is minted for a convertible Event only.
-			'convertNonce'   => $can_convert ? wp_create_nonce( Rules_Conversion_Request::NONCE_ACTION . $post_id ) : '',
-			'postId'         => $post_id,
+			// The nonce is minted for a convertible Event only, and for the Event: the request normalizes an Occurrence ID.
+			'convertNonce'   => $can_convert ? wp_create_nonce( Rules_Conversion_Request::NONCE_ACTION . $event_id ) : '',
+			// The real Event post ID, an Occurrence one normalized: the conversion form posts it.
+			'postId'         => $event_id,
 			// The Block Editor screen renders no admin notices: the pending one travels with the config.
 			'notice'         => $this->pull_notice(),
 		];

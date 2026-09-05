@@ -1,6 +1,6 @@
 significance: minor
 type: feature
 entry: Changed single-occurrence edits of a multi-date event to move only that
-  occurrence, in both editors; rule-based events record the move as Events
-  Calendar Pro does.
+  occurrence, in both editors; occurrences of events with Events Calendar Pro
+  recurrence rules stay locked while Events Calendar Pro is not active.
 timestamp: 2026-09-04T18:04:38.945Z

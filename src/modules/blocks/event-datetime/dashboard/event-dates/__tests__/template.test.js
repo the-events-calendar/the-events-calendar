@@ -121,6 +121,50 @@ describe( 'Event Dates panel', () => {
 		expect( hidden( 'tec_events_recurrence_convert_ack' )[ 0 ].props.value ).toBe( '1' );
 	} );
 
+	test( 'renders the locked occurrence notice with the parent link when the lock is enabled', () => {
+		setConfig( {
+			...convertibleConfig,
+			isOccurrence: true,
+			parentEditLink: 'https://example.test/wp-admin/post.php?post=42&action=edit',
+			lockEnabled: true,
+			canConvert: false,
+			convertNonce: '',
+		} );
+
+		const tree = render();
+		const json = JSON.stringify( tree.toJSON() );
+
+		expect( json ).toContain( 'Notice--info' );
+		expect( json ).toContain( 'This is one date of an event' );
+		expect( json ).toContain( 'Edit the recurring event.' );
+		expect( json ).toContain( 'turn off the recurrence lock' );
+		expect( json ).not.toContain( 'January 5, 2050' );
+		expect( json ).not.toContain( 'single occurrence' );
+		expect( tree.root.findAllByType( 'form' ) ).toHaveLength( 0 );
+		expect( tree.toJSON() ).toMatchSnapshot();
+	} );
+
+	test( 'renders the conversion form on a locked occurrence when the lock is disabled', () => {
+		setConfig( {
+			...convertibleConfig,
+			isOccurrence: true,
+			parentEditLink: 'https://example.test/wp-admin/post.php?post=42&action=edit',
+		} );
+
+		const tree = render();
+		const json = JSON.stringify( tree.toJSON() );
+
+		expect( json ).toContain( 'Notice--warning' );
+		expect( json ).toContain( 'until the event is converted' );
+		expect( json ).toContain( 'Converting sends you to the recurring event.' );
+		expect( json ).not.toContain( 'January 5, 2050' );
+
+		const form = tree.root.findByType( 'form' );
+		const hidden = ( name ) => form.findAll( ( node ) => 'input' === node.type && node.props.name === name );
+		expect( hidden( 'post_id' )[ 0 ].props.value ).toBe( 42 );
+		expect( tree.toJSON() ).toMatchSnapshot();
+	} );
+
 	test( 'hides the conversion form from users who cannot convert', () => {
 		setConfig( { ...convertibleConfig, canConvert: false, convertNonce: '' } );
 

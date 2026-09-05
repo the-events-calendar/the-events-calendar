@@ -122,7 +122,8 @@ class Admin_Provider extends Service_Provider {
 	/**
 	 * Disables the date controls of the Events metabox for a rule-based Event.
 	 *
-	 * The dates of a rule-based Event are frozen server-side; the controls tell so.
+	 * The dates of a rule-based Event, and of each of its Occurrences, are frozen
+	 * server-side; the controls tell so.
 	 *
 	 * @since TBD
 	 *
@@ -145,9 +146,8 @@ class Admin_Provider extends Service_Provider {
 			return $vars;
 		}
 
-		$guard = $this->container->make( Authoring_Guard::class );
-
-		if ( $guard->is_occurrence_edit( $event_id ) || ! $guard->is_rule_locked( $event_id ) ) {
+		// A provisional Occurrence ID answers about its Event.
+		if ( ! $this->container->make( Authoring_Guard::class )->is_rule_locked( $event_id ) ) {
 			return $vars;
 		}
 
@@ -203,7 +203,8 @@ class Admin_Provider extends Service_Provider {
 		$guard    = $this->container->make( Authoring_Guard::class );
 
 		$is_occurrence        = $event_id > 0 && $guard->is_occurrence_edit( $event_id );
-		$is_locked            = ! $is_occurrence && $event_id > 0 && $guard->is_rule_locked( $event_id );
+		$is_locked            = $event_id > 0 && $guard->is_rule_locked( $event_id );
+		$parent_id            = $event_id > 0 ? Occurrence::normalize_id( $event_id ) : 0;
 		$occurrence_edit_link = '';
 		$rows                 = [];
 		$chips                = [
@@ -220,17 +221,20 @@ class Admin_Provider extends Service_Provider {
 
 		if ( $is_occurrence ) {
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
-			$occurrence_edit_link = admin_url( 'post.php?post=' . Occurrence::normalize_id( $event_id ) . '&action=edit' );
-		} elseif ( $is_locked ) {
+			$occurrence_edit_link = admin_url( 'post.php?post=' . $parent_id . '&action=edit' );
+		}
+
+		if ( $is_locked ) {
+			// An Occurrence of a rule-based Event is as locked as the Event: the lock is about the Event.
 			$settings     = $this->container->make( Settings::class );
-			$chips        = $this->get_chips( $event_id );
+			$chips        = $this->get_chips( $parent_id );
 			$lock_enabled = $settings->is_lock_enabled();
 			$settings_url = $settings->get_settings_url();
-			$can_convert  = $settings->can_convert( $event_id ) && current_user_can( 'edit_post', $event_id );
+			$can_convert  = $settings->can_convert( $parent_id ) && current_user_can( 'edit_post', $parent_id );
 
-			// The admin footer renders the form the conversion controls target.
-			$this->convert_form_event_id = $can_convert ? $event_id : 0;
-		} elseif ( $event_id > 0 ) {
+			// The admin footer renders the form the conversion controls target; its nonce is the Event's.
+			$this->convert_form_event_id = $can_convert ? $parent_id : 0;
+		} elseif ( ! $is_occurrence && $event_id > 0 ) {
 			// The same display formats the Start/End pickers above the section use.
 			$date_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 			$time_format = \Tribe__View_Helpers::is_24hr_format() ? 'H:i' : 'g:ia';

@@ -218,6 +218,36 @@ class Freeze_Guard {
 	}
 
 	/**
+	 * Records a refused write to the frozen dates or recurrence data of an Event.
+	 *
+	 * The guard records its own refusals; the single Occurrence update records the
+	 * Occurrence moves it refuses on a rule-based Event, so the user gets the same notice.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $post_id  The Event post ID (a provisional ID is accepted).
+	 * @param string $meta_key The meta key the write targeted.
+	 *
+	 * @return void
+	 */
+	public function record_refusal( int $post_id, string $meta_key ): void {
+		$post_id = Occurrence::normalize_id( $post_id );
+
+		$this->refused[ $post_id ] ??= [];
+		$this->refused[ $post_id ][] = $meta_key;
+
+		/**
+		 * Fires when a write to the frozen dates or recurrence data of a rule-based Event is refused.
+		 *
+		 * @since TBD
+		 *
+		 * @param int    $post_id  The Event post ID.
+		 * @param string $meta_key The meta key.
+		 */
+		do_action( 'tec_events_recurrence_frozen_write_refused', $post_id, $meta_key );
+	}
+
+	/**
 	 * Leaves the user a notice when a Classic Editor save tried to change frozen dates.
 	 *
 	 * @since TBD
@@ -305,18 +335,7 @@ class Freeze_Guard {
 		}
 
 		if ( $this->is_change( $post_id, $meta_key, $meta_value, $is_delete ) ) {
-			$this->refused[ $post_id ] ??= [];
-			$this->refused[ $post_id ][] = $meta_key;
-
-			/**
-			 * Fires when a write to the frozen dates or recurrence data of a rule-based Event is refused.
-			 *
-			 * @since TBD
-			 *
-			 * @param int    $post_id  The Event post ID.
-			 * @param string $meta_key The meta key.
-			 */
-			do_action( 'tec_events_recurrence_frozen_write_refused', $post_id, $meta_key );
+			$this->record_refusal( $post_id, $meta_key );
 		}
 
 		return true;

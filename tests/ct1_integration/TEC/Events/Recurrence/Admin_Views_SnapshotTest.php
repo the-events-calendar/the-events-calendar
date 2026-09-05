@@ -106,7 +106,17 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 		ob_start();
 		tribe( Admin_Provider::class )->render_section( $event_id );
 
-		return $this->normalize_ids( (string) ob_get_clean(), $event_id );
+		return $this->normalize_ids( (string) ob_get_clean(), \TEC\Events\Custom_Tables\V1\Models\Occurrence::normalize_id( $event_id ) );
+	}
+
+	/**
+	 * The provisional post ID of the Event's own (first) Occurrence.
+	 */
+	private function provisional_id_of( WP_Post $post ): int {
+		$occurrence = \TEC\Events\Custom_Tables\V1\Models\Occurrence::where( 'post_id', '=', $post->ID )->order_by( 'start_date', 'ASC' )->first();
+		$this->assertInstanceOf( \TEC\Events\Custom_Tables\V1\Models\Occurrence::class, $occurrence );
+
+		return tribe( \TEC\Events\Custom_Tables\V1\Events\Provisional\ID_Generator::class )->provide_id( (int) $occurrence->occurrence_id );
 	}
 
 	/**
@@ -189,6 +199,50 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 		$this->assertStringContainsString( 'form="tec-events-recurrence-convert"', $html );
 		$this->assertStringNotContainsString( '<form', $html, 'The form must not nest in the post form.' );
 		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * It should render the locked occurrence section when the lock is enabled
+	 *
+	 * @test
+	 */
+	public function should_render_the_locked_occurrence_section_when_the_lock_is_enabled(): void {
+		$post = $this->given_a_pinned_rule_locked_event( 'admin-snapshot-locked-occurrence-event' );
+		tribe_update_option( Settings::LOCK_OPTION, true );
+
+		$html = $this->render_section_html( $this->provisional_id_of( $post ) );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--occurrence', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--lock-enabled', $html );
+		$this->assertStringContainsString( 'post={{EVENT_ID}}&#038;action=edit', $html );
+		$this->assertStringNotContainsString( 'tec-events-recurrence-dates__chips', $html );
+		$this->assertStringNotContainsString( 'Convert to individual dates', $html );
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * It should render the convert section on an occurrence when the lock is disabled
+	 *
+	 * @test
+	 */
+	public function should_render_the_convert_section_on_an_occurrence_when_the_lock_is_disabled(): void {
+		$post = $this->given_a_pinned_rule_locked_event( 'admin-snapshot-convertible-occurrence-event' );
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$html = $this->render_section_html( $this->provisional_id_of( $post ) );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--occurrence', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--convertible', $html );
+		$this->assertStringContainsString( 'form="tec-events-recurrence-convert"', $html );
+		$this->assertStringNotContainsString( '<form', $html, 'The form must not nest in the post form.' );
+		$this->assertMatchesSnapshot( $html );
+
+		// The footer form is the Event's, whichever screen rendered the section.
+		ob_start();
+		tribe( Admin_Provider::class )->render_convert_form();
+		$form = $this->normalize_ids( (string) ob_get_clean(), $post->ID );
+		$this->assertStringContainsString( 'value="{{EVENT_ID}}"', $form );
 	}
 
 	/**

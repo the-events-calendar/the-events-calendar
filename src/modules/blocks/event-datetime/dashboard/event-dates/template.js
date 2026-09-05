@@ -285,6 +285,7 @@ const ConvertToDates = ( { config } ) => {
 					'Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.',
 					'the-events-calendar'
 				) }
+				{ config.isOccurrence && ' ' + __( 'Converting sends you to the recurring event.', 'the-events-calendar' ) }
 			</p>
 			<CheckboxControl
 				label={ __( 'I understand that the recurrence rules will be removed.', 'the-events-calendar' ) }
@@ -307,6 +308,7 @@ const ConvertToDates = ( { config } ) => {
 ConvertToDates.propTypes = {
 	config: PropTypes.shape( {
 		canConvert: PropTypes.bool,
+		isOccurrence: PropTypes.bool,
 		convertUrl: PropTypes.string,
 		convertAction: PropTypes.string,
 		convertNonce: PropTypes.string,
@@ -460,6 +462,61 @@ const EventDates = ( props ) => {
 		);
 	};
 
+	if ( config.locked ) {
+		// An Occurrence of a rule-based Event is as locked as the Event: the lock is about the Event.
+		const lockEnabled = Boolean( config.lockEnabled );
+		const isOccurrence = Boolean( config.isOccurrence );
+		const classes = [ 'tribe-editor__event-dates', 'tribe-editor__event-dates--locked' ];
+
+		if ( isOccurrence ) {
+			classes.push( 'tribe-editor__event-dates--occurrence' );
+		}
+
+		let message;
+
+		if ( isOccurrence ) {
+			message = lockEnabled
+				? __(
+						'This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked.',
+						'the-events-calendar'
+				  )
+				: __(
+						'This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until the event is converted into individual dates.',
+						'the-events-calendar'
+				  );
+		} else {
+			message = lockEnabled
+				? __(
+						'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.',
+						'the-events-calendar'
+				  )
+				: __(
+						'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.',
+						'the-events-calendar'
+				  );
+		}
+
+		return (
+			<div className={ classes.join( ' ' ) }>
+				<Notice
+					status={ lockEnabled ? 'info' : 'warning' }
+					isDismissible={ false }
+					className="tribe-editor__event-dates__lock-notice"
+				>
+					<p>{ message }</p>
+					{ lockEnabled && <LockSettingsLink url={ config.settingsUrl || '' } /> }
+					{ isOccurrence && config.parentEditLink && (
+						<p>
+							<a href={ config.parentEditLink }>{ __( 'Edit the recurring event.', 'the-events-calendar' ) }</a>
+						</p>
+					) }
+				</Notice>
+				{ ! isOccurrence && <LockedDates summary={ config.summary || {} } /> }
+				{ ! lockEnabled && <ConvertToDates config={ config } /> }
+			</div>
+		);
+	}
+
 	if ( config.isOccurrence ) {
 		return (
 			<div className="tribe-editor__event-dates">
@@ -474,35 +531,6 @@ const EventDates = ( props ) => {
 						</a>
 					) }
 				</p>
-			</div>
-		);
-	}
-
-	if ( config.locked ) {
-		const lockEnabled = Boolean( config.lockEnabled );
-
-		return (
-			<div className="tribe-editor__event-dates tribe-editor__event-dates--locked">
-				<Notice
-					status={ lockEnabled ? 'info' : 'warning' }
-					isDismissible={ false }
-					className="tribe-editor__event-dates__lock-notice"
-				>
-					<p>
-						{ lockEnabled
-							? __(
-									'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.',
-									'the-events-calendar'
-							  )
-							: __(
-									'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.',
-									'the-events-calendar'
-							  ) }
-					</p>
-					{ lockEnabled && <LockSettingsLink url={ config.settingsUrl || '' } /> }
-				</Notice>
-				<LockedDates summary={ config.summary || {} } />
-				{ ! lockEnabled && <ConvertToDates config={ config } /> }
 			</div>
 		);
 	}

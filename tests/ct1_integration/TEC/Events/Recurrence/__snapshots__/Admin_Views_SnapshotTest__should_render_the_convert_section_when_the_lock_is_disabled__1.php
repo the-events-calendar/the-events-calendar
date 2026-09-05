@@ -3,8 +3,8 @@
 		<td>
 						<div class="notice notice-warning inline tec-events-recurrence-dates__lock-notice">
 									<p id="tec-events-recurrence-dates-lock-reason">
-						This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.					</p>
-							</div>
+													This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.											</p>
+											</div>
 							<p class="description tec-events-recurrence-dates__count">
 					2 dates are scheduled.				</p>
 									<ul class="tec-events-recurrence-dates__chips" aria-label="Upcoming dates">
@@ -65,7 +65,7 @@
 						<li>removes the event from its Series.</li>
 					</ul>
 					<p class="description">
-						Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.					</p>
+						Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.											</p>
 											<p class="tec-events-recurrence-dates__convert-actions">
 														<input
 								type="checkbox"

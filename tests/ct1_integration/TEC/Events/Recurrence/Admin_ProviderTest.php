@@ -25,6 +25,10 @@ class Admin_ProviderTest extends WPTestCase {
 	 */
 	public function reset_request_state(): void {
 		unset( $_POST[ Admin_Provider::NONCE_ACTION . '_nonce' ], $_POST[ Admin_Provider::FIELD ] );
+		tribe_remove_option( Settings::LOCK_OPTION );
+		// The per-test rollback runs before this: drop the settings cache so the next read reloads the restored DB.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, [] );
+		wp_set_current_user( 0 );
 	}
 
 	private function given_an_event(): WP_Post {
@@ -337,7 +341,7 @@ class Admin_ProviderTest extends WPTestCase {
 
 		$this->assertArrayNotHasKey( 'dates_locked', $vars );
 
-		// An Occurrence edit screen of a locked Event edits that Occurrence: its controls stay live.
+		// An Occurrence of a locked Event follows the Event's frozen rules: its controls lock too.
 		$occurrence     = Occurrence::where( 'post_id', '=', $locked->ID )->first();
 		$provisional_id = tribe( ID_Generator::class )->provide_id( $occurrence->occurrence_id );
 		$_GET['post']   = $provisional_id;
@@ -347,7 +351,89 @@ class Admin_ProviderTest extends WPTestCase {
 			unset( $_GET['post'] );
 		}
 
-		$this->assertArrayNotHasKey( 'dates_locked', $vars );
+		$this->assertTrue( $vars['dates_locked'] );
+		$this->assertEquals( Admin_Provider::LOCK_REASON_ID, $vars['dates_locked_describedby'] );
+	}
+
+	/**
+	 * It should lock the section on an occurrence of a rule locked event
+	 *
+	 * @test
+	 */
+	public function should_lock_the_section_on_an_occurrence_of_a_rule_locked_event(): void {
+		$post           = $this->given_a_rset_only_rrule_event();
+		$occurrence     = Occurrence::where( 'post_id', '=', $post->ID )->first();
+		$provisional_id = tribe( ID_Generator::class )->provide_id( $occurrence->occurrence_id );
+		tribe_update_option( Settings::LOCK_OPTION, true );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$html = $this->render_section( $provisional_id );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--locked', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--occurrence', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--lock-enabled', $html );
+		$this->assertStringContainsString( 'This is one date of an event', $html );
+		$this->assertStringContainsString( 'post.php?post=' . $post->ID . '&#038;action=edit', $html, 'The notice links to the recurring Event.' );
+		$this->assertStringContainsString( 'tab=' . Settings::TAB_SLUG, $html, 'With the lock on, the notice links to the setting.' );
+		$this->assertStringNotContainsString( 'single occurrence', $html, 'Not the dates-only occurrence paragraph.' );
+		$this->assertStringNotContainsString( 'tec-events-recurrence-dates__chips', $html, 'The chips belong to the Event screen.' );
+		$this->assertStringNotContainsString( 'form="', $html );
+		$this->assertStringNotContainsString( 'Convert to individual dates', $html );
+
+		ob_start();
+		tribe( Admin_Provider::class )->render_convert_form();
+		$this->assertSame( '', ob_get_clean(), 'No conversion form with the lock on.' );
+
+		// The metabox date controls lock like the Event's, mirroring the Occurrence's own dates.
+		tribe( \TEC\Events\Custom_Tables\V1\Models\Provisional_Post::class )->hydrate_caches( [ $provisional_id ] );
+		$_GET['post']    = $provisional_id;
+		$GLOBALS['post'] = get_post( $provisional_id );
+		try {
+			ob_start();
+			new \Tribe__Events__Admin__Event_Meta_Box( get_post( $provisional_id ) );
+			$metabox_html = ob_get_clean();
+		} finally {
+			unset( $_GET['post'], $GLOBALS['post'] );
+		}
+
+		$this->assertRegExp( '/id="EventStartDate"[^>]*\sdisabled/s', $metabox_html );
+		$this->assertRegExp( '/id="EventEndDate"[^>]*\sdisabled/s', $metabox_html );
+		$this->assertStringContainsString( 'tribe-datetime-block--locked', $metabox_html );
+		$this->assertStringContainsString( '<input type="hidden" name="EventStartDate" value="2050-01-05"', $metabox_html );
+	}
+
+	/**
+	 * It should offer the conversion on an occurrence of a rule locked event when the lock is off
+	 *
+	 * @test
+	 */
+	public function should_offer_the_conversion_on_an_occurrence_of_a_rule_locked_event_when_the_lock_is_off(): void {
+		$post           = $this->given_a_rset_only_rrule_event();
+		$occurrence     = Occurrence::where( 'post_id', '=', $post->ID )->first();
+		$provisional_id = tribe( ID_Generator::class )->provide_id( $occurrence->occurrence_id );
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$html = $this->render_section( $provisional_id );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--occurrence', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--convertible', $html );
+		$this->assertStringContainsString( 'until the event is converted', $html );
+		$this->assertStringContainsString( 'Converting sends you to the recurring event.', $html );
+		$this->assertStringContainsString( 'name="' . Updates\Rules_Conversion_Request::ACK_FIELD . '"', $html );
+		$this->assertStringContainsString( 'form="' . Updates\Rules_Conversion_Request::FORM_ID . '"', $html );
+		$this->assertStringContainsString( 'Convert to individual dates', $html );
+		$this->assertStringNotContainsString( '<form', $html );
+
+		// The footer form posts, and is nonced for, the real Event: the request normalizes the ID.
+		ob_start();
+		tribe( Admin_Provider::class )->render_convert_form();
+		$form = ob_get_clean();
+
+		$this->assertStringContainsString( 'name="' . Updates\Rules_Conversion_Request::POST_FIELD . '" value="' . $post->ID . '"', $form );
+		$this->assertRegExp( '/name="_wpnonce" value="([^"]+)"/', $form );
+		preg_match( '/name="_wpnonce" value="([^"]+)"/', $form, $matches );
+		$this->assertNotFalse( wp_verify_nonce( $matches[1], Updates\Rules_Conversion_Request::NONCE_ACTION . $post->ID ) );
 	}
 
 	/**

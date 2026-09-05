@@ -11,10 +11,9 @@
  * - on a dates-only Event, the matching authored date is replaced (the Event's own date
  *   when the Occurrence is the first one) and the Occurrences regenerate;
  * - on a rule-based Event whose rules are frozen (Events Calendar Pro data, Pro absent),
- *   the RSET gains an EXDATE for the original date and an RDATE for the new one, the
- *   authored meta gains the matching exclusion and date rule, and the Occurrence row is
- *   moved in place. Events Calendar Pro reads that shape back into the same Occurrences;
- *   Pro itself never writes it (it converts the Occurrence into a single Event instead).
+ *   the move is refused: the Occurrences follow the Pro rules, which only Pro or the
+ *   conversion to individual dates may change. The refusal is recorded with the
+ *   Freeze_Guard, which leaves the user the same warning a refused Event date write does.
  *
  * The Occurrence row is moved BEFORE any regeneration so the start-date based matching
  * recycles the same Occurrence ID: the editor stays on the same provisional post.
@@ -35,7 +34,6 @@ use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
 use TEC\Events\Recurrence\Authoring_Guard;
-use TEC\Events\Recurrence\Date_Rules;
 use TEC\Events\Recurrence\Dates_Service;
 use TEC\Events\Recurrence\Occurrences_List;
 use Tribe__Events__Main as TEC;
@@ -327,6 +325,18 @@ class Single_Occurrence_Update {
 			return true;
 		}
 
+		if ( tribe( Authoring_Guard::class )->is_rule_locked( $post_id ) ) {
+			/*
+			 * The Occurrences of a rule-based Event follow its Events Calendar Pro rules: a
+			 * move has no valid target while the rules are frozen. The `tec_events_recurrence_freeze_meta_write`
+			 * filter is not consulted: it governs raw meta writes, and letting the move through
+			 * would author a dates-only set over the rules.
+			 */
+			tribe( Freeze_Guard::class )->record_refusal( $post_id, '_EventStartDate' );
+
+			return false;
+		}
+
 		$collision = Occurrence::where( 'post_id', '=', $post_id )
 							->where( 'start_date', '=', $new_start->format( $format ) )
 							->where( 'occurrence_id', '!=', (int) $occurrence->occurrence_id )
@@ -339,15 +349,8 @@ class Single_Occurrence_Update {
 		}
 
 		$is_first = (string) $occurrence->start_date === (string) $event->start_date;
-		$guard    = tribe( Authoring_Guard::class );
 
-		if ( $guard->is_rule_locked( $post_id ) ) {
-			$moved = $this->move_rule_based_occurrence( $occurrence, $event, $is_first, $old_start, $new_start, $new_end, $timezone );
-		} else {
-			$moved = $this->move_dates_only_occurrence( $occurrence, $event, $is_first, $new_start, $new_end, $timezone );
-		}
-
-		if ( ! $moved ) {
+		if ( ! $this->move_dates_only_occurrence( $occurrence, $event, $is_first, $new_start, $new_end, $timezone ) ) {
 			return false;
 		}
 
@@ -448,86 +451,6 @@ class Single_Occurrence_Update {
 	}
 
 	/**
-	 * Moves an Occurrence of a rule-based Event whose rules are frozen.
-	 *
-	 * The move is recorded the way Events Calendar Pro reads it: an EXDATE for the
-	 * original date and an RDATE for the new one in the RSET, the matching exclusion and
-	 * date rule in the authored meta. The Occurrence row is moved in place, no
-	 * regeneration runs (the rules cannot be expanded here).
-	 *
-	 * @since TBD
-	 *
-	 * @param Occurrence        $occurrence The Occurrence to move.
-	 * @param Event             $event      The Event.
-	 * @param bool              $is_first   Whether the Occurrence is the Event's own (first) date.
-	 * @param DateTimeImmutable $old_start  The current start.
-	 * @param DateTimeImmutable $new_start  The new start.
-	 * @param DateTimeImmutable $new_end    The new end.
-	 * @param DateTimeZone      $timezone   The Event timezone.
-	 *
-	 * @return bool Whether the Occurrence was moved or not.
-	 */
-	private function move_rule_based_occurrence( Occurrence $occurrence, Event $event, bool $is_first, DateTimeImmutable $old_start, DateTimeImmutable $new_start, DateTimeImmutable $new_end, DateTimeZone $timezone ): bool {
-		if ( $is_first ) {
-			$this->set_notice( 'error', __( 'The first date of a rule-based event follows the event\'s own date: edit the event to move it.', 'the-events-calendar' ) );
-
-			return false;
-		}
-
-		$post_id = (int) $event->post_id;
-		$rset    = Rset_Lines::add_exdate( (string) $event->rset, $old_start );
-		$rset    = Rset_Lines::add_rdate_period( $rset, $new_start, $new_end );
-
-		$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
-
-		if ( is_array( $recurrence_meta ) && ! empty( $recurrence_meta['rules'] ) ) {
-			try {
-				$event_start = new DateTimeImmutable( (string) $event->start_date, $timezone );
-				$event_end   = new DateTimeImmutable( (string) $event->end_date, $timezone );
-			} catch ( Exception $e ) {
-				return false;
-			}
-
-			$date_rule = Date_Rules::to_meta(
-				[
-					[
-						'start' => $new_start,
-						'end'   => $new_end,
-					],
-				],
-				$event_start,
-				$event_end
-			)['rules'][0];
-
-			$recurrence_meta['rules'][]      = $date_rule;
-			$recurrence_meta['exclusions']   = isset( $recurrence_meta['exclusions'] ) && is_array( $recurrence_meta['exclusions'] ) ? $recurrence_meta['exclusions'] : [];
-			$recurrence_meta['exclusions'][] = [
-				'type'           => 'Custom',
-				'custom'         => [
-					'date'      => [ 'date' => $old_start->format( 'Y-m-d' ) ],
-					'same-time' => 'yes',
-					'type'      => 'Date',
-					'interval'  => 1,
-				],
-				'EventStartDate' => $event_start->format( 'Y-m-d H:i:s' ),
-				'EventEndDate'   => $event_end->format( 'Y-m-d H:i:s' ),
-			];
-
-			// The recurrence meta of a rule-based Event is frozen: this exclusion is the one write allowed.
-			tribe( Freeze_Guard::class )->allow(
-				static function () use ( $post_id, $recurrence_meta ): void {
-					update_post_meta( $post_id, '_EventRecurrence', $recurrence_meta );
-				}
-			);
-		}
-
-		$this->move_row( $occurrence, $new_start, $new_end, true );
-		$event->update( [ 'rset' => $rset ] );
-
-		return true;
-	}
-
-	/**
 	 * Moves an Occurrence row in place, keeping its ID.
 	 *
 	 * @since TBD
@@ -535,11 +458,10 @@ class Single_Occurrence_Update {
 	 * @param Occurrence        $occurrence The Occurrence to move.
 	 * @param DateTimeImmutable $start      The new start, in the Event timezone.
 	 * @param DateTimeImmutable $end        The new end, in the Event timezone.
-	 * @param bool|null         $is_rdate   Whether to flag the row as an explicit date, `null` to leave the flag as is.
 	 *
 	 * @return void
 	 */
-	private function move_row( Occurrence $occurrence, DateTimeImmutable $start, DateTimeImmutable $end, ?bool $is_rdate = null ): void {
+	private function move_row( Occurrence $occurrence, DateTimeImmutable $start, DateTimeImmutable $end ): void {
 		$utc    = new DateTimeZone( 'UTC' );
 		$format = 'Y-m-d H:i:s';
 
@@ -549,20 +471,16 @@ class Single_Occurrence_Update {
 		$occurrence->end_date_utc   = $end->setTimezone( $utc )->format( $format );
 		$occurrence->duration       = (int) $end->format( 'U' ) - (int) $start->format( 'U' );
 
-		$data = [
-			'start_date'     => $occurrence->start_date,
-			'end_date'       => $occurrence->end_date,
-			'start_date_utc' => $occurrence->start_date_utc,
-			'end_date_utc'   => $occurrence->end_date_utc,
-			'duration'       => $occurrence->duration,
-			'hash'           => $occurrence->generate_hash(),
-		];
-
-		if ( null !== $is_rdate ) {
-			$data['is_rdate'] = $is_rdate;
-		}
-
-		$occurrence->update( $data );
+		$occurrence->update(
+			[
+				'start_date'     => $occurrence->start_date,
+				'end_date'       => $occurrence->end_date,
+				'start_date_utc' => $occurrence->start_date_utc,
+				'end_date_utc'   => $occurrence->end_date_utc,
+				'duration'       => $occurrence->duration,
+				'hash'           => $occurrence->generate_hash(),
+			]
+		);
 	}
 
 	/**

@@ -16,6 +16,17 @@ class Single_Occurrence_UpdateTest extends WPTestCase {
 	use With_Recurrence_Engine;
 
 	/**
+	 * The refusals captured from the Freeze_Guard action, as `[ post_id, meta_key ]` pairs.
+	 *
+	 * @var array<int,array{0: int, 1: string}>
+	 */
+	public static array $refusals = [];
+
+	public static function capture_refusal( $post_id, $meta_key ): void {
+		self::$refusals[] = [ (int) $post_id, (string) $meta_key ];
+	}
+
+	/**
 	 * @after
 	 */
 	public function clear_notice(): void {
@@ -177,87 +188,104 @@ class Single_Occurrence_UpdateTest extends WPTestCase {
 	}
 
 	/**
-	 * It should record a rule based move as an exdate and an rdate
+	 * It should refuse moving any occurrence of a rule based event
+	 *
+	 * The Occurrences follow the Events Calendar Pro rules: neither the first date nor
+	 * another one moves, even when the freeze filter lets raw meta writes through. The
+	 * refusal is recorded with the Freeze_Guard, which owns the notice.
 	 *
 	 * @test
 	 */
-	public function should_record_a_rule_based_move_as_an_exdate_and_an_rdate(): void {
-		$post       = $this->given_a_frozen_rule_event( true );
-		$occurrence = $this->occurrence_on( $post->ID, '2050-01-10 09:00:00' );
-		$id         = (int) $occurrence->occurrence_id;
+	public function should_refuse_moving_any_occurrence_of_a_rule_based_event(): void {
+		$post   = $this->given_a_frozen_rule_event( true );
+		$rset   = Event::find( $post->ID, 'post_id' )->rset;
+		$meta   = get_post_meta( $post->ID, '_EventRecurrence', true );
+		$starts = $this->starts_of( $post->ID );
 
-		$moved = tribe( Single_Occurrence_Update::class )->apply(
-			$this->provisional_id( $occurrence ),
-			new DateTimeImmutable( '2050-01-11 09:00:00', $this->tz() ),
-			new DateTimeImmutable( '2050-01-11 10:00:00', $this->tz() )
-		);
+		self::$refusals = [];
+		add_action( 'tec_events_recurrence_frozen_write_refused', [ self::class, 'capture_refusal' ], 10, 2 );
+		add_filter( 'tec_events_recurrence_freeze_meta_write', '__return_false' );
 
-		$this->assertTrue( $moved );
-		$this->assertEquals(
-			"DTSTART;TZID=America/Sao_Paulo:20500103T090000\n"
-			. "DTEND;TZID=America/Sao_Paulo:20500103T100000\n"
-			. "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO\n"
-			. "RDATE;TZID=America/Sao_Paulo;VALUE=PERIOD:20500111T090000/20500111T100000\n"
-			. 'EXDATE:20500110T090000',
-			Event::find( $post->ID, 'post_id' )->rset
-		);
-		// The row moved in place, flagged as an explicit date, the set count unchanged.
-		$row = Occurrence::find( $id, 'occurrence_id' );
-		$this->assertEquals( '2050-01-11 09:00:00', $row->start_date );
-		$this->assertTrue( (bool) $row->is_rdate );
-		$this->assertEquals( [ '2050-01-03 09:00:00', '2050-01-11 09:00:00', '2050-01-17 09:00:00' ], $this->starts_of( $post->ID ) );
-		// The authored meta carries the exclusion and the date rule Pro reads back.
-		$meta = get_post_meta( $post->ID, '_EventRecurrence', true );
-		$this->assertCount( 2, $meta['rules'] );
-		$this->assertEquals( 'Date', $meta['rules'][1]['custom']['type'] );
-		$this->assertEquals( '2050-01-11', $meta['rules'][1]['custom']['date']['date'] );
-		$this->assertCount( 1, $meta['exclusions'] );
-		$this->assertEquals( '2050-01-10', $meta['exclusions'][0]['custom']['date']['date'] );
-		$this->assertEquals( 'Date', $meta['exclusions'][0]['custom']['type'] );
-		// The parent's own date did not move.
-		$this->assertEquals( '2050-01-03 09:00:00', get_post_meta( $post->ID, '_EventStartDate', true ) );
-	}
+		try {
+			foreach ( [ '2050-01-03 09:00:00', '2050-01-10 09:00:00' ] as $start ) {
+				$occurrence = $this->occurrence_on( $post->ID, $start );
+				$before     = [ $occurrence->start_date, $occurrence->end_date, (bool) $occurrence->is_rdate ];
 
-	/**
-	 * It should only touch the rset of a rule based event without authored meta
-	 *
-	 * @test
-	 */
-	public function should_only_touch_the_rset_of_a_rule_based_event_without_authored_meta(): void {
-		$post       = $this->given_a_frozen_rule_event( false );
-		$occurrence = $this->occurrence_on( $post->ID, '2050-01-17 09:00:00' );
+				$moved = tribe( Single_Occurrence_Update::class )->apply(
+					$this->provisional_id( $occurrence ),
+					new DateTimeImmutable( '2050-01-11 09:00:00', $this->tz() ),
+					new DateTimeImmutable( '2050-01-11 10:00:00', $this->tz() )
+				);
 
-		$moved = tribe( Single_Occurrence_Update::class )->apply(
-			$this->provisional_id( $occurrence ),
-			new DateTimeImmutable( '2050-01-18 09:00:00', $this->tz() ),
-			new DateTimeImmutable( '2050-01-18 10:00:00', $this->tz() )
-		);
+				$this->assertFalse( $moved, "The occurrence on {$start} must not move." );
+				$row = Occurrence::find( (int) $occurrence->occurrence_id, 'occurrence_id' );
+				$this->assertEquals( $before, [ $row->start_date, $row->end_date, (bool) $row->is_rdate ] );
+			}
+		} finally {
+			remove_action( 'tec_events_recurrence_frozen_write_refused', [ self::class, 'capture_refusal' ], 10 );
+			remove_filter( 'tec_events_recurrence_freeze_meta_write', '__return_false' );
+		}
 
-		$this->assertTrue( $moved );
-		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
-		$this->assertStringContainsString( "\nEXDATE:20500117T090000", Event::find( $post->ID, 'post_id' )->rset );
-		$this->assertEquals( '2050-01-18 09:00:00', $this->occurrence_on( $post->ID, '2050-01-18 09:00:00' )->start_date );
-	}
-
-	/**
-	 * It should refuse moving the first date of a rule based event
-	 *
-	 * @test
-	 */
-	public function should_refuse_moving_the_first_date_of_a_rule_based_event(): void {
-		$post       = $this->given_a_frozen_rule_event( true );
-		$occurrence = $this->occurrence_on( $post->ID, '2050-01-03 09:00:00' );
-		$rset       = Event::find( $post->ID, 'post_id' )->rset;
-
-		$moved = tribe( Single_Occurrence_Update::class )->apply(
-			$this->provisional_id( $occurrence ),
-			new DateTimeImmutable( '2050-01-04 09:00:00', $this->tz() ),
-			new DateTimeImmutable( '2050-01-04 10:00:00', $this->tz() )
-		);
-
-		$this->assertFalse( $moved );
 		$this->assertEquals( $rset, Event::find( $post->ID, 'post_id' )->rset );
+		$this->assertEquals( $meta, get_post_meta( $post->ID, '_EventRecurrence', true ) );
+		$this->assertEquals( $starts, $this->starts_of( $post->ID ) );
 		$this->assertEquals( '2050-01-03 09:00:00', get_post_meta( $post->ID, '_EventStartDate', true ) );
+		$this->assertEquals( [ [ $post->ID, '_EventStartDate' ], [ $post->ID, '_EventStartDate' ] ], self::$refusals );
+		// No notice of its own: the Freeze_Guard leaves the warning when the save completes.
+		$this->assertFalse( get_transient( Single_Occurrence_Update::NOTICE_TRANSIENT . get_current_user_id() ) );
+	}
+
+	/**
+	 * It should leave the frozen warning after a classic editor save of a rule based occurrence
+	 *
+	 * @test
+	 */
+	public function should_leave_the_frozen_warning_after_a_classic_editor_save_of_a_rule_based_occurrence(): void {
+		$post           = $this->given_a_frozen_rule_event( true );
+		$rset           = Event::find( $post->ID, 'post_id' )->rset;
+		$occurrence     = $this->occurrence_on( $post->ID, '2050-01-17 09:00:00' );
+		$id             = (int) $occurrence->occurrence_id;
+		$provisional_id = $this->provisional_id( $occurrence );
+		tribe( \TEC\Events\Custom_Tables\V1\Models\Provisional_Post::class )->hydrate_caches( [ $provisional_id ] );
+
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		// Re-posting the occurrence's own dates, as an untouched save does: nothing to refuse, no notice.
+		\Tribe__Events__API::saveEventMeta(
+			$provisional_id,
+			[
+				'EventStartDate' => '2050-01-17',
+				'EventStartTime' => '09:00:00',
+				'EventEndDate'   => '2050-01-17',
+				'EventEndTime'   => '10:00:00',
+				'EventTimezone'  => 'America/Sao_Paulo',
+			],
+			get_post( $provisional_id )
+		);
+
+		$this->assertFalse( get_transient( Admin_Notice::TRANSIENT . get_current_user_id() ) );
+
+		\Tribe__Events__API::saveEventMeta(
+			$provisional_id,
+			[
+				'EventStartDate' => '2050-01-20',
+				'EventStartTime' => '11:00:00',
+				'EventEndDate'   => '2050-01-20',
+				'EventEndTime'   => '12:00:00',
+				'EventTimezone'  => 'America/Sao_Paulo',
+			],
+			get_post( $provisional_id )
+		);
+
+		// Nothing moved: not the occurrence, not the parent, not the rules.
+		$this->assertEquals( '2050-01-17 09:00:00', Occurrence::find( $id, 'occurrence_id' )->start_date );
+		$this->assertEquals( '2050-01-03 09:00:00', get_post_meta( $post->ID, '_EventStartDate', true ) );
+		$this->assertEquals( $rset, Event::find( $post->ID, 'post_id' )->rset );
+		$this->assertEquals( [ '2050-01-03 09:00:00', '2050-01-10 09:00:00', '2050-01-17 09:00:00' ], $this->starts_of( $post->ID ) );
+		// The user gets the Freeze_Guard warning, the one a refused Event date write leaves.
+		$notice = get_transient( Admin_Notice::TRANSIENT . get_current_user_id() );
+		$this->assertEquals( 'warning', $notice['type'] );
+		$this->assertStringContainsString( 'were left unchanged', $notice['message'] );
 	}
 
 	/**

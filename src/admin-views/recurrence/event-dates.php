@@ -9,7 +9,7 @@
  *
  * @var int                                                  $event_id             The Event post ID; `0` when creating a new Event.
  * @var array<int,array{date: string, start: string, end: string}> $rows           The authored additional dates.
- * @var bool                                                 $is_locked            Whether the Event recurrence is rule-based (Events Calendar Pro data).
+ * @var bool                                                 $is_locked            Whether the Event recurrence is rule-based (Events Calendar Pro data); an Occurrence of such an Event is locked too.
  * @var bool                                                 $is_occurrence        Whether a single Occurrence is being edited.
  * @var string                                               $occurrence_edit_link The edit link of the recurring Event the Occurrence belongs to.
  * @var array{
@@ -27,7 +27,7 @@
 
 use TEC\Events\Recurrence\Admin_Provider;
 
-if ( $is_occurrence ) {
+if ( $is_occurrence && ! $is_locked ) {
 	?>
 	<tr class="tec-events-recurrence-dates tec-events-recurrence-dates--occurrence">
 		<td class="label"><?php esc_html_e( 'Event Dates', 'the-events-calendar' ); ?></td>
@@ -81,14 +81,18 @@ if ( $is_locked ) {
 		<?php
 	};
 	?>
-	<tr class="tec-events-recurrence-dates tec-events-recurrence-dates--locked <?php echo $lock_enabled ? 'tec-events-recurrence-dates--lock-enabled' : 'tec-events-recurrence-dates--convertible'; ?>">
+	<tr class="tec-events-recurrence-dates tec-events-recurrence-dates--locked <?php echo $lock_enabled ? 'tec-events-recurrence-dates--lock-enabled' : 'tec-events-recurrence-dates--convertible'; ?><?php echo $is_occurrence ? ' tec-events-recurrence-dates--occurrence' : ''; ?>">
 		<td class="label"><?php esc_html_e( 'Event Dates', 'the-events-calendar' ); ?></td>
 		<td>
 			<?php // `inline`: WordPress moves every other notice below the screen title. ?>
 			<div class="notice <?php echo $lock_enabled ? 'notice-info' : 'notice-warning'; ?> inline tec-events-recurrence-dates__lock-notice">
 				<?php if ( $lock_enabled ) : ?>
 					<p id="<?php echo esc_attr( $lock_reason_id ); ?>">
-						<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.', 'the-events-calendar' ); ?>
+						<?php if ( $is_occurrence ) : ?>
+							<?php esc_html_e( 'This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked.', 'the-events-calendar' ); ?>
+						<?php else : ?>
+							<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.', 'the-events-calendar' ); ?>
+						<?php endif; ?>
 					</p>
 					<p>
 						<?php
@@ -106,11 +110,20 @@ if ( $is_locked ) {
 					</p>
 				<?php else : ?>
 					<p id="<?php echo esc_attr( $lock_reason_id ); ?>">
-						<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.', 'the-events-calendar' ); ?>
+						<?php if ( $is_occurrence ) : ?>
+							<?php esc_html_e( 'This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until the event is converted into individual dates.', 'the-events-calendar' ); ?>
+						<?php else : ?>
+							<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.', 'the-events-calendar' ); ?>
+						<?php endif; ?>
+					</p>
+				<?php endif; ?>
+				<?php if ( $is_occurrence && '' !== $occurrence_edit_link ) : ?>
+					<p>
+						<a href="<?php echo esc_url( $occurrence_edit_link ); ?>"><?php esc_html_e( 'Edit the recurring event.', 'the-events-calendar' ); ?></a>
 					</p>
 				<?php endif; ?>
 			</div>
-			<?php if ( ! empty( $chips['count'] ) ) : ?>
+			<?php if ( ! $is_occurrence && ! empty( $chips['count'] ) ) : ?>
 				<p class="description tec-events-recurrence-dates__count">
 					<?php
 					echo esc_html(
@@ -196,6 +209,9 @@ if ( $is_locked ) {
 					</ul>
 					<p class="description">
 						<?php esc_html_e( 'Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.', 'the-events-calendar' ); ?>
+						<?php if ( $is_occurrence ) : ?>
+							<?php esc_html_e( 'Converting sends you to the recurring event.', 'the-events-calendar' ); ?>
+						<?php endif; ?>
 					</p>
 					<?php if ( $can_convert ) : ?>
 						<p class="tec-events-recurrence-dates__convert-actions">

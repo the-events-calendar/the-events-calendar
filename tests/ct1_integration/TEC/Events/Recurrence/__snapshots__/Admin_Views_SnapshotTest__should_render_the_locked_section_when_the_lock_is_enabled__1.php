@@ -3,10 +3,10 @@
 		<td>
 						<div class="notice notice-info inline tec-events-recurrence-dates__lock-notice">
 									<p id="tec-events-recurrence-dates-lock-reason">
-						This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.					</p>
+													This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.											</p>
 					<p>
 						Activate Events Calendar Pro to edit the recurrence rules, or <a href="http://wordpress.test/wp-admin/edit.php?page=tec-events-settings&#038;post_type=tribe_events&#038;tab=general-editing-tab#tec-events-recurrence-lock-pro-rules">turn off the recurrence lock in the Events settings</a> to convert this event into individual dates.					</p>
-							</div>
+											</div>
 							<p class="description tec-events-recurrence-dates__count">
 					2 dates are scheduled.				</p>
 									<ul class="tec-events-recurrence-dates__chips" aria-label="Upcoming dates">

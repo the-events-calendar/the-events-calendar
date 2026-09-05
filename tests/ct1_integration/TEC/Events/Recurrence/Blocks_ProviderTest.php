@@ -3,7 +3,9 @@
 namespace TEC\Events\Recurrence;
 
 use Codeception\TestCase\WPTestCase;
+use TEC\Events\Custom_Tables\V1\Events\Provisional\ID_Generator;
 use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use WP_Post;
 use Tribe\Events\Test\Traits\With_Recurrence_Engine;
 
@@ -257,5 +259,101 @@ class Blocks_ProviderTest extends WPTestCase {
 		$this->assertEquals( [ 'count' => 0, 'dates' => [] ], $recurrence_dates['summary'] );
 		$this->assertFalse( $recurrence_dates['canConvert'] );
 		$this->assertSame( '', $recurrence_dates['convertNonce'] );
+	}
+
+	/**
+	 * It should flag the occurrence of a dates only event without locking it
+	 *
+	 * @test
+	 */
+	public function should_flag_the_occurrence_of_a_dates_only_event_without_locking_it(): void {
+		$post           = $this->given_an_event();
+		$provisional_id = $this->provisional_id_of( $post );
+
+		$_GET['post'] = $provisional_id;
+		try {
+			$config = tribe( Blocks_Provider::class )->add_editor_config( [ 'events' => [] ] );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$recurrence_dates = $config['events']['recurrenceDates'];
+		$this->assertFalse( $recurrence_dates['locked'] );
+		$this->assertTrue( $recurrence_dates['isOccurrence'] );
+		$this->assertStringContainsString( 'post.php?post=' . $post->ID . '&action=edit', $recurrence_dates['parentEditLink'] );
+		$this->assertEquals( $post->ID, $recurrence_dates['postId'] );
+		$this->assertFalse( $recurrence_dates['canConvert'] );
+	}
+
+	/**
+	 * It should lock the occurrence of a rule locked event
+	 *
+	 * @test
+	 */
+	public function should_lock_the_occurrence_of_a_rule_locked_event(): void {
+		$post = $this->given_an_event();
+		Event::find( $post->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+		);
+		$provisional_id = $this->provisional_id_of( $post );
+
+		$_GET['post'] = $provisional_id;
+		try {
+			$config = tribe( Blocks_Provider::class )->add_editor_config( [ 'events' => [] ] );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$recurrence_dates = $config['events']['recurrenceDates'];
+		$this->assertTrue( $recurrence_dates['locked'] );
+		$this->assertTrue( $recurrence_dates['isOccurrence'] );
+		$this->assertStringContainsString( 'post.php?post=' . $post->ID . '&action=edit', $recurrence_dates['parentEditLink'] );
+		// The summary is the Event's.
+		$this->assertEquals( 1, $recurrence_dates['summary']['count'] );
+		$this->assertTrue( $recurrence_dates['lockEnabled'] );
+		$this->assertFalse( $recurrence_dates['canConvert'] );
+		$this->assertSame( '', $recurrence_dates['convertNonce'] );
+		$this->assertEquals( $post->ID, $recurrence_dates['postId'] );
+	}
+
+	/**
+	 * It should nonce the conversion for the event when editing its occurrence
+	 *
+	 * @test
+	 */
+	public function should_nonce_the_conversion_for_the_event_when_editing_its_occurrence(): void {
+		$post = $this->given_an_event();
+		Event::find( $post->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+		);
+		$provisional_id = $this->provisional_id_of( $post );
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$_GET['post'] = $provisional_id;
+		try {
+			$config = tribe( Blocks_Provider::class )->add_editor_config( [ 'events' => [] ] );
+
+			$recurrence_dates = $config['events']['recurrenceDates'];
+			$this->assertTrue( $recurrence_dates['locked'] );
+			$this->assertTrue( $recurrence_dates['isOccurrence'] );
+			$this->assertFalse( $recurrence_dates['lockEnabled'] );
+			$this->assertTrue( $recurrence_dates['canConvert'] );
+			// The request normalizes the posted ID before verifying: the nonce and the ID are the Event's.
+			$this->assertEquals( $post->ID, $recurrence_dates['postId'] );
+			$this->assertNotFalse( wp_verify_nonce( $recurrence_dates['convertNonce'], Updates\Rules_Conversion_Request::NONCE_ACTION . $post->ID ) );
+		} finally {
+			unset( $_GET['post'] );
+			tribe_remove_option( Settings::LOCK_OPTION );
+			tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, [] );
+			wp_set_current_user( 0 );
+		}
+	}
+
+	private function provisional_id_of( WP_Post $post ): int {
+		$occurrence = Occurrence::where( 'post_id', '=', $post->ID )->first();
+		$this->assertInstanceOf( Occurrence::class, $occurrence );
+
+		return tribe( ID_Generator::class )->provide_id( (int) $occurrence->occurrence_id );
 	}
 }
