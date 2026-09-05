@@ -20,6 +20,8 @@ namespace TEC\Events\Recurrence;
 
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Recurrence\Updates\Admin_Notice;
+use TEC\Events\Recurrence\Updates\Rules_Conversion_Request;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_REST_Request;
@@ -38,6 +40,15 @@ class Blocks_Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public const META_KEY = '_tec_events_recurrence_dates';
+
+	/**
+	 * The admin notice pulled in this request, `null` until one was found.
+	 *
+	 * @since TBD
+	 *
+	 * @var array{notice: array{type: string, message: string}}|null
+	 */
+	private ?array $pulled_notice = null;
 
 	/**
 	 * Registers the Block Editor integration hooks.
@@ -212,6 +223,17 @@ class Blocks_Provider extends Service_Provider {
 			$summary['count'] = count( $summary['dates'] );
 		}
 
+		$lock_enabled = true;
+		$can_convert  = false;
+		$settings_url = '';
+
+		if ( $is_locked ) {
+			$settings     = $this->container->make( Settings::class );
+			$lock_enabled = $settings->is_lock_enabled();
+			$settings_url = $settings->get_settings_url();
+			$can_convert  = $settings->can_convert( $post_id ) && current_user_can( 'edit_post', $post_id );
+		}
+
 		$editor_config['events']['recurrenceDates'] = [
 			'enabled'        => true,
 			'locked'         => $is_locked,
@@ -219,9 +241,42 @@ class Blocks_Provider extends Service_Provider {
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
 			'parentEditLink' => $is_occurrence ? admin_url( 'post.php?post=' . Occurrence::normalize_id( $post_id ) . '&action=edit' ) : '',
 			'summary'        => $summary,
+			'lockEnabled'    => $lock_enabled,
+			'settingsUrl'    => $settings_url,
+			'canConvert'     => $can_convert,
+			'convertUrl'     => Rules_Conversion_Request::get_action_url(),
+			'convertAction'  => Rules_Conversion_Request::ACTION,
+			'ackField'       => Rules_Conversion_Request::ACK_FIELD,
+			// The nonce is minted for a convertible Event only.
+			'convertNonce'   => $can_convert ? wp_create_nonce( Rules_Conversion_Request::NONCE_ACTION . $post_id ) : '',
+			'postId'         => $post_id,
+			// The Block Editor screen renders no admin notices: the pending one travels with the config.
+			'notice'         => $this->pull_notice(),
 		];
 
 		return $editor_config;
+	}
+
+	/**
+	 * Pulls, once per request, the pending admin notice of the current user.
+	 *
+	 * @since TBD
+	 *
+	 * @return array{type: string, message: string}|null The notice, or `null` when none is pending.
+	 */
+	private function pull_notice(): ?array {
+		if ( null !== $this->pulled_notice ) {
+			return $this->pulled_notice['notice'];
+		}
+
+		$notice = $this->container->make( Admin_Notice::class )->pull();
+
+		if ( null !== $notice ) {
+			// Pulling deletes the transient: a second config build in the request must see the same notice.
+			$this->pulled_notice = [ 'notice' => $notice ];
+		}
+
+		return $notice;
 	}
 
 	/**

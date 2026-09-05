@@ -55,9 +55,7 @@ class Dates_Service {
 		}
 
 		try {
-			$timezone    = new DateTimeZone( (string) $event->timezone );
-			$event_start = new DateTimeImmutable( (string) $event->start_date, $timezone );
-			$event_end   = new DateTimeImmutable( (string) $event->end_date, $timezone );
+			$timezone = new DateTimeZone( (string) $event->timezone );
 
 			$periods = [];
 			foreach ( $dates as $date ) {
@@ -89,12 +87,72 @@ class Dates_Service {
 			return $this->remove_dates( $post_id );
 		}
 
+		return $this->write_dates( $post_id, $periods );
+	}
+
+	/**
+	 * Writes the additional dates of an Event, regenerating its Occurrences.
+	 *
+	 * No lock check: the caller owns the lock decision. `set_dates()` refuses rule-based
+	 * Events before calling this; the conversion of a rule-based Event to individual
+	 * dates calls it on purpose.
+	 *
+	 * @since TBD
+	 *
+	 * @param int                                                                $post_id The Event post ID.
+	 * @param array<int,array{start: DateTimeImmutable, end: DateTimeImmutable}> $periods The additional dates, in the Event timezone.
+	 *
+	 * @return bool Whether the dates were written and the Occurrences regenerated or not.
+	 */
+	public function write_dates( int $post_id, array $periods ): bool {
+		$post_id = Occurrence::normalize_id( $post_id );
+		$event   = Event::find( $post_id, 'post_id' );
+
+		if ( ! $event instanceof Event || ! count( $periods ) ) {
+			return false;
+		}
+
+		try {
+			$timezone    = new DateTimeZone( (string) $event->timezone );
+			$event_start = new DateTimeImmutable( (string) $event->start_date, $timezone );
+			$event_end   = new DateTimeImmutable( (string) $event->end_date, $timezone );
+		} catch ( Exception $e ) {
+			return false;
+		}
+
 		// The legacy meta is the canonical authored format.
 		update_post_meta( $post_id, '_EventRecurrence', Date_Rules::to_meta( $periods, $event_start, $event_end ) );
 
 		// The RSET is derived from it.
 		$rset = Dates::serialize( $event_start, $event_end, $periods );
 		$event->update( [ 'rset' => $rset ] );
+
+		$this->regenerate( $post_id );
+
+		return true;
+	}
+
+	/**
+	 * Collapses an Event to its own single date, regenerating its Occurrences.
+	 *
+	 * No lock check: the caller owns the lock decision, see `write_dates()`.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The Event post ID.
+	 *
+	 * @return bool Whether the Event was collapsed or not.
+	 */
+	public function write_single( int $post_id ): bool {
+		$post_id = Occurrence::normalize_id( $post_id );
+		$event   = Event::find( $post_id, 'post_id' );
+
+		if ( ! $event instanceof Event ) {
+			return false;
+		}
+
+		delete_post_meta( $post_id, '_EventRecurrence' );
+		$event->update( [ 'rset' => '' ] );
 
 		$this->regenerate( $post_id );
 
@@ -125,12 +183,7 @@ class Dates_Service {
 			return false;
 		}
 
-		delete_post_meta( $post_id, '_EventRecurrence' );
-		$event->update( [ 'rset' => '' ] );
-
-		$this->regenerate( $post_id );
-
-		return true;
+		return $this->write_single( $post_id );
 	}
 
 	/**

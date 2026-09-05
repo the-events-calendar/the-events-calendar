@@ -218,4 +218,40 @@ class Dates_ServiceTest extends WPTestCase {
 		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
 		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
 	}
+
+	/**
+	 * It should write dates without the lock check
+	 *
+	 * @test
+	 */
+	public function should_write_dates_without_the_lock_check(): void {
+		$post = $this->given_an_event();
+		// A rule-based RSET locks the public API.
+		Event::find( $post->ID, 'post_id' )->update( [ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=3" ] );
+		$timezone = new \DateTimeZone( 'America/Sao_Paulo' );
+		$periods  = [
+			[
+				'start' => new \DateTimeImmutable( '2050-01-12 09:00:00', $timezone ),
+				'end'   => new \DateTimeImmutable( '2050-01-12 10:00:00', $timezone ),
+			],
+		];
+
+		$this->assertFalse( tribe( Dates_Service::class )->set_dates( $post->ID, $periods ), 'The public API refuses a locked Event.' );
+
+		$written = tribe( Updates\Freeze_Guard::class )->allow(
+			static fn() => tribe( Dates_Service::class )->write_dates( $post->ID, $periods )
+		);
+
+		$this->assertTrue( $written );
+		$this->assertTrue( Date_Rules::is_dates_only_meta( get_post_meta( $post->ID, '_EventRecurrence', true ) ) );
+		$this->assertTrue( Dates::is_dates_only( Event::find( $post->ID, 'post_id' )->rset ) );
+		$this->assertEquals( 2, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		$this->assertTrue( tribe( Dates_Service::class )->write_single( $post->ID ) );
+		$this->assertEmpty( get_post_meta( $post->ID, '_EventRecurrence', true ) );
+		$this->assertEquals( 1, Occurrence::where( 'post_id', '=', $post->ID )->count() );
+
+		$this->assertFalse( tribe( Dates_Service::class )->write_dates( 999999, $periods ) );
+		$this->assertFalse( tribe( Dates_Service::class )->write_dates( $post->ID, [] ) );
+	}
 }

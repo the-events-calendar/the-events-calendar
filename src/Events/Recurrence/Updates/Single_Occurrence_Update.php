@@ -69,8 +69,10 @@ class Single_Occurrence_Update {
 	 * The transient prefix of the per-user admin notice.
 	 *
 	 * @since TBD
+	 *
+	 * @see Admin_Notice::TRANSIENT The notice is rendered by the shared notice.
 	 */
-	public const NOTICE_TRANSIENT = 'tec_events_recurrence_occurrence_notice_';
+	public const NOTICE_TRANSIENT = Admin_Notice::TRANSIENT;
 
 	/**
 	 * The date meta buffered per provisional post ID during the request.
@@ -113,10 +115,6 @@ class Single_Occurrence_Update {
 			// After the attribute-bound meta and the UTC dates were written, before the Custom Tables commit at 100.
 			add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'on_rest_save' ], 50 );
 		}
-
-		if ( ! has_action( 'admin_notices', [ $this, 'render_notice' ] ) ) {
-			add_action( 'admin_notices', [ $this, 'render_notice' ] );
-		}
 	}
 
 	/**
@@ -132,7 +130,6 @@ class Single_Occurrence_Update {
 		remove_filter( 'delete_post_metadata', [ $this, 'buffer_delete' ], -10 );
 		remove_action( 'tribe_events_update_meta', [ $this, 'on_classic_save' ], 20 );
 		remove_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'on_rest_save' ], 50 );
-		remove_action( 'admin_notices', [ $this, 'render_notice' ] );
 		$this->pending = [];
 	}
 
@@ -393,30 +390,6 @@ class Single_Occurrence_Update {
 	}
 
 	/**
-	 * Renders, once, the notice left by the last Occurrence update of the current user.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function render_notice(): void {
-		$key    = self::NOTICE_TRANSIENT . get_current_user_id();
-		$notice = get_transient( $key );
-
-		if ( ! is_array( $notice ) || empty( $notice['message'] ) ) {
-			return;
-		}
-
-		delete_transient( $key );
-
-		printf(
-			'<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
-			esc_attr( 'success' === ( $notice['type'] ?? '' ) ? 'success' : 'error' ),
-			esc_html( (string) $notice['message'] )
-		);
-	}
-
-	/**
 	 * Moves an Occurrence of a dates-only Event, regenerating the set.
 	 *
 	 * @since TBD
@@ -540,7 +513,12 @@ class Single_Occurrence_Update {
 				'EventEndDate'   => $event_end->format( 'Y-m-d H:i:s' ),
 			];
 
-			update_post_meta( $post_id, '_EventRecurrence', $recurrence_meta );
+			// The recurrence meta of a rule-based Event is frozen: this exclusion is the one write allowed.
+			tribe( Freeze_Guard::class )->allow(
+				static function () use ( $post_id, $recurrence_meta ): void {
+					update_post_meta( $post_id, '_EventRecurrence', $recurrence_meta );
+				}
+			);
 		}
 
 		$this->move_row( $occurrence, $new_start, $new_end, true );
@@ -673,8 +651,6 @@ class Single_Occurrence_Update {
 	/**
 	 * Stores the notice the next admin screen of the current user renders.
 	 *
-	 * Block Editor (REST) saves do not reload a screen: no notice is stored for them.
-	 *
 	 * @since TBD
 	 *
 	 * @param string $type    The notice type, `success` or `error`.
@@ -683,17 +659,6 @@ class Single_Occurrence_Update {
 	 * @return void
 	 */
 	private function set_notice( string $type, string $message ): void {
-		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
-			return;
-		}
-
-		set_transient(
-			self::NOTICE_TRANSIENT . get_current_user_id(),
-			[
-				'type'    => $type,
-				'message' => $message,
-			],
-			MINUTE_IN_SECONDS
-		);
+		tribe( Admin_Notice::class )->set( $type, esc_html( $message ) );
 	}
 }

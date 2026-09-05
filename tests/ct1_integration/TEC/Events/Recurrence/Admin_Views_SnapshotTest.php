@@ -55,6 +55,11 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 	 * @after
 	 */
 	public function restore_request_uri(): void {
+		tribe_remove_option( Settings::LOCK_OPTION );
+		// The per-test rollback runs before this: drop the settings cache so the next read reloads the restored DB.
+		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, [] );
+		wp_set_current_user( 0 );
+
 		if ( null === $this->request_uri_backup ) {
 			unset( $_SERVER['REQUEST_URI'] );
 
@@ -62,6 +67,27 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 		}
 
 		$_SERVER['REQUEST_URI'] = $this->request_uri_backup;
+	}
+
+	/**
+	 * A rule-based Event (rules frozen) pinned far in the future, with the rows of its dates-only origin.
+	 */
+	private function given_a_pinned_rule_locked_event( string $slug ): WP_Post {
+		$post = $this->given_a_pinned_event(
+			[
+				[ 'start' => '2050-01-10 09:00:00', 'end' => '2050-01-10 10:00:00' ],
+			],
+			$slug,
+			// Far future too: the chip statuses (next/upcoming/past) depend on the current time.
+			[ 'start_date' => '2050-01-03 09:00:00', 'end_date' => '2050-01-03 10:00:00' ]
+		);
+
+		// A rule-based RSET with no authored meta locks the section; the engine freezes the existing rows.
+		delete_post_meta( $post->ID, '_EventRecurrence' );
+		\TEC\Events\Custom_Tables\V1\Models\Event::find( $post->ID, 'post_id' )
+			->update( [ 'rset' => "DTSTART;TZID=UTC:20500103T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ] );
+
+		return $post;
 	}
 
 	private function given_a_pinned_event( array $dates = [], string $slug = 'admin-snapshot-event', array $event_args = [] ): WP_Post {
@@ -126,29 +152,83 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 	}
 
 	/**
-	 * It should render the locked section for rule based events
+	 * It should render the locked section when the lock is enabled
 	 *
 	 * @test
 	 */
-	public function should_render_the_locked_section_for_rule_based_events(): void {
-		$post = $this->given_a_pinned_event(
-			[
-				[ 'start' => '2050-01-10 09:00:00', 'end' => '2050-01-10 10:00:00' ],
-			],
-			'admin-snapshot-locked-event',
-			// Far future too: the chip statuses (next/upcoming/past) depend on the current time.
-			[ 'start_date' => '2050-01-03 09:00:00', 'end_date' => '2050-01-03 10:00:00' ]
-		);
-
-		// A rule-based RSET with no authored meta locks the section; the engine freezes the existing rows.
-		delete_post_meta( $post->ID, '_EventRecurrence' );
-		\TEC\Events\Custom_Tables\V1\Models\Event::find( $post->ID, 'post_id' )
-			->update( [ 'rset' => "DTSTART;TZID=UTC:20500103T090000\nRRULE:FREQ=WEEKLY;COUNT=5" ] );
+	public function should_render_the_locked_section_when_the_lock_is_enabled(): void {
+		$post = $this->given_a_pinned_rule_locked_event( 'admin-snapshot-locked-event' );
+		tribe_update_option( Settings::LOCK_OPTION, true );
 
 		$html = $this->render_section_html( $post->ID );
 
 		$this->assertStringContainsString( 'tec-events-recurrence-dates--locked', $html );
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--lock-enabled', $html );
+		$this->assertStringNotContainsString( 'Convert to individual dates', $html );
+		$this->assertStringNotContainsString( '<form', $html );
 		$this->assertMatchesSnapshot( $html );
+
+		ob_start();
+		tribe( Admin_Provider::class )->render_convert_form();
+		$this->assertSame( '', ob_get_clean(), 'No conversion form with the lock on.' );
+	}
+
+	/**
+	 * It should render the convert section when the lock is disabled
+	 *
+	 * @test
+	 */
+	public function should_render_the_convert_section_when_the_lock_is_disabled(): void {
+		$post = $this->given_a_pinned_rule_locked_event( 'admin-snapshot-convertible-event' );
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$html = $this->render_section_html( $post->ID );
+
+		$this->assertStringContainsString( 'tec-events-recurrence-dates--convertible', $html );
+		$this->assertStringContainsString( 'form="tec-events-recurrence-convert"', $html );
+		$this->assertStringNotContainsString( '<form', $html, 'The form must not nest in the post form.' );
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * It should render the convert form in the admin footer
+	 *
+	 * @test
+	 */
+	public function should_render_the_convert_form_in_the_admin_footer(): void {
+		$post = $this->given_a_pinned_rule_locked_event( 'admin-snapshot-footer-event' );
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		// The section remembers the Event the footer form is for.
+		$this->render_section_html( $post->ID );
+
+		ob_start();
+		tribe( Admin_Provider::class )->render_convert_form();
+		$html = $this->normalize_ids( (string) ob_get_clean(), $post->ID );
+
+		$this->assertStringContainsString( 'admin-post.php', $html );
+		$this->assertStringContainsString( 'value="2ab7cc6b39"', $html );
+		$this->assertStringContainsString( 'value="{{EVENT_ID}}"', $html );
+		$this->assertMatchesSnapshot( $html );
+	}
+
+	/**
+	 * It should not render the convert form without a locked event
+	 *
+	 * @test
+	 */
+	public function should_not_render_the_convert_form_without_a_locked_event(): void {
+		$post = $this->given_a_pinned_event();
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$this->render_section_html( $post->ID );
+
+		ob_start();
+		tribe( Admin_Provider::class )->render_convert_form();
+		$this->assertSame( '', ob_get_clean() );
 	}
 
 	/**

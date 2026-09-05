@@ -196,6 +196,10 @@ class Controller extends Controller_Contract {
 			$this->container->make( Blocks_Provider::class )->unregister();
 		}
 
+		if ( $this->container->isBound( Settings::class ) ) {
+			$this->container->make( Settings::class )->unregister();
+		}
+
 		// Let a later `register()` run `do_register()` again: the base contract only ever sets this flag.
 		$this->container->setVar( self::class . '_registered', false );
 	}
@@ -224,6 +228,7 @@ class Controller extends Controller_Contract {
 			All_Occurrences_Provider::class,
 			Admin_Provider::class,
 			Blocks_Provider::class,
+			Settings::class,
 		];
 
 		foreach ( $providers as $provider ) {
@@ -233,7 +238,5 @@ class Controller extends Controller_Contract {
 
 			$this->container->make( $provider )->register();
 		}
-
-		// Further sub-controllers (Settings) register here as they land.
 	}
 }

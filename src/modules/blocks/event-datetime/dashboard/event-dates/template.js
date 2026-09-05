@@ -1,14 +1,16 @@
 /**
  * External dependencies
  */
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 /**
  * WordPress dependencies
  */
-import { Button, ToggleControl, Tooltip } from '@wordpress/components';
+import { Button, CheckboxControl, Notice, ToggleControl, Tooltip } from '@wordpress/components';
+import { dispatch } from '@wordpress/data';
+import { createInterpolateElement } from '@wordpress/element';
 import { __, _n, sprintf } from '@wordpress/i18n';
 
 /**
@@ -200,6 +202,158 @@ LockedDates.propTypes = {
 };
 
 /**
+ * The way out of the lock: activate Events Calendar Pro, or turn the lock setting off.
+ *
+ * @since TBD
+ *
+ * @param {Object} props     The component props.
+ * @param {string} props.url The URL of the lock setting; the sentence has no link without it.
+ *
+ * @return {JSX.Element} The paragraph.
+ */
+const LockSettingsLink = ( { url } ) => (
+	<p>
+		{ url
+			? createInterpolateElement(
+					__(
+						'Activate Events Calendar Pro to edit the recurrence rules, or <a>turn off the recurrence lock in the Events settings</a> to convert this event into individual dates.',
+						'the-events-calendar'
+					),
+					{ a: <a href={ url } /> } // eslint-disable-line jsx-a11y/anchor-has-content
+			  )
+			: __(
+					'Activate Events Calendar Pro to edit the recurrence rules, or turn off the recurrence lock in the Events settings to convert this event into individual dates.',
+					'the-events-calendar'
+			  ) }
+	</p>
+);
+
+LockSettingsLink.propTypes = {
+	url: PropTypes.string,
+};
+
+/**
+ * The conversion of a rule-locked Event into individual dates: what it does, the
+ * acknowledgment, and the form posting the request.
+ *
+ * A real form: the block canvas is not inside one, and the conversion reloads the
+ * screen through `admin-post.php` in both editors alike.
+ *
+ * @since TBD
+ *
+ * @param {Object} props        The component props.
+ * @param {Object} props.config The `recurrenceDates` editor config.
+ *
+ * @return {JSX.Element|null} The conversion controls, or nothing when the user cannot convert.
+ */
+const ConvertToDates = ( { config } ) => {
+	const [ acknowledged, setAcknowledged ] = useState( false );
+	const count = ( config.summary && config.summary.count ) || 0;
+
+	if ( ! config.canConvert ) {
+		return null;
+	}
+
+	return (
+		<form method="post" action={ config.convertUrl } className="tribe-editor__event-dates__convert">
+			<input type="hidden" name="action" value={ config.convertAction } />
+			<input type="hidden" name="post_id" value={ config.postId } />
+			<input type="hidden" name="_wpnonce" value={ config.convertNonce } />
+			{ acknowledged && <input type="hidden" name={ config.ackField } value="1" /> }
+			<p>
+				<strong>{ __( 'Converting this event:', 'the-events-calendar' ) }</strong>
+			</p>
+			<ul id="tribe-editor-event-dates-convert-effects" className="tribe-editor__event-dates__convert-effects">
+				<li>{ __( 'removes the Events Calendar Pro recurrence rules;', 'the-events-calendar' ) }</li>
+				<li>
+					{ sprintf(
+						/* translators: %d: the number of scheduled dates of the event. */
+						_n(
+							'keeps the %d date currently scheduled as an individual date you can edit;',
+							'keeps the %d dates currently scheduled as individual dates you can edit one by one;',
+							count,
+							'the-events-calendar'
+						),
+						count
+					) }
+				</li>
+				<li>{ __( 'stops generating further dates;', 'the-events-calendar' ) }</li>
+				<li>{ __( 'removes the event from its Series.', 'the-events-calendar' ) }</li>
+			</ul>
+			<p className="tribe-editor__event-dates__description">
+				{ __(
+					'Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.',
+					'the-events-calendar'
+				) }
+			</p>
+			<CheckboxControl
+				label={ __( 'I understand that the recurrence rules will be removed.', 'the-events-calendar' ) }
+				checked={ acknowledged }
+				onChange={ setAcknowledged }
+				__nextHasNoMarginBottom={ true }
+			/>
+			<Button
+				variant="secondary"
+				type="submit"
+				disabled={ ! acknowledged }
+				aria-describedby="tribe-editor-event-dates-convert-effects"
+			>
+				{ __( 'Convert to individual dates', 'the-events-calendar' ) }
+			</Button>
+		</form>
+	);
+};
+
+ConvertToDates.propTypes = {
+	config: PropTypes.shape( {
+		canConvert: PropTypes.bool,
+		convertUrl: PropTypes.string,
+		convertAction: PropTypes.string,
+		convertNonce: PropTypes.string,
+		ackField: PropTypes.string,
+		postId: PropTypes.number,
+		summary: PropTypes.object,
+	} ).isRequired,
+};
+
+let noticeShown = false;
+
+/**
+ * Shows, once, the admin notice a conversion request left for the editor.
+ *
+ * The Block Editor screen renders no admin notices: the server hands the pending one
+ * over in the editor config and the editor's own notices show it.
+ *
+ * @since TBD
+ *
+ * @param {Object|null} notice The pending notice: `type` and `message`.
+ *
+ * @return {void}
+ */
+const showPendingNotice = ( notice ) => {
+	if ( noticeShown || ! notice || ! notice.message ) {
+		return;
+	}
+
+	noticeShown = true;
+
+	const notices = dispatch( 'core/notices' );
+
+	if ( ! notices || 'function' !== typeof notices.createNotice ) {
+		return;
+	}
+
+	// The message may carry links: strip the markup, the editor notices are plain text.
+	const text = document.createElement( 'div' );
+	text.innerHTML = notice.message;
+
+	notices.createNotice( notice.type || 'info', text.textContent || '', {
+		id: 'tec-events-recurrence-convert',
+		isDismissible: true,
+	} );
+};
+
+/**
  * The Event Dates panel: authors the additional, explicit dates of an Event.
  *
  * Hidden behind a toggle, mirroring the Classic Editor section; the rows reuse the
@@ -221,6 +375,8 @@ const EventDates = ( props ) => {
 	const [ isOpen, setIsOpen ] = useState( rows.length > 0 );
 	const [ editing, setEditing ] = useState( {} );
 	const stash = useRef( [] );
+
+	useEffect( () => showPendingNotice( config.notice ), [] ); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const timeFormat = FORMATS.WP.time;
 
@@ -323,15 +479,30 @@ const EventDates = ( props ) => {
 	}
 
 	if ( config.locked ) {
+		const lockEnabled = Boolean( config.lockEnabled );
+
 		return (
-			<div className="tribe-editor__event-dates">
-				<p className="tribe-editor__event-dates__notice">
-					{ __(
-						'This event uses recurrence rules created with Events Calendar Pro. Activate Events Calendar Pro to edit them; the existing dates are preserved meanwhile.',
-						'the-events-calendar'
-					) }
-				</p>
+			<div className="tribe-editor__event-dates tribe-editor__event-dates--locked">
+				<Notice
+					status={ lockEnabled ? 'info' : 'warning' }
+					isDismissible={ false }
+					className="tribe-editor__event-dates__lock-notice"
+				>
+					<p>
+						{ lockEnabled
+							? __(
+									'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.',
+									'the-events-calendar'
+							  )
+							: __(
+									'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.',
+									'the-events-calendar'
+							  ) }
+					</p>
+					{ lockEnabled && <LockSettingsLink url={ config.settingsUrl || '' } /> }
+				</Notice>
 				<LockedDates summary={ config.summary || {} } />
+				{ ! lockEnabled && <ConvertToDates config={ config } /> }
 			</div>
 		);
 	}

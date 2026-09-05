@@ -19,6 +19,7 @@ namespace TEC\Events\Recurrence;
 
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Recurrence\Updates\Rules_Conversion_Request;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -44,6 +45,22 @@ class Admin_Provider extends Service_Provider {
 	public const NONCE_ACTION = 'tec_events_recurrence_dates_save';
 
 	/**
+	 * The DOM ID of the paragraph explaining why the date controls of a rule-based Event are disabled.
+	 *
+	 * @since TBD
+	 */
+	public const LOCK_REASON_ID = 'tec-events-recurrence-dates-lock-reason';
+
+	/**
+	 * The ID of the rule-based Event whose conversion form the admin footer renders, `0` for none.
+	 *
+	 * @since TBD
+	 *
+	 * @var int
+	 */
+	private int $convert_form_event_id = 0;
+
+	/**
 	 * Registers the Event Dates section and its save handler.
 	 *
 	 * @since TBD
@@ -67,6 +84,20 @@ class Admin_Provider extends Service_Provider {
 			// The same hook and priority Events Calendar Pro consumes classic recurrence on.
 			add_action( 'tribe_events_update_meta', [ $this, 'save_dates' ], 20 );
 		}
+
+		if ( ! has_filter( 'tribe_events_meta_box_vars', [ $this, 'lock_date_controls' ] ) ) {
+			add_filter( 'tribe_events_meta_box_vars', [ $this, 'lock_date_controls' ] );
+		}
+
+		if ( ! has_action( 'admin_footer', [ $this, 'render_convert_form' ] ) ) {
+			// Outside the post form: a form nested in it would be dropped by the parser.
+			add_action( 'admin_footer', [ $this, 'render_convert_form' ] );
+		}
+
+		if ( ! $this->container->isBound( Rules_Conversion_Request::class ) ) {
+			$this->container->singleton( Rules_Conversion_Request::class );
+		}
+		$this->container->make( Rules_Conversion_Request::class )->register();
 	}
 
 	/**
@@ -79,6 +110,83 @@ class Admin_Provider extends Service_Provider {
 	public function unregister(): void {
 		remove_action( 'tribe_events_date_display', [ $this, 'render_section' ], 15 );
 		remove_action( 'tribe_events_update_meta', [ $this, 'save_dates' ], 20 );
+		remove_filter( 'tribe_events_meta_box_vars', [ $this, 'lock_date_controls' ] );
+		remove_action( 'admin_footer', [ $this, 'render_convert_form' ] );
+		$this->convert_form_event_id = 0;
+
+		if ( $this->container->isBound( Rules_Conversion_Request::class ) ) {
+			$this->container->make( Rules_Conversion_Request::class )->unregister();
+		}
+	}
+
+	/**
+	 * Disables the date controls of the Events metabox for a rule-based Event.
+	 *
+	 * The dates of a rule-based Event are frozen server-side; the controls tell so.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed>|mixed $vars The metabox template variables.
+	 *
+	 * @return array<string,mixed>|mixed The variables, with the lock flag for a rule-based Event.
+	 */
+	public function lock_date_controls( $vars ) {
+		if ( ! is_array( $vars ) ) {
+			return $vars;
+		}
+
+		$event_id = (int) get_the_ID();
+
+		if ( $event_id <= 0 ) {
+			$event_id = absint( tribe_get_request_var( 'post', 0 ) );
+		}
+
+		if ( $event_id <= 0 ) {
+			return $vars;
+		}
+
+		$guard = $this->container->make( Authoring_Guard::class );
+
+		if ( $guard->is_occurrence_edit( $event_id ) || ! $guard->is_rule_locked( $event_id ) ) {
+			return $vars;
+		}
+
+		$vars['dates_locked']             = true;
+		$vars['dates_locked_describedby'] = self::LOCK_REASON_ID;
+
+		return $vars;
+	}
+
+	/**
+	 * Renders the conversion form of the rule-based Event the edit screen rendered, if any.
+	 *
+	 * The controls inside the Event Dates section target this form through their `form`
+	 * attribute: the form itself cannot live inside the post form.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function render_convert_form(): void {
+		$event_id = $this->convert_form_event_id;
+
+		if ( $event_id <= 0 ) {
+			return;
+		}
+
+		$fields = Rules_Conversion_Request::get_form_fields( $event_id );
+		?>
+		<form
+			id="<?php echo esc_attr( Rules_Conversion_Request::FORM_ID ); ?>"
+			class="tec-events-recurrence-dates__convert-form"
+			method="post"
+			action="<?php echo esc_url( Rules_Conversion_Request::get_action_url() ); ?>"
+		>
+			<?php foreach ( $fields as $name => $value ) : ?>
+				<input type="hidden" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>" />
+			<?php endforeach; ?>
+		</form>
+		<?php
 	}
 
 	/**
@@ -103,12 +211,25 @@ class Admin_Provider extends Service_Provider {
 			'upcoming' => [],
 			'past'     => [],
 		];
+		$lock_enabled         = true;
+		$can_convert          = false;
+		$settings_url         = '';
+		$lock_reason_id       = self::LOCK_REASON_ID;
+		$convert_form_id      = Rules_Conversion_Request::FORM_ID;
+		$ack_field            = Rules_Conversion_Request::ACK_FIELD;
 
 		if ( $is_occurrence ) {
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
 			$occurrence_edit_link = admin_url( 'post.php?post=' . Occurrence::normalize_id( $event_id ) . '&action=edit' );
 		} elseif ( $is_locked ) {
-			$chips = $this->get_chips( $event_id );
+			$settings     = $this->container->make( Settings::class );
+			$chips        = $this->get_chips( $event_id );
+			$lock_enabled = $settings->is_lock_enabled();
+			$settings_url = $settings->get_settings_url();
+			$can_convert  = $settings->can_convert( $event_id ) && current_user_can( 'edit_post', $event_id );
+
+			// The admin footer renders the form the conversion controls target.
+			$this->convert_form_event_id = $can_convert ? $event_id : 0;
 		} elseif ( $event_id > 0 ) {
 			// The same display formats the Start/End pickers above the section use.
 			$date_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );

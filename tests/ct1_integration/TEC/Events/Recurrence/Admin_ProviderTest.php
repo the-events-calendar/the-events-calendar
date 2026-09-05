@@ -304,4 +304,96 @@ class Admin_ProviderTest extends WPTestCase {
 		// The row renders back as an all-day one.
 		$this->assertStringContainsString( 'tec-events-recurrence-dates-row--allday', $this->render_section( $post->ID ) );
 	}
+
+	/**
+	 * It should flag the date controls as locked for rule locked events
+	 *
+	 * @test
+	 */
+	public function should_flag_the_date_controls_as_locked_for_rule_locked_events(): void {
+		$locked = $this->given_an_event();
+		Event::find( $locked->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=3" ]
+		);
+		$plain = $this->given_an_event();
+
+		$_GET['post'] = $locked->ID;
+		try {
+			$vars = apply_filters( 'tribe_events_meta_box_vars', [ 'existing' => 1 ], null );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$this->assertEquals( 1, $vars['existing'] );
+		$this->assertTrue( $vars['dates_locked'] );
+		$this->assertEquals( Admin_Provider::LOCK_REASON_ID, $vars['dates_locked_describedby'] );
+
+		$_GET['post'] = $plain->ID;
+		try {
+			$vars = apply_filters( 'tribe_events_meta_box_vars', [ 'existing' => 1 ], null );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$this->assertArrayNotHasKey( 'dates_locked', $vars );
+
+		// An Occurrence edit screen of a locked Event edits that Occurrence: its controls stay live.
+		$occurrence     = Occurrence::where( 'post_id', '=', $locked->ID )->first();
+		$provisional_id = tribe( ID_Generator::class )->provide_id( $occurrence->occurrence_id );
+		$_GET['post']   = $provisional_id;
+		try {
+			$vars = apply_filters( 'tribe_events_meta_box_vars', [], null );
+		} finally {
+			unset( $_GET['post'] );
+		}
+
+		$this->assertArrayNotHasKey( 'dates_locked', $vars );
+	}
+
+	/**
+	 * It should render disabled date controls for a rule locked event
+	 *
+	 * @test
+	 */
+	public function should_render_disabled_date_controls_for_a_rule_locked_event(): void {
+		$locked = $this->given_an_event();
+		Event::find( $locked->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=3" ]
+		);
+		$plain = $this->given_an_event();
+
+		$_GET['post'] = $locked->ID;
+		// The linked posts fields the metabox includes read the global post.
+		$GLOBALS['post'] = get_post( $locked->ID );
+		try {
+			ob_start();
+			new \Tribe__Events__Admin__Event_Meta_Box( get_post( $locked->ID ) );
+			$locked_html = ob_get_clean();
+		} finally {
+			unset( $_GET['post'], $GLOBALS['post'] );
+		}
+
+		$this->assertRegExp( '/id="EventStartDate"[^>]*\sdisabled/s', $locked_html );
+		$this->assertRegExp( '/id="EventEndDate"[^>]*\sdisabled/s', $locked_html );
+		$this->assertRegExp( '/id="allDayCheckbox"[^>]*\sdisabled/s', $locked_html );
+		$this->assertRegExp( '/id="event-timezone"[^>]*\sdisabled/s', $locked_html );
+		$this->assertStringContainsString( 'tribe-datetime-block--locked', $locked_html );
+		$this->assertStringContainsString( '<input type="hidden" name="EventStartDate" value="2050-01-05"', $locked_html );
+		$this->assertStringContainsString( '<input type="hidden" name="EventTimezone" value="America/Sao_Paulo"', $locked_html );
+		$this->assertStringContainsString( 'aria-describedby="' . Admin_Provider::LOCK_REASON_ID . '"', $locked_html );
+
+		$_GET['post']    = $plain->ID;
+		$GLOBALS['post'] = get_post( $plain->ID );
+		try {
+			ob_start();
+			new \Tribe__Events__Admin__Event_Meta_Box( get_post( $plain->ID ) );
+			$plain_html = ob_get_clean();
+		} finally {
+			unset( $_GET['post'], $GLOBALS['post'] );
+		}
+
+		$this->assertNotRegExp( '/id="EventStartDate"[^>]*\sdisabled/s', $plain_html );
+		$this->assertStringNotContainsString( 'tribe-datetime-block--locked', $plain_html );
+		$this->assertStringNotContainsString( '<input type="hidden" name="EventStartDate"', $plain_html );
+	}
 }

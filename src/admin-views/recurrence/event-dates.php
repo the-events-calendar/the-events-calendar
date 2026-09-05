@@ -17,6 +17,12 @@
  *     upcoming: array<int,array{label: string, tooltip: array<int,string>, permalink: string, status: string}>,
  *     past: array<int,array{label: string, tooltip: array<int,string>, permalink: string, status: string}>
  * } $chips The scheduled dates of a locked Event as chips: upcoming (the next one first) and past (oldest first).
+ * @var bool                                                 $lock_enabled         Whether the setting keeping rule-based recurrence locked is on.
+ * @var bool                                                 $can_convert          Whether the current user can convert the locked Event to individual dates.
+ * @var string                                               $settings_url         The URL of the lock setting.
+ * @var string                                               $lock_reason_id       The DOM ID of the paragraph explaining the lock.
+ * @var string                                               $convert_form_id      The DOM ID of the conversion form, rendered in the admin footer.
+ * @var string                                               $ack_field            The name of the acknowledgment field the conversion requires.
  */
 
 use TEC\Events\Recurrence\Admin_Provider;
@@ -75,12 +81,35 @@ if ( $is_locked ) {
 		<?php
 	};
 	?>
-	<tr class="tec-events-recurrence-dates tec-events-recurrence-dates--locked">
+	<tr class="tec-events-recurrence-dates tec-events-recurrence-dates--locked <?php echo $lock_enabled ? 'tec-events-recurrence-dates--lock-enabled' : 'tec-events-recurrence-dates--convertible'; ?>">
 		<td class="label"><?php esc_html_e( 'Event Dates', 'the-events-calendar' ); ?></td>
 		<td>
-			<p>
-				<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Activate Events Calendar Pro to edit them; the existing dates are preserved meanwhile.', 'the-events-calendar' ); ?>
-			</p>
+			<?php // `inline`: WordPress moves every other notice below the screen title. ?>
+			<div class="notice <?php echo $lock_enabled ? 'notice-info' : 'notice-warning'; ?> inline tec-events-recurrence-dates__lock-notice">
+				<?php if ( $lock_enabled ) : ?>
+					<p id="<?php echo esc_attr( $lock_reason_id ); ?>">
+						<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.', 'the-events-calendar' ); ?>
+					</p>
+					<p>
+						<?php
+						if ( '' !== $settings_url ) {
+							printf(
+								/* translators: %1$s: opening link tag to the Events settings, %2$s: closing link tag. */
+								esc_html__( 'Activate Events Calendar Pro to edit the recurrence rules, or %1$sturn off the recurrence lock in the Events settings%2$s to convert this event into individual dates.', 'the-events-calendar' ),
+								'<a href="' . esc_url( $settings_url ) . '">',
+								'</a>'
+							);
+						} else {
+							esc_html_e( 'Activate Events Calendar Pro to edit the recurrence rules, or turn off the recurrence lock in the Events settings to convert this event into individual dates.', 'the-events-calendar' );
+						}
+						?>
+					</p>
+				<?php else : ?>
+					<p id="<?php echo esc_attr( $lock_reason_id ); ?>">
+						<?php esc_html_e( 'This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.', 'the-events-calendar' ); ?>
+					</p>
+				<?php endif; ?>
+			</div>
 			<?php if ( ! empty( $chips['count'] ) ) : ?>
 				<p class="description tec-events-recurrence-dates__count">
 					<?php
@@ -145,6 +174,65 @@ if ( $is_locked ) {
 						} )();
 					</script>
 				<?php endif; ?>
+			<?php endif; ?>
+			<?php if ( ! $lock_enabled ) : ?>
+				<div class="tec-events-recurrence-dates__convert">
+					<p><strong><?php esc_html_e( 'Converting this event:', 'the-events-calendar' ); ?></strong></p>
+					<ul id="tec-events-recurrence-convert-effects" class="tec-events-recurrence-dates__convert-effects">
+						<li><?php esc_html_e( 'removes the Events Calendar Pro recurrence rules;', 'the-events-calendar' ); ?></li>
+						<li>
+							<?php
+							echo esc_html(
+								sprintf(
+									/* translators: %d: the number of scheduled dates of the event. */
+									_n( 'keeps the %d date currently scheduled as an individual date you can edit;', 'keeps the %d dates currently scheduled as individual dates you can edit one by one;', (int) $chips['count'], 'the-events-calendar' ),
+									(int) $chips['count']
+								)
+							);
+							?>
+						</li>
+						<li><?php esc_html_e( 'stops generating further dates;', 'the-events-calendar' ); ?></li>
+						<li><?php esc_html_e( 'removes the event from its Series.', 'the-events-calendar' ); ?></li>
+					</ul>
+					<p class="description">
+						<?php esc_html_e( 'Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.', 'the-events-calendar' ); ?>
+					</p>
+					<?php if ( $can_convert ) : ?>
+						<p class="tec-events-recurrence-dates__convert-actions">
+							<?php // `form`: both controls post with the conversion form in the admin footer, not with the post form. ?>
+							<input
+								type="checkbox"
+								id="tec-events-recurrence-convert-ack"
+								class="tec-events-recurrence-dates__convert-ack"
+								name="<?php echo esc_attr( $ack_field ); ?>"
+								value="1"
+								form="<?php echo esc_attr( $convert_form_id ); ?>"
+							/>
+							<label for="tec-events-recurrence-convert-ack"><?php esc_html_e( 'I understand that the recurrence rules will be removed.', 'the-events-calendar' ); ?></label>
+							<button
+								type="submit"
+								form="<?php echo esc_attr( $convert_form_id ); ?>"
+								class="button button-secondary tec-events-recurrence-dates__convert-button"
+								disabled
+								aria-describedby="tec-events-recurrence-convert-effects"
+							><?php esc_html_e( 'Convert to individual dates', 'the-events-calendar' ); ?></button>
+						</p>
+						<script>
+							( function () {
+								var ack    = document.getElementById( 'tec-events-recurrence-convert-ack' );
+								var button = document.querySelector( '.tec-events-recurrence-dates__convert-button' );
+
+								if ( ! ack || ! button ) {
+									return;
+								}
+
+								ack.addEventListener( 'change', function () {
+									button.disabled = ! ack.checked;
+								} );
+							} )();
+						</script>
+					<?php endif; ?>
+				</div>
 			<?php endif; ?>
 		</td>
 	</tr>

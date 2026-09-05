@@ -189,6 +189,52 @@ class Blocks_ProviderTest extends WPTestCase {
 		$this->assertNotEmpty( $chip['label'] );
 		$this->assertCount( 3, $chip['tooltip'] );
 		$this->assertContains( $chip['status'], [ 'past', 'next', 'upcoming' ] );
+
+		// The lock is on by default: no conversion offered, no nonce minted.
+		$this->assertTrue( $recurrence_dates['lockEnabled'] );
+		$this->assertFalse( $recurrence_dates['canConvert'] );
+		$this->assertSame( '', $recurrence_dates['convertNonce'] );
+		$this->assertStringContainsString( 'page=tec-events-settings', $recurrence_dates['settingsUrl'] );
+		$this->assertEquals( $post->ID, $recurrence_dates['postId'] );
+		$this->assertNull( $recurrence_dates['notice'] );
+	}
+
+	/**
+	 * It should expose the conversion data when the lock is disabled
+	 *
+	 * @test
+	 */
+	public function should_expose_the_conversion_data_when_the_lock_is_disabled(): void {
+		$post = $this->given_an_event();
+		Event::find( $post->ID, 'post_id' )->update(
+			[ 'rset' => "DTSTART;TZID=America/Sao_Paulo:20500105T090000\nRRULE:FREQ=WEEKLY;COUNT=10" ]
+		);
+		tribe_update_option( Settings::LOCK_OPTION, false );
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		// Written directly: an earlier test in the process may have defined REST_REQUEST, which `set()` honors.
+		set_transient( Updates\Admin_Notice::TRANSIENT . get_current_user_id(), [ 'type' => 'success', 'message' => 'Converted.' ], MINUTE_IN_SECONDS );
+
+		$_GET['post'] = $post->ID;
+		try {
+			$config = tribe( Blocks_Provider::class )->add_editor_config( [ 'events' => [] ] );
+
+			$recurrence_dates = $config['events']['recurrenceDates'];
+			$this->assertTrue( $recurrence_dates['locked'] );
+			$this->assertFalse( $recurrence_dates['lockEnabled'] );
+			$this->assertTrue( $recurrence_dates['canConvert'] );
+			$this->assertStringEndsWith( 'admin-post.php', $recurrence_dates['convertUrl'] );
+			$this->assertEquals( Updates\Rules_Conversion_Request::ACTION, $recurrence_dates['convertAction'] );
+			$this->assertEquals( Updates\Rules_Conversion_Request::ACK_FIELD, $recurrence_dates['ackField'] );
+			// Nonces are user-bound: verified as the same user.
+			$this->assertNotFalse( wp_verify_nonce( $recurrence_dates['convertNonce'], Updates\Rules_Conversion_Request::NONCE_ACTION . $post->ID ) );
+			$this->assertEquals( [ 'type' => 'success', 'message' => 'Converted.' ], $recurrence_dates['notice'] );
+			$this->assertFalse( get_transient( Updates\Admin_Notice::TRANSIENT . get_current_user_id() ), 'The notice was pulled.' );
+		} finally {
+			unset( $_GET['post'] );
+			tribe_remove_option( Settings::LOCK_OPTION );
+			tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, [] );
+			wp_set_current_user( 0 );
+		}
 	}
 
 	/**
@@ -209,5 +255,7 @@ class Blocks_ProviderTest extends WPTestCase {
 		$recurrence_dates = $config['events']['recurrenceDates'];
 		$this->assertFalse( $recurrence_dates['locked'] );
 		$this->assertEquals( [ 'count' => 0, 'dates' => [] ], $recurrence_dates['summary'] );
+		$this->assertFalse( $recurrence_dates['canConvert'] );
+		$this->assertSame( '', $recurrence_dates['convertNonce'] );
 	}
 }

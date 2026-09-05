@@ -182,3 +182,49 @@
 .tribe-editor__event-dates__chip-group:has(.tribe-editor__event-dates__chip--next) .tribe-editor__event-dates__chip-edit.components-button {
 	border-color: var(--tec-color-accent-primary, #334aff);
 }
+
+/* Rule-based (Events Calendar Pro) recurrence lock and conversion. */
+.tribe-editor__event-dates--locked .components-notice.tribe-editor__event-dates__lock-notice {
+	margin: 0 0 12px;
+}
+
+.tribe-editor__event-dates--locked .tribe-editor__event-dates__lock-notice p {
+	font-size: 13px;
+	margin: 0 0 6px;
+}
+
+.tribe-editor__event-dates--locked .tribe-editor__event-dates__lock-notice p:last-child {
+	margin-bottom: 0;
+}
+
+.tribe-editor__event-dates__convert {
+	border-top: 1px solid var(--tec-color-border-secondary, #e1e3e6);
+	font-size: 13px;
+	margin-top: 12px;
+	padding-top: 12px;
+}
+
+.tribe-editor__event-dates__convert p {
+	margin: 0 0 6px;
+}
+
+.tribe-editor__event-dates__convert-effects {
+	list-style: disc;
+	margin: 0 0 12px 20px;
+	padding: 0;
+}
+
+.tribe-editor__event-dates__convert .components-checkbox-control {
+	margin-bottom: 12px;
+}
+
+.tribe-editor__event-dates__lock-hint {
+	color: var(--tec-color-text-secondary, #5d5d5d);
+	font-size: 13px;
+	margin: 4px 0 0;
+}
+
+.tribe-editor__calendars--disabled {
+	opacity: 0.6;
+	pointer-events: none;
+}

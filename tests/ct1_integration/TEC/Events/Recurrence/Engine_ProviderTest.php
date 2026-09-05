@@ -33,6 +33,14 @@ class Engine_ProviderTest extends WPTestCase {
 		$events      = Events::table_name( false );
 		$this->assertEquals( 10, has_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $engine, 'extend_occurrence_model' ] ) );
 		$this->assertEquals( 10, has_filter( "tec_custom_tables_{$events}_model_v1_extensions", [ $engine, 'extend_event_model' ] ) );
+
+		/*
+		 * The freeze guard sits between the single Occurrence update buffer (-10) and the
+		 * provisional meta retargeting (0); the shared notice renders on admin_notices.
+		 */
+		$this->assertEquals( -5, has_filter( 'update_post_metadata', [ tribe( Updates\Freeze_Guard::class ), 'refuse_update' ] ) );
+		$this->assertEquals( -10, has_filter( 'update_post_metadata', [ tribe( Updates\Single_Occurrence_Update::class ), 'buffer_update' ] ) );
+		$this->assertEquals( 10, has_action( 'admin_notices', [ tribe( Updates\Admin_Notice::class ), 'render' ] ) );
 	}
 
 	/**
@@ -50,6 +58,8 @@ class Engine_ProviderTest extends WPTestCase {
 		$this->assertFalse( has_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $engine, 'get_occurrence_match' ] ) );
 		$this->assertFalse( has_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $engine, 'derive_dates_rset_from_meta' ] ) );
 		$this->assertFalse( has_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $engine, 'prune_occurrences_by_sequence' ] ) );
+		$this->assertFalse( has_filter( 'update_post_metadata', [ tribe( Updates\Freeze_Guard::class ), 'refuse_update' ] ) );
+		$this->assertFalse( has_action( 'admin_notices', [ tribe( Updates\Admin_Notice::class ), 'render' ] ) );
 
 		// Registering again re-attaches, idempotently for this instance.
 		$engine->register();

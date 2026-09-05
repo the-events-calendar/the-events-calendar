@@ -21,6 +21,8 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provisional\Provider as Provisional_Queries_Provider;
+use TEC\Events\Recurrence\Updates\Admin_Notice;
+use TEC\Events\Recurrence\Updates\Freeze_Guard;
 use TEC\Events\Recurrence\Updates\Single_Occurrence_Update;
 
 /**
@@ -56,11 +58,18 @@ class Engine_Provider extends Service_Provider {
 			$this->container->make( $provider )->register();
 		}
 
-		// Saving an Occurrence edit screen moves that Occurrence only.
-		if ( ! $this->container->isBound( Single_Occurrence_Update::class ) ) {
-			$this->container->singleton( Single_Occurrence_Update::class );
+		/*
+		 * The per-user notice the update flows leave, the single Occurrence update (an
+		 * Occurrence edit screen moves that Occurrence only) and the freeze guard (the
+		 * dates of a rule-based Event stay immutable while its rules are frozen).
+		 */
+		foreach ( [ Admin_Notice::class, Single_Occurrence_Update::class, Freeze_Guard::class ] as $service ) {
+			if ( ! $this->container->isBound( $service ) ) {
+				$this->container->singleton( $service );
+			}
+
+			$this->container->make( $service )->register();
 		}
-		$this->container->make( Single_Occurrence_Update::class )->register();
 
 		/*
 		 * By Day Views (e.g. Month) receive provisional post IDs when the engine is
@@ -280,8 +289,10 @@ class Engine_Provider extends Service_Provider {
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
 		$this->container->make( Provisional_Provider::class )->unregister();
 
-		if ( $this->container->isBound( Single_Occurrence_Update::class ) ) {
-			$this->container->make( Single_Occurrence_Update::class )->unregister();
+		foreach ( [ Freeze_Guard::class, Single_Occurrence_Update::class, Admin_Notice::class ] as $service ) {
+			if ( $this->container->isBound( $service ) ) {
+				$this->container->make( $service )->unregister();
+			}
 		}
 	}
 
