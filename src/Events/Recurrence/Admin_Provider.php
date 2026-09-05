@@ -20,7 +20,6 @@ namespace TEC\Events\Recurrence;
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
-use WP_Post;
 
 /**
  * Class Admin_Provider.
@@ -68,10 +67,6 @@ class Admin_Provider extends Service_Provider {
 			// The same hook and priority Events Calendar Pro consumes classic recurrence on.
 			add_action( 'tribe_events_update_meta', [ $this, 'save_dates' ], 20 );
 		}
-
-		if ( ! has_action( 'add_meta_boxes_' . TEC::POSTTYPE, [ $this, 'register_occurrences_metabox' ] ) ) {
-			add_action( 'add_meta_boxes_' . TEC::POSTTYPE, [ $this, 'register_occurrences_metabox' ] );
-		}
 	}
 
 	/**
@@ -84,56 +79,6 @@ class Admin_Provider extends Service_Provider {
 	public function unregister(): void {
 		remove_action( 'tribe_events_date_display', [ $this, 'render_section' ], 15 );
 		remove_action( 'tribe_events_update_meta', [ $this, 'save_dates' ], 20 );
-		remove_action( 'add_meta_boxes_' . TEC::POSTTYPE, [ $this, 'register_occurrences_metabox' ] );
-	}
-
-	/**
-	 * Registers the Scheduled Dates metabox for Events with more than one Occurrence.
-	 *
-	 * The metabox renders in the Classic Editor and in the Block Editor metaboxes
-	 * area alike, and is display-only: editing a single Occurrence requires the
-	 * scoped-updates machinery, not available yet.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Post|mixed $post The post the edit screen is rendering.
-	 *
-	 * @return void
-	 */
-	public function register_occurrences_metabox( $post ): void {
-		if ( ! $post instanceof WP_Post ) {
-			return;
-		}
-
-		if ( tribe( Occurrences_List::class )->get_count( (int) $post->ID ) < 2 ) {
-			// A single-date Event has nothing to list.
-			return;
-		}
-
-		add_meta_box(
-			'tec-events-recurrence-occurrences',
-			__( 'Scheduled Dates', 'the-events-calendar' ),
-			[ $this, 'render_occurrences_metabox' ],
-			TEC::POSTTYPE,
-			'normal',
-			'low'
-		);
-	}
-
-	/**
-	 * Renders the Scheduled Dates metabox.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Post|mixed $post The post the metabox is rendered for.
-	 *
-	 * @return void
-	 */
-	public function render_occurrences_metabox( $post ): void {
-		$event_id = $post instanceof WP_Post ? (int) $post->ID : 0;
-		$data     = tribe( Occurrences_List::class )->get_page_data( $event_id );
-
-		include TEC::instance()->pluginPath . 'src/admin-views/recurrence/occurrences-list.php';
 	}
 
 	/**

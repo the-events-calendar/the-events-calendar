@@ -4,20 +4,11 @@ namespace TEC\Events\Recurrence;
 
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Custom_Tables\V1\Events\Provisional\ID_Generator;
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Traits\With_Recurrence_Engine;
 use WP_Post;
 
 class Occurrences_ListTest extends WPTestCase {
 	use With_Recurrence_Engine;
-
-	/**
-	 * @after
-	 */
-	public function reset_list_state(): void {
-		unset( $_GET[ Occurrences_List::VIEW_VAR ], $_GET[ Occurrences_List::PAGE_VAR ] );
-		remove_all_filters( 'tec_events_recurrence_occurrences_list_per_page' );
-	}
 
 	private function given_an_event_with_dates( array $dates, string $start = '' ): WP_Post {
 		$start = $start ?: date( 'Y-m-d 09:00:00', strtotime( '+5 days' ) );
@@ -45,145 +36,6 @@ class Occurrences_ListTest extends WPTestCase {
 			'start' => date( 'Y-m-d 09:00:00', strtotime( $modifier ) ),
 			'end'   => date( 'Y-m-d 10:00:00', strtotime( $modifier ) ),
 		];
-	}
-
-	/**
-	 * It should count the scheduled occurrences, accepting a provisional ID
-	 *
-	 * @test
-	 */
-	public function should_count_the_scheduled_occurrences(): void {
-		$post = $this->given_an_event_with_dates( [ $this->day_period( '+10 days' ), $this->day_period( '+20 days' ) ] );
-		$list = tribe( Occurrences_List::class );
-
-		$this->assertEquals( 3, $list->get_count( $post->ID ) );
-
-		$occurrence     = Occurrence::where( 'post_id', '=', $post->ID )->first();
-		$provisional_id = tribe( ID_Generator::class )->provide_id( $occurrence->occurrence_id );
-		$this->assertEquals( 3, $list->get_count( $provisional_id ) );
-
-		$single = $this->given_an_event_with_dates( [] );
-		$this->assertEquals( 1, $list->get_count( $single->ID ) );
-
-		tribe()->setVar( 'ct1_fully_activated', false );
-		$this->assertEquals( 0, $list->get_count( $post->ID ) );
-		tribe()->setVar( 'ct1_fully_activated', true );
-	}
-
-	/**
-	 * It should list the dates in order with their provisional IDs
-	 *
-	 * @test
-	 */
-	public function should_list_the_dates_in_order_with_provisional_ids(): void {
-		$post = $this->given_an_event_with_dates( [ $this->day_period( '+20 days' ), $this->day_period( '+10 days' ) ] );
-
-		$_GET[ Occurrences_List::VIEW_VAR ] = 'all';
-		$data                               = tribe( Occurrences_List::class )->get_page_data( $post->ID );
-
-		$this->assertEquals( 'all', $data['view'] );
-		$this->assertEquals( 3, $data['total'] );
-		$this->assertEquals( 1, $data['total_pages'] );
-		$this->assertCount( 3, $data['rows'] );
-
-		$starts = array_map( static fn( $row ) => $row['start']->format( 'Y-m-d H:i:s' ), $data['rows'] );
-		$this->assertEquals(
-			[
-				date( 'Y-m-d 09:00:00', strtotime( '+5 days' ) ),
-				date( 'Y-m-d 09:00:00', strtotime( '+10 days' ) ),
-				date( 'Y-m-d 09:00:00', strtotime( '+20 days' ) ),
-			],
-			$starts
-		);
-
-		$base = tribe( ID_Generator::class )->current();
-		foreach ( $data['rows'] as $row ) {
-			$this->assertGreaterThan( $base, $row['provisional_id'] );
-		}
-	}
-
-	/**
-	 * It should filter the upcoming view and paginate
-	 *
-	 * @test
-	 */
-	public function should_filter_upcoming_and_paginate(): void {
-		$post = $this->given_an_event_with_dates(
-			[ $this->day_period( '+10 days' ), $this->day_period( '+20 days' ), $this->day_period( '-10 days' ) ],
-			date( 'Y-m-d 09:00:00', strtotime( '-20 days' ) )
-		);
-
-		$list = tribe( Occurrences_List::class );
-
-		// Upcoming: the two future dates only.
-		$data = $list->get_page_data( $post->ID );
-		$this->assertEquals( 'upcoming', $data['view'] );
-		$this->assertEquals( 2, $data['total'] );
-
-		// All, two per page: two pages, page 2 has the two most recent dates.
-		add_filter( 'tec_events_recurrence_occurrences_list_per_page', static fn() => 2 );
-		$_GET[ Occurrences_List::VIEW_VAR ] = 'all';
-		$_GET[ Occurrences_List::PAGE_VAR ] = '2';
-
-		$data = $list->get_page_data( $post->ID );
-		$this->assertEquals( 4, $data['total'] );
-		$this->assertEquals( 2, $data['total_pages'] );
-		$this->assertEquals( 2, $data['page'] );
-		$this->assertCount( 2, $data['rows'] );
-		$this->assertEquals( date( 'Y-m-d 09:00:00', strtotime( '+20 days' ) ), end( $data['rows'] )['start']->format( 'Y-m-d H:i:s' ) );
-
-		// An out-of-range page clamps to the last one.
-		$_GET[ Occurrences_List::PAGE_VAR ] = '99';
-		$data                               = $list->get_page_data( $post->ID );
-		$this->assertEquals( 2, $data['page'] );
-	}
-
-	/**
-	 * It should register the metabox for multi-date events only
-	 *
-	 * @test
-	 */
-	public function should_register_the_metabox_for_multi_date_events_only(): void {
-		global $wp_meta_boxes;
-		$provider = tribe( Admin_Provider::class );
-
-		$multi         = $this->given_an_event_with_dates( [ $this->day_period( '+10 days' ) ] );
-		$wp_meta_boxes = [];
-		$provider->register_occurrences_metabox( get_post( $multi->ID ) );
-		$this->assertNotEmpty( $wp_meta_boxes['tribe_events']['normal']['low']['tec-events-recurrence-occurrences'] ?? null );
-
-		$single        = $this->given_an_event_with_dates( [] );
-		$wp_meta_boxes = [];
-		$provider->register_occurrences_metabox( get_post( $single->ID ) );
-		$this->assertEmpty( $wp_meta_boxes );
-	}
-
-	/**
-	 * It should render View links pointing at each occurrence date
-	 *
-	 * @test
-	 */
-	public function should_render_view_links_pointing_at_each_occurrence_date(): void {
-		set_current_screen( 'post' );
-		// The Links provider hooks are restored away between tests while the di52 provider registry is not: re-hook directly.
-		tribe( \TEC\Events\Custom_Tables\V1\Links\Provider::class )->register();
-
-		try {
-			$post = $this->given_an_event_with_dates( [ $this->day_period( '+10 days' ) ] );
-
-			$_GET[ Occurrences_List::VIEW_VAR ] = 'all';
-			ob_start();
-			tribe( Admin_Provider::class )->render_occurrences_metabox( get_post( $post->ID ) );
-			$html = ob_get_clean();
-
-			// One View link per date, each carrying its own date.
-			$this->assertEquals( 2, substr_count( $html, 'rel="noreferrer noopener"' ) );
-			$this->assertStringContainsString( date( 'Y-m-d', strtotime( '+5 days' ) ), $html );
-			$this->assertStringContainsString( date( 'Y-m-d', strtotime( '+10 days' ) ), $html );
-		} finally {
-			tribe( \TEC\Events\Custom_Tables\V1\Links\Provider::class )->unregister();
-			set_current_screen( 'front' );
-		}
 	}
 
 	/**
@@ -264,44 +116,6 @@ class Occurrences_ListTest extends WPTestCase {
 			$this->assertEquals( 'next', $chip['status'] );
 			// The edit link targets the Occurrence's provisional post directly.
 			$this->assertStringContainsString( 'post.php?post=' . $rows[0]['provisional_id'] . '&action=edit', $chip['edit_link'] );
-		} finally {
-			update_option( 'timezone_string', $site_timezone );
-		}
-	}
-
-	/**
-	 * It should filter the upcoming view in UTC regardless of the site and event timezones
-	 *
-	 * The `end_date` column holds the Event's local wall clock: comparing it against the
-	 * site's local clock put boundary occurrences in the wrong bucket, and the total and
-	 * page count with them.
-	 *
-	 * @test
-	 */
-	public function should_filter_the_upcoming_view_in_utc(): void {
-		$site_timezone = get_option( 'timezone_string' );
-		// Site UTC+9, event UTC-3: the two local clocks are twelve hours apart.
-		update_option( 'timezone_string', 'Asia/Tokyo' );
-
-		try {
-			// An occurrence that ended six hours ago in UTC: past, whatever the local clocks say.
-			$past_start = gmdate( 'Y-m-d H:i:00', strtotime( '-7 hours' ) - 3 * HOUR_IN_SECONDS );
-			// An occurrence starting in six hours in UTC: upcoming.
-			$next_start = gmdate( 'Y-m-d H:i:00', strtotime( '+6 hours' ) - 3 * HOUR_IN_SECONDS );
-
-			$post = $this->given_an_event_with_dates(
-				[
-					[ 'start' => $next_start, 'end' => gmdate( 'Y-m-d H:i:00', strtotime( $next_start ) + HOUR_IN_SECONDS ) ],
-				],
-				$past_start
-			);
-
-			$data = tribe( Occurrences_List::class )->get_page_data( $post->ID );
-
-			$this->assertEquals( 'upcoming', $data['view'] );
-			$this->assertEquals( 1, $data['total'], 'Only the occurrence still ahead in UTC is upcoming.' );
-			$this->assertCount( 1, $data['rows'] );
-			$this->assertEquals( $next_start, $data['rows'][0]['start']->format( 'Y-m-d H:i:s' ) );
 		} finally {
 			update_option( 'timezone_string', $site_timezone );
 		}

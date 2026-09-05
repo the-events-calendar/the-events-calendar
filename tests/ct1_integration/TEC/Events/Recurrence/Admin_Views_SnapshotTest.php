@@ -9,9 +9,9 @@ use Tribe\Tests\Traits\With_Uopz;
 use WP_Post;
 
 /**
- * Snapshots the admin-view markup of the Event Dates section and the Scheduled Dates
- * metabox. Every dynamic value is pinned: nonce, date picker format, post slug and fixed
- * far-future dates; the Event and provisional post IDs are normalized to placeholders.
+ * Snapshots the admin-view markup of the Event Dates section. Every dynamic value is
+ * pinned: nonce, date picker format, post slug and fixed far-future dates; the Event and
+ * provisional post IDs are normalized to placeholders.
  */
 class Admin_Views_SnapshotTest extends WPTestCase {
 	use With_Recurrence_Engine;
@@ -46,7 +46,7 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 				]
 			);
 		}
-		// The referer field and pagination links read the request URI: pin it.
+		// The referer field reads the request URI: pin it.
 		$this->request_uri_backup  = $_SERVER['REQUEST_URI'] ?? null;
 		$_SERVER['REQUEST_URI'] = '/wp-admin/post.php';
 	}
@@ -158,26 +158,5 @@ class Admin_Views_SnapshotTest extends WPTestCase {
 	 */
 	public function should_render_the_empty_state_for_new_events(): void {
 		$this->assertMatchesSnapshot( $this->render_section_html( 0 ) );
-	}
-
-	/**
-	 * It should render the scheduled dates metabox
-	 *
-	 * @test
-	 */
-	public function should_render_the_scheduled_dates_metabox(): void {
-		$post = $this->given_a_pinned_event(
-			[
-				[ 'start' => '2050-01-10 09:00:00', 'end' => '2050-01-10 10:00:00' ],
-				[ 'start' => '2050-01-17 14:30:00', 'end' => '2050-01-17 16:00:00' ],
-			],
-			'admin-snapshot-metabox-event'
-		);
-
-		ob_start();
-		tribe( Admin_Provider::class )->render_occurrences_metabox( get_post( $post->ID ) );
-		$html = $this->normalize_ids( (string) ob_get_clean(), $post->ID );
-
-		$this->assertMatchesSnapshot( $html );
 	}
 }

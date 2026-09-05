@@ -1,5 +1,0 @@
-significance: patch
-type: fix
-entry: Resolved an issue where the Scheduled Dates metabox counted upcoming
-  dates against the site timezone instead of the event timezone.
-timestamp: 2026-09-04T21:40:57.138Z
