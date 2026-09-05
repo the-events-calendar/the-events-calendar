@@ -78,8 +78,22 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 					 * are frozen: the controls are disabled and hidden mirrors keep the posted payload
 					 * identical to an untouched save.
 					 */
-					$tec_dates_locked       = ! empty( $dates_locked );
-					$tec_dates_locked_attrs = $tec_dates_locked ? ' disabled aria-describedby="' . esc_attr( (string) ( $dates_locked_describedby ?? '' ) ) . '"' : '';
+					$tec_dates_locked             = ! empty( $dates_locked );
+					$tec_dates_locked_describedby = (string) ( $dates_locked_describedby ?? '' );
+					// The metabox variables, by name: the mirrors below read the camelCase ones.
+					$tec_dates_vars = get_defined_vars();
+					/**
+					 * Prints the attributes disabling a date control of a rule-based Event.
+					 *
+					 * @return void
+					 */
+					$tec_dates_locked_attrs = static function () use ( $tec_dates_locked, $tec_dates_locked_describedby ): void {
+						if ( ! $tec_dates_locked ) {
+							return;
+						}
+
+						echo ' disabled aria-describedby="' . esc_attr( $tec_dates_locked_describedby ) . '"';
+					};
 					?>
 					<tr>
 						<td class="tribe-datetime-label"><?php esc_html_e( 'Start/End:', 'the-events-calendar' ); ?></td>
@@ -92,7 +106,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								name="EventStartDate"
 								id="EventStartDate"
 								value="<?php echo esc_attr( $EventStartDate ); ?>"
-								<?php echo $tec_dates_locked_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ); ?></span>
 
@@ -107,7 +121,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								data-step="<?php echo esc_attr( $start_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
 								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $start_timepicker_default : $EventStartTime ); ?>"
-								<?php echo $tec_dates_locked_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ); ?></span>
 
@@ -123,7 +137,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								data-step="<?php echo esc_attr( $end_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
 								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $end_timepicker_default : $EventEndTime ); ?>"
-								<?php echo $tec_dates_locked_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ); ?></span>
 
@@ -134,7 +148,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								name="EventEndDate"
 								id="EventEndDate"
 								value="<?php echo esc_attr( $EventEndDate ); ?>"
-								<?php echo $tec_dates_locked_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ); ?></span>
 
@@ -146,7 +160,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								data-timezone-label="<?php esc_attr_e( 'Time Zone:', 'the-events-calendar' ); ?>"
 								data-timezone-value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ); ?>"
 								data-prevent-clear
-								<?php echo $tec_dates_locked_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
+								<?php $tec_dates_locked_attrs(); ?>
 							>
 								<?php echo tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
 							</select>
@@ -159,18 +173,18 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 									name="EventAllDay"
 									value="yes"
 									<?php echo esc_html( $isEventAllDay ); ?>
-									<?php echo $tec_dates_locked_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>
+									<?php $tec_dates_locked_attrs(); ?>
 								/>
 								<label for="allDayCheckbox"><?php esc_html_e( 'All Day Event', 'the-events-calendar' ); ?></label>
 							</p>
 							<?php if ( $tec_dates_locked ) : ?>
 								<?php // Disabled controls are not posted: the mirrors post what an untouched save would. ?>
-								<input type="hidden" name="EventStartDate" value="<?php echo esc_attr( $EventStartDate ); ?>" />
-								<input type="hidden" name="EventStartTime" value="<?php echo esc_attr( $EventStartTime ); ?>" />
-								<input type="hidden" name="EventEndTime" value="<?php echo esc_attr( $EventEndTime ); ?>" />
-								<input type="hidden" name="EventEndDate" value="<?php echo esc_attr( $EventEndDate ); ?>" />
+								<input type="hidden" name="EventStartDate" value="<?php echo esc_attr( $tec_dates_vars['EventStartDate'] ?? '' ); ?>" />
+								<input type="hidden" name="EventStartTime" value="<?php echo esc_attr( $tec_dates_vars['EventStartTime'] ?? '' ); ?>" />
+								<input type="hidden" name="EventEndTime" value="<?php echo esc_attr( $tec_dates_vars['EventEndTime'] ?? '' ); ?>" />
+								<input type="hidden" name="EventEndDate" value="<?php echo esc_attr( $tec_dates_vars['EventEndDate'] ?? '' ); ?>" />
 								<input type="hidden" name="EventTimezone" value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ); ?>" />
-								<?php if ( '' !== trim( (string) $isEventAllDay ) ) : ?>
+								<?php if ( '' !== trim( (string) ( $tec_dates_vars['isEventAllDay'] ?? '' ) ) ) : ?>
 									<input type="hidden" name="EventAllDay" value="yes" />
 								<?php endif; ?>
 							<?php endif; ?>

@@ -305,7 +305,7 @@ class Freeze_Guard {
 		}
 
 		if ( $this->is_change( $post_id, $meta_key, $meta_value, $is_delete ) ) {
-			$this->refused[ $post_id ]   = $this->refused[ $post_id ] ?? [];
+			$this->refused[ $post_id ] ??= [];
 			$this->refused[ $post_id ][] = $meta_key;
 
 			/**

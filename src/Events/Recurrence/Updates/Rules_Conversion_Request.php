@@ -123,14 +123,24 @@ class Rules_Conversion_Request {
 	 * @return void
 	 */
 	public function handle(): void {
-		if ( 'POST' !== strtoupper( (string) ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) ) {
-			wp_die( esc_html__( 'The conversion must be requested with a POST request.', 'the-events-calendar' ), '', [ 'response' => 405 ] );
+		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+
+		if ( 'POST' !== strtoupper( $method ) ) {
+			wp_die(
+				esc_html__( 'The conversion must be requested with a POST request.', 'the-events-calendar' ),
+				esc_html__( 'Method not allowed', 'the-events-calendar' ),
+				405
+			);
 		}
 
 		$post_id = Occurrence::normalize_id( absint( tribe_get_request_var( self::POST_FIELD, 0 ) ) );
 
 		if ( $post_id <= 0 || TEC::POSTTYPE !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
-			wp_die( esc_html__( 'You are not allowed to convert this event.', 'the-events-calendar' ), '', [ 'response' => 403 ] );
+			wp_die(
+				esc_html__( 'You are not allowed to convert this event.', 'the-events-calendar' ),
+				esc_html__( 'Forbidden', 'the-events-calendar' ),
+				403
+			);
 		}
 
 		$notice = tribe( Admin_Notice::class );
