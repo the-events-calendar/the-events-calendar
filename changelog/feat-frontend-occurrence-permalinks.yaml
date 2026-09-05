@@ -1,0 +1,5 @@
+significance: minor
+type: feature
+entry: Linked each occurrence of a multi-date event to its own dated URL in
+  List, Month and Day views.
+timestamp: 2026-09-04T18:04:38.647Z

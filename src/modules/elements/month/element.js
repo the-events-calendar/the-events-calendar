@@ -51,6 +51,7 @@ export default class Month extends Component {
 		to: PropTypes.instanceOf( Date ),
 		month: PropTypes.instanceOf( Date ),
 		setVisibleMonth: PropTypes.func,
+		disabled: PropTypes.bool,
 	};
 
 	static defaultProps = {
@@ -59,6 +60,7 @@ export default class Month extends Component {
 		to: undefined,
 		month: fromMonth,
 		setVisibleMonth: noop,
+		disabled: false,
 	};
 
 	constructor() {
@@ -72,8 +74,13 @@ export default class Month extends Component {
 	}
 
 	selectDay = ( day ) => {
-		const { withRange } = this.props;
+		const { withRange, disabled } = this.props;
 		let range = {};
+
+		if ( disabled ) {
+			// The days render disabled; a click reaching here must not select anything.
+			return;
+		}
 
 		if ( withRange ) {
 			range = addToRange( day, this.state );
@@ -118,8 +125,11 @@ export default class Month extends Component {
 	};
 
 	render() {
-		const { from, to, month, withRange, setVisibleMonth } = this.props;
-		const containerClass = classNames( { 'tribe-editor__calendars--range': withRange } );
+		const { from, to, month, withRange, setVisibleMonth, disabled } = this.props;
+		const containerClass = classNames( {
+			'tribe-editor__calendars--range': withRange,
+			'tribe-editor__calendars--disabled': disabled,
+		} );
 		const modifiers = {
 			selected: this.getSelectedDays(),
 		};
@@ -139,6 +149,7 @@ export default class Month extends Component {
 				month={ month }
 				numberOfMonths={ 2 }
 				modifiers={ modifiers }
+				disabled={ disabled }
 				onDayClick={ this.selectDay }
 				onMonthChange={ setVisibleMonth }
 				captionLayout="dropdown"

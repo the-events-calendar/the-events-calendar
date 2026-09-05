@@ -1,0 +1,5 @@
+significance: patch
+type: tweak
+entry: Consolidated the per-user admin notices of the Recurrence feature into
+  one helper.
+timestamp: 2026-09-05T05:13:37.148Z

@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Changed single-occurrence edits of a multi-date event to move only that
+  occurrence, in both editors; rule-based events record the move as Events
+  Calendar Pro does.
+timestamp: 2026-09-04T18:04:38.945Z

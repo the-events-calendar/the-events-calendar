@@ -1,0 +1,5 @@
+significance: patch
+type: tweak
+entry: Added a way to reset the Custom Tables model extensions when the
+  occurrence engine registers mid-request.
+timestamp: 2026-09-04T18:04:39.248Z

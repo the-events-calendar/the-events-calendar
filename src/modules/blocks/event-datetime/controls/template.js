@@ -15,6 +15,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { date } from '@moderntribe/common/utils';
 import { wpEditor } from '@moderntribe/common/utils/globals';
+import { isDatesLocked } from '../locked';
 const { InspectorControls } = wpEditor;
 
 /**
@@ -64,6 +65,7 @@ const EventDateTimeControls = ( props ) => {
 						onChange={ setTimeZone }
 						options={ timezonesAsSelectData() }
 						className="tribe-editor__date-time__time-zone-setting"
+						disabled={ isDatesLocked() }
 						__nextHasNoMarginBottom={ true }
 					/>
 					<ToggleControl

@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where a link to a deleted or unknown occurrence could
+  trigger a fatal error when the occurrence infrastructure is active.
+timestamp: 2026-09-04T21:40:57.074Z
