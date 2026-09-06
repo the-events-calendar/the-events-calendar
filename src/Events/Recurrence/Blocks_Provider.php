@@ -359,7 +359,7 @@ class Blocks_Provider extends Service_Provider {
 
 		foreach ( $rows as $row ) {
 			$end_date = $row['end_date'] ?? $row['date'];
-			$dates[] = [
+			$dates[]  = [
 				'start' => "{$row['date']} {$row['start']}",
 				'end'   => "{$end_date} {$row['end']}",
 			];
@@ -510,8 +510,8 @@ class Blocks_Provider extends Service_Provider {
 
 			$date     = (string) $row['date'];
 			$end_date = (string) ( $row['end_date'] ?? $date );
-			$start = $this->normalize_time( (string) $row['start'] );
-			$end   = $this->normalize_time( (string) $row['end'] );
+			$start    = $this->normalize_time( (string) $row['start'] );
+			$end      = $this->normalize_time( (string) $row['end'] );
 
 			if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $date ) || null === $start || null === $end ) {
 				continue;

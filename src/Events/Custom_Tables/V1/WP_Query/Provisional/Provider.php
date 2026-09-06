@@ -561,5 +561,4 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function is_noop(): bool {
 		return $this->noop;
 	}
-
 }

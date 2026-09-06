@@ -165,7 +165,7 @@ class Occurrence_Writes {
 	/**
 	 * Routes WordPress's shared post and taxonomy SQL to the durable Event.
 	 *
-	 * wp_insert_post has no filter for its UPDATE target. Keep its occurrence ID
+	 * WordPress has no wp_insert_post filter for its UPDATE target. Keep its occurrence ID
 	 * through capability checks, meta writes, save hooks and REST responses, and
 	 * replace only the primary-key predicate of its single-post UPDATE. Never
 	 * rewrite post DELETEs or IDs appearing in user content. Taxonomy relationships
@@ -177,8 +177,8 @@ class Occurrence_Writes {
 	 */
 	public function route_shared_write( string $sql ): string {
 		global $wpdb;
-		$posts = preg_quote( $wpdb->posts, '#' );
-		$terms = preg_quote( $wpdb->term_relationships, '#' );
+		$posts    = preg_quote( $wpdb->posts, '#' );
+		$terms    = preg_quote( $wpdb->term_relationships, '#' );
 		$patterns = [
 			"#^UPDATE `?{$posts}`? SET .* WHERE `?ID`? = (\\d+)$#s",
 			"#^(?:SELECT term_taxonomy_id FROM|DELETE FROM) `?{$terms}`? WHERE object_id = (\\d+) AND #",
@@ -188,7 +188,7 @@ class Occurrence_Writes {
 			if ( ! preg_match( $pattern, $sql, $matches, PREG_OFFSET_CAPTURE ) ) {
 				continue;
 			}
-			$id = (int) $matches[1][0];
+			$id     = (int) $matches[1][0];
 			$parent = $this->parent_id( $id );
 			if ( $parent ) {
 				return substr_replace( $sql, (string) $parent, $matches[1][1], strlen( $matches[1][0] ) );
@@ -235,10 +235,10 @@ class Occurrence_Writes {
 	 * Clone shared terms for each requested occurrence without mutating term caches.
 	 *
 	 * @since TBD
-	 * @param mixed $terms The retrieved terms.
-	 * @param int[] $ids The requested object IDs.
+	 * @param mixed    $terms The retrieved terms.
+	 * @param int[]    $ids The requested object IDs.
 	 * @param string[] $taxonomies The requested taxonomies.
-	 * @param array $args The query arguments.
+	 * @param array    $args The query arguments.
 	 * @return mixed The terms with their requested object identities.
 	 */
 	public function restore_term_object_ids( $terms, array $ids, array $taxonomies, array $args ) {
@@ -252,9 +252,9 @@ class Occurrence_Writes {
 		$result = [];
 		foreach ( $terms as $term ) {
 			foreach ( $owners[ $term->object_id ] ?? [ $term->object_id ] as $id ) {
-				$copy = clone $term;
+				$copy            = clone $term;
 				$copy->object_id = $id;
-				$result[] = $copy;
+				$result[]        = $copy;
 			}
 		}
 		return $result;
@@ -264,7 +264,7 @@ class Occurrence_Writes {
 	 * Clears shared taxonomy caches after WordPress finishes an occurrence save.
 	 *
 	 * @since TBD
-	 * @param int[] $ids The updated object IDs.
+	 * @param int[]  $ids The updated object IDs.
 	 * @param string $type The post type.
 	 * @return void
 	 */
@@ -311,10 +311,10 @@ class Occurrence_Writes {
 	 *
 	 * @since TBD
 	 * @param string $slug The generated slug.
-	 * @param int $id The post ID.
+	 * @param int    $id The post ID.
 	 * @param string $status The post status.
 	 * @param string $type The post type.
-	 * @param int $post_parent The hierarchical parent.
+	 * @param int    $post_parent The hierarchical parent.
 	 * @param string $original The submitted slug.
 	 * @return string The shared slug.
 	 */

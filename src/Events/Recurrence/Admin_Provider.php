@@ -236,9 +236,9 @@ class Admin_Provider extends Service_Provider {
 			$this->convert_form_event_id = $can_convert ? $parent_id : 0;
 		} elseif ( ! $is_occurrence && $event_id > 0 ) {
 			// The same display formats the Start/End pickers above the section use.
-			$date_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			$date_format   = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 			$event_all_day = tribe_event_is_all_day( $parent_id );
-			$time_format = \Tribe__View_Helpers::is_24hr_format() ? 'H:i' : 'g:ia';
+			$time_format   = \Tribe__View_Helpers::is_24hr_format() ? 'H:i' : 'g:ia';
 
 			$rows = array_map(
 				static function ( array $period ) use ( $date_format, $time_format, $event_all_day ): array {
@@ -247,9 +247,9 @@ class Admin_Provider extends Service_Provider {
 					return [
 						'date'     => $period['start']->format( $date_format ),
 						'end_date' => $period['end']->format( $date_format ),
-						'start'  => $period['start']->format( '00' === $period['start']->format( 's' ) ? $time_format : str_replace( 'i', 'i:s', $time_format ) ),
-						'end'    => $period['end']->format( '00' === $period['end']->format( 's' ) ? $time_format : str_replace( 'i', 'i:s', $time_format ) ),
-						'allday' => $all_day,
+						'start'    => $period['start']->format( '00' === $period['start']->format( 's' ) ? $time_format : str_replace( 'i', 'i:s', $time_format ) ),
+						'end'      => $period['end']->format( '00' === $period['end']->format( 's' ) ? $time_format : str_replace( 'i', 'i:s', $time_format ) ),
+						'allday'   => $all_day,
 					];
 				},
 				$guard->get_authored_periods( $event_id )
@@ -407,6 +407,5 @@ class Admin_Provider extends Service_Provider {
 		if ( ! $saved ) {
 			wp_die( esc_html__( 'The additional dates could not be saved. Return to the editor, review the dates and try again. Other event changes may already have been saved.', 'the-events-calendar' ), 500 );
 		}
-
 	}
 }
