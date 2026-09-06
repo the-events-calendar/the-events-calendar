@@ -13,7 +13,7 @@ class ProviderTest extends WPTestCase {
 	/** @test */
 	public function should_keep_native_date_columns_for_each_occurrence(): void {
 		$post = $this->given_a_multi_date_event();
-		$rows = Occurrence::where( 'post_id', $post->ID )->order_by( 'start_date', 'ASC' )->all();
+		$rows = iterator_to_array( Occurrence::where( 'post_id', $post->ID )->order_by( 'start_date', 'ASC' )->all(), false );
 		$this->assertCount( 2, $rows );
 		$starts = [];
 		foreach ( [ $post->ID, $rows[0]->provisional_id, $rows[1]->provisional_id ] as $id ) {
