@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Resolved an issue where occurrence edits appeared to save without
+  persisting by directing event editing to the shared event and preventing
+  unsupported occurrence operations.
+timestamp: 2026-09-06T03:04:31.246Z

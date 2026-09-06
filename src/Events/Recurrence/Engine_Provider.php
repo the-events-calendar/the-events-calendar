@@ -23,6 +23,7 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use TEC\Events\Custom_Tables\V1\WP_Query\Provisional\Provider as Provisional_Queries_Provider;
 use TEC\Events\Recurrence\Updates\Admin_Notice;
 use TEC\Events\Recurrence\Updates\Freeze_Guard;
+use TEC\Events\Recurrence\Updates\Occurrence_Writes;
 use TEC\Events\Recurrence\Updates\Single_Occurrence_Update;
 
 /**
@@ -63,7 +64,7 @@ class Engine_Provider extends Service_Provider {
 		 * Occurrence edit screen moves that Occurrence only) and the freeze guard (the
 		 * dates of a rule-based Event stay immutable while its rules are frozen).
 		 */
-		foreach ( [ Admin_Notice::class, Single_Occurrence_Update::class, Freeze_Guard::class ] as $service ) {
+		foreach ( [ Admin_Notice::class, Single_Occurrence_Update::class, Freeze_Guard::class, Occurrence_Writes::class ] as $service ) {
 			if ( ! $this->container->isBound( $service ) ) {
 				$this->container->singleton( $service );
 			}
@@ -289,7 +290,7 @@ class Engine_Provider extends Service_Provider {
 		$this->container->make( Provisional_Queries_Provider::class )->unregister();
 		$this->container->make( Provisional_Provider::class )->unregister();
 
-		foreach ( [ Freeze_Guard::class, Single_Occurrence_Update::class, Admin_Notice::class ] as $service ) {
+		foreach ( [ Occurrence_Writes::class, Freeze_Guard::class, Single_Occurrence_Update::class, Admin_Notice::class ] as $service ) {
 			if ( $this->container->isBound( $service ) ) {
 				$this->container->make( $service )->unregister();
 			}
