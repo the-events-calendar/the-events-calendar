@@ -42,6 +42,8 @@ class Provider extends Service_Provider {
 		add_filter( 'ngettext', [ $this, 'item_label' ], 10, 5 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 		add_action( 'clean_post_cache', [ $this->container->make( Presentation::class ), 'reset' ] );
+		add_action( 'quick_edit_custom_box', [ $this, 'inline_context' ], 10, 2 );
+		add_filter( 'post_column_taxonomy_links', [ $this, 'taxonomy_links' ] );
 	}
 
 	/** Removes all owned callbacks and per-request state. @since TBD @return void */
@@ -61,12 +63,17 @@ class Provider extends Service_Provider {
 		remove_filter( 'ngettext', [ $this, 'item_label' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 		remove_action( 'clean_post_cache', [ $this->container->make( Presentation::class ), 'reset' ] );
+		remove_action( 'quick_edit_custom_box', [ $this, 'inline_context' ] );
+		remove_filter( 'post_column_taxonomy_links', [ $this, 'taxonomy_links' ] );
 		$this->container->make( Presentation::class )->reset();
 		$this->rendered = false;
 	}
 
 	/** Whether the current screen is the event list. @since TBD @return bool */
 	public static function is_list(): bool {
+		if ( wp_doing_ajax() && 'inline-save' === tribe_get_request_var( 'action' ) && TEC::POSTTYPE === tribe_get_request_var( 'post_type' ) ) {
+			return true;
+		}
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 		return $screen && 'edit' === $screen->base && TEC::POSTTYPE === $screen->post_type;
 	}
@@ -105,7 +112,7 @@ class Provider extends Service_Provider {
 			static function ( $value ) {
 				return false === $value ? false : rawurlencode( (string) $value );
 			},
-			array_merge( $args, $overrides ) 
+			array_merge( $args, $overrides )
 		);
 		return add_query_arg( $args, admin_url( 'edit.php' ) );
 	}
@@ -119,6 +126,12 @@ class Provider extends Service_Provider {
 	 * @return array Shared columns with Pro additions preserved.
 	 */
 	public function columns( array $columns ): array {
+		// Own the author destination so selecting an author retains this view's date range.
+		if ( isset( $columns['author'] ) ) {
+			$keys = array_keys( $columns );
+			$keys[ array_search( 'author', $keys, true ) ] = 'tec-author';
+			$columns                                       = array_combine( $keys, array_values( $columns ) );
+		}
 		unset( $columns['start-date'], $columns['end-date'] );
 		if ( 'occurrences' === self::view() ) {
 			unset( $columns['cb'] );
@@ -137,6 +150,7 @@ class Provider extends Service_Provider {
 	 * @return array Updated mapping.
 	 */
 	public function sortable( array $columns ): array {
+		$columns['tec-author'] = 'author';
 		unset( $columns['start-date'], $columns['end-date'] );
 		$columns['tec-start-date'] = 'start-date';
 		$columns['tec-end-date']   = 'end-date';
@@ -152,6 +166,13 @@ class Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function column( string $column, int $id ): void {
+		if ( 'tec-author' === $column ) {
+			$author = get_userdata( get_post_field( 'post_author', $id ) );
+			if ( $author ) {
+				echo '<a href="' . esc_url( self::url( [ 'author' => $author->ID ] ) ) . '">' . esc_html( $author->display_name ) . '</a>';
+			}
+			return;
+		}
 		if ( ! in_array( $column, [ 'tec-schedule', 'tec-start-date', 'tec-end-date' ], true ) ) {
 			return;
 		}
@@ -181,6 +202,9 @@ class Provider extends Service_Provider {
 			return $actions;
 		}
 		$data = $this->container->make( Presentation::class )->get( $post->ID );
+		if ( 'occurrences' === self::view() ) {
+			unset( $actions['inline hide-if-no-js'] );
+		}
 		echo '<div class="tec-occurrence-admin__identity">';
 		echo esc_html( $data['isOccurrence'] ? __( 'Occurrence', 'the-events-calendar' ) : __( 'Event', 'the-events-calendar' ) );
 		echo ' · ' . esc_html( $data['scheduleLabel'] );
@@ -204,6 +228,46 @@ class Provider extends Service_Provider {
 			$actions['tec-dates'] = '<a href="' . esc_url( $data['datesLink'] ) . '">' . esc_html__( 'View all dates', 'the-events-calendar' ) . '</a>';
 		}
 		return $actions;
+	}
+
+	/**
+	 * Carries the parent-management view through WordPress's Quick Edit row refresh.
+	 *
+	 * @since TBD
+	 * @param string $column    Current custom column.
+	 * @param string $post_type Edited post type.
+	 * @return void
+	 */
+	public function inline_context( string $column, string $post_type ): void {
+		if ( 'tec-schedule' === $column && TEC::POSTTYPE === $post_type ) {
+			echo '<input type="hidden" name="tec_events_view" value="' . esc_attr( self::view() ) . '" />';
+		}
+	}
+
+	/**
+	 * Preserves the selected view and date range when following WordPress taxonomy links.
+	 *
+	 * @since TBD
+	 * @param array $links Existing escaped term links.
+	 * @return array Links with the list's supported filters.
+	 */
+	public function taxonomy_links( array $links ): array {
+		if ( ! self::is_list() ) {
+			return $links;
+		}
+		return array_map(
+			static function ( $link ) {
+				return preg_replace_callback(
+					'/href="([^"]+)"/',
+					static function ( $attribute ) {
+						parse_str( wp_parse_url( html_entity_decode( $attribute[1], ENT_QUOTES ), PHP_URL_QUERY ) ?: '', $args );
+						return 'href="' . esc_url( self::url( $args ) ) . '"';
+					},
+					$link
+				);
+			},
+			$links
+		);
 	}
 
 	/**
@@ -241,8 +305,8 @@ class Provider extends Service_Provider {
 							'post_status'     => false,
 							'orderby'         => false,
 							'order'           => false,
-						] 
-					) 
+						]
+					)
 				) . '" aria-current="' . esc_attr( self::view() === $view ? 'page' : 'false' ) . '">' . esc_html( $label ) . '</a> ';
 			}
 			$heading     = $occurrences ? __( 'Occurrences', 'the-events-calendar' ) : __( 'Manage events', 'the-events-calendar' );
@@ -299,6 +363,19 @@ class Provider extends Service_Provider {
 			return;
 		}
 		echo '<input type="hidden" name="tec_events_view" value="' . esc_attr( self::view() ) . '" />';
+		echo '<label class="screen-reader-text" for="tec-occurrence-category">' . esc_html__( 'Event category', 'the-events-calendar' ) . '</label>';
+		wp_dropdown_categories(
+			[
+				'taxonomy'        => TEC::TAXONOMY,
+				'name'            => TEC::TAXONOMY,
+				'id'              => 'tec-occurrence-category',
+				'value_field'     => 'slug',
+				'selected'        => sanitize_title( tribe_get_request_var( TEC::TAXONOMY, '' ) ),
+				'show_option_all' => __( 'All event categories', 'the-events-calendar' ),
+				'hide_empty'      => false,
+				'hierarchical'    => true,
+			]
+		);
 		if ( 'occurrences' !== self::view() ) {
 			return;
 		}

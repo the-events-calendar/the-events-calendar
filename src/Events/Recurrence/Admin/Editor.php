@@ -58,7 +58,7 @@ class Editor {
 					'context'  => [ 'edit' ],
 					'readonly' => true,
 				],
-			] 
+			]
 		);
 	}
 

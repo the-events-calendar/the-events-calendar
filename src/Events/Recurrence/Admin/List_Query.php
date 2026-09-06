@@ -53,6 +53,7 @@ class List_Query {
 		$query->set( self::FLAG, 'occurrences' === Provider::view() );
 		$query->set( 'post_parent', 0 );
 		$query->set( 'tec_dates', Provider::range() );
+		$query->set( 'tec_recurrence_now', gmdate( 'Y-m-d H:i:s' ) );
 		$query->set( 'tec_event', absint( tribe_get_request_var( 'tec_event', 0 ) ) );
 		$query->set( 'perm', 'readable' );
 		if ( ! $query->get( 'post_status' ) ) {
@@ -98,7 +99,7 @@ class List_Query {
 		$parent = absint( $query->get( 'tec_event' ) );
 		if ( 'all' !== $range ) {
 			$comparison        = 'past' === $range ? '<' : '>=';
-			$clauses['where'] .= $wpdb->prepare( " AND $table.end_date_utc $comparison %s", gmdate( 'Y-m-d H:i:s' ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Internal table name and allowlisted operator.
+			$clauses['where'] .= $wpdb->prepare( " AND $table.end_date_utc $comparison %s", $query->get( 'tec_recurrence_now' ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Internal table name and allowlisted operator.
 		}
 		if ( $parent ) {
 			$clauses['where'] .= $wpdb->prepare( " AND $table.post_id = %d", $parent ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Internal table name.

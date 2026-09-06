@@ -66,4 +66,42 @@ class ProviderTest extends WPTestCase {
 			$_REQUEST = $request;
 		}
 	}
+
+	/** @test */
+	public function should_preserve_parent_management_when_quick_edit_refreshes_a_row(): void {
+		$request = $_REQUEST;
+		$_REQUEST['tec_events_view'] = 'events';
+		try {
+			ob_start();
+			tribe( Provider::class )->inline_context( 'tec-schedule', 'tribe_events' );
+			$html = ob_get_clean();
+			$this->assertStringContainsString( 'name="tec_events_view" value="events"', $html );
+			$this->assertArrayHasKey( 'cb', tribe( Provider::class )->columns( [ 'cb' => 'Select', 'author' => 'Author' ] ) );
+		} finally {
+			$_REQUEST = $request;
+		}
+	}
+
+	/** @test */
+	public function should_retain_date_and_parent_filters_in_author_and_tag_destinations(): void {
+		$request = $_REQUEST;
+		$screen = $GLOBALS['current_screen'] ?? null;
+		$_REQUEST = [ 'tec_dates' => 'past', 'tec_event' => '45' ];
+		set_current_screen( 'edit-tribe_events' );
+		try {
+			$link = tribe( Provider::class )->taxonomy_links( [ '<a href="edit.php?post_type=tribe_events&amp;tag=yoga">Yoga</a>' ] )[0];
+			$this->assertStringContainsString( 'tec_dates=past', $link );
+			$this->assertStringContainsString( 'tec_event=45', $link );
+			$this->assertStringContainsString( 'tag=yoga', $link );
+			$post = static::factory()->post->create( [ 'post_type' => 'tribe_events', 'post_author' => static::factory()->user->create() ] );
+			ob_start();
+			tribe( Provider::class )->column( 'tec-author', $post );
+			$html = ob_get_clean();
+			$this->assertStringContainsString( 'tec_dates=past', $html );
+			$this->assertStringContainsString( 'tec_event=45', $html );
+		} finally {
+			$_REQUEST = $request;
+			$GLOBALS['current_screen'] = $screen;
+		}
+	}
 }

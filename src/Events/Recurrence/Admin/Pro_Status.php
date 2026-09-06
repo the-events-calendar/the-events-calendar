@@ -74,11 +74,11 @@ class Pro_Status {
 							'action' => 'activate',
 							'plugin' => $file,
 						],
-						self_admin_url( 'plugins.php' ) 
+						self_admin_url( 'plugins.php' )
 					),
 					'activate-plugin_' . $file
 				),
-				ENT_QUOTES 
+				ENT_QUOTES
 			);
 		} elseif ( 'missing' === $state && current_user_can( 'install_plugins' ) ) {
 			$result['label'] = __( 'Install Events Calendar Pro', 'the-events-calendar' );

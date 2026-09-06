@@ -114,7 +114,7 @@ class Presentation {
 					'tec_dates'       => 'all',
 					'tec_event'       => $parent,
 				],
-				admin_url( 'edit.php' ) 
+				admin_url( 'edit.php' )
 			),
 			'start'          => $this->date_label( $post_id, false ),
 			'end'            => $this->date_label( $post_id, true ),

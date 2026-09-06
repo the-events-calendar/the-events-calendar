@@ -69,6 +69,15 @@
 	width: 17%;
 }
 
+.column-tec-author {
+	width: 8%;
+}
+
+/* Restore the filter button hidden by the legacy event list. */
+.events-cal #tec-occurrence-category ~ #post-query-submit {
+	display: inline-block;
+}
+
 .column-tec-start-date,
 .column-tec-end-date {
 	width: 15%;
@@ -83,4 +92,22 @@
 
 .tec-occurrence-admin__editor p {
 	margin: 8px 0;
+}
+
+@media screen and (max-width: 782px) {
+
+	/* Keep filters available when WordPress hides the top navigation. */
+	.events-cal .tablenav.top {
+		display: flow-root;
+		height: auto;
+	}
+
+	.events-cal .tablenav.top .actions:not(.bulkactions) {
+		display: flex;
+		flex-wrap: wrap;
+		float: none;
+		gap: 8px;
+		margin: 12px 0;
+		width: 100%;
+	}
 }
