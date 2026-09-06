@@ -94,8 +94,8 @@ class Date_Rules {
 		$rules = [];
 
 		foreach ( $periods as $period ) {
-			$start = $period['start'];
-			$end   = $period['end'];
+			$start = $period['start']->setTimezone( $event_start->getTimezone() );
+			$end   = $period['end']->setTimezone( $event_start->getTimezone() );
 
 			$end_days = (int) $start->setTime( 0, 0 )->diff( $end->setTime( 0, 0 ) )->format( '%a' );
 
@@ -106,8 +106,8 @@ class Date_Rules {
 					'type'       => 'Date',
 					'date'       => [ 'date' => $start->format( 'Y-m-d' ) ],
 					'same-time'  => 'no',
-					'start-time' => $start->format( 'g:ia' ),
-					'end-time'   => $end->format( 'g:ia' ),
+					'start-time' => $start->format( '00' === $start->format( 's' ) ? 'g:ia' : 'g:i:sa' ),
+					'end-time'   => $end->format( '00' === $end->format( 's' ) ? 'g:ia' : 'g:i:sa' ),
 					'end-day'    => $end_days > 0 ? $end_days : 'same-day',
 				],
 				'EventStartDate' => $event_start->format( 'Y-m-d H:i:s' ),

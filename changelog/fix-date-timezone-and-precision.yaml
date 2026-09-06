@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved additional date timezone drift and preserved seconds when saving
+  event schedules.
+timestamp: 2026-09-06T03:42:33.053Z

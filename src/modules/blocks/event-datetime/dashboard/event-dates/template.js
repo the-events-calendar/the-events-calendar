@@ -38,8 +38,8 @@ const parseRows = ( dates ) => {
 /**
  * Builds a new row, one day after the last authored date (or the event's own date).
  *
- * @param {Array}  rows   The current rows.
- * @param {string} start  The event start datetime, from the dashboard props.
+ * @param {Array}   rows   The current rows.
+ * @param {string}  start  The event start datetime, from the dashboard props.
  * @param {boolean} allDay Whether the event uses All Day dates.
  *
  * @return {Object} The new row.
@@ -390,7 +390,9 @@ const EventDates = ( props ) => {
 
 	const toDisplayTime = ( stored ) => {
 		const parsed = moment( stored || '', 'HH:mm:ss' );
-		return parsed.isValid() ? parsed.format( momentUtil.toFormat( timeFormat ) ) : '';
+		return parsed.isValid()
+			? parsed.format( parsed.seconds() ? 'HH:mm:ss' : momentUtil.toFormat( timeFormat ) )
+			: '';
 	};
 
 	const onToggle = ( checked ) => {
@@ -437,7 +439,12 @@ const EventDates = ( props ) => {
 				timeFormat={ timeFormat }
 				onChange={ ( event ) => setEditing( { ...editing, [ key ]: event.target.value } ) }
 				onBlur={ ( event ) => {
-					const parsed = moment( event.target.value, [ momentUtil.TIME_FORMAT, 'HH:mm' ] );
+					const parsed = moment( event.target.value, [
+						'HH:mm:ss',
+						'h:mm:ssa',
+						momentUtil.TIME_FORMAT,
+						'HH:mm',
+					] );
 
 					if ( parsed.isValid() ) {
 						updateRow( index, field, parsed.format( 'HH:mm:ss' ) );

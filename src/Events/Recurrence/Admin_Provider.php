@@ -242,14 +242,13 @@ class Admin_Provider extends Service_Provider {
 
 			$rows = array_map(
 				static function ( array $period ) use ( $date_format, $time_format, $event_all_day ): array {
-					// The authored meta stores times without seconds: an all-day date spans 00:00 to 23:59.
 					$all_day = $event_all_day;
 
 					return [
 						'date'     => $period['start']->format( $date_format ),
 						'end_date' => $period['end']->format( $date_format ),
-						'start'  => $period['start']->format( $time_format ),
-						'end'    => $period['end']->format( $time_format ),
+						'start'  => $period['start']->format( '00' === $period['start']->format( 's' ) ? $time_format : str_replace( 'i', 'i:s', $time_format ) ),
+						'end'    => $period['end']->format( '00' === $period['end']->format( 's' ) ? $time_format : str_replace( 'i', 'i:s', $time_format ) ),
 						'allday' => $all_day,
 					];
 				},

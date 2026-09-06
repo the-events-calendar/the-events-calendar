@@ -37,7 +37,9 @@ class Dates_Service {
 	 *
 	 * @param int                                                                              $post_id The Event post ID (a provisional ID is accepted).
 	 * @param array<int,array{start: DateTimeImmutable|string, end: DateTimeImmutable|string}> $dates The additional dates; strings are parsed in the
-	 *                                                                                                Event timezone.
+	 *                                                                                                Event timezone. Explicit offsets and objects preserve their instant.
+	 *                                                                                                Whole seconds are preserved; non-positive, subsecond or
+	 *                                                                                                non-round-trippable DST periods are rejected.
 	 *
 	 * @return bool Whether the dates were set and the Occurrences regenerated or not.
 	 */
@@ -120,8 +122,30 @@ class Dates_Service {
 			return false;
 		}
 
-		// The legacy meta is the canonical authored format.
-		$meta = Date_Rules::to_meta( $periods, $event_start, $event_end );
+		// Normalize every caller, including rule conversion, before either representation is written.
+		foreach ( $periods as &$period ) {
+			if ( ! is_array( $period ) || ! ( $period['start'] ?? null ) instanceof DateTimeImmutable || ! ( $period['end'] ?? null ) instanceof DateTimeImmutable ) {
+				return false;
+			}
+			$period['start'] = $period['start']->setTimezone( $timezone );
+			$period['end']   = $period['end']->setTimezone( $timezone );
+			if ( $period['end'] <= $period['start'] || '000000' !== $period['start']->format( 'u' ) || '000000' !== $period['end']->format( 'u' ) ) {
+				return false;
+			}
+		}
+		unset( $period );
+
+		// The legacy meta is the canonical authored format. It has no offset/fold field:
+		// reject periods whose instants would change when this wall-clock format is read.
+		$meta      = Date_Rules::to_meta( $periods, $event_start, $event_end );
+		$roundtrip = Date_Rules::to_periods( $meta, $event_start, $event_end, $timezone );
+		foreach ( array_values( $periods ) as $index => $period ) {
+			foreach ( [ 'start', 'end' ] as $bound ) {
+				if ( ! isset( $roundtrip[ $index ][ $bound ] ) || $period[ $bound ]->format( 'U' ) !== $roundtrip[ $index ][ $bound ]->format( 'U' ) ) {
+					return false;
+				}
+			}
+		}
 		update_post_meta( $post_id, '_EventRecurrence', $meta );
 		if ( get_post_meta( $post_id, '_EventRecurrence', true ) !== $meta ) {
 			return false;

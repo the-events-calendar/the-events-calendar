@@ -199,8 +199,8 @@ class Dates {
 			$lines[] = sprintf(
 				'RDATE;TZID=%s;VALUE=PERIOD:%s/%s',
 				$timezone,
-				$date['start']->format( $format ),
-				$date['end']->format( $format )
+				$date['start']->setTimezone( $start->getTimezone() )->format( $format ),
+				$date['end']->setTimezone( $start->getTimezone() )->format( $format )
 			);
 		}
 
@@ -209,7 +209,7 @@ class Dates {
 			'RDATE;TZID=%s;VALUE=PERIOD:%s/%s',
 			$timezone,
 			$start->format( $format ),
-			$end->format( $format )
+			$end->setTimezone( $start->getTimezone() )->format( $format )
 		);
 
 		return implode( "\n", $lines );

@@ -280,7 +280,9 @@ $tec_dates_render_row = static function ( $index, array $row ) use ( $tec_dates_
 			autocomplete="off"
 			type="text"
 			class="tribe-timepicker"
-			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
+			<?php // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Literal attribute markup; dynamic format is escaped.
+			echo substr_count( $row['start'], ':' ) > 1 ? 'data-format="' . esc_attr( $tec_dates_is_24hr ? 'H:i:s' : 'g:i:sa' ) . '"' : ( $tec_dates_is_24hr ? 'data-format="H:i"' : '' );
+			?>
 			data-step="30"
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][start]"
 			value="<?php echo esc_attr( $row['start'] ); ?>"
@@ -299,7 +301,9 @@ $tec_dates_render_row = static function ( $index, array $row ) use ( $tec_dates_
 			autocomplete="off"
 			type="text"
 			class="tribe-timepicker"
-			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
+			<?php // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Literal attribute markup; dynamic format is escaped.
+			echo substr_count( $row['end'], ':' ) > 1 ? 'data-format="' . esc_attr( $tec_dates_is_24hr ? 'H:i:s' : 'g:i:sa' ) . '"' : ( $tec_dates_is_24hr ? 'data-format="H:i"' : '' );
+			?>
 			data-step="30"
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][end]"
 			value="<?php echo esc_attr( $row['end'] ); ?>"

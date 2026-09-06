@@ -62,6 +62,17 @@ describe( 'Event Dates panel', () => {
 		delete global.tribe_editor_config;
 	} );
 
+	test( 'preserves seconds when an unchanged time field loses focus', () => {
+		setConfig( { enabled: true, locked: false, isOccurrence: false } );
+		const setAttributes = jest.fn();
+		const row = { date: '2050-01-10', start: '09:00:30', end: '10:00:45' };
+		const tree = renderer.create( <EventDates attributes={ { dates: JSON.stringify( [ row ] ) } } setAttributes={ setAttributes } /> );
+		const picker = tree.root.findAll( ( node ) => node.props.current === '09:00:30' )[ 0 ];
+		expect( picker ).toBeDefined();
+		renderer.act( () => picker.props.onBlur( { target: { value: picker.props.current } } ) );
+		expect( JSON.parse( setAttributes.mock.calls[ 0 ][ 0 ].dates )[ 0 ] ).toEqual( row );
+	} );
+
 	test( 'renders the editable rows by default', () => {
 		setConfig( { enabled: true, locked: false, isOccurrence: false, summary: { count: 0, dates: [] } } );
 

@@ -27,7 +27,7 @@ class Editor_PeriodsTest extends WPTestCase {
 	public function should_preserve_overnight_and_multiday_endpoints_and_ids( bool $blocks ): void {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		tribe_update_option( 'datepickerFormat', 0 );
-		$event = $this->given_a_multi_date_event( [ [ 'start' => '2050-01-10 22:00:00', 'end' => '2050-01-11 02:00:00' ], [ 'start' => '2050-01-17 09:00:00', 'end' => '2050-01-20 17:00:00' ] ] );
+		$event = $this->given_a_multi_date_event( [ [ 'start' => '2050-01-10 22:00:00', 'end' => '2050-01-11 02:00:00' ], [ 'start' => '2050-01-17 09:00:00', 'end' => '2050-01-20 17:00:00' ], [ 'start' => '2050-01-25 09:00:30', 'end' => '2050-01-25 10:00:45' ] ] );
 		$service = tribe( Dates_Service::class );
 		$before  = $service->get_dates( $event->ID );
 		wp_update_post( [ 'ID' => $event->ID, 'post_title' => 'Unrelated title edit' ] );
@@ -37,8 +37,13 @@ class Editor_PeriodsTest extends WPTestCase {
 			$this->assertStringContainsString( '2050-01-20', $mirror );
 			tribe( Blocks_Provider::class )->consume_blocks_dates( get_post( $event->ID ) );
 		} else {
+			ob_start();
+			tribe( Admin_Provider::class )->render_section( $event->ID );
+			$html = ob_get_clean();
+			$this->assertStringContainsString( '9:00:30am', $html );
+			$this->assertStringContainsString( 'data-format="g:i:sa"', $html );
 			$_POST[ Admin_Provider::NONCE_ACTION . '_nonce' ] = wp_create_nonce( Admin_Provider::NONCE_ACTION );
-			$_POST[ Admin_Provider::FIELD ] = [ [ 'date' => '2050-01-10', 'end_date' => '2050-01-11', 'start' => '22:00', 'end' => '02:00' ], [ 'date' => '2050-01-17', 'end_date' => '2050-01-20', 'start' => '09:00', 'end' => '17:00' ] ];
+			$_POST[ Admin_Provider::FIELD ] = [ [ 'date' => '2050-01-10', 'end_date' => '2050-01-11', 'start' => '22:00', 'end' => '02:00' ], [ 'date' => '2050-01-17', 'end_date' => '2050-01-20', 'start' => '09:00', 'end' => '17:00' ], [ 'date' => '2050-01-25', 'start' => '09:00:30', 'end' => '10:00:45' ] ];
 			tribe( Admin_Provider::class )->save_dates( $event->ID );
 		}
 		$this->assertSame( $before, $service->get_dates( $event->ID ) );
