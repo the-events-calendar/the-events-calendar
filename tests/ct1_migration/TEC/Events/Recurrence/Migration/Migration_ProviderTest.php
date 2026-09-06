@@ -212,4 +212,23 @@ class Migration_ProviderTest extends \CT1_Migration_Test_Case {
 		}
 	}
 
+	/** @test */
+	public function should_wait_for_companion_boot_before_registering_storage(): void {
+		$engine = tribe( Engine_Provider::class );
+		$engine->unregister();
+		$provider = tribe( Migration_Provider::class );
+		$this->set_fn_return( 'did_action', 0 );
+		$provider->register();
+		$this->assertFalse( $provider->ensure_engine() );
+		$this->assertFalse( has_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $engine, 'get_dates_generator' ] ) );
+		$this->assertSame( 5, has_action( 'tribe_plugins_loaded', [ $provider, 'register_migration_storage' ] ) );
+		// Released Pro becomes visible later in the same boot. Re-evaluate ownership.
+		$this->set_fn_return( 'did_action', 1 );
+		$this->set_class_fn_return( Controller::class, 'is_incompatible_pro_active', true );
+		$provider->register_migration_storage();
+		$this->assertFalse( has_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $engine, 'get_dates_generator' ] ) );
+		$provider->unregister();
+		$this->assertFalse( has_action( 'tribe_plugins_loaded', [ $provider, 'register_migration_storage' ] ) );
+	}
+
 }

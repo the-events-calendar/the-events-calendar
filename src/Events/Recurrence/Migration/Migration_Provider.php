@@ -52,6 +52,22 @@ class Migration_Provider extends Service_Provider {
 			add_filter( 'tec_events_custom_tables_v1_migration_strategy', [ $this, 'provide_strategy' ], 20, 3 );
 		}
 
+		// Released Pro loads its main class after this provider can run. Resolve the
+		// governor only after every plugin has loaded, before runtime activation.
+		if ( did_action( 'tribe_plugins_loaded' ) ) {
+			$this->register_migration_storage();
+		} else {
+			add_action( 'tribe_plugins_loaded', [ $this, 'register_migration_storage' ], 5 );
+		}
+	}
+
+	/**
+	 * Registers migration storage once companion plugin ownership is known.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	public function register_migration_storage(): void {
 		$phase = $this->container->make( State::class )->get_phase();
 
 		if ( in_array( $phase, [ State::PHASE_PREVIEW_IN_PROGRESS, State::PHASE_MIGRATION_IN_PROGRESS ], true ) ) {
@@ -79,6 +95,7 @@ class Migration_Provider extends Service_Provider {
 	 */
 	public function unregister(): void {
 		remove_filter( 'tec_events_custom_tables_v1_migration_strategy', [ $this, 'provide_strategy' ], 20 );
+		remove_action( 'tribe_plugins_loaded', [ $this, 'register_migration_storage' ], 5 );
 		if ( ! $this->container->getVar( 'tec_events_recurrence_fully_activated', false ) && $this->container->isBound( Engine_Provider::class ) ) {
 			$this->container->make( Engine_Provider::class )->unregister_storage();
 			Model::reset_extensions();
@@ -140,7 +157,7 @@ class Migration_Provider extends Service_Provider {
 	 * @return bool Whether storage was registered under the current ownership governor.
 	 */
 	public function ensure_engine(): bool {
-		if ( ! Controller::can_provide_storage() ) {
+		if ( ! did_action( 'tribe_plugins_loaded' ) || ! Controller::can_provide_storage() ) {
 			return false;
 		}
 
