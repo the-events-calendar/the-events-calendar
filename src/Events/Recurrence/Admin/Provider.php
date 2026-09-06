@@ -244,8 +244,8 @@ class Provider extends Service_Provider {
 		if ( ! in_array( $column, [ 'tec-start-date', 'tec-end-date' ], true ) ) {
 			return;
 		}
-		$data = $this->container->make( Presentation::class )->get( $id );
-		echo esc_html( $data[ 'tec-end-date' === $column ? 'end' : 'start' ] );
+		// Retain the existing list date formatting, including end-of-day display rules.
+		\Tribe__Events__Admin_List::custom_columns( substr( $column, 4 ), $id );
 	}
 
 	/**

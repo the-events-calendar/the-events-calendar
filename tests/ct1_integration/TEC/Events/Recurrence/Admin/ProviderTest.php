@@ -11,6 +11,30 @@ class ProviderTest extends WPTestCase {
 	use With_Recurrence_Engine;
 
 	/** @test */
+	public function should_keep_native_date_columns_for_each_occurrence(): void {
+		$post = $this->given_a_multi_date_event();
+		$rows = Occurrence::where( 'post_id', $post->ID )->order_by( 'start_date', 'ASC' )->all();
+		$this->assertCount( 2, $rows );
+		$starts = [];
+		foreach ( [ $post->ID, $rows[0]->provisional_id, $rows[1]->provisional_id ] as $id ) {
+			foreach ( [ 'start-date', 'end-date' ] as $column ) {
+				ob_start();
+				\Tribe__Events__Admin_List::custom_columns( $column, $id );
+				$expected = ob_get_clean();
+				ob_start();
+				tribe( Provider::class )->column( 'tec-' . $column, $id );
+				$actual = ob_get_clean();
+				$this->assertSame( $expected, $actual );
+				if ( 'start-date' === $column ) {
+					$starts[] = $actual;
+				}
+			}
+		}
+		$this->assertSame( $starts[0], $starts[1] );
+		$this->assertNotSame( $starts[1], $starts[2] );
+	}
+
+	/** @test */
 	public function should_preserve_pro_columns_and_use_distinct_occurrence_date_columns(): void {
 		$request = $_REQUEST;
 		$_REQUEST['tec_events_view'] = 'occurrences';
