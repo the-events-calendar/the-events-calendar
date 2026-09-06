@@ -185,7 +185,7 @@ class Provider extends Service_Provider {
 		if ( $data['locked'] ) {
 			$status = $this->container->make( Pro_Status::class )->get( true );
 			$label  = 'inactive' === $status['state'] ? __( 'Recurrence locked · Pro inactive', 'the-events-calendar' ) : __( 'Recurrence locked · Pro unavailable', 'the-events-calendar' );
-			echo '<span class="tec-occurrence-admin__locked"><span class="dashicons dashicons-lock" aria-hidden="true"></span>' . esc_html( $label ) . '</span>';
+			echo '<span class="tec-occurrence-admin__locked">' . esc_html( $label ) . '</span>';
 		}
 	}
 
@@ -226,6 +226,12 @@ class Provider extends Service_Provider {
 		}
 		if ( 'single' !== $data['schedule'] ) {
 			$actions['tec-dates'] = '<a href="' . esc_url( $data['datesLink'] ) . '">' . esc_html__( 'View all dates', 'the-events-calendar' ) . '</a>';
+		}
+		if ( $data['locked'] ) {
+			$status = $this->container->make( Pro_Status::class )->get( true );
+			if ( $status['url'] ) {
+				$actions['tec-pro-recovery'] = '<a href="' . esc_url( $status['url'] ) . '" title="' . esc_attr( $status['title'] ) . '">' . esc_html( $status['label'] ) . '</a>';
+			}
 		}
 		return $actions;
 	}
@@ -271,7 +277,7 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Renders status above list controls and builds counts for the selected record type.
+	 * Renders view navigation and builds counts for the selected record type.
 	 *
 	 * @since TBD
 	 * @param array $views Existing WordPress publication-status links.
@@ -287,11 +293,6 @@ class Provider extends Service_Provider {
 			global $wp_query;
 			$posts = $wp_query instanceof \WP_Query ? $wp_query->posts : [];
 			$this->container->make( Presentation::class )->prime( $posts );
-			$rules = false;
-			foreach ( $posts as $post ) {
-				$rules = $rules || 'rules' === $this->container->make( Presentation::class )->get( $post->ID )['schedule'];
-			}
-			$this->render_status( $this->container->make( Pro_Status::class )->get( $rules ) );
 			echo '<nav class="tec-occurrence-admin__views" aria-label="' . esc_attr__( 'Event management views', 'the-events-calendar' ) . '">';
 			foreach ( [
 				'occurrences' => __( 'Occurrences', 'the-events-calendar' ),
@@ -330,24 +331,6 @@ class Provider extends Service_Provider {
 			$views[ $key ] = '<a href="' . esc_url( self::url( [ 'post_status' => 'all' === $key ? false : $key ] ) ) . '"' . ( $current ? ' class="current" aria-current="page"' : '' ) . '>' . esc_html( $label ) . ' <span class="count">(' . esc_html( number_format_i18n( $count ) ) . ')</span></a>';
 		}
 		return $views;
-	}
-
-	/**
-	 * Renders a persistent availability panel without WordPress relocating it as a notice.
-	 *
-	 * @since TBD
-	 * @param array $status Plain-text status and action data.
-	 * @return void
-	 */
-	public function render_status( array $status ): void {
-		if ( ! $status['show'] ) {
-			return;
-		}
-		echo '<section class="tec-occurrence-admin__status" aria-label="' . esc_attr__( 'Events Calendar Pro status', 'the-events-calendar' ) . '"><p><span class="dashicons dashicons-lock" aria-hidden="true"></span> <strong>' . esc_html( $status['title'] ) . '</strong></p><p>' . esc_html( $status['message'] ) . '</p>';
-		if ( $status['url'] ) {
-			echo '<p><a class="button button-primary" href="' . esc_url( $status['url'] ) . '">' . esc_html( $status['label'] ) . '</a></p>';
-		}
-		echo '</section>';
 	}
 
 	/**

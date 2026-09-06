@@ -24,25 +24,26 @@ export const contextNotices = ( data ) => {
 	if ( data.schedule !== 'single' ) {
 		actions.push( { label: __( 'View all dates', 'the-events-calendar' ), url: data.datesLink } );
 	}
-	const notices = [
+	if ( data.locked && data.status?.url ) {
+		actions.push( { label: data.status.label, url: data.status.url } );
+	}
+	return [
 		{
 			id: IDENTITY_NOTICE,
 			type: 'info',
-			text: [ data.heading, data.scheduleLabel, data.start, data.end, data.scope ]
+			text: [
+				data.heading,
+				data.scheduleLabel,
+				data.start,
+				data.end,
+				data.scope,
+				data.locked && data.status?.guidance,
+			]
 				.filter( Boolean )
 				.join( ' · ' ),
 			actions,
 		},
 	];
-	if ( data.status?.show ) {
-		notices.push( {
-			id: STATUS_NOTICE,
-			type: 'warning',
-			text: `${ data.status.title } — ${ data.status.message }`,
-			actions: data.status.url ? [ { label: data.status.label, url: data.status.url } ] : [],
-		} );
-	}
-	return notices;
 };
 
 /**
@@ -73,9 +74,8 @@ export const watchContext = ( initial ) => {
 		}
 		signature = next;
 		const items = contextNotices( data );
-		if ( ! items.some( ( item ) => item.id === STATUS_NOTICE ) ) {
-			notices.removeNotice( STATUS_NOTICE );
-		}
+		// Clear the former standalone Pro warning; recovery belongs beside recurrence context.
+		notices.removeNotice( STATUS_NOTICE );
 		items.forEach( ( { id, type, text, actions } ) => {
 			notices.createNotice( type, text, { id, actions, isDismissible: false } );
 		} );

@@ -25,7 +25,7 @@ class Pro_StatusTest extends WPTestCase {
 		$data = ( new Pro_Status() )->get();
 		$this->assertSame( 'inactive', $data['state'] );
 		$this->assertTrue( $data['show'] );
-		$this->assertSame( 'Reactivate Events Calendar Pro', $data['label'] );
+		$this->assertSame( 'Reactivate Pro', $data['label'] );
 		parse_str( wp_parse_url( $data['url'], PHP_URL_QUERY ), $args );
 		$this->assertSame( 'renamed-pro/events-calendar-pro.php', $args['plugin'] );
 		$this->assertNotFalse( wp_verify_nonce( $args['_wpnonce'], 'activate-plugin_' . $args['plugin'] ) );
@@ -63,5 +63,6 @@ class Pro_StatusTest extends WPTestCase {
 		$data = ( new Pro_Status() )->get();
 		$this->assertSame( '', $data['url'] );
 		$this->assertStringContainsString( 'administrator', $data['message'] );
+		$this->assertStringContainsString( 'administrator', $data['guidance'] );
 	}
 }

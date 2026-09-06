@@ -6,6 +6,7 @@ jest.mock( '@wordpress/data', () => ( { dispatch: jest.fn(), select: jest.fn(), 
 
 const context = {
 	postId: 10000001,
+	locked: false,
 	isOccurrence: true,
 	heading: 'Editing occurrence',
 	schedule: 'dates',
@@ -19,16 +20,22 @@ const context = {
 };
 
 test( 'preserves identity, date, scope, and explicit event and occurrence destinations', () => {
-	const [ identity, status ] = contextNotices( context );
+	const [ identity ] = contextNotices( context );
 	expect( identity.text ).toContain( context.start );
 	expect( identity.text ).toContain( context.scope );
 	expect( identity.actions.map( ( action ) => action.url ) ).toEqual( [ context.parentEditLink, context.datesLink ] );
-	expect( status.text ).toContain( context.status.title );
-	expect( status.actions[ 0 ].url ).toBe( context.status.url );
+	expect( contextNotices( context ) ).toHaveLength( 1 );
+	const locked = contextNotices( { ...context, locked: true, schedule: 'rules' } );
+	expect( locked ).toHaveLength( 1 );
+	expect( locked[ 0 ].type ).toBe( 'info' );
+	expect( locked[ 0 ].actions[ 2 ].url ).toBe( context.status.url );
 } );
 
-test( 'does not offer plugin actions to restricted users or a deactivation warning on clean Free sites', () => {
-	expect( contextNotices( { ...context, status: { ...context.status, url: '' } } )[ 1 ].actions ).toEqual( [] );
+test( 'keeps recovery contextual and capability checked without a separate Pro warning', () => {
+	const restricted = contextNotices( { ...context, locked: true, status: { ...context.status, url: '', guidance: 'Ask your administrator about recurrence editing.' } } );
+	expect( restricted ).toHaveLength( 1 );
+	expect( restricted[ 0 ].actions.map( ( action ) => action.url ) ).toEqual( [ context.parentEditLink, context.datesLink ] );
+	expect( restricted[ 0 ].text ).toContain( 'Ask your administrator' );
 	const single = contextNotices( { ...context, isOccurrence: false, schedule: 'single', status: { show: false } } );
 	expect( single ).toHaveLength( 1 );
 	expect( single[ 0 ].actions ).toEqual( [] );
@@ -43,15 +50,15 @@ test( 'keeps notices after saves, refreshes dates and Pro availability, and avoi
 	select.mockReturnValue( { getCurrentPost: () => post } );
 	dispatch.mockReturnValue( notices );
 	expect( watchContext( context ) ).toBe( unsubscribe );
-	expect( notices.createNotice ).toHaveBeenCalledTimes( 2 );
+	expect( notices.createNotice ).toHaveBeenCalledTimes( 1 );
 	expect( notices.createNotice ).toHaveBeenCalledWith( 'info', expect.any( String ), expect.objectContaining( { id: IDENTITY_NOTICE, isDismissible: false } ) );
 	onChange();
-	expect( notices.createNotice ).toHaveBeenCalledTimes( 2 );
+	expect( notices.createNotice ).toHaveBeenCalledTimes( 1 );
 	post = { ...post, [ CONTEXT_FIELD ]: { ...context, start: 'February 1, 2050 · All Day · UTC', status: { show: false } } };
 	onChange();
-	expect( notices.createNotice ).toHaveBeenCalledTimes( 3 );
-	expect( notices.createNotice.mock.calls[ 2 ][ 1 ] ).toContain( 'February 1, 2050' );
+	expect( notices.createNotice ).toHaveBeenCalledTimes( 2 );
+	expect( notices.createNotice.mock.calls[ 1 ][ 1 ] ).toContain( 'February 1, 2050' );
 	expect( notices.removeNotice ).toHaveBeenCalledWith( STATUS_NOTICE );
 	onChange();
-	expect( notices.createNotice ).toHaveBeenCalledTimes( 3 );
+	expect( notices.createNotice ).toHaveBeenCalledTimes( 2 );
 } );

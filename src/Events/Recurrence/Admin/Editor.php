@@ -140,7 +140,16 @@ class Editor {
 		if ( $data['isOccurrence'] && $data['parentEditLink'] ) {
 			echo '<p><a href="' . esc_url( $data['parentEditLink'] ) . '">' . esc_html__( 'Edit event details', 'the-events-calendar' ) . '</a> · <a href="' . esc_url( $data['datesLink'] ) . '">' . esc_html__( 'View all dates', 'the-events-calendar' ) . '</a></p>';
 		}
-		tribe( Provider::class )->render_status( $data['status'] );
+		if ( $data['locked'] ) {
+			$status = $data['status'];
+			echo '<p class="description">';
+			if ( $status['url'] ) {
+				echo '<a href="' . esc_url( $status['url'] ) . '" title="' . esc_attr( $status['title'] ) . '">' . esc_html( $status['label'] ) . '</a>';
+			} else {
+				echo esc_html( $status['guidance'] );
+			}
+			echo '</p>';
+		}
 		echo '</section>';
 	}
 }

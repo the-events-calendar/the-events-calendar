@@ -45,12 +45,13 @@ class Pro_Status {
 		$state           = $available ? 'active' : ( ! $compatible ? 'incompatible' : ( $active ? 'unavailable' : ( '' !== $file ? 'inactive' : 'missing' ) ) );
 		$history         = $has_rules || (bool) get_option( Pro_History::MEMO_OPTION, false ) || (bool) get_option( Pro_History::SERIES_SCHEMA_OPTION, false );
 		$result          = [
-			'state'   => $state,
-			'show'    => ! $available && ( '' !== $file || $active || $history ),
-			'title'   => '',
-			'message' => __( 'Existing scheduled dates are preserved. Reactivate Pro to edit recurrence rules and generate further dates.', 'the-events-calendar' ),
-			'label'   => '',
-			'url'     => '',
+			'state'    => $state,
+			'show'     => ! $available && ( '' !== $file || $active || $history ),
+			'title'    => '',
+			'message'  => __( 'Existing scheduled dates are preserved. Reactivate Pro to edit recurrence rules and generate further dates.', 'the-events-calendar' ),
+			'label'    => '',
+			'url'      => '',
+			'guidance' => '',
 		];
 		$titles          = [
 			'active'       => __( 'Events Calendar Pro is active', 'the-events-calendar' ),
@@ -66,7 +67,7 @@ class Pro_Status {
 			$result['message'] = __( 'Existing scheduled dates are preserved. Check Events Calendar Pro and its requirements in Plugins to restore recurrence editing and date generation.', 'the-events-calendar' );
 		}
 		if ( 'inactive' === $state && current_user_can( 'activate_plugin', $file ) ) {
-			$result['label'] = __( 'Reactivate Events Calendar Pro', 'the-events-calendar' );
+			$result['label'] = __( 'Reactivate Pro', 'the-events-calendar' );
 			$result['url']   = wp_specialchars_decode(
 				wp_nonce_url(
 					add_query_arg(
@@ -81,13 +82,14 @@ class Pro_Status {
 				ENT_QUOTES
 			);
 		} elseif ( 'missing' === $state && current_user_can( 'install_plugins' ) ) {
-			$result['label'] = __( 'Install Events Calendar Pro', 'the-events-calendar' );
+			$result['label'] = __( 'Install Pro', 'the-events-calendar' );
 			$result['url']   = self_admin_url( 'plugin-install.php?tab=upload' );
 		} elseif ( current_user_can( 'activate_plugins' ) ) {
 			$result['label'] = __( 'Manage plugins', 'the-events-calendar' );
 			$result['url']   = self_admin_url( 'plugins.php' );
 		} elseif ( $result['show'] ) {
 			$result['message'] .= ' ' . __( 'Ask your site administrator to restore Events Calendar Pro.', 'the-events-calendar' );
+			$result['guidance'] = __( 'Ask your administrator about recurrence editing.', 'the-events-calendar' );
 		}
 		return $result;
 	}
