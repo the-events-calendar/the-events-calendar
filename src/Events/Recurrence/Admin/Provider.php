@@ -294,12 +294,6 @@ class Provider extends Service_Provider {
 		if ( 'single' !== $data['schedule'] ) {
 			$actions['tec-dates'] = '<a href="' . esc_url( $data['datesLink'] ) . '">' . esc_html__( 'View all dates', 'the-events-calendar' ) . '</a>';
 		}
-		if ( $data['locked'] ) {
-			$status = $this->container->make( Pro_Status::class )->get( true );
-			if ( $status['url'] ) {
-				$actions['tec-pro-recovery'] = '<a href="' . esc_url( $status['url'] ) . '" title="' . esc_attr( $status['title'] ) . '">' . esc_html( $status['label'] ) . '</a>';
-			}
-		}
 		return $actions;
 	}
 
