@@ -42,7 +42,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @var bool
 	 */
-	private $noop;
+	private $noop = false;
 
 	/**
 	 * Registers the implementations and filters required to resolve provisional post IDs
@@ -551,4 +551,15 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function noop( bool $noop ): void {
 		$this->noop = $noop;
 	}
+	/**
+	 * Returns the current query suppression state for scoped operations.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the provider is in no-op mode.
+	 */
+	public function is_noop(): bool {
+		return $this->noop;
+	}
+
 }

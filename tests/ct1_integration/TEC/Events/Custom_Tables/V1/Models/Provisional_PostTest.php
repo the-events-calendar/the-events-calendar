@@ -17,6 +17,48 @@ class Provisional_PostTest extends WPTestCase {
 	use With_Recurrence_Engine;
 	use With_Uopz;
 
+	public function hydration_states(): array {
+		return [
+			'active / success'   => [ false, false ],
+			'deferred / success' => [ true, false ],
+			'active / failure'   => [ false, true ],
+			'deferred / failure' => [ true, true ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider hydration_states
+	 */
+	public function should_restore_query_ownership_after_nested_hydration( bool $deferred, bool $fail ): void {
+		$queries = new \TEC\Events\Custom_Tables\V1\WP_Query\Provisional\Provider( tribe() );
+		$queries->noop( $deferred );
+		$cache = $this->createMock( Provisional_Post_Cache::class );
+		$cache->method( 'get_base' )->willReturn( 10000000 );
+		$subject = new Provisional_Post( $cache, $queries, new \Tribe__Cache() );
+		$depth   = 0;
+		$cache->expects( $this->exactly( 2 ) )->method( 'hydrate_caches' )->willReturnCallback(
+			function () use ( $subject, $queries, $fail, &$depth ): void {
+				$this->assertTrue( $queries->is_noop() );
+				if ( 0 === $depth++ ) {
+					$subject->hydrate_caches( [ 10000002 ] );
+					$this->assertTrue( $queries->is_noop(), 'Nested hydration must keep the outer call suppressed.' );
+				} elseif ( $fail ) {
+					throw new \RuntimeException( 'Hydration failed' );
+				}
+			}
+		);
+
+		try {
+			$this->assertTrue( $subject->hydrate_caches( [ 10000001 ] ) );
+			$this->assertFalse( $fail, 'The injected failure must propagate.' );
+		} catch ( \RuntimeException $exception ) {
+			$this->assertTrue( $fail );
+			$this->assertSame( 'Hydration failed', $exception->getMessage() );
+		}
+		$this->assertSame( $deferred, $queries->is_noop() );
+	}
+
 	private function given_a_single_event(): WP_Post {
 		$event = tribe_events()->set_args(
 			[

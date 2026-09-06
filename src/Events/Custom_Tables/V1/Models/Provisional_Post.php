@@ -203,9 +203,15 @@ class Provisional_Post {
 			return null;
 		}
 
+		$was_noop = $this->queries->is_noop();
 		$this->queries->noop( true );
-		$this->post_cache->hydrate_caches( $occurrences_ids );
-		$this->queries->noop( false );
+
+		try {
+			$this->post_cache->hydrate_caches( $occurrences_ids );
+		} finally {
+			// Nested hydration and failed cache reads must preserve the caller's state.
+			$this->queries->noop( $was_noop );
+		}
 
 		return true;
 	}
