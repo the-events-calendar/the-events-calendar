@@ -40,6 +40,7 @@ class Freeze_GuardTest extends WPTestCase {
 	public function release_capture(): void {
 		remove_action( 'tec_events_recurrence_frozen_write_refused', [ self::class, 'capture_refusal' ], 10 );
 		remove_all_filters( 'tec_events_recurrence_freeze_meta_write' );
+		remove_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
 		tribe_remove_option( Settings::LOCK_OPTION );
 		// The per-test rollback runs before this: drop the settings cache so the next read reloads the restored DB.
 		tribe_set_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME, [] );
@@ -85,6 +86,29 @@ class Freeze_GuardTest extends WPTestCase {
 			'duration'       => (string) $event->duration,
 			'rset'           => (string) $event->rset,
 		];
+	}
+
+	/** @test */
+	public function should_allow_rule_writes_only_while_an_external_editor_owns_updates(): void {
+		$post  = $this->given_a_rule_locked_event();
+		$guard = tribe( Freeze_Guard::class );
+		add_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
+
+		$this->assertFalse( $guard->is_frozen( $post->ID ) );
+		$this->assertTrue( tribe( \TEC\Events\Recurrence\Authoring_Guard::class )->is_rule_locked( $post->ID ) );
+		update_post_meta( $post->ID, '_EventStartDate', '2050-02-01 09:00:00' );
+		$rules = [ 'rules' => [ [ 'type' => 'Weekly' ] ] ];
+		add_post_meta( $post->ID, '_EventRecurrence', $rules );
+		$this->assertSame( '2050-02-01 09:00:00', get_post_meta( $post->ID, '_EventStartDate', true ) );
+		$this->assertSame( $rules, get_post_meta( $post->ID, '_EventRecurrence', true ) );
+		delete_post_meta( $post->ID, '_EventRecurrence' );
+		$this->assertSame( '', get_post_meta( $post->ID, '_EventRecurrence', true ) );
+		$this->assertSame( [], $guard->get_refused( $post->ID ) );
+
+		remove_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
+		$this->assertTrue( $guard->is_frozen( $post->ID ) );
+		update_post_meta( $post->ID, '_EventStartDate', '2050-03-01 09:00:00' );
+		$this->assertSame( '2050-02-01 09:00:00', get_post_meta( $post->ID, '_EventStartDate', true ) );
 	}
 
 	/**

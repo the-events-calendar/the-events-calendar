@@ -201,7 +201,9 @@ class Freeze_Guard {
 			return false;
 		}
 
-		return tribe( Authoring_Guard::class )->is_rule_locked( $post_id );
+		$guard = tribe( Authoring_Guard::class );
+
+		return ! $guard->has_external_updates() && $guard->is_rule_locked( $post_id );
 	}
 
 	/**

@@ -293,6 +293,11 @@ class Single_Occurrence_Update {
 	 * @return bool Whether the Occurrence was moved or not.
 	 */
 	public function apply( int $provisional_id, DateTimeImmutable $new_start, DateTimeImmutable $new_end ): bool {
+		if ( tribe( Authoring_Guard::class )->has_external_updates() ) {
+			// The active recurrence editor owns the requested update scope.
+			return false;
+		}
+
 		$occurrence = $this->get_occurrence( $provisional_id );
 
 		if ( ! $occurrence instanceof Occurrence ) {
@@ -555,6 +560,10 @@ class Single_Occurrence_Update {
 	 * @return bool Whether to buffer the write or not.
 	 */
 	private function is_buffered_write( $object_id, $meta_key ): bool {
+		if ( tribe( Authoring_Guard::class )->has_external_updates() ) {
+			return false;
+		}
+
 		if ( ! is_string( $meta_key ) || ! in_array( $meta_key, self::DATE_META_KEYS, true ) ) {
 			return false;
 		}

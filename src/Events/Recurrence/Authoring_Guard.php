@@ -32,6 +32,30 @@ use TEC\Events\Custom_Tables\V1\Models\Provisional_Post;
  */
 class Authoring_Guard {
 	/**
+	 * Whether another plugin owns recurrence writes for this request.
+	 *
+	 * This is a runtime write capability, separate from the dates-only UI lock.
+	 * A provider must advertise it only while its update handlers are registered.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether Free should defer recurrence writes.
+	 */
+	public function has_external_updates(): bool {
+		/**
+		 * Filters whether a recurrence editor owns Event and Occurrence updates.
+		 *
+		 * Providers claiming this capability must handle rule edits and occurrence
+		 * update scope, including dates-only events. Free leaves their writes alone.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $handled Whether another provider handles recurrence updates.
+		 */
+		return tribe_is_truthy( apply_filters( 'tec_events_recurrence_updates_handled', false ) );
+	}
+
+	/**
 	 * Returns whether the Event recurrence is rule-based, locking the dates authoring.
 	 *
 	 * Rule-based data is authored by Events Calendar Pro: the free UI must neither

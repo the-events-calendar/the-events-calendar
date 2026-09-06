@@ -30,7 +30,27 @@ class Single_Occurrence_UpdateTest extends WPTestCase {
 	 * @after
 	 */
 	public function clear_notice(): void {
+		remove_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
 		delete_transient( Single_Occurrence_Update::NOTICE_TRANSIENT . get_current_user_id() );
+	}
+
+	/** @test */
+	public function should_defer_occurrence_writes_to_the_external_editor(): void {
+		$post       = $this->given_a_frozen_rule_event( true );
+		$occurrence = $this->occurrence_on( $post->ID, '2050-01-10 09:00:00' );
+		$id         = $this->provisional_id( $occurrence );
+		$updates    = tribe( Single_Occurrence_Update::class );
+		add_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
+
+		$this->assertNull( $updates->buffer_update( null, $id, '_EventStartDate', '2050-02-01 09:00:00' ) );
+		$this->assertNull( $updates->buffer_add( null, $id, '_EventEndDate', '2050-02-01 10:00:00' ) );
+		$this->assertNull( $updates->buffer_delete( null, $id, '_EventStartDate' ) );
+		$this->assertFalse( $updates->apply( $id, new DateTimeImmutable( '2050-02-01 09:00:00', $this->tz() ), new DateTimeImmutable( '2050-02-01 10:00:00', $this->tz() ) ) );
+		$this->assertSame( [], tribe( Freeze_Guard::class )->get_refused( $post->ID ) );
+		$this->assertSame( '2050-01-10 09:00:00', Occurrence::find( $occurrence->occurrence_id )->start_date );
+
+		remove_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
+		$this->assertTrue( $updates->buffer_update( null, $id, '_EventStartDate', '2050-02-01 09:00:00' ) );
 	}
 
 	private function tz(): DateTimeZone {
