@@ -20,6 +20,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Strategy_Interface;
 use TEC\Events\Custom_Tables\V1\Models\Model;
 use TEC\Events\Recurrence\Date_Rules;
+use TEC\Events\Recurrence\Controller;
 use TEC\Events\Recurrence\Engine_Provider;
 
 /**
@@ -59,8 +60,8 @@ class Migration_Provider extends Service_Provider {
 			 * Event or Occurrence model is instantiated in this request. The Model extension
 			 * cache locks after `init`: registering the engine later in the request would
 			 * silently drop the `rset` and Occurrence recurrence fields the migration of
-			 * date-list Events depends on. During these phases the site is in migration
-			 * maintenance mode, so the engine's front-end side effects are inert.
+			 * date-list Events depends on. Only storage hooks are needed; runtime
+			 * query and editing ownership stays with the feature Controller.
 			 */
 			$this->ensure_engine();
 		}
@@ -69,7 +70,8 @@ class Migration_Provider extends Service_Provider {
 	/**
 	 * Unregisters the strategy loader.
 	 *
-	 * The engine lifecycle is owned by the Recurrence feature Controller.
+	 * Activated runtime storage belongs to the feature Controller. Before activation,
+	 * release the storage hooks this provider registered.
 	 *
 	 * @since TBD
 	 *
@@ -77,6 +79,10 @@ class Migration_Provider extends Service_Provider {
 	 */
 	public function unregister(): void {
 		remove_filter( 'tec_events_custom_tables_v1_migration_strategy', [ $this, 'provide_strategy' ], 20 );
+		if ( ! $this->container->getVar( 'tec_events_recurrence_fully_activated', false ) && $this->container->isBound( Engine_Provider::class ) ) {
+			$this->container->make( Engine_Provider::class )->unregister_storage();
+			Model::reset_extensions();
+		}
 	}
 
 	/**
@@ -115,7 +121,9 @@ class Migration_Provider extends Service_Provider {
 			return $strategy;
 		}
 
-		$this->ensure_engine();
+		if ( ! $this->ensure_engine() ) {
+			return $strategy;
+		}
 
 		return new Date_Rules_Migration_Strategy( (int) $post_id, (bool) $dry_run );
 	}
@@ -124,20 +132,24 @@ class Migration_Provider extends Service_Provider {
 	 * Ensures the Occurrence engine pieces the strategy depends on are registered.
 	 *
 	 * The engine derives the dates RSET while the Event data is built from the post and
-	 * expands it into Occurrence rows with stable IDs; both `Engine_Provider::register()`
+	 * expands it into Occurrence rows with stable IDs; both `Engine_Provider::register_storage()`
 	 * and this method are idempotent.
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return bool Whether storage was registered under the current ownership governor.
 	 */
-	public function ensure_engine(): void {
+	public function ensure_engine(): bool {
+		if ( ! Controller::can_provide_storage() ) {
+			return false;
+		}
+
 		if ( ! $this->container->isBound( Engine_Provider::class ) ) {
 			// Re-binding an existing singleton would drop the resolved instance.
 			$this->container->singleton( Engine_Provider::class );
 		}
 
-		$this->container->make( Engine_Provider::class )->register();
+		$this->container->make( Engine_Provider::class )->register_storage();
 
 		/*
 		 * The Model extension cache is filtered once and locked after `init`: a model
@@ -145,5 +157,7 @@ class Migration_Provider extends Service_Provider {
 		 * set for the rest of the request. Reset so the extensions re-apply.
 		 */
 		Model::reset_extensions();
+
+		return true;
 	}
 }

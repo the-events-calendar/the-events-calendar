@@ -91,13 +91,7 @@ class Controller extends Controller_Contract {
 	 * @return bool Whether this plugin provides the Occurrence infrastructure or not.
 	 */
 	public static function provides_occurrences(): bool {
-		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
-			// The constant to disable the feature is defined and truthy.
-			return false;
-		}
-
-		if ( getenv( self::DISABLED ) ) {
-			// The environment variable to disable the feature is truthy.
+		if ( ! self::can_provide_storage() ) {
 			return false;
 		}
 
@@ -106,11 +100,6 @@ class Controller extends Controller_Contract {
 			 * Occurrences only make sense on top of the Custom Tables V1 storage: no
 			 * feature on sites where CT1 is disabled or not migrated yet.
 			 */
-			return false;
-		}
-
-		if ( self::is_incompatible_pro_active() ) {
-			// An older Events Calendar Pro owns the Occurrence infrastructure: yield.
 			return false;
 		}
 
@@ -130,6 +119,29 @@ class Controller extends Controller_Contract {
 		 *                     value of the `tec_events_recurrence_active` option.
 		 */
 		return tribe_is_truthy( apply_filters( 'tec_events_recurrence_enabled', $active ) );
+	}
+
+	/**
+	 * Whether Free may register occurrence storage, including before CT1 migration.
+	 *
+	 * The kill-switch and older Pro ownership apply to storage as well as runtime.
+	 * The rollout option and CT1 activation apply only to the frontend capability.
+	 *
+	 * @since TBD
+	 * @return bool Whether Free may provide storage services.
+	 */
+	public static function can_provide_storage(): bool {
+		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
+			// The constant to disable the feature is defined and truthy.
+			return false;
+		}
+
+		if ( getenv( self::DISABLED ) ) {
+			// The environment variable to disable the feature is truthy.
+			return false;
+		}
+
+		return ! self::is_incompatible_pro_active();
 	}
 
 	/**

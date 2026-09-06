@@ -81,6 +81,22 @@ class Engine_Provider extends Service_Provider {
 			\TEC\Events\Custom_Tables\V1\Views\V2\Provisional_By_Day_View_Compatibility::class
 		);
 
+		$this->register_storage();
+	}
+
+	/**
+	 * Registers storage services shared by migration and the activated feature.
+	 *
+	 * Migration needs model fields, date generation and identity maintenance before
+	 * CT1 activation. It must not enable provisional queries, views or editor guards.
+	 * Its caller checks storage ownership independently of frontend rollout.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	public function register_storage(): void {
+		$this->container->singleton( self::class, $this );
+
 		$occurrences = Occurrences::table_name( false );
 		if ( ! has_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] ) ) {
 			add_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] );
@@ -270,16 +286,7 @@ class Engine_Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function unregister(): void {
-		$occurrences = Occurrences::table_name( false );
-		remove_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] );
-		$events = Events::table_name( false );
-		remove_filter( "tec_custom_tables_{$events}_model_v1_extensions", [ $this, 'extend_event_model' ] );
-		remove_filter( 'tec_events_custom_tables_v1_normalize_occurrence_id', [ $this, 'normalize_occurrence_id' ] );
-		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_dates_generator' ], 9 );
-		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_freeze_generator' ], 100 );
-		remove_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ], 9 );
-		remove_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
-		remove_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $this, 'derive_dates_rset_from_meta' ] );
+		$this->unregister_storage();
 
 		// Restore the base By Day compatibility: it expects real post IDs again.
 		$this->container->singleton(
@@ -295,6 +302,26 @@ class Engine_Provider extends Service_Provider {
 				$this->container->make( $service )->unregister();
 			}
 		}
+	}
+
+	/**
+	 * Removes storage hooks without changing runtime provider ownership.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	public function unregister_storage(): void {
+
+		$occurrences = Occurrences::table_name( false );
+		remove_filter( "tec_custom_tables_{$occurrences}_model_v1_extensions", [ $this, 'extend_occurrence_model' ] );
+		$events = Events::table_name( false );
+		remove_filter( "tec_custom_tables_{$events}_model_v1_extensions", [ $this, 'extend_event_model' ] );
+		remove_filter( 'tec_events_custom_tables_v1_normalize_occurrence_id', [ $this, 'normalize_occurrence_id' ] );
+		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_dates_generator' ], 9 );
+		remove_filter( 'tec_events_custom_tables_v1_occurrences_generator', [ $this, 'get_freeze_generator' ], 100 );
+		remove_filter( 'tec_custom_tables_v1_get_occurrence_match', [ $this, 'get_occurrence_match' ], 9 );
+		remove_action( 'tec_events_custom_tables_v1_after_save_occurrences', [ $this, 'prune_occurrences_by_sequence' ] );
+		remove_filter( 'tec_events_custom_tables_v1_event_data_from_post', [ $this, 'derive_dates_rset_from_meta' ] );
 	}
 
 	/**
