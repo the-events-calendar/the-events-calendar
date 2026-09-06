@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Resolved an issue where saving overnight or multi-day event dates
+  shortened or removed occurrences and prevented invalid dates from silently
+  clearing the schedule.
+timestamp: 2026-09-06T03:20:20.819Z

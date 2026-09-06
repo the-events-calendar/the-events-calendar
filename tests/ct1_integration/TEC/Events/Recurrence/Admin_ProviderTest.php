@@ -71,18 +71,16 @@ class Admin_ProviderTest extends WPTestCase {
 	}
 
 	/**
-	 * It should save valid rows and skip malformed ones
+	 * It should save valid rows
 	 *
 	 * @test
 	 */
-	public function should_save_valid_rows_and_skip_malformed_ones(): void {
+	public function should_save_valid_rows(): void {
 		$post = $this->given_an_event();
 
 		$this->post_dates(
 			[
 				[ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00' ],
-				[ 'date' => 'not-a-date', 'start' => '09:00', 'end' => '10:00' ],
-				[ 'date' => '2050-01-19', 'start' => '11:00', 'end' => '10:00' ], // End before start.
 			]
 		);
 

@@ -9,6 +9,11 @@ import { CheckboxControl } from '@wordpress/components';
  */
 import EventDates from '../template';
 
+// This test exercises date boundaries; the shared time picker is tested in Common.
+jest.mock( '@moderntribe/common/elements', () => ( { TimePicker: () => null } ) );
+// The suite SVG mapper supplies a string, not the named ReactComponent export.
+jest.mock( '@moderntribe/events/icons', () => ( { Minus: () => null, Plus: () => null, Pencil: () => null } ) );
+
 const setConfig = ( recurrenceDates ) => {
 	global.tribe_editor_config = { events: { recurrenceDates } };
 };
@@ -61,6 +66,17 @@ describe( 'Event Dates panel', () => {
 		setConfig( { enabled: true, locked: false, isOccurrence: false, summary: { count: 0, dates: [] } } );
 
 		expect( render().toJSON() ).toMatchSnapshot();
+	} );
+
+	test( 'keeps the overnight end date when a row is edited', () => {
+		setConfig( { enabled: true, locked: false, isOccurrence: false } );
+		const row = { date: '2050-01-10', end_date: '2050-01-11', start: '22:00:00', end: '02:00:00' };
+		const setAttributes = jest.fn();
+		const tree = renderer.create( <EventDates attributes={ { dates: JSON.stringify( [ row ] ) } } setAttributes={ setAttributes } /> );
+		const endDate = tree.root.findByProps( { 'aria-label': 'End date' } );
+		expect( endDate.props.value ).toBe( '2050-01-11' );
+		endDate.props.onChange( { target: { value: '2050-01-12' } } );
+		expect( JSON.parse( setAttributes.mock.calls[ 0 ][ 0 ].dates ) ).toEqual( [ { ...row, end_date: '2050-01-12' } ] );
 	} );
 
 	test( 'renders the occurrence notice', () => {

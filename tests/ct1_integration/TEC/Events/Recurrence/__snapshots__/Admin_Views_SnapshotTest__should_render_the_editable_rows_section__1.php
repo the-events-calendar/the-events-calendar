@@ -36,6 +36,15 @@
 		<input
 			autocomplete="off"
 			type="text"
+			class="tribe-datepicker"
+			aria-label="End date"
+			name="tec_events_recurrence_dates[0][end_date]"
+			value="2050-01-10"
+		/>
+
+		<input
+			autocomplete="off"
+			type="text"
 			class="tribe-timepicker"
 						data-step="30"
 			name="tec_events_recurrence_dates[0][end]"
@@ -73,6 +82,15 @@
 			value="2:30pm"
 		/>
 		<span class="tribe-datetime-separator"> to </span>
+		<input
+			autocomplete="off"
+			type="text"
+			class="tribe-datepicker"
+			aria-label="End date"
+			name="tec_events_recurrence_dates[1][end_date]"
+			value="2050-01-17"
+		/>
+
 		<input
 			autocomplete="off"
 			type="text"
@@ -117,6 +135,15 @@
 			value="8:00am"
 		/>
 		<span class="tribe-datetime-separator"> to </span>
+		<input
+			autocomplete="off"
+			type="text"
+			class="tribe-datepicker"
+			aria-label="End date"
+			name="tec_events_recurrence_dates[__index__][end_date]"
+			value=""
+		/>
+
 		<input
 			autocomplete="off"
 			type="text"
@@ -223,7 +250,7 @@
 					nextIndex++;
 
 					var row = container.querySelector( \'.tec-events-recurrence-dates-row\' );
-					row.querySelector( \'.tribe-datepicker\' ).value = prefill;
+					row.querySelectorAll( \'.tribe-datepicker\' ).forEach( function ( input ) { input.value = prefill; } );
 					list.appendChild( row );
 					initPickers( row );
 				}

@@ -563,6 +563,13 @@ const EventDates = ( props ) => {
 							<span className="tribe-editor__event-dates__separator">
 								{ __( 'to', 'the-events-calendar' ) }
 							</span>
+							<input
+								type="date"
+								className="tribe-editor__event-dates__date"
+								aria-label={ __( 'End date', 'the-events-calendar' ) }
+								value={ row.end_date || row.date || '' }
+								onChange={ ( event ) => updateRow( index, 'end_date', event.target.value ) }
+							/>
 							{ renderTimePicker( index, 'end', row ) }
 							<button
 								type="button"

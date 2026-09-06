@@ -245,7 +245,8 @@ class Admin_Provider extends Service_Provider {
 					$all_day = '00:00' === $period['start']->format( 'H:i' ) && '23:59' === $period['end']->format( 'H:i' );
 
 					return [
-						'date'   => $period['start']->format( $date_format ),
+						'date'     => $period['start']->format( $date_format ),
+						'end_date' => $period['end']->format( $date_format ),
 						'start'  => $period['start']->format( $time_format ),
 						'end'    => $period['end']->format( $time_format ),
 						'allday' => $all_day,
@@ -335,37 +336,48 @@ class Admin_Provider extends Service_Provider {
 		// The rows post the same formats the Start/End pickers do: parse them the way the API does.
 		$datepicker_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
+		$invalid = false;
 		foreach ( (array) $rows as $row ) {
 			$all_day = is_array( $row ) && tribe_is_truthy( $row['allday'] ?? '' );
 
 			if ( ! is_array( $row ) || empty( $row['date'] ) || ( ! $all_day && ( empty( $row['start'] ) || empty( $row['end'] ) ) ) ) {
+				$invalid = true;
 				continue;
 			}
 
 			$date = \Tribe__Date_Utils::datetime_from_format( $datepicker_format, sanitize_text_field( (string) $row['date'] ) );
 
 			if ( ! is_string( $date ) || '' === $date || false === strtotime( $date ) ) {
+				$invalid = true;
+				continue;
+			}
+
+			$end_date = ! empty( $row['end_date'] ) ? \Tribe__Date_Utils::datetime_from_format( $datepicker_format, sanitize_text_field( (string) $row['end_date'] ) ) : $date;
+			if ( ! is_string( $end_date ) || false === strtotime( $end_date ) || $end_date < $date ) {
+				$invalid = true;
 				continue;
 			}
 
 			if ( $all_day ) {
 				$dates[] = [
 					'start' => "{$date} 00:00:00",
-					'end'   => "{$date} 23:59:59",
+					'end'   => "{$end_date} 23:59:59",
 				];
 
 				continue;
 			}
 
 			$start = strtotime( $date . ' ' . sanitize_text_field( (string) $row['start'] ) );
-			$end   = strtotime( $date . ' ' . sanitize_text_field( (string) $row['end'] ) );
+			$end   = strtotime( $end_date . ' ' . sanitize_text_field( (string) $row['end'] ) );
 
 			if ( false === $start || false === $end ) {
+				$invalid = true;
 				continue;
 			}
 
 			if ( $end <= $start ) {
-				// Same-day authoring only: an end before the start would author a negative duration.
+				// Invalid periods must not be interpreted as deleted dates.
+				$invalid = true;
 				continue;
 			}
 
@@ -374,6 +386,11 @@ class Admin_Provider extends Service_Provider {
 				'start' => gmdate( 'Y-m-d H:i:s', $start ),
 				'end'   => gmdate( 'Y-m-d H:i:s', $end ),
 			];
+		}
+
+		if ( $invalid ) {
+			wp_die( esc_html__( 'One or more additional dates are invalid. Check that each end is after its start. The additional dates were not changed.', 'the-events-calendar' ), 400 );
+			return;
 		}
 
 		$service = $this->container->make( Dates_Service::class );

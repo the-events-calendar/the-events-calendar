@@ -176,7 +176,11 @@ class Blocks_Provider extends Service_Provider {
 	 * @return string The sanitized JSON value.
 	 */
 	public function sanitize_rows_json( $value ): string {
-		return (string) wp_json_encode( $this->decode_rows( (string) $value ) );
+		$value   = (string) $value;
+		$decoded = json_decode( $value, true );
+		$rows    = $this->decode_rows( $value );
+		// Preserve invalid submissions so the save handler can reject them without deleting dates.
+		return is_array( $decoded ) && count( $decoded ) === count( $rows ) ? (string) wp_json_encode( $rows ) : $value;
 	}
 
 	/**
@@ -342,13 +346,21 @@ class Blocks_Provider extends Service_Provider {
 			return;
 		}
 
-		$rows  = $this->decode_rows( (string) get_post_meta( $post_id, self::META_KEY, true ) );
+		$value = (string) get_post_meta( $post_id, self::META_KEY, true );
+		$raw   = json_decode( $value, true );
+		$rows  = $this->decode_rows( $value );
+		if ( ! is_array( $raw ) || count( $raw ) !== count( $rows ) ) {
+			$this->save_failed = true;
+			update_post_meta( $post_id, self::PENDING_META_KEY, true );
+			return;
+		}
 		$dates = [];
 
 		foreach ( $rows as $row ) {
+			$end_date = $row['end_date'] ?? $row['date'];
 			$dates[] = [
 				'start' => "{$row['date']} {$row['start']}",
-				'end'   => "{$row['date']} {$row['end']}",
+				'end'   => "{$end_date} {$row['end']}",
 			];
 		}
 
@@ -458,7 +470,7 @@ class Blocks_Provider extends Service_Provider {
 					'date'  => $period['start']->format( 'Y-m-d' ),
 					'start' => $period['start']->format( 'H:i:s' ),
 					'end'   => $period['end']->format( 'H:i:s' ),
-				];
+				] + ( $period['start']->format( 'Y-m-d' ) !== $period['end']->format( 'Y-m-d' ) ? [ 'end_date' => $period['end']->format( 'Y-m-d' ) ] : [] );
 			},
 			$guard->get_authored_periods( $post_id )
 		);
@@ -495,7 +507,8 @@ class Blocks_Provider extends Service_Provider {
 				continue;
 			}
 
-			$date  = (string) $row['date'];
+			$date     = (string) $row['date'];
+			$end_date = (string) ( $row['end_date'] ?? $date );
 			$start = $this->normalize_time( (string) $row['start'] );
 			$end   = $this->normalize_time( (string) $row['end'] );
 
@@ -503,8 +516,8 @@ class Blocks_Provider extends Service_Provider {
 				continue;
 			}
 
-			if ( $end <= $start ) {
-				// Same-day authoring only: an end before the start would author a negative duration.
+			if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $end_date ) || $end_date . ' ' . $end <= $date . ' ' . $start || gmdate( 'Y-m-d', strtotime( $date ) ?: 0 ) !== $date || gmdate( 'Y-m-d', strtotime( $end_date ) ?: 0 ) !== $end_date ) {
+				// Keep complete periods and reject invalid calendar dates.
 				continue;
 			}
 
@@ -512,7 +525,7 @@ class Blocks_Provider extends Service_Provider {
 				'date'  => $date,
 				'start' => $start,
 				'end'   => $end,
-			];
+			] + ( $end_date !== $date ? [ 'end_date' => $end_date ] : [] );
 		}
 
 		return $rows;
@@ -528,11 +541,11 @@ class Blocks_Provider extends Service_Provider {
 	 * @return string|null The normalized time, or `null` when invalid.
 	 */
 	private function normalize_time( string $time ): ?string {
-		if ( preg_match( '/^\d{2}:\d{2}$/', $time ) ) {
+		if ( preg_match( '/^(?:[01]\d|2[0-3]):[0-5]\d$/', $time ) ) {
 			return "{$time}:00";
 		}
 
-		if ( preg_match( '/^\d{2}:\d{2}:\d{2}$/', $time ) ) {
+		if ( preg_match( '/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/', $time ) ) {
 			return $time;
 		}
 

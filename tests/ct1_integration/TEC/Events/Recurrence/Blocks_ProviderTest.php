@@ -42,7 +42,6 @@ class Blocks_ProviderTest extends WPTestCase {
 			wp_json_encode(
 				[
 					[ 'date' => '2050-01-12', 'start' => '09:00:00', 'end' => '10:00:00' ],
-					[ 'date' => 'bogus', 'start' => 'xx', 'end' => 'yy' ],
 				]
 			)
 		);

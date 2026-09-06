@@ -40,6 +40,15 @@
 		<input
 			autocomplete="off"
 			type="text"
+			class="tribe-datepicker"
+			aria-label="End date"
+			name="tec_events_recurrence_dates[__index__][end_date]"
+			value=""
+		/>
+
+		<input
+			autocomplete="off"
+			type="text"
 			class="tribe-timepicker"
 						data-step="30"
 			name="tec_events_recurrence_dates[__index__][end]"
@@ -143,7 +152,7 @@
 					nextIndex++;
 
 					var row = container.querySelector( \'.tec-events-recurrence-dates-row\' );
-					row.querySelector( \'.tribe-datepicker\' ).value = prefill;
+					row.querySelectorAll( \'.tribe-datepicker\' ).forEach( function ( input ) { input.value = prefill; } );
 					list.appendChild( row );
 					initPickers( row );
 				}

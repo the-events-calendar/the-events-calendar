@@ -284,6 +284,15 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 		<input
 			autocomplete="off"
 			type="text"
+			class="tribe-datepicker"
+			aria-label="<?php esc_attr_e( 'End date', 'the-events-calendar' ); ?>"
+			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][end_date]"
+			value="<?php echo esc_attr( $row['end_date'] ?? $row['date'] ); ?>"
+		/>
+
+		<input
+			autocomplete="off"
+			type="text"
 			class="tribe-timepicker"
 			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
 			data-step="30"
@@ -432,7 +441,7 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 					nextIndex++;
 
 					var row = container.querySelector( '.tec-events-recurrence-dates-row' );
-					row.querySelector( '.tribe-datepicker' ).value = prefill;
+					row.querySelectorAll( '.tribe-datepicker' ).forEach( function ( input ) { input.value = prefill; } );
 					list.appendChild( row );
 					initPickers( row );
 				}
