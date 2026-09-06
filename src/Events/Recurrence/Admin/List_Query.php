@@ -47,10 +47,11 @@ class List_Query {
 	 * @return void
 	 */
 	public function prepare( WP_Query $query ): void {
-		if ( $query instanceof Custom_Tables_Query || ! $query->is_main_query() || 'tribe_events' !== $query->get( 'post_type' ) || ! Provider::is_list() || 'occurrences' !== Provider::view() ) {
+		if ( $query instanceof Custom_Tables_Query || ! $query->is_main_query() || 'tribe_events' !== $query->get( 'post_type' ) || ! Provider::is_list() ) {
 			return;
 		}
-		$query->set( self::FLAG, true );
+		$query->set( self::FLAG, 'occurrences' === Provider::view() );
+		$query->set( 'post_parent', 0 );
 		$query->set( 'tec_dates', Provider::range() );
 		$query->set( 'tec_event', absint( tribe_get_request_var( 'tec_event', 0 ) ) );
 		$query->set( 'perm', 'readable' );
@@ -70,7 +71,7 @@ class List_Query {
 	 * @return array|null The hydrated results or an untouched earlier result.
 	 */
 	public function results( $posts, WP_Query $query ) {
-		if ( null !== $posts || $query instanceof Custom_Tables_Query || $query !== $this->source ) {
+		if ( null !== $posts || $query instanceof Custom_Tables_Query || $query !== $this->source || ! $query->get( self::FLAG ) ) {
 			return $posts;
 		}
 		$custom = Custom_Tables_Query::from_wp_query( $query );
@@ -152,7 +153,7 @@ class List_Query {
 		$statuses['all']        = get_post_stati( [ 'show_in_admin_all_list' => true ] );
 		foreach ( $statuses as $key => $status ) {
 			$args['post_status']  = $status;
-			$query                = new Custom_Tables_Query( $args );
+			$query                = $this->source->get( self::FLAG ) ? new Custom_Tables_Query( $args ) : new WP_Query( $args );
 			$this->counts[ $key ] = (int) $query->found_posts;
 		}
 		return $this->counts;

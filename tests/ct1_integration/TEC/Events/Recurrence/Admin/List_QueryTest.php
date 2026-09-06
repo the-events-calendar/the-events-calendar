@@ -100,6 +100,39 @@ class List_QueryTest extends WPTestCase {
 		$query = $this->query( [ 'post__in' => [ $post->ID, $draft ], 'post_status' => [ 'publish', 'draft' ] ] );
 		$this->assertEqualsCanonicalizing( [ $post->ID, $draft ], wp_list_pluck( $query->posts, 'ID' ) );
 		$this->assertFalse( (bool) $query->get( List_Query::FLAG ) );
+		$this->assertSame( 2, tribe( List_Query::class )->counts()['all'] );
+		$query = $this->query( [ 's' => 'Unscheduled' ] );
+		$this->assertSame( 1, (int) $query->found_posts );
+		$this->assertSame( 1, tribe( List_Query::class )->counts()['draft'] );
+		$this->assertSame( 0, tribe( List_Query::class )->counts()['publish'] );
+	}
+
+	/** @test */
+	public function should_apply_author_and_private_permissions_to_rows_and_counts(): void {
+		$author = static::factory()->user->create( [ 'role' => 'author' ] );
+		$other = static::factory()->user->create( [ 'role' => 'author' ] );
+		$mine = $this->given_a_multi_date_event( [], [ 'author' => $author ] );
+		$this->given_a_multi_date_event( [], [ 'author' => $other, 'status' => 'private' ] );
+		wp_set_current_user( $author );
+		$_REQUEST['tec_dates'] = 'all';
+		$query = $this->query();
+		$this->assertSame( 2, (int) $query->found_posts, $query->request );
+		$this->assertSame( 0, tribe( List_Query::class )->counts()['private'] );
+		$query = $this->query( [ 'author' => $author ] );
+		$this->assertSame( 2, (int) $query->found_posts );
+		$this->assertSame( $mine->ID, Occurrence::normalize_id( $query->posts[0]->ID ) );
+		$this->assertSame( 2, tribe( List_Query::class )->counts()['all'] );
+	}
+
+	/** @test */
+	public function should_include_an_ongoing_all_day_date_and_label_its_timezone(): void {
+		$post = $this->given_a_multi_date_event( [], [ 'start_date' => '2050-01-07 00:00:00', 'end_date' => '2050-01-07 23:59:59', 'all_day' => true, 'timezone' => 'America/New_York' ] );
+		$_REQUEST['tec_event'] = $post->ID;
+		$query = $this->query();
+		$this->assertSame( 2, (int) $query->found_posts, $query->request );
+		$data = tribe( Presentation::class )->get( $query->posts[0]->ID );
+		$this->assertStringContainsString( 'All Day', $data['start'] );
+		$this->assertStringContainsString( 'America/New_York', $data['start'] );
 	}
 
 	/** @test */

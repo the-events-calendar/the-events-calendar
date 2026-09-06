@@ -36,7 +36,7 @@ if ( $is_occurrence && ! $is_locked ) {
 				<?php esc_html_e( 'This is a single occurrence: changing the dates above moves only this date.', 'the-events-calendar' ); ?>
 				<?php if ( ! empty( $occurrence_edit_link ) ) : ?>
 					<a href="<?php echo esc_url( $occurrence_edit_link ); ?>">
-						<?php esc_html_e( 'Edit the recurring event to change the other dates.', 'the-events-calendar' ); ?>
+						<?php esc_html_e( 'Edit the event to change the other dates.', 'the-events-calendar' ); ?>
 					</a>
 				<?php endif; ?>
 			</p>
@@ -119,7 +119,7 @@ if ( $is_locked ) {
 				<?php endif; ?>
 				<?php if ( $is_occurrence && '' !== $occurrence_edit_link ) : ?>
 					<p>
-						<a href="<?php echo esc_url( $occurrence_edit_link ); ?>"><?php esc_html_e( 'Edit the recurring event.', 'the-events-calendar' ); ?></a>
+						<a href="<?php echo esc_url( $occurrence_edit_link ); ?>"><?php esc_html_e( 'Edit event details.', 'the-events-calendar' ); ?></a>
 					</p>
 				<?php endif; ?>
 			</div>
@@ -210,7 +210,7 @@ if ( $is_locked ) {
 					<p class="description">
 						<?php esc_html_e( 'Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.', 'the-events-calendar' ); ?>
 						<?php if ( $is_occurrence ) : ?>
-							<?php esc_html_e( 'Converting sends you to the recurring event.', 'the-events-calendar' ); ?>
+							<?php esc_html_e( 'Converting sends you to the event editor.', 'the-events-calendar' ); ?>
 						<?php endif; ?>
 					</p>
 					<?php if ( $can_convert ) : ?>

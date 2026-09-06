@@ -22,12 +22,13 @@ class Provider extends Service_Provider {
 
 	/** Registers the UI independently of Free's dates-only editor providers. @since TBD @return void */
 	public function register(): void {
-		foreach ( [ Presentation::class, Pro_Status::class, List_Query::class ] as $service ) {
+		foreach ( [ Presentation::class, Pro_Status::class, List_Query::class, Editor::class ] as $service ) {
 			if ( ! $this->container->isBound( $service ) ) {
 				$this->container->singleton( $service );
 			}
 		}
 		$this->container->make( List_Query::class )->register();
+		$this->container->make( Editor::class )->register();
 		add_filter( 'manage_tribe_events_posts_columns', [ $this, 'columns' ], 100 );
 		add_filter( 'manage_edit-tribe_events_sortable_columns', [ $this, 'sortable' ], 100 );
 		add_action( 'manage_tribe_events_posts_custom_column', [ $this, 'column' ], 100, 2 );
@@ -46,6 +47,7 @@ class Provider extends Service_Provider {
 	/** Removes all owned callbacks and per-request state. @since TBD @return void */
 	public function unregister(): void {
 		$this->container->make( List_Query::class )->unregister();
+		$this->container->make( Editor::class )->unregister();
 		remove_filter( 'manage_tribe_events_posts_columns', [ $this, 'columns' ], 100 );
 		remove_filter( 'manage_edit-tribe_events_sortable_columns', [ $this, 'sortable' ], 100 );
 		remove_action( 'manage_tribe_events_posts_custom_column', [ $this, 'column' ], 100 );
@@ -251,18 +253,6 @@ class Provider extends Service_Provider {
 			if ( $occurrences && $parent && current_user_can( 'edit_post', $parent ) ) {
 				echo '<p>' . esc_html( sprintf( /* translators: %s: the parent event title. */ __( 'Dates for: %s', 'the-events-calendar' ), get_the_title( $parent ) ) ) . ' <a href="' . esc_url( self::url( [ 'tec_event' => false ] ) ) . '">' . esc_html__( 'Show all events', 'the-events-calendar' ) . '</a></p>';
 			}
-		}
-		if ( ! $occurrences ) {
-			foreach ( $views as $key => $html ) {
-				$views[ $key ] = preg_replace_callback(
-					'/href=([\'\"])(.*?)\1/',
-					static function ( $attribute ) {
-						return 'href="' . esc_url( add_query_arg( 'tec_events_view', 'events', html_entity_decode( $attribute[2], ENT_QUOTES ) ) ) . '"';
-					},
-					$html 
-				);
-			}
-			return $views;
 		}
 		$views  = [];
 		$counts = $this->container->make( List_Query::class )->counts();

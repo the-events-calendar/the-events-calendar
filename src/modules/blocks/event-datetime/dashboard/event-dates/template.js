@@ -283,7 +283,7 @@ const ConvertToDates = ( { config } ) => {
 					'the-events-calendar'
 				) }
 				{ config.isOccurrence &&
-					' ' + __( 'Converting sends you to the recurring event.', 'the-events-calendar' ) }
+					' ' + __( 'Converting sends you to the event editor.', 'the-events-calendar' ) }
 			</p>
 			<CheckboxControl
 				label={ __( 'I understand that the recurrence rules will be removed.', 'the-events-calendar' ) }
@@ -509,7 +509,7 @@ const EventDates = ( props ) => {
 					{ isOccurrence && config.parentEditLink && (
 						<p>
 							<a href={ config.parentEditLink }>
-								{ __( 'Edit the recurring event.', 'the-events-calendar' ) }
+								{ __( 'Edit event details.', 'the-events-calendar' ) }
 							</a>
 						</p>
 					) }
@@ -530,7 +530,7 @@ const EventDates = ( props ) => {
 					) }{ ' ' }
 					{ config.parentEditLink && (
 						<a href={ config.parentEditLink }>
-							{ __( 'Edit the recurring event to change the other dates.', 'the-events-calendar' ) }
+							{ __( 'Edit the event to change the other dates.', 'the-events-calendar' ) }
 						</a>
 					) }
 				</p>

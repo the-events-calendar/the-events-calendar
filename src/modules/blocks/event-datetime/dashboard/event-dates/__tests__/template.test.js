@@ -163,7 +163,7 @@ describe( 'Event Dates panel', () => {
 
 		expect( json ).toContain( 'Notice--info' );
 		expect( json ).toContain( 'This is one date of an event' );
-		expect( json ).toContain( 'Edit the recurring event.' );
+		expect( json ).toContain( 'Edit event details.' );
 		expect( json ).toContain( 'turn off the recurrence lock' );
 		expect( json ).not.toContain( 'January 5, 2050' );
 		expect( json ).not.toContain( 'single occurrence' );
@@ -183,7 +183,7 @@ describe( 'Event Dates panel', () => {
 
 		expect( json ).toContain( 'Notice--warning' );
 		expect( json ).toContain( 'until the event is converted' );
-		expect( json ).toContain( 'Converting sends you to the recurring event.' );
+		expect( json ).toContain( 'Converting sends you to the event editor.' );
 		expect( json ).not.toContain( 'January 5, 2050' );
 
 		const form = tree.root.findByType( 'form' );
