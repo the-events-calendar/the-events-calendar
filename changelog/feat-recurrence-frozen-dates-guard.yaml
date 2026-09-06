@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Prevented the dates and recurrence rules of recurring events created with
+  Events Calendar Pro, and the dates of their occurrences, from being changed
+  while Events Calendar Pro is not active; their other details stay editable.
+timestamp: 2026-09-05T05:13:37.000Z

@@ -706,4 +706,20 @@ abstract class Model implements Serializable {
 
 		static::$extensions[ $this->table ] = $extensions;
 	}
+
+	/**
+	 * Resets the memoized Model extensions so the next Model instance re-applies the
+	 * extension filters.
+	 *
+	 * The extensions are filtered once and cached after `init`: a provider registering
+	 * extension filters mid-request (e.g. the Occurrence engine registering during a
+	 * migration) must reset the cache or its fields would be silently dropped.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public static function reset_extensions(): void {
+		static::$extensions = null;
+	}
 }

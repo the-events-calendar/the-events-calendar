@@ -13,6 +13,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
+use TEC\Events\Recurrence\Date_Rules;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
@@ -128,7 +129,140 @@ trait CT1_Fixtures {
 		return get_post( $post_id );
 	}
 
+	/**
+	 * Creates a non-migrated legacy Event whose `_EventRecurrence` meta is a list of
+	 * explicit dates — the shape `Date_Rules::to_meta()` writes and
+	 * `Date_Rules::is_dates_only_meta()` accepts.
+	 *
+	 * @param int                 $extra_dates         How many additional dates, one week apart, to author.
+	 * @param array<string,mixed> $override_event_args Overrides for the Event post creation arguments.
+	 *
+	 * @return \WP_Post The legacy Event post.
+	 */
+	private function given_a_non_migrated_dates_only_event( int $extra_dates = 2, array $override_event_args = [] ): \WP_Post {
+		$post = $this->given_a_non_migrated_single_event( $override_event_args );
+
+		$timezone    = new \DateTimeZone( (string) get_post_meta( $post->ID, '_EventTimezone', true ) );
+		$utc         = new \DateTimeZone( 'UTC' );
+		$event_start = new \DateTimeImmutable( (string) get_post_meta( $post->ID, '_EventStartDate', true ), $timezone );
+		$event_end   = new \DateTimeImmutable( (string) get_post_meta( $post->ID, '_EventEndDate', true ), $timezone );
+
+		// The legacy date-rule shape stores minute precision: floor the Event dates to match.
+		$event_start = $event_start->setTime( (int) $event_start->format( 'H' ), (int) $event_start->format( 'i' ) );
+		$event_end   = $event_end->setTime( (int) $event_end->format( 'H' ), (int) $event_end->format( 'i' ) );
+		update_post_meta( $post->ID, '_EventStartDate', $event_start->format( Dates::DBDATETIMEFORMAT ) );
+		update_post_meta( $post->ID, '_EventEndDate', $event_end->format( Dates::DBDATETIMEFORMAT ) );
+		update_post_meta( $post->ID, '_EventStartDateUTC', $event_start->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ) );
+		update_post_meta( $post->ID, '_EventEndDateUTC', $event_end->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ) );
+
+		$periods = [];
+		for ( $i = 1; $i <= $extra_dates; $i ++ ) {
+			$periods[] = [
+				'start' => $event_start->add( new \DateInterval( "P{$i}W" ) ),
+				'end'   => $event_end->add( new \DateInterval( "P{$i}W" ) ),
+			];
+		}
+
+		update_post_meta( $post->ID, '_EventRecurrence', Date_Rules::to_meta( $periods, $event_start, $event_end ) );
+
+		return $post;
+	}
+
+	/**
+	 * Creates a non-migrated dates-only legacy Event along with fabricated legacy child
+	 * posts, one per additional date, mimicking the pre-6.0 child-post structure.
+	 *
+	 * @param int $extra_dates How many additional dates (and children) to author.
+	 *
+	 * @return array{parent: \WP_Post, children: array<int,int>} The parent post and the child post IDs.
+	 */
+	private function given_a_non_migrated_dates_only_event_with_legacy_children( int $extra_dates = 2 ): array {
+		$parent = $this->given_a_non_migrated_dates_only_event( $extra_dates );
+
+		$timezone = new \DateTimeZone( (string) get_post_meta( $parent->ID, '_EventTimezone', true ) );
+		$utc      = new \DateTimeZone( 'UTC' );
+		$start    = new \DateTimeImmutable( (string) get_post_meta( $parent->ID, '_EventStartDate', true ), $timezone );
+		$end      = new \DateTimeImmutable( (string) get_post_meta( $parent->ID, '_EventEndDate', true ), $timezone );
+
+		$children = [];
+		for ( $i = 1; $i <= $extra_dates; $i ++ ) {
+			$week        = new \DateInterval( "P{$i}W" );
+			$child_start = $start->add( $week );
+			$child_end   = $end->add( $week );
+			$children[]  = wp_insert_post(
+				[
+					'post_type'   => TEC::POSTTYPE,
+					'post_title'  => $parent->post_title,
+					'post_status' => 'publish',
+					'post_parent' => $parent->ID,
+					'meta_input'  => [
+						'_EventStartDate'    => $child_start->format( Dates::DBDATETIMEFORMAT ),
+						'_EventEndDate'      => $child_end->format( Dates::DBDATETIMEFORMAT ),
+						'_EventStartDateUTC' => $child_start->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ),
+						'_EventEndDateUTC'   => $child_end->setTimezone( $utc )->format( Dates::DBDATETIMEFORMAT ),
+						'_EventDuration'     => $child_end->getTimestamp() - $child_start->getTimestamp(),
+						'_EventTimezone'     => $timezone->getName(),
+					],
+				]
+			);
+		}
+
+		return [
+			'parent'   => $parent,
+			'children' => $children,
+		];
+	}
+
+	/**
+	 * Creates a non-migrated legacy Event whose `_EventRecurrence` meta contains a
+	 * recurrence rule pattern: NOT a dates-only one.
+	 *
+	 * @return \WP_Post The legacy Event post.
+	 */
+	private function given_a_non_migrated_rule_based_event(): \WP_Post {
+		$post = $this->given_a_non_migrated_single_event();
+
+		$event_start = (string) get_post_meta( $post->ID, '_EventStartDate', true );
+		$event_end   = (string) get_post_meta( $post->ID, '_EventEndDate', true );
+
+		update_post_meta(
+			$post->ID,
+			'_EventRecurrence',
+			[
+				'rules'       => [
+					[
+						'type'           => 'Custom',
+						'custom'         => [
+							'interval'  => 1,
+							'type'      => 'Week',
+							'week'      => [ 'day' => [ 1 ] ],
+							'same-time' => 'yes',
+						],
+						'end-type'       => 'After',
+						'end-count'      => 5,
+						'EventStartDate' => $event_start,
+						'EventEndDate'   => $event_end,
+					],
+				],
+				'exclusions'  => [],
+				'description' => null,
+			]
+		);
+
+		return $post;
+	}
+
 	private function given_the_current_migration_phase_is( $phase = null ) {
+		/*
+		 * The suite truncates the options table between tests with raw SQL: the object
+		 * cache can hold a value for a row that no longer exists, making `update_option`
+		 * run an UPDATE against a missing row and silently write nothing. Purge the
+		 * caches so the write goes through the insert path when needed.
+		 */
+		wp_cache_delete( State::STATE_OPTION_KEY, 'options' );
+		wp_cache_delete( 'alloptions', 'options' );
+		wp_cache_delete( 'notoptions', 'options' );
+
 		$state          = get_option( State::STATE_OPTION_KEY, [] );
 		$state['phase'] = $phase;
 		update_option( State::STATE_OPTION_KEY, $state );

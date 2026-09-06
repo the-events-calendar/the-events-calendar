@@ -91,6 +91,15 @@ class Provider extends Service_Provider {
 			$this->container->singleton( 'tec.custom-tables.v1.provider', self::class );
 			$this->container->register( Tables\Provider::class );
 			$this->container->register( Migration\Provider::class );
+
+			/*
+			 * The date-list migration strategy must be selectable WHILE the migration runs,
+			 * when the Recurrence feature Controller (gated on full activation) is inactive:
+			 * it registers with the always-on migration machinery, not with the feature.
+			 *
+			 * @since TBD
+			 */
+			$this->container->register( \TEC\Events\Recurrence\Migration\Migration_Provider::class );
 			// *NOTE* - Ensure only adding providers that are always required in here,
 			// versus most features that should go in the `Full_Activation_Provider`.
 
@@ -107,6 +116,16 @@ class Provider extends Service_Provider {
 			}
 
 			$this->add_filters();
+
+			/*
+			 * The free Recurrence (Occurrences) feature builds on top of the custom
+			 * tables; its own gate decides whether it should activate or not. It is
+			 * registered late, on `tribe_plugins_loaded`, so every plugin (e.g. Events
+			 * Calendar Pro) had a chance to load before the gate is evaluated.
+			 *
+			 * @since TBD
+			 */
+			$this->container->register_on_action( 'tribe_plugins_loaded', \TEC\Events\Recurrence\Controller::class );
 
 			/*
 			 * Integrations with 3rd party code are registered last to

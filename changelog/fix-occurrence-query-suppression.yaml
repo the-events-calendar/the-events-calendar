@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where nested or failed occurrence cache reads could
+  leave query handling in the wrong state.
+timestamp: 2026-09-06T02:59:39.812Z

@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where the Event Dates section showed shifted times on
+  sites with a non-UTC timezone.
+timestamp: 2026-09-04T18:04:39.170Z
