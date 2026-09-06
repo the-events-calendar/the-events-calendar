@@ -31,6 +31,45 @@ class ControllerTest extends WPTestCase {
 		remove_all_filters( 'tec_events_recurrence_enabled' );
 	}
 
+	/** @test */
+	public function should_remember_successful_activation_after_the_pro_filter_is_removed(): void {
+		delete_option( Controller::ACTIVE_OPTION );
+		tribe()->setVar( 'ct1_fully_activated', true );
+		$controller = $this->controller();
+		$controller->unregister();
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
+		try {
+			$controller->register();
+			$this->assertTrue( (bool) get_option( Controller::ACTIVE_OPTION ) );
+			remove_filter( 'tec_events_recurrence_enabled', '__return_true' );
+			$controller->unregister();
+			$controller->register();
+			$this->assertTrue( $controller->is_active() );
+			$this->assertTrue( tribe()->getVar( 'tec_events_recurrence_fully_activated' ) );
+			putenv( Controller::DISABLED . '=1' );
+			$this->assertFalse( $controller->is_active() );
+		} finally {
+			$controller->unregister();
+		}
+	}
+
+	/** @test */
+	public function should_preserve_an_explicit_opt_out_after_temporary_pro_activation(): void {
+		// update_option(false) on an absent option is a no-op; create the explicit choice.
+		add_option( Controller::ACTIVE_OPTION, false );
+		tribe()->setVar( 'ct1_fully_activated', true );
+		$controller = $this->controller();
+		$controller->unregister();
+		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
+		try {
+			$controller->register();
+			remove_filter( 'tec_events_recurrence_enabled', '__return_true' );
+			$this->assertFalse( $controller->is_active() );
+		} finally {
+			$controller->unregister();
+		}
+	}
+
 	private function controller(): Controller {
 		return tribe( Controller::class );
 	}

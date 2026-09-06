@@ -26,6 +26,9 @@ trait With_Recurrence_Engine {
 	 */
 	private $previous_ct1_activation = false;
 
+	/** @var mixed The activation option before the pre-transaction engine setup. */
+	private $previous_recurrence_option;
+
 	/**
 	 * Activates the Recurrence engine, forcing a re-registration of the gated feature.
 	 *
@@ -42,6 +45,7 @@ trait With_Recurrence_Engine {
 			$this->_backup_hooks();
 		}
 
+		$this->previous_recurrence_option = get_option( Controller::ACTIVE_OPTION, null );
 		add_filter( 'tec_events_recurrence_enabled', '__return_true' );
 		$this->previous_ct1_activation = (bool) tribe()->getVar( 'ct1_fully_activated', false );
 		tribe()->setVar( 'ct1_fully_activated', true );
@@ -60,6 +64,12 @@ trait With_Recurrence_Engine {
 		remove_all_filters( 'tec_events_recurrence_enabled' );
 		// Symmetric cleanup: no engine hook or extended model state leaks into other tests.
 		tribe( Controller::class )->unregister();
+		// Activation happens before setUp's transaction; restore that durable write explicitly.
+		if ( null === $this->previous_recurrence_option ) {
+			delete_option( Controller::ACTIVE_OPTION );
+		} else {
+			update_option( Controller::ACTIVE_OPTION, $this->previous_recurrence_option );
+		}
 		tribe()->setVar( 'ct1_fully_activated', $this->previous_ct1_activation );
 		Model::reset_extensions();
 	}

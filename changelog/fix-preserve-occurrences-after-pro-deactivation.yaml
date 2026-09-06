@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where deactivating Events Calendar Pro disabled
+  previously enabled occurrence support when its activation option was absent.
+timestamp: 2026-09-06T03:25:25.299Z

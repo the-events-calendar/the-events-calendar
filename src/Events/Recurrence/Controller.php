@@ -238,5 +238,14 @@ class Controller extends Controller_Contract {
 
 			$this->container->make( $provider )->register();
 		}
+
+		/*
+		 * Remember a successful adoption, including Pro's runtime force-enable.
+		 * add_option preserves an explicit opt-out; an absent option must not turn
+		 * off occurrence addressability and rule protection when Pro is deactivated.
+		 */
+		if ( null === get_option( self::ACTIVE_OPTION, null ) ) {
+			add_option( self::ACTIVE_OPTION, true );
+		}
 	}
 }
