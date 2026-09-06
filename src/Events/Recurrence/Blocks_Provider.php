@@ -42,6 +42,13 @@ class Blocks_Provider extends Service_Provider {
 	public const META_KEY = '_tec_events_recurrence_dates';
 
 	/**
+	 * Marks a submitted mirror awaiting a successful canonical save.
+	 *
+	 * @since TBD
+	 */
+	public const PENDING_META_KEY = '_tec_events_recurrence_dates_pending';
+
+	/**
 	 * The admin notice pulled in this request, `null` until one was found.
 	 *
 	 * @since TBD
@@ -49,6 +56,22 @@ class Blocks_Provider extends Service_Provider {
 	 * @var array{notice: array{type: string, message: string}}|null
 	 */
 	private ?array $pulled_notice = null;
+
+	/**
+	 * Whether additional date persistence failed in this request.
+	 *
+	 * @since TBD
+	 * @var bool
+	 */
+	private bool $save_failed = false;
+
+	/**
+	 * Suppresses mirror refresh while consuming submitted dates.
+	 *
+	 * @since TBD
+	 * @var bool
+	 */
+	private bool $consuming = false;
 
 	/**
 	 * Registers the Block Editor integration hooks.
@@ -79,6 +102,8 @@ class Blocks_Provider extends Service_Provider {
 			add_filter( 'tribe_editor_config', [ $this, 'add_editor_config' ] );
 		}
 
+		add_filter( 'rest_request_after_callbacks', [ $this, 'report_save_failure' ], 100, 3 );
+
 		if ( ! has_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'consume_blocks_dates' ] ) ) {
 			// After core wrote the attribute-bound meta, before the Custom Tables commit at 100.
 			add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'consume_blocks_dates' ], 50, 2 );
@@ -105,6 +130,9 @@ class Blocks_Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function unregister(): void {
+		remove_filter( 'rest_request_after_callbacks', [ $this, 'report_save_failure' ], 100 );
+		$this->save_failed = false;
+		$this->consuming   = false;
 		remove_action( 'init', [ $this, 'register_meta' ] );
 		remove_filter( 'tribe_block_block_data_event-datetime', [ $this, 'add_block_attribute' ] );
 		remove_filter( 'tribe_editor_config', [ $this, 'add_editor_config' ] );
@@ -298,6 +326,9 @@ class Blocks_Provider extends Service_Provider {
 		}
 
 		$post_id = (int) $post->ID;
+		if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+			return;
+		}
 
 		if ( ! metadata_exists( 'post', $post_id, self::META_KEY ) ) {
 			// The panel never touched this Event: do not clear dates authored elsewhere.
@@ -323,11 +354,33 @@ class Blocks_Provider extends Service_Provider {
 
 		$service = $this->container->make( Dates_Service::class );
 
-		if ( count( $dates ) ) {
-			$service->set_dates( $post_id, $dates );
-		} else {
-			$service->remove_dates( $post_id );
+		update_post_meta( $post_id, self::PENDING_META_KEY, true );
+		$this->consuming = true;
+		try {
+			$saved = count( $dates ) ? $service->set_dates( $post_id, $dates ) : $service->remove_dates( $post_id );
+		} finally {
+			$this->consuming = false;
 		}
+		$this->save_failed = ! $saved;
+		if ( $saved ) {
+			delete_post_meta( $post_id, self::PENDING_META_KEY );
+			$this->rehydrate_mirror( $post_id );
+		}
+	}
+
+	/**
+	 * Keeps a failed schedule save visible to the Block Editor instead of returning success.
+	 *
+	 * @since TBD
+	 * @param mixed $response The normal REST response.
+	 * @return mixed The normal response or the schedule error.
+	 */
+	public function report_save_failure( $response ) {
+		if ( ! $this->save_failed ) {
+			return $response;
+		}
+		$this->save_failed = false;
+		return new \WP_Error( 'tec_recurrence_dates_save_failed', __( 'The additional dates could not be saved. Review the dates and try again. Other event changes may already have been saved.', 'the-events-calendar' ), [ 'status' => 500 ] );
 	}
 
 	/**
@@ -346,6 +399,10 @@ class Blocks_Provider extends Service_Provider {
 			return;
 		}
 
+		if ( $this->consuming ) {
+			return;
+		}
+		delete_post_meta( (int) $post_id, self::PENDING_META_KEY );
 		$this->rehydrate_mirror( (int) $post_id );
 	}
 
@@ -378,6 +435,16 @@ class Blocks_Provider extends Service_Provider {
 	 * @return void
 	 */
 	private function rehydrate_mirror( int $post_id ): void {
+		if ( get_post_meta( $post_id, self::PENDING_META_KEY, true ) ) {
+			// A failed save must not replace submitted dates with the previous schedule.
+			return;
+		}
+
+		// Preserve submitted mirror data when first-save persistence did not create the Event row.
+		if ( ! \TEC\Events\Custom_Tables\V1\Models\Event::find( $post_id, 'post_id' ) && metadata_exists( 'post', $post_id, self::META_KEY ) ) {
+			return;
+		}
+
 		$guard = $this->container->make( Authoring_Guard::class );
 
 		if ( $guard->is_rule_locked( $post_id ) ) {

@@ -379,9 +379,13 @@ class Admin_Provider extends Service_Provider {
 		$service = $this->container->make( Dates_Service::class );
 
 		if ( count( $dates ) ) {
-			$service->set_dates( $event_id, $dates );
+			$saved = $service->set_dates( $event_id, $dates );
 		} else {
-			$service->remove_dates( $event_id );
+			$saved = $service->remove_dates( $event_id );
 		}
+		if ( ! $saved ) {
+			wp_die( esc_html__( 'The additional dates could not be saved. Return to the editor, review the dates and try again. Other event changes may already have been saved.', 'the-events-calendar' ), 500 );
+		}
+
 	}
 }

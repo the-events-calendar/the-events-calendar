@@ -43,7 +43,7 @@ class Dates_Service {
 	 */
 	public function set_dates( int $post_id, array $dates ): bool {
 		$post_id = Occurrence::normalize_id( $post_id );
-		$event   = Event::find( $post_id, 'post_id' );
+		$event   = $this->get_or_create_event( $post_id );
 
 		if ( ! $event instanceof Event ) {
 			return false;
@@ -121,11 +121,17 @@ class Dates_Service {
 		}
 
 		// The legacy meta is the canonical authored format.
-		update_post_meta( $post_id, '_EventRecurrence', Date_Rules::to_meta( $periods, $event_start, $event_end ) );
+		$meta = Date_Rules::to_meta( $periods, $event_start, $event_end );
+		update_post_meta( $post_id, '_EventRecurrence', $meta );
+		if ( get_post_meta( $post_id, '_EventRecurrence', true ) !== $meta ) {
+			return false;
+		}
 
 		// The RSET is derived from it.
 		$rset = Dates::serialize( $event_start, $event_end, $periods );
-		$event->update( [ 'rset' => $rset ] );
+		if ( false === $event->update( [ 'rset' => $rset ] ) ) {
+			return false;
+		}
 
 		$this->regenerate( $post_id );
 
@@ -170,7 +176,7 @@ class Dates_Service {
 	 */
 	public function remove_dates( int $post_id ): bool {
 		$post_id = Occurrence::normalize_id( $post_id );
-		$event   = Event::find( $post_id, 'post_id' );
+		$event   = $this->get_or_create_event( $post_id );
 
 		if ( ! $event instanceof Event ) {
 			return false;
@@ -210,6 +216,32 @@ class Dates_Service {
 		}
 
 		return $dates;
+	}
+
+	/**
+	 * Creates the Event row on first editor save, after WordPress saved date meta.
+	 *
+	 * Editor hooks run before the deferred CT1 commit. Requiring an existing row
+	 * loses additional dates on the first publish of a genuine auto-draft.
+	 *
+	 * @since TBD
+	 * @param int $post_id The durable Event post ID.
+	 * @return Event|null The persisted Event, or null if its dates are not ready.
+	 */
+	private function get_or_create_event( int $post_id ): ?Event {
+		$event = Event::find( $post_id, 'post_id' );
+		if ( $event instanceof Event ) {
+			return $event;
+		}
+		$data = Event::data_from_post( $post_id );
+		if ( ! $data || ! $data['start_date'] || ! $data['end_date'] || ! $data['timezone'] || wp_is_post_revision( $post_id ) ) {
+			return null;
+		}
+		if ( false === Event::upsert( [ 'post_id' ], $data ) ) {
+			return null;
+		}
+		$event = Event::find( $post_id, 'post_id' );
+		return $event instanceof Event ? $event : null;
 	}
 
 	/**
