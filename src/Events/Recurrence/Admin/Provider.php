@@ -312,6 +312,8 @@ class Provider extends Service_Provider {
 	 */
 	public function inline_context( string $column, string $post_type ): void {
 		if ( 'tec-start-date' === $column && TEC::POSTTYPE === $post_type ) {
+			echo '<input type="hidden" name="tec_dates" value="' . esc_attr( self::range() ) . '" />';
+			echo '<input type="hidden" name="tec_event" value="' . absint( tribe_get_request_var( 'tec_event', 0 ) ) . '" />';
 			echo '<input type="hidden" name="tec_events_view" value="' . esc_attr( self::view() ) . '" />';
 		}
 	}
@@ -408,6 +410,7 @@ class Provider extends Service_Provider {
 		);
 		echo '<input type="hidden" name="tec_event" value="' . absint( tribe_get_request_var( 'tec_event', 0 ) ) . '" />';
 		if ( 'occurrences' !== self::view() ) {
+			echo '<input type="hidden" name="tec_dates" value="' . esc_attr( self::range() ) . '" />';
 			return;
 		}
 		echo '<label class="screen-reader-text" for="tec-occurrence-range">' . esc_html__( 'Occurrence dates', 'the-events-calendar' ) . '</label><select id="tec-occurrence-range" name="tec_dates">';

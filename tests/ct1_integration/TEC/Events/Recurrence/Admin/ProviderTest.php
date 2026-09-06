@@ -74,11 +74,21 @@ class ProviderTest extends WPTestCase {
 	public function should_preserve_parent_management_when_quick_edit_refreshes_a_row(): void {
 		$request = $_REQUEST;
 		$_REQUEST['tec_events_view'] = 'events';
+		$_REQUEST['tec_dates'] = 'all';
+		$_REQUEST['tec_event'] = '45';
 		try {
 			ob_start();
 			tribe( Provider::class )->inline_context( 'tec-start-date', 'tribe_events' );
 			$html = ob_get_clean();
 			$this->assertStringContainsString( 'name="tec_events_view" value="events"', $html );
+			$this->assertStringContainsString( 'name="tec_dates" value="all"', $html );
+			$this->assertStringContainsString( 'name="tec_event" value="45"', $html );
+			ob_start();
+			tribe( Provider::class )->filters( 'tribe_events', 'top' );
+			$filters = ob_get_clean();
+			$this->assertStringContainsString( 'name="tec_dates" value="all"', $filters );
+			$this->assertStringContainsString( 'name="tec_event" value="45"', $filters );
+			$this->assertStringNotContainsString( 'id="tec-occurrence-range"', $filters );
 			$this->assertArrayHasKey( 'cb', tribe( Provider::class )->columns( [ 'cb' => 'Select', 'author' => 'Author' ] ) );
 		} finally {
 			$_REQUEST = $request;
