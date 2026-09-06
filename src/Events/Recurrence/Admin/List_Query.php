@@ -54,7 +54,12 @@ class List_Query {
 		$query->set( 'post_parent', 0 );
 		$query->set( 'tec_dates', Provider::range() );
 		$query->set( 'tec_recurrence_now', gmdate( 'Y-m-d H:i:s' ) );
-		$query->set( 'tec_event', absint( tribe_get_request_var( 'tec_event', 0 ) ) );
+		$parent = absint( tribe_get_request_var( 'tec_event', 0 ) );
+		$query->set( 'tec_event', $parent );
+		if ( $parent && ! $query->get( self::FLAG ) ) {
+			$included = $query->get( 'post__in' );
+			$query->set( 'post__in', $included ? ( array_intersect( [ $parent ], $included ) ?: [ 0 ] ) : [ $parent ] );
+		}
 		$query->set( 'perm', 'readable' );
 		if ( ! $query->get( 'post_status' ) ) {
 			$query->set( 'post_status', get_post_stati( [ 'show_in_admin_all_list' => true ] ) );

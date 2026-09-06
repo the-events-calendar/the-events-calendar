@@ -143,4 +143,21 @@ class List_QueryTest extends WPTestCase {
 		$query = $this->query( [ 'orderby' => 'end-date', 'order' => 'DESC' ] );
 		$this->assertSame( '2050-01-12 10:00:00', get_post_meta( $query->posts[0]->ID, '_EventEndDate', true ) );
 	}
+
+	/** @test */
+	public function should_preserve_the_parent_filter_when_occurrence_display_is_turned_off(): void {
+		$post = $this->given_a_multi_date_event();
+		$other = $this->given_a_multi_date_event();
+		$_REQUEST['tec_event'] = $post->ID;
+		$_REQUEST['tec_dates'] = 'all';
+		$this->assertSame( 2, (int) $this->query()->found_posts );
+		$_REQUEST['tec_events_view'] = 'events';
+		$query = $this->query();
+		$this->assertSame( [ $post->ID ], wp_list_pluck( $query->posts, 'ID' ) );
+		$this->assertSame( 1, (int) $query->found_posts );
+		$this->assertSame( 1, tribe( List_Query::class )->counts()['all'] );
+		$query = $this->query( [ 'post__in' => [ $other->ID ] ] );
+		$this->assertSame( [], $query->posts );
+		$this->assertSame( 0, tribe( List_Query::class )->counts()['all'] );
+	}
 }

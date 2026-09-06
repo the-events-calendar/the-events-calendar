@@ -360,8 +360,10 @@ class Provider extends Service_Provider {
 			$posts = $wp_query instanceof \WP_Query ? $wp_query->posts : [];
 			$this->container->make( Presentation::class )->prime( $posts );
 			$parent = absint( tribe_get_request_var( 'tec_event', 0 ) );
-			if ( $occurrences && $parent && current_user_can( 'edit_post', $parent ) ) {
-				echo '<p>' . esc_html( sprintf( /* translators: %s: the parent event title. */ __( 'Dates for: %s', 'the-events-calendar' ), get_the_title( $parent ) ) ) . ' <a href="' . esc_url( self::url( [ 'tec_event' => false ] ) ) . '">' . esc_html__( 'Show all events', 'the-events-calendar' ) . '</a></p>';
+			if ( $parent && current_user_can( 'edit_post', $parent ) ) {
+				/* translators: %s: the parent event title. */
+				$label = $occurrences ? __( 'Dates for: %s', 'the-events-calendar' ) : __( 'Event: %s', 'the-events-calendar' );
+				echo '<p>' . esc_html( sprintf( $label, get_the_title( $parent ) ) ) . ' <a href="' . esc_url( self::url( [ 'tec_event' => false ] ) ) . '">' . esc_html__( 'Show all events', 'the-events-calendar' ) . '</a></p>';
 			}
 		}
 		$views  = [];
@@ -404,10 +406,10 @@ class Provider extends Service_Provider {
 				'hierarchical'    => true,
 			]
 		);
+		echo '<input type="hidden" name="tec_event" value="' . absint( tribe_get_request_var( 'tec_event', 0 ) ) . '" />';
 		if ( 'occurrences' !== self::view() ) {
 			return;
 		}
-		echo '<input type="hidden" name="tec_event" value="' . absint( tribe_get_request_var( 'tec_event', 0 ) ) . '" />';
 		echo '<label class="screen-reader-text" for="tec-occurrence-range">' . esc_html__( 'Occurrence dates', 'the-events-calendar' ) . '</label><select id="tec-occurrence-range" name="tec_dates">';
 		foreach ( [
 			'upcoming' => __( 'Ongoing and upcoming', 'the-events-calendar' ),
