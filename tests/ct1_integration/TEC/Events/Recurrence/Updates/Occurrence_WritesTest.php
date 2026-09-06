@@ -3,140 +3,150 @@
 namespace TEC\Events\Recurrence\Updates;
 
 use Codeception\TestCase\WPTestCase;
-use DateTimeImmutable;
-use DateTimeZone;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Test\Traits\With_Recurrence_Engine;
-use WP_Error;
 use WP_REST_Request;
 
 class Occurrence_WritesTest extends WPTestCase {
 	use With_Recurrence_Engine;
+
+	public static $redirect;
 
 	/** @after */
 	public function restore_ownership(): void {
 		remove_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
 	}
 
-	/** @test */
-	public function should_refuse_a_classic_occurrence_submission_without_replaying_it_on_the_parent(): void {
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
-		$event   = $this->given_a_multi_date_event();
-		$row     = Occurrence::where( 'post_id', '=', $event->ID )->first();
-		$request = $_REQUEST;
-		$method  = $_SERVER['REQUEST_METHOD'] ?? null;
-		$_REQUEST['post_ID']       = $row->provisional_id;
-		$_REQUEST['action']        = 'editpost';
-		$_SERVER['REQUEST_METHOD'] = 'POST';
-		try {
-			$this->expectException( \WPDieException::class );
-			tribe( Occurrence_Writes::class )->classic_request();
-		} finally {
-			$_REQUEST = $request;
-			if ( null === $method ) {
-				unset( $_SERVER['REQUEST_METHOD'] );
-			} else {
-				$_SERVER['REQUEST_METHOD'] = $method;
-			}
-		}
-	}
-
-	/** @test */
-	public function should_edit_shared_fields_on_the_parent_and_preserve_selected_date_moves(): void {
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
-		$event = $this->given_a_multi_date_event();
-		$row   = Occurrence::where( 'post_id', '=', $event->ID )->order_by( 'start_date', 'DESC' )->first();
-		$id    = $row->provisional_id;
-		$this->assertSame( get_edit_post_link( $event->ID ), get_edit_post_link( $id ) );
-		$before = get_post( $event->ID )->post_title;
-		$this->assertInstanceOf( WP_Error::class, wp_update_post( [ 'ID' => $id, 'post_title' => 'Wrong scope' ], true ) );
-		$this->assertFalse( wp_trash_post( $id ) );
-		$this->assertFalse( wp_delete_post( $id, true ) );
-		$this->assertSame( $before, get_post( $event->ID )->post_title );
-		$this->assertNotNull( Occurrence::find( $row->occurrence_id ) );
-
-		$this->assertSame( $event->ID, wp_update_post( [ 'ID' => $event->ID, 'post_title' => 'Shared content', 'post_content' => 'Shared description', 'post_status' => 'draft' ], true ) );
-		clean_post_cache( $event->ID );
-		$this->assertSame( 'Shared content', get_post( $event->ID )->post_title );
-		$this->assertSame( 'Shared description', get_post( $event->ID )->post_content );
-		$this->assertSame( 'draft', get_post_status( $event->ID ) );
-		$tz = new DateTimeZone( get_post_meta( $event->ID, '_EventTimezone', true ) );
-		$this->assertTrue( tribe( Single_Occurrence_Update::class )->apply( $id, new DateTimeImmutable( '2050-02-01 09:00:00', $tz ), new DateTimeImmutable( '2050-02-01 10:00:00', $tz ) ) );
-		$this->assertSame( '2050-02-01 09:00:00', Occurrence::find( $row->occurrence_id )->start_date );
-	}
-
-	/** @test */
-	public function should_reject_rest_occurrence_mutations_and_leave_parent_and_pro_requests_alone(): void {
-		$event = $this->given_a_multi_date_event();
-		$row   = Occurrence::where( 'post_id', '=', $event->ID )->first();
-		$guard = tribe( Occurrence_Writes::class );
-		foreach ( [ 'POST', 'PUT', 'PATCH', 'DELETE' ] as $method ) {
-			$request = new WP_REST_Request( $method, '/wp/v2/tribe_events/' . $row->provisional_id );
-			$error   = $guard->rest_request( null, [], $request );
-			$this->assertInstanceOf( WP_Error::class, $error );
-			$this->assertSame( 'tec_occurrence_edit_scope', $error->get_error_code() );
-		}
-		$this->assertNull( $guard->rest_request( null, [], new WP_REST_Request( 'GET', '/wp/v2/tribe_events/' . $row->provisional_id ) ) );
-		$this->assertNull( $guard->rest_request( null, [], new WP_REST_Request( 'POST', '/wp/v2/tribe_events/' . $event->ID ) ) );
-		add_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
-		$this->assertNull( $guard->rest_request( null, [], $request ) );
-		$this->assertFalse( $guard->reject_post_write( false, [ 'ID' => $row->provisional_id ] ) );
-		$this->assertNull( $guard->reject_delete( null, get_post( $row->provisional_id ) ) );
-	}
-
-	/** @test */
-	public function should_remove_unsupported_row_actions_and_label_the_event_scope(): void {
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
-		$event = $this->given_a_multi_date_event();
-		$row   = Occurrence::where( 'post_id', '=', $event->ID )->first();
-		$actions = tribe( Occurrence_Writes::class )->row_actions( [ 'edit' => 'Edit', 'trash' => 'Trash', 'inline hide-if-no-js' => 'Quick Edit', 'view' => 'View' ], get_post( $row->provisional_id ) );
-		$this->assertArrayNotHasKey( 'trash', $actions );
-		$this->assertArrayNotHasKey( 'inline hide-if-no-js', $actions );
-		$this->assertStringContainsString( 'Edit event and dates', $actions['edit'] );
-		$this->assertSame( 'View', $actions['view'] );
-	}
-	public static $redirect;
-
 	public static function capture_redirect( $location ) {
 		self::$redirect = $location;
 		return false;
 	}
 
-	public static function prevent_exit() {
-		return '__return_true';
-	}
-
 	/** @test */
-	public function should_redirect_once_to_the_durable_admin_editor(): void {
+	public function should_keep_each_occurrence_url_on_get_and_after_save(): void {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$event = $this->given_a_multi_date_event();
-		$row = Occurrence::where( 'post_id', '=', $event->ID )->first();
 		$previous_screen = $GLOBALS['current_screen'] ?? null;
 		$request = $_REQUEST;
-		$method = $_SERVER['REQUEST_METHOD'] ?? null;
 		add_filter( 'wp_redirect', [ self::class, 'capture_redirect' ], 0 );
-		add_filter( 'tribe_exit', [ self::class, 'prevent_exit' ] );
 		try {
 			set_current_screen( 'edit-tribe_events' );
-			$expected = admin_url( 'post.php?post=' . $event->ID . '&action=edit' );
-			$this->assertSame( $expected, get_edit_post_link( $row->provisional_id, 'raw' ) );
-			$this->assertSame( $expected, get_edit_post_link( $event->ID, 'raw' ) );
-			$_SERVER['REQUEST_METHOD'] = 'GET';
-			$_REQUEST = [ 'post' => $row->provisional_id, 'action' => 'edit' ];
-			self::$redirect = null;
-			do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
-			$this->assertSame( $expected, self::$redirect );
-			$_REQUEST['post'] = $event->ID;
-			self::$redirect = null;
-			do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
-			$this->assertNull( self::$redirect, 'The parent editor must not redirect again.' );
+			foreach ( Occurrence::where( 'post_id', '=', $event->ID )->all() as $row ) {
+				$id = (int) $row->provisional_id;
+				$expected = admin_url( 'post.php?post=' . $id . '&action=edit' );
+				$this->assertSame( $expected, get_edit_post_link( $id, 'raw' ) );
+				$_REQUEST = [ 'post' => $id, 'action' => 'edit' ];
+				self::$redirect = null;
+				do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
+				$this->assertNull( self::$redirect );
+				$_REQUEST = [ 'post_ID' => $id, 'action' => 'editpost' ];
+				do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
+				$this->assertSame( $id, wp_update_post( [ 'ID' => $id, 'post_title' => 'Shared title' ], true ) );
+				$url = apply_filters( 'redirect_post_location', $expected . '&message=1', $id );
+				parse_str( wp_parse_url( $url, PHP_URL_QUERY ), $args );
+				$this->assertSame( (string) $id, $args['post'] );
+			}
 		} finally {
 			$GLOBALS['current_screen'] = $previous_screen;
 			$_REQUEST = $request;
-			if ( null === $method ) { unset( $_SERVER['REQUEST_METHOD'] ); } else { $_SERVER['REQUEST_METHOD'] = $method; }
 			remove_filter( 'wp_redirect', [ self::class, 'capture_redirect' ], 0 );
-			remove_filter( 'tribe_exit', [ self::class, 'prevent_exit' ] );
 		}
 	}
 
+	/** @test */
+	public function should_save_shared_content_and_only_move_the_selected_date(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->given_a_multi_date_event();
+		$rows = iterator_to_array( Occurrence::where( 'post_id', '=', $event->ID )->order_by( 'start_date', 'ASC' )->all(), false );
+		$row = end( $rows );
+		$id = (int) $row->provisional_id;
+		$slug = get_post( $event->ID )->post_name;
+		get_post( $rows[0]->provisional_id ); // Prime a sibling before the shared update.
+		$this->assertSame( $id, wp_update_post( [ 'ID' => $id, 'post_title' => 'Shared content', 'post_content' => 'Shared description', 'post_status' => 'draft' ], true ) );
+		$this->assertSame( 'Shared content', get_post( $event->ID )->post_title );
+		$this->assertSame( 'Shared content', get_post( $rows[0]->provisional_id )->post_title );
+		$this->assertSame( 'Shared description', get_post( $id )->post_content );
+		$this->assertSame( 'draft', get_post_status( $id ) );
+		$this->assertSame( $slug, get_post( $event->ID )->post_name );
+		update_post_meta( $id, '_EventStartDate', '2050-02-01 09:00:00' );
+		update_post_meta( $id, '_EventEndDate', '2050-02-01 10:00:00' );
+		do_action( 'tribe_events_update_meta', $id );
+		$this->assertSame( '2050-02-01 09:00:00', Occurrence::find( $row->occurrence_id )->start_date );
+		$this->assertSame( $rows[0]->start_date, Occurrence::find( $rows[0]->occurrence_id )->start_date );
+		$this->assertSame( $id, (int) Occurrence::find( $row->occurrence_id )->provisional_id );
+		$this->assertFalse( wp_trash_post( $id ) );
+		$this->assertFalse( wp_delete_post( $id, true ) );
+	}
+
+	/** @test */
+	public function should_save_rest_content_with_the_occurrence_response_identity(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->given_a_multi_date_event();
+		$row = Occurrence::where( 'post_id', '=', $event->ID )->order_by( 'start_date', 'DESC' )->first();
+		$id = (int) $row->provisional_id;
+		$request = new WP_REST_Request( 'POST', '/wp/v2/tribe_events/' . $id );
+		$request->set_body_params( [ 'title' => 'REST shared title', 'content' => 'REST description', 'status' => 'draft' ] );
+		$response = rest_get_server()->dispatch( $request );
+		$this->assertSame( 200, $response->get_status(), wp_json_encode( $response->get_data() ) );
+		$this->assertSame( $id, $response->get_data()['id'] );
+		$this->assertSame( 'REST shared title', get_post( $event->ID )->post_title );
+		$this->assertSame( $row->start_date, Occurrence::find( $row->occurrence_id )->start_date );
+		$read = rest_get_server()->dispatch( new WP_REST_Request( 'GET', '/wp/v2/tribe_events/' . $id ) );
+		$this->assertSame( $id, $read->get_data()['id'] );
+		$this->assertSame( 'REST shared title', $read->get_data()['title']['rendered'] );
+		$error = rest_get_server()->dispatch( new WP_REST_Request( 'DELETE', '/wp/v2/tribe_events/' . $id ) );
+		$this->assertSame( 409, $error->get_status() );
+		wp_set_current_user( 0 );
+		$request->set_param( 'title', 'Unauthorized update' );
+		$this->assertSame( 401, rest_get_server()->dispatch( $request )->get_status() );
+		$this->assertSame( 'REST shared title', get_post( $event->ID )->post_title );
+	}
+
+	/** @test */
+	public function should_store_categories_revisions_and_attachments_on_the_event(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->given_a_multi_date_event();
+		$row = Occurrence::where( 'post_id', '=', $event->ID )->first();
+		$id = (int) $row->provisional_id;
+		$first = static::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat' ] );
+		$second = static::factory()->term->create( [ 'taxonomy' => 'tribe_events_cat' ] );
+		wp_set_object_terms( $event->ID, [ $first ], 'tribe_events_cat' );
+		wp_set_object_terms( $id, [ $second ], 'tribe_events_cat' );
+		$this->assertSame( [ $second ], wp_get_object_terms( $event->ID, 'tribe_events_cat', [ 'fields' => 'ids' ] ) );
+		$this->assertSame( [ $second ], wp_get_object_terms( $id, 'tribe_events_cat', [ 'fields' => 'ids' ] ) );
+		clean_object_term_cache( $id, 'tribe_events' );
+		update_object_term_cache( [ $id ], 'tribe_events' );
+		$this->assertSame( [ $second ], wp_list_pluck( get_the_terms( $id, 'tribe_events_cat' ), 'term_id' ) );
+		wp_remove_object_terms( $id, [ $second ], 'tribe_events_cat' );
+		$this->assertSame( [], wp_get_object_terms( $event->ID, 'tribe_events_cat', [ 'fields' => 'ids' ] ) );
+		global $wpdb;
+		$this->assertSame( '0', $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->term_relationships} WHERE object_id = %d", $id ) ) );
+		wp_update_post( [ 'ID' => $id, 'post_title' => 'Revision content' ] );
+		$revision = _wp_put_post_revision( $id );
+		$this->assertIsInt( $revision );
+		$this->assertSame( $event->ID, wp_get_post_parent_id( $revision ) );
+		$attachment = wp_insert_attachment( [ 'post_title' => 'Occurrence attachment', 'post_parent' => $id ] );
+		$this->assertSame( $event->ID, wp_get_post_parent_id( $attachment ) );
+	}
+
+	/** @test */
+	public function should_keep_row_edit_links_and_defer_to_pro(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->given_a_multi_date_event();
+		$row = Occurrence::where( 'post_id', '=', $event->ID )->first();
+		$guard = tribe( Occurrence_Writes::class );
+		$actions = [ 'edit' => 'Edit', 'trash' => 'Trash', 'inline hide-if-no-js' => 'Quick Edit', 'view' => 'View' ];
+		$filtered = $guard->row_actions( $actions, get_post( $row->provisional_id ) );
+		$this->assertArrayNotHasKey( 'trash', $filtered );
+		$this->assertArrayNotHasKey( 'inline hide-if-no-js', $filtered );
+		$this->assertStringContainsString( 'post=' . $row->provisional_id, $filtered['edit'] );
+		global $wpdb;
+		$sql = "UPDATE `{$wpdb->posts}` SET `post_title` = 'ID = {$row->provisional_id}' WHERE `ID` = {$row->provisional_id}";
+		$this->assertStringContainsString( "'ID = {$row->provisional_id}' WHERE `ID` = {$event->ID}", $guard->route_shared_write( $sql ) );
+		add_filter( 'tec_events_recurrence_updates_handled', '__return_true' );
+		$this->assertSame( $sql, $guard->route_shared_write( $sql ) );
+		$this->assertSame( $actions, $guard->row_actions( $actions, get_post( $row->provisional_id ) ) );
+		$this->assertNull( $guard->rest_request( null, [], new WP_REST_Request( 'DELETE', '/wp/v2/tribe_events/' . $row->provisional_id ) ) );
+		$this->assertNull( $guard->reject_delete( null, get_post( $row->provisional_id ) ) );
+	}
 }

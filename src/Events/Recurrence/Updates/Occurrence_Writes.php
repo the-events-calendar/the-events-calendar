@@ -1,6 +1,6 @@
 <?php
 /**
- * Keeps Free WordPress editing on the durable Event post.
+ * Preserves occurrence editor identity while persisting shared Event fields.
  *
  * @since TBD
  * @package TEC\Events\Recurrence\Updates
@@ -19,10 +19,10 @@ use WP_Post;
 use WP_REST_Request;
 
 /**
- * Routes editor entry points to the Event and rejects unsupported occurrence writes.
+ * Keeps editor requests on the selected occurrence and routes shared persistence.
  *
- * Additional dates are authored in the Event editor. WordPress content, status,
- * taxonomy, revision and attachment operations consequently use the real post.
+ * The occurrence stays the WordPress request and response identity. Shared post
+ * fields and relationships use the real Event; date meta retains occurrence scope.
  * Pro advertises its update capability when it can supply single/upcoming/all scope.
  *
  * @since TBD
@@ -35,11 +35,18 @@ class Occurrence_Writes {
 	 * @return void
 	 */
 	public function register(): void {
-		add_filter( 'get_edit_post_link', [ $this, 'edit_link' ], 20, 3 );
 		add_filter( 'post_row_actions', [ $this, 'row_actions' ], 30, 2 );
 		add_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post', [ $this, 'classic_request' ] );
 		add_filter( 'rest_request_before_callbacks', [ $this, 'rest_request' ], 5, 3 );
-		add_filter( 'wp_insert_post_empty_content', [ $this, 'reject_post_write' ], 10, 2 );
+		add_filter( 'query', [ $this, 'route_shared_write' ], 10 );
+		add_action( 'clean_post_cache', [ $this, 'clean_shared_cache' ] );
+		add_action( 'pre_get_terms', [ $this, 'route_term_query' ] );
+		add_filter( 'get_object_terms', [ $this, 'restore_term_object_ids' ], 10, 4 );
+		add_action( 'set_object_terms', [ $this, 'terms_changed' ] );
+		add_action( 'deleted_term_relationships', [ $this, 'terms_changed' ] );
+		add_action( 'clean_object_term_cache', [ $this, 'clean_shared_terms' ], 10, 2 );
+		add_filter( 'wp_insert_post_parent', [ $this, 'route_post_parent' ] );
+		add_filter( 'wp_unique_post_slug', [ $this, 'shared_slug' ], 10, 6 );
 		foreach ( [ 'pre_trash_post', 'pre_untrash_post', 'pre_delete_post' ] as $hook ) {
 			add_filter( $hook, [ $this, 'reject_delete' ], 10, 2 );
 		}
@@ -52,31 +59,21 @@ class Occurrence_Writes {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_filter( 'get_edit_post_link', [ $this, 'edit_link' ], 20 );
 		remove_filter( 'post_row_actions', [ $this, 'row_actions' ], 30 );
 		remove_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post', [ $this, 'classic_request' ] );
 		remove_filter( 'rest_request_before_callbacks', [ $this, 'rest_request' ], 5 );
-		remove_filter( 'wp_insert_post_empty_content', [ $this, 'reject_post_write' ] );
+		remove_filter( 'query', [ $this, 'route_shared_write' ], 10 );
+		remove_action( 'clean_post_cache', [ $this, 'clean_shared_cache' ] );
+		remove_action( 'pre_get_terms', [ $this, 'route_term_query' ] );
+		remove_filter( 'get_object_terms', [ $this, 'restore_term_object_ids' ] );
+		remove_action( 'set_object_terms', [ $this, 'terms_changed' ] );
+		remove_action( 'deleted_term_relationships', [ $this, 'terms_changed' ] );
+		remove_action( 'clean_object_term_cache', [ $this, 'clean_shared_terms' ] );
+		remove_filter( 'wp_insert_post_parent', [ $this, 'route_post_parent' ] );
+		remove_filter( 'wp_unique_post_slug', [ $this, 'shared_slug' ] );
 		foreach ( [ 'pre_trash_post', 'pre_untrash_post', 'pre_delete_post' ] as $hook ) {
 			remove_filter( $hook, [ $this, 'reject_delete' ] );
 		}
-	}
-
-	/**
-	 * Points an occurrence edit link at the Event editor.
-	 *
-	 * @since TBD
-	 * @param string $link    The edit link.
-	 * @param int    $post_id The post ID.
-	 * @param string $context The link context.
-	 * @return string The Event edit link, when applicable.
-	 */
-	public function edit_link( $link, $post_id, $context ): string {
-		if ( tribe( Authoring_Guard::class )->has_external_updates() ) {
-			return $link;
-		}
-		$parent = $this->parent_id( (int) $post_id ) ?: (int) $post_id;
-		return TEC::POSTTYPE === get_post_type( $parent ) ? $this->parent_edit_link( $parent, $context ) : $link;
 	}
 
 	/**
@@ -94,16 +91,16 @@ class Occurrence_Writes {
 		}
 		unset( $actions['trash'], $actions['delete'], $actions['untrash'], $actions['inline hide-if-no-js'] );
 		if ( isset( $actions['edit'] ) && current_user_can( 'edit_post', $parent ) ) {
-			$actions['edit'] = '<a href="' . esc_url( $this->parent_edit_link( $parent ) ) . '">' . esc_html__( 'Edit event and dates', 'the-events-calendar' ) . '</a>';
+			$actions['edit'] = '<a href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">' . esc_html__( 'Edit occurrence', 'the-events-calendar' ) . '</a>';
 		}
 		return $actions;
 	}
 
 	/**
-	 * Redirects old editor links, refusing already-submitted occurrence operations.
+	 * Allows occurrence editor requests, refusing unsupported destructive operations.
 	 *
-	 * No POST payload is replayed against the Event: that would silently broaden the
-	 * user's requested scope. The parent editor performs WordPress's normal checks.
+	 * WordPress retains the occurrence ID for nonces, capabilities, date hooks and
+	 * the save redirect. Only shared persistence is routed to the Event.
 	 *
 	 * @since TBD
 	 * @return void
@@ -118,17 +115,17 @@ class Occurrence_Writes {
 			wp_die( esc_html__( 'You are not allowed to edit this event.', 'the-events-calendar' ), 403 );
 			return;
 		}
-		if ( 'GET' !== sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ?? '' ) ) || 'edit' !== tribe_get_request_var( 'action', '' ) ) {
-			wp_die( esc_html__( 'Edit the event to change its content, status or scheduled dates. This occurrence was not changed.', 'the-events-calendar' ), 409 );
+		if ( ! in_array( tribe_get_request_var( 'action', '' ), [ 'edit', 'editpost' ], true ) ) {
+			wp_die( esc_html__( 'Removing or restoring an individual occurrence is not supported here. This occurrence was not changed.', 'the-events-calendar' ), 409 );
 			return;
 		}
-		tribe( Admin_Notice::class )->set( 'info', __( 'You are editing the event. Content and status apply to all its dates; additional dates can be changed in Event Dates.', 'the-events-calendar' ) );
-		wp_safe_redirect( $this->parent_edit_link( $parent, 'raw' ) );
-		tribe_exit();
+		if ( 'edit' === tribe_get_request_var( 'action', '' ) ) {
+			tribe( Admin_Notice::class )->set( 'info', __( 'You are editing this occurrence. Content, status and categories are shared by every date of this event. Date changes apply only to this occurrence when its schedule is editable.', 'the-events-calendar' ) );
+		}
 	}
 
 	/**
-	 * Rejects REST mutations of provisional posts with an explicit scope error.
+	 * Rejects destructive REST operations without changing the occurrence identity.
 	 *
 	 * @since TBD
 	 * @param mixed           $response The existing response.
@@ -147,22 +144,10 @@ class Occurrence_Writes {
 			return $response;
 		}
 		$parent = $this->parent_id( (int) $matches[1] );
-		if ( ! $parent ) {
+		if ( ! $parent || 'DELETE' !== $request->get_method() ) {
 			return $response;
 		}
-		return new WP_Error( 'tec_occurrence_edit_scope', __( 'Edit the event to change its content, status or scheduled dates. This occurrence was not changed.', 'the-events-calendar' ), [ 'status' => 409 ] );
-	}
-
-	/**
-	 * Makes programmatic WordPress post writes fail before any data is modified.
-	 *
-	 * @since TBD
-	 * @param bool  $reject   Whether the post should be rejected.
-	 * @param array $postarr The proposed post data.
-	 * @return bool Whether to reject the write.
-	 */
-	public function reject_post_write( bool $reject, array $postarr ): bool {
-		return $reject || (bool) $this->parent_id( (int) ( $postarr['ID'] ?? 0 ) );
+		return new WP_Error( 'tec_occurrence_edit_scope', __( 'Removing or restoring an individual occurrence is not supported here. This occurrence was not changed.', 'the-events-calendar' ), [ 'status' => 409 ] );
 	}
 
 	/**
@@ -178,24 +163,164 @@ class Occurrence_Writes {
 	}
 
 	/**
-	 * Builds a durable Event edit URL without re-entering occurrence link filters.
+	 * Routes WordPress's shared post and taxonomy SQL to the durable Event.
 	 *
-	 * The CT1 edit-link filter maps a recurring parent to its first occurrence in
-	 * wp-admin. Calling get_edit_post_link here would redirect an occurrence to itself.
-	 * Preserve WordPress's edit template, capability check and context escaping.
+	 * wp_insert_post has no filter for its UPDATE target. Keep its occurrence ID
+	 * through capability checks, meta writes, save hooks and REST responses, and
+	 * replace only the primary-key predicate of its single-post UPDATE. Never
+	 * rewrite post DELETEs or IDs appearing in user content. Taxonomy relationships
+	 * similarly belong to the Event; match only WordPress's relationship queries.
 	 *
 	 * @since TBD
-	 * @param int    $parent_id  The durable Event post ID.
-	 * @param string $context The WordPress edit-link context.
-	 * @return string The parent edit URL, or an empty string when unavailable.
+	 * @param string $sql The database query.
+	 * @return string The query with its shared storage target resolved.
 	 */
-	private function parent_edit_link( int $parent_id, string $context = 'display' ): string {
-		$type = get_post_type_object( TEC::POSTTYPE );
-		if ( ! $type || ! $type->_edit_link || ! current_user_can( 'edit_post', $parent_id ) ) {
-			return '';
+	public function route_shared_write( string $sql ): string {
+		global $wpdb;
+		$posts = preg_quote( $wpdb->posts, '#' );
+		$terms = preg_quote( $wpdb->term_relationships, '#' );
+		$patterns = [
+			"#^UPDATE `?{$posts}`? SET .* WHERE `?ID`? = (\\d+)$#s",
+			"#^(?:SELECT term_taxonomy_id FROM|DELETE FROM) `?{$terms}`? WHERE object_id = (\\d+) AND #",
+			"#^INSERT INTO `?{$terms}`? \\(\s*`?object_id`?,\s*`?term_taxonomy_id`?\\) VALUES \\((\\d+),#",
+		];
+		foreach ( $patterns as $pattern ) {
+			if ( ! preg_match( $pattern, $sql, $matches, PREG_OFFSET_CAPTURE ) ) {
+				continue;
+			}
+			$id = (int) $matches[1][0];
+			$parent = $this->parent_id( $id );
+			if ( $parent ) {
+				return substr_replace( $sql, (string) $parent, $matches[1][1], strlen( $matches[1][0] ) );
+			}
 		}
-		$action = 'display' === $context ? '&amp;action=edit' : '&action=edit';
-		return admin_url( sprintf( $type->_edit_link . $action, $parent_id ) );
+		return $sql;
+	}
+
+	/**
+	 * Invalidates the Event and sibling occurrence caches after a shared write.
+	 *
+	 * @since TBD
+	 * @param int $post_id The post whose cache WordPress cleared.
+	 * @return void
+	 */
+	public function clean_shared_cache( int $post_id ): void {
+		$parent = $this->parent_id( $post_id );
+		if ( ! $parent ) {
+			return;
+		}
+		tribe( Provisional_Post::class )->get_post_cache()->flush_occurrences( $parent );
+		clean_post_cache( $parent );
+	}
+
+	/**
+	 * Resolves shared taxonomy reads, including the old terms used during a save.
+	 *
+	 * @since TBD
+	 * @param \WP_Term_Query $query The term query.
+	 * @return void
+	 */
+	public function route_term_query( $query ): void {
+		if ( empty( $query->query_vars['object_ids'] ) ) {
+			return;
+		}
+		$query->query_vars['object_ids'] = array_map( [ $this, 'route_post_parent' ], wp_parse_id_list( $query->query_vars['object_ids'] ) );
+	}
+
+	/**
+	 * Keeps term-cache hydration keyed by the occurrence IDs that were requested.
+	 *
+	 * WordPress uses all_with_object_id to prime several posts at once. Returning
+	 * the storage Event ID would populate the wrong cache and hide selected terms.
+	 * Clone shared terms for each requested occurrence without mutating term caches.
+	 *
+	 * @since TBD
+	 * @param mixed $terms The retrieved terms.
+	 * @param int[] $ids The requested object IDs.
+	 * @param string[] $taxonomies The requested taxonomies.
+	 * @param array $args The query arguments.
+	 * @return mixed The terms with their requested object identities.
+	 */
+	public function restore_term_object_ids( $terms, array $ids, array $taxonomies, array $args ) {
+		if ( tribe( Authoring_Guard::class )->has_external_updates() || ! is_array( $terms ) || 'all_with_object_id' !== ( $args['fields'] ?? '' ) ) {
+			return $terms;
+		}
+		$owners = [];
+		foreach ( $ids as $id ) {
+			$owners[ $this->route_post_parent( (int) $id ) ][] = $id;
+		}
+		$result = [];
+		foreach ( $terms as $term ) {
+			foreach ( $owners[ $term->object_id ] ?? [ $term->object_id ] as $id ) {
+				$copy = clone $term;
+				$copy->object_id = $id;
+				$result[] = $copy;
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * Clears shared taxonomy caches after WordPress finishes an occurrence save.
+	 *
+	 * @since TBD
+	 * @param int[] $ids The updated object IDs.
+	 * @param string $type The post type.
+	 * @return void
+	 */
+	public function clean_shared_terms( array $ids, string $type ): void {
+		foreach ( $ids as $id ) {
+			$parent = $this->parent_id( (int) $id );
+			if ( $parent ) {
+				clean_object_term_cache( $parent, $type );
+			}
+		}
+	}
+
+	/**
+	 * Invalidates shared taxonomy state after relationship writes.
+	 *
+	 * @since TBD
+	 * @param int $id The object whose terms changed.
+	 * @return void
+	 */
+	public function terms_changed( int $id ): void {
+		$parent = $this->parent_id( $id );
+		if ( ! $parent ) {
+			return;
+		}
+		clean_object_term_cache( $parent, TEC::POSTTYPE );
+		foreach ( Occurrence::where( 'post_id', '=', $parent )->all() as $occurrence ) {
+			clean_object_term_cache( (int) $occurrence->provisional_id, TEC::POSTTYPE );
+		}
+	}
+
+	/**
+	 * Gives revisions and attachments a durable parent.
+	 *
+	 * @since TBD
+	 * @param int $id The proposed parent.
+	 * @return int The Event ID, or the original parent.
+	 */
+	public function route_post_parent( int $id ): int {
+		return $this->parent_id( $id ) ?: $id;
+	}
+
+	/**
+	 * Checks shared slug uniqueness against the Event instead of its occurrence.
+	 *
+	 * @since TBD
+	 * @param string $slug The generated slug.
+	 * @param int $id The post ID.
+	 * @param string $status The post status.
+	 * @param string $type The post type.
+	 * @param int $post_parent The hierarchical parent.
+	 * @param string $original The submitted slug.
+	 * @return string The shared slug.
+	 */
+	public function shared_slug( string $slug, int $id, string $status, string $type, int $post_parent, string $original ): string {
+		$parent = $this->parent_id( $id );
+		return $parent ? wp_unique_post_slug( $original, $parent, $status, $type, $post_parent ) : $slug;
 	}
 
 	/**
