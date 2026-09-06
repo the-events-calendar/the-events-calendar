@@ -95,4 +95,48 @@ class Occurrence_WritesTest extends WPTestCase {
 		$this->assertStringContainsString( 'Edit event and dates', $actions['edit'] );
 		$this->assertSame( 'View', $actions['view'] );
 	}
+	public static $redirect;
+
+	public static function capture_redirect( $location ) {
+		self::$redirect = $location;
+		return false;
+	}
+
+	public static function prevent_exit() {
+		return '__return_true';
+	}
+
+	/** @test */
+	public function should_redirect_once_to_the_durable_admin_editor(): void {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$event = $this->given_a_multi_date_event();
+		$row = Occurrence::where( 'post_id', '=', $event->ID )->first();
+		$previous_screen = $GLOBALS['current_screen'] ?? null;
+		$request = $_REQUEST;
+		$method = $_SERVER['REQUEST_METHOD'] ?? null;
+		add_filter( 'wp_redirect', [ self::class, 'capture_redirect' ], 0 );
+		add_filter( 'tribe_exit', [ self::class, 'prevent_exit' ] );
+		try {
+			set_current_screen( 'edit-tribe_events' );
+			$expected = admin_url( 'post.php?post=' . $event->ID . '&action=edit' );
+			$this->assertSame( $expected, get_edit_post_link( $row->provisional_id, 'raw' ) );
+			$this->assertSame( $expected, get_edit_post_link( $event->ID, 'raw' ) );
+			$_SERVER['REQUEST_METHOD'] = 'GET';
+			$_REQUEST = [ 'post' => $row->provisional_id, 'action' => 'edit' ];
+			self::$redirect = null;
+			do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
+			$this->assertSame( $expected, self::$redirect );
+			$_REQUEST['post'] = $event->ID;
+			self::$redirect = null;
+			do_action( 'tec_events_custom_tables_v1_redirect_classic_editor_event_post' );
+			$this->assertNull( self::$redirect, 'The parent editor must not redirect again.' );
+		} finally {
+			$GLOBALS['current_screen'] = $previous_screen;
+			$_REQUEST = $request;
+			if ( null === $method ) { unset( $_SERVER['REQUEST_METHOD'] ); } else { $_SERVER['REQUEST_METHOD'] = $method; }
+			remove_filter( 'wp_redirect', [ self::class, 'capture_redirect' ], 0 );
+			remove_filter( 'tribe_exit', [ self::class, 'prevent_exit' ] );
+		}
+	}
+
 }

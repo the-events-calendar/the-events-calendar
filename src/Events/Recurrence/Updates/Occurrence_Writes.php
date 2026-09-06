@@ -72,8 +72,11 @@ class Occurrence_Writes {
 	 * @return string The Event edit link, when applicable.
 	 */
 	public function edit_link( $link, $post_id, $context ): string {
-		$parent = $this->parent_id( (int) $post_id );
-		return $parent ? (string) get_edit_post_link( $parent, $context ) : $link;
+		if ( tribe( Authoring_Guard::class )->has_external_updates() ) {
+			return $link;
+		}
+		$parent = $this->parent_id( (int) $post_id ) ?: (int) $post_id;
+		return TEC::POSTTYPE === get_post_type( $parent ) ? $this->parent_edit_link( $parent, $context ) : $link;
 	}
 
 	/**
@@ -91,7 +94,7 @@ class Occurrence_Writes {
 		}
 		unset( $actions['trash'], $actions['delete'], $actions['untrash'], $actions['inline hide-if-no-js'] );
 		if ( isset( $actions['edit'] ) && current_user_can( 'edit_post', $parent ) ) {
-			$actions['edit'] = '<a href="' . esc_url( get_edit_post_link( $parent ) ) . '">' . esc_html__( 'Edit event and dates', 'the-events-calendar' ) . '</a>';
+			$actions['edit'] = '<a href="' . esc_url( $this->parent_edit_link( $parent ) ) . '">' . esc_html__( 'Edit event and dates', 'the-events-calendar' ) . '</a>';
 		}
 		return $actions;
 	}
@@ -120,7 +123,7 @@ class Occurrence_Writes {
 			return;
 		}
 		tribe( Admin_Notice::class )->set( 'info', __( 'You are editing the event. Content and status apply to all its dates; additional dates can be changed in Event Dates.', 'the-events-calendar' ) );
-		wp_safe_redirect( get_edit_post_link( $parent, 'raw' ) );
+		wp_safe_redirect( $this->parent_edit_link( $parent, 'raw' ) );
 		tribe_exit();
 	}
 
@@ -172,6 +175,27 @@ class Occurrence_Writes {
 	 */
 	public function reject_delete( $check, WP_Post $post ) {
 		return $this->parent_id( (int) $post->ID ) ? false : $check;
+	}
+
+	/**
+	 * Builds a durable Event edit URL without re-entering occurrence link filters.
+	 *
+	 * The CT1 edit-link filter maps a recurring parent to its first occurrence in
+	 * wp-admin. Calling get_edit_post_link here would redirect an occurrence to itself.
+	 * Preserve WordPress's edit template, capability check and context escaping.
+	 *
+	 * @since TBD
+	 * @param int    $parent_id  The durable Event post ID.
+	 * @param string $context The WordPress edit-link context.
+	 * @return string The parent edit URL, or an empty string when unavailable.
+	 */
+	private function parent_edit_link( int $parent_id, string $context = 'display' ): string {
+		$type = get_post_type_object( TEC::POSTTYPE );
+		if ( ! $type || ! $type->_edit_link || ! current_user_can( 'edit_post', $parent_id ) ) {
+			return '';
+		}
+		$action = 'display' === $context ? '&amp;action=edit' : '&action=edit';
+		return admin_url( sprintf( $type->_edit_link . $action, $parent_id ) );
 	}
 
 	/**
