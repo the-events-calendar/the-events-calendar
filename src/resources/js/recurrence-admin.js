@@ -14,8 +14,9 @@
 
 	[ 'pointerover', 'focusin' ].forEach( ( type ) => {
 		document.addEventListener( type, ( event ) => {
-			const badge = event.target.closest( badgeSelector );
-			if ( badge && ! badge.contains( event.relatedTarget ) ) {
+			const lock = event.target.closest( '.tec-occurrence-admin__lock' );
+			const badge = lock?.closest( badgeSelector );
+			if ( badge && ! lock.contains( event.relatedTarget ) ) {
 				badge.classList.remove( dismissedClass );
 			}
 		} );

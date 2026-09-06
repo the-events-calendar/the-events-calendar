@@ -47,6 +47,7 @@
 	justify-content: center;
 	line-height: 1;
 	padding: 0;
+	transform: translateX(2px);
 	width: 16px;
 }
 
@@ -80,8 +81,8 @@
 	z-index: 10;
 }
 
-.tec-occurrence-admin__badge:not(.tec-occurrence-admin__badge--dismissed):hover .tec-occurrence-admin__tooltip,
-.tec-occurrence-admin__badge:not(.tec-occurrence-admin__badge--dismissed):focus-within .tec-occurrence-admin__tooltip {
+.tec-occurrence-admin__badge:not(.tec-occurrence-admin__badge--dismissed) .tec-occurrence-admin__lock:hover + .tec-occurrence-admin__tooltip,
+.tec-occurrence-admin__badge:not(.tec-occurrence-admin__badge--dismissed) .tec-occurrence-admin__lock:focus-visible + .tec-occurrence-admin__tooltip {
 	visibility: visible;
 }
 
