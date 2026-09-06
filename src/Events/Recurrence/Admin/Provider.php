@@ -17,7 +17,7 @@ use WP_Post;
 
 /** Common presentation, independent of the plugin supplying recurrence authoring. @since TBD */
 class Provider extends Service_Provider {
-	/** @var bool Whether the list heading has been rendered. @since TBD */
+	/** @var bool Whether the list context has been rendered. @since TBD */
 	private bool $rendered = false;
 
 	/** Registers the UI independently of Free's dates-only editor providers. @since TBD @return void */
@@ -44,6 +44,8 @@ class Provider extends Service_Provider {
 		add_action( 'clean_post_cache', [ $this->container->make( Presentation::class ), 'reset' ] );
 		add_action( 'quick_edit_custom_box', [ $this, 'inline_context' ], 10, 2 );
 		add_filter( 'post_column_taxonomy_links', [ $this, 'taxonomy_links' ] );
+		add_filter( 'screen_settings', [ $this, 'screen_settings' ], 10, 2 );
+		add_action( 'check_admin_referer', [ $this, 'save_screen_settings' ], 10, 2 );
 	}
 
 	/** Removes all owned callbacks and per-request state. @since TBD @return void */
@@ -65,6 +67,9 @@ class Provider extends Service_Provider {
 		remove_action( 'clean_post_cache', [ $this->container->make( Presentation::class ), 'reset' ] );
 		remove_action( 'quick_edit_custom_box', [ $this, 'inline_context' ] );
 		remove_filter( 'post_column_taxonomy_links', [ $this, 'taxonomy_links' ] );
+		remove_filter( 'screen_settings', [ $this, 'screen_settings' ] );
+		remove_action( 'check_admin_referer', [ $this, 'save_screen_settings' ] );
+		remove_filter( 'wp_redirect', [ $this, 'screen_settings_redirect' ] );
 		$this->container->make( Presentation::class )->reset();
 		$this->rendered = false;
 	}
@@ -78,9 +83,73 @@ class Provider extends Service_Provider {
 		return $screen && 'edit' === $screen->base && TEC::POSTTYPE === $screen->post_type;
 	}
 
-	/** The requested view, defaulting to occurrences. @since TBD @return string */
+	/** The explicit link context or saved Screen Options preference. @since TBD @return string */
 	public static function view(): string {
-		return 'events' === tribe_get_request_var( 'tec_events_view', '' ) ? 'events' : 'occurrences';
+		$view = tribe_get_request_var( 'tec_events_view', '' );
+		if ( in_array( $view, [ 'events', 'occurrences' ], true ) ) {
+			return $view;
+		}
+		return '0' === get_user_option( 'tec_events_display_occurrences' ) ? 'events' : 'occurrences';
+	}
+
+	/**
+	 * Adds the display preference to WordPress's existing Screen Options form.
+	 *
+	 * @since TBD
+	 * @param string     $settings Existing screen settings.
+	 * @param \WP_Screen $screen   Current screen.
+	 * @return string Settings with the event display checkbox.
+	 */
+	public function screen_settings( string $settings, \WP_Screen $screen ): string {
+		if ( 'edit' !== $screen->base || TEC::POSTTYPE !== $screen->post_type ) {
+			return $settings;
+		}
+		return $settings . '<fieldset class="tec-occurrence-admin__screen-options"><legend>' . esc_html__( 'Events', 'the-events-calendar' ) . '</legend>'
+			. '<input type="hidden" name="tec_occurrence_screen_options" value="1" />'
+			. '<label for="tec-display-occurrences"><input type="checkbox" id="tec-display-occurrences" name="tec_display_occurrences" value="1" ' . checked( 'occurrences', self::view(), false ) . ' /> '
+			. esc_html__( 'Display occurrences', 'the-events-calendar' ) . '</label>'
+			. '<p class="description">' . esc_html__( 'Show each scheduled date as a row. Turn off to show one row per event, including unscheduled drafts, and use event bulk actions.', 'the-events-calendar' ) . '</p></fieldset>';
+	}
+
+	/**
+	 * Saves alongside core's Screen Options submission after its nonce check.
+	 * Core processes this form before admin_init/current_screen, so the nonce action
+	 * is the seam that retains its native per-page validation, save and redirect.
+	 *
+	 * @since TBD
+	 * @param string    $action Nonce action checked by WordPress.
+	 * @param int|false $result Nonce verification result.
+	 * @return void
+	 */
+	public function save_screen_settings( string $action, $result ): void {
+		// phpcs:disable WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Core verified the nonce; inputs are compared to fixed values or range-checked integers.
+		global $pagenow;
+		if ( 'screen-options-nonce' !== $action || ! $result || 'edit.php' !== $pagenow
+			|| TEC::POSTTYPE !== ( $_GET['post_type'] ?? '' ) || '1' !== ( $_POST['tec_occurrence_screen_options'] ?? '' ) ) {
+			return;
+		}
+		$option = $_POST['wp_screen_options']['option'] ?? '';
+		$value  = $_POST['wp_screen_options']['value'] ?? '';
+		$type   = get_post_type_object( TEC::POSTTYPE );
+		if ( 'edit_tribe_events_per_page' !== $option || ! is_scalar( $value ) || (int) $value < 1 || (int) $value > 999
+			|| ! $type || ! current_user_can( $type->cap->edit_posts ) ) {
+			return;
+		}
+		update_user_option( get_current_user_id(), 'tec_events_display_occurrences', '1' === ( $_POST['tec_display_occurrences'] ?? '' ) ? '1' : '0' );
+		add_filter( 'wp_redirect', [ $this, 'screen_settings_redirect' ] );
+		// phpcs:enable WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	}
+
+	/**
+	 * Replaces a stale explicit mode in core's Screen Options return URL.
+	 *
+	 * @since TBD
+	 * @param string $url Core's redirect, with pagination already reset.
+	 * @return string URL honoring the preference just saved.
+	 */
+	public function screen_settings_redirect( string $url ): string {
+		remove_filter( 'wp_redirect', [ $this, 'screen_settings_redirect' ] );
+		return add_query_arg( 'tec_events_view', '0' === get_user_option( 'tec_events_display_occurrences' ) ? 'events' : 'occurrences', $url );
 	}
 
 	/** The requested date range, defaulting to ongoing and upcoming dates. @since TBD @return string */
@@ -136,7 +205,6 @@ class Provider extends Service_Provider {
 		if ( 'occurrences' === self::view() ) {
 			unset( $columns['cb'] );
 		}
-		$columns['tec-schedule']   = __( 'Schedule', 'the-events-calendar' );
 		$columns['tec-start-date'] = __( 'Start Date', 'the-events-calendar' );
 		$columns['tec-end-date']   = __( 'End Date', 'the-events-calendar' );
 		return $columns;
@@ -173,20 +241,11 @@ class Provider extends Service_Provider {
 			}
 			return;
 		}
-		if ( ! in_array( $column, [ 'tec-schedule', 'tec-start-date', 'tec-end-date' ], true ) ) {
+		if ( ! in_array( $column, [ 'tec-start-date', 'tec-end-date' ], true ) ) {
 			return;
 		}
 		$data = $this->container->make( Presentation::class )->get( $id );
-		if ( 'tec-schedule' !== $column ) {
-			echo esc_html( $data[ 'tec-end-date' === $column ? 'end' : 'start' ] );
-			return;
-		}
-		echo '<span class="tec-occurrence-admin__badge tec-occurrence-admin__badge--' . esc_attr( $data['schedule'] ) . '">' . esc_html( $data['scheduleLabel'] ) . '</span>';
-		if ( $data['locked'] ) {
-			$status = $this->container->make( Pro_Status::class )->get( true );
-			$label  = 'inactive' === $status['state'] ? __( 'Recurrence locked · Pro inactive', 'the-events-calendar' ) : __( 'Recurrence locked · Pro unavailable', 'the-events-calendar' );
-			echo '<span class="tec-occurrence-admin__locked">' . esc_html( $label ) . '</span>';
-		}
+		echo esc_html( $data[ 'tec-end-date' === $column ? 'end' : 'start' ] );
 	}
 
 	/**
@@ -207,7 +266,14 @@ class Provider extends Service_Provider {
 		}
 		echo '<div class="tec-occurrence-admin__identity">';
 		echo esc_html( $data['isOccurrence'] ? __( 'Occurrence', 'the-events-calendar' ) : __( 'Event', 'the-events-calendar' ) );
-		echo ' · ' . esc_html( $data['scheduleLabel'] );
+		echo ' <span class="tec-occurrence-admin__badge tec-occurrence-admin__badge--' . esc_attr( $data['schedule'] ) . '">' . esc_html( $data['scheduleLabel'] );
+		if ( $data['locked'] ) {
+			$status     = $this->container->make( Pro_Status::class )->get( true );
+			$tooltip_id = 'tec-recurrence-lock-' . $post->ID;
+			echo ' <button type="button" class="tec-occurrence-admin__lock" aria-label="' . esc_attr__( 'Why recurrence editing is locked', 'the-events-calendar' ) . '" aria-describedby="' . esc_attr( $tooltip_id ) . '"><span class="dashicons dashicons-lock" aria-hidden="true"></span></button>';
+			echo '<span class="tec-occurrence-admin__tooltip" role="tooltip" id="' . esc_attr( $tooltip_id ) . '">' . esc_html( $status['title'] . '. ' . $status['message'] ) . '</span>';
+		}
+		echo '</span>';
 		if ( $data['isOccurrence'] ) {
 			echo '<span class="tec-occurrence-admin__parent">' . esc_html__( 'Event:', 'the-events-calendar' ) . ' ';
 			if ( $data['parentEditLink'] ) {
@@ -245,7 +311,7 @@ class Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function inline_context( string $column, string $post_type ): void {
-		if ( 'tec-schedule' === $column && TEC::POSTTYPE === $post_type ) {
+		if ( 'tec-start-date' === $column && TEC::POSTTYPE === $post_type ) {
 			echo '<input type="hidden" name="tec_events_view" value="' . esc_attr( self::view() ) . '" />';
 		}
 	}
@@ -277,7 +343,7 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Renders view navigation and builds counts for the selected record type.
+	 * Renders parent context and builds counts for the selected record type.
 	 *
 	 * @since TBD
 	 * @param array $views Existing WordPress publication-status links.
@@ -293,27 +359,6 @@ class Provider extends Service_Provider {
 			global $wp_query;
 			$posts = $wp_query instanceof \WP_Query ? $wp_query->posts : [];
 			$this->container->make( Presentation::class )->prime( $posts );
-			echo '<nav class="tec-occurrence-admin__views" aria-label="' . esc_attr__( 'Event management views', 'the-events-calendar' ) . '">';
-			foreach ( [
-				'occurrences' => __( 'Occurrences', 'the-events-calendar' ),
-				'events'      => __( 'Manage events', 'the-events-calendar' ),
-			] as $view => $label ) {
-				echo '<a class="button ' . esc_attr( self::view() === $view ? 'button-primary' : '' ) . '" href="' . esc_url(
-					self::url(
-						[
-							'tec_events_view' => $view,
-							'tec_event'       => false,
-							'post_status'     => false,
-							'orderby'         => false,
-							'order'           => false,
-						]
-					)
-				) . '" aria-current="' . esc_attr( self::view() === $view ? 'page' : 'false' ) . '">' . esc_html( $label ) . '</a> ';
-			}
-			$heading     = $occurrences ? __( 'Occurrences', 'the-events-calendar' ) : __( 'Manage events', 'the-events-calendar' );
-			$description = $occurrences ? __( 'Each row represents one scheduled date. Manage events to edit shared details, use bulk actions, or find unscheduled drafts.', 'the-events-calendar' ) : __( 'Each row represents an event. Its content is shared by all of its scheduled dates.', 'the-events-calendar' );
-			echo '</nav><h2 class="tec-occurrence-admin__heading">' . esc_html( $heading ) . '</h2>';
-			echo '<p class="description">' . esc_html( $description ) . '</p>';
 			$parent = absint( tribe_get_request_var( 'tec_event', 0 ) );
 			if ( $occurrences && $parent && current_user_can( 'edit_post', $parent ) ) {
 				echo '<p>' . esc_html( sprintf( /* translators: %s: the parent event title. */ __( 'Dates for: %s', 'the-events-calendar' ), get_the_title( $parent ) ) ) . ' <a href="' . esc_url( self::url( [ 'tec_event' => false ] ) ) . '">' . esc_html__( 'Show all events', 'the-events-calendar' ) . '</a></p>';
@@ -416,7 +461,7 @@ class Provider extends Service_Provider {
 	 * @param string $link    Filtered edit link.
 	 * @param int    $id      Requested post ID.
 	 * @param string $context Display or raw.
-	 * @return string The explicit event link in Manage events, otherwise the original link.
+	 * @return string The explicit event link when occurrences are hidden, otherwise the original link.
 	 */
 	public function event_edit_link( string $link, int $id, string $context ): string {
 		if ( self::is_list() && 'events' === self::view() && TEC::POSTTYPE === get_post_type( $id ) && ! tribe( Provisional_Post::class )->is_provisional_post_id( $id ) ) {
@@ -454,6 +499,9 @@ class Provider extends Service_Provider {
 		$screen = get_current_screen();
 		if ( ! $screen || TEC::POSTTYPE !== $screen->post_type || ! in_array( $screen->base, [ 'edit', 'post' ], true ) ) {
 			return;
+		}
+		if ( self::is_list() ) {
+			wp_enqueue_script( 'tec-occurrence-admin', TEC::instance()->plugin_url . 'build/js/recurrence-admin.js', [], TEC::VERSION, true );
 		}
 		wp_enqueue_style( 'tec-occurrence-admin', TEC::instance()->plugin_url . 'build/css/recurrence-admin.css', [], TEC::VERSION );
 	}

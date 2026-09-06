@@ -1,5 +1,5 @@
 significance: minor
 type: feature
-entry: Added occurrence-first event management with schedule labels, explicit
-  editing context, and Events Calendar Pro availability guidance.
-timestamp: 2026-09-06T15:30:46.365Z
+entry: Added a Screen Options toggle for displaying occurrences, schedule badges
+  beneath event titles, and contextual recurrence editing guidance.
+timestamp: 2026-09-06T16:43:06.596Z
