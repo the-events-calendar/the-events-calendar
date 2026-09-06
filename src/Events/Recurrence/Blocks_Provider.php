@@ -272,6 +272,7 @@ class Blocks_Provider extends Service_Provider {
 			'enabled'        => true,
 			'locked'         => $is_locked,
 			'isOccurrence'   => $is_occurrence,
+			'allDay'         => $event_id > 0 && tribe_event_is_all_day( $event_id ),
 			// Built directly: link filters would rewrite the parent Event link back to the Occurrence.
 			'parentEditLink' => $is_occurrence ? admin_url( 'post.php?post=' . $event_id . '&action=edit' ) : '',
 			'summary'        => $summary,

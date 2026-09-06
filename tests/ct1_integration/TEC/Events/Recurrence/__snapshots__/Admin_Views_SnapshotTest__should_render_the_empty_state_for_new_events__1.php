@@ -13,7 +13,7 @@
 
 		<div id="tec-events-recurrence-dates-rows" style="display:none">
 			<p class="description">
-				Each date becomes its own entry on the calendar, with its own link. The event date above is always included.			</p>
+				Each date becomes its own entry on the calendar, with its own link. The event date above is always included. All dates share the event’s All Day setting.			</p>
 
 			<div class="tec-events-recurrence-dates-list" id="tec-events-recurrence-dates-list">
 							</div>
@@ -54,14 +54,7 @@
 			name="tec_events_recurrence_dates[__index__][end]"
 			value="5:00pm"
 		/>
-		<label class="tec-events-recurrence-dates-allday">
-			<input
-				type="checkbox"
-				class="tec-events-recurrence-dates-allday-input"
-				name="tec_events_recurrence_dates[__index__][allday]"
-				value="yes"
-							/>
-			All Day		</label>
+
 		<button type="button" class="button tec-events-recurrence-dates-remove" aria-label="Remove this date">
 			<svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 10h12"/></svg>
 		</button>
@@ -200,17 +193,6 @@
 					}
 				} );
 
-				wrapper.addEventListener( \'change\', function ( event ) {
-					if ( ! event.target.classList.contains( \'tec-events-recurrence-dates-allday-input\' ) ) {
-						return;
-					}
-
-					var row = event.target.closest( \'.tec-events-recurrence-dates-row\' );
-
-					if ( row ) {
-						row.classList.toggle( \'tec-events-recurrence-dates-row--allday\', event.target.checked );
-					}
-				} );
 
 				syncDisabled();
 			}() );

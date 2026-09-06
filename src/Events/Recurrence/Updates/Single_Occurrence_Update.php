@@ -248,6 +248,11 @@ class Single_Occurrence_Update {
 		$pending = $this->pending[ $provisional_id ] ?? [];
 		unset( $this->pending[ $provisional_id ] );
 
+		if ( isset( $pending['_EventAllDay'] ) && tribe_is_truthy( $pending['_EventAllDay'] ) !== tribe_event_is_all_day( Occurrence::normalize_id( $provisional_id ) ) ) {
+			$this->set_notice( 'error', __( 'All Day applies to every date. Edit the event to change its All Day setting.', 'the-events-calendar' ) );
+			return false;
+		}
+
 		if ( ! isset( $pending['_EventStartDate'] ) && ! isset( $pending['_EventEndDate'] ) ) {
 			// Nothing date-related was posted: nothing to move.
 			return false;

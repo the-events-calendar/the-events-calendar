@@ -237,12 +237,13 @@ class Admin_Provider extends Service_Provider {
 		} elseif ( ! $is_occurrence && $event_id > 0 ) {
 			// The same display formats the Start/End pickers above the section use.
 			$date_format = \Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			$event_all_day = tribe_event_is_all_day( $parent_id );
 			$time_format = \Tribe__View_Helpers::is_24hr_format() ? 'H:i' : 'g:ia';
 
 			$rows = array_map(
-				static function ( array $period ) use ( $date_format, $time_format ): array {
+				static function ( array $period ) use ( $date_format, $time_format, $event_all_day ): array {
 					// The authored meta stores times without seconds: an all-day date spans 00:00 to 23:59.
-					$all_day = '00:00' === $period['start']->format( 'H:i' ) && '23:59' === $period['end']->format( 'H:i' );
+					$all_day = $event_all_day;
 
 					return [
 						'date'     => $period['start']->format( $date_format ),
@@ -339,6 +340,10 @@ class Admin_Provider extends Service_Provider {
 		$invalid = false;
 		foreach ( (array) $rows as $row ) {
 			$all_day = is_array( $row ) && tribe_is_truthy( $row['allday'] ?? '' );
+			if ( $all_day && ! tribe_event_is_all_day( $event_id ) ) {
+				wp_die( esc_html__( 'All Day applies to every date of the event. Change the event All Day setting to use all-day dates.', 'the-events-calendar' ), 400 );
+				return;
+			}
 
 			if ( ! is_array( $row ) || empty( $row['date'] ) || ( ! $all_day && ( empty( $row['start'] ) || empty( $row['end'] ) ) ) ) {
 				$invalid = true;

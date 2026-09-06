@@ -839,7 +839,7 @@ class Tribe__Events__iCal {
 		$access_to_content = self::has_access_to_see_event_content( $event_post );
 		$full_format       = 'Ymd\THis';
 		$utc_format        = 'Ymd\THis\Z';
-		$all_day           = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
+		$all_day           = tribe_event_is_all_day( $event_post->ID );
 		$time              = (object) [
 			'start'    => tribe_get_start_date( $event_post->ID, false, 'U' ),
 			'end'      => tribe_get_end_date( $event_post->ID, false, 'U' ),

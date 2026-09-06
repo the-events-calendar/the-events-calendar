@@ -293,6 +293,7 @@ class Admin_ProviderTest extends WPTestCase {
 	 */
 	public function should_author_an_all_day_date_ignoring_the_row_times(): void {
 		$post = $this->given_an_event();
+		update_post_meta( $post->ID, '_EventAllDay', 'yes' );
 
 		$this->post_dates( [ [ 'date' => '2050-01-12', 'start' => '09:00', 'end' => '10:00', 'allday' => 'yes' ] ] );
 		tribe( Admin_Provider::class )->save_dates( $post->ID );

@@ -260,8 +260,13 @@ if ( $is_locked ) {
 $tec_dates_is_24hr       = Tribe__View_Helpers::is_24hr_format();
 $tec_dates_default_start = $tec_dates_is_24hr ? '08:00' : '8:00am';
 $tec_dates_default_end   = $tec_dates_is_24hr ? '17:00' : '5:00pm';
-$tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dates_is_24hr, $tec_dates_default_start, $tec_dates_default_end ) {
-	$tec_dates_all_day = ! empty( $row['allday'] );
+$tec_dates_event_all_day = tribe_event_is_all_day( $parent_id );
+if ( $tec_dates_event_all_day ) {
+	$tec_dates_default_start = $tec_dates_is_24hr ? '00:00' : '12:00am';
+	$tec_dates_default_end   = $tec_dates_is_24hr ? '23:59' : '11:59pm';
+}
+$tec_dates_render_row = static function ( $index, array $row ) use ( $tec_dates_is_24hr, $tec_dates_default_start, $tec_dates_default_end, $tec_dates_event_all_day ) {
+	$tec_dates_all_day = $tec_dates_event_all_day;
 	?>
 	<div class="tec-events-recurrence-dates-row<?php echo $tec_dates_all_day ? ' tec-events-recurrence-dates-row--allday' : ''; ?>">
 		<input
@@ -278,7 +283,7 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
 			data-step="30"
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][start]"
-			value="<?php echo esc_attr( $tec_dates_all_day ? $tec_dates_default_start : $row['start'] ); ?>"
+			value="<?php echo esc_attr( $row['start'] ); ?>"
 		/>
 		<span class="tribe-datetime-separator"> <?php echo esc_html_x( 'to', 'Start Date Time "to" End Date Time', 'the-events-calendar' ); ?> </span>
 		<input
@@ -297,18 +302,9 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 			<?php echo $tec_dates_is_24hr ? 'data-format="H:i"' : ''; ?>
 			data-step="30"
 			name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][end]"
-			value="<?php echo esc_attr( $tec_dates_all_day ? $tec_dates_default_end : $row['end'] ); ?>"
+			value="<?php echo esc_attr( $row['end'] ); ?>"
 		/>
-		<label class="tec-events-recurrence-dates-allday">
-			<input
-				type="checkbox"
-				class="tec-events-recurrence-dates-allday-input"
-				name="<?php echo esc_attr( Admin_Provider::FIELD ); ?>[<?php echo esc_attr( $index ); ?>][allday]"
-				value="yes"
-				<?php checked( $tec_dates_all_day ); ?>
-			/>
-			<?php esc_html_e( 'All Day', 'the-events-calendar' ); ?>
-		</label>
+
 		<button type="button" class="button tec-events-recurrence-dates-remove" aria-label="<?php esc_attr_e( 'Remove this date', 'the-events-calendar' ); ?>">
 			<svg height="20" width="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M4 10h12"/></svg>
 		</button>
@@ -337,7 +333,7 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 
 		<div id="tec-events-recurrence-dates-rows" <?php echo count( $rows ) ? '' : 'style="display:none"'; ?>>
 			<p class="description">
-				<?php esc_html_e( 'Each date becomes its own entry on the calendar, with its own link. The event date above is always included.', 'the-events-calendar' ); ?>
+				<?php esc_html_e( 'Each date becomes its own entry on the calendar, with its own link. The event date above is always included. All dates share the event’s All Day setting.', 'the-events-calendar' ); ?>
 			</p>
 
 			<div class="tec-events-recurrence-dates-list" id="tec-events-recurrence-dates-list">
@@ -489,17 +485,6 @@ $tec_dates_render_row    = static function ( $index, array $row ) use ( $tec_dat
 					}
 				} );
 
-				wrapper.addEventListener( 'change', function ( event ) {
-					if ( ! event.target.classList.contains( 'tec-events-recurrence-dates-allday-input' ) ) {
-						return;
-					}
-
-					var row = event.target.closest( '.tec-events-recurrence-dates-row' );
-
-					if ( row ) {
-						row.classList.toggle( 'tec-events-recurrence-dates-row--allday', event.target.checked );
-					}
-				} );
 
 				syncDisabled();
 			}() );

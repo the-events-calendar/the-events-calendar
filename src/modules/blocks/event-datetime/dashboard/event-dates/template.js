@@ -35,26 +35,23 @@ const parseRows = ( dates ) => {
 	}
 };
 
-const ALL_DAY_START = '00:00:00';
-// The authored meta stores times without seconds: match all-day ends on HH:mm.
-const isAllDayRow = ( row ) => ALL_DAY_START === row.start && 0 === ( row.end || '' ).indexOf( '23:59' );
-
 /**
  * Builds a new row, one day after the last authored date (or the event's own date).
  *
- * @param {Array}  rows  The current rows.
- * @param {string} start The event start datetime, from the dashboard props.
+ * @param {Array}  rows   The current rows.
+ * @param {string} start  The event start datetime, from the dashboard props.
+ * @param {boolean} allDay Whether the event uses All Day dates.
  *
  * @return {Object} The new row.
  */
-const defaultRow = ( rows = [], start = '' ) => {
+const defaultRow = ( rows = [], start = '', allDay = false ) => {
 	const base = rows.length ? rows[ rows.length - 1 ].date : ( start || '' ).substring( 0, 10 );
 	const parsed = moment( base, 'YYYY-MM-DD' );
 
 	return {
 		date: parsed.isValid() ? parsed.add( 1, 'day' ).format( 'YYYY-MM-DD' ) : '',
-		start: '08:00:00',
-		end: '17:00:00',
+		start: allDay ? '00:00:00' : '08:00:00',
+		end: allDay ? '23:59:59' : '17:00:00',
 	};
 };
 
@@ -285,7 +282,8 @@ const ConvertToDates = ( { config } ) => {
 					'Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.',
 					'the-events-calendar'
 				) }
-				{ config.isOccurrence && ' ' + __( 'Converting sends you to the recurring event.', 'the-events-calendar' ) }
+				{ config.isOccurrence &&
+					' ' + __( 'Converting sends you to the recurring event.', 'the-events-calendar' ) }
 			</p>
 			<CheckboxControl
 				label={ __( 'I understand that the recurrence rules will be removed.', 'the-events-calendar' ) }
@@ -372,6 +370,7 @@ const showPendingNotice = ( notice ) => {
 const EventDates = ( props ) => {
 	const { attributes = {}, setAttributes, start } = props;
 	const config = getConfig();
+	const allDay = props.allDay ?? Boolean( config.allDay );
 	const rows = parseRows( attributes.dates );
 
 	const [ isOpen, setIsOpen ] = useState( rows.length > 0 );
@@ -397,7 +396,7 @@ const EventDates = ( props ) => {
 	const onToggle = ( checked ) => {
 		if ( checked ) {
 			if ( ! rows.length ) {
-				updateRows( stash.current.length ? stash.current : [ defaultRow( [], start ) ] );
+				updateRows( stash.current.length ? stash.current : [ defaultRow( [], start, allDay ) ] );
 			}
 		} else {
 			// Kept around so toggling back on before saving restores the rows.
@@ -421,13 +420,17 @@ const EventDates = ( props ) => {
 	};
 
 	const renderTimePicker = ( index, field, row ) => {
+		if ( allDay ) {
+			return <span>{ __( 'All Day', 'the-events-calendar' ) }</span>;
+		}
+
 		const key = `${ index }:${ field }`;
 		const current = editing[ key ] !== undefined ? editing[ key ] : toDisplayTime( row[ field ] );
 
 		return (
 			<TimePicker
-				allDay={ isAllDayRow( row ) }
-				showAllDay={ true }
+				allDay={ false }
+				showAllDay={ false }
 				current={ current }
 				start={ timeUtil.START_OF_DAY }
 				end={ timeUtil.END_OF_DAY }
@@ -445,16 +448,7 @@ const EventDates = ( props ) => {
 					setEditing( nextEditing );
 				} }
 				onClick={ ( value, onClose ) => {
-					if ( 'all-day' === value ) {
-						// Both ends move together: the whole date becomes all-day.
-						updateRows(
-							rows.map( ( r, i ) =>
-								i === index ? { ...r, start: ALL_DAY_START, end: '23:59:59' } : r
-							)
-						);
-					} else {
-						updateRow( index, field, `${ timeUtil.fromSeconds( value, timeUtil.TIME_FORMAT_HH_MM ) }:00` );
-					}
+					updateRow( index, field, `${ timeUtil.fromSeconds( value, timeUtil.TIME_FORMAT_HH_MM ) }:00` );
 
 					onClose();
 				} }
@@ -507,7 +501,9 @@ const EventDates = ( props ) => {
 					{ lockEnabled && <LockSettingsLink url={ config.settingsUrl || '' } /> }
 					{ isOccurrence && config.parentEditLink && (
 						<p>
-							<a href={ config.parentEditLink }>{ __( 'Edit the recurring event.', 'the-events-calendar' ) }</a>
+							<a href={ config.parentEditLink }>
+								{ __( 'Edit the recurring event.', 'the-events-calendar' ) }
+							</a>
 						</p>
 					) }
 				</Notice>
@@ -547,7 +543,7 @@ const EventDates = ( props ) => {
 				<Fragment>
 					<p className="tribe-editor__event-dates__description">
 						{ __(
-							'Each date becomes its own entry on the calendar, with its own link. The event date above is always included.',
+							'Each date becomes its own entry on the calendar, with its own link. The event date above is always included. All dates share the event’s All Day setting.',
 							'the-events-calendar'
 						) }
 					</p>
@@ -584,7 +580,7 @@ const EventDates = ( props ) => {
 									type="button"
 									className="tribe-editor__event-dates__control tribe-editor__event-dates__add"
 									aria-label={ __( 'Add another date', 'the-events-calendar' ) }
-									onClick={ () => updateRows( [ ...rows, defaultRow( rows, start ) ] ) }
+									onClick={ () => updateRows( [ ...rows, defaultRow( rows, start, allDay ) ] ) }
 								>
 									<Plus />
 								</button>
@@ -599,6 +595,7 @@ const EventDates = ( props ) => {
 
 EventDates.propTypes = {
 	attributes: PropTypes.object,
+	allDay: PropTypes.bool,
 	setAttributes: PropTypes.func,
 };
 
