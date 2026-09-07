@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import { CheckboxControl } from '@wordpress/components';
+import { Button, CheckboxControl } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -58,6 +58,29 @@ const convertibleConfig = {
 const render = () => renderer.create( <EventDates attributes={ {} } setAttributes={ jest.fn() } start="2050-01-05 09:00:00" /> );
 
 describe( 'Event Dates panel', () => {
+	test( 'expands and collapses past dates without hiding upcoming dates', () => {
+		setConfig( {
+			...convertibleConfig,
+			lockEnabled: true,
+			summary: {
+				...lockedSummary,
+				dates: [ { ...lockedSummary.dates[ 0 ], status: 'past' }, lockedSummary.dates[ 1 ] ],
+			},
+		} );
+		const tree = render();
+		const toggle = () => tree.root.findAllByType( Button ).find( ( node ) => node.props[ 'aria-expanded' ] !== undefined );
+		const pastLists = () => tree.root.findAll( ( node ) => node.type === 'ul' && node.props[ 'aria-label' ] === 'Past dates' );
+		expect( toggle().props[ 'aria-expanded' ] ).toBe( false );
+		expect( pastLists() ).toHaveLength( 0 );
+		renderer.act( () => toggle().props.onClick() );
+		expect( toggle().props[ 'aria-expanded' ] ).toBe( true );
+		expect( pastLists() ).toHaveLength( 1 );
+		expect( tree.root.findAll( ( node ) => node.type === 'ul' && node.props[ 'aria-label' ] === 'Upcoming dates' ) ).toHaveLength( 1 );
+		renderer.act( () => toggle().props.onClick() );
+		expect( toggle().props[ 'aria-expanded' ] ).toBe( false );
+		expect( pastLists() ).toHaveLength( 0 );
+	} );
+
 	afterEach( () => {
 		delete global.tribe_editor_config;
 	} );

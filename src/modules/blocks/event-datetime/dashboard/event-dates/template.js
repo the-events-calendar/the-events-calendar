@@ -168,7 +168,7 @@ const LockedDates = ( { summary } ) => {
 			{ past.length > 0 && (
 				<Fragment>
 					<Button
-						variant="link"
+						variant="secondary"
 						className="tribe-editor__event-dates__toggle"
 						aria-expanded={ showPast }
 						onClick={ () => setShowPast( ! showPast ) }

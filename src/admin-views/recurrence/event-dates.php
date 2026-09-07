@@ -151,7 +151,7 @@ if ( $is_locked ) {
 					?>
 					<button
 						type="button"
-						class="button-link tec-events-recurrence-dates__toggle"
+						class="button button-secondary tec-events-recurrence-dates__toggle"
 						aria-expanded="false"
 						aria-controls="<?php echo esc_attr( $tec_dates_past_list_id ); ?>"
 						data-show-label="<?php echo esc_attr( $tec_dates_show_label ); ?>"
