@@ -137,12 +137,12 @@
 }
 
 .tribe-editor__event-dates__chip--past {
-	opacity: 0.65;
+	opacity: 1;
 }
 
 .tribe-editor__event-dates .tribe-editor__event-dates__toggle {
 	margin: 0 0 8px;
-	padding: 0 12px;
+	padding: 0 6px;
 }
 
 /* Chip + edit button as one pill group. */
@@ -227,4 +227,14 @@
 .tribe-editor__calendars--disabled {
 	opacity: 0.6;
 	pointer-events: none;
+}
+
+.tribe-editor__event-dates__chips--past .tribe-editor__event-dates__chip-group {
+	opacity: 0.6;
+}
+
+
+.tribe-editor__event-dates__chips--past .tribe-editor__event-dates__chip-group:hover,
+.tribe-editor__event-dates__chips--past .tribe-editor__event-dates__chip-group:focus-within {
+	opacity: 1;
 }

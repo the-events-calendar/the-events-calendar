@@ -243,18 +243,12 @@ class Blocks_Provider extends Service_Provider {
 		];
 
 		if ( $is_locked ) {
-			$list = $this->container->make( Occurrences_List::class );
-
-			foreach ( $list->get_scheduled_dates( $event_id ) as $row ) {
-				$chip = $list->format_chip( $row );
-				// The editor config uses camelCase keys.
+			$summary = $this->container->make( Admin\Past_Dates::class )->summary( $event_id );
+			foreach ( $summary['dates'] as &$chip ) {
 				$chip['editLink'] = $chip['edit_link'];
 				unset( $chip['edit_link'] );
-
-				$summary['dates'][] = $chip;
 			}
-
-			$summary['count'] = count( $summary['dates'] );
+			unset( $chip );
 		}
 
 		$lock_enabled = true;

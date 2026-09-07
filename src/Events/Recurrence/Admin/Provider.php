@@ -22,13 +22,14 @@ class Provider extends Service_Provider {
 
 	/** Registers the UI independently of Free's dates-only editor providers. @since TBD @return void */
 	public function register(): void {
-		foreach ( [ Presentation::class, Pro_Status::class, List_Query::class, Editor::class ] as $service ) {
+		foreach ( [ Presentation::class, Pro_Status::class, List_Query::class, Editor::class, Past_Dates::class ] as $service ) {
 			if ( ! $this->container->isBound( $service ) ) {
 				$this->container->singleton( $service );
 			}
 		}
 		$this->container->make( List_Query::class )->register();
 		$this->container->make( Editor::class )->register();
+		$this->container->make( Past_Dates::class )->register();
 		add_filter( 'manage_tribe_events_posts_columns', [ $this, 'columns' ], 100 );
 		add_filter( 'manage_edit-tribe_events_sortable_columns', [ $this, 'sortable' ], 100 );
 		add_action( 'manage_tribe_events_posts_custom_column', [ $this, 'column' ], 100, 2 );
@@ -52,6 +53,7 @@ class Provider extends Service_Provider {
 	public function unregister(): void {
 		$this->container->make( List_Query::class )->unregister();
 		$this->container->make( Editor::class )->unregister();
+		$this->container->make( Past_Dates::class )->unregister();
 		remove_filter( 'manage_tribe_events_posts_columns', [ $this, 'columns' ], 100 );
 		remove_filter( 'manage_edit-tribe_events_sortable_columns', [ $this, 'sortable' ], 100 );
 		remove_action( 'manage_tribe_events_posts_custom_column', [ $this, 'column' ], 100 );
@@ -502,6 +504,19 @@ class Provider extends Service_Provider {
 		}
 		if ( self::is_list() ) {
 			wp_enqueue_script( 'tec-occurrence-admin', TEC::instance()->plugin_url . 'build/js/recurrence-admin.js', [], TEC::VERSION, true );
+		} else {
+			wp_enqueue_script( 'tec-recurrence-past-dates', TEC::instance()->plugin_url . 'build/js/recurrence-past-dates.js', [], TEC::VERSION, true );
+			wp_localize_script(
+				'tec-recurrence-past-dates',
+				'tecPastDates',
+				[
+					'loading'  => __( 'Loading older dates…', 'the-events-calendar' ),
+					'loaded'   => __( 'Older dates loaded.', 'the-events-calendar' ),
+					'complete' => __( 'All past dates are displayed.', 'the-events-calendar' ),
+					'error'    => __( 'Could not load older dates. Please try again.', 'the-events-calendar' ),
+					'edit'     => __( 'Edit occurrence (opens in a new tab):', 'the-events-calendar' ),
+				]
+			);
 		}
 		wp_enqueue_style( 'tec-occurrence-admin', TEC::instance()->plugin_url . 'build/css/recurrence-admin.css', [], TEC::VERSION );
 	}
