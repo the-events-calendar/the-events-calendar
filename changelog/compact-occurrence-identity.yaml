@@ -1,0 +1,5 @@
+significance: patch
+type: accessibility
+entry: Replaced event list labels with compact identity icons and accessible
+  tooltips, including preserved Series membership when Pro was inactive.
+timestamp: 2026-09-07T05:24:46.683Z

@@ -96,8 +96,8 @@ class ProviderTest extends WPTestCase {
 			$this->assertStringContainsString( 'tec-occurrence-admin__identity', $html );
 			$this->assertStringContainsString( 'Occurrence', $html );
 			$this->assertStringContainsString( 'Multiple dates', $html );
-			$this->assertStringContainsString( 'tec-occurrence-admin__badge--dates', $html );
-			$this->assertStringNotContainsString( 'tec-occurrence-admin__lock', $html );
+			$this->assertStringContainsString( 'tec-occurrence-admin__indicator--dates', $html );
+			$this->assertStringNotContainsString( 'data-icon="lock"', $html );
 			$this->assertStringContainsString( 'post=' . $row->provisional_id, $actions['edit'] );
 			$this->assertStringContainsString( 'post=' . $post->ID, $actions['tec-edit-event'] );
 			$this->assertStringContainsString( 'tec_dates=all', $actions['tec-dates'] );
@@ -242,7 +242,7 @@ class ProviderTest extends WPTestCase {
 	}
 
 	/** @test */
-	public function should_put_the_lock_and_its_accessible_explanation_inside_the_title_badge(): void {
+	public function should_describe_locked_recurrence_with_one_icon(): void {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$post = $this->given_a_multi_date_event();
 		delete_post_meta( $post->ID, '_EventRecurrence' );
@@ -253,10 +253,11 @@ class ProviderTest extends WPTestCase {
 			ob_start();
 			tribe( Provider::class )->row_actions( [], $post );
 			$html = ob_get_clean();
-			$this->assertStringContainsString( 'tec-occurrence-admin__badge--rules', $html );
-			$this->assertStringContainsString( 'class="tec-occurrence-admin__lock"', $html );
-			$this->assertStringContainsString( 'aria-describedby="tec-recurrence-lock-' . $post->ID . '"', $html );
-			$this->assertStringContainsString( 'role="tooltip" id="tec-recurrence-lock-' . $post->ID . '"', $html );
+			$this->assertStringContainsString( 'tec-occurrence-admin__indicator--rules', $html );
+			$this->assertStringContainsString( 'tec-occurrence-admin__indicator--locked', $html );
+			$this->assertSame( 1, substr_count( $html, '<button ' ) );
+			$this->assertSame( 1, preg_match( '/data-icon="repeat"[^>]+aria-describedby="([^"]+)"/', $html, $match ) );
+			$this->assertStringContainsString( 'role="tooltip" id="' . $match[1] . '"', $html );
 			$this->assertStringContainsString( 'Existing scheduled dates are preserved.', $html );
 			$this->assertStringNotContainsString( 'Recurrence locked ·', $html );
 		} finally {

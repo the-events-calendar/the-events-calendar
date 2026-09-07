@@ -1,24 +1,142 @@
 /**
- * Keep lock explanations dismissible with Escape without moving keyboard focus.
- * Delegation also covers rows replaced by WordPress Quick Edit.
+ * Enhance native WordPress rows without replacing their title or action callbacks.
+ * Delegated tooltip events and a scoped observer also cover Quick Edit replacements.
+ *
+ * @param {HTMLElement|null} list Native WordPress list body.
+ * @return {Function|undefined} Removes observers and event listeners.
  */
-( () => {
-	const badgeSelector = '.tec-occurrence-admin__badge';
-	const dismissedClass = 'tec-occurrence-admin__badge--dismissed';
+export const initRowIdentity = ( list ) => {
+	if ( ! list ) {
+		return;
+	}
+	const listeners = [];
+	const listen = ( target, type, callback, options ) => {
+		target.addEventListener( type, callback, options );
+		listeners.push( () => target.removeEventListener( type, callback, options ) );
+	};
+	const triggerSelector = '.tec-occurrence-admin__trigger';
+	let active = null;
+	let pinned = false;
+	let hideTimer;
 
-	document.addEventListener( 'keydown', ( event ) => {
-		if ( event.key === 'Escape' ) {
-			document.querySelectorAll( badgeSelector ).forEach( ( badge ) => badge.classList.add( dismissedClass ) );
+	const position = () => {
+		if ( ! active ) {
+			return;
 		}
-	} );
+		const tooltip = active.nextElementSibling;
+		const rect = active.getBoundingClientRect();
+		const width = tooltip.getBoundingClientRect().width;
+		const height = tooltip.getBoundingClientRect().height;
+		const left = Math.max( 8, Math.min( rect.left, window.innerWidth - width - 8 ) );
+		const top = rect.bottom + height > window.innerHeight - 8 ? Math.max( 8, rect.top - height ) : rect.bottom;
+		tooltip.style.left = `${ left }px`;
+		tooltip.style.top = `${ top }px`;
+	};
 
-	[ 'pointerover', 'focusin' ].forEach( ( type ) => {
-		document.addEventListener( type, ( event ) => {
-			const lock = event.target.closest( '.tec-occurrence-admin__lock' );
-			const badge = lock?.closest( badgeSelector );
-			if ( badge && ! lock.contains( event.relatedTarget ) ) {
-				badge.classList.remove( dismissedClass );
+	const close = () => {
+		clearTimeout( hideTimer );
+		active?.parentElement.classList.remove( 'is-open' );
+		active = null;
+		pinned = false;
+	};
+
+	const open = ( trigger ) => {
+		clearTimeout( hideTimer );
+		if ( active !== trigger ) {
+			close();
+		}
+		active = trigger;
+		active.parentElement.classList.add( 'is-open' );
+		position();
+	};
+
+	const mount = () => {
+		if ( active && ! list.contains( active ) ) {
+			close();
+		}
+		list.querySelectorAll( '.tec-occurrence-admin__identity:not([data-mounted])' ).forEach( ( identity ) => {
+			const cell = identity.closest( '.column-title' );
+			const title = cell?.querySelector( 'strong' );
+			if ( ! title ) {
+				return;
+			}
+			identity.dataset.mounted = 'true';
+			const heading = document.createElement( 'div' );
+			heading.className = 'tec-occurrence-admin__heading';
+			title.before( heading );
+			heading.append( identity, title );
+			const link = title.querySelector( '.row-title' );
+			if ( link ) {
+				const ids = new Set(
+					( link.getAttribute( 'aria-describedby' ) || '' ).split( /\s+/ ).filter( Boolean )
+				);
+				ids.add( identity.dataset.description );
+				link.setAttribute( 'aria-describedby', [ ...ids ].join( ' ' ) );
 			}
 		} );
+	};
+
+	mount();
+	const observer = new window.MutationObserver( mount );
+	observer.observe( list, { childList: true, subtree: true } );
+
+	listen( list, 'pointerover', ( event ) => {
+		const trigger = event.target.closest( triggerSelector );
+		if ( trigger && event.pointerType !== 'touch' && ! trigger.parentElement.contains( event.relatedTarget ) ) {
+			open( trigger );
+		} else if ( active?.parentElement.contains( event.target ) ) {
+			clearTimeout( hideTimer );
+		}
 	} );
-} )();
+	listen( list, 'pointerout', ( event ) => {
+		if (
+			active?.parentElement.contains( event.target ) &&
+			! active.parentElement.contains( event.relatedTarget ) &&
+			! pinned &&
+			list.ownerDocument.activeElement !== active
+		) {
+			hideTimer = setTimeout( close, 120 );
+		}
+	} );
+	listen( list, 'focusin', ( event ) => {
+		const trigger = event.target.closest( triggerSelector );
+		if ( trigger ) {
+			open( trigger );
+		}
+	} );
+	listen( list, 'focusout', ( event ) => {
+		if (
+			active?.parentElement.contains( event.target ) &&
+			! active.parentElement.contains( event.relatedTarget )
+		) {
+			close();
+		}
+	} );
+	listen( document, 'click', ( event ) => {
+		const trigger = event.target.closest( triggerSelector );
+		if ( trigger && list.contains( trigger ) ) {
+			if ( active === trigger && pinned ) {
+				close();
+			} else {
+				open( trigger );
+				pinned = true;
+			}
+		} else if ( ! active?.parentElement.contains( event.target ) ) {
+			close();
+		}
+	} );
+	listen( document, 'keydown', ( event ) => {
+		if ( event.key === 'Escape' ) {
+			close();
+		}
+	} );
+	listen( window, 'resize', position );
+	listen( window, 'scroll', position, true );
+	return () => {
+		close();
+		observer.disconnect();
+		listeners.forEach( ( remove ) => remove() );
+	};
+};
+
+initRowIdentity( document.getElementById( 'the-list' ) );
