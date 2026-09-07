@@ -27,7 +27,7 @@ class Row_Identity {
 	];
 
 	/**
-	 * Renders the no-script fallback; the list script places it before the native title.
+	 * Renders the single identity icon in the native Type column, including without scripts.
 	 *
 	 * @since TBD
 	 * @param array $data Shared presentation state.
@@ -78,7 +78,7 @@ class Row_Identity {
 	private function indicator( string $id, string $icon, string $tone, string $description, bool $locked ): void {
 		echo '<span class="tec-occurrence-admin__indicator tec-occurrence-admin__indicator--' . esc_attr( $tone ) . ( $locked ? ' tec-occurrence-admin__indicator--locked' : '' ) . '">';
 		echo '<button type="button" class="tec-occurrence-admin__trigger" data-icon="' . esc_attr( $icon ) . '" aria-label="' . esc_attr( $description ) . '" aria-describedby="' . esc_attr( $id ) . '">';
-		echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false">';
+		echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor" aria-hidden="true" focusable="false">';
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Trusted static WordPress SVG paths, selected by an internal key.
 		echo self::ICONS[ $icon ];
 		echo '</svg></button>';

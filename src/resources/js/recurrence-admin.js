@@ -55,17 +55,8 @@ export const initRowIdentity = ( list ) => {
 			close();
 		}
 		list.querySelectorAll( '.tec-occurrence-admin__identity:not([data-mounted])' ).forEach( ( identity ) => {
-			const cell = identity.closest( '.column-title' );
-			const title = cell?.querySelector( 'strong' );
-			if ( ! title ) {
-				return;
-			}
 			identity.dataset.mounted = 'true';
-			const heading = document.createElement( 'div' );
-			heading.className = 'tec-occurrence-admin__heading';
-			title.before( heading );
-			heading.append( identity, title );
-			const link = title.querySelector( '.row-title' );
+			const link = identity.closest( 'tr' )?.querySelector( '.row-title' );
 			if ( link ) {
 				const ids = new Set(
 					( link.getAttribute( 'aria-describedby' ) || '' ).split( /\s+/ ).filter( Boolean )

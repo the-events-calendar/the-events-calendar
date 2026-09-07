@@ -1,6 +1,6 @@
 import { initRowIdentity } from '../../../js/recurrence-admin';
 
-const row = ( id = 1 ) => `<tr><td class="column-title"><strong><a class="row-title" href="?post=10001056" aria-describedby="existing">Event title</a></strong><span class="tec-occurrence-admin__identity" data-description="description-${ id }"><span id="description-${ id }">Occurrence</span><span class="tec-occurrence-admin__indicator"><button class="tec-occurrence-admin__trigger" aria-describedby="tip-${ id }">Schedule</button><span class="tec-occurrence-admin__tooltip" id="tip-${ id }" role="tooltip">Schedule explanation</span></span></span><div class="row-actions"><a href="?post=425">Edit event details</a></div></td></tr>`;
+const row = ( id = 1 ) => `<tr><td class="column-title"><strong><a class="row-title" href="?post=10001056" aria-describedby="existing">Event title</a></strong><div class="row-actions"><a href="?post=425">Edit event details</a></div></td><td class="column-tec-identity"><span class="tec-occurrence-admin__identity" data-description="description-${ id }"><span id="description-${ id }">Occurrence</span><span class="tec-occurrence-admin__indicator"><button class="tec-occurrence-admin__trigger" aria-describedby="tip-${ id }">Schedule</button><span class="tec-occurrence-admin__tooltip" id="tip-${ id }" role="tooltip">Schedule explanation</span></span></span></td></tr>`;
 let cleanup;
 let list;
 let triggers;
@@ -18,17 +18,18 @@ afterEach( () => {
 } );
 
 test( 'preserves native titles, descriptions and actions while removing the separate line', async () => {
-	const heading = list.querySelector( '.tec-occurrence-admin__heading' );
-	expect( heading.firstChild.className ).toBe( 'tec-occurrence-admin__identity' );
+	const heading = list.querySelector( '.column-title' );
+	expect( heading.querySelector( '.tec-occurrence-admin__identity' ) ).toBeNull();
+	expect( list.querySelector( '.tec-occurrence-admin__identity' ).parentElement.className ).toBe( 'column-tec-identity' );
 	expect( heading.querySelector( 'a' ).getAttribute( 'href' ) ).toBe( '?post=10001056' );
 	expect( heading.querySelector( 'a' ).getAttribute( 'aria-describedby' ) ).toBe( 'existing description-1' );
 	expect( list.querySelector( '.row-actions a' ).getAttribute( 'href' ) ).toBe( '?post=425' );
 	list.innerHTML = row( 2 );
 	await Promise.resolve();
-	expect( list.querySelectorAll( '.tec-occurrence-admin__heading' ) ).toHaveLength( 1 );
+	expect( list.querySelectorAll( '.column-tec-identity .tec-occurrence-admin__identity[data-mounted]' ) ).toHaveLength( 1 );
 	expect( list.querySelector( '.row-title' ).getAttribute( 'aria-describedby' ) ).toBe( 'existing description-2' );
 	await Promise.resolve();
-	expect( list.querySelectorAll( '.tec-occurrence-admin__heading' ) ).toHaveLength( 1 );
+	expect( list.querySelectorAll( '.column-tec-identity .tec-occurrence-admin__identity[data-mounted]' ) ).toHaveLength( 1 );
 } );
 
 test( 'shows only the focused row explanation and Escape dismisses without moving focus', () => {

@@ -5,19 +5,12 @@
 	vertical-align: middle;
 }
 
-.tec-occurrence-admin__heading {
-	align-items: flex-start;
-	display: flex;
-	gap: 6px;
-}
-
-.tec-occurrence-admin__heading > strong {
-	flex: 1;
-	min-width: 0;
-}
-
-.tec-occurrence-admin__heading > .tec-occurrence-admin__identity {
-	flex: 0 0 auto;
+.fixed .column-tec-identity {
+	box-sizing: border-box;
+	max-width: 60px;
+	padding: 8px 10px;
+	text-align: center;
+	width: 60px;
 }
 
 .tec-occurrence-admin__indicator {
@@ -47,11 +40,11 @@
 	color: inherit;
 	cursor: help;
 	display: inline-flex;
-	height: 24px;
+	height: 40px;
 	justify-content: center;
 	line-height: 1;
 	padding: 0;
-	width: 24px;
+	width: 40px;
 }
 
 .tec-occurrence-admin__indicator--locked .tec-occurrence-admin__trigger {
@@ -60,8 +53,8 @@
 
 .tec-occurrence-admin__trigger svg {
 	display: block;
-	height: 16px;
-	width: 16px;
+	height: 40px;
+	width: 40px;
 }
 
 .tec-occurrence-admin__trigger:focus-visible {
@@ -129,6 +122,15 @@
 }
 
 @media screen and (max-width: 782px) {
+
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td.column-primary ~ td.column-tec-identity {
+		flex: 0 0 60px;
+		padding: 8px 10px;
+	}
+
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td.column-tec-identity::before {
+		display: none;
+	}
 
 	/* Keep filters available when WordPress hides the top navigation. */
 	.events-cal .tablenav.top {

@@ -70,6 +70,7 @@ class ProviderTest extends WPTestCase {
 		try {
 			$columns = tribe( Provider::class )->columns( [ 'cb' => 'Checkbox', 'title' => 'Title', 'start-date' => 'Start', 'end-date' => 'End', 'series' => 'Series' ] );
 			$this->assertArrayHasKey( 'series', $columns );
+			$this->assertSame( [ 'cb', 'title', 'tec-identity', 'series', 'tec-start-date', 'tec-end-date' ], array_keys( $columns ) );
 			$this->assertArrayNotHasKey( 'tec-schedule', $columns );
 			$this->assertArrayHasKey( 'tec-start-date', $columns );
 			$this->assertArrayNotHasKey( 'start-date', $columns );
@@ -92,6 +93,9 @@ class ProviderTest extends WPTestCase {
 		try {
 			ob_start();
 			$actions = tribe( Provider::class )->row_actions( [ 'edit' => 'Edit' ], get_post( $row->provisional_id ) );
+			$this->assertSame( '', ob_get_clean() );
+			ob_start();
+			tribe( Provider::class )->column( 'tec-identity', $row->provisional_id );
 			$html = ob_get_clean();
 			$this->assertStringContainsString( 'tec-occurrence-admin__identity', $html );
 			$this->assertStringContainsString( 'Occurrence', $html );
@@ -251,7 +255,7 @@ class ProviderTest extends WPTestCase {
 		set_current_screen( 'edit-tribe_events' );
 		try {
 			ob_start();
-			tribe( Provider::class )->row_actions( [], $post );
+			tribe( Provider::class )->column( 'tec-identity', $post->ID );
 			$html = ob_get_clean();
 			$this->assertStringContainsString( 'tec-occurrence-admin__indicator--rules', $html );
 			$this->assertStringContainsString( 'tec-occurrence-admin__indicator--locked', $html );

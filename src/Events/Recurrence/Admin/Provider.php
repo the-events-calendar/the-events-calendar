@@ -205,6 +205,12 @@ class Provider extends Service_Provider {
 			$keys[ array_search( 'author', $keys, true ) ] = 'tec-author';
 			$columns                                       = array_combine( $keys, array_values( $columns ) );
 		}
+		$position = array_search( 'title', array_keys( $columns ), true );
+		if ( false !== $position ) {
+			$columns = array_slice( $columns, 0, $position + 1, true )
+				+ [ 'tec-identity' => __( 'Type', 'the-events-calendar' ) ]
+				+ array_slice( $columns, $position + 1, null, true );
+		}
 		unset( $columns['start-date'], $columns['end-date'] );
 		$columns['tec-start-date'] = __( 'Start Date', 'the-events-calendar' );
 		$columns['tec-end-date']   = __( 'End Date', 'the-events-calendar' );
@@ -235,6 +241,12 @@ class Provider extends Service_Provider {
 	 * @return void
 	 */
 	public function column( string $column, int $id ): void {
+		if ( 'tec-identity' === $column ) {
+			$data   = $this->container->make( Presentation::class )->get( $id );
+			$status = $data['locked'] ? $this->container->make( Pro_Status::class )->get( true ) : [];
+			( new Row_Identity() )->render( $data, $status );
+			return;
+		}
 		if ( 'tec-author' === $column ) {
 			$author = get_userdata( get_post_field( 'post_author', $id ) );
 			if ( $author ) {
@@ -250,7 +262,7 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Shows row identity outside hover-only actions and labels each editing destination.
+	 * Labels each editing destination while the Type column supplies row identity.
 	 *
 	 * @since TBD
 	 * @param array   $actions Existing supported actions.
@@ -265,8 +277,6 @@ class Provider extends Service_Provider {
 		if ( 'occurrences' === self::view() ) {
 			unset( $actions['inline hide-if-no-js'] );
 		}
-		$status = $data['locked'] ? $this->container->make( Pro_Status::class )->get( true ) : [];
-		( new Row_Identity() )->render( $data, $status );
 		if ( isset( $actions['edit'] ) && $data['isOccurrence'] ) {
 			$actions['edit'] = '<a href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">' . esc_html__( 'Edit occurrence', 'the-events-calendar' ) . '</a>';
 		}
