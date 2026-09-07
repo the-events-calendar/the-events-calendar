@@ -47,6 +47,7 @@ class Provider extends Service_Provider {
 		add_filter( 'post_column_taxonomy_links', [ $this, 'taxonomy_links' ] );
 		add_filter( 'screen_settings', [ $this, 'screen_settings' ], 10, 2 );
 		add_action( 'check_admin_referer', [ $this, 'save_screen_settings' ], 10, 2 );
+		add_action( 'check_admin_referer', [ $this, 'guard_bulk_occurrences' ], 10, 2 );
 	}
 
 	/** Removes all owned callbacks and per-request state. @since TBD @return void */
@@ -71,6 +72,7 @@ class Provider extends Service_Provider {
 		remove_filter( 'post_column_taxonomy_links', [ $this, 'taxonomy_links' ] );
 		remove_filter( 'screen_settings', [ $this, 'screen_settings' ] );
 		remove_action( 'check_admin_referer', [ $this, 'save_screen_settings' ] );
+		remove_action( 'check_admin_referer', [ $this, 'guard_bulk_occurrences' ] );
 		remove_filter( 'wp_redirect', [ $this, 'screen_settings_redirect' ] );
 		$this->container->make( Presentation::class )->reset();
 		$this->rendered = false;
@@ -204,9 +206,6 @@ class Provider extends Service_Provider {
 			$columns                                       = array_combine( $keys, array_values( $columns ) );
 		}
 		unset( $columns['start-date'], $columns['end-date'] );
-		if ( 'occurrences' === self::view() ) {
-			unset( $columns['cb'] );
-		}
 		$columns['tec-start-date'] = __( 'Start Date', 'the-events-calendar' );
 		$columns['tec-end-date']   = __( 'End Date', 'the-events-calendar' );
 		return $columns;
@@ -413,14 +412,14 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Keeps bulk operations on the event view; occurrence mutations require explicit scope.
+	 * Preserves native bulk actions for eligible event records in either view.
 	 *
 	 * @since TBD
 	 * @param array $actions Registered bulk actions.
 	 * @return array Available actions.
 	 */
 	public function bulk_actions( array $actions ): array {
-		return 'occurrences' === self::view() ? [] : $actions;
+		return $actions;
 	}
 
 	/**
@@ -436,7 +435,7 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Hides selection when this view has no supported bulk operations.
+	 * Displays disabled selection for occurrence IDs that lack event-wide bulk scope.
 	 *
 	 * @since TBD
 	 * @param bool    $show Original permission result.
@@ -444,7 +443,42 @@ class Provider extends Service_Provider {
 	 * @return bool Whether to show a checkbox.
 	 */
 	public function checkbox( bool $show, WP_Post $post ): bool {
-		return self::is_list() && 'occurrences' === self::view() && TEC::POSTTYPE === $post->post_type ? false : $show;
+		if ( ! self::is_list() || TEC::POSTTYPE !== $post->post_type || ! tribe( Provisional_Post::class )->is_provisional_post_id( $post->ID ) ) {
+			return $show;
+		}
+		$reason = __( 'Bulk actions are unavailable for individual occurrences. Use Edit occurrence, or turn off Display occurrences in Screen Options to manage whole events.', 'the-events-calendar' );
+		echo '<input type="checkbox" disabled aria-label="' . esc_attr( $reason ) . '" title="' . esc_attr( $reason ) . '" />';
+		return false;
+	}
+
+	/**
+	 * Rejects occurrence IDs before WordPress dispatches an event-wide bulk action.
+	 *
+	 * The nonce hook runs before edit.php collects IDs, including custom bulk actions
+	 * and undo requests. Checking IDs rather than the selected view also protects
+	 * requests that omit or change the presentation filters.
+	 *
+	 * @since TBD
+	 * @param string   $action Nonce action.
+	 * @param int|bool $result Nonce validation result.
+	 * @return void
+	 */
+	public function guard_bulk_occurrences( string $action, $result ): void {
+		if ( 'bulk-posts' !== $action || ! $result || ! self::is_list() ) {
+			return;
+		}
+		// The check_admin_referer hook supplies the successful nonce result above.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$ids = array_merge(
+			wp_parse_id_list( $_REQUEST['post'] ?? [] ),
+			wp_parse_id_list( $_REQUEST['ids'] ?? [] )
+		);
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		foreach ( $ids as $id ) {
+			if ( tribe( Provisional_Post::class )->is_provisional_post_id( $id ) ) {
+				wp_die( esc_html__( 'Bulk actions cannot modify individual occurrences. Select whole events or edit each occurrence separately.', 'the-events-calendar' ), '', 400 );
+			}
+		}
 	}
 
 	/**

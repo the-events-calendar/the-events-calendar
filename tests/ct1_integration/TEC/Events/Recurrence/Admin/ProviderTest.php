@@ -11,6 +11,35 @@ class ProviderTest extends WPTestCase {
 	use With_Recurrence_Engine;
 
 	/** @test */
+	public function should_disable_occurrence_selection_and_reject_forged_bulk_requests(): void {
+		$post = $this->given_a_multi_date_event();
+		$row = Occurrence::where( 'post_id', $post->ID )->first();
+		$screen = $GLOBALS['current_screen'] ?? null;
+		$request = $_REQUEST;
+		set_current_screen( 'edit-tribe_events' );
+		try {
+			$provider = tribe( Provider::class );
+			$this->assertTrue( $provider->checkbox( true, $post ) );
+			$this->assertFalse( $provider->checkbox( false, $post ) );
+			ob_start();
+			$show = $provider->checkbox( true, get_post( $row->provisional_id ) );
+			$html = ob_get_clean();
+			$this->assertFalse( $show );
+			$this->assertStringContainsString( 'disabled', $html );
+			$this->assertStringContainsString( 'aria-label=', $html );
+			$this->assertStringNotContainsString( 'name="post[]"', $html );
+			$_REQUEST = [ 'post' => [ $post->ID ] ];
+			$provider->guard_bulk_occurrences( 'bulk-posts', 1 );
+			$_REQUEST = [ 'tec_events_view' => 'events', 'post' => [ $post->ID, $row->provisional_id ] ];
+			$this->expectException( \WPDieException::class );
+			$provider->guard_bulk_occurrences( 'bulk-posts', 1 );
+		} finally {
+			$_REQUEST = $request;
+			$GLOBALS['current_screen'] = $screen;
+		}
+	}
+
+	/** @test */
 	public function should_keep_native_date_columns_for_each_occurrence(): void {
 		$post = $this->given_a_multi_date_event();
 		$rows = iterator_to_array( Occurrence::where( 'post_id', $post->ID )->order_by( 'start_date', 'ASC' )->all(), false );
@@ -44,8 +73,8 @@ class ProviderTest extends WPTestCase {
 			$this->assertArrayNotHasKey( 'tec-schedule', $columns );
 			$this->assertArrayHasKey( 'tec-start-date', $columns );
 			$this->assertArrayNotHasKey( 'start-date', $columns );
-			$this->assertArrayNotHasKey( 'cb', $columns );
-			$this->assertSame( [], tribe( Provider::class )->bulk_actions( [ 'trash' => 'Trash' ] ) );
+			$this->assertArrayHasKey( 'cb', $columns );
+			$this->assertSame( [ 'trash' => 'Trash' ], tribe( Provider::class )->bulk_actions( [ 'trash' => 'Trash' ] ) );
 			$_REQUEST['tec_events_view'] = 'events';
 			$this->assertSame( [ 'trash' => 'Trash' ], tribe( Provider::class )->bulk_actions( [ 'trash' => 'Trash' ] ) );
 		} finally {
