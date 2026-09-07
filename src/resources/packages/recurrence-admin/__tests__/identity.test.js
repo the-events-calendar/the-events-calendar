@@ -61,6 +61,9 @@ test( 'keeps tooltips within the viewport and hoverable', () => {
 	triggers[ 0 ].dispatchEvent( new MouseEvent( 'pointerover', { bubbles: true } ) );
 	expect( tooltip.style.left ).toBe( '736px' );
 	expect( tooltip.style.top ).toBe( '660px' );
+	triggers[ 0 ].getBoundingClientRect = () => ( { left: 10, top: -100, bottom: -76 } );
+	window.dispatchEvent( new Event( 'scroll' ) );
+	expect( tooltip.style.top ).toBe( '8px' );
 	triggers[ 0 ].dispatchEvent( new MouseEvent( 'pointerout', { bubbles: true, relatedTarget: tooltip } ) );
 	jest.runAllTimers();
 	expect( triggers[ 0 ].parentElement.classList.contains( 'is-open' ) ).toBe( true );

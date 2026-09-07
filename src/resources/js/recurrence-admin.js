@@ -30,7 +30,7 @@ export const initRowIdentity = ( list ) => {
 		const left = Math.max( 8, Math.min( rect.left, window.innerWidth - width - 8 ) );
 		const top = rect.bottom + height > window.innerHeight - 8 ? Math.max( 8, rect.top - height ) : rect.bottom;
 		tooltip.style.left = `${ left }px`;
-		tooltip.style.top = `${ top }px`;
+		tooltip.style.top = `${ Math.max( 8, Math.min( top, window.innerHeight - height - 8 ) ) }px`;
 	};
 
 	const close = () => {
