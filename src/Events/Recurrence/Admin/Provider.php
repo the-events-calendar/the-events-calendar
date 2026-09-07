@@ -277,15 +277,6 @@ class Provider extends Service_Provider {
 			echo '<span class="tec-occurrence-admin__tooltip" role="tooltip" id="' . esc_attr( $tooltip_id ) . '">' . esc_html( $status['title'] . '. ' . $status['message'] ) . '</span>';
 		}
 		echo '</span>';
-		if ( $data['isOccurrence'] ) {
-			echo '<span class="tec-occurrence-admin__parent">' . esc_html__( 'Event:', 'the-events-calendar' ) . ' ';
-			if ( $data['parentEditLink'] ) {
-				echo '<a href="' . esc_url( $data['parentEditLink'] ) . '">' . esc_html( $data['eventTitle'] ) . '</a>';
-			} else {
-				echo esc_html( $data['eventTitle'] );
-			}
-			echo '</span>';
-		}
 		echo '</div>';
 		if ( isset( $actions['edit'] ) && $data['isOccurrence'] ) {
 			$actions['edit'] = '<a href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">' . esc_html__( 'Edit occurrence', 'the-events-calendar' ) . '</a>';
