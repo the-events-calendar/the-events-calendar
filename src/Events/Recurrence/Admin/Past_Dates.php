@@ -113,7 +113,7 @@ class Past_Dates {
 		if ( ! $upcoming ) {
 			$page = $this->page( $id, 0, $as_of );
 		} else {
-			$dates = array_map( [ $list, 'format_chip' ], $list->get_scheduled_dates( $id ) );
+			$dates = array_map( [ $list, 'format_chip' ], $list->get_scheduled_dates( $id, 'all', 0, 0, $as_of ) );
 			$page  = [
 				'dates' => $dates,
 				'total' => count( $dates ),
