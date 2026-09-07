@@ -119,9 +119,6 @@ class Occurrence_Writes {
 			wp_die( esc_html__( 'Removing or restoring an individual occurrence is not supported here. This occurrence was not changed.', 'the-events-calendar' ), 409 );
 			return;
 		}
-		if ( 'edit' === tribe_get_request_var( 'action', '' ) ) {
-			tribe( Admin_Notice::class )->set( 'info', __( 'You are editing this occurrence. Content, status and categories are shared by every date of this event. Date changes apply only to this occurrence when its schedule is editable.', 'the-events-calendar' ) );
-		}
 	}
 
 	/**

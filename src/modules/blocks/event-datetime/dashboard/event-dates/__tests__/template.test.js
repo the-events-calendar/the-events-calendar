@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import { CheckboxControl } from '@wordpress/components';
+import { Button, CheckboxControl } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -58,6 +58,64 @@ const convertibleConfig = {
 const render = () => renderer.create( <EventDates attributes={ {} } setAttributes={ jest.fn() } start="2050-01-05 09:00:00" /> );
 
 describe( 'Event Dates panel', () => {
+	test.each( [ 1, 6 ] )( 'shows %i faded past dates inline beside upcoming dates', ( count ) => {
+		setConfig( { ...convertibleConfig, summary: { count: count + 1, dates: [
+			...Array.from( { length: count }, () => ( { ...lockedSummary.dates[ 0 ], status: 'past' } ) ),
+			lockedSummary.dates[ 1 ],
+		] } } );
+		const tree = render();
+		expect( tree.root.findAll( ( node ) => node.type === 'ul' && node.props[ 'aria-label' ] === 'Past dates' ) ).toHaveLength( 1 );
+		expect( tree.root.findAllByType( Button ).filter( ( node ) => node.props[ 'aria-expanded' ] !== undefined ) ).toHaveLength( 0 );
+	} );
+
+	test( 'loads older past-only dates on demand and allows retry after failure', async () => {
+		const previousFetch = global.fetch;
+		global.fetch = jest.fn().mockResolvedValueOnce( { ok: false } ).mockResolvedValueOnce( {
+			ok: true, json: async () => ( { dates: [ { ...lockedSummary.dates[ 0 ], status: 'past', edit_link: 'https://example.test/older' } ], next: null } ),
+		} );
+		try {
+			setConfig( { ...convertibleConfig, summary: {
+				count: 26, next: 25, asOf: 1800000000, nonce: 'test-nonce', url: 'https://example.test/wp-json/tec/v1/events/42/past-dates',
+				dates: Array.from( { length: 25 }, () => ( { ...lockedSummary.dates[ 0 ], status: 'past' } ) ),
+			} } );
+			const tree = render();
+			const load = () => tree.root.findAllByType( Button ).find( ( node ) => node.props.children === 'Load older dates' );
+			expect( global.fetch ).not.toHaveBeenCalled();
+			await renderer.act( async () => load().props.onClick() );
+			expect( JSON.stringify( tree.toJSON() ) ).toContain( 'Could not load older dates' );
+			expect( load().props.disabled ).toBe( false );
+			await renderer.act( async () => load().props.onClick() );
+			expect( global.fetch.mock.calls[ 1 ][ 0 ].searchParams.get( 'offset' ) ).toBe( '25' );
+			expect( load() ).toBeUndefined();
+			expect( JSON.stringify( tree.toJSON() ) ).toContain( 'All past dates are displayed.' );
+		} finally {
+			global.fetch = previousFetch;
+		}
+	} );
+
+	test( 'expands and collapses past dates without hiding upcoming dates', () => {
+		setConfig( {
+			...convertibleConfig,
+			lockEnabled: true,
+			summary: {
+				...lockedSummary,
+				dates: [ ...Array.from( { length: 7 }, () => ( { ...lockedSummary.dates[ 0 ], status: 'past' } ) ), lockedSummary.dates[ 1 ] ],
+			},
+		} );
+		const tree = render();
+		const toggle = () => tree.root.findAllByType( Button ).find( ( node ) => node.props[ 'aria-expanded' ] !== undefined );
+		const pastLists = () => tree.root.findAll( ( node ) => node.type === 'ul' && node.props[ 'aria-label' ] === 'Past dates' );
+		expect( toggle().props[ 'aria-expanded' ] ).toBe( false );
+		expect( pastLists() ).toHaveLength( 0 );
+		renderer.act( () => toggle().props.onClick() );
+		expect( toggle().props[ 'aria-expanded' ] ).toBe( true );
+		expect( pastLists() ).toHaveLength( 1 );
+		expect( tree.root.findAll( ( node ) => node.type === 'ul' && node.props[ 'aria-label' ] === 'Upcoming dates' ) ).toHaveLength( 1 );
+		renderer.act( () => toggle().props.onClick() );
+		expect( toggle().props[ 'aria-expanded' ] ).toBe( false );
+		expect( pastLists() ).toHaveLength( 0 );
+	} );
+
 	afterEach( () => {
 		delete global.tribe_editor_config;
 	} );
@@ -163,7 +221,7 @@ describe( 'Event Dates panel', () => {
 
 		expect( json ).toContain( 'Notice--info' );
 		expect( json ).toContain( 'This is one date of an event' );
-		expect( json ).toContain( 'Edit the recurring event.' );
+		expect( json ).toContain( 'Edit event details.' );
 		expect( json ).toContain( 'turn off the recurrence lock' );
 		expect( json ).not.toContain( 'January 5, 2050' );
 		expect( json ).not.toContain( 'single occurrence' );
@@ -183,7 +241,7 @@ describe( 'Event Dates panel', () => {
 
 		expect( json ).toContain( 'Notice--warning' );
 		expect( json ).toContain( 'until the event is converted' );
-		expect( json ).toContain( 'Converting sends you to the recurring event.' );
+		expect( json ).toContain( 'Converting sends you to the event editor.' );
 		expect( json ).not.toContain( 'January 5, 2050' );
 
 		const form = tree.root.findByType( 'form' );

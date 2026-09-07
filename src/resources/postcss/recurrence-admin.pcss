@@ -1,0 +1,130 @@
+.tec-occurrence-admin__identity {
+	color: #50575e;
+	font-size: 12px;
+	line-height: 1.7;
+	margin-top: 6px;
+}
+
+.tec-occurrence-admin__parent {
+	display: block;
+}
+
+.tec-occurrence-admin__badge {
+	align-items: center;
+	background: #f0f0f1;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	color: #2c3338;
+	display: inline-flex;
+	gap: 4px;
+	margin-left: 4px;
+	padding: 1px 8px;
+	position: relative;
+	vertical-align: middle;
+}
+
+.tec-occurrence-admin__badge--dates {
+	background: #edfaef;
+	border-color: #b8dbc0;
+	color: #1d5b31;
+}
+
+.tec-occurrence-admin__badge--rules {
+	background: #f0edff;
+	border-color: #cdc4ed;
+	color: #4b3684;
+}
+
+.tec-occurrence-admin__lock {
+	align-items: center;
+	background: transparent;
+	border: 0;
+	color: inherit;
+	cursor: help;
+	display: inline-flex;
+	flex: 0 0 16px;
+	height: 16px;
+	justify-content: center;
+	line-height: 1;
+	padding: 0;
+	transform: translateX(2px);
+	width: 16px;
+}
+
+.tec-occurrence-admin__lock svg {
+	display: block;
+	height: 16px;
+	width: 16px;
+}
+
+.tec-occurrence-admin__lock:focus-visible {
+	border-radius: 2px;
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+.tec-occurrence-admin__tooltip {
+	background: #2c3338;
+	border-radius: 2px;
+	box-shadow: 0 2px 6px #0003;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 400;
+	inset-inline-start: 0;
+	line-height: 1.5;
+	padding: 8px 10px;
+	position: absolute;
+	top: 100%;
+	visibility: hidden;
+	white-space: normal;
+	width: min(260px, 65vw);
+	z-index: 10;
+}
+
+.tec-occurrence-admin__badge:not(.tec-occurrence-admin__badge--dismissed) .tec-occurrence-admin__lock:hover + .tec-occurrence-admin__tooltip,
+.tec-occurrence-admin__badge:not(.tec-occurrence-admin__badge--dismissed) .tec-occurrence-admin__lock:focus-visible + .tec-occurrence-admin__tooltip {
+	visibility: visible;
+}
+
+.column-tec-author {
+	width: 8%;
+}
+
+/* Restore the filter button hidden by the legacy event list. */
+.events-cal #tec-occurrence-category ~ #post-query-submit {
+	display: inline-block;
+}
+
+.fixed .column-tec-start-date,
+.fixed .column-tec-end-date {
+	width: 14%;
+}
+
+.tec-occurrence-admin__editor {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	margin: 16px 0;
+	padding: 12px 20px;
+}
+
+.tec-occurrence-admin__editor p {
+	margin: 8px 0;
+}
+
+@media screen and (max-width: 782px) {
+
+	/* Keep filters available when WordPress hides the top navigation. */
+	.events-cal .tablenav.top {
+		display: flow-root;
+		height: auto;
+	}
+
+	.events-cal .tablenav.top .actions:not(.bulkactions) {
+		display: flex;
+		flex-wrap: wrap;
+		float: none;
+		gap: 8px;
+		margin: 12px 0;
+		width: 100%;
+	}
+}
