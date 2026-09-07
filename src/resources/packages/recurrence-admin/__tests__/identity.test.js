@@ -57,12 +57,14 @@ test( 'supports tap toggling and outside dismissal', () => {
 test( 'keeps tooltips within the viewport and hoverable', () => {
 	jest.useFakeTimers();
 	const tooltip = triggers[ 0 ].nextElementSibling;
-	triggers[ 0 ].getBoundingClientRect = () => ( { left: 1000, top: 740, bottom: 764 } );
+	triggers[ 0 ].getBoundingClientRect = () => ( { left: 1000, width: 24, top: 740, bottom: 764 } );
 	tooltip.getBoundingClientRect = () => ( { width: 280, height: 80 } );
 	triggers[ 0 ].dispatchEvent( new MouseEvent( 'pointerover', { bubbles: true } ) );
 	expect( tooltip.style.left ).toBe( '736px' );
-	expect( tooltip.style.top ).toBe( '660px' );
-	triggers[ 0 ].getBoundingClientRect = () => ( { left: 10, top: -100, bottom: -76 } );
+	expect( tooltip.style.top ).toBe( '650px' );
+	expect( tooltip.dataset.placement ).toBe( 'above' );
+	expect( tooltip.style.getPropertyValue( '--tec-popover-arrow-left' ) ).toBe( '268px' );
+	triggers[ 0 ].getBoundingClientRect = () => ( { left: 10, width: 24, top: -100, bottom: -76 } );
 	window.dispatchEvent( new Event( 'scroll' ) );
 	expect( tooltip.style.top ).toBe( '8px' );
 	triggers[ 0 ].dispatchEvent( new MouseEvent( 'pointerout', { bubbles: true, relatedTarget: tooltip } ) );

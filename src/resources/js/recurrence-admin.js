@@ -27,8 +27,15 @@ export const initRowIdentity = ( list ) => {
 		const rect = active.getBoundingClientRect();
 		const width = tooltip.getBoundingClientRect().width;
 		const height = tooltip.getBoundingClientRect().height;
-		const left = Math.max( 8, Math.min( rect.left, window.innerWidth - width - 8 ) );
-		const top = rect.bottom + height > window.innerHeight - 8 ? Math.max( 8, rect.top - height ) : rect.bottom;
+		const center = rect.left + rect.width / 2;
+		const left = Math.max( 8, Math.min( center - width / 2, window.innerWidth - width - 8 ) );
+		const above = rect.bottom + height + 10 > window.innerHeight - 8;
+		const top = above ? rect.top - height - 10 : rect.bottom + 10;
+		tooltip.dataset.placement = above ? 'above' : 'below';
+		tooltip.style.setProperty(
+			'--tec-popover-arrow-left',
+			`${ Math.max( 12, Math.min( center - left, width - 12 ) ) }px`
+		);
 		tooltip.style.left = `${ left }px`;
 		tooltip.style.top = `${ Math.max( 8, Math.min( top, window.innerHeight - height - 8 ) ) }px`;
 	};

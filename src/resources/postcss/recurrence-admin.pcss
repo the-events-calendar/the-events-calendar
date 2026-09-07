@@ -63,26 +63,75 @@
 }
 
 .tec-occurrence-admin__tooltip {
-	background: #2c3338;
+	background: #fff;
+	border: 1px solid #c3c4c7;
 	border-radius: 4px;
 	box-shadow: 0 2px 6px #0003;
 	box-sizing: border-box;
-	color: #fff;
+	color: #2c3338;
 	font-size: 12px;
 	font-weight: 400;
 	inset-inline-start: 0;
 	line-height: 1.5;
-	max-height: calc(100vh - 16px);
-	overflow: auto;
+
 	overflow-wrap: anywhere;
-	padding: 8px 10px;
 	position: absolute;
 	text-align: start;
-	top: 100%;
+	top: calc(100% + 10px);
 	visibility: hidden;
 	white-space: normal;
-	width: min(280px, calc(100vw - 16px));
+	width: min(300px, calc(100vw - 16px));
 	z-index: 10000;
+}
+
+/* A separate scrolling body leaves the pointing arrow unclipped. */
+.tec-occurrence-admin__popover-content {
+	display: block;
+	max-height: calc(100vh - 34px);
+	overflow: auto;
+	padding: 12px;
+}
+
+.tec-occurrence-admin__popover-title {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+
+.tec-occurrence-admin__popover-detail,
+.tec-occurrence-admin__popover-section > span,
+.tec-occurrence-admin__popover-section > strong {
+	display: block;
+}
+
+.tec-occurrence-admin__popover-section {
+	border-top: 1px solid #dcdcde;
+	display: block;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+.tec-occurrence-admin__popover-section > strong {
+	margin-bottom: 3px;
+}
+
+.tec-occurrence-admin__tooltip::before {
+	background: #fff;
+	border-left: 1px solid #c3c4c7;
+	border-top: 1px solid #c3c4c7;
+	content: "";
+	height: 8px;
+	left: var(--tec-popover-arrow-left, 14px);
+	position: absolute;
+	top: -5px;
+	transform: translateX(-50%) rotate(45deg);
+	width: 8px;
+}
+
+.tec-occurrence-admin__tooltip[data-placement="above"]::before {
+	bottom: -5px;
+	top: auto;
+	transform: translateX(-50%) rotate(225deg);
 }
 
 .tec-occurrence-admin__identity[data-mounted] .tec-occurrence-admin__tooltip {

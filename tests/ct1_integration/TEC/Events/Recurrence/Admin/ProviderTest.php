@@ -263,6 +263,8 @@ class ProviderTest extends WPTestCase {
 			$this->assertSame( 1, preg_match( '/data-icon="repeat"[^>]+aria-describedby="([^"]+)"/', $html, $match ) );
 			$this->assertStringContainsString( 'role="tooltip" id="' . $match[1] . '"', $html );
 			$this->assertStringContainsString( 'Existing scheduled dates are preserved.', $html );
+			$this->assertStringContainsString( '<strong class="tec-occurrence-admin__popover-title">Recurring event</strong>', $html );
+			$this->assertStringContainsString( 'class="tec-occurrence-admin__popover-section"><strong>', $html );
 			$this->assertStringNotContainsString( 'Recurrence locked ·', $html );
 		} finally {
 			$GLOBALS['current_screen'] = $screen;
