@@ -12,7 +12,7 @@ class EditorTest extends WPTestCase {
 	use With_Recurrence_Engine;
 
 	/** @test */
-	public function should_describe_the_selected_date_and_shared_content_in_both_editors(): void {
+	public function should_describe_the_selected_date_and_shared_content_in_editor_configuration(): void {
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		$event = $this->given_a_multi_date_event();
 		$row = Occurrence::where( 'post_id', $event->ID )->order_by( 'start_date', 'DESC' )->first();
@@ -22,12 +22,6 @@ class EditorTest extends WPTestCase {
 		$this->assertSame( 'Multiple dates', $data['scheduleLabel'] );
 		$this->assertStringContainsString( 'January 12, 2050', $data['start'] );
 		$this->assertStringContainsString( 'moves only this occurrence', $data['scope'] );
-		ob_start();
-		$editor->render( get_post( $row->provisional_id ) );
-		$html = ob_get_clean();
-		$this->assertStringContainsString( esc_html( $data['start'] ), $html );
-		$this->assertStringContainsString( esc_url( $data['parentEditLink'] ), $html );
-		$this->assertStringContainsString( 'tec-occurrence-admin__editor', $html );
 		$request = new WP_REST_Request( 'GET' );
 		$request->set_param( 'context', 'edit' );
 		$this->assertSame( $data, $editor->rest_data( [ 'id' => $row->provisional_id ], Editor::FIELD, $request ) );

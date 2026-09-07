@@ -1,6 +1,6 @@
 <?php
 /**
- * Keeps event identity and recurrence availability visible in both editors.
+ * Provides read-only event identity and recurrence availability to the Block Editor.
  *
  * @since TBD
  * @package TEC\Events\Recurrence\Admin
@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_REST_Request;
 
-/** Persistent editor context, separate from dismissible save notifications. @since TBD */
+/** Read-only editor context, separate from authoring controls. @since TBD */
 class Editor {
 	/** @var string Read-only, edit-context response field, refreshed after saves. @since TBD */
 	public const FIELD = 'tec_recurrence_admin';
@@ -22,7 +22,6 @@ class Editor {
 	/** Registers editor configuration and rendering. @since TBD @return void */
 	public function register(): void {
 		add_filter( 'tribe_editor_config', [ $this, 'config' ], 100 );
-		add_action( 'edit_form_after_title', [ $this, 'render' ] );
 		if ( did_action( 'init' ) ) {
 			$this->register_field();
 		} else {
@@ -33,7 +32,6 @@ class Editor {
 	/** Removes callbacks and the editor-only response field. @since TBD @return void */
 	public function unregister(): void {
 		remove_filter( 'tribe_editor_config', [ $this, 'config' ], 100 );
-		remove_action( 'edit_form_after_title', [ $this, 'render' ] );
 		remove_action( 'init', [ $this, 'register_field' ] );
 		// WordPress has no unregister_rest_field API; remove only the field owned here.
 		global $wp_rest_additional_fields;
@@ -122,34 +120,5 @@ class Editor {
 			$data['scope'] = $data['count'] ? __( 'This event has one scheduled date.', 'the-events-calendar' ) : __( 'This event has no scheduled dates yet.', 'the-events-calendar' );
 		}
 		return $data;
-	}
-
-	/**
-	 * Renders persistent Classic Editor context immediately beneath the title.
-	 *
-	 * @since TBD
-	 * @param WP_Post $post Edited post.
-	 * @return void
-	 */
-	public function render( WP_Post $post ): void {
-		if ( TEC::POSTTYPE !== $post->post_type || ! current_user_can( 'edit_post', $post->ID ) ) {
-			return;
-		}
-		$data = $this->data( $post->ID );
-		echo '<section class="tec-occurrence-admin__editor" aria-label="' . esc_attr__( 'Event editing context', 'the-events-calendar' ) . '"><p><strong>' . esc_html( $data['heading'] ) . '</strong> · ' . esc_html( $data['scheduleLabel'] ) . '</p><p>' . esc_html( $data['start'] ) . ' — ' . esc_html( $data['end'] ) . '</p><p>' . esc_html( $data['scope'] ) . '</p>';
-		if ( $data['isOccurrence'] && $data['parentEditLink'] ) {
-			echo '<p><a href="' . esc_url( $data['parentEditLink'] ) . '">' . esc_html__( 'Edit event details', 'the-events-calendar' ) . '</a> · <a href="' . esc_url( $data['datesLink'] ) . '">' . esc_html__( 'View all dates', 'the-events-calendar' ) . '</a></p>';
-		}
-		if ( $data['locked'] ) {
-			$status = $data['status'];
-			echo '<p class="description">';
-			if ( $status['url'] ) {
-				echo '<a href="' . esc_url( $status['url'] ) . '" title="' . esc_attr( $status['title'] ) . '">' . esc_html( $status['label'] ) . '</a>';
-			} else {
-				echo esc_html( $status['guidance'] );
-			}
-			echo '</p>';
-		}
-		echo '</section>';
 	}
 }
