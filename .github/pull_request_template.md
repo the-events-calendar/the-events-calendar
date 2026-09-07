@@ -20,6 +20,7 @@ Include any important information for reviewers
 - [ ] Ran `npm run changelog` to add changelog file(s). More info [here](https://docs.theeventscalendar.com/developer/git/changelogs/#process)
 - [ ] Code is covered by **NEW** `wpunit` or `integration` tests.
 - [ ] Code is covered by **EXISTING** `wpunit` or `integration` tests.
+- [ ] Spec has been added or updated in `openspec/`. If not needed, `sdd-exception: <reason>` has been added to the Description.
 - [ ] Are all the **required** tests passing?
 - [ ] Automated code review comments are addressed.
 - [ ] Have you added Artifacts?

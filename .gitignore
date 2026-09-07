@@ -67,3 +67,6 @@ build
 
 # PHP compatibility checker cache (downloaded phpcs phar + standards)
 dev/php-compat/
+
+# Personal Claude Code settings
+.claude/settings.local.json

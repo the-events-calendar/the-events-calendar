@@ -24,6 +24,18 @@ We do have some guidelines that you should keep in mind while working with this 
 
 That's all! please have fun and code responsibly :)
 
+## Spec-driven development
+
+This repository uses [OpenSpec](https://github.com/Fission-AI/OpenSpec) as its spec-driven development framework. Specs live in `openspec/`: a change is proposed as a delta spec under `openspec/changes/`, reviewed before implementation, and merged into `openspec/specs/` once it ships.
+
+Every pull request should either include a spec change or state why one is not needed by adding a line to the description:
+
+```text
+sdd-exception: <reason>
+```
+
+Typical exceptions: dependency bumps, CI or tooling config, changelog-only changes, translation syncs, and pure refactors with no behavior change.
+
 ## Further Information
 
 * **Official Release**: https://wordpress.org/plugins/the-events-calendar/
