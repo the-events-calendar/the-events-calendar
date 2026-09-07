@@ -1,0 +1,198 @@
+.tec-occurrence-admin__identity {
+	align-items: center;
+	display: inline-flex;
+	gap: 2px;
+	vertical-align: middle;
+}
+
+.fixed .column-tec-identity {
+	box-sizing: border-box;
+	max-width: 60px;
+	padding: 8px 10px;
+	text-align: center;
+	width: 60px;
+}
+
+.tec-occurrence-admin__indicator {
+	background: #f0f0f1;
+	border-radius: 4px;
+	color: #50575e;
+	display: inline-flex;
+	position: relative;
+}
+
+.tec-occurrence-admin__indicator--dates {
+	background: #edfaef;
+	color: #1d5b31;
+}
+
+.tec-occurrence-admin__indicator--rules {
+	background: #f0edff;
+	color: #4b3684;
+}
+
+.tec-occurrence-admin__trigger {
+	align-items: center;
+	background: transparent;
+	border: 1px solid currentcolor;
+	border-radius: 4px;
+	box-sizing: border-box;
+	color: inherit;
+	cursor: help;
+	display: inline-flex;
+	height: 28px;
+	justify-content: center;
+	line-height: 1;
+	padding: 0;
+	width: 28px;
+}
+
+.tec-occurrence-admin__indicator--locked .tec-occurrence-admin__trigger {
+	border: 1px dashed currentcolor;
+}
+
+.tec-occurrence-admin__trigger svg {
+	display: block;
+	height: 20px;
+	width: 20px;
+}
+
+.tec-occurrence-admin__trigger:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 1px;
+}
+
+.tec-occurrence-admin__tooltip {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	box-shadow: 0 2px 6px #0003;
+	box-sizing: border-box;
+	color: #2c3338;
+	font-size: 12px;
+	font-weight: 400;
+	inset-inline-start: 0;
+	line-height: 1.5;
+
+	overflow-wrap: anywhere;
+	position: absolute;
+	text-align: start;
+	top: calc(100% + 10px);
+	visibility: hidden;
+	white-space: normal;
+	width: min(300px, calc(100vw - 16px));
+	z-index: 10000;
+}
+
+/* A separate scrolling body leaves the pointing arrow unclipped. */
+.tec-occurrence-admin__popover-content {
+	display: block;
+	max-height: calc(100vh - 34px);
+	overflow: auto;
+	padding: 12px;
+}
+
+.tec-occurrence-admin__popover-title {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+
+.tec-occurrence-admin__popover-detail,
+.tec-occurrence-admin__popover-section > span,
+.tec-occurrence-admin__popover-section > strong {
+	display: block;
+}
+
+.tec-occurrence-admin__popover-section {
+	border-top: 1px solid #dcdcde;
+	display: block;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+.tec-occurrence-admin__popover-section > strong {
+	margin-bottom: 3px;
+}
+
+.tec-occurrence-admin__tooltip::before {
+	background: #fff;
+	border-left: 1px solid #c3c4c7;
+	border-top: 1px solid #c3c4c7;
+	content: "";
+	height: 8px;
+	left: var(--tec-popover-arrow-left, 14px);
+	position: absolute;
+	top: -5px;
+	transform: translateX(-50%) rotate(45deg);
+	width: 8px;
+}
+
+.tec-occurrence-admin__tooltip[data-placement="above"]::before {
+	bottom: -5px;
+	top: auto;
+	transform: translateX(-50%) rotate(225deg);
+}
+
+.tec-occurrence-admin__identity[data-mounted] .tec-occurrence-admin__tooltip {
+	inset-inline-start: auto;
+	position: fixed;
+}
+
+.tec-occurrence-admin__indicator.is-open > .tec-occurrence-admin__tooltip,
+.tec-occurrence-admin__identity:not([data-mounted]) .tec-occurrence-admin__indicator:hover > .tec-occurrence-admin__tooltip,
+.tec-occurrence-admin__identity:not([data-mounted]) .tec-occurrence-admin__trigger:focus-visible + .tec-occurrence-admin__tooltip {
+	visibility: visible;
+}
+
+.column-tec-author {
+	width: 8%;
+}
+
+/* Restore the filter button hidden by the legacy event list. */
+.events-cal #tec-occurrence-category ~ #post-query-submit {
+	display: inline-block;
+}
+
+.fixed .column-tec-start-date,
+.fixed .column-tec-end-date {
+	width: 14%;
+}
+
+.tec-occurrence-admin__editor {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	margin: 16px 0;
+	padding: 12px 20px;
+}
+
+.tec-occurrence-admin__editor p {
+	margin: 8px 0;
+}
+
+@media screen and (max-width: 782px) {
+
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) .column-primary ~ td.column-tec-identity:not(.check-column) {
+		flex: 0 0 60px;
+		padding: 8px 10px;
+	}
+
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td.column-tec-identity::before {
+		display: none;
+	}
+
+	/* Keep filters available when WordPress hides the top navigation. */
+	.events-cal .tablenav.top {
+		display: flow-root;
+		height: auto;
+	}
+
+	.events-cal .tablenav.top .actions:not(.bulkactions) {
+		display: flex;
+		flex-wrap: wrap;
+		float: none;
+		gap: 8px;
+		margin: 12px 0;
+		width: 100%;
+	}
+}

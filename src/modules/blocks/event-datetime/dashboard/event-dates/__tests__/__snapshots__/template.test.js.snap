@@ -14,7 +14,7 @@ exports[`Event Dates panel renders the conversion form on a locked occurrence wh
       <a
         href="https://example.test/wp-admin/post.php?post=42&action=edit"
       >
-        Edit the recurring event.
+        Edit event details.
       </a>
     </p>
   </div>
@@ -64,7 +64,7 @@ exports[`Event Dates panel renders the conversion form on a locked occurrence wh
       className="tribe-editor__event-dates__description"
     >
       Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.
-       Converting sends you to the recurring event.
+       Converting sends you to the event editor.
     </p>
     <label
       className="CheckboxControl"
@@ -287,7 +287,7 @@ exports[`Event Dates panel renders the locked occurrence notice with the parent 
       <a
         href="https://example.test/wp-admin/post.php?post=42&action=edit"
       >
-        Edit the recurring event.
+        Edit event details.
       </a>
     </p>
   </div>
@@ -306,7 +306,7 @@ exports[`Event Dates panel renders the occurrence notice 1`] = `
     <a
       href="https://example.test/wp-admin/post.php?post=42&action=edit"
     >
-      Edit the recurring event to change the other dates.
+      Edit the event to change the other dates.
     </a>
   </p>
 </div>

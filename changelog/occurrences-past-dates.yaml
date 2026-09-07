@@ -1,0 +1,5 @@
+significance: patch
+type: tweak
+entry: Improved past occurrence browsing with inline date previews and on-demand
+  loading for older dates.
+timestamp: 2026-09-07T03:28:00.986Z

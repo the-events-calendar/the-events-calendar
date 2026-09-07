@@ -5,7 +5,7 @@
 									<p id="tec-events-recurrence-dates-lock-reason">
 													This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until the event is converted into individual dates.											</p>
 													<p>
-						<a href="http://wordpress.test/wp-admin/post.php?post={{EVENT_ID}}&#038;action=edit">Edit the recurring event.</a>
+						<a href="http://wordpress.test/wp-admin/post.php?post={{EVENT_ID}}&#038;action=edit">Edit event details.</a>
 					</p>
 							</div>
 										<div class="tec-events-recurrence-dates__convert">
@@ -18,7 +18,7 @@
 						<li>removes the event from its Series.</li>
 					</ul>
 					<p class="description">
-						Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.													Converting sends you to the recurring event.											</p>
+						Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.													Converting sends you to the event editor.											</p>
 											<p class="tec-events-recurrence-dates__convert-actions">
 														<input
 								type="checkbox"

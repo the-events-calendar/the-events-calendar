@@ -273,19 +273,18 @@ class Admin_Provider extends Service_Provider {
 	 * } The chips: the upcoming ones (the next one first) and the past ones, oldest first.
 	 */
 	private function get_chips( int $event_id ): array {
-		$list  = $this->container->make( Occurrences_List::class );
-		$chips = [
-			'count'    => 0,
-			'upcoming' => [],
-			'past'     => [],
-		];
-
-		foreach ( $list->get_scheduled_dates( $event_id ) as $row ) {
-			$chip = $list->format_chip( $row );
-
+		$summary = $this->container->make( Admin\Past_Dates::class )->summary( $event_id );
+		$chips   = array_merge(
+			$summary,
+			[
+				'upcoming' => [],
+				'past'     => [],
+			]
+		);
+		foreach ( $summary['dates'] as $chip ) {
 			$chips[ 'past' === $chip['status'] ? 'past' : 'upcoming' ][] = $chip;
-			++$chips['count'];
 		}
+		unset( $chips['dates'] );
 
 		return $chips;
 	}

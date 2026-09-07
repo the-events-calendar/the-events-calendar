@@ -41,7 +41,11 @@ class Occurrences_List {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id The Event post ID (a provisional ID is accepted).
+	 * @param int    $post_id The Event post ID (a provisional ID is accepted).
+	 * @param string $scope  All dates or only past dates.
+	 * @param int    $limit  Maximum rows; zero retains the legacy unbounded result.
+	 * @param int    $offset Number of rows already loaded.
+	 * @param int    $as_of  UTC timestamp fixing the past boundary for pagination.
 	 *
 	 * @return array<int,array{
 	 *     provisional_id: int,
@@ -51,19 +55,24 @@ class Occurrences_List {
 	 *     permalink: string
 	 * }> The scheduled dates; `status` is one of `past`, `next` (the first upcoming one) or `upcoming`.
 	 */
-	public function get_scheduled_dates( int $post_id ): array {
+	public function get_scheduled_dates( int $post_id, string $scope = 'all', int $limit = 0, int $offset = 0, int $as_of = 0 ): array {
 		if ( ! tribe()->getVar( 'ct1_fully_activated', false ) ) {
 			// The Occurrences table might not exist at all.
 			return [];
 		}
 
-		$post_id     = Occurrence::normalize_id( $post_id );
-		$occurrences = iterator_to_array(
-			Occurrence::where( 'post_id', '=', $post_id )
-					->order_by( 'start_date_utc', 'ASC' )
-					->all(),
-			false
-		);
+		$post_id = Occurrence::normalize_id( $post_id );
+		$as_of   = $as_of ?: time();
+		$query   = Occurrence::where( 'post_id', '=', $post_id );
+		if ( 'past' === $scope ) {
+			$query->where( 'end_date_utc', '<', gmdate( 'Y-m-d H:i:s', $as_of ) );
+		}
+		$order = 'past' === $scope ? 'DESC' : 'ASC';
+		$query->order_by( 'start_date_utc', $order )->order_by( 'occurrence_id', $order );
+		if ( $limit > 0 ) {
+			$query->limit( $limit )->offset( $offset );
+		}
+		$occurrences = iterator_to_array( $query->all(), false );
 
 		if ( ! count( $occurrences ) ) {
 			return [];
@@ -71,7 +80,7 @@ class Occurrences_List {
 
 		$base_provisional_id = tribe( ID_Generator::class )->current();
 		$timezone            = $this->get_event_timezone( $post_id );
-		$now                 = time();
+		$now                 = $as_of;
 		$next_found          = false;
 		$rows                = [];
 
