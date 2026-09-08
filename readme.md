@@ -55,8 +55,10 @@ store as `tec-plans`.
 
 ### Working on a ticket
 
-1. **Create the change before writing code**, named after the ticket:
-   `openspec new change SOFT-1234 --store tec-plans --description "what this does"`
+1. **Create the change before writing code**, named after the ticket in lower
+   case. OpenSpec requires kebab-case and rejects anything else, so the ticket
+   `SOFT-1234` becomes the change `soft-1234`:
+   `openspec new change soft-1234 --store tec-plans --description "what this does"`
 2. Write the proposal, then commit and push it in the plans repo.
 3. Branch as usual: `feat/SOFT-1234/short-desc`.
 4. Implement. If the work shows the plan was wrong — it often does — update the
