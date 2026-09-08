@@ -79,3 +79,105 @@ archiving it once (after the last repository merges, not per repo). Install it w
 /plugin marketplace add the-events-calendar/skills
 /plugin install tec
 ```
+
+## Running the tests
+
+PHP tests are Codeception + wp-browser suites run inside Docker by [slic](https://github.com/stellarwp/slic), exactly as CI does.
+
+### Setup
+
+`common` is a git submodule of this plugin, but slic treats `the-events-calendar/common` as its own target: it gets its own `composer install`. Run every `slic` command from the **parent directory** that contains `the-events-calendar/`.
+
+```bash
+# 1. Clone the plugin with its common submodule, and slic beside it.
+cd /path/to/plugins           # parent dir; slic will scan it for targets
+git clone --recurse-submodules git@github.com:the-events-calendar/the-events-calendar.git
+git clone git@github.com:stellarwp/slic.git slic
+# already cloned without --recurse-submodules?
+# (cd the-events-calendar && git submodule update --init --recursive)
+
+# 2. Point slic at this directory and quiet the prompts (CI's exact flags).
+export SLIC_BIN="$PWD/slic/slic"
+${SLIC_BIN} here
+${SLIC_BIN} interactive off
+${SLIC_BIN} build-prompt off
+${SLIC_BIN} build-subdir off
+${SLIC_BIN} xdebug off
+${SLIC_BIN} info
+
+# 3. Install dependencies for common FIRST, then the plugin.
+${SLIC_BIN} use the-events-calendar/common
+${SLIC_BIN} composer install --no-dev
+${SLIC_BIN} use the-events-calendar
+${SLIC_BIN} composer install
+
+# 4. Start the containers.
+${SLIC_BIN} up wordpress
+${SLIC_BIN} up chrome                 # only needed by views_ui (WPWebDriver)
+${SLIC_BIN} wp theme install twentytwenty --activate
+```
+
+Two suites need an extra plugin in the WordPress container:
+
+```bash
+${SLIC_BIN} wp plugin install elementor        # elementor_integration
+${SLIC_BIN} wp plugin install wordpress-seo    # integrations_plugin_wordpress_seo
+```
+
+### Running a suite
+
+```bash
+${SLIC_BIN} use the-events-calendar
+${SLIC_BIN} run integration
+
+# a single file, or a single method
+${SLIC_BIN} run wpunit tests/wpunit/Tribe/Events/Event_Test.php
+${SLIC_BIN} run wpunit tests/wpunit/Tribe/Events/Event_Test.php:it_creates_an_event
+
+# filter by name across the suite
+${SLIC_BIN} run views_integration --filter=month
+```
+
+Do not run all suites in one `codecept run`; WordPress globals leak between them.
+
+### Suites
+
+| Suite | Covers | CI |
+|---|---|---|
+| `aggregatorv1` | Event Aggregator v1 REST endpoints | every PR |
+| `blocks_editor_integration` | Block editor / Gutenberg blocks | every PR |
+| `ct1_integration` | Custom Tables v1 schema and queries | every PR |
+| `ct1_migration` | CT1 migration from the legacy meta storage | every PR |
+| `ct1_multisite_integration` | CT1 under multisite | every PR |
+| `ct1_wp_json_api` | WP REST API with CT1 enabled | every PR |
+| `deprecated` | Deprecated functions and classes still resolve | every PR |
+| `elementor_integration` | Elementor widgets (needs `elementor`) | every PR (separate workflow) |
+| `embed_calendar_integration` | Calendar embed shortcode/block | every PR |
+| `event_status` | Event status (cancelled/postponed) | every PR |
+| `features` | Feature-flag layer | no |
+| `integration` | General plugin integration | every PR |
+| `integration_category_colors` | Category colors feature | every PR |
+| `integrations_plugin_wordpress_seo` | Yoast SEO compat (needs `wordpress-seo`, WP 6.9) | every PR (separate workflow) |
+| `muintegration` | Multisite integration | every PR |
+| `rest_tec_v1_integration` | `tec/v1` REST API | every PR (+ OpenAPI lint) |
+| `restv1` | Legacy `tribe/events/v1` REST API | every PR |
+| `rewrite_functional` | Permalinks and rewrite rules | every PR |
+| `views_integration` | Views v2 rendering | every PR |
+| `views_rest` | Views v2 REST responses | no — commented out of the matrix ("weird error with RBE changes") |
+| `views_settings` | Views v2 settings | every PR |
+| `views_ui` | Views v2 browser tests (needs Chrome container) | every PR |
+| `views_v2_customizer_integration` | Views v2 Customizer styles | every PR |
+| `views_widgets` | Views v2 widgets | every PR |
+| `views_wpunit` | Views v2 unit-level | every PR |
+| `wp_json_api` | Core WP REST API for TEC post types | every PR |
+| `wpml_integration` | WPML compat | no |
+| `wpunit` | Plugin unit tests | every PR |
+
+All three workflows are gated on a PHP-file-change check, so a docs-only PR runs none of them.
+
+### How this differs from CI
+
+- CI pins WordPress with `wp core update --force --version=6.8` (6.9 for the SEO suite). Locally the container's bundled version is usually fine; add the same `wp core update` if you need to reproduce a version-specific failure.
+- CI appends `--ext DotReporter` for compact logs; skip it locally for readable output.
+- CI's ssh-agent, composer cache and `docker network prune -f` steps are runner housekeeping with no local equivalent.
+- After `rest_tec_v1_integration`, CI also runs `npm ci` and `npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/` to lint the OpenAPI doc. To reproduce: `${SLIC_BIN} wp plugin activate the-events-calendar && ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard`, then run those npm commands on the host.
