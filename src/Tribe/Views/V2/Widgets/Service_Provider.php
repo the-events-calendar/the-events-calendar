@@ -314,7 +314,7 @@ class Service_Provider extends Provider_Contract {
 			return null;
 		}
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 		return serialize( $data );
 	}
 
