@@ -71,15 +71,15 @@ happen to be standing in.
 ### Where the rest is written down
 
 This section covers what is specific to working here. The
-[`tec-openspec` skill](https://github.com/stellarwp/skills) covers the
+[`tec-openspec` skill](https://github.com/stellarwp/skills-se) covers the
 workflow itself — writing a proposal worth reviewing, keeping it current, and
 archiving it once (after the last repository merges, not per repo). Install it with:
 
-The below will work only once the `stellarwp/skills` becomes public.
+The below will work only once the `stellarwp/skills-se` becomes public.
 
 ```
-/plugin marketplace add stellarwp/skills
-/plugin install nexcess
+/plugin marketplace add stellarwp/skills-se
+/plugin install nexcess-se
 ```
 
 ## Running the tests
