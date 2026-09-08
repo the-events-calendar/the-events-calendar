@@ -71,13 +71,15 @@ happen to be standing in.
 ### Where the rest is written down
 
 This section covers what is specific to working here. The
-[`tec-openspec` skill](https://github.com/the-events-calendar/skills) covers the
+[`openspec` skill](https://github.com/stellarwp/skills) covers the
 workflow itself — writing a proposal worth reviewing, keeping it current, and
 archiving it once (after the last repository merges, not per repo). Install it with:
 
+The below will work only once the `stellarwp/skills` becomes public.
+
 ```
-/plugin marketplace add the-events-calendar/skills
-/plugin install tec
+/plugin marketplace add stellarwp/skills
+/plugin install nexcess
 ```
 
 ## Running the tests
@@ -91,9 +93,9 @@ PHP tests are Codeception + wp-browser suites run inside Docker by [slic](https:
 ```bash
 # 1. Clone the plugin with its common submodule, and slic beside it.
 cd /path/to/plugins           # parent dir; slic will scan it for targets
-git clone --recurse-submodules git@github.com:the-events-calendar/the-events-calendar.git
+git clone --recursive git@github.com:the-events-calendar/the-events-calendar.git
 git clone git@github.com:stellarwp/slic.git slic
-# already cloned without --recurse-submodules?
+# already cloned without --recursive?
 # (cd the-events-calendar && git submodule update --init --recursive)
 
 # 2. Point slic at this directory and quiet the prompts (CI's exact flags).
