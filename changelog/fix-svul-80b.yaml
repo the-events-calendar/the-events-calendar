@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Strengthened validation of copied widget instances.
+timestamp: 2026-09-08T21:28:03.973Z
