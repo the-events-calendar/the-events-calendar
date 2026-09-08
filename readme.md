@@ -71,7 +71,7 @@ happen to be standing in.
 ### Where the rest is written down
 
 This section covers what is specific to working here. The
-[`openspec` skill](https://github.com/stellarwp/skills) covers the
+[`tec-openspec` skill](https://github.com/stellarwp/skills) covers the
 workflow itself — writing a proposal worth reviewing, keeping it current, and
 archiving it once (after the last repository merges, not per repo). Install it with:
 
