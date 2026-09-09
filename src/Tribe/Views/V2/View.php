@@ -1361,11 +1361,20 @@ class View implements View_Interface {
 	 *
 	 * @return int The bounded number of events per page.
 	 */
-	protected function get_events_per_page( ?Context $context = null ) {
+	public function get_events_per_page( ?Context $context = null ): int {
 		$context ??= $this->get_context();
 		$per_page = absint( $context->get( 'events_per_page', 12 ) );
 
-		return min( $per_page, static::MAX_EVENTS_PER_PAGE );
+		/**
+		 * Filters the maximum number of events a View will fetch per page.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $max_events_per_page The maximum number of events per page.
+		 */
+		$max = (int) apply_filters( 'tec_events_views_v2_max_events_per_page', static::MAX_EVENTS_PER_PAGE );
+
+		return min( $per_page, max( 1, $max ) );
 	}
 
 	/**
