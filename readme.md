@@ -66,8 +66,14 @@ store as `tec-plans`.
 5. Open the PR. The template asks for the change ID, and CI checks the plan exists
    and is still active.
 
-Every `openspec` command takes `--store tec-plans`. There is no default and no
-repo-side link, so omitting it writes the change into whatever repository you
+Commands that read or write plans take `--store tec-plans`: `new change`,
+`status`, `instructions`, `list`, `show`, `validate`, `archive`, `context` and
+`doctor`. The `openspec store` commands manage registrations instead and take
+`--id`, which is why the setup block above uses that.
+
+A machine that has run the skills repo's `install.sh` has OpenSpec's
+`defaultStore` set to `tec-plans` and resolves without the flag. Pass it anyway:
+a machine without that setting writes the change into whatever repository you
 happen to be standing in.
 
 ### Where the rest is written down
@@ -79,7 +85,7 @@ archiving it once (after the last repository merges, not per repo). Install it w
 
 The below will work only once the `stellarwp/skills-se` becomes public.
 
-```
+```text
 /plugin marketplace add stellarwp/skills-se
 /plugin install nexcess-se
 ```
@@ -184,4 +190,4 @@ All three workflows are gated on a PHP-file-change check, so a docs-only PR runs
 - CI pins WordPress with `wp core update --force --version=6.8` (6.9 for the SEO suite). Locally the container's bundled version is usually fine; add the same `wp core update` if you need to reproduce a version-specific failure.
 - CI appends `--ext DotReporter` for compact logs; skip it locally for readable output.
 - CI's ssh-agent, composer cache and `docker network prune -f` steps are runner housekeeping with no local equivalent.
-- After `rest_tec_v1_integration`, CI also runs `npm ci` and `npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/` to lint the OpenAPI doc. To reproduce: `${SLIC_BIN} wp plugin activate the-events-calendar && ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard`, then run those npm commands on the host.
+- After `rest_tec_v1_integration`, CI also runs `npm ci` and `npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/` to lint the OpenAPI doc. To reproduce: `${SLIC_BIN} wp plugin activate the-events-calendar && ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard`, then run those npm commands on the host from inside `the-events-calendar/`, which is where the `package.json` lives.
