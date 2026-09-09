@@ -71,17 +71,20 @@ Commands that read or write plans take `--store tec-plans`: `new change`,
 `doctor`. The `openspec store` commands manage registrations instead and take
 `--id`, which is why the setup block above uses that.
 
-A machine that has run the skills repo's `install.sh` has OpenSpec's
-`defaultStore` set to `tec-plans` and resolves without the flag. Pass it anyway:
-a machine without that setting writes the change into whatever repository you
-happen to be standing in.
+Nothing sets a default store for you — the skills repo's `install.sh` is
+org-wide and does not know you work on TEC. Without the flag the command writes
+the change into whatever repository you happen to be standing in. A developer who
+only works on TEC may run `openspec config set defaultStore tec-plans` once as a
+personal convenience; the flag stays in every example because the next machine
+will not have it.
 
 ### Where the rest is written down
 
 This section covers what is specific to working here. The
-[`tec-openspec` skill](https://github.com/stellarwp/skills-se) covers the
-workflow itself — writing a proposal worth reviewing, keeping it current, and
-archiving it once (after the last repository merges, not per repo). Install it with:
+[`openspec-workflow` skill](https://github.com/stellarwp/skills-se) covers the
+workflow itself — writing a proposal worth reviewing and keeping it current — and
+its TEC extension, `tec-openspec`, covers the shared store, the ticket-ID naming,
+and archiving once (after the last repository merges, not per repo). Install it with:
 
 The below will work only once the `stellarwp/skills-se` becomes public.
 
