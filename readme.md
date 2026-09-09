@@ -48,6 +48,7 @@ store instead: [`the-events-calendar/plans`](https://github.com/the-events-calen
 npm install -g @fission-ai/openspec
 git clone git@github.com:the-events-calendar/plans.git ~/repos/tec-plans
 openspec store register ~/repos/tec-plans --id tec-plans
+openspec config set defaultStore tec-plans
 ```
 
 The clone path is yours to choose. The `--id` is not — every command refers to the
@@ -71,12 +72,14 @@ Commands that read or write plans take `--store tec-plans`: `new change`,
 `doctor`. The `openspec store` commands manage registrations instead and take
 `--id`, which is why the setup block above uses that.
 
-Nothing sets a default store for you — the skills repo's `install.sh` is
-org-wide and does not know you work on TEC. Without the flag the command writes
-the change into whatever repository you happen to be standing in. A developer who
-only works on TEC may run `openspec config set defaultStore tec-plans` once as a
-personal convenience; the flag stays in every example because the next machine
-will not have it.
+Setting the store as OpenSpec's global default is part of the setup, not an
+optional extra. The stock OpenSpec skills and the `/opsx:*` commands know
+nothing about our store and act on whatever root resolves from the current
+directory, and this repository has no `openspec/` root of its own — so without
+the default they fail, or land the change in a stray root. The org-wide skills
+repo's `install.sh` deliberately does not set it: it serves every StellarWP
+brand. Confirm with `openspec context`, which should print `Using OpenSpec root:
+tec-plans`. Pass the flag anyway; it is right whether or not the default is set.
 
 ### Where the rest is written down
 
