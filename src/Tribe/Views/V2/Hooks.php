@@ -224,7 +224,11 @@ class Hooks extends Service_Provider {
 		}
 
 		// Trim to what is shown (we add one sometimes for pagination links).
-		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $view instanceof View && method_exists( $view, 'get_events_per_page' ) ) {
+			$cnt = $view->get_events_per_page();
+		} else {
+			$cnt = $view->get_context()->get( 'events_per_page' );
+		}
 		if ( $cnt ) {
 			$events = array_slice( $events, 0, (int) $cnt );
 		}
