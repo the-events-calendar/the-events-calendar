@@ -108,7 +108,7 @@ class Service_Provider extends Provider_Contract {
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 *
 	 * @since 6.11.1
-	 * @since TBD Sign and store the sanitized instance instead of the submitted bytes.
+	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.
@@ -179,7 +179,7 @@ class Service_Provider extends Provider_Contract {
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 *
 	 * @since 6.11.2
-	 * @since TBD Sign and store the sanitized instance instead of the submitted bytes.
+	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
@@ -251,7 +251,7 @@ class Service_Provider extends Provider_Contract {
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 *
 	 * @since 6.11.2
-	 * @since TBD Sign and store the sanitized instance instead of the submitted bytes.
+	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
 	 *
 	 * @param array $parsed_block The parsed block.
 	 *
@@ -296,7 +296,7 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.17.3
 	 * @since 6.17.3.1 Only accept instances that unserialize to a plain array.
-	 * @since TBD Return the sanitized instance instead of a boolean.
+	 * @since 6.17.4.1 Return the sanitized instance instead of a boolean.
 	 *
 	 * @param string $serialized The decoded widget instance.
 	 *
@@ -322,7 +322,7 @@ class Service_Provider extends Provider_Contract {
 	 * Recursively determine whether a value holds any object.
 	 *
 	 * @since 6.17.3
-	 * @since TBD Bail out on overly nested input.
+	 * @since 6.17.4.1 Bail out on overly nested input.
 	 *
 	 * @param mixed $data  The value to inspect.
 	 * @param int   $depth Current recursion depth.

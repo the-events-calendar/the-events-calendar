@@ -178,7 +178,7 @@ class Template_Bootstrap {
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
 	 * @since  4.9.4
-	 * @since TBD Block parsing is left to the content filters, so it no longer runs over the full page buffer.
+	 * @since 6.17.4.1 Block parsing is left to the content filters, so it no longer runs over the full page buffer.
 	 *
 	 * @return string
 	 */
