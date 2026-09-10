@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.17.4] 2026-09-03
+
+* Fix - Resolved an issue where the Day View direct URL omitted recurring event occurrences because an earlier query on the same repository froze the custom tables date redirection.
+* Fix - Fixed a fatal error when reading an event's venues or organizers on sites running a persistent object cache, caused by a cached lazy collection losing the callback it needs to rebuild itself. Also added the `tec_events_lazy_post_collection_allowed_unserialize_callbacks` filter so third-party code can register its own rebuild callbacks.
+* Language - 0 new strings added, 100 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.17.3.1] 2026-08-26
 
 * Security - Harden capability checks on REST API archive endpoints.
