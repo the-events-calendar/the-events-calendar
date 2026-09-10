@@ -178,6 +178,7 @@ class Template_Bootstrap {
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
 	 * @since  4.9.4
+	 * @since TBD Block parsing is left to the content filters, so it no longer runs over the full page buffer.
 	 *
 	 * @return string
 	 */
@@ -209,10 +210,6 @@ class Template_Bootstrap {
 		echo '</section>';
 
 		$html = ob_get_clean();
-
-		if ( function_exists( 'do_blocks' ) ) {
-			$html = do_blocks( $html );
-		}
 
 		return $html;
 	}

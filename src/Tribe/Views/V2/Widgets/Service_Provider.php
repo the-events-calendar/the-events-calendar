@@ -108,6 +108,7 @@ class Service_Provider extends Provider_Contract {
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 *
 	 * @since 6.11.1
+	 * @since TBD Sign and store the sanitized instance instead of the submitted bytes.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.
@@ -157,15 +158,16 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		// Set the new instance.
-		$new_instance        = $request['instance'];
-		$serialized_instance = base64_decode( $request['instance']['encoded'] );
+		$new_instance = $request['instance'];
 
 		// Skip instances that do not pass validation.
-		if ( ! $this->is_safe_widget_instance( $serialized_instance ) ) {
+		$safe_instance = $this->get_safe_widget_instance( base64_decode( $request['instance']['encoded'] ) );
+		if ( null === $safe_instance ) {
 			return $result;
 		}
 
-		$new_instance['hash'] = wp_hash( $serialized_instance );
+		$new_instance['encoded'] = base64_encode( $safe_instance );
+		$new_instance['hash']    = wp_hash( $safe_instance );
 
 		// Override the instance.
 		$request->set_param( 'instance', $new_instance );
@@ -177,6 +179,7 @@ class Service_Provider extends Provider_Contract {
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 *
 	 * @since 6.11.2
+	 * @since TBD Sign and store the sanitized instance instead of the submitted bytes.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
@@ -227,15 +230,16 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		// Set the new instance.
-		$new_instance        = $request['instance'];
-		$serialized_instance = base64_decode( $request['instance']['encoded'] );
+		$new_instance = $request['instance'];
 
 		// Skip instances that do not pass validation.
-		if ( ! $this->is_safe_widget_instance( $serialized_instance ) ) {
+		$safe_instance = $this->get_safe_widget_instance( base64_decode( $request['instance']['encoded'] ) );
+		if ( null === $safe_instance ) {
 			return $result;
 		}
 
-		$new_instance['hash'] = wp_hash( $serialized_instance );
+		$new_instance['encoded'] = base64_encode( $safe_instance );
+		$new_instance['hash']    = wp_hash( $safe_instance );
 
 		// Override the instance.
 		$request->set_param( 'instance', $new_instance );
@@ -247,6 +251,7 @@ class Service_Provider extends Provider_Contract {
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 *
 	 * @since 6.11.2
+	 * @since TBD Sign and store the sanitized instance instead of the submitted bytes.
 	 *
 	 * @param array $parsed_block The parsed block.
 	 *
@@ -269,14 +274,14 @@ class Service_Provider extends Provider_Contract {
 			return $parsed_block;
 		}
 
-		$serialized_instance = base64_decode( $instance['encoded'] );
-
 		// Skip instances that do not pass validation.
-		if ( ! $this->is_safe_widget_instance( $serialized_instance ) ) {
+		$safe_instance = $this->get_safe_widget_instance( base64_decode( $instance['encoded'] ) );
+		if ( null === $safe_instance ) {
 			return $parsed_block;
 		}
 
-		$instance['hash'] = wp_hash( $serialized_instance );
+		$instance['encoded'] = base64_encode( $safe_instance );
+		$instance['hash']    = wp_hash( $safe_instance );
 
 		$parsed_block['attrs']['instance'] = $instance;
 
@@ -284,43 +289,58 @@ class Service_Provider extends Provider_Contract {
 	}
 
 	/**
-	 * Whether a copied widget instance passes validation.
+	 * Returns a sanitized copy of a copied widget instance, or null when it cannot be trusted.
+	 *
+	 * The instance is rebuilt from a strict decode and re-serialized, so only plain,
+	 * expected data is ever stored and signed.
 	 *
 	 * @since 6.17.3
 	 * @since 6.17.3.1 Only accept instances that unserialize to a plain array.
+	 * @since TBD Return the sanitized instance instead of a boolean.
 	 *
 	 * @param string $serialized The decoded widget instance.
 	 *
-	 * @return bool Whether the instance passed validation.
+	 * @return string|null The sanitized serialized instance, or null when not safe.
 	 */
-	protected function is_safe_widget_instance( $serialized ) {
+	protected function get_safe_widget_instance( $serialized ) {
 		if ( ! is_string( $serialized ) ) {
-			return false;
+			return null;
 		}
 
 		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 		$data = @unserialize( $serialized, [ 'allowed_classes' => false ] );
 
-		return is_array( $data ) && ! $this->contains_object( $data );
+		if ( ! is_array( $data ) || $this->contains_object( $data ) ) {
+			return null;
+		}
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		return serialize( $data );
 	}
 
 	/**
 	 * Recursively determine whether a value holds any object.
 	 *
 	 * @since 6.17.3
+	 * @since TBD Bail out on overly nested input.
 	 *
-	 * @param mixed $data The value to inspect.
+	 * @param mixed $data  The value to inspect.
+	 * @param int   $depth Current recursion depth.
 	 *
-	 * @return bool Whether an object was found.
+	 * @return bool Whether an object was found, or the input is too deeply nested.
 	 */
-	protected function contains_object( $data ) {
+	protected function contains_object( $data, $depth = 0 ) {
+		if ( $depth > 20 ) {
+			return true;
+		}
+
 		if ( is_object( $data ) ) {
 			return true;
 		}
 
 		if ( is_array( $data ) ) {
 			foreach ( $data as $value ) {
-				if ( $this->contains_object( $value ) ) {
+				if ( $this->contains_object( $value, $depth + 1 ) ) {
 					return true;
 				}
 			}
