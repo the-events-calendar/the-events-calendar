@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Added a setting, shown on sites that have used Events Calendar Pro, to
+  keep the dates of rule-based recurring events locked while Events Calendar Pro
+  is not active.
+timestamp: 2026-09-05T05:13:36.921Z

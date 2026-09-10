@@ -1,0 +1,5 @@
+significance: minor
+type: feature
+entry: Added per-occurrence view and edit links and the rewrite rules for
+  date-based single event URLs, behind the Recurrence feature gate.
+timestamp: 2026-09-04T18:04:38.683Z

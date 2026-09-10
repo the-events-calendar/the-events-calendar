@@ -34,3 +34,22 @@
 		@mixin event-title-link-color;
 	}
 }
+
+/* -----------------------------------------------------------------------------
+ * Mobile Event: Recurring Marker
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-link {
+
+		&:hover,
+		&:focus {
+
+			.tribe-events-calendar-month-mobile-events__mobile-event-datetime-recurring-icon-svg path {
+				fill: currentcolor;
+				stroke: currentcolor;
+			}
+		}
+	}
+}

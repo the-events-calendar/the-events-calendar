@@ -43,7 +43,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 
 		// Other bindings are bound as singletons to save some resources.
 		$this->container->singleton( Requests::class, Requests::class );
-		$this->container->singleton( Post_Ops::class, Post_Ops::class );
 
 		$this->hook_to_watch_for_post_updates();
 		$this->hook_to_redirect_post_updates();

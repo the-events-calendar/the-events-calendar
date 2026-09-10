@@ -2,10 +2,13 @@
 /**
  * Events Calendar Pro upsell banner for recurrence.
  *
- * @var string $slug The slug of the upsell banner.
- * @var string $nonce The nonce of the upsell banner.
+ * @var string $slug        The slug of the upsell banner.
+ * @var string $nonce       The nonce of the upsell banner.
+ * @var string $title       The banner title.
+ * @var string $description The banner description.
  *
  * @since 6.15.9
+ * @since TBD The title and description are provided by the renderer.
  */
 
 $main = Tribe__Events__Main::instance();
@@ -18,7 +21,7 @@ $main = Tribe__Events__Main::instance();
 	<td colspan="2">
 		<div class="tec-settings-form">
 			<div class="tec-settings-infobox is-dismissible recurrence-upsell-banner">
-				<h4 class="tec-settings-infobox-title">Need Recurring Events?</h4>
+				<h4 class="tec-settings-infobox-title"><?php echo esc_html( $title ); ?></h4>
 				<button
 					class="dismiss-button"
 					data-tec-conditional-content-dismiss-button
@@ -36,7 +39,7 @@ $main = Tribe__Events__Main::instance();
 				alt=""
 			>
 			<p>
-				<?php esc_html_e( 'Schedule multiple events in daily, weekly, monthly, or custom patterns with Events Calendar Pro.', 'the-events-calendar' ); ?>
+				<?php echo esc_html( $description ); ?>
 			</p>
 			<p class="tec-settings-infobox__button_wrap">
 				<a href="https://evnt.is/ecp" class="button" target="_blank" rel="noopener noreferrer">

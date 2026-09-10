@@ -87,7 +87,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$report  = new Event_Report( $post );
 		$post_id = $post->ID;
 		// The Builder is, actually, the class doing the upsertion.
-		$this->set_fn_return( Builder::class, 'upsert', false );
+		$this->set_class_fn_return( Builder::class, 'upsert', false );
 
 		$this->expectException( Expected_Migration_Exception::class );
 
@@ -106,7 +106,7 @@ class Single_Event_Migration_StrategyTest extends \CT1_Migration_Test_Case {
 		$report  = new Event_Report( $post );
 		$post_id = $post->ID;
 		// Say we're done, but we've done nothing.
-		$this->set_fn_return( Builder::class, 'upsert', true );
+		$this->set_class_fn_return( Builder::class, 'upsert', true );
 
 		$this->expectException( Migration_Exception::class );
 

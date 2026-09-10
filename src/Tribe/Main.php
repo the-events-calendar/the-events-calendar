@@ -739,6 +739,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'src/functions/template-tags/venue.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/recurrence.php';
 			require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 			require_once $this->plugin_path . 'src/deprecated/functions.php';
 

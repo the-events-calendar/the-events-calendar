@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Event Dates panel renders the conversion form on a locked occurrence when the lock is disabled 1`] = `
+<div
+  className="tribe-editor__event-dates tribe-editor__event-dates--locked tribe-editor__event-dates--occurrence"
+>
+  <div
+    className="Notice Notice--warning tribe-editor__event-dates__lock-notice"
+  >
+    <p>
+      This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until the event is converted into individual dates.
+    </p>
+    <p>
+      <a
+        href="https://example.test/wp-admin/post.php?post=42&action=edit"
+      >
+        Edit the recurring event.
+      </a>
+    </p>
+  </div>
+  <form
+    action="https://example.test/wp-admin/admin-post.php"
+    className="tribe-editor__event-dates__convert"
+    method="post"
+  >
+    <input
+      name="action"
+      type="hidden"
+      value="tec_events_recurrence_convert"
+    />
+    <input
+      name="post_id"
+      type="hidden"
+      value={42}
+    />
+    <input
+      name="_wpnonce"
+      type="hidden"
+      value="abc123"
+    />
+    <p>
+      <strong>
+        Converting this event:
+      </strong>
+    </p>
+    <ul
+      className="tribe-editor__event-dates__convert-effects"
+      id="tribe-editor-event-dates-convert-effects"
+    >
+      <li>
+        removes the Events Calendar Pro recurrence rules;
+      </li>
+      <li>
+        keeps the 2 dates currently scheduled as individual dates you can edit one by one;
+      </li>
+      <li>
+        stops generating further dates;
+      </li>
+      <li>
+        removes the event from its Series.
+      </li>
+    </ul>
+    <p
+      className="tribe-editor__event-dates__description"
+    >
+      Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.
+       Converting sends you to the recurring event.
+    </p>
+    <label
+      className="CheckboxControl"
+    >
+      <input
+        checked={false}
+        onChange={[Function]}
+        type="checkbox"
+      />
+      I understand that the recurrence rules will be removed.
+    </label>
+    <button
+      disabled={true}
+      type="submit"
+    >
+      Convert to individual dates
+    </button>
+  </form>
+</div>
+`;
+
+exports[`Event Dates panel renders the conversion form, disabled until acknowledged, when the lock is disabled 1`] = `
+<div
+  className="tribe-editor__event-dates tribe-editor__event-dates--locked"
+>
+  <div
+    className="Notice Notice--warning tribe-editor__event-dates__lock-notice"
+  >
+    <p>
+      This event uses recurrence rules created with Events Calendar Pro. Its start and end dates stay locked until you convert it into individual dates.
+    </p>
+  </div>
+  <p
+    className="tribe-editor__event-dates__summary"
+  >
+    2 dates are scheduled.
+  </p>
+  <ul
+    aria-label="Upcoming dates"
+    className="tribe-editor__event-dates__chips"
+  >
+    <li>
+      <span
+        className="tribe-editor__event-dates__chip-group"
+      >
+        <span>
+          Tooltip
+        </span>
+        <button
+          className="tribe-editor__event-dates__chip-edit"
+          data-href="https://example.test/wp-admin/post.php?post=10000001&action=edit"
+        />
+      </span>
+    </li>
+    <li>
+      <span
+        className="tribe-editor__event-dates__chip-group"
+      >
+        <span>
+          Tooltip
+        </span>
+        <button
+          className="tribe-editor__event-dates__chip-edit"
+          data-href="https://example.test/wp-admin/post.php?post=10000002&action=edit"
+        />
+      </span>
+    </li>
+  </ul>
+  <form
+    action="https://example.test/wp-admin/admin-post.php"
+    className="tribe-editor__event-dates__convert"
+    method="post"
+  >
+    <input
+      name="action"
+      type="hidden"
+      value="tec_events_recurrence_convert"
+    />
+    <input
+      name="post_id"
+      type="hidden"
+      value={42}
+    />
+    <input
+      name="_wpnonce"
+      type="hidden"
+      value="abc123"
+    />
+    <p>
+      <strong>
+        Converting this event:
+      </strong>
+    </p>
+    <ul
+      className="tribe-editor__event-dates__convert-effects"
+      id="tribe-editor-event-dates-convert-effects"
+    >
+      <li>
+        removes the Events Calendar Pro recurrence rules;
+      </li>
+      <li>
+        keeps the 2 dates currently scheduled as individual dates you can edit one by one;
+      </li>
+      <li>
+        stops generating further dates;
+      </li>
+      <li>
+        removes the event from its Series.
+      </li>
+    </ul>
+    <p
+      className="tribe-editor__event-dates__description"
+    >
+      Activating Events Calendar Pro later does not restore the rules. Save any other changes to this event first: unsaved changes are discarded when converting.
+    </p>
+    <label
+      className="CheckboxControl"
+    >
+      <input
+        checked={false}
+        onChange={[Function]}
+        type="checkbox"
+      />
+      I understand that the recurrence rules will be removed.
+    </label>
+    <button
+      disabled={true}
+      type="submit"
+    >
+      Convert to individual dates
+    </button>
+  </form>
+</div>
+`;
+
+exports[`Event Dates panel renders the editable rows by default 1`] = `
+<div
+  className="tribe-editor__event-dates"
+>
+  <label
+    className="ToggleControl"
+  >
+    <input
+      checked={false}
+      readOnly={true}
+      type="checkbox"
+    />
+    Schedule this event on more dates
+  </label>
+</div>
+`;
+
+exports[`Event Dates panel renders the locked notice with the settings link when the lock is enabled 1`] = `
+<div
+  className="tribe-editor__event-dates tribe-editor__event-dates--locked"
+>
+  <div
+    className="Notice Notice--info tribe-editor__event-dates__lock-notice"
+  >
+    <p>
+      This event uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked, and the scheduled dates below are kept as they are.
+    </p>
+    <p>
+      Activate Events Calendar Pro to edit the recurrence rules, or &lt;a&gt;turn off the recurrence lock in the Events settings&lt;/a&gt; to convert this event into individual dates.
+    </p>
+  </div>
+  <p
+    className="tribe-editor__event-dates__summary"
+  >
+    2 dates are scheduled.
+  </p>
+  <ul
+    aria-label="Upcoming dates"
+    className="tribe-editor__event-dates__chips"
+  >
+    <li>
+      <span
+        className="tribe-editor__event-dates__chip-group"
+      >
+        <span>
+          Tooltip
+        </span>
+        <button
+          className="tribe-editor__event-dates__chip-edit"
+          data-href="https://example.test/wp-admin/post.php?post=10000001&action=edit"
+        />
+      </span>
+    </li>
+    <li>
+      <span
+        className="tribe-editor__event-dates__chip-group"
+      >
+        <span>
+          Tooltip
+        </span>
+        <button
+          className="tribe-editor__event-dates__chip-edit"
+          data-href="https://example.test/wp-admin/post.php?post=10000002&action=edit"
+        />
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Event Dates panel renders the locked occurrence notice with the parent link when the lock is enabled 1`] = `
+<div
+  className="tribe-editor__event-dates tribe-editor__event-dates--locked tribe-editor__event-dates--occurrence"
+>
+  <div
+    className="Notice Notice--info tribe-editor__event-dates__lock-notice"
+  >
+    <p>
+      This is one date of an event that uses recurrence rules created with Events Calendar Pro. Its start and end dates are locked.
+    </p>
+    <p>
+      Activate Events Calendar Pro to edit the recurrence rules, or &lt;a&gt;turn off the recurrence lock in the Events settings&lt;/a&gt; to convert this event into individual dates.
+    </p>
+    <p>
+      <a
+        href="https://example.test/wp-admin/post.php?post=42&action=edit"
+      >
+        Edit the recurring event.
+      </a>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Event Dates panel renders the occurrence notice 1`] = `
+<div
+  className="tribe-editor__event-dates"
+>
+  <p
+    className="tribe-editor__event-dates__notice"
+  >
+    This is a single occurrence: changing the dates above moves only this date.
+     
+    <a
+      href="https://example.test/wp-admin/post.php?post=42&action=edit"
+    >
+      Edit the recurring event to change the other dates.
+    </a>
+  </p>
+</div>
+`;

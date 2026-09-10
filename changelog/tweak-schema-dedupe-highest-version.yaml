@@ -1,0 +1,6 @@
+significance: patch
+type: tweak
+entry: Changed the Custom Tables V1 schema deduplication to keep the field
+  schema declaring the highest version when two plugins register the same
+  fields.
+timestamp: 2026-09-04T21:40:57.256Z

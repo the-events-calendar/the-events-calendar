@@ -11,7 +11,6 @@ namespace TEC\Events\Custom_Tables\V1\WP_Query\Modifiers;
 
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Custom_Tables_Query;
-use TEC\Events_Pro\Custom_Tables\V1\WP_Query\Modifiers\Events_Not_In_Series_Modifier;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 use WP_Query;

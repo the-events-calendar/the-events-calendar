@@ -27,4 +27,22 @@ class Provider extends Abstract_Schema_Provider {
 			tribe( Occurrences::class ),
 		];
 	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The recurrence field schemas are registered unconditionally: the columns are inert
+	 * defaults when the Recurrence feature is not active, and unconditional registration
+	 * keeps the registered schemas version hash stable whether the feature, or Events
+	 * Calendar Pro, is active or not. Events Calendar Pro versions registering the same
+	 * field schemas are deduplicated by the Schema_Builder on the schema version option.
+	 *
+	 * @since TBD
+	 */
+	public static function get_field_schemas() {
+		return [
+			tribe( Fields\Events::class ),
+			tribe( Fields\Occurrences::class ),
+		];
+	}
 }

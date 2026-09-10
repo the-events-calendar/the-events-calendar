@@ -1,0 +1,5 @@
+significance: patch
+type: tweak
+entry: Deduplicated Custom Tables V1 schema registrations so two plugins
+  registering the same schema no longer double-register.
+timestamp: 2026-09-04T18:04:39.203Z

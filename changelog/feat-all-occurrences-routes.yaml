@@ -1,0 +1,5 @@
+significance: minor
+type: feature
+entry: Added the /event/{slug}/all/ rewrite rules for the archive of all
+  occurrences of an event, matching the URLs Events Calendar Pro registers.
+timestamp: 2026-09-04T18:04:38.340Z
