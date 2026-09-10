@@ -12,20 +12,26 @@ on:
         required: true
       TRANSLATIONS_DEPLOY_POT_LOCATION:
         required: true
+      # Undeclared secrets arrive empty on a workflow_call, which would silently drop
+      # the Create Pull Request step back onto GITHUB_TOKEN.
+      GHA_BOT_TOKEN_MANAGER:
+        required: false
 
 jobs:
   sync-translations:
     name: 🔁 Sync Translations
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.sha }}
 
       - name: Set Variables
         id: vars
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
-          branch_name="${{ github.head_ref || github.ref_name }}"
+          branch_name="$BRANCH_NAME"
           should_glotpress=0
           if [[ "$branch_name" =~ ^release/.* || "$branch_name" == "main" ]]; then
               should_glotpress=1

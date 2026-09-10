@@ -287,18 +287,21 @@ class Service_Provider extends Provider_Contract {
 	 * Whether a copied widget instance passes validation.
 	 *
 	 * @since 6.17.3
+	 * @since 6.17.3.1 Only accept instances that unserialize to a plain array.
 	 *
 	 * @param string $serialized The decoded widget instance.
 	 *
 	 * @return bool Whether the instance passed validation.
 	 */
 	protected function is_safe_widget_instance( $serialized ) {
-		$data = is_string( $serialized )
-			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
-			? @unserialize( $serialized, [ 'allowed_classes' => false ] )
-			: false;
+		if ( ! is_string( $serialized ) ) {
+			return false;
+		}
 
-		return ! $this->contains_object( $data );
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+		$data = @unserialize( $serialized, [ 'allowed_classes' => false ] );
+
+		return is_array( $data ) && ! $this->contains_object( $data );
 	}
 
 	/**
