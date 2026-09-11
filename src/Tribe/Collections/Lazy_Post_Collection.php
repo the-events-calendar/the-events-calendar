@@ -23,11 +23,13 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	/**
 	 * Callbacks allowed to rebuild the collection during unserialization.
 	 *
+	 * Use the `tec_events_lazy_post_collection_allowed_unserialize_callbacks` filter to add to this list.
+	 *
 	 * @since 6.17.3.1
 	 *
 	 * @var string[]
 	 */
-	protected const ALLOWED_UNSERIALIZE_CALLBACKS = [
+	private const ALLOWED_UNSERIALIZE_CALLBACKS = [
 		'get_post',
 		'tribe_get_organizer_object',
 		'tribe_get_venue_object',
@@ -87,6 +89,7 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	 *
 	 * @since 5.0.0
 	 * @since 6.17.3.1 Only rebuild through an allowed callback.
+	 * @since 6.17.4 Restore the unserialize callback, so the collection can be serialized again.
 	 *
 	 * @param string $serialized The serialized values, usually an array of post IDs.
 	 *
@@ -101,9 +104,30 @@ class Lazy_Post_Collection extends Lazy_Collection {
 			return null;
 		}
 
-		if ( ! in_array( $unserialized['callback'], self::ALLOWED_UNSERIALIZE_CALLBACKS, true ) ) {
+		/**
+		 * Filters the callbacks allowed to rebuild a Lazy_Post_Collection during unserialization.
+		 *
+		 * The callback name is read back from serialized data and is not to be trusted: only add callbacks
+		 * that are safe to call with an arbitrary post ID.
+		 *
+		 * @since 6.17.4
+		 *
+		 * @param string[] $allowed_callbacks The names of the callbacks allowed to rebuild the collection.
+		 */
+		$allowed_callbacks = (array) apply_filters(
+			'tec_events_lazy_post_collection_allowed_unserialize_callbacks',
+			self::ALLOWED_UNSERIALIZE_CALLBACKS
+		);
+
+		if ( ! in_array( $unserialized['callback'], $allowed_callbacks, true ) ) {
 			return null;
 		}
+
+		/*
+		 * Restore the callback: without it a collection that is serialized again, e.g. when it's read from
+		 * the object cache and written back to it, would store a `null` callback and fail to rebuild.
+		 */
+		$this->unserialize_callback = $unserialized['callback'];
 
 		return array_map( $unserialized['callback'], $unserialized['ids'] );
 	}

@@ -17,6 +17,9 @@ on:
           - maintenance (x.x.X)
           - hotfix (x.x.x.X)
 
+permissions:
+  contents: read
+
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
@@ -29,9 +32,10 @@ jobs:
           echo "- new-branch: \`${{ github.event.inputs['new-branch'] }}\`" >> $GITHUB_STEP_SUMMARY
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.ref }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
 
       - name: Set Variables
         id: vars
@@ -59,8 +63,10 @@ jobs:
 
       - name: Create and push release branch
         id: create-release-branch
+        env:
+          NEW_BRANCH: ${{ github.event.inputs.new-branch }}
         run: |
-          newBranch="${{ github.event.inputs.new-branch }}"
+          newBranch="$NEW_BRANCH"
           if git show-ref --quiet "refs/heads/$newBranch"; then
             echo "Branch $newBranch already exists, skipping creation."
             git fetch origin "$newBranch"
@@ -72,8 +78,10 @@ jobs:
 
       - name: Read and apply version bump
         id: versions
+        env:
+          NEW_BRANCH: ${{ github.event.inputs.new-branch }}
         run: |
-          changeBranch="task/version-bump-${{ github.event.inputs.new-branch }}-${{ steps.vars.outputs.sha_short }}"
+          changeBranch="task/version-bump-$NEW_BRANCH-${{ steps.vars.outputs.sha_short }}"
           git checkout -b "$changeBranch"
           git push origin "$changeBranch"
           versionBumpType="${{ steps.vars.outputs.version_bump_type }}"
@@ -85,7 +93,7 @@ jobs:
 
             echo "## \`$file\`" >> $GITHUB_STEP_SUMMARY
             if [ -f "$file" ]; then
-              existing_version=$(grep -Po "$regex" "$file" | grep -Po '(\d+\.\d+\.\d+(\.\d+)?)')
+              existing_version=$(grep -Po -m1 "$regex" "$file" | grep -Po '(\d+\.\d+\.\d+(\.\d+)?)')
               if [ -z "$existing_version" ]; then
                 echo "Error: No version found in \`$file\` using regex \`$regex\`" >> $GITHUB_STEP_SUMMARY
                 exit 1
@@ -132,7 +140,9 @@ jobs:
               echo "* Modified: \`$new_version\`" >> $GITHUB_STEP_SUMMARY
 
               php_regex=$(echo "$regex" | sed "s/'/\\\\'/g")
-              php -r "file_put_contents('$file', preg_replace('/$php_regex/', '\${1}$new_version', file_get_contents('$file')));"
+              # Only the first match is the version being bumped; a versioned file can hold
+              # other strings the regex also matches, such as changelogger's "version" type label.
+              php -r "file_put_contents('$file', preg_replace('/$php_regex/', '\${1}$new_version', file_get_contents('$file'), 1));"
 
               echo "new_version=$new_version" >> $GITHUB_OUTPUT
             else
