@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.17.4.1] 2026-09-10
+
+* Security - Strengthened validation of copied widget instances.
+
 ### [6.17.4] 2026-09-03
 
 * Fix - Resolved an issue where the Day View direct URL omitted recurring event occurrences because an earlier query on the same repository froze the custom tables date redirection.
