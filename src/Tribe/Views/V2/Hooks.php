@@ -23,6 +23,7 @@ use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
 use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils\View as View_Utils;
+use Tribe\Events\Views\V2\View;
 use Tribe__Context as Context;
 use Tribe__Customizer__Section as Customizer_Section;
 use Tribe__Events__Main as TEC;
@@ -223,7 +224,11 @@ class Hooks extends Service_Provider {
 		}
 
 		// Trim to what is shown (we add one sometimes for pagination links).
-		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $view instanceof View && method_exists( $view, 'get_events_per_page' ) ) {
+			$cnt = $view->get_events_per_page();
+		} else {
+			$cnt = $view->get_context()->get( 'events_per_page' );
+		}
 		if ( $cnt ) {
 			$events = array_slice( $events, 0, (int) $cnt );
 		}
@@ -471,6 +476,15 @@ class Hooks extends Service_Provider {
 		}
 		$per_page = (int) tribe_get_option( 'posts_per_page', tribe_get_option( 'postsPerPage', get_option( 'posts_per_page', 12 ) ) );
 		if ( $per_page > 0 ) {
+			/**
+			 * Filters the maximum number of events a View will fetch per page.
+			 *
+			 * @since TBD
+			 *
+			 * @param int $max_events_per_page The maximum number of events per page.
+			 */
+			$max      = (int) apply_filters( 'tec_events_views_v2_max_events_per_page', View::MAX_EVENTS_PER_PAGE );
+			$per_page = min( $per_page, max( 1, $max ) );
 			$query->set( 'posts_per_page', $per_page );
 		}
 	}
