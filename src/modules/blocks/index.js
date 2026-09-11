@@ -19,6 +19,7 @@ import eventWebsite from '@moderntribe/events/blocks/event-website';
 import FeaturedImage from '@moderntribe/events/blocks/featured-image';
 import archiveEvents from '@moderntribe/events/blocks/archive-events';
 import singleEvent from '@moderntribe/events/blocks/single-event';
+import withBlockWrapper from '@moderntribe/events/blocks/with-block-wrapper';
 import { initStore } from '@moderntribe/events/data';
 import './style.pcss';
 
@@ -43,7 +44,7 @@ const blocks = [
 
 blocks.forEach( ( block ) => {
 	const blockName = block.id.includes( '/' ) ? block.id : `tribe/${ block.id }`;
-	registerBlockType( blockName, block );
+	registerBlockType( blockName, withBlockWrapper( block ) );
 } );
 
 // Initialize AFTER blocks are registered
