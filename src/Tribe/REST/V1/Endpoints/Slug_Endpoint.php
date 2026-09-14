@@ -32,6 +32,13 @@ trait Tribe__Events__REST__V1__Endpoints__Slug_Endpoint {
 	 * @param WP_REST_Request $request The request object.
 	 */
 	protected function set_id_from_slug( WP_REST_Request $request ): void {
+		$json = $request->get_json_params();
+
+		// A scalar JSON body is unusable and would make set_param() fail before authorization; drop it.
+		if ( null !== $json && ! is_array( $json ) ) {
+			$request->set_body( '' );
+		}
+
 		$post = get_page_by_path( $request['slug'], OBJECT, $this->get_post_type() );
 
 		$request->set_param( 'id', $post ? $post->ID : 0 );

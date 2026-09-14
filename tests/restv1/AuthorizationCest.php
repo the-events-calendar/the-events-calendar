@@ -29,7 +29,7 @@ class AuthorizationCest extends BaseRestCest {
 
 		// Contributor tries to edit it
 		$I->generate_nonce_for_role( 'contributor' );
-		$I->sendPUT( $this->events_url . "/{$event_id}", [ 'title' => 'Hacked Title' ] );
+		$I->sendPUT( $this->events_url . "/{$event_id}", [ $data['title_field'] => 'Hacked Title' ] );
 
 		$I->seeResponseCodeIs( 403 );
 	}
@@ -370,13 +370,13 @@ class AuthorizationCest extends BaseRestCest {
 	/**
 	 * Provides the post types that expose a by-slug write route.
 	 *
-	 * @return array<string,array{type:string,factory:string}>
+	 * @return array<string,array{type:string,factory:string,title_field:string}>
 	 */
 	protected function by_slug_post_types(): array {
 		return [
-			'events'     => [ 'type' => 'events', 'factory' => 'haveEventInDatabase' ],
-			'venues'     => [ 'type' => 'venues', 'factory' => 'haveVenueInDatabase' ],
-			'organizers' => [ 'type' => 'organizers', 'factory' => 'haveOrganizerInDatabase' ],
+			'events'     => [ 'type' => 'events', 'factory' => 'haveEventInDatabase', 'title_field' => 'title' ],
+			'venues'     => [ 'type' => 'venues', 'factory' => 'haveVenueInDatabase', 'title_field' => 'venue' ],
+			'organizers' => [ 'type' => 'organizers', 'factory' => 'haveOrganizerInDatabase', 'title_field' => 'organizer' ],
 		];
 	}
 
@@ -415,7 +415,7 @@ class AuthorizationCest extends BaseRestCest {
 		[ $id, $slug ] = $this->have_admin_record( $I, $data['factory'] );
 		$this->login_as_contributor( $I );
 
-		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ 'title' => 'Hacked Title' ] );
+		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ $data['title_field'] => 'Hacked Title' ] );
 
 		$I->seeResponseCodeIs( 403 );
 		$I->assertEquals( 'Admin Record', $this->grab_post_field( $I, $id, 'post_title' ) );
@@ -453,11 +453,71 @@ class AuthorizationCest extends BaseRestCest {
 			'post_status' => 'draft',
 		] );
 
-		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ 'id' => $own_draft, 'title' => 'Hacked Title' ] );
+		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ 'id' => $own_draft, $data['title_field'] => 'Hacked Title' ] );
 
 		$I->seeResponseCodeIs( 403 );
 		$I->assertEquals( 'Admin Record', $this->grab_post_field( $I, $id, 'post_title' ) );
 		$I->assertEquals( 'Own Draft', $this->grab_post_field( $I, $own_draft, 'post_title' ) );
+	}
+
+	/**
+	 * Contributor can edit their own draft record through the by-slug route.
+	 *
+	 * @test
+	 * @dataProvider by_slug_post_types
+	 */
+	public function contributor_can_edit_own_draft_record_by_slug( Tester $I, \Codeception\Example $data ) {
+		$contributor_id = $this->login_as_contributor( $I );
+		$slug           = 'own-draft-' . uniqid();
+		$own_draft      = $I->{$data['factory']}( [
+			'post_title'  => 'Own Draft',
+			'post_name'   => $slug,
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ $data['title_field'] => 'Updated Draft' ] );
+
+		$I->seeResponseCodeIsSuccessful();
+		$I->assertEquals( 'Updated Draft', $this->grab_post_field( $I, $own_draft, 'post_title' ) );
+	}
+
+	/**
+	 * Contributor can delete their own draft record through the by-slug route.
+	 *
+	 * @test
+	 * @dataProvider by_slug_post_types
+	 */
+	public function contributor_can_delete_own_draft_record_by_slug( Tester $I, \Codeception\Example $data ) {
+		$contributor_id = $this->login_as_contributor( $I );
+		$slug           = 'own-draft-' . uniqid();
+		$own_draft      = $I->{$data['factory']}( [
+			'post_title'  => 'Own Draft',
+			'post_name'   => $slug,
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->sendDELETE( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}" );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->assertEquals( 'trash', $this->grab_post_field( $I, $own_draft, 'post_status' ) );
+	}
+
+	/**
+	 * A scalar JSON body on the by-slug route is refused cleanly instead of crashing before authorization.
+	 *
+	 * @test
+	 * @dataProvider by_slug_post_types
+	 */
+	public function scalar_json_body_on_by_slug_route_is_rejected_without_a_crash( Tester $I, \Codeception\Example $data ) {
+		[ $id, $slug ] = $this->have_admin_record( $I, $data['factory'] );
+
+		$I->haveHttpHeader( 'Content-Type', 'application/json' );
+		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", '1' );
+
+		$I->seeResponseCodeIs( 401 );
+		$I->assertEquals( 'Admin Record', $this->grab_post_field( $I, $id, 'post_title' ) );
 	}
 
 	private function login_as_contributor( Tester $I ): int {
