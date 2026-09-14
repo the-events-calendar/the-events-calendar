@@ -93,4 +93,16 @@ class Events_Test extends Event_Test {
 		$this->assertSame( [], $events[0]['venues'] );
 		$this->assertSame( [], $events[0]['organizers'] );
 	}
+
+	public function test_editor_receives_unpublished_venues_and_organizers() {
+		[ $venue_id, $organizer_id, $event_id ] = $this->create_event_with_unpublished_linked_posts();
+		wp_set_current_user( self::factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$response = $this->assert_endpoint( '/events' );
+		$events   = array_values( array_filter( $response, fn( $event ) => $event['id'] === $event_id ) );
+
+		$this->assertCount( 1, $events );
+		$this->assertSame( [ $venue_id ], array_column( $events[0]['venues'], 'id' ) );
+		$this->assertSame( [ $organizer_id ], array_column( $events[0]['organizers'], 'id' ) );
+	}
 }
