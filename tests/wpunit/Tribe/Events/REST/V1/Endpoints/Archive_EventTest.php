@@ -1146,4 +1146,22 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		);
 		$this->assertMatchesJsonSnapshot( $json );
 	}
+
+	/**
+	 * It should not embed unpublished venue and organizer of published events for a visitor.
+	 *
+	 * @test
+	 */
+	public function should_not_embed_unpublished_venue_and_organizer_for_visitor() {
+		wp_set_current_user( 0 );
+		$venue     = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+		$organizer = $this->factory()->organizer->create( [ 'post_status' => 'draft' ] );
+		$this->factory()->event->create( [ 'venue' => $venue, 'organizer' => $organizer ] );
+
+		$events = $this->make_instance()->get( new \WP_REST_Request( 'GET', '' ) )->get_data()['events'];
+
+		$this->assertCount( 1, $events );
+		$this->assertSame( [], $events[0]['venue'] );
+		$this->assertSame( [], $events[0]['organizer'] );
+	}
 }

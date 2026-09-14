@@ -674,4 +674,53 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 		$this->assertEquals( $request->get_param( 'date' ), $data['date'] );
 	}
+
+	public function unpublished_linked_post_statuses() {
+		return [
+			'draft'   => [ 'draft' ],
+			'pending' => [ 'pending' ],
+			'private' => [ 'private' ],
+		];
+	}
+
+	/**
+	 * It should not embed unpublished venue and organizer of a published event for a visitor.
+	 *
+	 * @test
+	 * @dataProvider unpublished_linked_post_statuses
+	 */
+	public function should_not_embed_unpublished_venue_and_organizer_for_visitor( $status ) {
+		wp_set_current_user( 0 );
+		$venue     = $this->factory()->venue->create( [ 'post_status' => $status ] );
+		$organizer = $this->factory()->organizer->create( [ 'post_status' => $status ] );
+		$event_id  = $this->factory()->event->create( [ 'venue' => $venue, 'organizer' => $organizer ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$data = $this->make_instance()->get( $request )->get_data();
+
+		$this->assertSame( [], $data['venue'] );
+		$this->assertSame( [], $data['organizer'] );
+	}
+
+	/**
+	 * It should embed unpublished venue and organizer for a user allowed to read them.
+	 *
+	 * @test
+	 */
+	public function should_embed_unpublished_venue_and_organizer_for_user_who_can_read_them() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$venue     = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+		$organizer = $this->factory()->organizer->create( [ 'post_status' => 'draft' ] );
+		$event_id  = $this->factory()->event->create( [ 'venue' => $venue, 'organizer' => $organizer ] );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+
+		$data = $this->make_instance()->get( $request )->get_data();
+
+		$this->assertEquals( $venue, $data['venue']['id'] );
+		$this->assertEquals( $organizer, $data['organizer'][0]['id'] );
+	}
 }

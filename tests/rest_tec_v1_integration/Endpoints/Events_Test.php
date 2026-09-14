@@ -82,4 +82,15 @@ class Events_Test extends Event_Test {
 
 		$this->assertMatchesJsonSnapshot( $json );
 	}
+
+	public function test_visitor_does_not_receive_unpublished_venues_and_organizers() {
+		[ , , $event_id ] = $this->create_event_with_unpublished_linked_posts();
+
+		$response = $this->assert_endpoint( '/events' );
+		$events   = array_values( array_filter( $response, fn( $event ) => $event['id'] === $event_id ) );
+
+		$this->assertCount( 1, $events );
+		$this->assertSame( [], $events[0]['venues'] );
+		$this->assertSame( [], $events[0]['organizers'] );
+	}
 }

@@ -1,0 +1,3 @@
+significance: patch
+type: security
+entry: Harden access checks on REST API responses. Props to Kaveesha Nirmal for reporting.
