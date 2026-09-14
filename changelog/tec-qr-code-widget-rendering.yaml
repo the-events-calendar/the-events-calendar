@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Hardened the rendering of the Events QR Code widget.
+timestamp: 2026-09-11T19:36:10.892Z
