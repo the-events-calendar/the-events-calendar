@@ -367,6 +367,99 @@ class AuthorizationCest extends BaseRestCest {
 	/**
 	 * Logs in as a Contributor and returns their user ID.
 	 */
+	/**
+	 * Provides the post types that expose a by-slug write route.
+	 *
+	 * @return array<string,array{type:string,factory:string}>
+	 */
+	protected function by_slug_post_types(): array {
+		return [
+			'events'     => [ 'type' => 'events', 'factory' => 'haveEventInDatabase' ],
+			'venues'     => [ 'type' => 'venues', 'factory' => 'haveVenueInDatabase' ],
+			'organizers' => [ 'type' => 'organizers', 'factory' => 'haveOrganizerInDatabase' ],
+		];
+	}
+
+	/**
+	 * Inserts a published record owned by a fresh administrator and returns its ID and slug.
+	 *
+	 * @return array{0:int,1:string}
+	 */
+	private function have_admin_record( Tester $I, string $factory ): array {
+		$admin_id = $I->haveUserInDatabase( 'admin_user', 'administrator', [ 'user_pass' => 'admin' ] );
+		$slug     = 'admin-record-' . uniqid();
+		$id       = $I->$factory( [
+			'post_title'  => 'Admin Record',
+			'post_name'   => $slug,
+			'post_author' => $admin_id,
+			'post_status' => 'publish',
+		] );
+
+		return [ $id, $slug ];
+	}
+
+	/**
+	 * Reads a post field straight from the database, bypassing the test process object cache.
+	 */
+	private function grab_post_field( Tester $I, int $id, string $field ): string {
+		return (string) $I->grabFromDatabase( $I->grabPostsTableName(), $field, [ 'ID' => $id ] );
+	}
+
+	/**
+	 * Contributor cannot edit another user's record through the by-slug route.
+	 *
+	 * @test
+	 * @dataProvider by_slug_post_types
+	 */
+	public function contributor_cannot_edit_other_users_record_by_slug( Tester $I, \Codeception\Example $data ) {
+		[ $id, $slug ] = $this->have_admin_record( $I, $data['factory'] );
+		$this->login_as_contributor( $I );
+
+		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ 'title' => 'Hacked Title' ] );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->assertEquals( 'Admin Record', $this->grab_post_field( $I, $id, 'post_title' ) );
+		$I->assertEquals( 'publish', $this->grab_post_field( $I, $id, 'post_status' ) );
+	}
+
+	/**
+	 * Contributor cannot delete another user's record through the by-slug route.
+	 *
+	 * @test
+	 * @dataProvider by_slug_post_types
+	 */
+	public function contributor_cannot_delete_other_users_record_by_slug( Tester $I, \Codeception\Example $data ) {
+		[ $id, $slug ] = $this->have_admin_record( $I, $data['factory'] );
+		$this->login_as_contributor( $I );
+
+		$I->sendDELETE( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}" );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->assertEquals( 'publish', $this->grab_post_field( $I, $id, 'post_status' ) );
+	}
+
+	/**
+	 * Contributor cannot edit another user's record by slug while smuggling the ID of their own draft in the body.
+	 *
+	 * @test
+	 * @dataProvider by_slug_post_types
+	 */
+	public function contributor_cannot_edit_other_users_record_by_slug_with_own_id_in_body( Tester $I, \Codeception\Example $data ) {
+		[ $id, $slug ] = $this->have_admin_record( $I, $data['factory'] );
+		$contributor_id = $this->login_as_contributor( $I );
+		$own_draft      = $I->{$data['factory']}( [
+			'post_title'  => 'Own Draft',
+			'post_author' => $contributor_id,
+			'post_status' => 'draft',
+		] );
+
+		$I->sendPOST( $this->{$data['type'] . '_url'} . "/by-slug/{$slug}", [ 'id' => $own_draft, 'title' => 'Hacked Title' ] );
+
+		$I->seeResponseCodeIs( 403 );
+		$I->assertEquals( 'Admin Record', $this->grab_post_field( $I, $id, 'post_title' ) );
+		$I->assertEquals( 'Own Draft', $this->grab_post_field( $I, $own_draft, 'post_title' ) );
+	}
+
 	private function login_as_contributor( Tester $I ): int {
 		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
 
