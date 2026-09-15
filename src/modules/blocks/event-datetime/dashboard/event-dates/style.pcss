@@ -1,0 +1,230 @@
+.tribe-editor__event-dates {
+	border-top: 1px solid var(--tec-color-border-secondary, #e1e3e6);
+	box-sizing: border-box;
+	padding: 15px 22px;
+
+	.tribe-editor__event-dates__title {
+		font-size: 14px;
+		margin: 0 0 4px;
+	}
+
+	.tribe-editor__event-dates__description,
+	.tribe-editor__event-dates__notice,
+	.tribe-editor__event-dates__summary {
+		color: var(--tec-color-text-secondary, #5d5d5d);
+		font-size: 13px;
+		margin: 0 0 12px;
+	}
+
+	.tribe-editor__event-dates__description {
+		margin: 12px 0 16px;
+	}
+
+	.tribe-editor__event-dates__notice:last-child,
+	.tribe-editor__event-dates__summary:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Every control in a row shares one fixed height: the buttons stay square. */
+	.tribe-editor__event-dates__row {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 0 0 8px;
+	}
+
+	.tribe-editor__event-dates__row:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Match the TimePicker toggle metrics: white box, 1px border, 14px Helvetica. */
+	.tribe-editor__event-dates__date {
+		background-color: #fff;
+		border: 1px solid #e1e3e6;
+		border-radius: 2px;
+		box-sizing: border-box;
+		color: inherit;
+		font-family: Helvetica, sans-serif;
+		font-size: 14px;
+		height: 42px;
+		line-height: 1.5;
+		padding: 0 10px;
+	}
+
+	.tribe-editor__event-dates__row .tribe-editor__timepicker {
+		display: inline-flex;
+	}
+
+	.tribe-editor__event-dates__row .tribe-editor__timepicker__toggle {
+		box-sizing: border-box;
+		height: 42px;
+	}
+
+	.tribe-editor__event-dates__separator {
+		align-self: center;
+		font-size: 14px;
+	}
+
+	.tribe-editor__event-dates__control {
+		align-items: center;
+		background-color: #fff;
+		border: 1px solid #e1e3e6;
+		border-radius: 2px;
+		box-sizing: border-box;
+		color: #545d66;
+		cursor: pointer;
+		display: inline-flex;
+		height: 42px;
+		justify-content: center;
+		padding: 0;
+		width: 42px;
+	}
+
+	.tribe-editor__event-dates__control:hover,
+	.tribe-editor__event-dates__control:focus {
+		border-color: #545d66;
+	}
+
+	.tribe-editor__event-dates__control svg {
+		display: block;
+	}
+}
+
+/* Scheduled dates chips of a rule-locked Event. */
+.tribe-editor__event-dates__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	list-style: none;
+	margin: 0 0 8px;
+	padding: 0;
+}
+
+.tribe-editor__event-dates__chips li {
+	margin: 0;
+}
+
+.tribe-editor__event-dates__chip {
+	background-color: #fff;
+	border: 1px solid var(--tec-color-border-secondary, #e1e3e6);
+	border-radius: 4px;
+	color: var(--tec-color-text-primary, #141827);
+	display: inline-block;
+	font-size: 12px;
+	line-height: 1.6;
+	padding: 0 10px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.tribe-editor__event-dates__chip:hover,
+.tribe-editor__event-dates__chip:focus {
+	color: var(--tec-color-text-primary, #141827);
+}
+
+/* Hovering anywhere on the group darkens the whole outline, chip and edit button alike. */
+.tribe-editor__event-dates__chip-group:hover .tribe-editor__event-dates__chip,
+.tribe-editor__event-dates__chip-group:hover .tribe-editor__event-dates__chip-edit.components-button,
+.tribe-editor__event-dates__chip-group:focus-within .tribe-editor__event-dates__chip,
+.tribe-editor__event-dates__chip-group:focus-within .tribe-editor__event-dates__chip-edit.components-button {
+	border-color: var(--tec-color-text-secondary, #5d5d5d);
+}
+
+.tribe-editor__event-dates__chip--next {
+	border-color: var(--tec-color-accent-primary, #334aff);
+	font-weight: 600;
+}
+
+.tribe-editor__event-dates__chip--past {
+	opacity: 0.65;
+}
+
+.tribe-editor__event-dates .tribe-editor__event-dates__toggle {
+	margin: 0 0 8px;
+	padding: 0;
+}
+
+/* Chip + edit button as one pill group. */
+.tribe-editor__event-dates__chip-group {
+	align-items: stretch;
+	display: inline-flex;
+}
+
+.tribe-editor__event-dates__chip-group .tribe-editor__event-dates__chip {
+	border-bottom-right-radius: 0;
+	border-right: 0;
+	border-top-right-radius: 0;
+}
+
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button {
+	background-color: #fff;
+	border: 1px solid var(--tec-color-border-secondary, #e1e3e6);
+	border-radius: 0 4px 4px 0;
+	color: var(--tec-color-text-secondary, #5d5d5d);
+	height: auto;
+	min-width: 0;
+	padding: 0 5px;
+}
+
+/* The edit action reads as an action: WordPress admin blue on hover and focus. */
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button:hover,
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button:focus {
+	color: var(--wp-admin-theme-color, #2271b1);
+}
+
+.tribe-editor__event-dates .tribe-editor__event-dates__chip-edit.components-button svg {
+	display: block;
+	height: 12px;
+	width: 12px;
+}
+
+.tribe-editor__event-dates__chip-group:has(.tribe-editor__event-dates__chip--next) .tribe-editor__event-dates__chip-edit.components-button {
+	border-color: var(--tec-color-accent-primary, #334aff);
+}
+
+/* Rule-based (Events Calendar Pro) recurrence lock and conversion. */
+.tribe-editor__event-dates--locked .components-notice.tribe-editor__event-dates__lock-notice {
+	margin: 0 0 12px;
+}
+
+.tribe-editor__event-dates--locked .tribe-editor__event-dates__lock-notice p {
+	font-size: 13px;
+	margin: 0 0 6px;
+}
+
+.tribe-editor__event-dates--locked .tribe-editor__event-dates__lock-notice p:last-child {
+	margin-bottom: 0;
+}
+
+.tribe-editor__event-dates__convert {
+	border-top: 1px solid var(--tec-color-border-secondary, #e1e3e6);
+	font-size: 13px;
+	margin-top: 12px;
+	padding-top: 12px;
+}
+
+.tribe-editor__event-dates__convert p {
+	margin: 0 0 6px;
+}
+
+.tribe-editor__event-dates__convert-effects {
+	list-style: disc;
+	margin: 0 0 12px 20px;
+	padding: 0;
+}
+
+.tribe-editor__event-dates__convert .components-checkbox-control {
+	margin-bottom: 12px;
+}
+
+.tribe-editor__event-dates__lock-hint {
+	color: var(--tec-color-text-secondary, #5d5d5d);
+	font-size: 13px;
+	margin: 4px 0 0;
+}
+
+.tribe-editor__calendars--disabled {
+	opacity: 0.6;
+	pointer-events: none;
+}

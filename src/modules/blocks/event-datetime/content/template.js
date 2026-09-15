@@ -17,6 +17,7 @@ import { TimeZone } from '@moderntribe/events/elements';
 import { date, moment as momentUtil } from '@moderntribe/common/utils';
 import { settings, wpHooks } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../human-readable-input/container';
+import { isDatesLocked } from '../locked';
 
 /**
  * Module Code
@@ -134,7 +135,8 @@ const renderContentHook = ( props ) => wpHooks.applyFilters( 'blocks.eventDateti
 const EventDateTimeContent = ( props ) => {
 	const { multiDay, allDay, sameStartEnd, isEditable, setAttributes, isOpen, open } = props;
 
-	return isOpen && isEditable ? (
+	// Locked dates: the dashboard opens (it explains the lock) but the free-text date input does not.
+	return isOpen && isEditable && ! isDatesLocked() ? (
 		<HumanReadableInput after={ renderExtras( props ) } setAttributes={ setAttributes } />
 	) : (
 		<Fragment>

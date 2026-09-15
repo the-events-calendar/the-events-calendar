@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Added a 'Convert to individual dates' action turning a rule-based
+  recurring event into an event with explicit dates, removing its recurrence
+  rules and Series link, when the lock setting is off.
+timestamp: 2026-09-05T05:13:37.072Z

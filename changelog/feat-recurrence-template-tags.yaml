@@ -1,0 +1,5 @@
+significance: minor
+type: feature
+entry: Added the tribe_is_recurring_event() and
+  tribe_get_recurrence_start_dates() template tags to The Events Calendar.
+timestamp: 2026-09-04T18:04:38.841Z

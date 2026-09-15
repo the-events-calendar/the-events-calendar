@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Preserved each occurrence editor URL and save response while saving
+  shared event fields and changes to the selected date.
+timestamp: 2026-09-06T04:44:18.969Z

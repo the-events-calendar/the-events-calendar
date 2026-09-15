@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Added a service to author the explicit dates of an event, keeping the
+  recurrence meta as the canonical format and regenerating occurrences on
+  change.
+timestamp: 2026-09-04T18:04:38.528Z

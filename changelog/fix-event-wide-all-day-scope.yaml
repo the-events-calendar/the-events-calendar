@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved inconsistent all-day occurrence display and export by keeping
+  the All Day setting shared across all dates of an event.
+timestamp: 2026-09-06T03:31:24.594Z

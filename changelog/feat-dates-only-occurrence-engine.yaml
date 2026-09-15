@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Added the dates-only occurrence engine behind the Recurrence feature
+  gate, allowing an event to carry multiple explicit dates; rule-based
+  occurrences are preserved when no rule engine is active.
+timestamp: 2026-09-04T18:04:38.576Z

@@ -35,14 +35,19 @@ $clean_custom_tables = static function () {
 	global $wpdb;
 	$last_error        = $wpdb->last_error;
 	$occurrences_table = Occurrences::table_name( true );
-	$wpdb->query( "TRUNCATE TABLE {$occurrences_table}" );
-	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
-		throw new RuntimeException( "There was an issue cleaning the Occurrences table: $wpdb->last_error" );
+	// Guard on existence: a test dropping the custom tables would otherwise brick every following run.
+	if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $occurrences_table ) ) ) {
+		$wpdb->query( "TRUNCATE TABLE {$occurrences_table}" );
+		if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
+			throw new RuntimeException( "There was an issue cleaning the Occurrences table: $wpdb->last_error" );
+		}
 	}
 	$events_table = Events::table_name( true );
-	$wpdb->query( "DELETE FROM {$events_table}" ); // To skip FOREIGN KEY constraints.
-	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
-		throw new RuntimeException( "There was an issue cleaning the Events table: $wpdb->last_error" );
+	if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $events_table ) ) ) {
+		$wpdb->query( "DELETE FROM {$events_table}" ); // To skip FOREIGN KEY constraints.
+		if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {
+			throw new RuntimeException( "There was an issue cleaning the Events table: $wpdb->last_error" );
+		}
 	}
 	$wpdb->query( "TRUNCATE TABLE $wpdb->postmeta" );
 	if ( ! empty( $wpdb->last_error ) && $wpdb->last_error !== $last_error ) {

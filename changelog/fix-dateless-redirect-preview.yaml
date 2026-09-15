@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where previewing changes to a multi-date event
+  redirected to the published page of its next date.
+timestamp: 2026-09-04T21:40:57.197Z

@@ -17,6 +17,7 @@ import { __ } from '@wordpress/i18n';
 import { TimePicker } from '@moderntribe/common/elements';
 import { Dashboard, Month, Upsell } from '@moderntribe/events/elements';
 import { date, moment as momentUtil, time, globals } from '@moderntribe/common/utils';
+import { isDatesLocked } from '../locked';
 
 /**
  * Module Code
@@ -50,6 +51,7 @@ const renderStartTimePicker = ( {
 		timeFormat: FORMATS.WP.time,
 		showAllDay: true,
 		allDay,
+		disabled: isDatesLocked(),
 	};
 
 	let startDate = toDate( toMoment( start ) );
@@ -71,6 +73,7 @@ const renderMultiDayToggle = ( { multiDay, onMultiDayToggleChange } ) => {
 			label={ __( 'Multi-Day', 'the-events-calendar' ) }
 			checked={ multiDay }
 			onChange={ onMultiDayToggleChange }
+			disabled={ isDatesLocked() }
 			__nextHasNoMarginBottom={ true }
 		/>
 	);
@@ -100,6 +103,7 @@ const renderEndTimePicker = ( {
 		timeFormat: FORMATS.WP.time,
 		showAllDay: true,
 		allDay,
+		disabled: isDatesLocked(),
 	};
 
 	let endDate = toDate( toMoment( end ) );
@@ -142,6 +146,7 @@ class Calendars extends PureComponent {
 			from: toMoment( start ).toDate(),
 			month: this.state.visibleMonth,
 			setVisibleMonth: this.setVisibleMonth,
+			disabled: isDatesLocked(),
 		};
 
 		if ( multiDay ) {

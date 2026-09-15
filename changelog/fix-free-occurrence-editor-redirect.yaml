@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an endless redirect when opening an occurrence in the Free event
+  editor.
+timestamp: 2026-09-06T04:15:10.138Z

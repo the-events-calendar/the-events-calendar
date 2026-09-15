@@ -1,0 +1,6 @@
+significance: patch
+type: tweak
+entry: Added a static capability check so other plugins can detect the free
+  occurrence infrastructure at boot without instantiating the Recurrence
+  controller.
+timestamp: 2026-09-04T18:04:39.370Z

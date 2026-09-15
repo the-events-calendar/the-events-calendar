@@ -1,0 +1,6 @@
+significance: minor
+type: feature
+entry: Added a migration strategy for events recurring on a list of explicit
+  dates, so they migrate to the new events system without Events Calendar Pro;
+  rule-based recurring events still require it.
+timestamp: 2026-09-04T18:04:38.457Z

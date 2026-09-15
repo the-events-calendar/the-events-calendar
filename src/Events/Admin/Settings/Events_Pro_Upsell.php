@@ -102,11 +102,26 @@ class Events_Pro_Upsell extends Service_Provider {
 		// Ensure conditional-content JS is available.
 		do_action( 'tec_conditional_content_assets' );
 
+		$recurrence_active = function_exists( 'tribe' )
+			&& class_exists( \TEC\Events\Recurrence\Controller::class )
+			&& tribe( \TEC\Events\Recurrence\Controller::class )->is_active();
+
+		if ( $recurrence_active ) {
+			// Single additional dates are a free feature: the upsell sells the rule patterns.
+			$title       = __( 'Need recurring patterns?', 'the-events-calendar' );
+			$description = __( 'Repeat this event automatically in daily, weekly, monthly, or custom patterns with Events Calendar Pro. Individual extra dates can be added below, free.', 'the-events-calendar' );
+		} else {
+			$title       = __( 'Need Recurring Events?', 'the-events-calendar' );
+			$description = __( 'Schedule multiple events in daily, weekly, monthly, or custom patterns with Events Calendar Pro.', 'the-events-calendar' );
+		}
+
 		$this->get_template()->template(
 			'recurrence-banner',
 			[
-				'nonce' => $this->get_nonce(),
-				'slug'  => $this->get_slug(),
+				'nonce'       => $this->get_nonce(),
+				'slug'        => $this->get_slug(),
+				'title'       => $title,
+				'description' => $description,
 			]
 		);
 	}

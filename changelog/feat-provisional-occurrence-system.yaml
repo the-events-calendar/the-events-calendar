@@ -1,0 +1,5 @@
+significance: minor
+type: feature
+entry: Moved the provisional occurrence post ID system from Events Calendar Pro
+  into The Events Calendar, behind the Recurrence feature gate.
+timestamp: 2026-09-04T18:04:38.724Z

@@ -72,9 +72,32 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), $events_label_singular_lowercase, $events_label_plural_lowercase ); ?></td>
 					</tr>
 
+					<?php
+					/*
+					 * The dates of a rule-based recurring Event (Events Calendar Pro rules, Pro inactive)
+					 * are frozen: the controls are disabled and hidden mirrors keep the posted payload
+					 * identical to an untouched save.
+					 */
+					$tec_dates_locked             = ! empty( $dates_locked );
+					$tec_dates_locked_describedby = (string) ( $dates_locked_describedby ?? '' );
+					// The metabox variables, by name: the mirrors below read the camelCase ones.
+					$tec_dates_vars = get_defined_vars();
+					/**
+					 * Prints the attributes disabling a date control of a rule-based Event.
+					 *
+					 * @return void
+					 */
+					$tec_dates_locked_attrs = static function () use ( $tec_dates_locked, $tec_dates_locked_describedby ): void {
+						if ( ! $tec_dates_locked ) {
+							return;
+						}
+
+						echo ' disabled aria-describedby="' . esc_attr( $tec_dates_locked_describedby ) . '"';
+					};
+					?>
 					<tr>
 						<td class="tribe-datetime-label"><?php esc_html_e( 'Start/End:', 'the-events-calendar' ); ?></td>
-						<td class="tribe-datetime-block">
+						<td class="tribe-datetime-block<?php echo $tec_dates_locked ? ' tribe-datetime-block--locked' : ''; ?>">
 							<input
 								autocomplete="off"
 								tabindex="<?php tribe_events_tab_index(); ?>"
@@ -83,6 +106,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								name="EventStartDate"
 								id="EventStartDate"
 								value="<?php echo esc_attr( $EventStartDate ); ?>"
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ); ?></span>
 
@@ -97,6 +121,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								data-step="<?php echo esc_attr( $start_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
 								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $start_timepicker_default : $EventStartTime ); ?>"
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ); ?></span>
 
@@ -112,6 +137,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								data-step="<?php echo esc_attr( $end_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
 								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $end_timepicker_default : $EventEndTime ); ?>"
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ); ?></span>
 
@@ -122,6 +148,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								name="EventEndDate"
 								id="EventEndDate"
 								value="<?php echo esc_attr( $EventEndDate ); ?>"
+								<?php $tec_dates_locked_attrs(); ?>
 							/>
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ); ?></span>
 
@@ -133,6 +160,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								data-timezone-label="<?php esc_attr_e( 'Time Zone:', 'the-events-calendar' ); ?>"
 								data-timezone-value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ); ?>"
 								data-prevent-clear
+								<?php $tec_dates_locked_attrs(); ?>
 							>
 								<?php echo tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
 							</select>
@@ -145,9 +173,21 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 									name="EventAllDay"
 									value="yes"
 									<?php echo esc_html( $isEventAllDay ); ?>
+									<?php $tec_dates_locked_attrs(); ?>
 								/>
 								<label for="allDayCheckbox"><?php esc_html_e( 'All Day Event', 'the-events-calendar' ); ?></label>
 							</p>
+							<?php if ( $tec_dates_locked ) : ?>
+								<?php // Disabled controls are not posted: the mirrors post what an untouched save would. ?>
+								<input type="hidden" name="EventStartDate" value="<?php echo esc_attr( $tec_dates_vars['EventStartDate'] ?? '' ); ?>" />
+								<input type="hidden" name="EventStartTime" value="<?php echo esc_attr( $tec_dates_vars['EventStartTime'] ?? '' ); ?>" />
+								<input type="hidden" name="EventEndTime" value="<?php echo esc_attr( $tec_dates_vars['EventEndTime'] ?? '' ); ?>" />
+								<input type="hidden" name="EventEndDate" value="<?php echo esc_attr( $tec_dates_vars['EventEndDate'] ?? '' ); ?>" />
+								<input type="hidden" name="EventTimezone" value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ); ?>" />
+								<?php if ( '' !== trim( (string) ( $tec_dates_vars['isEventAllDay'] ?? '' ) ) ) : ?>
+									<input type="hidden" name="EventAllDay" value="yes" />
+								<?php endif; ?>
+							<?php endif; ?>
 						</td>
 					</tr>
 

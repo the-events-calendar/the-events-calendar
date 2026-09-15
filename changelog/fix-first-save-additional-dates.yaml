@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Resolved an issue where additional event dates were lost on first publish
+  and added feedback when saving those dates failed.
+timestamp: 2026-09-06T03:13:19.259Z
