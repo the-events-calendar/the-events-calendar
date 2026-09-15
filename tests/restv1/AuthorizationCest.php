@@ -29,7 +29,7 @@ class AuthorizationCest extends BaseRestCest {
 
 		// Contributor tries to edit it
 		$I->generate_nonce_for_role( 'contributor' );
-		$I->sendPUT( $this->events_url . "/{$event_id}", [ $data['title_field'] => 'Hacked Title' ] );
+		$I->sendPUT( $this->events_url . "/{$event_id}", [ 'title' => 'Hacked Title' ] );
 
 		$I->seeResponseCodeIs( 403 );
 	}
@@ -365,9 +365,6 @@ class AuthorizationCest extends BaseRestCest {
 	}
 
 	/**
-	 * Logs in as a Contributor and returns their user ID.
-	 */
-	/**
 	 * Provides the post types that expose a by-slug write route.
 	 *
 	 * @return array<string,array{type:string,factory:string,title_field:string}>
@@ -520,6 +517,9 @@ class AuthorizationCest extends BaseRestCest {
 		$I->assertEquals( 'Admin Record', $this->grab_post_field( $I, $id, 'post_title' ) );
 	}
 
+	/**
+	 * Logs in as a Contributor and returns their user ID.
+	 */
 	private function login_as_contributor( Tester $I ): int {
 		$contributor_id = $I->haveUserInDatabase( 'contributor_user', 'contributor', [ 'user_pass' => 'contributor' ] );
 
