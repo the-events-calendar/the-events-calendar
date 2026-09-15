@@ -95,4 +95,25 @@ class Widget_QR_Code_ViewTest extends TecViewTestCase {
 		$this->assertStringContainsString( 'tribe-events-widget-events-qr-code', $html );
 		$this->assertStringNotContainsString( self::MARKER_OUTPUT, $html );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_renders_the_qr_image_for_a_valid_request() {
+		$context = tribe_context()->alter(
+			[
+				'today'        => $this->mock_date_value,
+				'now'          => $this->mock_date_value,
+				'event_date'   => $this->mock_date_value,
+				'redirection'  => 'current',
+				'qr_code_size' => '4',
+			]
+		);
+
+		$html = View::make( Widget_QR_Code_View::class, $context )->get_html();
+
+		// A valid request renders the QR code as an inline base64 PNG image.
+		$this->assertStringContainsString( 'tec-events-qr-code__image', $html );
+		$this->assertStringContainsString( 'src="data:image/png;base64,', $html );
+	}
 }
