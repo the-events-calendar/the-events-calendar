@@ -13,16 +13,12 @@ class Rendering_Test extends TestCase {
 	private $original_theme;
 	private $bindings = [];
 	private $body_classes;
-	private $post_type_checks = [];
 
 	public function setUp(): void {
 		parent::setUp();
+		// The base keeps a context reference; navigation must not mutate that backup.
+		tribe()->singleton( 'context', clone tribe_context() );
 		$this->body_classes = clone tribe( Body_Classes::class );
-		// Rendering caches post types by ID, and later fixtures can reuse those IDs.
-		foreach ( [ 'Tribe__Events__Main::isOrganizer', 'Tribe__Events__Main::isVenue' ] as $key ) {
-			$this->post_type_checks[ $key ] = tribe_get_var( $key, [] );
-			tribe_set_var( $key, [] );
-		}
 		$this->original_theme = get_stylesheet();
 		foreach ( [ 'events.editor.template', 'events.editor.template.overwrite' ] as $id ) {
 			$this->bindings[ $id ] = tribe()->isBound( $id ) ? tribe( $id ) : null;
@@ -41,9 +37,6 @@ class Rendering_Test extends TestCase {
 
 	public function tearDown(): void {
 		tribe()->singleton( Body_Classes::class, $this->body_classes );
-		foreach ( $this->post_type_checks as $key => $value ) {
-			tribe_set_var( $key, $value );
-		}
 		foreach ( $this->bindings as $id => $binding ) {
 			tribe()->offsetUnset( $id );
 			if ( null !== $binding ) {
@@ -199,4 +192,82 @@ class Rendering_Test extends TestCase {
 			remove_filter( 'tribe_events_views_v2_bootstrap_pre_get_view_html', $guard );
 		}
 	}
+	public function block_slugs() {
+		return [ [ 'single-event' ], [ 'archive-events' ] ];
+	}
+
+	/**
+	 * @dataProvider block_slugs
+	 */
+	public function test_page_content_renders_when_the_global_post_is_an_event( $slug ) {
+		tribe( Tribe__Events__Editor__Provider::class )->register();
+		$page_id = static::factory()->post->create(
+			[ 'post_type' => 'page', 'post_content' => '<!-- wp:tec/' . $slug . ' /-->' ]
+		);
+		$event_id = ( new Event() )->create();
+		$this->go_to( get_permalink( $page_id ) );
+		tribe_context()->refresh();
+		$GLOBALS['post'] = get_post( $event_id );
+
+		// Third parties can filter another post's content without changing the global post.
+		$content = apply_filters( 'the_content', get_post( $page_id )->post_content );
+
+		$this->assertContains( 'tec-block__' . $slug, $content );
+		$this->assertContains( 'tribe-events-view', $content );
+	}
+
+	/**
+	 * @dataProvider block_slugs
+	 */
+	public function test_event_description_does_not_render_a_single_view_when_the_global_post_is_a_page( $slug ) {
+		tribe( Tribe__Events__Editor__Provider::class )->register();
+		$event_id = ( new Event() )->create(
+			[ 'post_content' => '<p>Before.</p><!-- wp:tec/' . $slug . ' /--><p>After.</p>' ]
+		);
+		$page_id = static::factory()->post->create( [ 'post_type' => 'page' ] );
+		$this->go_to( get_permalink( $event_id ) );
+		tribe_context()->refresh();
+		$GLOBALS['post'] = get_post( $page_id );
+
+		// Stop an incorrect full-view render before it can recursively exhaust memory.
+		$guard = static function () {
+			throw new \RuntimeException( 'A mismatched global post bypassed the recursion protection.' );
+		};
+		add_filter( 'tribe_events_views_v2_bootstrap_pre_get_view_html', $guard );
+		$buffer_level = ob_get_level();
+		try {
+			$content = apply_filters( 'the_content', get_post( $event_id )->post_content );
+			$this->assertContains( 'Before.', $content );
+			$this->assertContains( 'After.', $content );
+			$this->assertNotContains( 'tec-block__', $content );
+		} finally {
+			while ( ob_get_level() > $buffer_level ) {
+				ob_end_clean();
+			}
+			remove_filter( 'tribe_events_views_v2_bootstrap_pre_get_view_html', $guard );
+		}
+	}
+
+	public function test_archive_selected_by_filters_can_render_inside_event_content() {
+		tribe( Tribe__Events__Editor__Provider::class )->register();
+		$event_id = ( new Event() )->create(
+			[ 'post_content' => '<!-- wp:tec/archive-events /-->' ]
+		);
+		$this->go_to( get_permalink( $event_id ) );
+		tribe_context()->refresh();
+		$list_view = static function () {
+			return 'list';
+		};
+		add_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_false' );
+		add_filter( 'tribe_events_views_v2_bootstrap_view_slug', $list_view );
+		try {
+			$content = tribe_get_the_content( null, false, $event_id );
+			$this->assertContains( 'tec-block__archive-events', $content );
+			$this->assertContains( 'tribe-events-view--list', $content );
+		} finally {
+			remove_filter( 'tribe_events_views_v2_bootstrap_should_display_single', '__return_false' );
+			remove_filter( 'tribe_events_views_v2_bootstrap_view_slug', $list_view );
+		}
+	}
+
 }

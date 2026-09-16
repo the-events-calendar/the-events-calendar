@@ -2,6 +2,8 @@
 
 namespace TEC\Events\Blocks\Single_Event;
 
+use Tribe\Events\Views\V2\Template_Bootstrap;
+
 /**
  * Class Block
  *
@@ -50,8 +52,8 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 * @return string The block HTML.
 	 */
 	public function render( $attributes = [] ): string {
-		// Rendering the event view inside its own description would recurse.
-		if ( doing_filter( 'the_content' ) && get_post_type() === \Tribe__Events__Main::POSTTYPE ) {
+		// Both blocks render the single-event view on event requests, regardless of the global post.
+		if ( doing_filter( 'the_content' ) && tribe( Template_Bootstrap::class )->should_display_single() ) {
 			return '';
 		}
 
