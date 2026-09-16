@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Resolved an issue where hiding the subscribe links with a snippet that returns
+  a non-array value from the `tec_views_v2_subscribe_links` filter could cause a fatal
+  error on single event pages.
+timestamp: 2026-08-31T00:00:00.000Z
