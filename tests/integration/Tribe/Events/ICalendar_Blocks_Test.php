@@ -37,6 +37,8 @@ class ICalendar_Blocks_Test extends WPTestCase {
 
 		try {
 			tribe( Tribe__Events__Editor__Provider::class )->register();
+			// Export must not render event blocks, even if their rendering service is unavailable.
+			$container->offsetUnset( 'events.editor.template' );
 			$this->assertFalse( $container->isBound( 'events.editor.template' ) );
 			$this->assertTrue( WP_Block_Type_Registry::get_instance()->is_registered( 'tec/single-event' ) );
 			$this->assertTrue( WP_Block_Type_Registry::get_instance()->is_registered( 'tec/archive-events' ) );

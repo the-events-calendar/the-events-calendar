@@ -43,12 +43,18 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
 	 * @since 6.3.3
+	 * @since TBD Prevents full event views from rendering inside event descriptions.
 	 *
 	 * @param array $attributes The block attributes.
 	 *
 	 * @return string The block HTML.
 	 */
 	public function render( $attributes = [] ): string {
+		// Rendering the event view inside its own description would recurse.
+		if ( doing_filter( 'the_content' ) && get_post_type() === \Tribe__Events__Main::POSTTYPE ) {
+			return '';
+		}
+
 		$args['attributes'] = $this->attributes( $attributes );
 
 		// Add the rendering attributes into global context.
