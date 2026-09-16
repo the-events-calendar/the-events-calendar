@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Prevented event pages and iCal exports from failing when event descriptions
+  contain Single Event or Events Archive blocks.
+timestamp: 2026-09-16T11:15:31.877Z
