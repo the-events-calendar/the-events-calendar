@@ -52,7 +52,8 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 * @return string The block HTML.
 	 */
 	public function render( $attributes = [] ): string {
-		// Both blocks render the single-event view on event requests, regardless of the global post.
+		// On a single event request, the view already contains this event's content.
+		// Rendering the block again would recurse.
 		if ( doing_filter( 'the_content' ) && tribe( Template_Bootstrap::class )->should_display_single() ) {
 			return '';
 		}
