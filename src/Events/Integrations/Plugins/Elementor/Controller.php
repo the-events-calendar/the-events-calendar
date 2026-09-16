@@ -312,12 +312,14 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since 6.4.0
 	 * @since 6.9.1 Added check that content is not null.
+	 * @since TBD Dropped the return type; the content is handed straight back on every early
+	 *            return, and `the_content` carries whatever the callbacks ahead of us returned.
 	 *
-	 * @param string $content The post content.
+	 * @param mixed $content The post content.
 	 *
-	 * @return string The modified post content.
+	 * @return mixed The modified post content.
 	 */
-	public function disable_blocks_on_display( $content ): string {
+	public function disable_blocks_on_display( $content ) {
 		global $post;
 
 		// Check that content is not null.

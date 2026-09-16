@@ -305,16 +305,20 @@ class Title {
 	 * Filters and returns the `title` part of the array produced by the  `wp_get_document_title` function.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Made the parameter non-strict; `document_title_parts` carries whatever the
+	 *            callbacks ahead of us returned.
 	 *
-	 * @param array $title The document title parts.
+	 * @param mixed $title The document title parts.
 	 *
 	 * @return array The filtered document title parts.
 	 */
-	public function filter_document_title_parts( array $title = [] ) {
-		$sep       = apply_filters( 'document_title_separator', '-' );
-		$the_title = $title['title'];
+	public function filter_document_title_parts( $title = [] ) {
+		$title = (array) $title;
 
-		$new_title = $this->build_title( $title['title'] );
+		$sep       = apply_filters( 'document_title_separator', '-' );
+		$the_title = $title['title'] ?? '';
+
+		$new_title = $this->build_title( $the_title );
 
 		/**
 		 * Filters the page title built for event single or archive pages.

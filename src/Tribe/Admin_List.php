@@ -100,12 +100,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * Defines custom logic for sorting events table by start/end date. No matter how user selects
 		 * what should be is sorted, always include date sorting in some fashion
 		 *
-		 * @param   Array       $clauses    SQL clauses for fetching posts
+		 * @param   mixed       $clauses    SQL clauses for fetching posts
 		 * @param   WP_Query    $wp_query   A paginated query for items
 		 *
 		 * @return  Array                   Modified SQL clauses
 		 */
-		public static function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
+		public static function sort_by_event_date( $clauses, WP_Query $wp_query ) {
+			$clauses = (array) $clauses;
+
 			// bail if this is not a query for event post type
 			if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
 				return $clauses;
@@ -163,12 +165,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for filtering events table by aggregator record.
 		 *
-		 * @param array<string> $clauses    SQL clauses for fetching posts.
+		 * @param mixed         $clauses    SQL clauses for fetching posts.
 		 * @param WP_Query      $wp_query   A paginated query for items.
 		 *
 		 * @return array<string>            Modified SQL clauses.
 		 */
-		public static function filter_by_aggregator_record( array $clauses, WP_Query $wp_query ) {
+		public static function filter_by_aggregator_record( $clauses, WP_Query $wp_query ) {
+			$clauses = (array) $clauses;
+
 			// Check for event post type.
 			if ( $wp_query->get( 'post_type' ) !== TEC::POSTTYPE ) {
 				return $clauses;
@@ -200,12 +204,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for sorting events table by category or tags
 		 *
-		 * @param   Array       $clauses    SQL clauses for fetching posts
+		 * @param   mixed       $clauses    SQL clauses for fetching posts
 		 * @param   WP_Query    $wp_query   A paginated query for items
 		 *
 		 * @return  Array                   Modified SQL clauses
 		 */
-		public static function sort_by_tax( Array $clauses, WP_Query $wp_query ) {
+		public static function sort_by_tax( $clauses, WP_Query $wp_query ) {
+			$clauses = (array) $clauses;
+
 			if ( ! isset( $wp_query->query['orderby'] ) ) {
 				return $clauses;
 			}

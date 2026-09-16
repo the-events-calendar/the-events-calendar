@@ -101,12 +101,16 @@ class Provider extends Integration_Abstract {
 	 * Appends a compatibility note to Avada’s Global Options description.
 	 *
 	 * @since 6.15.8
+	 * @since TBD Made the parameter non-strict; the filter is Avada's, so the value reaching us
+	 *            is whatever the callbacks ahead of us returned.
 	 *
-	 * @param array $sections Existing Avada options sections.
+	 * @param mixed $sections Existing Avada options sections.
 	 *
 	 * @return array Modified sections array.
 	 */
-	public function append_settings_notice( array $sections ): array {
+	public function append_settings_notice( $sections ): array {
+		$sections = (array) $sections;
+
 		if ( ! $this->is_avada_setup_correctly() ) {
 			return $sections;
 		}

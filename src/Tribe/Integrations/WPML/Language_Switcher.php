@@ -27,12 +27,17 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 	 * For any view that's not the default one the `url` field in the language information array has to
 	 * be set to the correct one.
 	 *
-	 * @param array $languages The original languages information array.
+	 * The filter is WPML's, so the value reaching us is whatever the callbacks ahead of us
+	 * returned; it is cast rather than declared.
+	 *
+	 * @param mixed $languages The original languages information array.
 	 *
 	 * @return array The languages with maybe updated URLs
 	 */
-	public function filter_icl_ls_languages( array $languages = [] ) {
+	public function filter_icl_ls_languages( $languages = [] ) {
 		global $wp_query;
+
+		$languages = (array) $languages;
 
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return $languages;
