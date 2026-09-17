@@ -151,12 +151,13 @@ class Frontend extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.15.14 Change content template name to 'embed-content' to avoid potential conflicts.
+	 * @since TBD Made the parameter and return non-strict; `the_content` often carries null.
 	 *
 	 * @param string $content The content.
 	 *
 	 * @return string
 	 */
-	public function overwrite_content( string $content ): string {
+	public function overwrite_content( $content ) {
 		if ( ! is_singular( Calendar_Embeds::POSTTYPE ) ) {
 			return $content;
 		}
@@ -182,12 +183,13 @@ class Frontend extends Controller_Contract {
 	 * Overwrites the embed template for the calendar embeds.
 	 *
 	 * @since 6.11.0
+	 * @since TBD Made the parameter and return non-strict.
 	 *
 	 * @param string $template The template.
 	 *
 	 * @return string
 	 */
-	public function overwrite_embed_template( string $template ): string {
+	public function overwrite_embed_template( $template ) {
 		if ( ! is_embed() ) {
 			return $template;
 		}

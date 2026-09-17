@@ -197,12 +197,13 @@ class List_Page extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.11.2.1 Made the parameters non-strict.
+	 * @since TBD Dropped the return type; the value is handed back untouched.
 	 *
 	 * @param ?string $submenu_file The current submenu file.
 	 *
 	 * @return ?string
 	 */
-	public function keep_parent_menu_open( $submenu_file ): ?string {
+	public function keep_parent_menu_open( $submenu_file ) {
 		global $parent_file;
 
 		if ( 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE !== $parent_file ) {

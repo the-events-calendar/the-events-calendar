@@ -31,12 +31,14 @@ class WP_Rocket {
 	 * Filters the content of the WP Rocket excluded inline JS concat.
 	 *
 	 * @since 5.0.0.2
+	 * @since TBD Made the parameter non-strict; the filter is WP Rocket's.
 	 *
 	 * @param array $excluded_inline Items to be excluded by WP Rocket.
 	 *
 	 * @return array Excluded inline scripts after adding the breakpoint code.
 	 */
-	public function filter_excluded_inline_js_concat( array $excluded_inline ) {
+	public function filter_excluded_inline_js_concat( $excluded_inline ) {
+		$excluded_inline   = (array) $excluded_inline;
 		$excluded_inline[] = 'data-view-breakpoint-pointer';
 		return $excluded_inline;
 	}
