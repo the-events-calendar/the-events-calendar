@@ -482,7 +482,7 @@ class Hooks extends Service_Provider {
 	 * a copy of the original `Tribe__Events__Main::eventQueryVars` one.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Made the parameter non-strict.
+	 * @since 6.17.5 Made the parameter non-strict.
 	 *
 	 * @param  array  $query_vars  The list of publicly available query variables.
 	 *

@@ -25,7 +25,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event_Slug
 	/**
 	 * Returns the post type handled by the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.17.5
 	 *
 	 * @return string
 	 */

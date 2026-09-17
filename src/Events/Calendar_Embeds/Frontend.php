@@ -151,7 +151,7 @@ class Frontend extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.15.14 Change content template name to 'embed-content' to avoid potential conflicts.
-	 * @since TBD Made the parameter and return non-strict; `the_content` often carries null.
+	 * @since 6.17.5 Made the parameter and return non-strict; `the_content` often carries null.
 	 *
 	 * @param string $content The content.
 	 *
@@ -183,7 +183,7 @@ class Frontend extends Controller_Contract {
 	 * Overwrites the embed template for the calendar embeds.
 	 *
 	 * @since 6.11.0
-	 * @since TBD Made the parameter and return non-strict.
+	 * @since 6.17.5 Made the parameter and return non-strict.
 	 *
 	 * @param string $template The template.
 	 *

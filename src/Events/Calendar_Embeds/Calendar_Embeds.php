@@ -97,7 +97,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @since 6.11.0
 	 * @since 6.11.0.1 Added check to ensure ABSPATH/wp-admin/includes/screen.php is loaded before running.
 	 * @since 6.11.2.1 Made the parameters non-strict.
-	 * @since TBD Dropped the return type; a count or WP_Error leaves untouched.
+	 * @since 6.17.5 Dropped the return type; a count or WP_Error leaves untouched.
 	 *
 	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
@@ -161,7 +161,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.11.2.1 Made the parameters non-strict.
-	 * @since TBD Cast the post data before reading from it, rather than after.
+	 * @since 6.17.5 Cast the post data before reading from it, rather than after.
 	 *
 	 * @param array $data              The post data.
 	 * @param array $post_array        The post array.

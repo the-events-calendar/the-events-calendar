@@ -2,7 +2,7 @@
 /**
  * Shared behavior for the REST API v1 by-slug endpoints.
  *
- * @since TBD
+ * @since 6.17.5
  */
 
 /**
@@ -13,7 +13,7 @@
  * Resolving in the permission callbacks too means authorization is checked against the object
  * the request will actually write, and a body or query `id` can never win over the route slug.
  *
- * @since TBD
+ * @since 6.17.5
  */
 trait Tribe__Events__REST__V1__Endpoints__Slug_Endpoint {
 
@@ -27,7 +27,7 @@ trait Tribe__Events__REST__V1__Endpoints__Slug_Endpoint {
 	/**
 	 * Resolves the slug in the request to the post ID and sets it on the request.
 	 *
-	 * @since TBD
+	 * @since 6.17.5
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 */
@@ -88,7 +88,7 @@ trait Tribe__Events__REST__V1__Endpoints__Slug_Endpoint {
 	/**
 	 * Whether the current user can delete the post identified by the request slug.
 	 *
-	 * @since TBD
+	 * @since 6.17.5
 	 *
 	 * @param WP_REST_Request|null $request The request object.
 	 *
@@ -105,7 +105,7 @@ trait Tribe__Events__REST__V1__Endpoints__Slug_Endpoint {
 	/**
 	 * Whether the current user can edit the post identified by the request slug.
 	 *
-	 * @since TBD
+	 * @since 6.17.5
 	 *
 	 * @param WP_REST_Request|null $request The request object.
 	 *

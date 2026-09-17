@@ -75,7 +75,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 * anything else requires the post type's `read_post` capability. Returning an empty array drops
 	 * the record from whatever response embeds it.
 	 *
-	 * @since TBD
+	 * @since 6.17.5
 	 *
 	 * @param array $entity_data The entity data.
 	 *
