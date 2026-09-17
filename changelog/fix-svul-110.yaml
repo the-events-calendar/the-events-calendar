@@ -1,3 +1,0 @@
-significance: patch
-type: security
-entry: Strengthened permission checks in the REST API v1. Props to Mohammed Abd Alrahman for reporting.
