@@ -32,11 +32,9 @@ use WP_Query;
  * value into an uncaught TypeError that takes down the whole request, before our code
  * gets a chance to ignore it.
  *
- * Reported as SMTNC-2761: SG Optimizer's purge queue calls wp_remote_get( null, ... ),
+ * Reported from the field: SG Optimizer's purge queue calls wp_remote_get( null, ... ),
  * WP_Http::request() forwards that null to `pre_http_request`, and
  * Harbor\PUE::filter_pre_http_request()'s `string $url` fatals on it.
- *
- * @see https://linear.app/nexcess/issue/SMTNC-2761
  */
 class Core_Filter_Callback_Types_Test extends WPTestCase {
 
