@@ -326,6 +326,11 @@ class Controller extends Integration_Abstract {
 			return '';
 		}
 
+		// Not something we can strip blocks from.
+		if ( ! is_string( $content ) ) {
+			return $content;
+		}
+
 		// Not a post.
 		if ( ! $post instanceof WP_Post ) {
 			return $content;

@@ -9,6 +9,7 @@ use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use TEC\Events\Calendar_Embeds\Frontend;
 use TEC\Events\Category_Colors\Admin\Controller as Category_Colors_Admin_Controller;
 use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Controller;
+use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Elementor_Template_Controller;
 use TEC\Events\Integrations\Themes\Avada\Provider as Avada_Provider;
 use TEC\Events\SEO\Headers\Controller as SEO_Headers_Controller;
 use Tribe\Events\Integrations\WP_Rocket;
@@ -16,6 +17,8 @@ use Tribe\Events\Views\V2\Hooks as Views_V2_Hooks;
 use Tribe\Events\Views\V2\Template\Title as Views_V2_Title;
 use Tribe__Events__Admin_List;
 use Tribe__Events__Integrations__WPML__Language_Switcher;
+use Tribe\Tests\Traits\With_Uopz;
+use stdClass;
 use TypeError;
 use WP_Query;
 
@@ -36,6 +39,8 @@ use WP_Query;
  * @see https://linear.app/nexcess/issue/SMTNC-2761
  */
 class Core_Filter_Callback_Types_Test extends WPTestCase {
+
+	use With_Uopz;
 
 	/**
 	 * Every callback this plugin attaches to a filter it does not own, paired with the
@@ -139,5 +144,65 @@ class Core_Filter_Callback_Types_Test extends WPTestCase {
 
 		// Surviving the call is the whole assertion.
 		$this->assertTrue( true );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_hand_back_non_string_content_untouched_on_an_elementor_override(): void {
+		global $post;
+		$event = tribe_events()->set_args(
+			[
+				'title'      => 'Elementor event',
+				'status'     => 'publish',
+				'start_date' => '+1 day',
+				'duration'   => HOUR_IN_SECONDS,
+			]
+		)->create();
+		$post  = get_post( $event->ID );
+
+		// Elementor is not installed in this suite, so the override check cannot run for real.
+		$this->set_class_fn_return( Elementor_Template_Controller::class, 'is_override', true );
+
+		$content = new stdClass();
+
+		$this->assertSame( $content, tribe( Elementor_Controller::class )->disable_blocks_on_display( $content ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_hand_back_non_array_languages_untouched_on_an_event_archive(): void {
+		global $sitepress;
+		$previous_request_uri   = $_SERVER['REQUEST_URI'] ?? null;
+		$_SERVER['REQUEST_URI'] = '/events/list/';
+		set_query_var( 'eventDisplay', 'list' );
+		$this->set_fn_return( 'tribe_is_event_query', true );
+		$this->set_fn_return( 'is_archive', true );
+
+		// WPML is not installed in this suite; the callback only needs these two methods of it.
+		$previous_sitepress = $sitepress;
+		$sitepress          = new class() {
+			public function get_current_language() {
+				return 'en';
+			}
+
+			public function switch_lang( $code ) {
+			}
+
+			public function convert_url( $url, $code ) {
+				return $url;
+			}
+		};
+
+		try {
+			$switcher = new Tribe__Events__Integrations__WPML__Language_Switcher();
+
+			$this->assertSame( 'en', $switcher->filter_icl_ls_languages( 'en' ) );
+			$this->assertSame( [ 'en' ], $switcher->filter_icl_ls_languages( [ 'en' ] ) );
+		} finally {
+			$sitepress              = $previous_sitepress;
+			$_SERVER['REQUEST_URI'] = $previous_request_uri;
+		}
 	}
 }
