@@ -1,6 +1,6 @@
 significance: patch
 type: fix
-entry: Stop callbacks attached to WordPress and third-party filters from fataling
-  when those filters deliver an unexpected type, such as the null URL a
-  wp_remote_get( null ) call produces.
+entry: Resolved fatal errors that could occur when WordPress or another plugin passed
+  unexpected data to The Events Calendar, such as while SiteGround Optimizer clears
+  its cache.
 timestamp: 2026-09-16T21:47:55.000Z
