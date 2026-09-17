@@ -217,7 +217,7 @@ class Template_Bootstrap {
 	/**
 	 * Whether the current view will render the single-event template.
 	 *
-	 * @since TBD
+	 * @since 6.17.5
 	 *
 	 * @return bool Whether to render a single event instead of an archive.
 	 */

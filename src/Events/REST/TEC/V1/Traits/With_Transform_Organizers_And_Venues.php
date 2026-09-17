@@ -18,7 +18,7 @@ use TEC\Events\REST\TEC\V1\Endpoints\Venues;
  * Trait to handle the transformation of organizers and venues.
  *
  * @since 6.15.0
- * @since TBD Linked posts the current user cannot read are no longer included.
+ * @since 6.17.5 Linked posts the current user cannot read are no longer included.
  *
  * @package TEC\Events\REST\TEC\V1\Traits
  */

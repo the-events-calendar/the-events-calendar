@@ -31,7 +31,7 @@ class WP_Rocket {
 	 * Filters the content of the WP Rocket excluded inline JS concat.
 	 *
 	 * @since 5.0.0.2
-	 * @since TBD Made the parameter non-strict; the filter is WP Rocket's.
+	 * @since 6.17.5 Made the parameter non-strict; the filter is WP Rocket's.
 	 *
 	 * @param array $excluded_inline Items to be excluded by WP Rocket.
 	 *

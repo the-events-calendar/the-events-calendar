@@ -9,7 +9,7 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	 * Binds and sets up implementations.
 	 *
 	 * @since 4.7
-	 * @since TBD Registers the rendering template independently of the editor setting.
+	 * @since 6.17.5 Registers the rendering template independently of the editor setting.
 	 *
 	 */
 	public function register() {

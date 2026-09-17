@@ -312,7 +312,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since 6.4.0
 	 * @since 6.9.1 Added check that content is not null.
-	 * @since TBD Dropped the return type; the content is handed back untouched.
+	 * @since 6.17.5 Dropped the return type; the content is handed back untouched.
 	 *
 	 * @param string $content The post content.
 	 *

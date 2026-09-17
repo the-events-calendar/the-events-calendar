@@ -55,7 +55,7 @@ class Controller extends Controller_Contract {
 	 * before that logic runs and lets TEC render the view with its own repository.
 	 *
 	 * @since 6.15.20
-	 * @since TBD Made the short-circuit value non-strict; it is handed back untouched.
+	 * @since 6.17.5 Made the short-circuit value non-strict; it is handed back untouched.
 	 *
 	 * @param bool      $preempt  Whether to short-circuit handle_404().
 	 * @param \WP_Query $wp_query The main query object.

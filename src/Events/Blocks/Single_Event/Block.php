@@ -45,7 +45,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
 	 * @since 6.3.3
-	 * @since TBD Prevents full event views from rendering inside event descriptions.
+	 * @since 6.17.5 Prevents full event views from rendering inside event descriptions.
 	 *
 	 * @param array $attributes The block attributes.
 	 *

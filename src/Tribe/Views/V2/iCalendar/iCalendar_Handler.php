@@ -159,7 +159,7 @@ class iCalendar_Handler extends Service_Provider {
 	 *
 	 * @since 5.12.0
 	 * @since 6.17.0 Made $view explicitly nullable.
-	 * @since TBD Normalize the filtered value so a non-array return cannot reach consumers.
+	 * @since 6.17.5 Normalize the filtered value so a non-array return cannot reach consumers.
 	 *
 	 * @param View|null $view
 	 *

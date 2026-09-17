@@ -1,7 +1,7 @@
 /**
  * Tests for the Block API version adapter.
  *
- * @since TBD
+ * @since 6.17.5
  */
 
 /**
