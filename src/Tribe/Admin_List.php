@@ -100,7 +100,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * Defines custom logic for sorting events table by start/end date. No matter how user selects
 		 * what should be is sorted, always include date sorting in some fashion
 		 *
-		 * @param   mixed       $clauses    SQL clauses for fetching posts
+		 * @param   Array       $clauses    SQL clauses for fetching posts
 		 * @param   WP_Query    $wp_query   A paginated query for items
 		 *
 		 * @return  Array                   Modified SQL clauses
@@ -165,7 +165,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for filtering events table by aggregator record.
 		 *
-		 * @param mixed         $clauses    SQL clauses for fetching posts.
+		 * @param array<string> $clauses    SQL clauses for fetching posts.
 		 * @param WP_Query      $wp_query   A paginated query for items.
 		 *
 		 * @return array<string>            Modified SQL clauses.
@@ -204,7 +204,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		/**
 		 * Defines custom logic for sorting events table by category or tags
 		 *
-		 * @param   mixed       $clauses    SQL clauses for fetching posts
+		 * @param   Array       $clauses    SQL clauses for fetching posts
 		 * @param   WP_Query    $wp_query   A paginated query for items
 		 *
 		 * @return  Array                   Modified SQL clauses

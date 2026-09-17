@@ -31,10 +31,9 @@ class WP_Rocket {
 	 * Filters the content of the WP Rocket excluded inline JS concat.
 	 *
 	 * @since 5.0.0.2
-	 * @since TBD Made the parameter non-strict; the filter is WP Rocket's, so the value reaching
-	 *            us is whatever the callbacks ahead of us returned.
+	 * @since TBD Made the parameter non-strict; the filter is WP Rocket's.
 	 *
-	 * @param mixed $excluded_inline Items to be excluded by WP Rocket.
+	 * @param array $excluded_inline Items to be excluded by WP Rocket.
 	 *
 	 * @return array Excluded inline scripts after adding the breakpoint code.
 	 */

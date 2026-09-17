@@ -305,10 +305,9 @@ class Title {
 	 * Filters and returns the `title` part of the array produced by the  `wp_get_document_title` function.
 	 *
 	 * @since 4.9.10
-	 * @since TBD Made the parameter non-strict; `document_title_parts` carries whatever the
-	 *            callbacks ahead of us returned.
+	 * @since TBD Made the parameter non-strict.
 	 *
-	 * @param mixed $title The document title parts.
+	 * @param array $title The document title parts.
 	 *
 	 * @return array The filtered document title parts.
 	 */

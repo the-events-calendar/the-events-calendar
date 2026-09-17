@@ -97,13 +97,12 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @since 6.11.0
 	 * @since 6.11.0.1 Added check to ensure ABSPATH/wp-admin/includes/screen.php is loaded before running.
 	 * @since 6.11.2.1 Made the parameters non-strict.
-	 * @since TBD Dropped the return type; `get_terms` hands back a count or a WP_Error for some
-	 *            query shapes, and those leave through the early returns untouched.
+	 * @since TBD Dropped the return type; a count or WP_Error leaves untouched.
 	 *
-	 * @param mixed  $terms      The terms.
+	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	public function modify_term_count_on_term_list_table( $terms, $taxonomies = null ) {
 		if ( null === $taxonomies ) {
