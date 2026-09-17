@@ -109,7 +109,10 @@ class Calendar_Embeds extends Controller_Contract {
 			return $terms;
 		}
 
-		$terms      = (array) $terms;
+		if ( ! is_array( $terms ) ) {
+			return $terms;
+		}
+
 		$taxonomies = (array) $taxonomies;
 
 		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
