@@ -34,7 +34,7 @@ permissions:
 jobs:
   process-changelog:
     name: "Process the changelog"
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
       CHANGELOG_ACTION: ${{ inputs.action-type }}
       RELEASE_VERSION: ${{ inputs.release-version }}
