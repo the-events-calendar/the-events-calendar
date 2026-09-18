@@ -163,14 +163,7 @@ jobs:
       # ------------------------------------------------------------------------------
 
       - name: Run suite tests
-        run: ${SLIC_BIN} run ${{ matrix.suite }} ${{ matrix.suite == 'ct1_migration' && '' || '--ext DotReporter' }}
-      - name: Upload test output (temporary diagnostics)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-output-${{ matrix.suite }}-${{ matrix.wp }}
-          path: tests/_output
-          if-no-files-found: ignore
+        run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
 
       # ------------------------------------------------------------------------------
       # Setup Node.
