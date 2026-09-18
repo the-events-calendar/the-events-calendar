@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.17.4.1
+Stable tag: 6.17.5
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -231,6 +231,16 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.17.5] 2026-09-17 =
+
+* Compatibility - Registered the plugin's editor blocks with Block API version 3 so they render correctly inside the iframed block editor introduced in WordPress 6.9.
+* Fix - Prevented event pages and iCal exports from failing when event descriptions contain Single Event or Events Archive blocks.
+* Fix - Resolved an issue where hiding the subscribe links with a snippet that returns a non-array value from the `tec_views_v2_subscribe_links` filter could cause a fatal error on single event pages.
+* Fix - Resolved fatal errors that could occur when WordPress or another plugin passed unexpected data to The Events Calendar, such as while SiteGround Optimizer clears its cache.
+* Language - 0 new strings added, 59 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened access checks on REST API responses. Props to Kaveesha Nirmal for reporting.
+* Security - Strengthened permission checks in the REST API v1. Props to Mohammed Abd Alrahman for reporting.
 
 = [6.17.4.1] 2026-09-10 =
 

@@ -312,17 +312,23 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since 6.4.0
 	 * @since 6.9.1 Added check that content is not null.
+	 * @since 6.17.5 Dropped the return type; the content is handed back untouched.
 	 *
 	 * @param string $content The post content.
 	 *
 	 * @return string The modified post content.
 	 */
-	public function disable_blocks_on_display( $content ): string {
+	public function disable_blocks_on_display( $content ) {
 		global $post;
 
 		// Check that content is not null.
 		if ( null === $content ) {
 			return '';
+		}
+
+		// Not something we can strip blocks from.
+		if ( ! is_string( $content ) ) {
+			return $content;
 		}
 
 		// Not a post.

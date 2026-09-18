@@ -2,6 +2,8 @@
 
 namespace TEC\Events\Blocks\Single_Event;
 
+use Tribe\Events\Views\V2\Template_Bootstrap;
+
 /**
  * Class Block
  *
@@ -43,12 +45,19 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
 	 * @since 6.3.3
+	 * @since 6.17.5 Prevents full event views from rendering inside event descriptions.
 	 *
 	 * @param array $attributes The block attributes.
 	 *
 	 * @return string The block HTML.
 	 */
 	public function render( $attributes = [] ): string {
+		// On a single event request, the view already contains this event's content.
+		// Rendering the block again would recurse.
+		if ( doing_filter( 'the_content' ) && tribe( Template_Bootstrap::class )->should_display_single() ) {
+			return '';
+		}
+
 		$args['attributes'] = $this->attributes( $attributes );
 
 		// Add the rendering attributes into global context.
