@@ -29,12 +29,10 @@ jobs:
       versions: ${{ steps.matrix.outputs.versions }}
     steps:
       # ------------------------------------------------------------------------------
-      # Latest WordPress release only on feature PRs; latest three on the release sanity check PR.
+      # Every PR runs the suites on the latest three WordPress X.Y releases.
       # ------------------------------------------------------------------------------
       - id: matrix
         uses: the-events-calendar/actions/.github/actions/wp-test-matrix@main
-        with:
-          count: ${{ startsWith(github.head_ref, 'release/') && 3 || 1 }}
   test:
     needs: [ check, wp-versions ]
     if: needs.check.outputs.run_tests
