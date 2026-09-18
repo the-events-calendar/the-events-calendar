@@ -73,7 +73,7 @@ trait Filter_Trait {
 			$this->assertEmpty( $output );
 		} else {
 			// Ensure the rendered HTML is as expected.
-			$this->assertMatchesHtmlSnapshot( $output );
+			$this->assertMatchesHtmlSnapshot( $output, [ $this, 'normalize_ampersands' ] );
 
 			if ( empty( $object['invert'] ) ) {
 				// ensure the label has been changed
@@ -83,5 +83,23 @@ trait Filter_Trait {
 				$this->assertNotContains( $object['string'], $output );
 			}
 		}
+	}
+
+	/**
+	 * Snapshot data visitor: WordPress 7.1 changed `esc_url()` to encode `&` as `&amp;` instead of
+	 * `&#038;`, so both sides are normalized to keep one snapshot valid across versions.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $current  The rendered output.
+	 * @param string|null $expected The stored snapshot.
+	 *
+	 * @return array{0: string, 1: string} The normalized current output and snapshot.
+	 */
+	public function normalize_ampersands( string $current, ?string $expected ): array {
+		return [
+			str_replace( '&#038;', '&amp;', $current ),
+			str_replace( '&#038;', '&amp;', $expected ?? '' ),
+		];
 	}
 }
