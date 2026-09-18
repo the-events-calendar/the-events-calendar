@@ -9,7 +9,7 @@ permissions: {}
 jobs:
   openspec-plan:
     name: 'OpenSpec Plan'
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       # ------------------------------------------------------------------------------
       # Work on TEC products is planned before it is written, and the plan lives in the

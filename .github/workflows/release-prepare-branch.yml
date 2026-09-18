@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   create-pull-request:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
 
     steps:
       - name: Print input vars to summary
