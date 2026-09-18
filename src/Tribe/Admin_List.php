@@ -105,7 +105,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 *
 		 * @return  Array                   Modified SQL clauses
 		 */
-		public static function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
+		public static function sort_by_event_date( $clauses, WP_Query $wp_query ) {
+			$clauses = (array) $clauses;
+
 			// bail if this is not a query for event post type
 			if ( $wp_query->get( 'post_type' ) !== Tribe__Events__Main::POSTTYPE ) {
 				return $clauses;
@@ -168,7 +170,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 *
 		 * @return array<string>            Modified SQL clauses.
 		 */
-		public static function filter_by_aggregator_record( array $clauses, WP_Query $wp_query ) {
+		public static function filter_by_aggregator_record( $clauses, WP_Query $wp_query ) {
+			$clauses = (array) $clauses;
+
 			// Check for event post type.
 			if ( $wp_query->get( 'post_type' ) !== TEC::POSTTYPE ) {
 				return $clauses;
@@ -205,7 +209,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 *
 		 * @return  Array                   Modified SQL clauses
 		 */
-		public static function sort_by_tax( Array $clauses, WP_Query $wp_query ) {
+		public static function sort_by_tax( $clauses, WP_Query $wp_query ) {
+			$clauses = (array) $clauses;
+
 			if ( ! isset( $wp_query->query['orderby'] ) ) {
 				return $clauses;
 			}

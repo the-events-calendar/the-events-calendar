@@ -215,6 +215,37 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Whether the current view will render the single-event template.
+	 *
+	 * @since 6.17.5
+	 *
+	 * @return bool Whether to render a single event instead of an archive.
+	 */
+	public function should_display_single() {
+		$query     = tribe_get_global_query_object();
+		$context   = tribe_context();
+		$view_slug = $context->get( 'event_display' );
+
+		$should_display_single = (
+			$this->is_single_event()
+			&& ! tribe_is_showing_all()
+			&& ! is_embed()
+		);
+
+		/**
+		 * Filters when we display the single for events.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param boolean         $should_display_single  If we are currently going to display single.
+		 * @param string          $view_slug              The slug of the View that will be built, based on the context.
+		 * @param \WP_Query       $query                  The current WP Query object.
+		 * @param \Tribe__Context $context                Tribe context used to setup the view.
+		 */
+		return (bool) apply_filters( 'tribe_events_views_v2_bootstrap_should_display_single', $should_display_single, $view_slug, $query, $context );
+	}
+
+	/**
 	 * Fetches the template for the Single Embed Event page using the legacy view system.
 	 *
 	 * @since  4.9.13
@@ -260,23 +291,7 @@ class Template_Bootstrap {
 			return $pre_html;
 		}
 
-		$should_display_single = (
-			$this->is_single_event()
-			&& ! tribe_is_showing_all()
-			&& ! is_embed()
-		);
-
-		/**
-		 * Filters when we display the single for events.
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param boolean         $should_display_single  If we are currently going to display single.
-		 * @param string          $view_slug              The slug of the View that will be built, based on the context.
-		 * @param \Tribe__Context $context                Tribe context used to setup the view.
-		 * @param \WP_Query       $query                  The current WP Query object.
-		 */
-		$should_display_single = apply_filters( 'tribe_events_views_v2_bootstrap_should_display_single', $should_display_single, $view_slug, $query, $context );
+		$should_display_single = $this->should_display_single();
 
 		if ( $should_display_single ) {
 			$html = $this->get_v1_single_event_html();

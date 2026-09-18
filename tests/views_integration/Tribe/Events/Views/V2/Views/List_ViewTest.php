@@ -81,6 +81,8 @@ class List_ViewTest extends TecViewTestCase {
 			'events/single/2.json'
 		] );
 
+		$this->assertFalse( tribe_has_organizer( 7 ) );
+
 		$list_view = View::make( List_View::class );
 		$context = tribe_context()->alter( [
 			'event_display'      => 'list',
