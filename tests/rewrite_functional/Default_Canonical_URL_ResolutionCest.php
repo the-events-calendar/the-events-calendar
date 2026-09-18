@@ -4,6 +4,15 @@ use Rewrite_functionalTester as Tester;
 use Tribe__Events__Main as TEC;
 
 class Default_Canonical_URL_Resolution_Cest {
+
+	public function _before( Tester $I ): void {
+		/*
+		 * The dump carries the `db_version` of whatever WordPress it was taken from; on any other
+		 * version admin requests redirect to the database upgrade screen.
+		 */
+		require $_ENV['WP_ROOT_FOLDER'] . '/wp-includes/version.php';
+		$I->haveOptionInDatabase( 'db_version', $wp_db_version );
+	}
 	private static $eng_expected_canonical_url_mapping = [
 		'index.php?post_type=tribe_events&eventDisplay=default&paged=1'                                            => 'events/',
 		'index.php?post_type=tribe_events&eventDisplay=default&paged=3'                                            => 'events/page/3/',
