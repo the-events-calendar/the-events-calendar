@@ -22,7 +22,7 @@ permissions:
 jobs:
   check-changelog:
     name:    Check changelog
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
     steps:
       # clone the repository
