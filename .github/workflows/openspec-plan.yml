@@ -9,18 +9,15 @@ permissions: {}
 jobs:
   openspec-plan:
     name: 'OpenSpec Plan'
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       # ------------------------------------------------------------------------------
       # Work on TEC products is planned before it is written, and the plan lives in the
-      # shared store rather than in this repository. This check reports whether the
-      # ticket this PR belongs to has one.
-      #
-      # It warns rather than fails while teams get used to the workflow. Change
-      # enforcement to 'block' to make a missing plan stop the merge.
+      # shared store rather than in this repository. A ticket and a complete,
+      # valid active plan are required, including for automated PRs.
       # ------------------------------------------------------------------------------
       - name: Verify the plan exists
         uses: the-events-calendar/actions/.github/actions/verify-openspec-plan@main
         with:
           github-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
-          enforcement: 'warn'
+          enforcement: 'block'

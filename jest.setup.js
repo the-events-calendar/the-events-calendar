@@ -14,7 +14,9 @@ global.wp = {
 	apiRequest: () => $.Deferred(),
 	components: {},
 	data: {},
-	blockEditor: {},
+	blockEditor: {
+		useBlockProps: () => ( { className: 'wp-block' } ),
+	},
 	editor: {},
 	hooks: {
 		addAction: jest.fn(),
