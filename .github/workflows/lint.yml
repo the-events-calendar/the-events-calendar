@@ -1,0 +1,40 @@
+name: 'npm lint'
+on:
+  pull_request:
+    paths:
+      - 'src/modules/**.js'
+      - 'src/resources/js/**.js'
+      - 'src/resources/postcss/**.pcss'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: "!contains(github.event.pull_request.body, '[skip-lint]')"
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          submodules: recursive
+          # npm ci runs lifecycle scripts from the PR's package.json; keep the token
+          # out of .git/config so those scripts cannot read it.
+          persist-credentials: false
+      # ------------------------------------------------------------------------------
+      # Setup Node. .nvmrc is synced into every repo alongside this workflow, so it
+      # is always present; a missing file is an error, not a reason to fall back to
+      # the runner default.
+      # ------------------------------------------------------------------------------
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Install node modules
+        run: npm ci
+      - name: Run linting tasks
+        run: npm run lint

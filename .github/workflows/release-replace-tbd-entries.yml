@@ -3,6 +3,9 @@ name: "Release: Replace TBD Entries"
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   replace-tbd:
     runs-on: ubuntu-latest
@@ -14,9 +17,10 @@ jobs:
           echo "- Current ref: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.ref }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
 
       - name: Set Variables
         id: vars
@@ -36,24 +40,24 @@ jobs:
           # Set default version in case we can't find one
           CURRENT_VERSION="0.0.0"
           
-          # Look for package.json
+          # Look for package.json. The file carries more than one "version" key, so keep the first.
           if [ -f "package.json" ]; then
-            PACKAGE_VERSION=$(grep -Po '"version":\s*"\K[^"]+' package.json)
-            if [ ! -z "$PACKAGE_VERSION" ]; then
+            PACKAGE_VERSION=$(grep -Po '"version":\s*"\K[^"]+' package.json | head -n 1 || true)
+            if [ -n "$PACKAGE_VERSION" ]; then
               CURRENT_VERSION="$PACKAGE_VERSION"
               echo "Found version in package.json: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
             fi
           fi
           
-          # Look for plugin.php or main PHP file
-          for file in $(find . -name "*.php" -type f -not -path "*/vendor/*" -not -path "*/node_modules/*"); do
-            if grep -q "Version:" "$file"; then
-              PHP_VERSION=$(grep -Po 'Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?' "$file")
-              if [ ! -z "$PHP_VERSION" ]; then
-                CURRENT_VERSION="$PHP_VERSION"
-                echo "Found version in $file: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
-                break
-              fi
+          # Look for the plugin header, which only ever lives in a root-level PHP file. Anchoring the
+          # pattern to the header line keeps identifiers such as WP_Version::class out of the search,
+          # and "|| true" keeps a no-match grep from tripping the step's errexit.
+          for file in $(find . -maxdepth 1 -name "*.php" -type f | sort); do
+            PHP_VERSION=$(grep -Po '^\s*\*?\s*Version:\s*\K[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?' "$file" | head -n 1 || true)
+            if [ -n "$PHP_VERSION" ]; then
+              CURRENT_VERSION="$PHP_VERSION"
+              echo "Found version in $file: $CURRENT_VERSION" >> $GITHUB_STEP_SUMMARY
+              break
             fi
           done
           

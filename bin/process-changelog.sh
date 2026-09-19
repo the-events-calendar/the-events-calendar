@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# npm/@stellarwp/changelogger variant of process-changelog.sh.
+# Uses @stellarwp/changelogger (npm) instead of jetpack-changelogger (composer).
 #
 # @stellarwp/changelogger's `write` command merges new entries into an existing version
 # section (matched by header) instead of duplicating the header, and it updates every

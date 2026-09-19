@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.17.3\n"
+"Project-Id-Version: The Events Calendar 6.17.4\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-18T18:25:34+00:00\n"
+"POT-Creation-Date: 2026-09-02T19:13:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -9669,7 +9669,7 @@ msgid "Returns all the event categories matching the search criteria"
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:40
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:483
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:503
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:68
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:57
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:65
@@ -9677,17 +9677,17 @@ msgid "One or more of the specified query variables has a bad format"
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:43
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:486
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:506
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:71
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:68
 msgid "The requested page was not found."
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:97
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:507
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:231
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:527
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:251
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:114
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:230
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:251
 msgid "The archive page to return"
 msgstr ""
 
@@ -9744,92 +9744,92 @@ msgstr ""
 msgid "Limit result set to terms with a specific slug"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:471
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:491
 msgid "Returns all the upcoming events matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:515
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:535
 msgid "The number of events to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:522
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:542
 msgid "Events that start on the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:529
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:549
 msgid "Events that end on the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:535
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:555
 msgid "Events that start before the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:541
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:561
 msgid "Events that start after the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:547
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:567
 msgid "Events that end before the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:553
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:573
 msgid "Events that end after the specified date"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:560
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:580
 msgid "Dates set using the start_date/end_date, starts_*/ends_* are set to start at the specified times. The default behavior is to include the entire days."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:566
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:586
 msgid "Events should contain the specified string in the title or description"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:572
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:592
 msgid "Events should be assigned one of the specified categories slugs or IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:580
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:600
 msgid "Events should be assigned one of the specified tags slugs or IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:588
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:608
 msgid "Events should be assigned one of the specified venue IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:596
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:616
 msgid "Events should be assigned one of the specified organizer IDs"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:604
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:624
 msgid "Events should be filtered by their featured status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:611
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:631
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:359
 msgid "The event post status"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:616
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:636
 msgid "Requires Events Calendar Pro. Events should be filtered by whether their venue has geolocation data"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:622
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:642
 msgid "Requires Events Calendar Pro. Events should be filtered by their venue latitude location, must also provide geoloc_lng"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:628
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:648
 msgid "Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:632
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:652
 msgid "Include events with one of the post IDs specified in the array of CSV list, date filters will be ignored."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:642
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:662
 msgid "Events should be filtered by their post_parent being the specified one."
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:648
+#: src/Tribe/REST/V1/Endpoints/Archive_Event.php:668
 msgid "Filter events with or without tickets."
 msgstr ""
 
@@ -9837,28 +9837,28 @@ msgstr ""
 msgid "Returns all the organizers matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:239
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:259
 msgid "The number of organizers to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:245
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:265
 msgid "Organizers should contain the specified string in the title, description or custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:251
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:271
 msgid "Organizers should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:256
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:276
 msgid "Organizers should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:261
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:281
 msgid "Organizers should have upcoming events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:270
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:269
+#: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:290
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:290
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:288
 msgid "The organizer post status"
 msgstr ""
@@ -9879,23 +9879,23 @@ msgstr ""
 msgid "Returns all the venues matching the search criteria"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:238
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:259
 msgid "The number of venues to return on each page"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:244
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:265
 msgid "Venues should contain the specified string in the title, description or custom fields"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:250
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:271
 msgid "Venues should be related to this event"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:255
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:276
 msgid "Venues should have events associated to them"
 msgstr ""
 
-#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:260
+#: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:281
 msgid "Venues should have upcoming events associated to them"
 msgstr ""
 
