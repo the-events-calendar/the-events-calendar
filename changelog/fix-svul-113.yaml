@@ -1,0 +1,4 @@
+significance: patch
+type: security
+entry: Hardened author assignment in the REST API.
+timestamp: 2026-09-21T19:47:56.440Z

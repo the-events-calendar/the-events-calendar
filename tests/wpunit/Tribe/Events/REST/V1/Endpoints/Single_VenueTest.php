@@ -290,6 +290,47 @@ class Single_VenueTest extends WPRestApiTestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function it_should_keep_the_author_when_updating_without_one() {
+		$original_author = $this->factory()->user->create( [ 'role' => 'author' ] );
+		$venue           = $this->factory()->venue->create( [ 'post_author' => $original_author ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $venue );
+		$request->set_param( 'city', 'Venue city' );
+
+		$response = $this->make_instance()->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( $original_author, get_post_field( 'post_author', $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_check_the_venue_capability_when_setting_the_author() {
+		$current_user = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$venue        = $this->factory()->venue->create( [ 'post_author' => $current_user ] );
+
+		// The user may still set other authors on events, just not on venues.
+		get_user_by( 'id', $current_user )->add_cap( get_post_type_object( \Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_others_posts, false );
+		wp_set_current_user( $current_user );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $venue );
+		$request->set_param( 'author', $other_user );
+
+		$response = $this->make_instance()->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( $current_user, get_post_field( 'post_author', $venue ) );
+	}
+
+	/**
 	 * It should properly set boolean meta fields
 	 *
 	 * @test

@@ -166,6 +166,32 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
+	 * Falls back on an author the current user is allowed to set.
+	 *
+	 * A user without the post type's `edit_others_posts` capability may not attribute the entity
+	 * to another user, on create or update. An omitted author is returned as-is, so an update
+	 * keeps the existing one.
+	 *
+	 * @since TBD
+	 *
+	 * @param int|string|null $author    The requested author ID, if any.
+	 * @param string          $post_type The post type whose `edit_others_posts` capability is checked.
+	 *
+	 * @return int|string|null The author ID to use, or the omitted author unchanged.
+	 */
+	public function scale_back_author( $author, $post_type ) {
+		if ( ! $author ) {
+			return $author;
+		}
+
+		if ( current_user_can( get_post_type_object( $post_type )->cap->edit_others_posts ) ) {
+			return absint( $author );
+		}
+
+		return get_current_user_id();
+	}
+
+	/**
 	 * Returns the default value of posts per page.
 	 an*
 	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.
