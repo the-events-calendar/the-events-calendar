@@ -126,10 +126,10 @@ lands in every product at once, so check callers in both TEC and ET.
   class: `src/Tickets/Foo/Bar.php` becomes `tests/wpunit/Tickets/Foo/Bar_Test.php`.
 - Every PR that changes behavior carries a changelog entry from
   `npm run changelog`, committed on the branch.
-- Version placeholders in docblocks are the literal `6.17.5`: `@since 6.17.5`,
-  `@deprecated 6.17.5`, `_deprecated_function( __METHOD__, '6.17.5' )`. The release
+- Version placeholders in docblocks are the literal `TBD`: `@since TBD`,
+  `@deprecated TBD`, `_deprecated_function( __METHOD__, 'TBD' )`. The release
   workflow replaces them with the version being shipped. Never write a real
-  version number there, and do not flag `6.17.5` as an unfinished placeholder.
+  version number there, and do not flag `TBD` as an unfinished placeholder.
 - `phpcs` runs on the `stellarwp/coding-standards` ruleset. Fix what it reports
   in the lines you touched; a pre-existing violation in a line you did not
   change is not yours to fix in this diff.
