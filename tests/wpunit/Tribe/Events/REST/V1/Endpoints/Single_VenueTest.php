@@ -311,6 +311,28 @@ class Single_VenueTest extends WPRestApiTestCase {
 	/**
 	 * @test
 	 */
+	public function it_should_check_the_venue_capability_when_setting_the_author_on_create() {
+		$current_user = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		// The user may still set other authors on events, just not on venues.
+		get_user_by( 'id', $current_user )->add_cap( get_post_type_object( \Tribe__Events__Main::VENUE_POST_TYPE )->cap->edit_others_posts, false );
+		$this->assertTrue( user_can( $current_user, get_post_type_object( \Tribe__Events__Main::POSTTYPE )->cap->edit_others_posts ) );
+		wp_set_current_user( $current_user );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'venue', 'A venue' );
+		$request->set_param( 'author', $other_user );
+
+		$venue = $this->make_instance()->create( $request, true );
+
+		$this->assertTrue( tribe_is_venue( $venue ) );
+		$this->assertEquals( $current_user, get_post_field( 'post_author', $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_check_the_venue_capability_when_setting_the_author() {
 		$current_user = $this->factory()->user->create( [ 'role' => 'editor' ] );
 		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
