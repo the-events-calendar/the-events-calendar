@@ -548,6 +548,87 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertEquals( 200, $response->status );
 	}
 
+	public function author_and_user_roles() {
+		return [
+			[ 'contributor', false ],
+			[ 'editor', true ],
+		];
+	}
+
+	/**
+	 * It should scale back the author to the current user without edit_others capability
+	 *
+	 * @test
+	 * @dataProvider author_and_user_roles
+	 */
+	public function it_should_scale_back_author_on_create( $role, $can_set_author ) {
+		$current_user = $this->factory()->user->create( [ 'role' => $role ] );
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		wp_set_current_user( $current_user );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'author'      => $other_user,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->create( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$data = $response->get_data();
+
+		$expected_author = $can_set_author ? $other_user : $current_user;
+		$this->assertEquals( $expected_author, get_post_field( 'post_author', $data['id'] ) );
+	}
+
+	/**
+	 * It should scale back the author to the current user without edit_others capability on update
+	 *
+	 * @test
+	 * @dataProvider author_and_user_roles
+	 */
+	public function it_should_scale_back_author_on_update( $role, $can_set_author ) {
+		$current_user = $this->factory()->user->create( [ 'role' => $role ] );
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		$event = $this->factory()->event->create( [ 'post_author' => $current_user ] );
+
+		wp_set_current_user( $current_user );
+
+		$sut = $this->make_instance();
+
+		$request = new \WP_REST_Request();
+
+		$params = [
+			'id'     => $event,
+			'author' => $other_user,
+		];
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		/** @var \WP_REST_Response $response */
+		$response = $sut->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+
+		$expected_author = $can_set_author ? $other_user : $current_user;
+		$this->assertEquals( $expected_author, get_post_field( 'post_author', $event ) );
+	}
+
 	/**
 	 * It should return venue error if trying to insert event with invalid venue data in update
 	 *
