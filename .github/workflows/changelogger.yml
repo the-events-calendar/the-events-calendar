@@ -23,7 +23,18 @@ jobs:
   check-changelog:
     name:    Check changelog
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
+    # ------------------------------------------------------------------------------
+    # Release machinery has no entry to add. The bot opens version bumps, TBD
+    # replacement, POT files, changelog moves and merge-forwards off task branches,
+    # and a release/* branch carries entries that were already processed into the
+    # changelog list. Asking those for a new entry only leaves a red check nobody
+    # can clear. Everything else is a change somebody chose to make, so it keeps the
+    # requirement; [skip-changelog] is the escape hatch for the exceptions.
+    # ------------------------------------------------------------------------------
+    if: >-
+      !contains(github.event.pull_request.body, '[skip-changelog]')
+      && github.event.pull_request.user.login != 'tec-bot'
+      && !startsWith(github.head_ref, 'release/')
     steps:
       # clone the repository
       - uses: actions/checkout@v7
