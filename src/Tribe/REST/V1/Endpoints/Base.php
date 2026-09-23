@@ -172,7 +172,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	 * to another user, on create or update. An omitted author is returned as-is, so an update
 	 * keeps the existing one.
 	 *
-	 * @since TBD
+	 * @since 6.17.5.1
 	 *
 	 * @param int|string|null $author    The requested author ID, if any.
 	 * @param string          $post_type The post type whose `edit_others_posts` capability is checked.
