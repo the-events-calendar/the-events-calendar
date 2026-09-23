@@ -10,9 +10,9 @@
  * @link    http://evnt.is/1aiy
  *
  * @since 6.12.0
- * @since TBD Rendered the QR code through the shortcode manager.
+ * @since 6.17.5.1 Rendered the QR code through the shortcode manager.
  *
- * @version TBD
+ * @version 6.17.5.1
  *
  * @var array<string>        $compatibility_classes      Classes used for the compatibility container.
  * @var array<string>        $container_classes          Classes used for the container of the view.
