@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.17.5.1] 2026-09-24
+
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened author assignment in the REST API.
+* Security - Hardened the rendering of the Events QR Code widget. Props to Jakub Herman for reporting.
+
 ### [6.17.5] 2026-09-17
 
 * Compatibility - Registered the plugin's editor blocks with Block API version 3 so they render correctly inside the iframed block editor introduced in WordPress 6.9.
