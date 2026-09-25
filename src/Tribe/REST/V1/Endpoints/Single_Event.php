@@ -709,7 +709,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		}
 		$postarr = [
 			// Post fields
-			'post_author'           => $request['author'],
+			'post_author'           => $this->scale_back_author( $request['author'], Tribe__Events__Main::POSTTYPE ),
 			'post_date'             => $post_date,
 			'post_date_gmt'         => $post_date_gmt,
 			'post_title'            => $request['title'],
