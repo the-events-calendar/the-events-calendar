@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @since 6.12.0
  * @since 6.17.5.1 Rendered the QR code through the shortcode manager.
@@ -56,7 +56,7 @@ $qr_id = 'next' === $redirection ? $series_id : $event_id;
 			<div class="tribe-events-widget-events-qr-code__content">
 				<?php
 				// Pass the arguments as an array so request-supplied values are never parsed as shortcode markup.
-				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Shortcode output is safe to be rendered.
+				// phpcs:disable StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Shortcode output is safe to be rendered.
 				echo tribe( Shortcode_Manager::class )->render_shortcode(
 					[
 						'mode' => $redirection,
@@ -66,6 +66,7 @@ $qr_id = 'next' === $redirection ? $series_id : $event_id;
 					'',
 					QR_Controller::QR_SLUG
 				);
+				// phpcs:enable StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				?>
 			</div>
 		</div>
