@@ -97,18 +97,22 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @since 6.11.0
 	 * @since 6.11.0.1 Added check to ensure ABSPATH/wp-admin/includes/screen.php is loaded before running.
 	 * @since 6.11.2.1 Made the parameters non-strict.
+	 * @since 6.17.5 Dropped the return type; a count or WP_Error leaves untouched.
 	 *
 	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
 	 *
 	 * @return array
 	 */
-	public function modify_term_count_on_term_list_table( $terms, $taxonomies = null ): array {
+	public function modify_term_count_on_term_list_table( $terms, $taxonomies = null ) {
 		if ( null === $taxonomies ) {
 			return $terms;
 		}
 
-		$terms      = (array) $terms;
+		if ( ! is_array( $terms ) ) {
+			return $terms;
+		}
+
 		$taxonomies = (array) $taxonomies;
 
 		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
@@ -157,6 +161,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.11.2.1 Made the parameters non-strict.
+	 * @since 6.17.5 Cast the post data before reading from it, rather than after.
 	 *
 	 * @param array $data              The post data.
 	 * @param array $post_array        The post array.
@@ -166,13 +171,13 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @return array
 	 */
 	public function disable_slug_changes( $data, $post_array, $unsafe_post_array, $update ): array {
-		if ( static::POSTTYPE !== $data['post_type'] ) {
-			return $data;
-		}
-
 		$update     = (bool) $update;
 		$data       = (array) $data;
 		$post_array = (array) $post_array;
+
+		if ( static::POSTTYPE !== ( $data['post_type'] ?? null ) ) {
+			return $data;
+		}
 
 		if ( $update ) {
 			// Ensure the post name is not updated.

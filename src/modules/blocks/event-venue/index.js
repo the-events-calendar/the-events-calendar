@@ -15,6 +15,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import blockAttributes from './data/attributes';
 import EventVenue from './container';
 import { Venue } from '@moderntribe/events/icons';
+import withBlockWrapper from '@moderntribe/events/blocks/with-block-wrapper';
 
 export const blockDefinition = {
 	id: 'event-venue',
@@ -37,4 +38,4 @@ export const blockDefinition = {
 /**
  * Register Block
  */
-export default registerBlockType( `tribe/${ blockDefinition.id }`, blockDefinition );
+export default registerBlockType( `tribe/${ blockDefinition.id }`, withBlockWrapper( blockDefinition ) );

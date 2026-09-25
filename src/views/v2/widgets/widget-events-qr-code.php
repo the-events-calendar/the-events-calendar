@@ -7,11 +7,12 @@
  *
  * See more documentation about our views templating system.
  *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
  * @since 6.12.0
+ * @since 6.17.5.1 Rendered the QR code through the shortcode manager.
  *
- * @version 6.12.0
+ * @version 6.17.5.1
  *
  * @var array<string>        $compatibility_classes      Classes used for the compatibility container.
  * @var array<string>        $container_classes          Classes used for the container of the view.
@@ -23,6 +24,9 @@
  * @var string               $event_id                   The specific event ID if redirection is set to specific.
  * @var string               $series_id                  The series ID if redirection is set to next.
  */
+
+use TEC\Events\QR\Controller as QR_Controller;
+use Tribe\Shortcode\Manager as Shortcode_Manager;
 
 $qr_id = 'next' === $redirection ? $series_id : $event_id;
 
@@ -51,8 +55,18 @@ $qr_id = 'next' === $redirection ? $series_id : $event_id;
 
 			<div class="tribe-events-widget-events-qr-code__content">
 				<?php
-				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Shortcode output is safe to be rendered.
-				echo do_shortcode( '[tec_event_qr mode="' . esc_attr( $redirection ) . '" id="' . esc_attr( $qr_id ) . '" size="' . esc_attr( $qr_code_size ) . '"]' );
+				// Pass the arguments as an array so request-supplied values are never parsed as shortcode markup.
+				// phpcs:disable StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Shortcode output is safe to be rendered.
+				echo tribe( Shortcode_Manager::class )->render_shortcode(
+					[
+						'mode' => $redirection,
+						'id'   => $qr_id,
+						'size' => $qr_code_size,
+					],
+					'',
+					QR_Controller::QR_SLUG
+				);
+				// phpcs:enable StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				?>
 			</div>
 		</div>

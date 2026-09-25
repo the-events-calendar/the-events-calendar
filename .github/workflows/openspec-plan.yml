@@ -2,6 +2,7 @@ name: 'OpenSpec Plan'
 
 on:
   pull_request:
+    # edited: a [skip-openspec] marker added to or removed from the body must re-run the check.
     types: [opened, reopened, synchronize, edited]
 
 permissions: {}
@@ -9,18 +10,27 @@ permissions: {}
 jobs:
   openspec-plan:
     name: 'OpenSpec Plan'
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    # ------------------------------------------------------------------------------
+    # Release machinery has no ticket and cannot have one. The bot opens version
+    # bumps, changelog moves, POT files and merge-forwards off task branches, and a
+    # release/* branch is the release rather than a change to plan. Asking those for
+    # a plan only leaves a red check nobody can clear. Everything else is a change
+    # somebody chose to make, so it keeps the requirement; [skip-openspec] is the
+    # escape hatch for the exceptions, as [skip-changelog] is for that check.
+    # ------------------------------------------------------------------------------
+    if: >-
+      !contains(github.event.pull_request.body, '[skip-openspec]')
+      && github.event.pull_request.user.login != 'tec-bot'
+      && !startsWith(github.head_ref, 'release/')
     steps:
       # ------------------------------------------------------------------------------
       # Work on TEC products is planned before it is written, and the plan lives in the
-      # shared store rather than in this repository. This check reports whether the
-      # ticket this PR belongs to has one.
-      #
-      # It warns rather than fails while teams get used to the workflow. Change
-      # enforcement to 'block' to make a missing plan stop the merge.
+      # shared store rather than in this repository. A ticket and a complete,
+      # valid active plan are required.
       # ------------------------------------------------------------------------------
       - name: Verify the plan exists
         uses: the-events-calendar/actions/.github/actions/verify-openspec-plan@main
         with:
           github-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
-          enforcement: 'warn'
+          enforcement: 'block'
