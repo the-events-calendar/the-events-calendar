@@ -55,13 +55,14 @@ class Controller extends Controller_Contract {
 	 * before that logic runs and lets TEC render the view with its own repository.
 	 *
 	 * @since 6.15.20
+	 * @since 6.17.5 Made the short-circuit value non-strict; it is handed back untouched.
 	 *
 	 * @param bool      $preempt  Whether to short-circuit handle_404().
 	 * @param \WP_Query $wp_query The main query object.
 	 *
 	 * @return bool True to prevent the 404, otherwise the original value.
 	 */
-	public function prevent_list_view_paged_404( bool $preempt, \WP_Query $wp_query ): bool {
+	public function prevent_list_view_paged_404( $preempt, \WP_Query $wp_query ) {
 		if ( $preempt ) {
 			return $preempt;
 		}

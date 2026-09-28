@@ -133,6 +133,8 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 	 * @test
 	 */
 	public function it_should_properly_set_boolean_meta_fields() {
+		// Creating a venue requires a user who may also read the resulting draft back.
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'editor' ] ) );
 		$data = [
 			'venue'         => 'A venue',
 			'show_map'      => false,
@@ -247,6 +249,8 @@ class Single_Venue_SlugTest extends WPRestApiTestCase {
 	 * @test
 	 */
 	public function it_should_properly_set_boolean_meta_fields_when_updating() {
+		// Creating a venue requires a user who may also read the resulting draft back.
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'editor' ] ) );
 		$venue_id = $this->factory()->venue->create();
 
 		$post = get_post( $venue_id );

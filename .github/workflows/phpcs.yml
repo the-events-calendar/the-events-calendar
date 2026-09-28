@@ -6,7 +6,7 @@ on:
 jobs:
   conditional:
     if: "!contains(github.event.pull_request.body, '[skip-phpcs]')"
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       php_files_changed: ${{ steps.php_check.outputs.php_files_changed }}
     steps:

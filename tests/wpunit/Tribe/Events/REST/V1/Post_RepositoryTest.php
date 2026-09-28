@@ -743,4 +743,53 @@ class Post_RepositoryTest extends Events_TestCase {
 		$this->assertCount( 1, $terms );
 		$this->assertEquals( $cat_term_2->term_id, $terms[0]['id'] );
 	}
+
+	/**
+	 * It should return a list with sequential keys when a venue is dropped by a filter.
+	 *
+	 * @test
+	 */
+	public function should_reindex_event_venues_when_one_is_dropped_by_a_filter() {
+		wp_set_current_user( 0 );
+		$hidden  = $this->factory()->venue->create( [ 'post_status' => 'draft' ] );
+		$visible = $this->factory()->venue->create_many( 2 );
+		$event   = $this->factory()->event->create( [ 'venue' => $hidden ] );
+		foreach ( $visible as $venue ) {
+			add_post_meta( $event, '_EventVenueID', $venue );
+		}
+
+		$data = $this->make_instance()->get_venue_data( $event );
+
+		$this->assertSame( [ 0, 1 ], array_keys( $data ) );
+		$this->assertSame( $visible, array_column( $data, 'id' ) );
+	}
+
+	/**
+	 * It should return a list with sequential keys when an organizer is dropped by a filter.
+	 *
+	 * @test
+	 */
+	public function should_reindex_event_organizers_when_one_is_dropped_by_a_filter() {
+		wp_set_current_user( 0 );
+		$hidden  = $this->factory()->organizer->create( [ 'post_status' => 'draft' ] );
+		$visible = $this->factory()->organizer->create_many( 2 );
+		$event   = $this->factory()->event->create( [ 'organizers' => array_merge( [ $hidden ], $visible ) ] );
+
+		$data = $this->make_instance()->get_organizer_data( $event );
+
+		$this->assertSame( [ 0, 1 ], array_keys( $data ) );
+		$this->assertSame( $visible, array_column( $data, 'id' ) );
+	}
+
+	/**
+	 * It should return an empty array, not false, for a single organizer dropped by a filter.
+	 *
+	 * @test
+	 */
+	public function should_return_empty_array_for_a_single_organizer_dropped_by_a_filter() {
+		wp_set_current_user( 0 );
+		$organizer = $this->factory()->organizer->create( [ 'post_status' => 'draft' ] );
+
+		$this->assertSame( [], $this->make_instance()->get_organizer_data( $organizer ) );
+	}
 }

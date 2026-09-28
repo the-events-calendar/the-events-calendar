@@ -3,7 +3,7 @@ on:
   pull_request:
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       run_tests: ${{ steps.php_check.outputs.php_files_changed }}
     steps:
@@ -54,7 +54,7 @@ jobs:
           - rewrite_functional
           - wpunit
           - rest_tec_v1_integration
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4

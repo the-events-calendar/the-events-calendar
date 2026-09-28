@@ -3,7 +3,7 @@ on:
   pull_request:
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       run_tests: ${{ steps.php_check.outputs.php_files_changed }}
     steps:
@@ -30,7 +30,7 @@ jobs:
       matrix:
         suite:
           - elementor_integration
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       # ------------------------------------------------------------------------------
       # Checkout the repo

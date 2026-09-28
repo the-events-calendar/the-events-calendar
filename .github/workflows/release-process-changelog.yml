@@ -34,7 +34,7 @@ permissions:
 jobs:
   process-changelog:
     name: "Process the changelog"
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
       CHANGELOG_ACTION: ${{ inputs.action-type }}
       RELEASE_VERSION: ${{ inputs.release-version }}
@@ -120,7 +120,7 @@ jobs:
           action-type: ${{ env.CHANGELOG_ACTION }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         id: cpr
         with:
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}

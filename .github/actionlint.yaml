@@ -1,0 +1,15 @@
+# Blacksmith runner labels are not in actionlint's built-in list, so declare them
+# here or every job fails linting with "label ... is unknown".
+#
+# This file is synced into every active product repository at this same path.
+# CodeRabbit runs actionlint on .github/workflows/** there, and actionlint finds
+# a config at .github/actionlint.yaml on its own. It is synced from .github/
+# rather than templates/ because this repo needs it at this path too; a
+# templates/ copy would be a second one to drift.
+#
+# check-templates.yml passes it with -config-file: the templates are staged
+# outside .github/workflows before linting, so actionlint would not find it from
+# the workflow path.
+self-hosted-runner:
+  labels:
+    - blacksmith-4vcpu-ubuntu-2404

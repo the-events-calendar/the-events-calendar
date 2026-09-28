@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   update-versions:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -106,18 +106,8 @@ jobs:
             fi
           fi
 
-          # Update tests-php.yml and other workflow files if minimum version is being updated (skips self)
-          if [ "$UPDATE_MIN_VERSION" = "yes" ] && [ -d ".github/workflows" ]; then
-            for wf in .github/workflows/*.yml; do
-              [ "$(basename "$wf")" = "release-update-wp-version.yml" ] && continue
-              grep -q "wp core update --force --version=" "$wf" || continue
-              sed -i "s/wp core update --force --version=[0-9.]*/wp core update --force --version=$MIN_VERSION/" "$wf"
-              echo "* Updated \`$wf\`" >> $GITHUB_STEP_SUMMARY
-            done
-          fi
-
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         id: cpr
         with:
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}

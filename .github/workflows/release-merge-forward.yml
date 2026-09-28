@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   create-branch:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     outputs:
       skip: ${{ steps.create-branch.outputs.skip }}
     steps:
@@ -58,7 +58,7 @@ jobs:
 
   create-pull-request:
     needs: create-branch
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     # Run only if the branch already existed (skip==0)
     if: ${{ needs.create-branch.outputs.skip == '0' }}
     steps:
