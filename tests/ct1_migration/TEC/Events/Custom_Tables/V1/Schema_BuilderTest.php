@@ -20,12 +20,14 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	 * @after each test make sure the custom tables will be there for the following ones.
 	 */
 	public function recreate_custom_tables() {
-		$events_updated = ( new EventsSchema )->update();
-		if ( ! $events_updated ) {
+		$events_table = new EventsSchema();
+		$events_table->update();
+		if ( ! $events_table->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
-		$occurrences_updated = ( new OccurrencesSchema() )->update();
-		if ( ! $occurrences_updated ) {
+		$occurrences_table = new OccurrencesSchema();
+		$occurrences_table->update();
+		if ( ! $occurrences_table->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
 	}
