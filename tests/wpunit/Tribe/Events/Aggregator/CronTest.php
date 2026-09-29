@@ -732,12 +732,17 @@ class CronTest extends Aggregator_TestCase {
 		$scheduled->update_meta( 'frequency', uniqid( 'unknown-frequency-', true ) );
 
 		/* Cron skips records with an unknown frequency; the debug override lets this one reach child creation. */
+		$previous_override = getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' );
 		putenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE=1' );
 
 		try {
 			$this->make_real_instance()->verify_child_record_creation();
 		} finally {
-			putenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' );
+			putenv(
+				false === $previous_override
+					? 'TRIBE_DEBUG_OVERRIDE_SCHEDULE'
+					: "TRIBE_DEBUG_OVERRIDE_SCHEDULE={$previous_override}"
+			);
 			tribe_register( 'events-aggregator.service', $backup );
 			$this->restore_aggregator();
 		}
