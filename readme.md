@@ -193,7 +193,7 @@ All three workflows are gated on a PHP-file-change check, so a docs-only PR runs
 
 ### How this differs from CI
 
-- CI pins WordPress with `wp core update --force --version=6.8` (6.9 for the SEO suite). Locally the container's bundled version is usually fine; add the same `wp core update` if you need to reproduce a version-specific failure.
+- CI runs the suites against the latest WordPress release on feature PRs and the latest three on the release sanity check PR (see the `wp-versions` job in the test workflows). Locally the container's bundled version is usually fine; add the same `wp core update` if you need to reproduce a version-specific failure.
 - CI appends `--ext DotReporter` for compact logs; skip it locally for readable output.
 - CI's ssh-agent, composer cache and `docker network prune -f` steps are runner housekeeping with no local equivalent.
 - After `rest_tec_v1_integration`, CI also runs `npm ci` and `npm run spectral -- http://localhost:8888/wp-json/tec/v1/docs/` to lint the OpenAPI doc. To reproduce: `${SLIC_BIN} wp plugin activate the-events-calendar && ${SLIC_BIN} wp rewrite structure '/%postname%/' --hard`, then run those npm commands on the host from inside `the-events-calendar/`, which is where the `package.json` lives.

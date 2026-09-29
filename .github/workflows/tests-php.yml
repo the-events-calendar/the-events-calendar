@@ -23,10 +23,22 @@ jobs:
         id: php_check
         uses: ./.github/actions/check-php-changes
       # ------------------------------------------------------------------------------
+  wp-versions:
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    outputs:
+      versions: ${{ steps.matrix.outputs.versions }}
+    steps:
+      # ------------------------------------------------------------------------------
+      # Every PR runs the suites on the latest three WordPress X.Y releases.
+      # ------------------------------------------------------------------------------
+      - id: matrix
+        uses: the-events-calendar/actions/.github/actions/wp-test-matrix@main
   test:
-    needs: check
+    needs: [ check, wp-versions ]
     if: needs.check.outputs.run_tests
+    name: ${{ matrix.suite }} (WP ${{ matrix.wp }})
     strategy:
+      fail-fast: false
       matrix:
         suite:
           - aggregatorv1
@@ -54,6 +66,7 @@ jobs:
           - rewrite_functional
           - wpunit
           - rest_tec_v1_integration
+        wp: ${{ fromJSON(needs.wp-versions.outputs.versions) }}
     runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: Checkout the repository
@@ -131,13 +144,13 @@ jobs:
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
       # ------------------------------------------------------------------------------
-      # Update WordPress version to our min required.
+      # Update WordPress to the matrix version under test.
       # ------------------------------------------------------------------------------
       - name: Init the WordPress container
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.8
+          ${SLIC_BIN} wp core update --force --version=${{ matrix.wp }}
           ${SLIC_BIN} wp core version
       - name: Ensure Twenty-Twenty is installed
         run: |

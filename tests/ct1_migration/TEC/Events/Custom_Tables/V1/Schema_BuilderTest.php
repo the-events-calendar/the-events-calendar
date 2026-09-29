@@ -20,12 +20,15 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 	 * @after each test make sure the custom tables will be there for the following ones.
 	 */
 	public function recreate_custom_tables() {
-		$events_updated = ( new EventsSchema )->update();
-		if ( ! $events_updated ) {
+		// dbDelta returns nothing when the table is already current, so check existence instead.
+		$events_schema = new EventsSchema();
+		$events_schema->update();
+		if ( ! $events_schema->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
-		$occurrences_updated = ( new OccurrencesSchema() )->update();
-		if ( ! $occurrences_updated ) {
+		$occurrences_schema = new OccurrencesSchema();
+		$occurrences_schema->update();
+		if ( ! $occurrences_schema->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
 	}

@@ -23,12 +23,15 @@ class Health_CheckTest extends \CT1_Migration_Test_Case {
 	 * @after each test make sure the custom tables will be there for the following ones.
 	 */
 	public function recreate_custom_tables(): void {
-		$events_updated = ( new Events )->update();
-		if ( ! $events_updated ) {
+		// dbDelta returns nothing when the table is already current, so check existence instead.
+		$events_schema = new Events();
+		$events_schema->update();
+		if ( ! $events_schema->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
-		$occurrences_updated = ( new Occurrences )->update();
-		if ( ! $occurrences_updated ) {
+		$occurrences_schema = new Occurrences();
+		$occurrences_schema->update();
+		if ( ! $occurrences_schema->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
 	}
