@@ -1,0 +1,5 @@
+significance: major
+type: feature
+entry: RSVPs are now powered by Tickets Commerce, so each RSVP creates an order
+  and RSVPs work with Individual Attendee Collection.
+timestamp: 2026-09-30T16:21:03.732Z
