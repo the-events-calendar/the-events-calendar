@@ -232,6 +232,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.18.0] 2026-09-30 =
+
+* Feature - RSVPs are now powered by Tickets Commerce, so each RSVP creates an order and RSVPs work with Individual Attendee Collection.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Tweak - Changed views: `v2/widgets/widget-events-qr-code`
+
 = [6.17.5.1] 2026-09-24 =
 
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
