@@ -23,12 +23,14 @@ class Health_CheckTest extends \CT1_Migration_Test_Case {
 	 * @after each test make sure the custom tables will be there for the following ones.
 	 */
 	public function recreate_custom_tables(): void {
-		$events_updated = ( new Events )->update();
-		if ( ! $events_updated ) {
+		$events_table = new Events();
+		$events_table->update();
+		if ( ! $events_table->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
-		$occurrences_updated = ( new Occurrences )->update();
-		if ( ! $occurrences_updated ) {
+		$occurrences_table = new Occurrences();
+		$occurrences_table->update();
+		if ( ! $occurrences_table->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
 	}
