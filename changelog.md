@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.18.0] 2026-09-30
+
+* Fix - Prevented a rejected CSV import column mapping from being saved as the default, which caused later imports to pre-select "Do Not Import" for required columns.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Tweak - Changed views: `v2/widgets/widget-events-qr-code`
+
 ### [6.17.5.1] 2026-09-24
 
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
