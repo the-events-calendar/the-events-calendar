@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
+Contributors: theeventscalendar, stellarwp, nexcess, bordoni, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo, larodiel, leahkoerper, sdokus, vicskf
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 6.18.0
@@ -111,6 +111,13 @@ Ready to dig deeper? Check out these resources:
 We check in on the [The Events Calendar forum here on WordPress.org](https://wordpress.org/support/plugin/the-events-calendar/) about once a week to help users with basic troubleshooting and identifying bugs. If you’re looking for premium, personalized support, consider upgrading to Events Calendar Pro.
 
 Still have a question? Shoot us an email at support@theeventscalendar.com.
+
+== All Time Contributors ==
+
+We want to thank the people that have contributed over the years !
+
+aguseo, bordoni, borkweb, brianjessee, camwynsp, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo,
+larodiel, leahkoerper, lucatume, neillmcshea, rafsuntaskin, redscar, sdokus, tribalmike, vicskf, zbtirrell
 
 == Installation ==
 
