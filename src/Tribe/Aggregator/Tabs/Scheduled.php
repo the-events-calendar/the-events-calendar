@@ -337,12 +337,18 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 
 			if ( is_wp_error( $child ) ) {
 				$errors[ $record->id ] = $child;
+				$record->log_error( $child );
 				$record->update_meta( 'last_import_status', 'error:import-failed' );
 				continue;
 			}
 
 			$child->update_meta( 'interactive', true );
 			$status = $child->queue_import();
+
+			if ( is_numeric( $status ) ) {
+				$record->update_meta( 'last_import_status', 'queued' );
+				continue;
+			}
 
 			if ( is_wp_error( $status ) ) {
 				$errors[ $record->id ] = $status;
