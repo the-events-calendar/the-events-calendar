@@ -4,6 +4,7 @@ modules:
   enabled:
     - \Helper\Rewrite_functional
     - WPDb
+    - \Helper\Db_Version_Sync
     - WPBrowser
     - Asserts
     - WPFilesystem
