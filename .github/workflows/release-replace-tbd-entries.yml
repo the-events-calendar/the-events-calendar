@@ -102,6 +102,8 @@ jobs:
             "*/node_modules/*"
             "*/.git/*"
             "*/tests/*"
+            "*/AGENTS.md"
+            "*/CLAUDE.md"
           )
           
           # Build the find command
