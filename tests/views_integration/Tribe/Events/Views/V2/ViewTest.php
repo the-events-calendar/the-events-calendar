@@ -312,6 +312,38 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		remove_filter( 'tribe_events_views', $filter );
 	}
 
+	public function empty_events_per_page_data_provider(): array {
+		return [
+			'integer zero' => [ 0 ],
+			'string zero'  => [ '0' ],
+			'empty string' => [ '' ],
+		];
+	}
+
+	/**
+	 * It should fetch at least one event per page when events per page is empty.
+	 *
+	 * @test
+	 * @dataProvider empty_events_per_page_data_provider
+	 *
+	 * @param int|string $events_per_page The `events_per_page` value, as `?posts_per_page=` can set it.
+	 */
+	public function should_fetch_at_least_one_event_per_page_when_events_per_page_is_empty( $events_per_page ) {
+		$filter = static function () {
+			return [ 'test' => Test_View::class ];
+		};
+		add_filter( 'tribe_events_views', $filter );
+
+		$view = View::make( 'test' );
+		$view->set_context( tribe_context()->alter( [ 'events_per_page' => $events_per_page ] ) );
+
+		$this->assertSame( 1, $view->get_events_per_page() );
+		/* One event for the page plus the look-ahead event that detects a next page. */
+		$this->assertEquals( 2, $view->_public_repository_args()['posts_per_page'] );
+
+		remove_filter( 'tribe_events_views', $filter );
+	}
+
 	public static function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 		global $wp;

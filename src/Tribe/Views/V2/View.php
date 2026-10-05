@@ -1353,17 +1353,19 @@ class View implements View_Interface {
 	 * Returns the number of events a View should show per page, bounded to a safe maximum.
 	 *
 	 * The value can be driven by the `posts_per_page` request variable through the Context, so it is
-	 * capped here to keep unauthenticated requests from forcing unbounded repository queries.
+	 * capped here to keep unauthenticated requests from forcing unbounded repository queries. It is
+	 * also kept at one or more: with zero, the look-ahead event would be the only one fetched, and the
+	 * View would render empty pages that never advance.
 	 *
 	 * @since TBD
 	 *
 	 * @param Context|null $context The context to read the value from, or `null` to use the View Context.
 	 *
-	 * @return int The bounded number of events per page.
+	 * @return int The bounded number of events per page, at least one.
 	 */
 	public function get_events_per_page( ?Context $context = null ): int {
 		$context ??= $this->get_context();
-		$per_page = absint( $context->get( 'events_per_page', 12 ) );
+		$per_page = max( 1, absint( $context->get( 'events_per_page', 12 ) ) );
 
 		/**
 		 * Filters the maximum number of events a View will fetch per page.
