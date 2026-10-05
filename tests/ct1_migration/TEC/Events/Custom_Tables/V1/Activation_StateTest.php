@@ -26,12 +26,14 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @after each test make sure the custom tables will be there for the following ones.
 	 */
 	public function recreate_custom_tables(): void {
-		$events_updated = ( new Events_Schema )->update();
-		if ( ! $events_updated ) {
+		$events_table = new Events_Schema();
+		$events_table->update();
+		if ( ! $events_table->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
-		$occurrences_updated = ( new Occurrences_Schema() )->update();
-		if ( ! $occurrences_updated ) {
+		$occurrences_table = new Occurrences_Schema();
+		$occurrences_table->update();
+		if ( ! $occurrences_table->exists() ) {
 			throw new \RuntimeException( 'Failed to create Events custom table.' );
 		}
 	}
