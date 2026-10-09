@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Prevented a fatal error when manually running a Scheduled Import whose
+  child record could not be created, reporting the failure as an import error
+  instead.
+timestamp: 2026-09-29T04:00:28.435Z
