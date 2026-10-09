@@ -304,10 +304,87 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @test
+	 * it should return the transport error when the post request fails at the transport level
+	 */
+	public function it_should_return_the_transport_error_when_the_post_request_fails() {
+		update_option( 'pue_install_key_event_aggregator', 'foo-bar' );
+
+		$transport_error = new \WP_Error(
+			'http_request_failed',
+			'cURL error 28: Operation timed out after 15001 milliseconds'
+		);
+
+		$this->requests->post( Argument::type( 'string' ), Argument::type( 'array' ) )
+		               ->willReturn( $transport_error );
+
+		$sut      = $this->make_instance();
+		$response = $sut->post( 'import', [ 'origin' => 'eventbrite' ] );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'http_request_failed', $response->get_error_code() );
+		$this->assertEquals(
+			'cURL error 28: Operation timed out after 15001 milliseconds',
+			$response->get_error_message()
+		);
+	}
+
+	/**
+	 * @test
+	 * it should report a denied request distinctly when the post request is forbidden
+	 */
+	public function it_should_report_a_denied_request_when_the_post_request_is_forbidden() {
+		update_option( 'pue_install_key_event_aggregator', 'foo-bar' );
+
+		$this->requests->post( Argument::type( 'string' ), Argument::type( 'array' ) )
+		               ->willReturn( $this->make_mock_response_with_code( 403 ) );
+
+		$sut      = $this->make_instance();
+		$response = $sut->post( 'import', [ 'origin' => 'eventbrite' ] );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'core:aggregator:request-denied', $response->get_error_code() );
+	}
+
+	/**
+	 * @test
+	 * it should report a bad response when the post request returns a server error
+	 */
+	public function it_should_report_a_bad_response_when_the_post_request_returns_a_server_error() {
+		update_option( 'pue_install_key_event_aggregator', 'foo-bar' );
+
+		$this->requests->post( Argument::type( 'string' ), Argument::type( 'array' ) )
+		               ->willReturn( $this->make_mock_response_with_code( 500 ) );
+
+		$sut      = $this->make_instance();
+		$response = $sut->post( 'import', [ 'origin' => 'eventbrite' ] );
+
+		$this->assertWPError( $response );
+		$this->assertEquals( 'core:aggregator:bad-response', $response->get_error_code() );
+	}
+
+	/**
 	 * @return Service
 	 */
 	private function make_instance() {
 		return new Service( $this->requests->reveal() );
+	}
+
+	/**
+	 * @since TBD
+	 *
+	 * @param int $code The HTTP status code the mocked response should carry.
+	 *
+	 * @return array{response: array{code: string}, headers: array{content-type: string}, body: string} A mocked `wp_remote_post()` response carrying the given status code.
+	 */
+	protected function make_mock_response_with_code( $code ) {
+		return [
+			'response' => [
+				'code' => (string) $code,
+			],
+			'headers'  => [ 'content-type' => 'json' ],
+			'body'     => '',
+		];
 	}
 
 	/**
