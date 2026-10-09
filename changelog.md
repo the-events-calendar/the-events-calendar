@@ -1,5 +1,37 @@
 # Changelog
 
+### [6.18.0] 2026-09-30
+
+* Fix - Prevented a rejected CSV import column mapping from being saved as the default, which caused later imports to pre-select "Do Not Import" for required columns.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Tweak - Changed views: `v2/widgets/widget-events-qr-code`
+
+### [6.17.5.1] 2026-09-24
+
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened author assignment in the REST API.
+* Security - Hardened the rendering of the Events QR Code widget. Props to Jakub Herman for reporting.
+
+### [6.17.5] 2026-09-17
+
+* Compatibility - Registered the plugin's editor blocks with Block API version 3 so they render correctly inside the iframed block editor introduced in WordPress 6.9.
+* Fix - Prevented event pages and iCal exports from failing when event descriptions contain Single Event or Events Archive blocks.
+* Fix - Resolved an issue where hiding the subscribe links with a snippet that returns a non-array value from the `tec_views_v2_subscribe_links` filter could cause a fatal error on single event pages.
+* Fix - Resolved fatal errors that could occur when WordPress or another plugin passed unexpected data to The Events Calendar, such as while SiteGround Optimizer clears its cache.
+* Language - 0 new strings added, 59 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened access checks on REST API responses. Props to Kaveesha Nirmal for reporting.
+* Security - Strengthened permission checks in the REST API v1. Props to Mohammed Abd Alrahman for reporting.
+
+### [6.17.4.1] 2026-09-10
+
+* Security - Strengthened validation of copied widget instances.
+
+### [6.17.4] 2026-09-03
+
+* Fix - Resolved an issue where the Day View direct URL omitted recurring event occurrences because an earlier query on the same repository froze the custom tables date redirection.
+* Fix - Fixed a fatal error when reading an event's venues or organizers on sites running a persistent object cache, caused by a cached lazy collection losing the callback it needs to rebuild itself. Also added the `tec_events_lazy_post_collection_allowed_unserialize_callbacks` filter so third-party code can register its own rebuild callbacks.
+* Language - 0 new strings added, 100 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.17.3.1] 2026-08-26
 
 * Security - Harden capability checks on REST API archive endpoints.

@@ -391,7 +391,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 
 		$postarr = [
 			$this->get_id_index() => $request['id'],
-			'post_author'         => $request['author'],
+			'post_author'         => $this->scale_back_author( $request['author'], Tribe__Events__Main::VENUE_POST_TYPE ),
 			'post_date'           => $post_date,
 			'post_date_gmt'       => $post_date_gmt,
 			'post_status'         => $post_status,

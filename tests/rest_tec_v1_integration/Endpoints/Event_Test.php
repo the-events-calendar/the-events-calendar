@@ -351,4 +351,38 @@ class Event_Test extends Post_Entity_REST_Test_Case {
 
 		$this->assertMatchesJsonSnapshot( $json );
 	}
+
+	/**
+	 * Creates a published event linked to a draft venue and a draft organizer.
+	 *
+	 * @return array{0: int, 1: int, 2: int} Venue ID, organizer ID, event ID.
+	 */
+	protected function create_event_with_unpublished_linked_posts(): array {
+		wp_set_current_user( 1 );
+		$venue     = tribe_venues()->set_args( [ 'title' => 'Draft venue', 'status' => 'draft', 'address' => '999 Secret Ave', 'phone' => '555-0000' ] )->create();
+		$organizer = tribe_organizers()->set_args( [ 'title' => 'Draft organizer', 'status' => 'draft', 'email' => 'secret@example.com', 'phone' => '555-1111' ] )->create();
+		$event     = tribe_events()->set_args( [ 'title' => 'Public event', 'status' => 'publish', 'start_date' => '2030-01-01 10:00:00', 'duration' => 3600, 'venue' => $venue->ID, 'organizer' => [ $organizer->ID ] ] )->create();
+		wp_set_current_user( 0 );
+
+		return [ $venue->ID, $organizer->ID, $event->ID ];
+	}
+
+	public function test_visitor_does_not_receive_unpublished_venues_and_organizers() {
+		[ , , $event_id ] = $this->create_event_with_unpublished_linked_posts();
+
+		$response = $this->assert_endpoint( '/events/' . $event_id );
+
+		$this->assertSame( [], $response['venues'] );
+		$this->assertSame( [], $response['organizers'] );
+	}
+
+	public function test_editor_receives_unpublished_venues_and_organizers() {
+		[ $venue_id, $organizer_id, $event_id ] = $this->create_event_with_unpublished_linked_posts();
+		wp_set_current_user( self::factory()->user->create( [ 'role' => 'editor' ] ) );
+
+		$response = $this->assert_endpoint( '/events/' . $event_id );
+
+		$this->assertSame( [ $venue_id ], array_column( $response['venues'], 'id' ) );
+		$this->assertSame( [ $organizer_id ], array_column( $response['organizers'], 'id' ) );
+	}
 }

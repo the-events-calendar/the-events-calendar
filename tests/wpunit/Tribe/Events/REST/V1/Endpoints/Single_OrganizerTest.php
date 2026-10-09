@@ -249,4 +249,76 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 		$this->assertWPError( $response );
 		$this->assertEquals( 'could-not-update-organizer', $response->get_error_code() );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_check_the_organizer_capability_when_setting_the_author_on_create() {
+		$current_user = $this->create_user_who_cannot_edit_others_organizers();
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+
+		wp_set_current_user( $current_user );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'organizer', 'A organizer' );
+		$request->set_param( 'author', $other_user );
+
+		$organizer = $this->make_instance()->create( $request, true );
+
+		$this->assertTrue( tribe_is_organizer( $organizer ) );
+		$this->assertEquals( $current_user, get_post_field( 'post_author', $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_check_the_organizer_capability_when_setting_the_author_on_update() {
+		$current_user = $this->create_user_who_cannot_edit_others_organizers();
+		$other_user   = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		$organizer    = $this->factory()->organizer->create( [ 'post_author' => $current_user ] );
+
+		wp_set_current_user( $current_user );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $organizer );
+		$request->set_param( 'author', $other_user );
+
+		$response = $this->make_instance()->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( $current_user, get_post_field( 'post_author', $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_author_when_updating_without_one() {
+		$original_author = $this->factory()->user->create( [ 'role' => 'author' ] );
+		$organizer       = $this->factory()->organizer->create( [ 'post_author' => $original_author ] );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$request = new \WP_REST_Request();
+		$request->set_param( 'id', $organizer );
+		$request->set_param( 'phone', 'Organizer phone' );
+
+		$response = $this->make_instance()->update( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertEquals( $original_author, get_post_field( 'post_author', $organizer ) );
+	}
+
+	/**
+	 * Creates an editor who may set other authors on events but not on organizers.
+	 *
+	 * @return int The user ID.
+	 */
+	private function create_user_who_cannot_edit_others_organizers(): int {
+		$user_id = $this->factory()->user->create( [ 'role' => 'editor' ] );
+		get_user_by( 'id', $user_id )->add_cap( get_post_type_object( \Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->edit_others_posts, false );
+
+		$this->assertTrue( user_can( $user_id, get_post_type_object( \Tribe__Events__Main::POSTTYPE )->cap->edit_others_posts ) );
+
+		return $user_id;
+	}
 }

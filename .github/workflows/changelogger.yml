@@ -2,6 +2,8 @@ name: Check changelog
 
 on:
   pull_request:
+    # edited: a [skip-changelog] marker added to or removed from the body must re-run the check.
+    types: [opened, synchronize, reopened, edited]
     branches:
       - main
       - 'release/**'
@@ -10,25 +12,50 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+# The check runs bin/check-changelog.sh from the pull request itself, so bound the
+# token it can see and keep it out of .git/config. The base-branch fetch below
+# authenticates on its own for the private repos.
+permissions:
+  contents: read
+
 jobs:
   check-changelog:
     name:    Check changelog
-    runs-on: ubuntu-latest
-    if: "!contains(github.event.pull_request.body, '[skip-changelog]')"
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    # ------------------------------------------------------------------------------
+    # Release machinery has no entry to add. The bot opens version bumps, TBD
+    # replacement, POT files, changelog moves and merge-forwards off task branches,
+    # and a release/* branch carries entries that were already processed into the
+    # changelog list. Asking those for a new entry only leaves a red check nobody
+    # can clear. Everything else is a change somebody chose to make, so it keeps the
+    # requirement; [skip-changelog] is the escape hatch for the exceptions.
+    # ------------------------------------------------------------------------------
+    if: >-
+      !contains(github.event.pull_request.body, '[skip-changelog]')
+      && github.event.pull_request.user.login != 'tec-bot'
+      && !startsWith(github.head_ref, 'release/')
     steps:
       # clone the repository
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1000
           submodules: recursive
+          persist-credentials: false
       # setup Node
       - name: Configure Node environment
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-      # Fetch the target branch before running the check.
+      # Fetch the target branch before running the check. The token lives only in this
+      # step's environment and is passed per command, so nothing later can read it.
       - name: Fetch the target origin branch
-        run: git fetch origin $GITHUB_BASE_REF
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          AUTH=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" \
+            fetch origin "$GITHUB_BASE_REF"
       # Check if any changelog file is added when comparing the current branch vs the target branch.
       - name: Check changelog
         run: bash bin/check-changelog.sh origin/$GITHUB_BASE_REF HEAD

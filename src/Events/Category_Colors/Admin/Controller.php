@@ -159,7 +159,7 @@ class Controller extends Controller_Contract {
 	public function add_columns( $columns ) {
 		/** @var Quick_Edit $instance */
 		$instance = $this->container->make( Quick_Edit::class );
-		return $instance->add_columns( $columns );
+		return $instance->add_columns( (array) $columns );
 	}
 
 	/**

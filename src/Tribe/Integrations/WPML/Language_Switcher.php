@@ -31,8 +31,12 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 	 *
 	 * @return array The languages with maybe updated URLs
 	 */
-	public function filter_icl_ls_languages( array $languages = [] ) {
+	public function filter_icl_ls_languages( $languages = [] ) {
 		global $wp_query;
+
+		if ( ! is_array( $languages ) ) {
+			return $languages;
+		}
 
 		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return $languages;
@@ -54,6 +58,10 @@ class Tribe__Events__Integrations__WPML__Language_Switcher {
 
 		$current_language = $sitepress->get_current_language();
 		foreach ( $languages as &$language ) {
+			if ( ! is_array( $language ) ) {
+				continue;
+			}
+
 			$sitepress->switch_lang( $language['code'] );
 			$language['url'] = $sitepress->convert_url(
 				$tec->getLink( $view, __( $view, 'the-events-calendar' ) ),
