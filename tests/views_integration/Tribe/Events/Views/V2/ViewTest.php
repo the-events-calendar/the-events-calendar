@@ -12,9 +12,22 @@ require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
+
+	/**
+	 * Backup of the global `$wp->public_query_vars`.
+	 *
+	 * @var array
+	 */
+	protected static $wp_public_query_vars;
+
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
+	}
+
+	public function tearDown() {
+		remove_all_filters( 'tribe_events_views' );
+		parent::tearDown();
 	}
 
 	/**
@@ -253,8 +266,94 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '', $page_1_view->prev_url() );
 	}
 
+	/**
+	 * It should not expose the posts_per_page look-ahead value in the View URL.
+	 *
+	 * @test
+	 */
+	public function should_not_expose_posts_per_page_in_the_view_url() {
+		$filter = static function () {
+			return [ 'test' => Test_View::class ];
+		};
+		add_filter( 'tribe_events_views', $filter );
+
+		global $wp;
+		$original_vars           = $wp->public_query_vars;
+		$wp->public_query_vars = array_unique( array_merge( $wp->public_query_vars, [ 'posts_per_page' ] ) );
+
+		$view = View::make( 'test' );
+		$view->setup_the_loop( [ 'posts_per_page' => 2, 'starts_after' => 'now' ] );
+
+		$this->assertArrayNotHasKey( 'posts_per_page', $view->get_url_object()->get_query_args() );
+
+		$wp->public_query_vars = $original_vars;
+		remove_filter( 'tribe_events_views', $filter );
+	}
+
+	/**
+	 * It should cap the events per page repository argument.
+	 *
+	 * @test
+	 */
+	public function should_cap_the_events_per_page_repository_argument() {
+		$filter = static function () {
+			return [ 'test' => Test_View::class ];
+		};
+		add_filter( 'tribe_events_views', $filter );
+
+		$view = View::make( 'test' );
+		// Use a value well above the cap to ensure the capping logic is exercised even if the constant changes.
+		$view->set_context( tribe_context()->alter( [ 'events_per_page' => View::MAX_EVENTS_PER_PAGE * 2 ] ) );
+
+		$repository_args = $view->_public_repository_args();
+
+		$this->assertEquals( View::MAX_EVENTS_PER_PAGE + 1, $repository_args['posts_per_page'] );
+
+		remove_filter( 'tribe_events_views', $filter );
+	}
+
+	public function empty_events_per_page_data_provider(): array {
+		return [
+			'integer zero' => [ 0 ],
+			'string zero'  => [ '0' ],
+			'empty string' => [ '' ],
+		];
+	}
+
+	/**
+	 * It should fetch at least one event per page when events per page is empty.
+	 *
+	 * @test
+	 * @dataProvider empty_events_per_page_data_provider
+	 *
+	 * @param int|string $events_per_page The `events_per_page` value, as `?posts_per_page=` can set it.
+	 */
+	public function should_fetch_at_least_one_event_per_page_when_events_per_page_is_empty( $events_per_page ) {
+		$filter = static function () {
+			return [ 'test' => Test_View::class ];
+		};
+		add_filter( 'tribe_events_views', $filter );
+
+		$view = View::make( 'test' );
+		$view->set_context( tribe_context()->alter( [ 'events_per_page' => $events_per_page ] ) );
+
+		$this->assertSame( 1, $view->get_events_per_page() );
+		/* One event for the page plus the look-ahead event that detects a next page. */
+		$this->assertEquals( 2, $view->_public_repository_args()['posts_per_page'] );
+
+		remove_filter( 'tribe_events_views', $filter );
+	}
+
 	public static function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
+		global $wp;
+		static::$wp_public_query_vars = $wp->public_query_vars;
+	}
+
+	public static function tearDownAfterClass() {
+		global $wp;
+		$wp->public_query_vars = static::$wp_public_query_vars;
+		parent::tearDownAfterClass();
 	}
 
 	public function url_event_date_data_set() {
