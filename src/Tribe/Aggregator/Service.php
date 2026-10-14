@@ -288,7 +288,7 @@ class Tribe__Events__Aggregator__Service {
 	/**
 	 * Performs a POST request against the Event Aggregator service
 	 *
-	 * @since TBD Moved the transport-error check ahead of the response-code read and added distinct handling for a blocked (403) response.
+	 * @since 6.18.1 Moved the transport-error check ahead of the response-code read and added distinct handling for a blocked (403) response.
 	 *
 	 * @param string $endpoint Endpoint for the Event Aggregator service.
 	 * @param array  $data     Parameters to send to the endpoint.

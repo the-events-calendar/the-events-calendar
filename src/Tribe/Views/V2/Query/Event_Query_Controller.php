@@ -149,7 +149,7 @@ class Event_Query_Controller {
 			/**
 			 * Filters the maximum number of events a View will fetch per page.
 			 *
-			 * @since TBD
+			 * @since 6.18.1
 			 *
 			 * @param int $max_events_per_page The maximum number of events per page.
 			 */
