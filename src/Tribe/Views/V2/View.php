@@ -53,7 +53,7 @@ class View implements View_Interface {
 	 * The `posts_per_page` request variable can drive the number of events per page through the Context,
 	 * so the value is capped to keep unauthenticated requests from forcing unbounded queries.
 	 *
-	 * @since TBD
+	 * @since 6.18.1
 	 */
 	const MAX_EVENTS_PER_PAGE = 200;
 
@@ -1357,7 +1357,7 @@ class View implements View_Interface {
 	 * also kept at one or more: with zero, the look-ahead event would be the only one fetched, and the
 	 * View would render empty pages that never advance.
 	 *
-	 * @since TBD
+	 * @since 6.18.1
 	 *
 	 * @param Context|null $context The context to read the value from, or `null` to use the View Context.
 	 *
@@ -1370,7 +1370,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the maximum number of events a View will fetch per page.
 		 *
-		 * @since TBD
+		 * @since 6.18.1
 		 *
 		 * @param int $max_events_per_page The maximum number of events per page.
 		 */
