@@ -14,6 +14,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
 use Tribe__Events__Main as TEC;
 
 use Elementor\Widget_Base;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Tag_Sanitizer;
 use WP_Post;
 
 /**
@@ -571,6 +572,8 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @return array
 		 */
 		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, false, $this );
+
+		$args = Tag_Sanitizer::sanitize( $args );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;

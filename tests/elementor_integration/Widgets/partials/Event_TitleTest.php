@@ -81,4 +81,43 @@ class Event_TitleTest extends WPTestCase {
 
 		$this->render_filtered( $object, $widget );
 	}
+
+	/**
+	 * A stored tag that is not an allowed HTML tag must never be printed as an element name.
+	 *
+	 * @dataProvider data_unsafe_tags
+	 */
+	public function test_it_should_not_render_unsafe_header_tag( string $tag ) {
+		$this->set_class_fn_return(
+			'Elementor\Controls_Stack',
+			'get_settings_for_display',
+			[ 'header_tag' => $tag ]
+		);
+		$this->filter_template_data( [ 'title' => 'document.body.dataset.x=1' ] );
+
+		$output = $this->tidy_render( ( new Event_Title() )->get_output() );
+
+		$this->assertStringNotContainsString( '<' . $tag, $output );
+		$this->assertStringContainsString( '<div', $output );
+	}
+
+	public function data_unsafe_tags(): Generator {
+		yield 'script' => [ 'script' ];
+		yield 'style' => [ 'style' ];
+		yield 'iframe' => [ 'iframe' ];
+	}
+
+	/**
+	 * Tags a site owner may legitimately filter in stay untouched.
+	 */
+	public function test_it_should_keep_an_allowed_header_tag() {
+		$this->set_class_fn_return(
+			'Elementor\Controls_Stack',
+			'get_settings_for_display',
+			[ 'header_tag' => 'h4' ]
+		);
+		$this->filter_template_data( [ 'title' => 'Event Title' ] );
+
+		$this->assertStringContainsString( '<h4', $this->tidy_render( ( new Event_Title() )->get_output() ) );
+	}
 }
