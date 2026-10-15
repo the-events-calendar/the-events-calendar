@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Prevented a fatal error in the admin when the Nexcess banner renders on
+  requests where the consolidated license functions are not loaded, such as
+  saving in the theme or plugin editor.
+timestamp: 2026-10-15T14:14:54.109Z
