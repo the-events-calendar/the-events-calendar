@@ -239,6 +239,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.18.2] 2026-10-15 =
+
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Restricted the HTML tag settings of the Elementor widgets to a fixed list of tags.
+* Tweak - Added filters: `tec_events_elementor_widget_allowed_tags`
+
 = [6.18.1] 2026-10-13 =
 
 * Fix - Prevented a fatal error when manually running a Scheduled Import whose child record could not be created, reporting the failure as an import error instead.
