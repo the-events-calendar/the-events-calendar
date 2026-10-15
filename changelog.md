@@ -1,5 +1,14 @@
 # Changelog
 
+### [6.18.1] 2026-10-13
+
+* Fix - Prevented a fatal error when manually running a Scheduled Import whose child record could not be created, reporting the failure as an import error instead.
+* Fix - Resolved an issue where the List view exposed an internal pagination look-ahead value in generated navigation and canonical URLs, and capped the number of events fetched per page to prevent unbounded queries.
+* Language - 0 new strings added, 61 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Added filters: `tec_events_views_v2_max_events_per_page`
+* Tweak - Improved specificity of error handling when syncing events with Event Aggregator.
+* Tweak - Improved the unified licensing page experience.
+
 ### [6.18.0] 2026-09-30
 
 * Fix - Prevented a rejected CSV import column mapping from being saved as the default, which caused later imports to pre-select "Do Not Import" for required columns.

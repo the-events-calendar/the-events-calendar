@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, nexcess, bordoni, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo, larodiel, leahkoerper, sdokus, vicskf
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.18.0
+Stable tag: 6.18.1
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -238,6 +238,15 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.18.1] 2026-10-13 =
+
+* Fix - Prevented a fatal error when manually running a Scheduled Import whose child record could not be created, reporting the failure as an import error instead.
+* Fix - Resolved an issue where the List view exposed an internal pagination look-ahead value in generated navigation and canonical URLs, and capped the number of events fetched per page to prevent unbounded queries.
+* Language - 0 new strings added, 61 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Added filters: `tec_events_views_v2_max_events_per_page`
+* Tweak - Improved specificity of error handling when syncing events with Event Aggregator.
+* Tweak - Improved the unified licensing page experience.
 
 = [6.18.0] 2026-09-30 =
 

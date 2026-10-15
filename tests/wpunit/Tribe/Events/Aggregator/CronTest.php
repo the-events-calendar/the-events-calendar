@@ -715,4 +715,41 @@ class CronTest extends Aggregator_TestCase {
 
 		$this->assertEquals( $expected_batch_size, $batch_size );
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_mark_the_scheduled_record_as_failed_without_reading_the_failed_child_when_child_creation_fails() {
+		$backup = tribe( 'events-aggregator.service' );
+		tribe_register( 'events-aggregator.main', $this->make_aggregator_instance() );
+
+		$service = $this->prophesize( \Tribe__Events__Aggregator__Service::class );
+		$service->api()->willReturn( true );
+		$service->is_over_limit( true )->willReturn( false );
+		tribe_register( 'events-aggregator.service', $service->reveal() );
+
+		$scheduled = $this->make_schedule_record( uniqid( 'import_id', true ) );
+		$scheduled->update_meta( 'frequency', uniqid( 'unknown-frequency-', true ) );
+
+		/* Cron skips records with an unknown frequency; the debug override lets this one reach child creation. */
+		$previous_override = getenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE' );
+		putenv( 'TRIBE_DEBUG_OVERRIDE_SCHEDULE=1' );
+
+		try {
+			$this->make_real_instance()->verify_child_record_creation();
+		} finally {
+			putenv(
+				false === $previous_override
+					? 'TRIBE_DEBUG_OVERRIDE_SCHEDULE'
+					: "TRIBE_DEBUG_OVERRIDE_SCHEDULE={$previous_override}"
+			);
+			tribe_register( 'events-aggregator.service', $backup );
+			$this->restore_aggregator();
+		}
+
+		$this->assertSame(
+			'error:import-failed',
+			Records::instance()->get_by_post_id( $scheduled->id )->meta['last_import_status']
+		);
+	}
 }
