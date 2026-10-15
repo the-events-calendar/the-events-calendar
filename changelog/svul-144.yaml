@@ -1,5 +1,0 @@
-significance: patch
-type: security
-entry: Restricted the HTML tag settings of the Elementor widgets to a fixed list
-  of tags.
-timestamp: 2026-10-14T18:01:37.345Z
