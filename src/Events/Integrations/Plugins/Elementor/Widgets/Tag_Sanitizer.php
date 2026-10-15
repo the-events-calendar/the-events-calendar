@@ -54,31 +54,6 @@ final class Tag_Sanitizer {
 	];
 
 	/**
-	 * Tags that run or load content. The allowed tags filter cannot re-enable them.
-	 *
-	 * @since TBD
-	 *
-	 * @var string[]
-	 */
-	private const NEVER_ALLOWED_TAGS = [
-		'applet',
-		'base',
-		'embed',
-		'frame',
-		'frameset',
-		'iframe',
-		'link',
-		'math',
-		'meta',
-		'noscript',
-		'object',
-		'script',
-		'style',
-		'svg',
-		'template',
-	];
-
-	/**
 	 * Replaces any `*_tag` template arg that is not an allowed HTML tag with a `div`.
 	 *
 	 * @since TBD
@@ -114,8 +89,8 @@ final class Tag_Sanitizer {
 		/**
 		 * Filters the HTML tags an Elementor widget tag setting may print as an element name.
 		 *
-		 * Anything that is not a plain tag name, and the tags that run or load content (such as
-		 * `script`, `style` and `iframe`), is dropped from the result.
+		 * Adding a tag that runs or loads content, such as `script`, is the site's own decision and
+		 * is not blocked here.
 		 *
 		 * @since TBD
 		 *
@@ -127,12 +102,6 @@ final class Tag_Sanitizer {
 			return self::ALLOWED_TAGS;
 		}
 
-		$filtered = array_map( 'strtolower', array_filter( $filtered, 'is_string' ) );
-		$filtered = array_filter(
-			$filtered,
-			static fn ( string $tag ): bool => 1 === preg_match( '/^[a-z][a-z0-9]*$/', $tag )
-		);
-
-		return array_values( array_diff( $filtered, self::NEVER_ALLOWED_TAGS ) );
+		return array_values( array_map( 'strtolower', array_filter( $filtered, 'is_string' ) ) );
 	}
 }

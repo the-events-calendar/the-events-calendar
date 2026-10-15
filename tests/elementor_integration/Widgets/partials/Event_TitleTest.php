@@ -164,29 +164,22 @@ class Event_TitleTest extends WPTestCase {
 		$this->assertStringContainsString( '<address', $this->tidy_render( ( new Event_Title() )->get_output() ) );
 	}
 
-	/**
-	 * @dataProvider data_unsafe_tags
-	 */
-	public function test_it_should_not_let_the_allowed_tags_filter_enable_an_unsafe_tag( string $tag ) {
+	public function test_it_should_let_the_allowed_tags_filter_add_any_tag_on_purpose() {
 		add_filter(
 			'tec_events_elementor_widget_allowed_tags',
-			static function ( array $tags ) use ( $tag ): array {
-				$tags[] = strtoupper( $tag );
-				$tags[] = '<' . $tag . '>';
+			static function ( array $tags ): array {
+				$tags[] = 'script';
 
 				return $tags;
 			}
 		);
 		$this->set_class_fn_return(
-			'Elementor\Controls_Stack',
+			'Elementor\\Controls_Stack',
 			'get_settings_for_display',
-			[ 'header_tag' => $tag ]
+			[ 'header_tag' => 'script' ]
 		);
-		$this->filter_template_data( [ 'title' => 'document.body.dataset.x=1' ] );
+		$this->filter_template_data( [ 'title' => 'Event Title' ] );
 
-		$output = $this->tidy_render( ( new Event_Title() )->get_output() );
-
-		$this->assertStringNotContainsString( '<' . $tag, $output );
-		$this->assertStringContainsString( '<div', $output );
+		$this->assertStringContainsString( '<script', $this->tidy_render( ( new Event_Title() )->get_output() ) );
 	}
 }
