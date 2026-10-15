@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Traits;
 
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Tag_Sanitizer;
+
 /**
  * Preview_Data Trait
  *
@@ -83,6 +85,8 @@ trait Has_Preview_Data {
 		 * @return array
 		 */
 		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, $preview, $this );
+
+		$args = Tag_Sanitizer::sanitize( $args );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;
