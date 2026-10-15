@@ -1,0 +1,49 @@
+# Releases a tag of The Events Calendar on WordPress.org SVN: points the Stable
+# Tag at tags/<version>, then makes trunk a copy of it. Run it after "Release:
+# WordPress.org SVN tag" and QA, or with an older version to roll back.
+# Order and recovery:
+# https://github.com/stellarwp/plugin-toolbox/blob/d78cfb491a1c279898a089396648b972064c49b3/.github/actions/wporg-svn/README.md
+name: "Release: WordPress.org SVN publish"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: The version to release, as the tag run reported it
+        required: true
+      expected-revision:
+        description: The tag run's revision number (123, not r123), so a tag changed after QA is refused. Leave empty only for a rollback
+        required: false
+
+# Shared with the tag workflow: one SVN write at a time. This lock only covers
+# workflows in this repository: release The Events Calendar from here only.
+concurrency:
+  group: wporg-the-events-calendar
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    # Holds the WPORG credentials, limited to main. Its reviewers check
+    # tags/<version> at expected-revision before approving this job.
+    environment: wordpress-org
+    steps:
+      - name: Install Subversion
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends subversion
+      - uses: stellarwp/plugin-toolbox/.github/actions/wporg-svn/set-stable@d78cfb491a1c279898a089396648b972064c49b3
+        with:
+          plugin-slug: the-events-calendar
+          version: ${{ inputs.version }}
+          expected-revision: ${{ inputs.expected-revision }}
+          wporg-username: ${{ vars.WPORG_USERNAME }}
+          wporg-password: ${{ secrets.WPORG_PASSWORD }}
+      - uses: stellarwp/plugin-toolbox/.github/actions/wporg-svn/update-trunk@d78cfb491a1c279898a089396648b972064c49b3
+        with:
+          plugin-slug: the-events-calendar
+          version: ${{ inputs.version }}
+          expected-revision: ${{ inputs.expected-revision }}
+          wporg-username: ${{ vars.WPORG_USERNAME }}
+          wporg-password: ${{ secrets.WPORG_PASSWORD }}
