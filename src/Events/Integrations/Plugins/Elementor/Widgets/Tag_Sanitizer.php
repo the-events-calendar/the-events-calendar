@@ -2,7 +2,7 @@
 /**
  * Keeps widget tag settings to the HTML tags the widget controls offer.
  *
- * @since TBD
+ * @since 6.18.2
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
  * The tags come from stored widget settings. The editor limits them to a SELECT, but nothing
  * enforces that on the server, and the templates print them as element names.
  *
- * @since TBD
+ * @since 6.18.2
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -24,7 +24,7 @@ final class Tag_Sanitizer {
 	 * The HTML tags a widget tag setting may print: the ones the controls offer, plus the
 	 * non-interactive wrappers Elementor itself accepts for its own widgets and the common inline emphasis tags.
 	 *
-	 * @since TBD
+	 * @since 6.18.2
 	 *
 	 * @var string[]
 	 */
@@ -56,7 +56,7 @@ final class Tag_Sanitizer {
 	/**
 	 * Replaces any `*_tag` template arg that is not an allowed HTML tag with a `div`.
 	 *
-	 * @since TBD
+	 * @since 6.18.2
 	 *
 	 * @param array<string,mixed> $args The template args.
 	 *
@@ -81,7 +81,7 @@ final class Tag_Sanitizer {
 	/**
 	 * Gets the tags a widget tag setting may print.
 	 *
-	 * @since TBD
+	 * @since 6.18.2
 	 *
 	 * @return string[] The allowed tag names, lower case.
 	 */
@@ -92,7 +92,7 @@ final class Tag_Sanitizer {
 		 * Adding a tag that runs or loads content, such as `script`, is the site's own decision and
 		 * is not blocked here.
 		 *
-		 * @since TBD
+		 * @since 6.18.2
 		 *
 		 * @param string[] $allowed The allowed tag names.
 		 */
