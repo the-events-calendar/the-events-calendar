@@ -120,4 +120,73 @@ class Event_TitleTest extends WPTestCase {
 
 		$this->assertStringContainsString( '<h4', $this->tidy_render( ( new Event_Title() )->get_output() ) );
 	}
+
+	/**
+	 * @dataProvider data_extra_safe_tags
+	 */
+	public function test_it_should_keep_the_extra_safe_tags( string $tag ) {
+		$this->set_class_fn_return(
+			'Elementor\Controls_Stack',
+			'get_settings_for_display',
+			[ 'header_tag' => $tag ]
+		);
+		$this->filter_template_data( [ 'title' => 'Event Title' ] );
+
+		$this->assertStringContainsString( '<' . $tag, $this->tidy_render( ( new Event_Title() )->get_output() ) );
+	}
+
+	public function data_extra_safe_tags(): Generator {
+		yield 'section' => [ 'section' ];
+		yield 'header' => [ 'header' ];
+		yield 'nav' => [ 'nav' ];
+		yield 'b' => [ 'b' ];
+		yield 'em' => [ 'em' ];
+		yield 'i' => [ 'i' ];
+		yield 'strong' => [ 'strong' ];
+	}
+
+	public function test_it_should_let_the_allowed_tags_filter_add_a_tag() {
+		add_filter(
+			'tec_events_elementor_widget_allowed_tags',
+			static function ( array $tags ): array {
+				$tags[] = 'address';
+
+				return $tags;
+			}
+		);
+		$this->set_class_fn_return(
+			'Elementor\Controls_Stack',
+			'get_settings_for_display',
+			[ 'header_tag' => 'address' ]
+		);
+		$this->filter_template_data( [ 'title' => 'Event Title' ] );
+
+		$this->assertStringContainsString( '<address', $this->tidy_render( ( new Event_Title() )->get_output() ) );
+	}
+
+	/**
+	 * @dataProvider data_unsafe_tags
+	 */
+	public function test_it_should_not_let_the_allowed_tags_filter_enable_an_unsafe_tag( string $tag ) {
+		add_filter(
+			'tec_events_elementor_widget_allowed_tags',
+			static function ( array $tags ) use ( $tag ): array {
+				$tags[] = strtoupper( $tag );
+				$tags[] = '<' . $tag . '>';
+
+				return $tags;
+			}
+		);
+		$this->set_class_fn_return(
+			'Elementor\Controls_Stack',
+			'get_settings_for_display',
+			[ 'header_tag' => $tag ]
+		);
+		$this->filter_template_data( [ 'title' => 'document.body.dataset.x=1' ] );
+
+		$output = $this->tidy_render( ( new Event_Title() )->get_output() );
+
+		$this->assertStringNotContainsString( '<' . $tag, $output );
+		$this->assertStringContainsString( '<div', $output );
+	}
 }
