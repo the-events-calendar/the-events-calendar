@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, nexcess, bordoni, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo, larodiel, leahkoerper, sdokus, vicskf
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.18.1
+Stable tag: 6.18.2
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -238,6 +238,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.18.2] 2026-10-15 =
+
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Restricted the HTML tag settings of the Elementor widgets to a fixed list of tags.
+* Tweak - Added filters: `tec_events_elementor_widget_allowed_tags`
 
 = [6.18.1] 2026-10-13 =
 
