@@ -211,10 +211,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				unset( $data['FeaturedImage'] );
 			}
 
-			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
-				$data['EventDuration'] = null;
-			}
-
 			/**
 			 * Allow hooking in prior to updating meta fields.
 			 *
