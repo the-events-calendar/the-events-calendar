@@ -397,4 +397,38 @@ HTML;
 		$this->assertStringContainsString( 'rel="tag">Test Cat</a>', $html );
 		$this->assertStringContainsString( '</span></li>', $html );
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_show_cost_field_by_default() {
+		$this->assertTrue( tribe_events_admin_show_cost_field() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_show_cost_field_when_a_ticket_provider_is_active() {
+		if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
+			$this->markTestSkipped( 'Event Tickets is not loaded.' );
+		}
+
+		add_filter(
+			'tribe_tickets_get_modules',
+			static function () {
+				return [ 'Tribe__Tickets__RSVP' => 'RSVP' ];
+			}
+		);
+
+		$this->assertTrue( tribe_events_admin_show_cost_field() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_hide_cost_field_when_filtered_to_false() {
+		add_filter( 'tribe_events_admin_show_cost_field', '__return_false' );
+
+		$this->assertFalse( tribe_events_admin_show_cost_field() );
+	}
 }
