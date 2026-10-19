@@ -194,8 +194,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			// Ordinarily there is a single cost value for each event, but addons (ie, ticketing plugins) may need
 			// to record a number of different price points for the same event
-			$event_cost        = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : [];
-			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
+			$event_cost = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : [];
+
+			/*
+			 * A blank cost field is not a cost: sending it along would stop the tickets from providing the cost.
+			 * Without any ticket prices the blank value is kept as it always was.
+			 */
+			$blank_cost        = [ '' ] === array_map( 'trim', array_map( 'strval', $event_cost ) );
+			$ticket_costs      = (array) apply_filters( 'tribe_events_event_costs', $blank_cost ? [] : $event_cost, $event_id );
+			$data['EventCost'] = $ticket_costs ?: $event_cost;
 
 			// If we are saving just one meta, we reset to avoid deleting and re-adding cost every time
 			if ( is_array( $data['EventCost'] ) && 1 === count( $data['EventCost'] ) ) {
