@@ -1,5 +1,5 @@
 significance: patch
 type: tweak
-entry: Showed the Event Cost fields in the classic editor event form even when
-  Event Tickets is active.
+entry: Showed the Event Cost fields in the classic editor for events without tickets
+  or RSVPs when Event Tickets is active.
 timestamp: 2026-10-19T18:37:18.532Z

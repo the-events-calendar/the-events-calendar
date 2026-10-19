@@ -1022,7 +1022,7 @@ function tribe_events_get_days_of_week( $format = null ) {
  *
  * Conditional tag to determine if the cost field should be shown in the admin editors.
  *
- * @since TBD The field is no longer hidden when a ticket provider is active. Use the `tribe_events_admin_show_cost_field` filter to hide it.
+ * @since TBD The field is only hidden for events that have tickets or RSVPs, as their prices replace the cost.
  *
  * @return bool
  * @category Cost
@@ -1034,7 +1034,17 @@ function tribe_events_admin_show_cost_field() {
 		$modules = Tribe__Tickets__Tickets::modules();
 	}
 
-	return apply_filters( 'tribe_events_admin_show_cost_field', true, $modules );
+	$event_id     = get_the_ID();
+	$event_origin = get_post_meta( $event_id, '_EventOrigin', true );
+	$show_cost    = empty( $modules ) ||
+	                ! tribe_events_has_tickets( $event_id ) ||
+	                class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ||
+	                in_array(
+		                $event_origin,
+		                apply_filters( 'tribe_events_admin_show_cost_field_origin', [ 'community-events' ] )
+	                );
+
+	return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
 }
 
 /**

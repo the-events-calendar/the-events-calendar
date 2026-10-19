@@ -401,24 +401,38 @@ HTML;
 	/**
 	 * @test
 	 */
-	public function should_show_cost_field_by_default() {
+	public function should_show_cost_field_for_an_event_without_tickets(): void {
+		$event_id = tribe_events()->set_args( $this->cost_field_event_args() )->create()->ID;
+
+		$GLOBALS['post'] = get_post( $event_id );
+
 		$this->assertTrue( tribe_events_admin_show_cost_field() );
 	}
 
 	/**
 	 * @test
 	 */
-	public function should_show_cost_field_when_a_ticket_provider_is_active() {
-		if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
+	public function should_hide_cost_field_for_an_event_with_an_rsvp(): void {
+		if ( ! function_exists( 'tribe_events_has_tickets' ) ) {
 			$this->markTestSkipped( 'Event Tickets is not loaded.' );
 		}
 
-		add_filter(
-			'tribe_tickets_get_modules',
-			static function () {
-				return [ 'Tribe__Tickets__RSVP' => 'RSVP' ];
-			}
-		);
+		$event_id = tribe_events()->set_args( $this->cost_field_event_args() )->create()->ID;
+		$rsvp     = tribe_tickets( 'rsvp' )->set_args(
+			[
+				'title'    => 'RSVP',
+				'event'    => $event_id,
+				'capacity' => 10,
+				'status'   => 'publish',
+			]
+		)->create();
+
+		$GLOBALS['post'] = get_post( $event_id );
+
+		$this->assertFalse( tribe_events_admin_show_cost_field() );
+
+		wp_delete_post( $rsvp->ID, true );
+		tribe( 'cache' )->reset();
 
 		$this->assertTrue( tribe_events_admin_show_cost_field() );
 	}
@@ -426,9 +440,19 @@ HTML;
 	/**
 	 * @test
 	 */
-	public function should_hide_cost_field_when_filtered_to_false() {
+	public function should_hide_cost_field_when_filtered_to_false(): void {
 		add_filter( 'tribe_events_admin_show_cost_field', '__return_false' );
 
 		$this->assertFalse( tribe_events_admin_show_cost_field() );
+	}
+
+	private function cost_field_event_args(): array {
+		return [
+			'title'      => 'Cost field event',
+			'start_date' => 'tomorrow 9am',
+			'timezone'   => 'America/New_York',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		];
 	}
 }
