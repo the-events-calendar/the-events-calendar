@@ -58,8 +58,12 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 * Returns the timezone string for the specified event (if null it assumes the
 	 * current event where that can be determined).
 	 *
-	 * If no timezone has explicitly been set for the event, it returns the global
-	 * WordPress timezone string.
+	 * If no timezone has explicitly been set for the event, or the stored value is
+	 * not a real timezone identifier or UTC offset, it returns the global WordPress
+	 * timezone string.
+	 *
+	 * @since TBD Falls back to the site timezone for a stored value that is not a
+	 *            real timezone identifier or UTC offset, instead of returning it as-is.
 	 *
 	 * @param int|null $event_id
 	 *
@@ -68,7 +72,12 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	public static function get_event_timezone_string( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 		$tzstring = get_post_meta( $event_id, '_EventTimezone', true );
-		return $tzstring ? $tzstring : self::wp_timezone_string();
+
+		if ( $tzstring && self::is_valid_timezone( $tzstring ) ) {
+			return $tzstring;
+		}
+
+		return self::wp_timezone_string();
 	}
 
 	/**

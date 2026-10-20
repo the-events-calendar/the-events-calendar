@@ -65,6 +65,62 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 3 * HOUR_IN_SECONDS, (int) get_post_meta( $id, '_EventDuration', true ) );
 	}
 
+	/**
+	 * It should store a valid timezone identifier as submitted.
+	 *
+	 * @test
+	 */
+	public function should_store_a_valid_submitted_timezone() {
+		$id = static::factory()->post->create();
+		global $wpdb;
+		$event_type = TEC::POSTTYPE;
+		$wpdb->query( "update $wpdb->posts set post_type='{$event_type}' where ID = $id" );
+
+		API::saveEventMeta( $id, [
+			'EventStartDate' => '2022-03-27',
+			'EventStartTime' => '01:30:00',
+			'EventEndDate'   => '2022-03-27',
+			'EventEndTime'   => '04:30:00',
+			'EventTimezone'  => 'Europe/Paris',
+		] );
+
+		$this->assertEquals( 'Europe/Paris', get_post_meta( $id, '_EventTimezone', true ) );
+	}
+
+	public function invalid_timezone_provider(): array {
+		return [
+			'markup'                => [ '<img src="x" onerror="alert(1)">' ],
+			'utc prefixed attribute' => [ 'UTC+5" onerror="alert(1)' ],
+			'not a timezone'        => [ 'Not/A_Timezone' ],
+		];
+	}
+
+	/**
+	 * It should fall back to the site timezone instead of storing a value that is not a real
+	 * timezone identifier or UTC offset.
+	 *
+	 * @test
+	 * @dataProvider invalid_timezone_provider
+	 */
+	public function should_not_store_an_invalid_submitted_timezone( string $timezone ) {
+		update_option( 'timezone_string', 'America/New_York' );
+
+		$id = static::factory()->post->create();
+		global $wpdb;
+		$event_type = TEC::POSTTYPE;
+		$wpdb->query( "update $wpdb->posts set post_type='{$event_type}' where ID = $id" );
+
+		API::saveEventMeta( $id, [
+			'EventStartDate' => '2022-03-27',
+			'EventStartTime' => '01:30:00',
+			'EventEndDate'   => '2022-03-27',
+			'EventEndTime'   => '04:30:00',
+			'EventTimezone'  => $timezone,
+		] );
+
+		$this->assertEquals( 'America/New_York', get_post_meta( $id, '_EventTimezone', true ) );
+	}
+
 	public function get_event_terms_will_work_when_cat_tax_unregistered(): void {
 		unregister_taxonomy( TEC::TAXONOMY );
 		$post_id = tribe_events()->set_args( [

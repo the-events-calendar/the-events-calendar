@@ -124,4 +124,29 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $event_tz_string, 'America/New_York' );
 	}
 
+	/**
+	 * Event time zone string should fallback to site-wide time zone if the stored value is not a
+	 * real timezone identifier or UTC offset.
+	 *
+	 * @since TBD
+	 */
+	public function test_get_event_timezone_string_should_return_site_time_zone_if_stored_value_is_not_a_timezone() {
+		$event_id = $this->factory()->event->create( [
+			'when'       => '2018-07-01 08:00:00',
+			'meta_input' => [
+				'_EventTimezone' => '<img src="x" onerror="alert(1)">',
+			],
+		] );
+
+		update_option( 'timezone_string', 'America/New_York' );
+
+		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+
+		tribe( 'cache' )->reset();
+
+		$event_tz_string = Timezones::get_event_timezone_string( $event_id );
+
+		$this->assertEquals( $event_tz_string, 'America/New_York' );
+	}
+
 }
