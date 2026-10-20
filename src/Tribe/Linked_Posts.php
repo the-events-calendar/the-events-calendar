@@ -97,6 +97,10 @@ class Tribe__Events__Linked_Posts {
 	 * link, including ones TEC itself makes every day. Password protection is the one access
 	 * control a linked post actually carries, so that is what this enforces.
 	 *
+	 * `post_password_required()` only consults the visitor's password cookie, not their
+	 * capabilities, so someone able to edit the linked post is exempted from it; otherwise this
+	 * would prune a password protected link the editing user set on purpose.
+	 *
 	 * @since TBD
 	 *
 	 * @param string $post_type The expected linked post type (e.g. Organizer, Venue).
@@ -109,6 +113,10 @@ class Tribe__Events__Linked_Posts {
 
 		if ( ! $post || $post->post_type !== $post_type ) {
 			return false;
+		}
+
+		if ( '' === $post->post_password || current_user_can( 'edit_post', $post->ID ) ) {
+			return true;
 		}
 
 		return ! post_password_required( $post );
