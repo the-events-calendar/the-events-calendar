@@ -149,4 +149,22 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $event_tz_string, 'America/New_York' );
 	}
 
+	/**
+	 * It should escape the stored timezone abbreviation it appends to the schedule.
+	 *
+	 * @test
+	 */
+	public function should_escape_the_appended_timezone_abbreviation() {
+		$abbr     = '<img src="x" onerror="alert(1)">';
+		$event_id = $this->factory()->event->create( [ 'when' => '2018-05-01 08:00:00' ] );
+		update_post_meta( $event_id, '_EventTimezoneAbbr', $abbr );
+
+		tribe_update_option( 'tribe_events_timezone_mode', 'event' );
+		tribe( 'cache' )->reset();
+
+		$this->assertEquals(
+			" <span class='timezone'> " . esc_html( $abbr ) . ' </span>',
+			Timezones::append_timezone( '', $event_id )
+		);
+	}
 }

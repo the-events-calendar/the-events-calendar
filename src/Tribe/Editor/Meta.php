@@ -12,6 +12,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * Register the required Meta fields for good Gutenberg saving
 	 *
 	 * @since 4.7
+	 * @since TBD Falls back to the site timezone when a saved _EventTimezone is not a real
+	 *            timezone identifier or UTC offset.
 	 *
 	 * @return void
 	 */
@@ -25,7 +27,23 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
-		register_meta( 'post', '_EventTimezone', $this->text() );
+		register_meta(
+			'post',
+			'_EventTimezone',
+			array_merge(
+				$this->text(),
+				[
+					// Block editor and REST saves never reach Tribe__Events__API::saveEventMeta().
+					'sanitize_callback' => static function ( $value ) {
+						$value = sanitize_text_field( $value );
+
+						return Tribe__Events__Timezones::is_valid_timezone( $value )
+							? $value
+							: Tribe__Events__Timezones::wp_timezone_string();
+					},
+				]
+			)
+		);
 		register_meta( 'post', '_EventStartDate', $this->text() );
 		register_meta( 'post', '_EventEndDate', $this->text() );
 		register_meta( 'post', '_EventStartDateUTC', $this->text() );

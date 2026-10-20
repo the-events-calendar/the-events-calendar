@@ -26,6 +26,8 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	/**
 	 * Adds the timezone to the event schedule information.
 	 *
+	 * @since TBD Escapes the timezone abbreviation before appending it.
+	 *
 	 * @param string   $schedule_text
 	 * @param int|null $event_id
 	 *
@@ -47,7 +49,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 			: self::get_event_timezone_abbr( $event_id );
 
 		if ( ! empty( $timezone ) ) {
-			$timezone_text = " <span class='timezone'> $timezone </span>";
+			$timezone_text = " <span class='timezone'> " . esc_html( $timezone ) . ' </span>';
 			$schedule_text = $schedule_text . $timezone_text;
 		}
 
