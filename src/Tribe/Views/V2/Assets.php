@@ -12,6 +12,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
+use TEC\Common\Editor\Canvas_Styles;
 use Tribe__Events__Templates;
 use TEC\Common\Contracts\Service_Provider;
 
@@ -102,6 +103,7 @@ class Assets extends Service_Provider {
 	 * Binds and sets up implementations.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Loaded the single-event blocks admin stylesheet in the editor canvas too.
 	 */
 	public function register() {
 		$plugin = Plugin::instance();
@@ -514,11 +516,14 @@ class Assets extends Service_Provider {
 				'tec-variables-full',
 				'tec-variables-skeleton',
 			],
-			[ 'admin_enqueue_scripts' ],
+			[ 'enqueue_block_editor_assets' ],
 			[
 				'conditionals' => [
 					[ $this, 'should_enqueue_admin' ]
 				],
+				'groups'       => [ Canvas_Styles::GROUP ],
+				// Load after the other editor styles so its overrides win.
+				'priority'     => 1000,
 			]
 		);
 	}
