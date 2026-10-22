@@ -620,6 +620,35 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
+	 * Returns whether the current user may see the details of a linked post, such as a Venue or Organizer.
+	 *
+	 * A linked post is visible when it is published, or the user can read it, and its password, if any,
+	 * was supplied.
+	 *
+	 * @since TBD
+	 *
+	 * @internal
+	 *
+	 * @param int $post_id The linked post ID.
+	 *
+	 * @return bool Whether the linked post's details may be shown to the current user.
+	 */
+	public function is_linked_post_visible( int $post_id ): bool {
+		// `get_post( 0 )` would return the global post.
+		$post = $post_id ? get_post( $post_id ) : null;
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		if ( 'publish' !== $post->post_status && ! current_user_can( 'read_post', $post->ID ) ) {
+			return false;
+		}
+
+		return ! post_password_required( $post );
+	}
+
+	/**
 	 * Returns whether or not the provided linked post type allows multiple posts of that type
 	 *
 	 * @since 4.2
