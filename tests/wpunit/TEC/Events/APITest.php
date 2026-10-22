@@ -2,6 +2,8 @@
 
 namespace TEC\Events;
 
+use DateTime;
+use DateTimeZone;
 use Tribe__Events__API as API;
 use Tribe__Events__Main as TEC;
 
@@ -97,28 +99,39 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * It should fall back to the site timezone instead of storing a value that is not a real
-	 * timezone identifier or UTC offset.
+	 * timezone identifier or UTC offset, and derive the UTC dates and abbreviation from it.
 	 *
 	 * @test
 	 * @dataProvider invalid_timezone_provider
 	 */
 	public function should_not_store_an_invalid_submitted_timezone( string $timezone ) {
-		update_option( 'timezone_string', 'America/New_York' );
+		$site_timezone = 'America/New_York';
+		update_option( 'timezone_string', $site_timezone );
 
 		$id = static::factory()->post->create();
 		global $wpdb;
 		$event_type = TEC::POSTTYPE;
 		$wpdb->query( "update $wpdb->posts set post_type='{$event_type}' where ID = $id" );
 
+		$start_date = '2022-03-27';
+		$start_time = '01:30:00';
+
 		API::saveEventMeta( $id, [
-			'EventStartDate' => '2022-03-27',
-			'EventStartTime' => '01:30:00',
-			'EventEndDate'   => '2022-03-27',
+			'EventStartDate' => $start_date,
+			'EventStartTime' => $start_time,
+			'EventEndDate'   => $start_date,
 			'EventEndTime'   => '04:30:00',
 			'EventTimezone'  => $timezone,
 		] );
 
-		$this->assertEquals( 'America/New_York', get_post_meta( $id, '_EventTimezone', true ) );
+		$local_start = new DateTime( "$start_date $start_time", new DateTimeZone( $site_timezone ) );
+
+		$this->assertEquals( $site_timezone, get_post_meta( $id, '_EventTimezone', true ) );
+		$this->assertEquals( $local_start->format( 'T' ), get_post_meta( $id, '_EventTimezoneAbbr', true ) );
+		$this->assertEquals(
+			$local_start->setTimezone( new DateTimeZone( 'UTC' ) )->format( 'Y-m-d H:i:s' ),
+			get_post_meta( $id, '_EventStartDateUTC', true )
+		);
 	}
 
 	public function get_event_terms_will_work_when_cat_tax_unregistered(): void {

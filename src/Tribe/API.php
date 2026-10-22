@@ -236,19 +236,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					if ( is_string( $data[ $htmlElement ] ) ) {
 						$data[ $htmlElement ] = tec_sanitize_string( $data[ $htmlElement ] );
 					}
-
-					/*
-					 * _EventTimezone is rendered into the Event editor; only ever store a
-					 * real timezone identifier or UTC offset here, never an arbitrary
-					 * client-supplied string.
-					 */
-					if (
-						'_EventTimezone' === $tag
-						&& is_string( $data[ $htmlElement ] )
-						&& ! Timezones::is_valid_timezone( $data[ $htmlElement ] )
-					) {
-						$data[ $htmlElement ] = Timezones::wp_timezone_string();
-					}
 					// Fields with multiple values per key
 					if ( is_array( $data[ $htmlElement ] ) ) {
 						delete_metadata( 'post', $event_id, $tag );
@@ -375,6 +362,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * given a set of meta data, prepare date data if it exists
 		 *
+		 * @since TBD Falls back to the site timezone when EventTimezone is not a real timezone
+		 *            identifier or UTC offset.
+		 *
 		 * @param $data array Associative array of event meta data
 		 *
 		 * @return array|WP_Error
@@ -457,8 +447,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventEndDate']   = get_post_meta( $event_id, '_EventEndDate', true );
 			}
 
-			// If a specific timezone was not specified, default to the sitewide timezone
-			if ( empty( $data['EventTimezone'] ) ) {
+			/*
+			 * Default to the sitewide timezone when none was specified, or when the submitted value is
+			 * not a real timezone: it is rendered into the Event editor, and the UTC dates below derive from it.
+			 */
+			if (
+				empty( $data['EventTimezone'] )
+				|| ! is_string( $data['EventTimezone'] )
+				|| ! Tribe__Timezones::is_valid_timezone( $data['EventTimezone'] )
+			) {
 				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
 
