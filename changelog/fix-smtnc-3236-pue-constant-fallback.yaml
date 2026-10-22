@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Prevented a fatal error on every admin page when another plugin loads an
+  older copy of the license checker.
+timestamp: 2026-10-22T18:43:42.249Z
