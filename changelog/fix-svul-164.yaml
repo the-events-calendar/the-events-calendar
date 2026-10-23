@@ -1,6 +1,4 @@
 significance: patch
 type: security
-entry: Hardened the calendar export and add-to-calendar links so password
-  protected or unpublished venue and organizer details are not shared. Props to
-  ngvuthdanh for reporting.
+entry: Hardened the calendar export and add-to-calendar links. Props to ngvuthdanh for reporting.
 timestamp: 2026-10-22T19:15:47.099Z
