@@ -41,6 +41,13 @@ class Plugin_Manager_Test extends WPTestCase {
 	private string $stand_in_file = '';
 
 	/**
+	 * Whether the stand-in's folder was created by the test, and so is removed by it.
+	 *
+	 * @var bool
+	 */
+	private bool $stand_in_dir_created = false;
+
+	/**
 	 * @before
 	 */
 	public function set_up_counter(): void {
@@ -63,7 +70,10 @@ class Plugin_Manager_Test extends WPTestCase {
 	public function remove_stand_in(): void {
 		if ( $this->stand_in_file && file_exists( $this->stand_in_file ) ) {
 			unlink( $this->stand_in_file );
-			rmdir( dirname( $this->stand_in_file ) );
+
+			if ( $this->stand_in_dir_created ) {
+				rmdir( dirname( $this->stand_in_file ) );
+			}
 		}
 
 		wp_cache_delete( 'plugins', 'plugins' );
@@ -71,11 +81,21 @@ class Plugin_Manager_Test extends WPTestCase {
 
 	/**
 	 * Creates a minimal stand-in for the retired standalone plugin so it can be "installed" and "active".
+	 *
+	 * Never touches a real installation: if the plugin is already there, the test is skipped. Only a file and a folder
+	 * created here are removed afterwards.
 	 */
 	private function install_stand_in(): void {
-		$this->stand_in_file = WP_PLUGIN_DIR . '/' . self::OLD_PLUGIN_FILE;
-		wp_mkdir_p( dirname( $this->stand_in_file ) );
-		file_put_contents( $this->stand_in_file, "<?php\n/* Plugin Name: The Events Calendar Category Colors (test stand-in) */\n" );
+		$file = WP_PLUGIN_DIR . '/' . self::OLD_PLUGIN_FILE;
+
+		if ( file_exists( $file ) ) {
+			$this->markTestSkipped( 'The retired Category Colors plugin is installed here; the test will not overwrite it.' );
+		}
+
+		$this->stand_in_dir_created = ! is_dir( dirname( $file ) );
+		wp_mkdir_p( dirname( $file ) );
+		file_put_contents( $file, "<?php\n/* Plugin Name: The Events Calendar Category Colors (test stand-in) */\n" );
+		$this->stand_in_file = $file;
 		wp_cache_delete( 'plugins', 'plugins' );
 	}
 
