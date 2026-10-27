@@ -110,4 +110,17 @@ class Tribe__Events__Editor__CompatibilityTest extends \Codeception\TestCase\WPT
 		$this->assertEquals( $expected, $is_blocks_editor_toggled_on );
 		$this->assertEquals( $expected_cached, $mock_cache->get( $cache_key ) );
 	}
+
+	/**
+	 * @test
+	 * It should describe the block editor toggle without a "Read more" link.
+	 */
+	public function should_insert_block_editor_toggle_without_read_more_link(): void {
+		$fields = ( new Compatibility() )->insert_toggle_blocks_editor_field( [ 'disable_metabox_custom_fields' => [] ] );
+
+		$this->assertArrayHasKey( Compatibility::$blocks_editor_key, $fields );
+		$tooltip = $fields[ Compatibility::$blocks_editor_key ]['tooltip'];
+		$this->assertSame( esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ), $tooltip );
+		$this->assertStringNotContainsString( '<a ', $tooltip );
+	}
 }
