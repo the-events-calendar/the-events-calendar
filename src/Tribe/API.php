@@ -148,6 +148,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @since TBD Falls back to the site timezone when the submitted _EventTimezone
 		 *            is not a real timezone identifier or UTC offset.
+		 * @since TBD Sanitizes every value of a meta field submitted with several values.
 		 *
 		 * @param int     $event_id The event ID we are modifying meta for.
 		 * @param array   $data     The meta fields we want saved.
@@ -233,9 +234,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			foreach ( $tec->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
-					if ( is_string( $data[ $htmlElement ] ) ) {
-						$data[ $htmlElement ] = tec_sanitize_string( $data[ $htmlElement ] );
-					}
+					// A field submitted as a list stores each value as its own row, so every value is sanitized.
+					$data[ $htmlElement ] = map_deep(
+						$data[ $htmlElement ],
+						static function ( $value ) {
+							return is_string( $value ) ? tec_sanitize_string( $value ) : $value;
+						}
+					);
 					// Fields with multiple values per key
 					if ( is_array( $data[ $htmlElement ] ) ) {
 						delete_metadata( 'post', $event_id, $tag );
@@ -364,6 +369,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @since TBD Falls back to the site timezone when EventTimezone is not a real timezone
 		 *            identifier or UTC offset.
+		 * @since TBD Derives EventTimezoneAbbr when the submitted one is not a string.
 		 *
 		 * @param $data array Associative array of event meta data
 		 *
@@ -459,7 +465,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
 
-			if ( empty( $data['EventTimezoneAbbr'] ) ) {
+			if ( empty( $data['EventTimezoneAbbr'] ) || ! is_string( $data['EventTimezoneAbbr'] ) ) {
 				if ( Tribe__Timezones::is_utc_offset( $data['EventTimezone'] ) ) {
 					$data['EventTimezoneAbbr'] = $data['EventTimezone'];
 				} elseif ( Tribe__Timezones::is_valid_timezone( $data['EventTimezone'] ) ) {

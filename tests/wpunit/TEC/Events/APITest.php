@@ -4,6 +4,7 @@ namespace TEC\Events;
 
 use DateTime;
 use DateTimeZone;
+use Generator;
 use Tribe__Events__API as API;
 use Tribe__Events__Main as TEC;
 
@@ -151,5 +152,64 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( [
 			'post_tag' => [ 'tag-1', 'tag-2' ]
 		], $event_terms );
+	}
+
+	/**
+	 * @return Generator<string, array{0: array<int, mixed>}>
+	 */
+	public function non_string_timezone_abbreviation_provider(): Generator {
+		yield 'list holding markup' => [ [ '<img src="x" onerror="alert(1)">' ] ];
+		yield 'nested list holding markup' => [ [ [ '<img src="x" onerror="alert(1)">' ] ] ];
+	}
+
+	/**
+	 * It should derive the timezone abbreviation from the Event timezone when the submitted one is not a string.
+	 *
+	 * @test
+	 * @dataProvider non_string_timezone_abbreviation_provider
+	 */
+	public function should_derive_the_timezone_abbreviation_when_the_submitted_one_is_not_a_string( array $abbreviation ): void {
+		$id = $this->create_bare_event();
+
+		API::saveEventMeta( $id, [
+			'EventStartDate'    => '2022-03-30',
+			'EventStartTime'    => '01:30:00',
+			'EventEndDate'      => '2022-03-30',
+			'EventEndTime'      => '04:30:00',
+			'EventTimezone'     => 'Europe/Paris',
+			'EventTimezoneAbbr' => $abbreviation,
+		] );
+
+		$expected = ( new DateTime( '2022-03-30 01:30:00', new DateTimeZone( 'Europe/Paris' ) ) )->format( 'T' );
+		$this->assertSame( [ $expected ], get_post_meta( $id, '_EventTimezoneAbbr' ) );
+	}
+
+	/**
+	 * It should sanitize every value of a meta field submitted with several values.
+	 *
+	 * @test
+	 */
+	public function should_sanitize_every_value_of_a_meta_field_submitted_with_several_values(): void {
+		$id = $this->create_bare_event();
+
+		API::saveEventMeta( $id, [
+			'EventStartDate' => '2022-03-30',
+			'EventStartTime' => '01:30:00',
+			'EventEndDate'   => '2022-03-30',
+			'EventEndTime'   => '04:30:00',
+			'EventCost'      => [ '<b>15</b>', '<img src="x" onerror="alert(1)">25' ],
+		] );
+
+		$this->assertSame( [ '15', '25' ], get_post_meta( $id, '_EventCost' ) );
+	}
+
+	/**
+	 * Creates an Event post without running the Event save hooks.
+	 */
+	private function create_bare_event(): int {
+		$id = static::factory()->post->create();
+		set_post_type( $id, TEC::POSTTYPE );
+
+		return $id;
 	}
 }
