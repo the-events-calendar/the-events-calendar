@@ -24,10 +24,8 @@ class ErrorsTest extends WPTestCase {
 	 */
 	private $ea_error_id;
 
-	/**
-	 * @before
-	 */
-	public function create_comments(): void {
+    public function setUp() {
+                parent::setUp();
 		// A license key makes the Event Aggregator service count as active, which the exclusion requires.
 		add_filter(
 			'tribe_aggregator_api',
