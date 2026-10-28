@@ -243,6 +243,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * update REST payload.
 	 *
 	 * @since 4.9
+	 * @since TBD Uses the stored, sanitized timezone instead of the one in the request.
 	 *
 	 * @param             \stdClass     $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
@@ -261,8 +262,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		$post_id         = $request->get_param( 'id' );
 
+		// The meta is saved by now, so this reads the sanitized timezone rather than the one in the request.
 		$timezone_string = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
-		$timezone_string = Tribe__Utils__Array::get( $meta, '_EventTimezone', $timezone_string );
 		$timezone        = Tribe__Timezones::build_timezone_object( $timezone_string );
 		$utc             = new DateTimeZone( 'UTC' );
 
