@@ -9,6 +9,15 @@ use Tribe__Date_Utils as Date;
  */
 class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
+	 * The linked posts stored on each Event before a REST save, keyed by Event ID.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<int,array<string,list<string>>>
+	 */
+	private array $links_before_save = [];
+
+	/**
 	 * Register the required Meta fields for good Gutenberg saving
 	 *
 	 * @since 4.7
@@ -22,6 +31,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
+		add_filter( "rest_pre_insert_{$post_type}", [ $this, 'remember_linked_posts' ] );
 		add_action( "rest_after_insert_{$post_type}", [ $this, 'remove_invalid_linked_posts' ] );
 		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
@@ -254,6 +264,23 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	}
 
 	/**
+	 * Remembers the linked posts stored on an Event before a REST update writes its meta.
+	 *
+	 * @since TBD
+	 *
+	 * @param stdClass|WP_Error $prepared_post The post the REST request is about to insert or update.
+	 *
+	 * @return stdClass|WP_Error The post, unchanged.
+	 */
+	public function remember_linked_posts( $prepared_post ) {
+		if ( ! empty( $prepared_post->ID ) ) {
+			$this->links_before_save[ $prepared_post->ID ] = tribe( 'tec.linked-posts' )->get_stored_links( $prepared_post->ID );
+		}
+
+		return $prepared_post;
+	}
+
+	/**
 	 * Removes a just-saved `_EventOrganizerID` / `_EventVenueID` value that is not the expected
 	 * linked post type or is password protected.
 	 *
@@ -264,6 +291,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * @return void
 	 */
 	public function remove_invalid_linked_posts( $post ) {
-		tribe( 'tec.linked-posts' )->prune_invalid_linked_posts( $post->ID );
+		tribe( 'tec.linked-posts' )->prune_invalid_linked_posts( $post->ID, $this->links_before_save[ $post->ID ] ?? [] );
+
+		unset( $this->links_before_save[ $post->ID ] );
 	}
 }
