@@ -232,25 +232,25 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			//update meta fields
 			foreach ( $tec->metaTags as $tag ) {
-				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
+				$html_element = ltrim( $tag, '_' );
+				if ( isset( $data[ $html_element ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
 					// A field submitted as a list stores each value as its own row, so every value is sanitized.
-					$data[ $htmlElement ] = map_deep(
-						$data[ $htmlElement ],
+					$data[ $html_element ] = map_deep(
+						$data[ $html_element ],
 						static function ( $value ) {
 							return is_string( $value ) ? tec_sanitize_string( $value ) : $value;
 						}
 					);
 					// Fields with multiple values per key
-					if ( is_array( $data[ $htmlElement ] ) ) {
+					if ( is_array( $data[ $html_element ] ) ) {
 						delete_metadata( 'post', $event_id, $tag );
-						foreach ( $data[ $htmlElement ] as $value ) {
+						foreach ( $data[ $html_element ] as $value ) {
 							add_metadata( 'post', $event_id, $tag, $value );
 						}
 					}
 					// Fields with a single value per key
 					else {
-						update_metadata( 'post', $event_id, $tag, $data[ $htmlElement ] );
+						update_metadata( 'post', $event_id, $tag, $data[ $html_element ] );
 					}
 				}
 			}
