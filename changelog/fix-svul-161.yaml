@@ -1,0 +1,5 @@
+significance: patch
+type: security
+entry: Hardened the rendering of the Event timezone-change link in the classic
+  Event editor. Props to fcc for reporting.
+timestamp: 2026-10-20T01:03:36.931Z

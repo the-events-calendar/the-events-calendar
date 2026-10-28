@@ -146,6 +146,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * Used by createEvent and updateEvent - saves all the various event meta
 		 *
+		 * @since TBD Falls back to the site timezone when the submitted _EventTimezone
+		 *            is not a real timezone identifier or UTC offset.
+		 *
 		 * @param int     $event_id The event ID we are modifying meta for.
 		 * @param array   $data     The meta fields we want saved.
 		 * @param WP_Post $event    The event post, itself.
@@ -365,6 +368,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * given a set of meta data, prepare date data if it exists
 		 *
+		 * @since TBD Falls back to the site timezone when EventTimezone is not a real timezone
+		 *            identifier or UTC offset.
+		 *
 		 * @param $data array Associative array of event meta data
 		 *
 		 * @return array|WP_Error
@@ -447,8 +453,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventEndDate']   = get_post_meta( $event_id, '_EventEndDate', true );
 			}
 
-			// If a specific timezone was not specified, default to the sitewide timezone
-			if ( empty( $data['EventTimezone'] ) ) {
+			/*
+			 * Default to the sitewide timezone when none was specified, or when the submitted value is
+			 * not a real timezone: it is rendered into the Event editor, and the UTC dates below derive from it.
+			 */
+			if (
+				empty( $data['EventTimezone'] )
+				|| ! is_string( $data['EventTimezone'] )
+				|| ! Tribe__Timezones::is_valid_timezone( $data['EventTimezone'] )
+			) {
 				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
 
