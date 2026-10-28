@@ -147,8 +147,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * Used by createEvent and updateEvent - saves all the various event meta
 		 *
 		 * @since TBD Falls back to the site timezone when the submitted _EventTimezone
-		 *            is not a real timezone identifier or UTC offset.
-		 * @since TBD Sanitizes every value of a meta field submitted with several values.
+		 *            is not a real timezone identifier or UTC offset, and sanitizes every
+		 *            value of a meta field submitted with several values.
 		 *
 		 * @param int     $event_id The event ID we are modifying meta for.
 		 * @param array   $data     The meta fields we want saved.
@@ -368,8 +368,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * given a set of meta data, prepare date data if it exists
 		 *
 		 * @since TBD Falls back to the site timezone when EventTimezone is not a real timezone
-		 *            identifier or UTC offset.
-		 * @since TBD Derives EventTimezoneAbbr when the submitted one is not a string.
+		 *            identifier or UTC offset, and derives EventTimezoneAbbr when the
+		 *            submitted one is not a string.
 		 *
 		 * @param $data array Associative array of event meta data
 		 *
