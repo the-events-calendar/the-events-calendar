@@ -1353,6 +1353,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates the event venue meta and attributes.
 	 *
+	 * @since TBD Skips a password protected Venue the current user cannot read.
+	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 *
 	 * @return array The updated post array for update or insertion.
@@ -1364,7 +1366,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// If the venue type does not allow multiple, we just use the first one.
 		if ( empty( $venue_type['allow_multiple'] ) ) {
 			$first_venue = array_shift( $venues_input );
-			if ( ! tribe_is_venue( $first_venue ) ) {
+			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Venue::POSTTYPE, $first_venue ) ) {
 				unset( $postarr['meta_input']['_EventVenueID'] );
 				return $postarr;
 			}
@@ -1377,7 +1379,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// Only include valid venues.
 		$valid = [];
 		foreach ( $venues_input as $venue ) {
-			if ( ! tribe_is_venue( $venue ) ) {
+			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Venue::POSTTYPE, $venue ) ) {
 				continue;
 			}
 
@@ -1403,6 +1405,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates the event organizer meta and attributes.
 	 *
+	 * @since TBD Skips a password protected Organizer the current user cannot read.
+	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 *
 	 * @return array The updated post array for update or insertion.
@@ -1415,7 +1419,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// If the organizer type does not allow multiple, we just use the first one.
 		if ( ! $organizer_type['allow_multiple'] ) {
 			$first_organizer = array_shift( $organizers_input );
-			if ( ! tribe_is_organizer( $first_organizer ) ) {
+			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Organizer::POSTTYPE, $first_organizer ) ) {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 				return $postarr;
 			}
@@ -1427,7 +1431,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// Only include valid organizers.
 		$valid = [];
 		foreach ( $organizers_input as $organizer ) {
-			if ( ! tribe_is_organizer( $organizer ) ) {
+			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Organizer::POSTTYPE, $organizer ) ) {
 				continue;
 			}
 			$valid[] = $organizer;

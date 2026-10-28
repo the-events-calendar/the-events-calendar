@@ -70,22 +70,53 @@ class Tribe__Events__Linked_Posts {
 	 * value exists is the Event post itself, so both the REST (`Editor/Meta.php`) and legacy
 	 * (`API.php::saveEventMeta()`) write paths call this once they are done.
 	 *
+	 * Only links added by the save are checked: a link already stored stays, so a user who cannot read
+	 * a password protected linked post, or an import running without a user, does not drop a link someone
+	 * else set.
+	 *
 	 * @since TBD
 	 *
-	 * @param int $event_id The Event post ID whose linked posts should be validated.
+	 * @param int                        $event_id          The Event post ID whose linked posts should be validated.
+	 * @param array<string,list<string>> $previously_linked The stored links before the save, from `get_stored_links()`.
 	 *
 	 * @return void
 	 */
-	public function prune_invalid_linked_posts( $event_id ) {
+	public function prune_invalid_linked_posts( $event_id, array $previously_linked = [] ) {
 		foreach ( array_keys( $this->linked_post_types ) as $post_type ) {
 			$meta_key = $this->get_meta_key( $post_type );
+			$kept     = $previously_linked[ $meta_key ] ?? [];
 
-			foreach ( (array) get_post_meta( $event_id, $meta_key ) as $linked_id ) {
+			foreach ( get_post_meta( $event_id, $meta_key ) as $linked_id ) {
+				// delete_metadata() reads an empty value as "every value", which would drop every link.
+				if ( '' === $linked_id || in_array( $linked_id, $kept, true ) ) {
+					continue;
+				}
+
 				if ( ! $this->is_valid_linked_post( $post_type, $linked_id ) ) {
 					delete_metadata( 'post', $event_id, $meta_key, $linked_id );
 				}
 			}
 		}
+	}
+
+	/**
+	 * Gets the linked post IDs stored on an Event, by meta key.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The Event post ID.
+	 *
+	 * @return array<string,list<string>> The stored linked post IDs, keyed by linked post meta key.
+	 */
+	public function get_stored_links( $event_id ): array {
+		$links = [];
+
+		foreach ( array_keys( $this->linked_post_types ) as $post_type ) {
+			$meta_key           = $this->get_meta_key( $post_type );
+			$links[ $meta_key ] = $event_id ? get_post_meta( $event_id, $meta_key ) : [];
+		}
+
+		return $links;
 	}
 
 	/**

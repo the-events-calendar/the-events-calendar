@@ -159,6 +159,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
 
+			$linked_posts      = Tribe__Events__Linked_Posts::instance();
+			$previously_linked = $linked_posts->get_stored_links( $event_id );
+
 			$raw_data = $data;
 
 			$data = self::prepare_event_date_meta( $event_id, $data );
@@ -259,7 +262,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			 * Remove any just-saved Organizer/Venue link that is not the expected post type or is
 			 * password protected; register_meta()'s auth_callback never sees the submitted value.
 			 */
-			Tribe__Events__Linked_Posts::instance()->prune_invalid_linked_posts( $event_id );
+			$linked_posts->prune_invalid_linked_posts( $event_id, $previously_linked );
 
 			// Set sticky state for calendar view.
 			if ( $event instanceof WP_Post ) {
