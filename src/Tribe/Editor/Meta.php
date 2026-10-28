@@ -22,6 +22,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
+		add_action( "rest_after_insert_{$post_type}", [ $this, 'remove_invalid_linked_posts' ] );
 		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
@@ -250,5 +251,19 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		update_post_meta( $post_id, '_EventStartDateUTC', $utc_start_date );
 		update_post_meta( $post_id, '_EventEndDateUTC', $utc_end_date );
+	}
+
+	/**
+	 * Removes a just-saved `_EventOrganizerID` / `_EventVenueID` value that is not the expected
+	 * linked post type or is password protected.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post Inserted or updated Event post object.
+	 *
+	 * @return void
+	 */
+	public function remove_invalid_linked_posts( $post ) {
+		tribe( 'tec.linked-posts' )->prune_invalid_linked_posts( $post->ID );
 	}
 }

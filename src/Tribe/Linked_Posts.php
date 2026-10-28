@@ -59,6 +59,69 @@ class Tribe__Events__Linked_Posts {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
+	/**
+	 * Removes any stored linked-post meta value that is not the expected linked post type or
+	 * is password protected.
+	 *
+	 * This runs after the write rather than gating it: `register_meta()`'s `auth_callback`
+	 * never receives the value being written - WP's `auth_{type}_meta_{key}` filter only gets
+	 * the meta key - and the REST meta field layer and the legacy metaTags loop both persist
+	 * the value directly via `add_metadata()`. The one point every write path shares after the
+	 * value exists is the Event post itself, so both the REST (`Editor/Meta.php`) and legacy
+	 * (`API.php::saveEventMeta()`) write paths call this once they are done.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The Event post ID whose linked posts should be validated.
+	 *
+	 * @return void
+	 */
+	public function prune_invalid_linked_posts( $event_id ) {
+		foreach ( array_keys( $this->linked_post_types ) as $post_type ) {
+			$meta_key = $this->get_meta_key( $post_type );
+
+			foreach ( (array) get_post_meta( $event_id, $meta_key ) as $linked_id ) {
+				if ( ! $this->is_valid_linked_post( $post_type, $linked_id ) ) {
+					delete_metadata( 'post', $event_id, $meta_key, $linked_id );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Checks whether a post may be linked as the given linked post type.
+	 *
+	 * The Organizer and Venue post types are not "public" in core TEC - they are rendered
+	 * through the Event, not through their own archive/singular pages - so a generic
+	 * `current_user_can( 'read_post' )` check would reject every anonymous or low-privileged
+	 * link, including ones TEC itself makes every day. Password protection is the one access
+	 * control a linked post actually carries, so that is what this enforces.
+	 *
+	 * `post_password_required()` only consults the visitor's password cookie, not their
+	 * capabilities, so someone able to edit the linked post is exempted from it; otherwise this
+	 * would prune a password protected link the editing user set on purpose.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $post_type The expected linked post type (e.g. Organizer, Venue).
+	 * @param mixed  $post_id   The referenced post ID.
+	 *
+	 * @return bool
+	 */
+	public function is_valid_linked_post( $post_type, $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post || $post->post_type !== $post_type ) {
+			return false;
+		}
+
+		if ( '' === $post->post_password || current_user_can( 'edit_post', $post->ID ) ) {
+			return true;
+		}
+
+		return ! post_password_required( $post );
+	}
+
 	public function enqueue_scripts() {
 		wp_localize_script( 'tribe-events-admin', 'tribe_events_linked_posts', $this->get_post_type_container_data() );
 	}

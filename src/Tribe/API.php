@@ -247,6 +247,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				}
 			}
 
+			/*
+			 * Remove any just-saved Organizer/Venue link that is not the expected post type or is
+			 * password protected; register_meta()'s auth_callback never sees the submitted value.
+			 */
+			Tribe__Events__Linked_Posts::instance()->prune_invalid_linked_posts( $event_id );
+
 			// Set sticky state for calendar view.
 			if ( $event instanceof WP_Post ) {
 				if ( isset( $data['EventShowInCalendar'] ) && $data['EventShowInCalendar'] == 'yes' && $event->menu_order != '-1' ) {
