@@ -184,4 +184,25 @@ class Linked_Posts_Access_Test extends WPTestCase {
 
 		$this->assertNotContains( $organizer_id, $this->linked_organizers( $event_id ) );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_link_a_password_protected_organizer_through_the_repository_without_a_user() {
+		$organizer_id = $this->create_organizer( 'organizer-password' );
+
+		wp_set_current_user( 0 );
+
+		$event_id = tribe_events()->set_args(
+			[
+				'title'      => 'Carrier',
+				'status'     => 'draft',
+				'start_date' => '2030-01-01 10:00:00',
+				'end_date'   => '2030-01-01 12:00:00',
+				'organizer'  => $organizer_id,
+			]
+		)->create()->ID;
+
+		$this->assertContains( $organizer_id, $this->linked_organizers( $event_id ) );
+	}
 }

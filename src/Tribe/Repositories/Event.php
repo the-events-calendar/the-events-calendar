@@ -1353,7 +1353,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates the event venue meta and attributes.
 	 *
-	 * @since TBD Skips a password protected Venue the current user cannot read.
+	 * @since TBD Skips a password protected Venue the logged-in user cannot read.
 	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 *
@@ -1366,7 +1366,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// If the venue type does not allow multiple, we just use the first one.
 		if ( empty( $venue_type['allow_multiple'] ) ) {
 			$first_venue = array_shift( $venues_input );
-			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Venue::POSTTYPE, $first_venue ) ) {
+			if ( ! $this->is_linkable( Tribe__Events__Venue::POSTTYPE, $first_venue ) ) {
 				unset( $postarr['meta_input']['_EventVenueID'] );
 				return $postarr;
 			}
@@ -1379,7 +1379,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// Only include valid venues.
 		$valid = [];
 		foreach ( $venues_input as $venue ) {
-			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Venue::POSTTYPE, $venue ) ) {
+			if ( ! $this->is_linkable( Tribe__Events__Venue::POSTTYPE, $venue ) ) {
 				continue;
 			}
 
@@ -1405,7 +1405,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates the event organizer meta and attributes.
 	 *
-	 * @since TBD Skips a password protected Organizer the current user cannot read.
+	 * @since TBD Skips a password protected Organizer the logged-in user cannot read.
 	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 *
@@ -1419,7 +1419,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// If the organizer type does not allow multiple, we just use the first one.
 		if ( ! $organizer_type['allow_multiple'] ) {
 			$first_organizer = array_shift( $organizers_input );
-			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Organizer::POSTTYPE, $first_organizer ) ) {
+			if ( ! $this->is_linkable( Tribe__Events__Organizer::POSTTYPE, $first_organizer ) ) {
 				unset( $postarr['meta_input']['_EventOrganizerID'] );
 				return $postarr;
 			}
@@ -1431,7 +1431,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		// Only include valid organizers.
 		$valid = [];
 		foreach ( $organizers_input as $organizer ) {
-			if ( ! Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( Tribe__Events__Organizer::POSTTYPE, $organizer ) ) {
+			if ( ! $this->is_linkable( Tribe__Events__Organizer::POSTTYPE, $organizer ) ) {
 				continue;
 			}
 			$valid[] = $organizer;
@@ -1997,6 +1997,25 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 		$order ??= Arr::get_in_any( [ $this->query_args, $this->default_args ], 'order', 'ASC' );
 		$this->filter_query->orderby( [ $meta_alias => $order ], $filter_id, $override, $after );
 		$this->filter_query->fields( "CAST( {$postmeta_table}.meta_value AS DECIMAL ) AS {$meta_alias}", $filter_id, $override );
+	}
+
+	/**
+	 * Whether a post may be linked to the Event as the given linked post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $post_type The linked post type, e.g. Venue or Organizer.
+	 * @param mixed  $linked_id The linked post ID or object from the input.
+	 *
+	 * @return bool Whether the post may be linked.
+	 */
+	private function is_linkable( string $post_type, $linked_id ): bool {
+		// Imports, CLI and cron run without a user and link posts on the site's behalf.
+		if ( ! is_user_logged_in() ) {
+			return get_post_type( $linked_id ) === $post_type;
+		}
+
+		return Tribe__Events__Linked_Posts::instance()->is_valid_linked_post( $post_type, $linked_id );
 	}
 }
 
