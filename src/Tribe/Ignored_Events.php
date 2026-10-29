@@ -731,7 +731,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Restore Event.
 		 *
-		 * @since TBD Refuses a target that is not currently in the ignored status.
+		 * @since 6.18.3 Refuses a target that is not currently in the ignored status.
 		 *
 		 * @param int|WP_Post $event Which event to try to convert.
 		 *

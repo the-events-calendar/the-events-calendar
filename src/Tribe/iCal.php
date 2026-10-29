@@ -827,7 +827,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 5.1.6
 	 * @since 6.2.2   Sanitize organizer name using new method.
-	 * @since TBD     Omit the venue location and organizer when the current user may not see them.
+	 * @since 6.18.3     Omit the venue location and organizer when the current user may not see them.
 	 *
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.

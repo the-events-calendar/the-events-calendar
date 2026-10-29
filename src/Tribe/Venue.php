@@ -862,7 +862,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base { // phpcs:
 	 *  Returns a string version of the full address of an event
 	 *
 	 * @since 6.0.0
-	 * @since TBD Returns an empty string when the current user may not see the venue.
+	 * @since 6.18.3 Returns an empty string when the current user may not see the venue.
 	 *
 	 * @param int|WP_Post|null $post_id The event or venue post object or ID. Defaults to the current post.
 	 *

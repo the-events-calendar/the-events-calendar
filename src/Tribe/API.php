@@ -146,7 +146,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * Used by createEvent and updateEvent - saves all the various event meta
 		 *
-		 * @since TBD Falls back to the site timezone when the submitted _EventTimezone
+		 * @since 6.18.3 Falls back to the site timezone when the submitted _EventTimezone
 		 *            is not a real timezone identifier or UTC offset, and sanitizes every
 		 *            value of a meta field submitted with several values.
 		 *
@@ -376,7 +376,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * given a set of meta data, prepare date data if it exists
 		 *
-		 * @since TBD Falls back to the site timezone when EventTimezone is not a real timezone
+		 * @since 6.18.3 Falls back to the site timezone when EventTimezone is not a real timezone
 		 *            identifier or UTC offset, and derives EventTimezoneAbbr when the
 		 *            submitted one is not a string.
 		 *

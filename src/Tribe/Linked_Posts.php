@@ -74,7 +74,7 @@ class Tribe__Events__Linked_Posts {
 	 * a password protected linked post, or an import running without a user, does not drop a link someone
 	 * else set.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @param int                        $event_id          The Event post ID whose linked posts should be validated.
 	 * @param array<string,list<string>> $previously_linked The stored links before the save, from `get_stored_links()`.
@@ -102,7 +102,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Gets the linked post IDs stored on an Event, by meta key.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @param int $event_id The Event post ID.
 	 *
@@ -132,7 +132,7 @@ class Tribe__Events__Linked_Posts {
 	 * capabilities, so someone able to edit the linked post is exempted from it; otherwise this
 	 * would prune a password protected link the editing user set on purpose.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @param string $post_type The expected linked post type (e.g. Organizer, Venue).
 	 * @param mixed  $post_id   The referenced post ID.
@@ -719,7 +719,7 @@ class Tribe__Events__Linked_Posts {
 	 * A linked post is visible when it is published, or the user can read it, and its password, if any,
 	 * was supplied.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @internal
 	 *
