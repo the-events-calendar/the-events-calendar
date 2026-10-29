@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-15T20:52:23+00:00\n"
+"POT-Creation-Date: 2026-10-29T19:09:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -3107,7 +3107,7 @@ msgstr ""
 #: src/Events/Admin/Onboarding/Landing_Page.php:315
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:55
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:535
-#: src/Tribe/Editor/Meta.php:80
+#: src/Tribe/Editor/Meta.php:109
 #: src/modules/blocks/event-venue/index.js:22
 msgid "Event Venue"
 msgstr ""
@@ -6297,7 +6297,7 @@ msgstr ""
 #: src/Tribe/Organizer.php:103
 #: src/Tribe/Organizer.php:812
 #: src/Tribe/Venue.php:165
-#: src/Tribe/Venue.php:956
+#: src/Tribe/Venue.php:969
 #, php-format
 msgid "Edit %s"
 msgstr ""
@@ -7908,28 +7908,28 @@ msgstr ""
 msgid "Enter Event Aggregator License"
 msgstr ""
 
-#: src/Tribe/API.php:830
+#: src/Tribe/API.php:858
 #, php-format
 msgid "An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format."
 msgstr ""
 
-#: src/Tribe/API.php:858
+#: src/Tribe/API.php:886
 #, php-format
 msgid "An event having a post meta value of `%s` hour (am/pm) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:875
+#: src/Tribe/API.php:903
 #, php-format
 msgid "An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:882
+#: src/Tribe/API.php:910
 #, php-format
 msgid "An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23."
 msgstr ""
 
-#: src/Tribe/API.php:912
-#: src/Tribe/API.php:923
+#: src/Tribe/API.php:940
+#: src/Tribe/API.php:951
 #, php-format
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr ""
@@ -8167,7 +8167,7 @@ msgstr ""
 msgid "Enable the Gutenberg block editor interface for creating events."
 msgstr ""
 
-#: src/Tribe/Editor/Meta.php:69
+#: src/Tribe/Editor/Meta.php:98
 msgid "Event Organizers"
 msgstr ""
 
@@ -8312,7 +8312,7 @@ msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:902
+#: src/Tribe/iCal.php:903
 msgctxt "Description in iCal content for events with hidden/protected content."
 msgid "Content is protected."
 msgstr ""
@@ -8329,7 +8329,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:55
 #: src/Tribe/Ignored_Events.php:506
-#: src/Tribe/Ignored_Events.php:786
+#: src/Tribe/Ignored_Events.php:793
 msgid "Ignored"
 msgstr ""
 
@@ -8430,33 +8430,33 @@ msgstr ""
 msgid "Delete &#8220;%s&#8221; permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:787
+#: src/Tribe/Ignored_Events.php:794
 #, php-format
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:906
+#: src/Tribe/Ignored_Events.php:913
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:916
+#: src/Tribe/Ignored_Events.php:923
 msgid "You do not have permission to migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:923
+#: src/Tribe/Ignored_Events.php:930
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:947
+#: src/Tribe/Ignored_Events.php:954
 #, php-format
 msgid "Migration: %1$d Legacy Ignored Post was migrated but %2$d failed. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %1$d Legacy Ignored Posts were migrated but %2$d failed. To see the migrated events you will first need to refresh this screen."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:959
+#: src/Tribe/Ignored_Events.php:966
 #, php-format
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
@@ -8464,12 +8464,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: Event ID, 2: Error message.
-#: src/Tribe/Ignored_Events.php:972
+#: src/Tribe/Ignored_Events.php:979
 #, php-format
 msgid "Event %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:979
+#: src/Tribe/Ignored_Events.php:986
 #, php-format
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
@@ -8653,82 +8653,82 @@ msgstr ""
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1083
+#: src/Tribe/Linked_Posts.php:1206
 #, php-format
 msgid "My %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1087
+#: src/Tribe/Linked_Posts.php:1210
 #, php-format
 msgid "Available %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1272
+#: src/Tribe/Linked_Posts.php:1395
 msgid "Create: <%= term %>"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1296
+#: src/Tribe/Linked_Posts.php:1419
 #, php-format
 msgid "No saved %s exists."
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1344
+#: src/Tribe/Linked_Posts.php:1467
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1351
+#: src/Tribe/Linked_Posts.php:1474
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1365
+#: src/Tribe/Linked_Posts.php:1488
 #, php-format
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1374
+#: src/Tribe/Linked_Posts.php:1497
 #, php-format
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1381
+#: src/Tribe/Linked_Posts.php:1504
 msgid "Create or Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1382
+#: src/Tribe/Linked_Posts.php:1505
 msgid "Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1393
+#: src/Tribe/Linked_Posts.php:1516
 #, php-format
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1402
+#: src/Tribe/Linked_Posts.php:1525
 #, php-format
 msgctxt "\"Create or Find Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1409
+#: src/Tribe/Linked_Posts.php:1532
 msgid "Create or Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1410
+#: src/Tribe/Linked_Posts.php:1533
 msgid "Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1419
+#: src/Tribe/Linked_Posts.php:1542
 #, php-format
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1428
+#: src/Tribe/Linked_Posts.php:1551
 #, php-format
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Create or Find %s"
