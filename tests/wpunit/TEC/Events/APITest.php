@@ -65,6 +65,44 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 3 * HOUR_IN_SECONDS, (int) get_post_meta( $id, '_EventDuration', true ) );
 	}
 
+	/**
+	 * All-day saves should persist a duration matching the new date span.
+	 *
+	 * Previously, all-day events nullified EventDuration before meta was written,
+	 * so shortening the range left a stale longer duration in post meta.
+	 *
+	 * @test
+	 */
+	public function should_update_duration_when_all_day_event_is_shortened() {
+		$id = static::factory()->post->create();
+		global $wpdb;
+		$event_type = TEC::POSTTYPE;
+		$wpdb->query( "update $wpdb->posts set post_type='{$event_type}' where ID = $id" );
+
+		API::saveEventMeta( $id, [
+			'EventAllDay'    => 'yes',
+			'EventStartDate' => '2023-08-08',
+			'EventEndDate'   => '2023-08-11',
+			'EventTimezone'  => 'America/Chicago',
+		] );
+
+		$four_day_duration = (int) get_post_meta( $id, '_EventDuration', true );
+		$this->assertGreaterThan( 0, $four_day_duration );
+
+		API::saveEventMeta( $id, [
+			'EventAllDay'    => 'yes',
+			'EventStartDate' => '2023-08-08',
+			'EventEndDate'   => '2023-08-10',
+			'EventTimezone'  => 'America/Chicago',
+		] );
+
+		$three_day_duration = (int) get_post_meta( $id, '_EventDuration', true );
+		$this->assertGreaterThan( 0, $three_day_duration );
+		$this->assertLessThan( $four_day_duration, $three_day_duration );
+		$this->assertEquals( '2023-08-08 00:00:00', get_post_meta( $id, '_EventStartDate', true ) );
+		$this->assertEquals( '2023-08-10 23:59:59', get_post_meta( $id, '_EventEndDate', true ) );
+	}
+
 	public function get_event_terms_will_work_when_cat_tax_unregistered(): void {
 		unregister_taxonomy( TEC::TAXONOMY );
 		$post_id = tribe_events()->set_args( [
