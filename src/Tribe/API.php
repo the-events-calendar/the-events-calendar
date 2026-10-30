@@ -146,6 +146,10 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * Used by createEvent and updateEvent - saves all the various event meta
 		 *
+		 * @since 6.18.3 Falls back to the site timezone when the submitted _EventTimezone
+		 *            is not a real timezone identifier or UTC offset, and sanitizes every
+		 *            value of a meta field submitted with several values.
+		 *
 		 * @param int     $event_id The event ID we are modifying meta for.
 		 * @param array   $data     The meta fields we want saved.
 		 * @param WP_Post $event    The event post, itself.
@@ -154,6 +158,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
+
+			$linked_posts      = Tribe__Events__Linked_Posts::instance();
+			$previously_linked = $linked_posts->get_stored_links( $event_id );
 
 			$raw_data = $data;
 
@@ -228,24 +235,34 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			//update meta fields
 			foreach ( $tec->metaTags as $tag ) {
-				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
-					if ( is_string( $data[ $htmlElement ] ) ) {
-						$data[ $htmlElement ] = tec_sanitize_string( $data[ $htmlElement ] );
-					}
+				$html_element = ltrim( $tag, '_' );
+				if ( isset( $data[ $html_element ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
+					// A field submitted as a list stores each value as its own row, so every value is sanitized.
+					$data[ $html_element ] = map_deep(
+						$data[ $html_element ],
+						static function ( $value ) {
+							return is_string( $value ) ? tec_sanitize_string( $value ) : $value;
+						}
+					);
 					// Fields with multiple values per key
-					if ( is_array( $data[ $htmlElement ] ) ) {
+					if ( is_array( $data[ $html_element ] ) ) {
 						delete_metadata( 'post', $event_id, $tag );
-						foreach ( $data[ $htmlElement ] as $value ) {
+						foreach ( $data[ $html_element ] as $value ) {
 							add_metadata( 'post', $event_id, $tag, $value );
 						}
 					}
 					// Fields with a single value per key
 					else {
-						update_metadata( 'post', $event_id, $tag, $data[ $htmlElement ] );
+						update_metadata( 'post', $event_id, $tag, $data[ $html_element ] );
 					}
 				}
 			}
+
+			/*
+			 * Remove any just-saved Organizer/Venue link that is not the expected post type or is
+			 * password protected; register_meta()'s auth_callback never sees the submitted value.
+			 */
+			$linked_posts->prune_invalid_linked_posts( $event_id, $previously_linked );
 
 			// Set sticky state for calendar view.
 			if ( $event instanceof WP_Post ) {
@@ -359,6 +376,10 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		/**
 		 * given a set of meta data, prepare date data if it exists
 		 *
+		 * @since 6.18.3 Falls back to the site timezone when EventTimezone is not a real timezone
+		 *            identifier or UTC offset, and derives EventTimezoneAbbr when the
+		 *            submitted one is not a string.
+		 *
 		 * @param $data array Associative array of event meta data
 		 *
 		 * @return array|WP_Error
@@ -441,12 +462,19 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$data['EventEndDate']   = get_post_meta( $event_id, '_EventEndDate', true );
 			}
 
-			// If a specific timezone was not specified, default to the sitewide timezone
-			if ( empty( $data['EventTimezone'] ) ) {
+			/*
+			 * Default to the sitewide timezone when none was specified, or when the submitted value is
+			 * not a real timezone: it is rendered into the Event editor, and the UTC dates below derive from it.
+			 */
+			if (
+				empty( $data['EventTimezone'] )
+				|| ! is_string( $data['EventTimezone'] )
+				|| ! Tribe__Timezones::is_valid_timezone( $data['EventTimezone'] )
+			) {
 				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
 
-			if ( empty( $data['EventTimezoneAbbr'] ) ) {
+			if ( empty( $data['EventTimezoneAbbr'] ) || ! is_string( $data['EventTimezoneAbbr'] ) ) {
 				if ( Tribe__Timezones::is_utc_offset( $data['EventTimezone'] ) ) {
 					$data['EventTimezoneAbbr'] = $data['EventTimezone'];
 				} elseif ( Tribe__Timezones::is_valid_timezone( $data['EventTimezone'] ) ) {
