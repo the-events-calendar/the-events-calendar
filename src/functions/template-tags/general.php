@@ -843,6 +843,8 @@ function tribe_is_organizer( $postId = null ) {
  *
  * Display HTML to output before the event template
  *
+ * @since TBD Passes a null view as the second filter argument, matching the Views V2 call of the same filter.
+ *
  * @category Events
  */
 function tribe_events_before_html() {
@@ -856,13 +858,23 @@ function tribe_events_before_html() {
 	$before = '<div class="tribe-events-before-html">' . $before . '</div>';
 	$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . esc_url( tribe_events_resource_url( 'images/tribe-loading.gif' ) ) . '" alt="' . sprintf( esc_attr__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
-	echo apply_filters( 'tribe_events_before_html', $before );
+	/**
+	 * Filters the HTML to output before the event template.
+	 *
+	 * @since TBD Added the `$view` argument.
+	 *
+	 * @param string $html The HTML to output before the event template.
+	 * @param null   $view There is no view to pass outside of the Views V2 call of this filter.
+	 */
+	echo apply_filters( 'tribe_events_before_html', $before, null ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- This setting and filter are meant to output HTML, escaping it would change what sites display.
 }
 
 /**
  * HTML After Event (Display)
  *
  * Display HTML to output after the event template
+ *
+ * @since TBD Passes a null view as the second filter argument, matching the Views V2 call of the same filter.
  *
  * @category Events
  */
@@ -874,7 +886,15 @@ function tribe_events_after_html() {
 	$after = do_shortcode( stripslashes( shortcode_unautop( $after ) ) );
 	$after = '<div class="tribe-events-after-html">' . $after . '</div>';
 
-	echo apply_filters( 'tribe_events_after_html', $after );
+	/**
+	 * Filters the HTML to output after the event template.
+	 *
+	 * @since TBD Added the `$view` argument.
+	 *
+	 * @param string $html The HTML to output after the event template.
+	 * @param null   $view There is no view to pass outside of the Views V2 call of this filter.
+	 */
+	echo apply_filters( 'tribe_events_after_html', $after, null ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- This setting and filter are meant to output HTML, escaping it would change what sites display.
 }
 
 /**
