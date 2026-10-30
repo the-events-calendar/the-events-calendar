@@ -46,6 +46,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since 6.3.3
 	 * @since 6.17.5 Prevents full event views from rendering inside event descriptions.
+	 * @since TBD Returns HTML in which no registered shortcode can be run by a later pass.
 	 *
 	 * @param array $attributes The block attributes.
 	 *
@@ -63,6 +64,44 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 		// Add the rendering attributes into global context.
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
+		$html = tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
+
+		return $this->neutralize_shortcodes( $html );
+	}
+
+	/**
+	 * Encodes the bracket that opens each registered shortcode in the view HTML.
+	 *
+	 * Inside post content the block renders before core runs `do_shortcode()`, and the view
+	 * prints request values, so a shortcode typed into a search would run. In HTML `&#91;`
+	 * displays as `[`; in script text (the view's JSON) `\u005b` parses as `[`.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html The rendered block HTML.
+	 *
+	 * @return string The HTML with no runnable shortcode.
+	 */
+	private function neutralize_shortcodes( string $html ): string {
+		global $shortcode_tags;
+
+		if ( empty( $shortcode_tags ) || false === strpos( $html, '[' ) ) {
+			return $html;
+		}
+
+		$tags    = implode( '|', array_map( static fn( $tag ) => preg_quote( $tag, '/' ), array_keys( $shortcode_tags ) ) );
+		$pattern = '/\\[(?=\\/?(?:' . $tags . ')(?![\\w-]))/';
+		$parts   = preg_split( '#(<script\\b[^>]*>.*?</script>)#is', $html, -1, PREG_SPLIT_DELIM_CAPTURE );
+
+		if ( false === $parts ) {
+			return '';
+		}
+
+		foreach ( $parts as $i => $part ) {
+			// Script text is not HTML: `&#91;` would change the value a script reads, `\u005b` does not.
+			$parts[ $i ] = preg_replace( $pattern, $i % 2 ? '\\u005b' : '&#91;', $part ) ?? '';
+		}
+
+		return implode( '', $parts );
 	}
 }
