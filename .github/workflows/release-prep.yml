@@ -1,0 +1,70 @@
+name: "Release: Prep"
+
+# Bumps the version, replaces the TBDs and writes the changelog on a release branch, then commits
+# that to the branch through the GitHub API. Unlike the other release workflows it opens no pull
+# request; the commit is reviewed on the release branch's own pull request.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Release branch to prepare and commit to, e.g. release/T24.centaur'
+        required: true
+        type: string
+      version:
+        description: 'Version to write, e.g. 6.18.3 or 6.18.2.1'
+        required: true
+        type: string
+      date:
+        description: 'Changelog date (YYYY-MM-DD). Empty or "today" writes today, in UTC'
+        required: false
+        type: string
+        default: ''
+
+# Two preparations of the same branch would commit on top of the same checkout, and the second
+# would be refused as not a fast-forward.
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.branch }}
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.branch }}
+          persist-credentials: false
+          # TEC and ET list common/src in .puprc's TBD dirs, and pup fails on a directory that is
+          # not there. The TBDs pup replaces inside common are not committed: the action commits the
+          # parent repository's files only, and common is prepared in its own repository.
+          submodules: recursive
+
+      # The bot token, not github.token: release/* requires pull requests, and a commit made with
+      # github.token starts no workflow run on the branch.
+      - name: Prepare the release branch
+        id: prep
+        uses: the-events-calendar/actions/.github/actions/release-prep@main
+        with:
+          branch: ${{ inputs.branch }}
+          version: ${{ inputs.version }}
+          date: ${{ inputs.date }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+
+      - name: Summary
+        env:
+          VERSION: ${{ steps.prep.outputs.version }}
+          COMMIT: ${{ steps.prep.outputs.commit }}
+        run: |
+          echo "## Release prep" >> "$GITHUB_STEP_SUMMARY"
+          echo "* Version: \`$VERSION\`" >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "$COMMIT" ]; then
+            echo "* Commit: https://github.com/${{ github.repository }}/commit/$COMMIT" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "* Nothing changed, nothing committed" >> "$GITHUB_STEP_SUMMARY"
+          fi
