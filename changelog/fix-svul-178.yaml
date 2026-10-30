@@ -1,0 +1,5 @@
+significance: patch
+type: security
+entry: Hardened the rendering of copied Events widgets. Props to Hatim Madmoune
+  -DELTA for reporting.
+timestamp: 2026-10-30T19:27:18.824Z

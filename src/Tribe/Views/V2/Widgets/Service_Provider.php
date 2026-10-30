@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
 use Tribe\Events\Views\V2\Views\Widgets\Widget_QR_Code_View;
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+use WP_Widget;
 
 
 /**
@@ -75,7 +76,6 @@ class Service_Provider extends Provider_Contract {
 
 		add_filter( 'rest_pre_dispatch', [ $this, 'enable_widget_copy_paste' ], 10, 3 );
 		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 3 );
-		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ] );
 	}
 
 	/**
@@ -109,6 +109,7 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.11.1
 	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
+	 * @since TBD Leave correctly signed instances alone and re-sign only the widget's own sanitized settings.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.
@@ -157,19 +158,11 @@ class Service_Provider extends Provider_Contract {
 			return $result;
 		}
 
-		// Set the new instance.
-		$new_instance = $request['instance'];
-
-		// Skip instances that do not pass validation.
-		$safe_instance = $this->get_safe_widget_instance( base64_decode( $request['instance']['encoded'] ) );
-		if ( null === $safe_instance ) {
+		$new_instance = $this->get_signed_widget_instance( $widget_object, $request['instance'] );
+		if ( null === $new_instance ) {
 			return $result;
 		}
 
-		$new_instance['encoded'] = base64_encode( $safe_instance );
-		$new_instance['hash']    = wp_hash( $safe_instance );
-
-		// Override the instance.
 		$request->set_param( 'instance', $new_instance );
 
 		return $result;
@@ -180,6 +173,7 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.11.2
 	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
+	 * @since TBD Leave correctly signed instances alone and re-sign only the widget's own sanitized settings.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
@@ -229,19 +223,11 @@ class Service_Provider extends Provider_Contract {
 			return $result;
 		}
 
-		// Set the new instance.
-		$new_instance = $request['instance'];
-
-		// Skip instances that do not pass validation.
-		$safe_instance = $this->get_safe_widget_instance( base64_decode( $request['instance']['encoded'] ) );
-		if ( null === $safe_instance ) {
+		$new_instance = $this->get_signed_widget_instance( $widget_object, $request['instance'] );
+		if ( null === $new_instance ) {
 			return $result;
 		}
 
-		$new_instance['encoded'] = base64_encode( $safe_instance );
-		$new_instance['hash']    = wp_hash( $safe_instance );
-
-		// Override the instance.
 		$request->set_param( 'instance', $new_instance );
 
 		return $result;
@@ -252,38 +238,14 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.11.2
 	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
+	 * @deprecated TBD Block data is no longer re-signed on render; only instances the site signed are rendered.
 	 *
 	 * @param array $parsed_block The parsed block.
 	 *
-	 * @return array The parsed block.
+	 * @return array The parsed block, unchanged.
 	 */
 	public function enable_rendering_widget_copied( $parsed_block ) {
-		if ( ! isset( $parsed_block['attrs']['idBase'] ) ) {
-			return $parsed_block;
-		}
-
-		$widget_id = $parsed_block['attrs']['idBase'];
-
-		if ( ! str_starts_with( $widget_id, 'tribe-widget-' ) ) {
-			return $parsed_block;
-		}
-
-		$instance = $parsed_block['attrs']['instance'] ?? [];
-
-		if ( ! isset( $instance['encoded'], $instance['hash'] ) ) {
-			return $parsed_block;
-		}
-
-		// Skip instances that do not pass validation.
-		$safe_instance = $this->get_safe_widget_instance( base64_decode( $instance['encoded'] ) );
-		if ( null === $safe_instance ) {
-			return $parsed_block;
-		}
-
-		$instance['encoded'] = base64_encode( $safe_instance );
-		$instance['hash']    = wp_hash( $safe_instance );
-
-		$parsed_block['attrs']['instance'] = $instance;
+		_deprecated_function( __METHOD__, 'TBD' );
 
 		return $parsed_block;
 	}
@@ -363,5 +325,51 @@ class Service_Provider extends Provider_Contract {
 		$views[ Widget_QR_Code_View::get_view_slug() ] = Widget_QR_Code_View::class;
 
 		return $views;
+	}
+
+	/**
+	 * Returns a copied widget instance signed for this site, or null to leave it as submitted.
+	 *
+	 * An instance the site already signed is left alone. Any other instance is rebuilt through
+	 * the widget's own `update()`, so only its settings, sanitized as on a normal save, are signed.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Widget                            $widget_object The widget the instance belongs to.
+	 * @param array{encoded: string, hash: string} $instance      The submitted instance; values are checked to be strings.
+	 *
+	 * @return array{encoded: string, hash: string}|null The instance to use, or null to leave the request unchanged.
+	 */
+	private function get_signed_widget_instance( WP_Widget $widget_object, array $instance ): ?array {
+		if ( ! is_string( $instance['encoded'] ) || ! is_string( $instance['hash'] ) ) {
+			return null;
+		}
+
+		$serialized = base64_decode( $instance['encoded'] );
+
+		if ( hash_equals( wp_hash( $serialized ), $instance['hash'] ) ) {
+			return null;
+		}
+
+		if ( ! $widget_object instanceof Widget_Abstract ) {
+			return null;
+		}
+
+		$safe_instance = $this->get_safe_widget_instance( $serialized );
+		if ( null === $safe_instance ) {
+			return null;
+		}
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+		$data     = unserialize( $safe_instance, [ 'allowed_classes' => false ] );
+		$settings = $widget_object->update( array_merge( $widget_object->get_default_arguments(), $data ), [] );
+
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
+		$signed = serialize( $settings );
+
+		$instance['encoded'] = base64_encode( $signed );
+		$instance['hash']    = wp_hash( $signed );
+
+		return $instance;
 	}
 }
