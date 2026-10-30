@@ -468,7 +468,7 @@ class Landing_Page extends Abstract_Admin_Page {
 				<div>
 					<h2 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Get priority live support', 'the-events-calendar' ); ?></h2>
 					<p><?php esc_html_e( 'You can get live support from The Events Calendar team if you have an active license for one of our products.', 'the-events-calendar' ); ?></p>
-					<p><span class="tec-admin-page__link--external"><a href="https://theeventscalendar.com/knowledgebase/priority-support-through-the-tec-support-hub" target="_blank" rel="nofollow noopener" class="tec-admin-page__link"><?php esc_html_e( 'Learn how to get an active license', 'the-events-calendar' ); ?></a></span></p>
+					<p><span class="tec-admin-page__link--external"><a href="https://evnt.is/1f4b" target="_blank" rel="nofollow noopener" class="tec-admin-page__link"><?php esc_html_e( 'Learn how to get an active license', 'the-events-calendar' ); ?></a></span></p>
 				</div>
 			</section>
 		<?php
