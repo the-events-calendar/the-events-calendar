@@ -731,6 +731,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Restore Event.
 		 *
+		 * @since 6.18.3 Refuses a target that is not currently in the ignored status.
+		 *
 		 * @param int|WP_Post $event Which event to try to convert.
 		 *
 		 * @return bool|int|WP_Error
@@ -745,6 +747,11 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			// If we are not in the Event CPT we don't care either.
 			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
 				return null;
+			}
+
+			// A target that isn't currently ignored has nothing to restore from, for any caller.
+			if ( self::$ignored_status !== $event->post_status ) {
+				return false;
 			}
 
 			$restore_status = get_post_meta( $event->ID, self::$key_previous_status, true );

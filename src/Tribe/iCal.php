@@ -827,6 +827,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 5.1.6
 	 * @since 6.2.2   Sanitize organizer name using new method.
+	 * @since 6.18.3     Omit the venue location and organizer when the current user may not see them.
 	 *
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.
@@ -947,10 +948,12 @@ class Tribe__Events__iCal {
 		}
 
 		// Add organizer if available.
-		$organizer_email = tribe_get_organizer_email( $event_post->ID, false );
+		$organizer_id    = absint( tribe_get_organizer_id( $event_post->ID ) );
+		$organizer_email = ! $organizer_id || Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( $organizer_id )
+			? tribe_get_organizer_email( $event_post->ID, false )
+			: '';
 		if ( $organizer_email ) {
-			$organizer_id = tribe_get_organizer_id( $event_post->ID );
-			$organizer    = get_post( $organizer_id );
+			$organizer = get_post( $organizer_id );
 
 			if ( $organizer_id ) {
 				$sanitized_name = $this->sanitize_organizer_name( $organizer->post_title );

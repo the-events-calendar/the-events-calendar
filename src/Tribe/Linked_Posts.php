@@ -59,6 +59,100 @@ class Tribe__Events__Linked_Posts {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
+	/**
+	 * Removes any stored linked-post meta value that is not the expected linked post type or
+	 * is password protected.
+	 *
+	 * This runs after the write rather than gating it: `register_meta()`'s `auth_callback`
+	 * never receives the value being written - WP's `auth_{type}_meta_{key}` filter only gets
+	 * the meta key - and the REST meta field layer and the legacy metaTags loop both persist
+	 * the value directly via `add_metadata()`. The one point every write path shares after the
+	 * value exists is the Event post itself, so both the REST (`Editor/Meta.php`) and legacy
+	 * (`API.php::saveEventMeta()`) write paths call this once they are done.
+	 *
+	 * Only links added by the save are checked: a link already stored stays, so a user who cannot read
+	 * a password protected linked post, or an import running without a user, does not drop a link someone
+	 * else set.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @param int                        $event_id          The Event post ID whose linked posts should be validated.
+	 * @param array<string,list<string>> $previously_linked The stored links before the save, from `get_stored_links()`.
+	 *
+	 * @return void
+	 */
+	public function prune_invalid_linked_posts( $event_id, array $previously_linked = [] ) {
+		foreach ( array_keys( $this->linked_post_types ) as $post_type ) {
+			$meta_key = $this->get_meta_key( $post_type );
+			$kept     = $previously_linked[ $meta_key ] ?? [];
+
+			foreach ( get_post_meta( $event_id, $meta_key ) as $linked_id ) {
+				// delete_metadata() reads an empty value as "every value", which would drop every link.
+				if ( '' === $linked_id || in_array( $linked_id, $kept, true ) ) {
+					continue;
+				}
+
+				if ( ! $this->is_valid_linked_post( $post_type, $linked_id ) ) {
+					delete_metadata( 'post', $event_id, $meta_key, $linked_id );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Gets the linked post IDs stored on an Event, by meta key.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @param int $event_id The Event post ID.
+	 *
+	 * @return array<string,list<string>> The stored linked post IDs, keyed by linked post meta key.
+	 */
+	public function get_stored_links( $event_id ): array {
+		$links = [];
+
+		foreach ( array_keys( $this->linked_post_types ) as $post_type ) {
+			$meta_key           = $this->get_meta_key( $post_type );
+			$links[ $meta_key ] = $event_id ? get_post_meta( $event_id, $meta_key ) : [];
+		}
+
+		return $links;
+	}
+
+	/**
+	 * Checks whether a post may be linked as the given linked post type.
+	 *
+	 * The Organizer and Venue post types are not "public" in core TEC - they are rendered
+	 * through the Event, not through their own archive/singular pages - so a generic
+	 * `current_user_can( 'read_post' )` check would reject every anonymous or low-privileged
+	 * link, including ones TEC itself makes every day. Password protection is the one access
+	 * control a linked post actually carries, so that is what this enforces.
+	 *
+	 * `post_password_required()` only consults the visitor's password cookie, not their
+	 * capabilities, so someone able to edit the linked post is exempted from it; otherwise this
+	 * would prune a password protected link the editing user set on purpose.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @param string $post_type The expected linked post type (e.g. Organizer, Venue).
+	 * @param mixed  $post_id   The referenced post ID.
+	 *
+	 * @return bool
+	 */
+	public function is_valid_linked_post( $post_type, $post_id ) {
+		$post = get_post( $post_id );
+
+		if ( ! $post || $post->post_type !== $post_type ) {
+			return false;
+		}
+
+		if ( '' === $post->post_password || current_user_can( 'edit_post', $post->ID ) ) {
+			return true;
+		}
+
+		return ! post_password_required( $post );
+	}
+
 	public function enqueue_scripts() {
 		wp_localize_script( 'tribe-events-admin', 'tribe_events_linked_posts', $this->get_post_type_container_data() );
 	}
@@ -617,6 +711,35 @@ class Tribe__Events__Linked_Posts {
 	 */
 	public function is_linked_post_type( $post_type ) {
 		return ! empty( $this->linked_post_types[ $post_type ] );
+	}
+
+	/**
+	 * Returns whether the current user may see the details of a linked post, such as a Venue or Organizer.
+	 *
+	 * A linked post is visible when it is published, or the user can read it, and its password, if any,
+	 * was supplied.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @internal
+	 *
+	 * @param int $post_id The linked post ID.
+	 *
+	 * @return bool Whether the linked post's details may be shown to the current user.
+	 */
+	public function is_linked_post_visible( int $post_id ): bool {
+		// `get_post( 0 )` would return the global post.
+		$post = $post_id ? get_post( $post_id ) : null;
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		if ( 'publish' !== $post->post_status && ! current_user_can( 'read_post', $post->ID ) ) {
+			return false;
+		}
+
+		return ! post_password_required( $post );
 	}
 
 	/**
