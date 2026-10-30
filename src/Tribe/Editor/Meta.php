@@ -11,7 +11,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
 	 * The linked posts stored on each Event before a REST save, keyed by Event ID.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @var array<int,array<string,list<string>>>
 	 */
@@ -21,7 +21,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * Register the required Meta fields for good Gutenberg saving
 	 *
 	 * @since 4.7
-	 * @since TBD Falls back to the site timezone when a saved _EventTimezone is not a real
+	 * @since 6.18.3 Falls back to the site timezone when a saved _EventTimezone is not a real
 	 *            timezone identifier or UTC offset.
 	 *
 	 * @return void
@@ -243,7 +243,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * update REST payload.
 	 *
 	 * @since 4.9
-	 * @since TBD Uses the stored, sanitized timezone instead of the one in the request.
+	 * @since 6.18.3 Uses the stored, sanitized timezone instead of the one in the request.
 	 *
 	 * @param             \stdClass     $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
@@ -285,7 +285,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
 	 * Remembers the linked posts stored on an Event before a REST update writes its meta.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @param stdClass|WP_Error $prepared_post The post the REST request is about to insert or update.
 	 *
@@ -303,7 +303,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * Removes a just-saved `_EventOrganizerID` / `_EventVenueID` value that is not the expected
 	 * linked post type or is password protected.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @param WP_Post $post Inserted or updated Event post object.
 	 *

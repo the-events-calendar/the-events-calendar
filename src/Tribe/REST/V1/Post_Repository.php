@@ -65,7 +65,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 *
 	 * @since 4.6 Added $context param
-	 * @since TBD Returns the site timezone in place of a stored timezone that is not a real
+	 * @since 6.18.3 Returns the site timezone in place of a stored timezone that is not a real
 	 *            timezone identifier or UTC offset.
 	 */
 	public function get_event_data( $event_id, $context = '' ) {

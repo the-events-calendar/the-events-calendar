@@ -1,4 +1,0 @@
-significance: patch
-type: security
-entry: Hardened how Event details are saved. Props to fcc for reporting.
-timestamp: 2026-10-27T02:19:45.754Z

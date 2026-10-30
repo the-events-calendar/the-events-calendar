@@ -1,5 +1,0 @@
-significance: patch
-type: security
-entry: Hardened access control checks for linked Organizers, Venues, and the
-  Ignored Events admin action. Props to fcc for reporting.
-timestamp: 2026-10-19T22:29:44.826Z

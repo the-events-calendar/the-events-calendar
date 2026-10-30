@@ -1,5 +1,13 @@
 # Changelog
 
+### [6.18.3] 2026-10-29
+
+* Language - 0 new strings added, 34 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened access control checks for linked Organizers, Venues, and the Ignored Events admin action. Props to fcc for reporting.
+* Security - Hardened how Event details are saved. Props to fcc for reporting.
+* Security - Hardened the calendar export and add-to-calendar links. Props to ngvuthdanh for reporting.
+* Security - Hardened the rendering of the Event timezone-change link in the classic Event editor. Props to fcc for reporting.
+
 ### [6.18.2] 2026-10-15
 
 * Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.

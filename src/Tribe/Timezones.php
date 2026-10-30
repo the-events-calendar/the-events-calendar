@@ -26,7 +26,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	/**
 	 * Adds the timezone to the event schedule information.
 	 *
-	 * @since TBD Escapes the timezone abbreviation before appending it.
+	 * @since 6.18.3 Escapes the timezone abbreviation before appending it.
 	 *
 	 * @param string   $schedule_text
 	 * @param int|null $event_id
@@ -64,7 +64,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	 * not a real timezone identifier or UTC offset, it returns the global WordPress
 	 * timezone string.
 	 *
-	 * @since TBD Falls back to the site timezone for a stored value that is not a
+	 * @since 6.18.3 Falls back to the site timezone for a stored value that is not a
 	 *            real timezone identifier or UTC offset, instead of returning it as-is.
 	 *
 	 * @param int|null $event_id

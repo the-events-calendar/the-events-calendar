@@ -1353,7 +1353,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates the event venue meta and attributes.
 	 *
-	 * @since TBD Skips a password protected Venue the logged-in user cannot read.
+	 * @since 6.18.3 Skips a password protected Venue the logged-in user cannot read.
 	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 *
@@ -1405,7 +1405,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Updates the event organizer meta and attributes.
 	 *
-	 * @since TBD Skips a password protected Organizer the logged-in user cannot read.
+	 * @since 6.18.3 Skips a password protected Organizer the logged-in user cannot read.
 	 *
 	 * @param array $postarr The candidate post array for the update or insertion.
 	 *
@@ -2002,7 +2002,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	/**
 	 * Whether a post may be linked to the Event as the given linked post type.
 	 *
-	 * @since TBD
+	 * @since 6.18.3
 	 *
 	 * @param string $post_type The linked post type, e.g. Venue or Organizer.
 	 * @param mixed  $linked_id The linked post ID or object from the input.
