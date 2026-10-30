@@ -866,7 +866,7 @@ function tribe_events_before_html() {
 	 * @param string $html The HTML to output before the event template.
 	 * @param null   $view There is no view to pass outside of the Views V2 call of this filter.
 	 */
-	echo apply_filters( 'tribe_events_before_html', $before, null );
+	echo apply_filters( 'tribe_events_before_html', $before, null ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- This setting and filter are meant to output HTML, escaping it would change what sites display.
 }
 
 /**
@@ -894,7 +894,7 @@ function tribe_events_after_html() {
 	 * @param string $html The HTML to output after the event template.
 	 * @param null   $view There is no view to pass outside of the Views V2 call of this filter.
 	 */
-	echo apply_filters( 'tribe_events_after_html', $after, null );
+	echo apply_filters( 'tribe_events_after_html', $after, null ); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- This setting and filter are meant to output HTML, escaping it would change what sites display.
 }
 
 /**
