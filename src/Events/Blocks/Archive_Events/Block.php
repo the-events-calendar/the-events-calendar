@@ -94,14 +94,39 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 		$parts   = preg_split( '#(<script\\b[^>]*>.*?</script>)#is', $html, -1, PREG_SPLIT_DELIM_CAPTURE );
 
 		if ( false === $parts ) {
-			return '';
+			return $this->fail_shortcode_check();
 		}
 
 		foreach ( $parts as $i => $part ) {
 			// Script text is not HTML: `&#91;` would change the value a script reads, `\u005b` does not.
-			$parts[ $i ] = preg_replace( $pattern, $i % 2 ? '\\u005b' : '&#91;', $part ) ?? '';
+			$parts[ $i ] = preg_replace( $pattern, $i % 2 ? '\\u005b' : '&#91;', $part );
+
+			if ( null === $parts[ $i ] ) {
+				return $this->fail_shortcode_check();
+			}
 		}
 
 		return implode( '', $parts );
+	}
+
+	/**
+	 * Logs a failed shortcode check and returns the empty block HTML.
+	 *
+	 * Large views, like Month, can hit the PCRE backtrack or JIT limits. Printing part of the
+	 * view would ship broken markup, so the block renders nothing.
+	 *
+	 * @since TBD
+	 *
+	 * @return string An empty string.
+	 */
+	private function fail_shortcode_check(): string {
+		do_action(
+			'tribe_log',
+			'error',
+			'Archive Events block HTML could not be checked for shortcodes.',
+			[ 'preg_error' => preg_last_error() ]
+		);
+
+		return '';
 	}
 }

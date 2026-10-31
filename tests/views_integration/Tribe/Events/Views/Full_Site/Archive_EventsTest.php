@@ -102,4 +102,41 @@ class Archive_EventsTest extends HtmlTestCase {
 		$this->assertStringNotContainsString( 'SHORTCODE_EXECUTED', $html );
 		$this->assertSame( 'zz[tec_test_shortcode]', json_decode( $matches[1], true )['bar']['keyword'] );
 	}
+
+	/**
+	 * Test that the block renders nothing, and logs why, when the shortcode check fails.
+	 */
+	public function test_block_html_is_empty_when_the_shortcode_check_fails() {
+		/*
+		 * PHP caches compiled patterns, and a pattern compiled with JIT ignores the backtrack limit.
+		 * A shortcode no other test registers gives the replace pattern a fresh, non-JIT compile.
+		 */
+		add_shortcode( 'tec_test_pcre_limit', static fn() => 'SHORTCODE_EXECUTED' );
+		add_filter(
+			'tribe_events_views_v2_bootstrap_pre_get_view_html',
+			static fn() => '<p>zz[tec_test_pcre_limit]</p><script type="application/json">{"keyword":"zz[tec_test_pcre_limit]"}</script>'
+		);
+		$logged = [];
+		add_action(
+			'tribe_log',
+			static function ( $level, $message ) use ( &$logged ) {
+				$logged[] = [ $level, $message ];
+			},
+			10,
+			2
+		);
+		$jit             = ini_set( 'pcre.jit', '0' );
+		$backtrack_limit = ini_set( 'pcre.backtrack_limit', '1' );
+
+		try {
+			$html = $this->render_archive_events_block();
+		} finally {
+			ini_set( 'pcre.jit', $jit );
+			ini_set( 'pcre.backtrack_limit', $backtrack_limit );
+			remove_shortcode( 'tec_test_pcre_limit' );
+		}
+
+		$this->assertSame( '', $html );
+		$this->assertSame( [ [ 'error', 'Archive Events block HTML could not be checked for shortcodes.' ] ], $logged );
+	}
 }

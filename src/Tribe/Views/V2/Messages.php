@@ -81,6 +81,7 @@ class Messages {
 	 * Returns the human-readable message for a key.
 	 *
 	 * @since 4.9.11
+	 * @since TBD Encodes `[` and `]` in string values so they cannot open a shortcode.
 	 *
 	 * @param string $key The message identification key or slug.
 	 * @param mixed  ...$values A variadic number of arguments that should be used to fill in the message placeholders, if
@@ -164,6 +165,15 @@ class Messages {
 		if ( in_array( $key, $need_events_label_keys ) ) {
 			array_unshift( $values, tribe_get_event_label_plural_lowercase() );
 		}
+
+		/*
+		 * Values can carry request text, like the search keyword, into HTML that may later pass through
+		 * `do_shortcode()`. Encoded brackets display the same and cannot open a shortcode.
+		 */
+		$values = array_map(
+			static fn( $value ) => is_string( $value ) ? str_replace( [ '[', ']' ], [ '&#91;', '&#93;' ], $value ) : $value,
+			$values
+		);
 
 		return sprintf( $match, ...$values );
 	}
