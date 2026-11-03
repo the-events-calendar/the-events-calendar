@@ -139,4 +139,26 @@ class Archive_EventsTest extends HtmlTestCase {
 		$this->assertSame( '', $html );
 		$this->assertSame( [ [ 'error', 'Archive Events block HTML could not be checked for shortcodes.' ] ], $logged );
 	}
+
+	/**
+	 * Test that a view JSON larger than PCRE's default backtrack limit is still rendered and checked.
+	 */
+	public function test_block_renders_a_view_json_over_the_pcre_backtrack_limit() {
+		// 1.2 MB: a regex spanning one script body failed from about 1 MB with the default limit.
+		$filler = str_repeat( 'x', 1200 * 1024 );
+		add_filter(
+			'tribe_events_views_v2_bootstrap_pre_get_view_html',
+			static fn() => '<p>zz[tec_test_shortcode]</p><script type="application/json">{"filler":"' . $filler . '","keyword":"zz[tec_test_shortcode]"}</script><p>end</p>'
+		);
+
+		$html = do_shortcode( $this->render_archive_events_block() );
+
+		$open = '<script type="application/json">';
+		$from = strpos( $html, $open ) + strlen( $open );
+		$json = substr( $html, $from, strpos( $html, '</script>', $from ) - $from );
+		$this->assertStringNotContainsString( 'SHORTCODE_EXECUTED', $html );
+		$this->assertStringContainsString( '<p>zz&#91;tec_test_shortcode]</p>', $html );
+		$this->assertStringContainsString( '<p>end</p>', $html );
+		$this->assertSame( 'zz[tec_test_shortcode]', json_decode( $json, true )['keyword'] );
+	}
 }

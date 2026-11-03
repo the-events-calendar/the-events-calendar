@@ -91,29 +91,44 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 
 		$tags    = implode( '|', array_map( static fn( $tag ) => preg_quote( $tag, '/' ), array_keys( $shortcode_tags ) ) );
 		$pattern = '/\\[(?=\\/?(?:' . $tags . ')(?![\\w-]))/';
-		$parts   = preg_split( '#(<script\\b[^>]*>.*?</script>)#is', $html, -1, PREG_SPLIT_DELIM_CAPTURE );
+		$length  = strlen( $html );
+		$offset  = 0;
+		$result  = '';
 
-		if ( false === $parts ) {
-			return $this->fail_shortcode_check();
-		}
+		/*
+		 * Scripts are found with a string scan, not a regex: matching a whole view JSON hits
+		 * PCRE's backtrack limit at about 1 MB. Script text is not HTML, so it gets `\u005b`,
+		 * which a script reads as `[`; `&#91;` would change the value.
+		 */
+		while ( $offset < $length ) {
+			$start = stripos( $html, '<script', $offset );
+			$end   = false === $start ? false : stripos( $html, '</script>', $start );
 
-		foreach ( $parts as $i => $part ) {
-			// Script text is not HTML: `&#91;` would change the value a script reads, `\u005b` does not.
-			$parts[ $i ] = preg_replace( $pattern, $i % 2 ? '\\u005b' : '&#91;', $part );
+			if ( false === $end ) {
+				$start = $length;
+				$end   = $length;
+			} else {
+				$end += strlen( '</script>' );
+			}
 
-			if ( null === $parts[ $i ] ) {
+			$text   = preg_replace( $pattern, '&#91;', substr( $html, $offset, $start - $offset ) );
+			$script = preg_replace( $pattern, '\\u005b', substr( $html, $start, $end - $start ) );
+
+			if ( null === $text || null === $script ) {
 				return $this->fail_shortcode_check();
 			}
+
+			$result .= $text . $script;
+			$offset  = $end;
 		}
 
-		return implode( '', $parts );
+		return $result;
 	}
 
 	/**
 	 * Logs a failed shortcode check and returns the empty block HTML.
 	 *
-	 * Large views, like Month, can hit the PCRE backtrack or JIT limits. Printing part of the
-	 * view would ship broken markup, so the block renders nothing.
+	 * Printing part of the view would ship broken markup, so the block renders nothing.
 	 *
 	 * @since TBD
 	 *
