@@ -265,19 +265,10 @@ class Service_Provider extends Provider_Contract {
 	 * @return string|null The sanitized serialized instance, or null when not safe.
 	 */
 	protected function get_safe_widget_instance( $serialized ) {
-		if ( ! is_string( $serialized ) ) {
-			return null;
-		}
-
-		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
-		$data = @unserialize( $serialized, [ 'allowed_classes' => false ] );
-
-		if ( ! is_array( $data ) || $this->contains_object( $data ) ) {
-			return null;
-		}
+		$data = $this->get_safe_widget_data( $serialized );
 
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
-		return serialize( $data );
+		return null === $data ? null : serialize( $data );
 	}
 
 	/**
@@ -355,13 +346,11 @@ class Service_Provider extends Provider_Contract {
 			return null;
 		}
 
-		$safe_instance = $this->get_safe_widget_instance( $serialized );
-		if ( null === $safe_instance ) {
+		$data = $this->get_safe_widget_data( $serialized );
+		if ( null === $data ) {
 			return null;
 		}
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
-		$data     = unserialize( $safe_instance, [ 'allowed_classes' => false ] );
 		$settings = $widget_object->update( array_merge( $widget_object->get_default_arguments(), $data ), [] );
 
 		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
@@ -371,5 +360,29 @@ class Service_Provider extends Provider_Contract {
 		$instance['hash']    = wp_hash( $signed );
 
 		return $instance;
+	}
+
+	/**
+	 * Decodes a copied widget instance into plain data, or null when it cannot be trusted.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $serialized The decoded widget instance; anything but a string is rejected.
+	 *
+	 * @return array<string,mixed>|null The instance settings, free of objects, or null when not safe.
+	 */
+	private function get_safe_widget_data( $serialized ): ?array {
+		if ( ! is_string( $serialized ) ) {
+			return null;
+		}
+
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
+		$data = @unserialize( $serialized, [ 'allowed_classes' => false ] );
+
+		if ( ! is_array( $data ) || $this->contains_object( $data ) ) {
+			return null;
+		}
+
+		return $data;
 	}
 }
