@@ -1,0 +1,5 @@
+significance: patch
+type: security
+entry: Hardened how calendar views handle shortcodes. Props to Filip Kowalski
+  for reporting.
+timestamp: 2026-10-30T19:27:19.940Z
