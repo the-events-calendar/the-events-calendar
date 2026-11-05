@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Prevented a fatal error, and skipped event saves later in the same
+  request, when another plugin runs the save_post action without the post.
+timestamp: 2026-11-05T23:46:47.019Z

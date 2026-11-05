@@ -3010,11 +3010,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
-		 * @param int     $postId
-		 * @param WP_Post $post
+		 * @since TBD The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
 		 *
+		 * @param int|mixed          $postId The post ID.
+		 * @param WP_Post|mixed|null $post   The post object.
+		 *
+		 * @return void
 		 */
-		public function addEventMeta( $postId, $post ) {
+		public function addEventMeta( $postId, $post = null ) {
 			static $avoid_recursion = false;
 
 			// Avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
@@ -3022,17 +3025,21 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
+			$post = $post instanceof WP_Post ? $post : get_post( absint( $postId ) );
+
+			// Checked before the recursion guard is set, so a call without a post cannot leave it set for the rest of the request.
+			if ( ! $post instanceof WP_Post ) {
+				return;
+			}
+
+			$postId = $post->ID;
+
 			if ( wp_is_post_revision( $postId ) ) {
 				// Do not save meta for revisions: it would be saved to the original post anyway.
 				return;
 			}
 
 			$avoid_recursion = true;
-
-			// When not an instance of Post we bail to avoid revision problems.
-			if ( ! $post instanceof WP_Post ) {
-				return;
-			}
 
 			$event_meta = new Tribe__Events__Meta__Save( $postId, $post );
 			$event_meta->maybe_save();
