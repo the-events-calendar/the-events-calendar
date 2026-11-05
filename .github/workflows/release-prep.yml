@@ -94,6 +94,12 @@ jobs:
       - name: Import common's changelog entries
         uses: the-events-calendar/actions/.github/actions/import-common-changelog@main
 
+      # After common's entries and before the changelog is written, so the changelog processes
+      # them with the rest: the actions and filters the release adds or removes and the views it
+      # changes, from a diff of src/ against the last release tag.
+      - name: Add the hook and view changelog entries
+        uses: the-events-calendar/actions/.github/actions/analyze-hooks@main
+
       - name: Read the translation settings
         id: i18n
         env:
