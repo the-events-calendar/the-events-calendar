@@ -319,7 +319,7 @@ class Page {
 	 * @since  4.9.2
 	 * @since 5.11.0 Now running do_shortcode() on content returned, since we are inserting our output in lieu of the_content results.
 	 * @since 6.15.12 Added filter for adding the main landmark wrapper around the TEC view output.
-	 * @since TBD No longer runs do_shortcode() over the view, which holds request text and comments.
+	 * @since 6.18.3.1 No longer runs do_shortcode() over the view, which holds request text and comments.
 	 *
 	 * @param  string $content Default content of the page we hijacked
 	 *

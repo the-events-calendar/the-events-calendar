@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.18.2\n"
+"Project-Id-Version: The Events Calendar 6.18.3\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-29T19:09:35+00:00\n"
+"POT-Creation-Date: 2026-11-05T14:08:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -10543,7 +10543,7 @@ msgid "No previous %s "
 msgstr ""
 
 #: src/Tribe/Template_Factory.php:225
-#: src/Tribe/Views/V2/Messages.php:93
+#: src/Tribe/Views/V2/Messages.php:94
 msgid "There were no results found."
 msgstr ""
 
@@ -10945,42 +10945,42 @@ msgid "Display %1$s in %2$s View"
 msgstr ""
 
 #. Translators: %1$s is the lowercase plural virtual event term.
-#: src/Tribe/Views/V2/Messages.php:99
+#: src/Tribe/Views/V2/Messages.php:100
 #, php-format
 msgctxt "A message to indicate there are no upcoming events."
 msgid "There are no upcoming %1$s."
 msgstr ""
 
-#: src/Tribe/Views/V2/Messages.php:106
+#: src/Tribe/Views/V2/Messages.php:107
 msgid "There were no results found for this view."
 msgstr ""
 
 #. translators: the placeholder is the keyword(s), as the user entered it in the bar.
-#: src/Tribe/Views/V2/Messages.php:111
+#: src/Tribe/Views/V2/Messages.php:112
 #, php-format
 msgid "There were no results found for <strong>\"%1$s\"</strong>."
 msgstr ""
 
 #. translators: the placeholder is the keyword(s), as the user entered it in the bar.
-#: src/Tribe/Views/V2/Messages.php:116
+#: src/Tribe/Views/V2/Messages.php:117
 #, php-format
 msgid "There were no results found for <strong>\"%1$s\"</strong> this month."
 msgstr ""
 
 #. translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020".
-#: src/Tribe/Views/V2/Messages.php:121
+#: src/Tribe/Views/V2/Messages.php:122
 #, php-format
 msgid "No %1$s scheduled for %2$s."
 msgstr ""
 
 #. translators: the placeholder is an html link to the next month with available events.
-#: src/Tribe/Views/V2/Messages.php:126
+#: src/Tribe/Views/V2/Messages.php:127
 #, php-format
 msgid "There were no results found for this view. %1$s"
 msgstr ""
 
 #. translators: %1$s: events (plural), %2$s: the formatted date string, e.g. "February 22, 2020". %3$s html link to next day with available events.
-#: src/Tribe/Views/V2/Messages.php:131
+#: src/Tribe/Views/V2/Messages.php:132
 #, php-format
 msgid "No %1$s scheduled for %2$s. %3$s"
 msgstr ""

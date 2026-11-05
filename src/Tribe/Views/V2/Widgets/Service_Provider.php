@@ -109,7 +109,7 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.11.1
 	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
-	 * @since TBD Leave correctly signed instances alone and re-sign only the widget's own sanitized settings.
+	 * @since 6.18.3.1 Leave correctly signed instances alone and re-sign only the widget's own sanitized settings.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.
@@ -173,7 +173,7 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.11.2
 	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
-	 * @since TBD Leave correctly signed instances alone and re-sign only the widget's own sanitized settings.
+	 * @since 6.18.3.1 Leave correctly signed instances alone and re-sign only the widget's own sanitized settings.
 	 *
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
@@ -238,14 +238,14 @@ class Service_Provider extends Provider_Contract {
 	 *
 	 * @since 6.11.2
 	 * @since 6.17.4.1 Sign and store the sanitized instance instead of the submitted bytes.
-	 * @deprecated TBD Block data is no longer re-signed on render; only instances the site signed are rendered.
+	 * @deprecated 6.18.3.1 Block data is no longer re-signed on render; only instances the site signed are rendered.
 	 *
 	 * @param array $parsed_block The parsed block.
 	 *
 	 * @return array The parsed block, unchanged.
 	 */
 	public function enable_rendering_widget_copied( $parsed_block ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.18.3.1' );
 
 		return $parsed_block;
 	}
@@ -324,7 +324,7 @@ class Service_Provider extends Provider_Contract {
 	 * An instance the site already signed is left alone. Any other instance is rebuilt through
 	 * the widget's own `update()`, so only its settings, sanitized as on a normal save, are signed.
 	 *
-	 * @since TBD
+	 * @since 6.18.3.1
 	 *
 	 * @param WP_Widget                            $widget_object The widget the instance belongs to.
 	 * @param array{encoded: string, hash: string} $instance      The submitted instance; values are checked to be strings.
@@ -365,7 +365,7 @@ class Service_Provider extends Provider_Contract {
 	/**
 	 * Decodes a copied widget instance into plain data, or null when it cannot be trusted.
 	 *
-	 * @since TBD
+	 * @since 6.18.3.1
 	 *
 	 * @param mixed $serialized The decoded widget instance; anything but a string is rejected.
 	 *

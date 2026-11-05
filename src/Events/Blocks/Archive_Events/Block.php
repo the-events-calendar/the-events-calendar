@@ -46,7 +46,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since 6.3.3
 	 * @since 6.17.5 Prevents full event views from rendering inside event descriptions.
-	 * @since TBD Returns HTML in which no registered shortcode can be run by a later pass.
+	 * @since 6.18.3.1 Returns HTML in which no registered shortcode can be run by a later pass.
 	 *
 	 * @param array $attributes The block attributes.
 	 *
@@ -76,7 +76,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 * prints request values, so a shortcode typed into a search would run. In HTML `&#91;`
 	 * displays as `[`; in script text (the view's JSON) `\u005b` parses as `[`.
 	 *
-	 * @since TBD
+	 * @since 6.18.3.1
 	 *
 	 * @param string $html The rendered block HTML.
 	 *
@@ -130,7 +130,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * Printing part of the view would ship broken markup, so the block renders nothing.
 	 *
-	 * @since TBD
+	 * @since 6.18.3.1
 	 *
 	 * @return string An empty string.
 	 */

@@ -81,7 +81,7 @@ class Messages {
 	 * Returns the human-readable message for a key.
 	 *
 	 * @since 4.9.11
-	 * @since TBD Encodes `[` and `]` in string values so they cannot open a shortcode.
+	 * @since 6.18.3.1 Encodes `[` and `]` in string values so they cannot open a shortcode.
 	 *
 	 * @param string $key The message identification key or slug.
 	 * @param mixed  ...$values A variadic number of arguments that should be used to fill in the message placeholders, if
