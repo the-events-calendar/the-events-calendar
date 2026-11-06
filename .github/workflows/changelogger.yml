@@ -7,6 +7,8 @@ on:
     branches:
       - main
       - 'release/**'
+      # Promoter's default branch.
+      - server/production
     paths-ignore:
       - '.github/**'
 concurrency:

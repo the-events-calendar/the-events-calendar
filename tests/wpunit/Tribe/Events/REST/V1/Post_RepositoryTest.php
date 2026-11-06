@@ -792,4 +792,34 @@ class Post_RepositoryTest extends Events_TestCase {
 
 		$this->assertSame( [], $this->make_instance()->get_organizer_data( $organizer ) );
 	}
+
+	/**
+	 * It should return the site timezone in place of a stored timezone that is not a real timezone.
+	 *
+	 * @test
+	 */
+	public function should_return_the_site_timezone_in_place_of_an_invalid_stored_timezone() {
+		global $wpdb;
+		update_option( 'timezone_string', 'America/New_York' );
+		$event = $this->factory()->event->create();
+
+		/*
+		 * Written straight to the table: data stored before save-time validation existed
+		 * never went through the meta sanitize callback.
+		 */
+		delete_post_meta( $event, '_EventTimezone' );
+		$wpdb->insert(
+			$wpdb->postmeta,
+			[
+				'post_id'    => $event,
+				'meta_key'   => '_EventTimezone',
+				'meta_value' => 'UTC+5" onerror="alert(1)',
+			]
+		);
+		wp_cache_delete( $event, 'post_meta' );
+
+		$data = $this->make_instance()->get_event_data( $event );
+
+		$this->assertEquals( 'America/New_York', $data['timezone'] );
+	}
 }
