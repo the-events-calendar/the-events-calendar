@@ -126,6 +126,10 @@ class Plugin_Manager {
 	 * @return bool
 	 */
 	public function is_old_plugin_active(): bool {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
 		return is_plugin_active( self::PLUGIN_FILE );
 	}
 
@@ -297,8 +301,8 @@ class Plugin_Manager {
 		];
 
 		return (
-			$this->is_old_plugin_installed()
-			&& $this->is_old_plugin_active()
+			$this->is_old_plugin_active()
+			&& $this->is_old_plugin_installed()
 			&& (
 				! isset( $status['status'] )
 				|| ! in_array( $status['status'], $skip_statuses, true )
