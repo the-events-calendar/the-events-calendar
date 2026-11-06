@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Corrected the arguments passed to the before and after event HTML
+  filters, so a callback that requires both no longer causes a fatal error on
+  single event pages.
+timestamp: 2026-10-30T22:57:08.878Z
