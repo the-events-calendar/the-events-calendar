@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Prevented a fatal error on sites with Event Aggregator active when a
+  comment query passed its comment type as an array.
+timestamp: 2026-10-23T17:00:25.059Z
