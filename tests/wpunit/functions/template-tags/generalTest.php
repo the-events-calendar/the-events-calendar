@@ -397,4 +397,66 @@ HTML;
 		$this->assertStringContainsString( 'rel="tag">Test Cat</a>', $html );
 		$this->assertStringContainsString( '</span></li>', $html );
 	}
+
+	public function html_filter_provider(): array {
+		return [
+			'before' => [ 'tribe_events_before_html', 'tribe-events-before-html' ],
+			'after'  => [ 'tribe_events_after_html', 'tribe-events-after-html' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider html_filter_provider
+	 *
+	 * It should pass a null view to a callback that requires both filter arguments.
+	 */
+	public function should_pass_null_view_to_two_argument_html_filter_callback( string $hook, string $wrapper_class ): void {
+		$filtered      = '<p>Filtered HTML</p>';
+		$received_html = null;
+		$received_view = 'not called';
+		add_filter(
+			$hook,
+			static function ( $html, $view ) use ( $filtered, &$received_html, &$received_view ) {
+				$received_html = $html;
+				$received_view = $view;
+
+				return $filtered;
+			},
+			20,
+			2
+		);
+
+		ob_start();
+		$hook();
+		$output = ob_get_clean();
+
+		$this->assertStringContainsString( $wrapper_class, $received_html );
+		$this->assertNull( $received_view );
+		$this->assertSame( $filtered, $output );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider html_filter_provider
+	 *
+	 * It should keep passing the HTML to a callback that accepts one filter argument.
+	 */
+	public function should_filter_html_with_one_argument_callback( string $hook, string $wrapper_class ): void {
+		$appended = '<p>Appended HTML</p>';
+		add_filter(
+			$hook,
+			static function ( $html ) use ( $appended ) {
+				return $html . $appended;
+			},
+			20
+		);
+
+		ob_start();
+		$hook();
+		$output = ob_get_clean();
+
+		$this->assertStringContainsString( $wrapper_class, $output );
+		$this->assertStringEndsWith( $appended, $output );
+	}
 }
