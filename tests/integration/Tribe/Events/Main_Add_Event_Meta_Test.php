@@ -72,6 +72,23 @@ class Main_Add_Event_Meta_Test extends WPTestCase {
 	}
 
 	/**
+	 * `get_post()` answers an empty ID with the global post, which must not be saved in its place.
+	 *
+	 * @test
+	 */
+	public function it_should_not_save_the_global_post_for_an_invalid_post_id(): void {
+		$GLOBALS['post'] = get_post( $this->create_event() );
+		$this->saves     = 0;
+
+		foreach ( [ 'not-a-post-id', 0, -1 ] as $post_id ) {
+			TEC::instance()->addEventMeta( $post_id, 'not-a-post' );
+		}
+
+		unset( $GLOBALS['post'] );
+		$this->assertSame( 0, $this->saves );
+	}
+
+	/**
 	 * @test
 	 */
 	public function it_should_do_nothing_when_save_post_passes_something_that_is_not_a_post(): void {
