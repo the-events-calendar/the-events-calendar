@@ -1,0 +1,5 @@
+significance: patch
+type: fix
+entry: Stopped a critical error on the Scheduled Imports tab when Apply was
+  clicked without choosing a bulk action.
+timestamp: 2026-11-02T21:43:21.305Z

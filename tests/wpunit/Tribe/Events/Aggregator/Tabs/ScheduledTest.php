@@ -5,8 +5,12 @@ namespace Tribe\Events\Aggregator\Tabs;
 use Tribe\Events\Test\Testcases\Aggregator\V1\Aggregator_TestCase;
 use Tribe\Events\Test\Traits\Aggregator\AggregatorMaker;
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
+use ReflectionMethod;
+use RuntimeException;
+use Tribe__Events__Aggregator__Record__gCal as Record;
 use Tribe__Events__Aggregator__Service as Service;
 use Tribe__Events__Aggregator__Tabs__Scheduled as Scheduled;
+use WP_Post;
 
 class ScheduledTest extends Aggregator_TestCase {
 	use RecordMaker;
@@ -111,6 +115,105 @@ class ScheduledTest extends Aggregator_TestCase {
 			'success:queued',
 			tribe( 'events-aggregator.records' )->get_by_post_id( $healthy->id )->meta['last_import_status'],
 			'The record after the failing one must still be run.'
+		);
+	}
+
+	/**
+	 * Bulk action values the Scheduled Imports tab does not handle.
+	 *
+	 * @return array<string, array{0: string}> The bulk action values, keyed by case name.
+	 */
+	public function unsupported_bulk_action_provider(): array {
+		return [
+			'no action chosen' => [ '' ],
+			'unknown action'   => [ 'not-a-bulk-action' ],
+			'reactivate'       => [ 'reactivate' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider unsupported_bulk_action_provider
+	 */
+	public function should_do_nothing_when_the_bulk_action_is_not_supported( string $action ) {
+		$records = $this->make_two_schedule_records();
+		$this->intercept_redirects();
+
+		$result = $this->submit_bulk_action( $action, $records );
+
+		$this->assertFalse( $result );
+		foreach ( $records as $record ) {
+			$this->assertInstanceOf( WP_Post::class, get_post( $record->id ) );
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_delete_the_selected_records_and_redirect_back() {
+		$records = $this->make_two_schedule_records();
+		$this->intercept_redirects();
+
+		try {
+			$this->submit_bulk_action( 'delete', $records );
+			$this->fail( 'The delete bulk action should redirect back to the tab.' );
+		} catch ( RuntimeException $redirect ) {
+			parse_str( wp_parse_url( $redirect->getMessage(), PHP_URL_QUERY ), $query );
+			$this->assertSame( 'delete', $query['action'] );
+			$this->assertSame( implode( ',', wp_list_pluck( $records, 'id' ) ), $query['ids'] );
+		}
+
+		foreach ( $records as $record ) {
+			$this->assertNull( get_post( $record->id ) );
+		}
+	}
+
+	/**
+	 * Creates two scheduled import records, so the bulk action has more than one record to handle.
+	 *
+	 * @return array<Record> The created records.
+	 */
+	private function make_two_schedule_records(): array {
+		return [
+			$this->make_schedule_record( 'first-scheduled-import' ),
+			$this->make_schedule_record( 'second-scheduled-import' ),
+		];
+	}
+
+	/**
+	 * Throws on redirect, so the handler's redirect and `die` can be observed instead of ending the test.
+	 */
+	private function intercept_redirects(): void {
+		add_filter(
+			'wp_redirect',
+			static function ( $location ) {
+				throw new RuntimeException( $location );
+			}
+		);
+	}
+
+	/**
+	 * Submits the Scheduled Imports bulk action form as an administrator.
+	 *
+	 * @param string        $action  The value of the bulk action field.
+	 * @param array<Record> $records The records ticked in the list.
+	 *
+	 * @return mixed The value returned by the form handler.
+	 */
+	private function submit_bulk_action( string $action, array $records ) {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+		$tab         = Scheduled::instance();
+		$handle_post = new ReflectionMethod( $tab, 'handle_post' );
+		$handle_post->setAccessible( true );
+
+		return $handle_post->invoke(
+			$tab,
+			[
+				'action'  => $action,
+				'nonce'   => wp_create_nonce( 'aggregator_' . $tab->get_slug() . '_request' ),
+				'records' => wp_list_pluck( $records, 'id' ),
+			]
 		);
 	}
 }
