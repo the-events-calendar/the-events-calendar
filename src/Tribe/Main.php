@@ -3010,11 +3010,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
-		 * @param int     $postId
-		 * @param WP_Post $post
+		 * @since TBD The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
 		 *
+		 * @param int|mixed          $post_id The post ID.
+		 * @param WP_Post|mixed|null $post    The post object.
+		 *
+		 * @return void
 		 */
-		public function addEventMeta( $postId, $post ) {
+		public function addEventMeta( $post_id, $post = null ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid -- Long-standing public method; renaming it would break callers.
 			static $avoid_recursion = false;
 
 			// Avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
@@ -3022,19 +3025,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			if ( wp_is_post_revision( $postId ) ) {
+			if ( ! $post instanceof WP_Post ) {
+				// get_post() answers an empty ID with the global post, which is not the post being saved.
+				$post_id = filter_var( $post_id, FILTER_VALIDATE_INT, [ 'options' => [ 'min_range' => 1 ] ] );
+				$post    = $post_id ? get_post( $post_id ) : null;
+			}
+
+			// Checked before the recursion guard is set, so a call without a post cannot leave it set for the rest of the request.
+			if ( ! $post instanceof WP_Post ) {
+				return;
+			}
+
+			$post_id = $post->ID;
+
+			if ( wp_is_post_revision( $post_id ) ) {
 				// Do not save meta for revisions: it would be saved to the original post anyway.
 				return;
 			}
 
 			$avoid_recursion = true;
 
-			// When not an instance of Post we bail to avoid revision problems.
-			if ( ! $post instanceof WP_Post ) {
-				return;
-			}
-
-			$event_meta = new Tribe__Events__Meta__Save( $postId, $post );
+			$event_meta = new Tribe__Events__Meta__Save( $post_id, $post );
 			$event_meta->maybe_save();
 
 			// Allow this callback to run
