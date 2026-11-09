@@ -190,6 +190,7 @@ class Tribe__Events__Aggregator__Errors {
 	 * Note: On WP 4.1 and above
 	 *
 	 * @since 4.3.2
+	 * @since TBD Accepts the query's `type` as an array as well as a string.
 	 *
 	 * @param obj $query WordPress Comment Query Object
 	 *
@@ -208,8 +209,13 @@ class Tribe__Events__Aggregator__Errors {
 			return;
 		}
 
+		$type = $query->query_vars['type'];
+
 		// If we passed this type is because we want to query it
-		if ( false !== strpos( $query->query_vars['type'], self::$comment_type ) ) {
+		if (
+			( is_string( $type ) && false !== strpos( $type, self::$comment_type ) ) ||
+			( is_array( $type ) && in_array( self::$comment_type, $type, true ) )
+		) {
 			return;
 		}
 
