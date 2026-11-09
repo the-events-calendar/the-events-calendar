@@ -1,0 +1,6 @@
+significance: patch
+type: tweak
+entry: Removed outdated "Read more" and "Learn more" links from the block editor
+  and URL import settings, and pointed the Meetup API key link to the
+  Integrations Import tab.
+timestamp: 2026-10-27T18:32:51.290Z

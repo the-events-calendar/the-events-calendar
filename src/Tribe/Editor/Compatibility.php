@@ -126,6 +126,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * Inserts the Toggle and Hidden Field for the Activation of Blocks Editor
 	 *
 	 * @since 4.7
+	 * @since TBD Removed the "Read more" link from the tooltip.
 	 *
 	 * @param array $fields Fields from Options General
 	 *
@@ -136,14 +137,11 @@ class Tribe__Events__Editor__Compatibility {
 			return $fields;
 		}
 
-		$read_more_url  = 'https://theeventscalendar.com/gutenberg-block-editor-news/?utm_source=tec&utm_medium=eventscalendarapp&utm_term=adminnotice&utm_campaign=gutenbergrelease&utm_content=ebook-gutenberg&cid=tec_eventscalendarapp_adminnotice_gutenbergrelease_ebook-gutenberg';
-		$read_more_link = sprintf( ' <a href="%2$s" target="_blank">%1$s</a>.', esc_html__( 'Read more', 'the-events-calendar' ), esc_url( $read_more_url ) );
-
 		$insert_data = [
 			static::$blocks_editor_key        => [
 				'type'            => 'checkbox_bool',
 				'label'           => esc_html__( 'Activate Block Editor for Events', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ) . $read_more_link,
+				'tooltip'         => esc_html__( 'Enable the Gutenberg block editor interface for creating events.', 'the-events-calendar' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 				'attributes'      => [ 'id' => 'tribe-blocks-editor-toggle-field' ],

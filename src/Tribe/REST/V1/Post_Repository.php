@@ -65,6 +65,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @return array|WP_Error Either the array representation of an event or an error object.
 	 *
 	 * @since 4.6 Added $context param
+	 * @since 6.18.3 Returns the site timezone in place of a stored timezone that is not a real
+	 *            timezone identifier or UTC offset.
 	 */
 	public function get_event_data( $event_id, $context = '' ) {
 		if ( $event_id instanceof WP_Post ) {
@@ -145,7 +147,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'utc_start_date_details' => $this->get_date_details( $meta['_EventStartDateUTC'] ),
 			'utc_end_date'           => $meta['_EventEndDateUTC'],
 			'utc_end_date_details'   => $this->get_date_details( $meta['_EventEndDateUTC'] ),
-			'timezone'               => isset( $meta['_EventTimezone'] ) ? $meta['_EventTimezone'] : '',
+			'timezone'               => empty( $meta['_EventTimezone'] ) ? '' : Tribe__Events__Timezones::get_event_timezone_string( $event_id ),
 			'timezone_abbr'          => isset( $meta['_EventTimezoneAbbr'] ) ? $meta['_EventTimezoneAbbr'] : '',
 			'cost'                   => tribe_get_cost( $event_id, true ),
 			'cost_details'           => array(
