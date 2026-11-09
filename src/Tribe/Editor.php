@@ -1,5 +1,6 @@
 <?php
 
+use TEC\Common\Editor\Canvas_Styles;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -404,6 +405,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @todo   Move this into the Block PHP files
 	 *
 	 * @since 4.7
+	 * @since TBD Added the editor content stylesheets to the editor canvas styles group.
 	 *
 	 * @return void
 	 */
@@ -510,6 +512,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'in_footer'    => false,
 				'conditionals' => [ $this, 'is_edit_screen' ],
 				'group_path'   => TEC::class . '-packages',
+				'groups'       => [ Canvas_Styles::GROUP ],
 			]
 		);
 
@@ -535,6 +538,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'in_footer'    => false,
 				'conditionals' => [ $this, 'is_events_post_type' ],
 				'group_path'   => TEC::class . '-packages',
+				'groups'       => [ Canvas_Styles::GROUP ],
 			]
 		);
 	}

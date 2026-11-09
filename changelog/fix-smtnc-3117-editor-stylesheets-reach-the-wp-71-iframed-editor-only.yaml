@@ -1,0 +1,6 @@
+significance: patch
+type: fix
+entry: Loaded the event editor stylesheets directly into the WordPress 7.1
+  editor canvas, removing the "added to the iframe incorrectly" browser console
+  warnings.
+timestamp: 2026-10-21T00:47:34.970Z

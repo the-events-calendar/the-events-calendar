@@ -262,7 +262,9 @@
 
 /* = Related events block view styles
 ============================================= */
-.tribe-editor__related-events {
+
+/* Prefixed to win over the ECP editor styles the canvas loads after it. */
+.editor-styles-wrapper .tribe-editor__related-events {
 
 	.tribe-editor__related-events__title-text input {
 		background: transparent;
@@ -349,7 +351,9 @@
 
 /* = Recurring event label
 ============================================= */
-.tribe-editor__events-pro__recurrence-description {
+
+/* Prefixed to win over the ECP editor styles the canvas loads after it. */
+.editor-styles-wrapper .tribe-editor__events-pro__recurrence-description {
 	background-color: #f7f6f6;
 	border-radius: 40px;
 	color: var(--tec-color-text-primary);
@@ -389,7 +393,7 @@
 	}
 }
 
-.tribe-editor__events-pro__recurrence-description > a {
+.editor-styles-wrapper .tribe-editor__events-pro__recurrence-description > a {
 	margin: 0;
 	padding: 0;
 }
