@@ -1,8 +1,13 @@
 name: "Release: Prep"
 
-# Bumps the version, replaces the TBDs and writes the changelog on a release branch, then commits
-# that to the branch through the GitHub API. Unlike the other release workflows it opens no pull
-# request; the commit is reviewed on the release branch's own pull request.
+# Prepares a release branch in one run and one commit: the WordPress version, common's
+# changelog entries, the POT and its language entry, then the version bump, the TBDs and the changelog,
+# committed to the branch through the GitHub API. Unlike the other release workflows it opens no
+# pull request; the commit is reviewed on the release branch's own pull request.
+#
+# Every step before "Prepare the release branch" only writes files: the toolbox action commits
+# whatever the working tree holds, so the steps above it land in its commit. Running it again
+# finds nothing left to change.
 
 on:
   workflow_dispatch:
@@ -20,20 +25,33 @@ on:
         required: false
         type: string
         default: ''
+      tested-up-to:
+        description: 'WordPress version to set as "Tested up to", e.g. 6.8.1. Empty leaves it as it is'
+        required: false
+        type: string
+        default: ''
+      update-min-version:
+        description: 'Also set "Requires at least" two minor versions behind "Tested up to" (e.g. 6.8.1 -> 6.6)?'
+        required: false
+        type: choice
+        options:
+          - 'no'
+          - 'yes'
+        default: 'no'
 
 # Two preparations of the same branch would commit on top of the same checkout, and the second
 # would be refused as not a fast-forward.
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.branch }}
 
+# Read only: the commit is made with the bot token, and the checkout keeps no credentials, so
+# nothing here writes with github.token.
 permissions:
   contents: read
 
 jobs:
   prepare:
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    permissions:
-      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -44,6 +62,127 @@ jobs:
           # not there. The TBDs pup replaces inside common are not committed: the action commits the
           # parent repository's files only, and common is prepared in its own repository.
           submodules: recursive
+          # The common import reads the last release tag and common's history since it.
+          fetch-depth: 0
+
+      # Every TEC plugin versions with bin/tec-changelog-versioning.js, which the toolbox does not
+      # check, and the changelogger only validates when changelog/ holds entries. Checked here,
+      # before anything is written or pushed to GlotPress.
+      - name: Check the version
+        env:
+          VERSION: ${{ inputs.version }}
+          TESTED_UP_TO: ${{ inputs.tested-up-to }}
+          UPDATE_MIN_VERSION: ${{ inputs.update-min-version }}
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+            echo "::error::version must look like 6.18.3 or 6.18.2.1, got '$VERSION'."
+            exit 1
+          fi
+          if [ "$UPDATE_MIN_VERSION" = "yes" ] && [ -z "$TESTED_UP_TO" ]; then
+            echo "::error::update-min-version needs tested-up-to: the minimum is derived from it."
+            exit 1
+          fi
+
+      - name: Update the WordPress version
+        if: inputs.tested-up-to != ''
+        uses: the-events-calendar/actions/.github/actions/update-wp-version@main
+        with:
+          tested-up-to: ${{ inputs.tested-up-to }}
+          update-min-version: ${{ inputs.update-min-version }}
+
+      # Before the changelog is written, so common's entries are written with the plugin's own.
+      - name: Import common's changelog entries
+        uses: the-events-calendar/actions/.github/actions/import-common-changelog@main
+
+      # After common's entries and before the changelog is written, so the changelog processes
+      # them with the rest: the actions and filters the release adds or removes and the views it
+      # changes, from a diff of src/ against the last release tag.
+      - name: Add the hook and view changelog entries
+        uses: the-events-calendar/actions/.github/actions/analyze-hooks@main
+
+      - name: Read the translation settings
+        id: i18n
+        env:
+          BRANCH: ${{ inputs.branch }}
+        run: |
+          plugin_slug=$(jq -r '.i18n // [] | map(select(.url | contains("translations.stellarwp.com")) | .slug) | first // empty' .puprc)
+          # The slug ends up in the generate-pot and push-translations scripts, so only a plain one passes.
+          if ! [[ "$plugin_slug" =~ ^[a-z0-9-]+$ ]]; then
+            echo "::error::.puprc lists no plain translations.stellarwp.com slug under i18n, got '$plugin_slug'."
+            exit 1
+          fi
+          echo "plugin_slug=$plugin_slug" >> "$GITHUB_OUTPUT"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          # GlotPress gets the strings of a release only, as in Release: Sync Translations. Not a
+          # hotfix: an older hotfix's POT would mark the newer release's strings obsolete.
+          if [[ "$BRANCH" == release/* ]]; then
+            echo "glotpress=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate the POT file
+        uses: the-events-calendar/actions/.github/actions/generate-pot@main
+        with:
+          plugin_path: ${{ github.workspace }}
+          pot_path: ${{ github.workspace }}/lang/${{ steps.i18n.outputs.plugin_slug }}.pot
+
+      # make-pot stamps POT-Creation-Date, the plugin version (Project-Id-Version) and its own
+      # version (X-Generator) on every run, and a re-run sees the version the first run bumped. A POT that differs by those lines only is
+      # put back, so a second run commits nothing and pushes no second language entry.
+      - name: Check whether the strings changed
+        id: pot
+        env:
+          POT: lang/${{ steps.i18n.outputs.plugin_slug }}.pot
+        run: |
+          if [ -n "$(git ls-files --others --exclude-standard -- "$POT")" ] \
+            || ! git diff --quiet -I'POT-Creation-Date:' -I'Project-Id-Version:' -I'X-Generator:' -- "$POT"; then
+            echo "changed=1" >> "$GITHUB_OUTPUT"
+          else
+            git checkout -- "$POT"
+            echo "No string changed since the last POT." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Push the POT file to GlotPress
+        id: push-translations
+        if: steps.i18n.outputs.glotpress == '1' && steps.pot.outputs.changed == '1'
+        uses: the-events-calendar/actions/.github/actions/push-translations@main
+        with:
+          plugin_slug: ${{ steps.i18n.outputs.plugin_slug }}
+          pot_path: lang/${{ steps.i18n.outputs.plugin_slug }}.pot
+        env:
+          TRANSLATIONS_DEPLOY_HOST: ${{ secrets.TRANSLATIONS_DEPLOY_HOST }}
+          TRANSLATIONS_DEPLOY_USER: ${{ secrets.TRANSLATIONS_DEPLOY_USER }}
+          TRANSLATIONS_DEPLOY_SSH_KEY: ${{ secrets.TRANSLATIONS_DEPLOY_SSH_KEY }}
+          TRANSLATIONS_DEPLOY_POT_LOCATION: ${{ secrets.TRANSLATIONS_DEPLOY_POT_LOCATION }}
+
+      # The changelogger sorts a write's entries by type, which puts Language first. Writing the
+      # other entries now, before the language entry exists, leaves it to the toolbox's own write,
+      # which appends it to this version's section: last, where earlier releases have it.
+      - name: Resolve the changelog date
+        id: changelog-date
+        env:
+          RELEASE_DATE: ${{ inputs.date }}
+        run: |
+          if [ -z "$RELEASE_DATE" ] || [ "$RELEASE_DATE" = "today" ]; then
+            echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+          else
+            echo "date=$RELEASE_DATE" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Write the changelog before the language entry
+        uses: stellarwp/changelogger@6bff9fcee9dc63f8ec4d723b09f728fbc40d0be5 # v1
+        with:
+          command: write
+          version: ${{ inputs.version }}
+          date: ${{ steps.changelog-date.outputs.date }}
+
+      - name: Add the language changelog entry
+        if: steps.push-translations.outcome == 'success'
+        uses: the-events-calendar/actions/.github/actions/add-changelog@main
+        with:
+          file: "task-i18n-${{ steps.i18n.outputs.sha_short }}"
+          significance: patch
+          type: language
+          entry: "${{ steps.push-translations.outputs.glotpress-result }}"
 
       # The bot token, not github.token: release/* requires pull requests, and a commit made with
       # github.token starts no workflow run on the branch.
@@ -53,18 +192,25 @@ jobs:
         with:
           branch: ${{ inputs.branch }}
           version: ${{ inputs.version }}
-          date: ${{ inputs.date }}
+          date: ${{ steps.changelog-date.outputs.date }}
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
 
       - name: Summary
         env:
           VERSION: ${{ steps.prep.outputs.version }}
           COMMIT: ${{ steps.prep.outputs.commit }}
+          FILES: ${{ steps.prep.outputs.files }}
         run: |
           echo "## Release prep" >> "$GITHUB_STEP_SUMMARY"
           echo "* Version: \`$VERSION\`" >> "$GITHUB_STEP_SUMMARY"
           if [ -n "$COMMIT" ]; then
             echo "* Commit: https://github.com/${{ github.repository }}/commit/$COMMIT" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Files" >> "$GITHUB_STEP_SUMMARY"
+            while IFS= read -r file; do
+              if [ -n "$file" ]; then
+                echo "* \`$file\`" >> "$GITHUB_STEP_SUMMARY"
+              fi
+            done <<< "$FILES"
           else
             echo "* Nothing changed, nothing committed" >> "$GITHUB_STEP_SUMMARY"
           fi

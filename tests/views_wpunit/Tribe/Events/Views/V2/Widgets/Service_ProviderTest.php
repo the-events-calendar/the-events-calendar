@@ -3,128 +3,196 @@
 namespace Tribe\Events\Views\V2\Widgets;
 
 use Codeception\TestCase\WPTestCase;
+use Generator;
+use stdClass;
+use WP_REST_Request;
 
 class Service_ProviderTest extends WPTestCase {
+	private const OBJECT_INSTANCE = 'O:45:"Tribe\Events\Collections\Lazy_Post_Collection":2:{s:8:"callback";s:6:"system";s:3:"ids";a:1:{i:0;s:2:"id";}}';
 
-	protected function make_block( string $serialized ): array {
-		return [
-			'attrs' => [
+	private const HANDLER_INSTANCE = [
+		'limit'                => 1,
+		'featured_events_only' => true,
+		'no_upcoming_events'   => false,
+		'attributes'           => [ 'onmouseover' => 'alert(document.domain)' ],
+	];
+
+	/**
+	 * @test
+	 */
+	public function it_should_render_a_correctly_signed_instance() {
+		$serialized = serialize( [ 'limit' => 1, 'featured_events_only' => true, 'no_upcoming_events' => false ] );
+
+		$html = do_blocks( $this->legacy_widget_block( $serialized, wp_hash( $serialized ) ) );
+
+		$this->assertStringContainsString( 'tribe-events-c-messages', $html );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_render_a_forged_legacy_widget_block() {
+		$serialized = serialize( self::HANDLER_INSTANCE );
+
+		$html = do_blocks( $this->legacy_widget_block( $serialized, 'invalid-test-signature' ) );
+
+		$this->assertStringNotContainsString( 'onmouseover', $html );
+		$this->assertSame( '', trim( $html ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_re_sign_block_data_on_render() {
+		$block = [
+			'blockName' => 'core/legacy-widget',
+			'attrs'     => [
 				'idBase'   => 'tribe-widget-events-list',
 				'instance' => [
-					'encoded' => base64_encode( $serialized ),
+					'encoded' => base64_encode( serialize( [ 'title' => 'Upcoming' ] ) ),
 					'hash'    => 'untrusted',
 				],
 			],
 		];
-	}
 
-	protected function render( array $block ): array {
-		$provider = new Service_Provider( tribe() );
-
-		return $provider->enable_rendering_widget_copied( $block );
+		$this->assertSame( $block, apply_filters( 'render_block_data', $block, $block, null ) );
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_re_hash_a_plain_data_instance() {
-		$serialized = serialize( [ 'title' => 'Upcoming', 'limit' => 5 ] );
-		$block      = $this->render( $this->make_block( $serialized ) );
+	public function it_should_return_the_block_unchanged_from_the_deprecated_render_callback() {
+		$this->setExpectedDeprecated( Service_Provider::class . '::enable_rendering_widget_copied' );
+		$block = [ 'attrs' => [ 'idBase' => 'tribe-widget-events-list', 'instance' => [ 'encoded' => 'e30=', 'hash' => 'untrusted' ] ] ];
 
-		$this->assertSame( wp_hash( $serialized ), $block['attrs']['instance']['hash'] );
+		$this->assertSame( $block, ( new Service_Provider( tribe() ) )->enable_rendering_widget_copied( $block ) );
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_not_re_hash_an_object_instance() {
-		$serialized = 'O:45:"Tribe\Events\Collections\Lazy_Post_Collection":2:{s:8:"callback";s:6:"system";s:3:"ids";a:1:{i:0;s:2:"id";}}';
-		$block      = $this->render( $this->make_block( $serialized ) );
+	public function it_should_leave_a_correctly_signed_encode_request_untouched() {
+		$serialized = serialize( [ 'title' => 'Upcoming', 'limit' => 3, 'attributes' => [ 'id' => 'kept' ] ] );
 
-		$this->assertSame( 'untrusted', $block['attrs']['instance']['hash'] );
+		$request = $this->encode_request( $serialized, wp_hash( $serialized ) );
+
+		$this->assertSame( base64_encode( $serialized ), $request->get_param( 'instance' )['encoded'] );
+		$this->assertSame( wp_hash( $serialized ), $request->get_param( 'instance' )['hash'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_not_re_hash_a_nested_object_instance() {
-		$serialized = serialize( [ 'settings' => [ new \stdClass() ] ] );
-		$block      = $this->render( $this->make_block( $serialized ) );
+	public function it_should_drop_keys_that_are_not_widget_settings_from_a_forged_encode_request() {
+		$request  = $this->encode_request( serialize( self::HANDLER_INSTANCE ) );
+		$instance = $request->get_param( 'instance' );
+		$decoded  = $this->decoded_instance( $request );
 
-		$this->assertSame( 'untrusted', $block['attrs']['instance']['hash'] );
+		$this->assertArrayNotHasKey( 'attributes', $decoded );
+		$this->assertSame( self::HANDLER_INSTANCE['limit'], $decoded['limit'] );
+		$this->assertTrue( $decoded['featured_events_only'] );
+		$this->assertSame( wp_hash( base64_decode( $instance['encoded'] ) ), $instance['hash'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_not_re_hash_an_object_instance_with_a_malformed_tail() {
-		// Malformed input must not be re-signed.
-		$serialized_object = 'O:45:"Tribe\Events\Collections\Lazy_Post_Collection":2:{s:8:"callback";s:6:"system";s:3:"ids";a:1:{i:0;s:2:"id";}}';
-		$serialized = 'a:2:{i:0;' . $serialized_object . 'i:1;X}';
-		$block      = $this->render( $this->make_block( $serialized ) );
+	public function it_should_sanitize_the_values_of_a_forged_encode_request() {
+		$decoded = $this->decoded_instance( $this->encode_request( serialize( [ 'title' => '<img src=x onerror=alert(1)>Upcoming' ] ) ) );
 
-		$this->assertSame( 'untrusted', $block['attrs']['instance']['hash'] );
+		$this->assertSame( 'Upcoming', $decoded['title'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_store_object_free_data_for_a_crafted_instance() {
-		$serialized_object = 'O:45:"Tribe\Events\Collections\Lazy_Post_Collection":2:{s:8:"callback";s:6:"system";s:3:"ids";a:1:{i:0;s:2:"id";}}';
-		$serialized = 'a:2:{i:0;' . $serialized_object . 'i:0;s:2:"ok";}';
-		$block      = $this->render( $this->make_block( $serialized ) );
-		$instance   = $block['attrs']['instance'];
-		$decoded    = base64_decode( $instance['encoded'] );
+	public function it_should_drop_keys_that_are_not_widget_settings_from_a_forged_widgets_request() {
+		$request = new WP_REST_Request( 'PUT', '/wp/v2/widgets/tribe-widget-events-list-2' );
+		$request->set_param( 'id_base', 'tribe-widget-events-list' );
+		$request->set_param(
+			'instance',
+			[
+				'encoded' => base64_encode( serialize( self::HANDLER_INSTANCE ) ),
+				'hash'    => 'untrusted',
+			]
+		);
 
-		// Stored data is object-free and its hash matches the stored bytes.
+		( new Service_Provider( tribe() ) )->enable_saving_widget_copied( null, $request, '/wp/v2/widgets/tribe-widget-events-list-2' );
+
+		$this->assertArrayNotHasKey( 'attributes', $this->decoded_instance( $request ) );
+	}
+
+	public function unsafe_instance_provider(): Generator {
+		yield 'object' => [ self::OBJECT_INSTANCE ];
+		yield 'nested object' => [ serialize( [ 'settings' => [ new stdClass() ] ] ) ];
+		yield 'object with a malformed tail' => [ 'a:2:{i:0;' . self::OBJECT_INSTANCE . 'i:1;X}' ];
+		yield 'object after a duplicate key' => [ 'a:2:{i:0;s:2:"ok";i:0;' . self::OBJECT_INSTANCE . '}' ];
+		yield 'self reference' => [ 'a:1:{i:0;R:1;}' ];
+		yield 'not serialized' => [ 'plain text' ];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider unsafe_instance_provider
+	 */
+	public function it_should_not_re_sign_an_unsafe_encode_request( string $serialized ) {
+		$request = $this->encode_request( $serialized );
+
+		$this->assertSame( 'untrusted', $request->get_param( 'instance' )['hash'] );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_store_object_free_data_for_a_crafted_encode_request() {
+		// The duplicate key replaces the object, so the decoded array is plain.
+		$request = $this->encode_request( 'a:2:{i:0;' . self::OBJECT_INSTANCE . 'i:0;s:2:"ok";}' );
+		$decoded = base64_decode( $request->get_param( 'instance' )['encoded'] );
+
 		$this->assertStringNotContainsString( 'O:', $decoded );
-		$this->assertSame( wp_hash( $decoded ), $instance['hash'] );
-		$this->assertSame( [ 'ok' ], unserialize( $decoded, [ 'allowed_classes' => false ] ) );
+		$this->assertSame( wp_hash( $decoded ), $request->get_param( 'instance' )['hash'] );
 	}
 
 	/**
 	 * @test
 	 */
-	public function it_should_not_re_sign_a_crafted_unsafe_instance() {
-		$serialized_object = 'O:45:"Tribe\Events\Collections\Lazy_Post_Collection":2:{s:8:"callback";s:6:"system";s:3:"ids";a:1:{i:0;s:2:"id";}}';
-		$serialized = 'a:2:{i:0;s:2:"ok";i:0;' . $serialized_object . '}';
-		$block      = $this->render( $this->make_block( $serialized ) );
+	public function it_should_ignore_requests_for_other_widgets() {
+		$request = new WP_REST_Request( 'POST', '/wp/v2/widget-types/some-other-widget/encode' );
+		$request->set_param( 'instance', [ 'encoded' => base64_encode( serialize( [ 'title' => 'x' ] ) ), 'hash' => 'untrusted' ] );
 
-		$this->assertSame( 'untrusted', $block['attrs']['instance']['hash'] );
+		( new Service_Provider( tribe() ) )->enable_widget_copy_paste( null, rest_get_server(), $request );
+
+		$this->assertSame( 'untrusted', $request->get_param( 'instance' )['hash'] );
 	}
 
-	/**
-	 * @test
-	 */
-	public function it_should_re_sign_a_plain_instance_to_its_canonical_form() {
-		// Non-canonical input must be stored in canonical form.
-		$serialized = 'a:2:{i:0;s:1:"a";i:0;s:1:"b";}';
-		$block      = $this->render( $this->make_block( $serialized ) );
-		$instance   = $block['attrs']['instance'];
-		$decoded    = base64_decode( $instance['encoded'] );
+	private function legacy_widget_block( string $serialized, string $hash ): string {
+		$attrs = [
+			'idBase'   => 'tribe-widget-events-list',
+			'instance' => [
+				'encoded' => base64_encode( $serialized ),
+				'hash'    => $hash,
+			],
+		];
 
-		$this->assertSame( 'a:1:{i:0;s:1:"b";}', $decoded );
-		$this->assertSame( wp_hash( $decoded ), $instance['hash'] );
+		return '<!-- wp:legacy-widget ' . wp_json_encode( $attrs ) . ' /-->';
 	}
 
-	/**
-	 * @test
-	 */
-	public function it_should_reject_untrusted_input_without_crashing() {
-		$block = $this->render( $this->make_block( 'a:1:{i:0;R:1;}' ) );
+	private function encode_request( string $serialized, string $hash = 'untrusted' ): WP_REST_Request {
+		$request = new WP_REST_Request( 'POST', '/wp/v2/widget-types/tribe-widget-events-list/encode' );
+		$request->set_param(
+			'instance',
+			[
+				'encoded' => base64_encode( $serialized ),
+				'hash'    => $hash,
+			]
+		);
 
-		$this->assertSame( 'untrusted', $block['attrs']['instance']['hash'] );
+		( new Service_Provider( tribe() ) )->enable_widget_copy_paste( null, rest_get_server(), $request );
+
+		return $request;
 	}
 
-	/**
-	 * @test
-	 */
-	public function it_should_ignore_blocks_from_other_widgets() {
-		$block = $this->make_block( serialize( [ 'title' => 'x' ] ) );
-		$block['attrs']['idBase'] = 'some-other-widget';
-
-		$result = $this->render( $block );
-
-		$this->assertSame( 'untrusted', $result['attrs']['instance']['hash'] );
+	private function decoded_instance( WP_REST_Request $request ): array {
+		return unserialize( base64_decode( $request->get_param( 'instance' )['encoded'] ), [ 'allowed_classes' => false ] );
 	}
 }
