@@ -1,5 +1,22 @@
 # Changelog
 
+### [6.18.3.1] 2026-11-05
+
+* Fix - Passed the input attributes a date picker is given, such as its accessible name and disabled state, through to its input field.
+* Security - Hardened how calendar views handle shortcodes. Props to Filip Kowalski for reporting.
+* Security - Hardened how HTML attributes are printed in templates. Props to Hatim Madmoune -DELTA for reporting.
+* Security - Hardened shortcode handling in post content shown by calendar views. Props to Filip Kowalski for reporting.
+* Security - Hardened the rendering of copied Events widgets. Props to Hatim Madmoune -DELTA for reporting.
+* Language - 0 new strings added, 8 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.18.3] 2026-10-29
+
+* Language - 0 new strings added, 34 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened access control checks for linked Organizers, Venues, and the Ignored Events admin action. Props to fcc for reporting.
+* Security - Hardened how Event details are saved. Props to fcc for reporting.
+* Security - Hardened the calendar export and add-to-calendar links. Props to ngvuthdanh for reporting.
+* Security - Hardened the rendering of the Event timezone-change link in the classic Event editor. Props to fcc for reporting.
+
 ### [6.18.2] 2026-10-15
 
 * Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.

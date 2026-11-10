@@ -119,4 +119,16 @@ class MessagesTest extends WPTestCase {
 
 		$this->assertEquals( [], $messages->to_array() );
 	}
+
+	/**
+	 * It should encode shortcode brackets in the values of a message.
+	 *
+	 * @test
+	 */
+	public function should_encode_shortcode_brackets_in_message_values() {
+		$message = Messages::for_key( 'no_results_found_w_keyword', 'zzq[audio src=x]' );
+
+		$this->assertStringContainsString( '"zzq&#91;audio src=x&#93;"', $message );
+		$this->assertSame( $message, do_shortcode( $message ) );
+	}
 }

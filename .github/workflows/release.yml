@@ -1,0 +1,301 @@
+name: "Release on GH"
+
+# Merges a release and publishes it on GitHub: the release branch into main, then the GitHub release
+# for the version at the merged commit, with the production zip attached and the version's
+# readme.txt changelog as the notes. Nothing is merged back into develop: we work with release
+# branches. Set develop-branch on the merge step for a repository that keeps one. Run it on the
+# release branch: with its pull request approved it releases straight away, otherwise it waits for a
+# reviewer of the github-release environment.
+#
+# The branch arrives prepared: the version names the tag and the title, and no file is checked
+# against it. The merge is ours (.github/actions/release-merge); publishing is the toolbox's,
+# through our wrapper in .github/actions, which pins it to a commit.
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Release type, used in the title: "<type> Release <version>"'
+        required: true
+        type: choice
+        options:
+          - Maintenance
+          - Feature
+          - Security
+          - Hotfix
+      version:
+        description: 'Version to release, e.g. 6.18.3 or 6.18.2.1'
+        required: true
+        type: string
+      branch:
+        description: 'Release branch to merge, e.g. release/T24.centaur. The run has to be on it'
+        required: true
+        type: string
+      zip-url:
+        description: 'HTTPS link to the production zip of this version. Empty publishes without a zip'
+        required: false
+        type: string
+
+# One release at a time for the whole repository: two with the same version would otherwise merge
+# side by side. A cancelled run is started again.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  # Decides how the run is approved. The bot token bypasses main's review rule and anyone with write
+  # access can dispatch this workflow, so a release needs one of two approvals: the release pull
+  # request approved at the very commit the run started on, or, without that, a reviewer of the
+  # github-release environment approving the run, as the WordPress.org workflows do.
+  check:
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: read
+      # Read the release pull request's reviews.
+      pull-requests: read
+    outputs:
+      approved: ${{ steps.approval.outputs.approved }}
+    steps:
+      # A failing step, not an `if:`: a skipped job reads as a success to whoever dispatched it.
+      - name: Check that the run is on the release branch it merges
+        env:
+          BRANCH: ${{ inputs.branch }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          if [ "$BRANCH" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::This run is on '$GITHUB_REF_NAME' but was asked to release '$BRANCH'. Start it on the release branch."
+            exit 1
+          fi
+
+          # The bot token bypasses the branch rules: any other branch would reach main unreviewed.
+          case "$BRANCH" in
+            release/*) ;;
+            *)
+              echo "::error::'$BRANCH' is not a release branch. Only release/* branches are merged."
+              exit 1
+              ;;
+          esac
+
+          # Checked here, not only by the toolbox: the steps before the merge read it too.
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+            echo "::error::'$VERSION' is not a version: three or four numeric parts, e.g. 6.18.3 or 6.18.2.1."
+            exit 1
+          fi
+
+      # main's rules keep an approval after a push, so the pull request's review state alone could be
+      # an approval of an earlier commit: the approval has to be of this one. A merged pull request
+      # counts, so a run repeated after a late failure passes. No approval is not a failure: the run
+      # then waits for an environment reviewer.
+      - name: Check whether the release pull request is approved at this commit
+        id: approval
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ inputs.branch }}
+          BASE: main
+          SHA: ${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+        run: |
+          set -euo pipefail
+
+          pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base "$BASE" --state all \
+            --json number,state,headRefOid,isCrossRepository \
+            | jq -r --arg sha "$SHA" '[.[] | select(.isCrossRepository | not) | select(.state == "OPEN" or .state == "MERGED")
+              | select(.headRefOid == $sha) | .number] | first // empty')
+
+          approvers=""
+          if [ -n "$pr" ]; then
+            # Nobody approves their own release: not whoever starts the run, nor whoever wrote or
+            # committed the commit it releases. They wait for an environment reviewer instead.
+            self=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${SHA}" \
+              | jq -c --arg a "$ACTOR" --arg t "$TRIGGERING_ACTOR" '[$a, $t, .author.login?, .committer.login?] | map(select(. != null and . != ""))')
+
+            # Each reviewer's latest approving or blocking review, as GitHub counts them, from people
+            # with write access: on a public repository anyone can review. The reviews'
+            # author_association can't tell: it shows a private org member as a CONTRIBUTOR.
+            reviews=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${pr}/reviews" \
+              | jq -s 'add | map(select(.state != "COMMENTED" and .state != "PENDING" and .user.type != "Bot"))
+                | group_by(.user.id) | map(last)')
+            writers=()
+            for login in $(jq -r '.[].user.login' <<< "$reviews"); do
+              permission=$(gh api "repos/${GITHUB_REPOSITORY}/collaborators/${login}/permission" --jq .permission 2>/dev/null || echo none)
+              if [ "$permission" = admin ] || [ "$permission" = write ]; then
+                writers+=("$login")
+              fi
+            done
+            writers_json=$(printf '%s\n' "${writers[@]}" | jq -Rnc '[inputs | select(. != "")]')
+
+            # A change requested by a writer counts as no approval.
+            approvers=$(jq -r --arg sha "$SHA" --argjson self "$self" --argjson writers "$writers_json" '
+              map(select(.user.login | IN($writers[])))
+              | if any(.state == "CHANGES_REQUESTED") then ""
+                else map(select(.state == "APPROVED" and .commit_id == $sha and (.user.login | IN($self[]) | not)))
+                  | map(.user.login) | join(", ") end' <<< "$reviews")
+          fi
+
+          if [ -n "$approvers" ]; then
+            echo "#${pr} approved at ${SHA} by ${approvers}: releasing without waiting."
+            echo "approved=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::No approved release pull request at ${SHA}: the run waits for a reviewer of the github-release environment."
+            echo "approved=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  release:
+    needs: check
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    permissions:
+      contents: read
+      # Read the environment's protection rules.
+      actions: read
+    # Without an approved pull request the job waits here for a reviewer of the environment, like
+    # the WordPress.org workflows. Empty runs it in no environment.
+    environment: ${{ needs.check.outputs.approved != 'true' && 'github-release' || '' }}
+    steps:
+      # A job naming an environment the repository lacks gets one created on the fly, with no
+      # reviewers, and runs straight through. Refuse that rather than merge with nobody's approval.
+      - name: Check that the environment has reviewers
+        if: needs.check.outputs.approved != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ENVIRONMENT: github-release
+        run: |
+          set -euo pipefail
+
+          if ! gh api "repos/${GITHUB_REPOSITORY}/environments/${ENVIRONMENT}" \
+            --jq '.protection_rules | any(.type == "required_reviewers")' | grep -qx true; then
+            echo "::error::No approved release pull request, and the ${ENVIRONMENT} environment has no required reviewers, so nobody approved this run. Get the pull request approved, or add reviewers to the environment, then start the run again."
+            exit 1
+          fi
+
+      - name: Check that main has nothing the branch lacks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ inputs.branch }}
+          BASE: main
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          # Every commit on main has to be in the branch already: otherwise the merge commit, which is
+          # what gets tagged, holds code the zip, built from the branch, does not. "behind" is a
+          # repeated run, where the branch is already in main.
+          status=$(gh api "repos/${GITHUB_REPOSITORY}/compare/${BASE}...${SHA}" --jq .status)
+          if [ "$status" = "diverged" ]; then
+            echo "::error::$BASE has commits $BRANCH does not. Merge $BASE into $BRANCH, rebuild the zip, and start the run again."
+            exit 1
+          fi
+
+      # The changelog and the zip are checked before the merge, so a mistake stops the run before
+      # main is touched. github.sha is the commit release-merge refuses to merge past.
+      - name: Checkout the release branch at the commit the run started on
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Read the title, zip name and changelog
+        id: prep
+        env:
+          TYPE: ${{ inputs.type }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+
+          zip_name=$(jq -r '.zip_name // empty' .puprc 2>/dev/null || true)
+          zip_name="${zip_name:-${GITHUB_REPOSITORY#*/}}"
+          # It becomes a path and a $GITHUB_OUTPUT line: no slashes, no newlines.
+          if ! [[ "$zip_name" =~ ^[A-Za-z0-9._-]+$ ]]; then
+            echo "::error file=.puprc::zip_name '${zip_name}' has to be a plain file name."
+            exit 1
+          fi
+
+          # The plugin's main file: the root-level PHP file .puprc lists under paths.versions.
+          main_file=$(jq -r '[.paths.versions[]?.file | select(test("^[^/]+\\.php$"))] | first // empty' .puprc 2>/dev/null || true)
+          main_file="${main_file:-${zip_name}.php}"
+          if ! [[ "$main_file" =~ ^[A-Za-z0-9._-]+\.php$ ]]; then
+            echo "::error file=.puprc::The main plugin file '${main_file}' has to be a plain file name."
+            exit 1
+          fi
+
+          # The version's section of readme.txt, with "-" bullets, and the blank lines around it dropped.
+          notes="$RUNNER_TEMP/notes.md"
+          awk -v head="= [$VERSION]" '
+            { sub(/\r$/, "") }
+            index($0, head) == 1 { found = 1; next }
+            !found { next }
+            /^=/ { exit }
+            !NF { if (printed) blanks++; next }
+            { while (blanks) { print ""; blanks-- } sub(/^\* /, "- "); print; printed = 1 }
+          ' readme.txt > "$notes"
+
+          if [ ! -s "$notes" ]; then
+            echo "::error file=readme.txt::No changelog for ${VERSION} in readme.txt. Run \"Release: Prep\" on the branch first."
+            exit 1
+          fi
+
+          {
+            echo "title=${TYPE} Release ${VERSION}"
+            echo "zip-name=${zip_name}"
+            echo "main-file=${main_file}"
+            echo "notes=${notes}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Download and check the zip
+        id: zip
+        if: inputs.zip-url != ''
+        env:
+          ZIP_URL: ${{ inputs.zip-url }}
+          VERSION: ${{ inputs.version }}
+          ZIP_NAME: ${{ steps.prep.outputs.zip-name }}
+          MAIN_FILE: ${{ steps.prep.outputs.main-file }}
+        run: |
+          set -euo pipefail
+
+          # Inside the workspace: release-publish reads assets relative to the checkout.
+          zip="${ZIP_NAME}.${VERSION}.zip"
+          curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --max-time 600 \
+            --output "$zip" "$ZIP_URL"
+          unzip -tq "$zip"
+
+          # Exactly one <plugin dir>/<main file> in the zip: another PHP file carrying the version,
+          # or no main file at all, must not pass.
+          main="${ZIP_NAME}/${MAIN_FILE}"
+          if [ "$(unzip -Z1 "$zip" | grep -Fxc -e "$main" || true)" != 1 ]; then
+            echo "::error::The zip at that link has no ${main}, the plugin's main file."
+            exit 1
+          fi
+
+          # The plugin header has to carry this version: attaching the previous release's zip is
+          # the mistake this catches.
+          if ! unzip -p "$zip" "$main" \
+            | grep -E "^[[:space:]*]*Version:[[:space:]]*${VERSION//./\\.}[[:space:]]*$" > /dev/null; then
+            echo "::error::The zip at that link is not version ${VERSION}: ${main} does not say 'Version: ${VERSION}'."
+            exit 1
+          fi
+
+          echo "path=${zip}" >> "$GITHUB_OUTPUT"
+
+      - name: Merge the release
+        id: merge
+        uses: the-events-calendar/actions/.github/actions/release-merge@main
+        with:
+          branch: ${{ inputs.branch }}
+          # A push to the branch after the run started is refused rather than merged unreviewed.
+          head: ${{ github.sha }}
+          version: ${{ inputs.version }}
+          # The bot token: the tag ruleset and the branch rules block everyone off their bypass list.
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+
+      - name: Publish the GitHub release
+        uses: the-events-calendar/actions/.github/actions/release-publish@main
+        with:
+          version: ${{ inputs.version }}
+          target: ${{ steps.merge.outputs.base-sha }}
+          title: ${{ steps.prep.outputs.title }}
+          notes-file: ${{ steps.prep.outputs.notes }}
+          files: ${{ steps.zip.outputs.path }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}

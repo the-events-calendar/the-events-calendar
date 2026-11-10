@@ -9,9 +9,20 @@ use Tribe__Date_Utils as Date;
  */
 class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	/**
+	 * The linked posts stored on each Event before a REST save, keyed by Event ID.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @var array<int,array<string,list<string>>>
+	 */
+	private array $links_before_save = [];
+
+	/**
 	 * Register the required Meta fields for good Gutenberg saving
 	 *
 	 * @since 4.7
+	 * @since 6.18.3 Falls back to the site timezone when a saved _EventTimezone is not a real
+	 *            timezone identifier or UTC offset.
 	 *
 	 * @return void
 	 */
@@ -22,10 +33,28 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		add_filter( "rest_prepare_{$post_type}", [ $this, 'meta_backwards_compatibility' ], 10, 3 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
 		add_filter( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
+		add_filter( "rest_pre_insert_{$post_type}", [ $this, 'remember_linked_posts' ] );
+		add_action( "rest_after_insert_{$post_type}", [ $this, 'remove_invalid_linked_posts' ] );
 		add_filter( 'delete_post_metadata', [ $this, 'filter_allow_meta_delete_non_existent_key' ], 15, 5 );
 
 		register_meta( 'post', '_EventAllDay', $this->boolean() );
-		register_meta( 'post', '_EventTimezone', $this->text() );
+		register_meta(
+			'post',
+			'_EventTimezone',
+			array_merge(
+				$this->text(),
+				[
+					// Block editor and REST saves never reach Tribe__Events__API::saveEventMeta().
+					'sanitize_callback' => static function ( $value ) {
+						$value = sanitize_text_field( $value );
+
+						return Tribe__Events__Timezones::is_valid_timezone( $value )
+							? $value
+							: Tribe__Events__Timezones::wp_timezone_string();
+					},
+				]
+			)
+		);
 		register_meta( 'post', '_EventStartDate', $this->text() );
 		register_meta( 'post', '_EventEndDate', $this->text() );
 		register_meta( 'post', '_EventStartDateUTC', $this->text() );
@@ -214,6 +243,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * update REST payload.
 	 *
 	 * @since 4.9
+	 * @since 6.18.3 Uses the stored, sanitized timezone instead of the one in the request.
 	 *
 	 * @param             \stdClass     $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
@@ -232,8 +262,8 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		$post_id         = $request->get_param( 'id' );
 
+		// The meta is saved by now, so this reads the sanitized timezone rather than the one in the request.
 		$timezone_string = Tribe__Events__Timezones::get_event_timezone_string( $post_id );
-		$timezone_string = Tribe__Utils__Array::get( $meta, '_EventTimezone', $timezone_string );
 		$timezone        = Tribe__Timezones::build_timezone_object( $timezone_string );
 		$utc             = new DateTimeZone( 'UTC' );
 
@@ -250,5 +280,38 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		update_post_meta( $post_id, '_EventStartDateUTC', $utc_start_date );
 		update_post_meta( $post_id, '_EventEndDateUTC', $utc_end_date );
+	}
+
+	/**
+	 * Remembers the linked posts stored on an Event before a REST update writes its meta.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @param stdClass|WP_Error $prepared_post The post the REST request is about to insert or update.
+	 *
+	 * @return stdClass|WP_Error The post, unchanged.
+	 */
+	public function remember_linked_posts( $prepared_post ) {
+		if ( ! empty( $prepared_post->ID ) ) {
+			$this->links_before_save[ $prepared_post->ID ] = tribe( 'tec.linked-posts' )->get_stored_links( $prepared_post->ID );
+		}
+
+		return $prepared_post;
+	}
+
+	/**
+	 * Removes a just-saved `_EventOrganizerID` / `_EventVenueID` value that is not the expected
+	 * linked post type or is password protected.
+	 *
+	 * @since 6.18.3
+	 *
+	 * @param WP_Post $post Inserted or updated Event post object.
+	 *
+	 * @return void
+	 */
+	public function remove_invalid_linked_posts( $post ) {
+		tribe( 'tec.linked-posts' )->prune_invalid_linked_posts( $post->ID, $this->links_before_save[ $post->ID ] ?? [] );
+
+		unset( $this->links_before_save[ $post->ID ] );
 	}
 }
