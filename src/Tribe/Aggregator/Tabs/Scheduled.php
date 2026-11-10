@@ -112,7 +112,7 @@ class Tribe__Events__Aggregator__Tabs__Scheduled extends Tribe__Events__Aggregat
 	/**
 	 * Handles a bulk action submitted on the Scheduled Imports tab.
 	 *
-	 * @since TBD Returns early when the action is not one the tab supports, such as an empty bulk action.
+	 * @since 6.18.4 Returns early when the action is not one the tab supports, such as an empty bulk action.
 	 *
 	 * @param array{action?: string, nonce?: string, records?: array<int|string>, ids?: string}|object|null $data The submitted request data; defaults to `$_POST['aggregator']`.
 	 *

@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.18.3.1';
+		const VERSION             = '6.18.4';
 
 		/**
 		 * Min Pro Addon.
@@ -3010,7 +3010,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
-		 * @since TBD The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
+		 * @since 6.18.4 The post is optional and loaded from the ID when it is not a post: some plugins fire `save_post` with the ID alone.
 		 *
 		 * @param int|mixed          $post_id The post ID.
 		 * @param WP_Post|mixed|null $post    The post object.

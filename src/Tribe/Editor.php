@@ -405,7 +405,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * @todo   Move this into the Block PHP files
 	 *
 	 * @since 4.7
-	 * @since TBD Added the editor content stylesheets to the editor canvas styles group.
+	 * @since 6.18.4 Added the editor content stylesheets to the editor canvas styles group.
 	 *
 	 * @return void
 	 */

@@ -843,7 +843,7 @@ function tribe_is_organizer( $postId = null ) {
  *
  * Display HTML to output before the event template
  *
- * @since TBD Passes a null view as the second filter argument, matching the Views V2 call of the same filter.
+ * @since 6.18.4 Passes a null view as the second filter argument, matching the Views V2 call of the same filter.
  *
  * @category Events
  */
@@ -861,7 +861,7 @@ function tribe_events_before_html() {
 	/**
 	 * Filters the HTML to output before the event template.
 	 *
-	 * @since TBD Added the `$view` argument.
+	 * @since 6.18.4 Added the `$view` argument.
 	 *
 	 * @param string $html The HTML to output before the event template.
 	 * @param null   $view There is no view to pass outside of the Views V2 call of this filter.
@@ -874,7 +874,7 @@ function tribe_events_before_html() {
  *
  * Display HTML to output after the event template
  *
- * @since TBD Passes a null view as the second filter argument, matching the Views V2 call of the same filter.
+ * @since 6.18.4 Passes a null view as the second filter argument, matching the Views V2 call of the same filter.
  *
  * @category Events
  */
@@ -889,7 +889,7 @@ function tribe_events_after_html() {
 	/**
 	 * Filters the HTML to output after the event template.
 	 *
-	 * @since TBD Added the `$view` argument.
+	 * @since 6.18.4 Added the `$view` argument.
 	 *
 	 * @param string $html The HTML to output after the event template.
 	 * @param null   $view There is no view to pass outside of the Views V2 call of this filter.

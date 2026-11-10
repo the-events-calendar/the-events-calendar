@@ -190,7 +190,7 @@ class Tribe__Events__Aggregator__Errors {
 	 * Note: On WP 4.1 and above
 	 *
 	 * @since 4.3.2
-	 * @since TBD Accepts the query's `type` as an array as well as a string.
+	 * @since 6.18.4 Accepts the query's `type` as an array as well as a string.
 	 *
 	 * @param obj $query WordPress Comment Query Object
 	 *

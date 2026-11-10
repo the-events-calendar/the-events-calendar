@@ -103,7 +103,7 @@ class Assets extends Service_Provider {
 	 * Binds and sets up implementations.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Loaded the single-event blocks admin stylesheet in the editor canvas too.
+	 * @since 6.18.4 Loaded the single-event blocks admin stylesheet in the editor canvas too.
 	 */
 	public function register() {
 		$plugin = Plugin::instance();

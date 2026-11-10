@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, nexcess, bordoni, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo, larodiel, leahkoerper, sdokus, vicskf
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.18.3.1
+Stable tag: 6.18.4
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -238,6 +238,24 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.18.4] 2026-11-11 =
+
+* Fix - Avoided a fatal error when a database table prefix of 31 or more characters pushed the migrations table name past MySQL's 64-character limit, added an admin notice explaining how to shorten the prefix, and stopped the Shepherd tables error notice from causing an error when displayed.
+* Fix - Changed the System Information copy button on the Troubleshooting page to copy plain text, so pasted system details take the destination's text color instead of arriving as invisible white text.
+* Fix - Corrected the arguments passed to the before and after event HTML filters, so a callback that requires both no longer causes a fatal error on single event pages.
+* Fix - Loaded the event editor stylesheets directly into the WordPress 7.1 editor canvas, removing the "added to the iframe incorrectly" browser console warnings.
+* Fix - Loaded the shared block editor stylesheet directly into the WordPress 7.1 editor canvas, removing the "added to the iframe incorrectly" browser console warning.
+* Fix - Prevented a fatal error on sites with Event Aggregator active when a comment query passed its comment type as an array.
+* Fix - Prevented a fatal error when another plugin runs the save_post action with only the post ID.
+* Fix - Prevented a fatal error, and skipped event saves later in the same request, when another plugin runs the save_post action without the post.
+* Fix - Stopped a critical error on the Scheduled Imports tab when Apply was clicked without choosing a bulk action.
+* Security - Hardened the output of the settings page closing form element.
+* Tweak - Pointed the "Learn how to get an active license" link on the Setup Guide page to a working page instead of a removed article.
+* Tweak - Pointed the "Learn how to get live support" link on the Help page to a working page instead of a removed article.
+* Tweak - Pointed the Zapier API keys help link to the Zapier knowledgebase article and removed an outdated link from the Zapier Endpoint Dashboard.
+* Tweak - Removed outdated "Read more" and "Learn more" links from the block editor and URL import settings, and pointed the Meetup API key link to the Integrations Import tab.
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.18.3.1] 2026-11-05 =
 

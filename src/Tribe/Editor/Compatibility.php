@@ -126,7 +126,7 @@ class Tribe__Events__Editor__Compatibility {
 	 * Inserts the Toggle and Hidden Field for the Activation of Blocks Editor
 	 *
 	 * @since 4.7
-	 * @since TBD Removed the "Read more" link from the tooltip.
+	 * @since 6.18.4 Removed the "Read more" link from the tooltip.
 	 *
 	 * @param array $fields Fields from Options General
 	 *
