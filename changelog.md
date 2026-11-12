@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.18.4] 2026-11-11
+### [6.18.4] 2026-11-12
 
 * Fix - Avoided a fatal error when a database table prefix of 31 or more characters pushed the migrations table name past MySQL's 64-character limit, added an admin notice explaining how to shorten the prefix, and stopped the Shepherd tables error notice from causing an error when displayed.
 * Fix - Changed the System Information copy button on the Troubleshooting page to copy plain text, so pasted system details take the destination's text color instead of arriving as invisible white text.
