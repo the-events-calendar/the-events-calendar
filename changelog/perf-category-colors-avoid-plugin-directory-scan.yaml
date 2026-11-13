@@ -1,0 +1,4 @@
+significance: patch
+type: performance
+entry: Stopped the Category Colors feature from scanning every installed plugin's files on every request to look for the retired standalone Category Colors plugin.
+timestamp: 2026-10-25T20:33:11.000Z
