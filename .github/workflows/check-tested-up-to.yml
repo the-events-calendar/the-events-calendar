@@ -1,0 +1,42 @@
+name: Check tested up to
+
+# ------------------------------------------------------------------------------
+# The header goes stale with the passage of time rather than when readme.txt is
+# edited, so there is deliberately no paths filter here: a release pull request
+# that touches nothing else is exactly the one this has to catch.
+#
+# The logic lives in bin/check-tested-up-to.php. It is run here as a plain script so
+# the gate needs no .puprc entry; registering it there as a simple check additionally
+# puts it in front of a production zip build, through `pup check` in zip.yml.
+# ------------------------------------------------------------------------------
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - 'release/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check-tested-up-to:
+    name: Check tested up to
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    steps:
+      # The check runs from the pull request itself, so it gets no credentials and
+      # nothing is written into .git/config.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      # The runner image ships php, and the check reads readme.txt and one API. No
+      # composer install, no pup phar download, nothing else to go wrong on a red PR.
+      - name: Check the "Tested up to" header
+        run: php bin/check-tested-up-to.php

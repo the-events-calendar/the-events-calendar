@@ -1,0 +1,38 @@
+# Prepares a release of The Events Calendar on WordPress.org SVN: creates
+# tags/<version> from a built ZIP without moving the stable pointer. QA the tag, then run
+# "Release: WordPress.org SVN publish" with the version and revision this run
+# reports. Order and recovery:
+# https://github.com/stellarwp/plugin-toolbox/blob/d78cfb491a1c279898a089396648b972064c49b3/.github/actions/wporg-svn/README.md
+name: "Release: WordPress.org SVN tag"
+
+on:
+  workflow_dispatch:
+    inputs:
+      zip-url:
+        description: HTTPS URL of the production ZIP built by "Generate Zip"
+        required: true
+
+# Shared with the publish workflow: one SVN write at a time. This lock only
+# covers workflows in this repository: release The Events Calendar from here only.
+concurrency:
+  group: wporg-the-events-calendar
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  tag:
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    # Holds the WPORG credentials, limited to main. Its reviewers decide who may
+    # create a tag, since anyone with write access can dispatch this workflow.
+    environment: wordpress-org
+    steps:
+      - name: Install Subversion
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends subversion
+      - uses: stellarwp/plugin-toolbox/.github/actions/wporg-svn/tag@d78cfb491a1c279898a089396648b972064c49b3
+        with:
+          plugin-slug: the-events-calendar
+          zip-url: ${{ inputs.zip-url }}
+          wporg-username: ${{ vars.WPORG_USERNAME }}
+          wporg-password: ${{ secrets.WPORG_PASSWORD }}
