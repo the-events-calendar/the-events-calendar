@@ -16,6 +16,14 @@ Complete documentation for the new TEC REST API.
   - Type-safe parameters
   - ORM integration
 
+### 2. RBAC (roles & capabilities)
+
+Who can do what in The Events Calendar, and where that is decided in code.
+
+- **Location**: [RBAC/](RBAC/)
+- **Overview**: Role-to-capability model, bootstrap timing, REST and Event Aggregator access rules, with Mermaid diagrams
+- **HTML view**: [RBAC/index.html](RBAC/index.html) renders the same document standalone (open it from disk)
+
 ## Future Documentation
 
 Additional features will be documented here as needed, including:
