@@ -8,7 +8,8 @@
  * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
 
-var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
+// The bundle wraps this file in a module scope, where a bare self-reference would read this local, not the localized global.
+var tribe_events_customizer_live_preview_js_config = window.tribe_events_customizer_live_preview_js_config || {};
 
 ( function ( $, api, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
@@ -85,8 +86,6 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 			'--tec-color-accent-primary-multiday-hover',
 			'--tec-color-accent-primary-active',
 			'--tec-color-accent-primary-background',
-			'--tec-color-background-secondary-datepicker',
-			'--tec-color-accent-primary-background-datepicker',
 			'--tec-color-button-primary',
 			'--tec-color-button-primary-hover',
 			'--tec-color-button-primary-active',
@@ -292,10 +291,27 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 					} );
 				}
 
+				const rgbString = obj.hexToRGBString( accentColor );
+
+				if ( accentColor ) {
+					// The datepicker's current cell draws accent text on this: it must stay a tint.
+					tribeElement.style.setProperty(
+						'--tec-color-accent-primary-background-datepicker',
+						'rgba(' + rgbString + ', 0.07)'
+					);
+
+					tribeElement.style.setProperty(
+						'--tec-color-background-secondary-datepicker',
+						'rgba(' + rgbString + ', 0.5)'
+					);
+				} else {
+					tribeElement.style.removeProperty( '--tec-color-accent-primary-background-datepicker' );
+					tribeElement.style.removeProperty( '--tec-color-background-secondary-datepicker' );
+				}
+
 				// Multiday Event Span?
 				/* eslint-disable-next-line max-len */
 				const monthMultidayEventBarChoice = api( obj.selectors.monthMultidayEventBarChoice ).get();
-				const rgbString = obj.hexToRGBString( accentColor );
 				if ( 'default' === monthMultidayEventBarChoice ) {
 					tribeElement.style.setProperty(
 						'--tec-color-background-primary-multiday',

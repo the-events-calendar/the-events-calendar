@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "6.18.4",
+  "version": "6.18.5",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -49,6 +49,9 @@
     "jest": [
       "src/modules/**/__tests__/**/*.js",
       "src/resources/packages/**/__tests__/**/*.js",
+      "src/resources/js/views/__tests__/**/*.js",
+      "src/admin-views/__tests__/**/*.js",
+      "src/resources/postcss/__tests__/**/*.js",
       "!src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
     ]
   },

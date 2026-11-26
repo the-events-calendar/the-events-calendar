@@ -1,5 +1,7 @@
 <?php
 
+use TEC\Events\Linked_Posts\Existing_Match;
+
 class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	const POSTTYPE = 'tribe_organizer';
 
@@ -319,6 +321,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @since 4.2
 	 * @since 6.18.4.1 An existing organizer is only updated when the current user can edit it.
+	 * @since 6.18.5 A typed name links to an existing organizer when its email and website do not conflict, and never changes that organizer.
 	 *
 	 * @param int|null $id ID of event organizer
 	 * @param array $data The organizer data
@@ -341,6 +344,12 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 			$this->update( $data['OrganizerID'], $data );
 
 			return $data['OrganizerID'];
+		}
+
+		$existing_id = is_array( $data ) ? tribe( Existing_Match::class )->find_organizer( $data ) : 0;
+
+		if ( $existing_id ) {
+			return $existing_id;
 		}
 
 		return $this->create( $data, $post_status );

@@ -147,9 +147,34 @@ tribe.events.views.manager = {};
   };
 
   /**
+   * Whether an element is a view container the plugin rendered.
+   *
+   * Every view template prints its data in a script tag inside its own container, so an element
+   * without one, or one that only wraps a rendered view, is not a view container.
+   *
+   * @since 6.18.5
+   *
+   * @param {Element|jQuery} container Element to check.
+   *
+   * @return {boolean} Whether the element is a container the plugin rendered.
+   */
+  obj.isViewContainer = function(container) {
+    var element = $(container).get(0);
+
+    return (
+      $(container)
+        .find("script" + obj.selectors.dataScript)
+        .filter(function(index, script) {
+          return $(script).closest(obj.selectors.container).get(0) === element;
+        }).length > 0
+    );
+  };
+
+  /**
    * Setup the container for views management
    *
    * @since 4.9.2
+   * @since 6.18.5 Skips elements that are not a view container the plugin rendered.
    *
    * @todo  Requirement to setup other JS modules after hijacking Click and Submit
    *
@@ -159,6 +184,10 @@ tribe.events.views.manager = {};
    * @return {void}
    */
   obj.setup = function(index, container) {
+    if (!obj.isViewContainer(container)) {
+      return;
+    }
+
     // Get any potential nonces from page load.
     var $nonces = $($.find(obj.selectors.nonceScript));
     var $container = $(container);
@@ -796,11 +825,14 @@ tribe.events.views.manager = {};
    * Saves all the containers in the page into the object.
    *
    * @since  4.9.12
+   * @since 6.18.5 Selects only the view containers the plugin rendered.
    *
    * @return {jQuery} Which containers were selected.
    */
   obj.selectContainers = function() {
-    obj.$containers = $(obj.selectors.container);
+    obj.$containers = $(obj.selectors.container).filter(function(index, container) {
+      return obj.isViewContainer(container);
+    });
     return obj.$containers;
   };
 

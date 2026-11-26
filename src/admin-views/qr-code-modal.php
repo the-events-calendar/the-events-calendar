@@ -64,8 +64,10 @@ jQuery(document).ready(function($) {
 	$('#tec-events-qr-code-size').on('change', function(e) {
 		$('.js-tec-download-qr-code').attr('href', $(this).val());
 	});
-	$(window).resize(function() {
-		responsiveModal();
+	$(window).on('resize', responsiveModal);
+	// The resize handler would otherwise outlive the modal and stretch the next Thickbox opened on the page.
+	$('#TB_window').one('tb_unload', function() {
+		$(window).off('resize', responsiveModal);
 	});
 	responsiveModal();
 });

@@ -735,6 +735,31 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should not let a user that cannot publish create an event with an aggregator status
+	 *
+	 * @test
+	 * @example ["tribe-ea-success"]
+	 * @example ["tribe-ea-failed"]
+	 * @example ["tribe-ea-schedule"]
+	 * @example ["tribe-ea-pending"]
+	 * @example ["tribe-ea-draft"]
+	 */
+	public function it_should_not_let_a_user_that_cannot_publish_create_an_event_with_an_aggregator_status( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( 'contributor' );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'status'      => $data[0],
+		] );
+
+		$I->seeResponseCodeIs( 400 );
+		$I->dontSeePostInDatabase( [ 'post_type' => 'tribe_events' ] );
+	}
+
+	/**
 	 * It should allow a user that can publish to set status to publish
 	 *
 	 * @test

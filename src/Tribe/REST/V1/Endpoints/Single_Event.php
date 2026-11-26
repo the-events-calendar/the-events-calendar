@@ -137,6 +137,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 * GET request via API.
 	 *
 	 * @since 6.17.2
+	 * @since 6.18.5 Builds the data of a password-protected event as unlocked once the request passed the password check.
 	 *
 	 * @param WP_REST_Request $request The REST request object.
 	 *
@@ -159,7 +160,22 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return $accessible;
 		}
 
-		$data = $this->post_repository->get_event_data( $event_id, 'single' );
+		/*
+		 * The request passed the password check above, possibly through the `password` parameter rather than the
+		 * cookie, so filters on the event data must see the event as unlocked. Only this event: linked venues and
+		 * organizers keep their own password check.
+		 */
+		$unlock = static function ( $required, $post ) use ( $event ) {
+			return $post instanceof WP_Post && $post->ID === $event->ID ? false : $required;
+		};
+
+		add_filter( 'post_password_required', $unlock, 10, 2 );
+
+		try {
+			$data = $this->post_repository->get_event_data( $event_id, 'single' );
+		} finally {
+			remove_filter( 'post_password_required', $unlock );
+		}
 
 		/**
 		 * Filters the data that will be returned for a single event request.
@@ -354,7 +370,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			],
 			'status'             => [
 				'required'          => false,
-				'validate_callback' => [ $this->validator, 'is_post_status' ],
+				// Other registered statuses, like the Event Aggregator record ones, are not event statuses.
+				'validate_callback' => 'rest_validate_request_arg',
+				'enum'              => [ 'publish', 'future', 'draft', 'pending', 'private', 'trash' ],
 				'type'              => 'string',
 				'description'       => __( 'The event post status', 'the-events-calendar' ),
 			],
@@ -707,6 +725,14 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			$event_end_date = $end_date_obj->format( 'Y-m-d' );
 			$event_end_time = $end_date_obj->format( 'H:i:s' );
 		}
+
+		/*
+		 * Only an update route carries the ID in its URL. On create, `id` can still arrive in the body,
+		 * and must not be used to pick up another post's status.
+		 */
+		$post_id     = isset( $request->get_url_params()['id'] ) ? $request['id'] : null;
+		$post_status = $this->scale_back_post_status_for( $request['status'], Tribe__Events__Main::POSTTYPE, $post_id );
+
 		$postarr = [
 			// Post fields
 			'post_author'           => $this->scale_back_author( $request['author'], Tribe__Events__Main::POSTTYPE ),
@@ -716,7 +742,8 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			'post_name'             => $request['slug'],
 			'post_content'          => $request['description'],
 			'post_excerpt'          => $request['excerpt'],
-			'post_status'           => $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE ),
+			// An empty status keeps the updated event's current one, so it is left out of the update.
+			'post_status'           => $post_status ?: null,
 			// Event data
 			'EventTimezone'         => $request['timezone'],
 			'EventAllDay'           => isset( $request['all_day'] ) ? tribe_is_truthy( $request['all_day'] ) : null,

@@ -4,7 +4,7 @@
   test_postmeta.meta_key = \'_EventStartDate\' 
   AND 
   ( mt1.meta_key = \'_EventEndDate\' AND CAST(mt1.meta_value AS DATETIME) >= \'2022-09-28 13:00:00\' )
-) AND ((test_posts.post_type = \'tribe_events\' AND (test_posts.post_status = \'publish\' OR test_posts.post_status = \'tribe-ea-success\' OR test_posts.post_status = \'tribe-ea-failed\' OR test_posts.post_status = \'tribe-ea-schedule\' OR test_posts.post_status = \'tribe-ea-pending\' OR test_posts.post_status = \'tribe-ea-draft\')))
+) AND ((test_posts.post_type = \'tribe_events\' AND (test_posts.post_status = \'publish\')))
 					 GROUP BY test_posts.ID
 					 ORDER BY CAST(test_postmeta.meta_value AS CHAR) ASC, test_posts.post_date ASC
 					 LIMIT 0, 10';

@@ -368,6 +368,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 	 * Please note: the order is important for proper cascading overrides!
 	 *
 	 * @since 5.3.1
+	 * @since 6.18.5 The datepicker's current cell background uses the accent tint instead of the solid accent.
 	 *
 	 * @param string                      $css_template The current CSS template, as produced by the Section.
 	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
@@ -479,7 +480,7 @@ final class Global_Elements extends \Tribe__Customizer__Section {
 			$new_styles[] = "--tec-color-accent-primary-active: rgba({$accent_color_rgb},0.9);";
 			$new_styles[] = "--tec-color-accent-primary-background: rgba({$accent_color_rgb},0.07);";
 			$new_styles[] = "--tec-color-background-secondary-datepicker: rgba({$accent_color_rgb},0.5);";
-			$new_styles[] = "--tec-color-accent-primary-background-datepicker: {$accent_color};";
+			$new_styles[] = "--tec-color-accent-primary-background-datepicker: rgba({$accent_color_rgb},0.07);";
 			$new_styles[] = "--tec-color-button-primary: {$accent_color};";
 			$new_styles[] = "--tec-color-button-primary-hover: rgba({$accent_color_rgb},0.8);";
 			$new_styles[] = "--tec-color-button-primary-active: rgba({$accent_color_rgb},0.9);";

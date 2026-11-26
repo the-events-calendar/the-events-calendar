@@ -258,9 +258,33 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
+	 * Gets the tooltip content element a trigger points to.
+	 *
+	 * The trigger's `data-tooltip-content` attribute is read only as an element ID inside the view,
+	 * never passed to jQuery as a free-form string.
+	 *
+	 * @since 6.18.5
+	 *
+	 * @param {jQuery} $container jQuery object of view container.
+	 * @param {jQuery} $trigger   jQuery object of the tooltip trigger.
+	 *
+	 * @return {jQuery} The content element inside the view container, or an empty set.
+	 */
+	obj.getTooltipContent = function ( $container, $trigger ) {
+		const selector = $trigger.attr( 'data-tooltip-content' );
+
+		if ( 'string' !== typeof selector || ! /^#[A-Za-z0-9_-]+$/.test( selector ) ) {
+			return $();
+		}
+
+		return $container.find( selector ).first();
+	};
+
+	/**
 	 * Deinitialize accessible tooltips via tooltipster
 	 *
 	 * @since 4.9.10
+	 * @since 6.18.5 Skips triggers that were not initialized.
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -268,7 +292,13 @@ tribe.events.views.tooltip = {};
 	 */
 	obj.deinitTooltips = function ( $container ) {
 		$container.find( obj.selectors.tooltipTrigger ).each( function ( index, trigger ) {
-			$( trigger ).off().tooltipster( 'instance' ).off();
+			const $trigger = $( trigger );
+
+			if ( ! $trigger.hasClass( 'tooltipstered' ) ) {
+				return;
+			}
+
+			$trigger.off().tooltipster( 'instance' ).off();
 		} );
 	};
 
@@ -276,6 +306,7 @@ tribe.events.views.tooltip = {};
 	 * Initialize accessible tooltips via tooltipster
 	 *
 	 * @since 4.9.10
+	 * @since 6.18.5 Passes the content element explicitly and skips triggers without one in the view.
 	 *
 	 * @param {jQuery} $container jQuery object of view container.
 	 *
@@ -285,7 +316,15 @@ tribe.events.views.tooltip = {};
 		const theme = $container.data( 'tribeEventsTooltipTheme' );
 
 		$container.find( obj.selectors.tooltipTrigger ).each( function ( index, trigger ) {
-			$( trigger ).tooltipster( {
+			const $trigger = $( trigger );
+			const $content = obj.getTooltipContent( $container, $trigger );
+
+			if ( ! $content.length ) {
+				return;
+			}
+
+			$trigger.tooltipster( {
+				content: $content,
 				animationDuration: 0,
 				interactive: true,
 				delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],

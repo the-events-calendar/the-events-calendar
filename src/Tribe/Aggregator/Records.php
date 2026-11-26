@@ -212,6 +212,13 @@ class Tribe__Events__Aggregator__Records {
 			return $registered_by_name->{ $status };
 		}
 
+		/*
+		 * The statuses only apply to records, so they are not public: an event or any other post given one
+		 * is not visible to visitors. They are internal, so the core REST API does not offer them for other
+		 * post types. They stay out of `exclude_from_search`, as record lookups by `any` status must still
+		 * find them.
+		 */
+
 		// Register the Success post status.
 		$args   = [
 			'label'               => esc_html_x( 'Imported', 'event aggregator status', 'the-events-calendar' ),
@@ -222,7 +229,8 @@ class Tribe__Events__Aggregator__Records {
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'              => true,
+			'public'              => false,
+			'internal'            => true,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => false,
 		];
@@ -239,7 +247,8 @@ class Tribe__Events__Aggregator__Records {
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'              => true,
+			'public'              => false,
+			'internal'            => true,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => false,
 		];
@@ -256,7 +265,8 @@ class Tribe__Events__Aggregator__Records {
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'              => true,
+			'public'              => false,
+			'internal'            => true,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => false,
 		];
@@ -273,7 +283,8 @@ class Tribe__Events__Aggregator__Records {
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'              => true,
+			'public'              => false,
+			'internal'            => true,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => false,
 		];
@@ -290,7 +301,8 @@ class Tribe__Events__Aggregator__Records {
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'              => true,
+			'public'              => false,
+			'internal'            => true,
 			'publicly_queryable'  => false,
 			'exclude_from_search' => false,
 		];

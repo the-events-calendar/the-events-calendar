@@ -90,7 +90,8 @@
 }
 
 .post-type-tribe_events, .post-type-tribe_event_series {
-	#TB_window {
+	/* Only inline-content modals like this one: iframe modals such as Move Ticket size themselves. */
+	#TB_window:has(#TB_ajaxContent) {
 		top: 50% !important;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -110,7 +111,7 @@
 
 	&.post-php {
 		@media (--viewport-xsmall) {
-			#TB_window {
+			#TB_window:has(#TB_ajaxContent) {
 				max-height: 330px;
 			}
 		}

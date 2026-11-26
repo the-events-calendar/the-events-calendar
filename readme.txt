@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, nexcess, bordoni, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo, larodiel, leahkoerper, sdokus, vicskf
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.18.4.1
+Stable tag: 6.18.5
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -238,6 +238,20 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.18.5] 2026-11-25 =
+
+* Fix - Corrected the domain sent with license validation and plugin download requests on multisite networks whose network site address was saved without http:// or https://, so licenses validate instead of failing with "missing a valid domain".
+* Fix - Kept the Event Date Time panel open when navigating months in a recurrence date picker in the block editor, so the calendar no longer closed the panel or jumped to the corner of the screen.
+* Fix - Kept the QR Code modal's sizing from shrinking other dialogs on the event and series edit screens, so the Move Ticket dialog opens full size with its Finish button in view.
+* Fix - Restored the readable label on today's date, the current month and the current year in the views' date picker when a Customizer accent color is set, and made the Customizer live preview apply style changes again.
+* Fix - Restored the Support Access grant on the Help page, which failed with "Encryption key could not be fetched" because the vendor public key was requested from an address that had started redirecting to another site.
+* Fix - Stopped event forms from creating a duplicate organizer when an existing organizer's name was typed instead of selected.
+* Fix - Stopped event forms from erasing or replacing an existing venue's address and phone when its name was typed instead of selected.
+* Fix - Treated a password-protected event as unlocked while the REST API single event endpoint builds its data for a request that sent the right password, so add-ons no longer hide content from it.
+* Security - Added additional protection when saving events through the REST API. Props to HyeonGyun Yim for reporting.
+* Security - Limited the calendar view scripts to the calendars The Events Calendar rendered and to the tooltip content those calendars printed. Props to Santh for reporting.
+* Language - 0 new strings added, 79 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.18.4.1] 2026-11-19 =
 

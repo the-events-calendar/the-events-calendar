@@ -1531,4 +1531,56 @@ class EventUpdateCest extends BaseRestCest {
 		$I->assertCount( 2, $response['tags'] );
 		$I->assertEquals( $tag_1_id, $response['tags'][0]['id'] );
 	}
+
+	/**
+	 * It should not let a user that cannot publish move their pending event to an aggregator status
+	 *
+	 * @test
+	 * @example ["tribe-ea-success"]
+	 * @example ["tribe-ea-failed"]
+	 * @example ["tribe-ea-schedule"]
+	 * @example ["tribe-ea-pending"]
+	 * @example ["tribe-ea-draft"]
+	 */
+	public function it_should_not_let_a_user_that_cannot_publish_move_their_pending_event_to_an_aggregator_status( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( 'contributor' );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'status'      => 'publish',
+		] );
+
+		$I->seeResponseCodeIs( 201 );
+		$event_id = json_decode( $I->grabResponse(), true )['id'];
+		$I->seePostInDatabase( [ 'ID' => $event_id, 'post_status' => 'pending' ] );
+
+		$I->sendPUT( $this->events_url . "/{$event_id}", [
+			'description' => 'An updated event content',
+			'status'      => $data[0],
+		] );
+
+		$I->seeResponseCodeIs( 400 );
+		$I->seePostInDatabase( [ 'ID' => $event_id, 'post_status' => 'pending' ] );
+		$this->dont_see_event_publicly( $I, $event_id );
+	}
+
+	/**
+	 * It should keep the event status when an update does not send one
+	 *
+	 * @test
+	 * @example ["administrator", "draft"]
+	 * @example ["contributor", "pending"]
+	 */
+	public function it_should_keep_the_event_status_when_an_update_does_not_send_one( Tester $I, \Codeception\Example $data ) {
+		$I->generate_nonce_for_role( $data[0] );
+		$event_id = $I->haveEventInDatabase( [ 'post_author' => get_current_user_id(), 'post_status' => $data[1] ] );
+
+		$I->sendPUT( $this->events_url . "/{$event_id}", [ 'description' => 'An updated event content' ] );
+
+		$I->seeResponseCodeIs( 200 );
+		$I->seePostInDatabase( [ 'ID' => $event_id, 'post_status' => $data[1] ] );
+	}
 }

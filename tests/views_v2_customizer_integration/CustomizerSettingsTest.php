@@ -101,4 +101,28 @@ class CustomizerSettingsTest extends \Codeception\TestCase\WPTestCase {
 
 		update_option( 'tribe_customizer', '' );
 	}
+
+	/**
+	 * The datepicker's current day, month and year cells draw accent text on this background,
+	 * so it has to be the accent tint: the solid accent leaves the label invisible.
+	 *
+	 * @test
+	 */
+	public function it_should_tint_the_datepicker_current_cell_background_with_the_accent_color() {
+		$accent_color = '#bf030e';
+		[ $red, $green, $blue ] = sscanf( $accent_color, '#%02x%02x%02x' );
+		$expected = "--tec-color-accent-primary-background-datepicker: rgba({$red},{$green},{$blue},0.07);";
+
+		update_option( 'tribe_customizer', [ 'global_elements' => [ 'accent_color' => $accent_color ] ], true );
+
+		$css_template = tribe( 'customizer' )->get_styles_scripts();
+
+		update_option( 'tribe_customizer', '' );
+
+		$this->assertStringContainsString( $expected, $css_template );
+		$this->assertStringNotContainsString(
+			"--tec-color-accent-primary-background-datepicker: {$accent_color};",
+			$css_template
+		);
+	}
 }

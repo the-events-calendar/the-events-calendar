@@ -64,4 +64,17 @@ class BaseRestCest {
 		$this->documentation_url = $this->rest_url . 'doc';
 		wp_cache_flush();
 	}
+
+	/**
+	 * Asserts an anonymous visitor cannot open the event's single page.
+	 *
+	 * @param Restv1Tester $I        The tester.
+	 * @param int          $event_id The event post ID.
+	 */
+	protected function dont_see_event_publicly( Restv1Tester $I, $event_id ) {
+		$I->deleteHeader( 'X-WP-Nonce' );
+		$I->resetCookie( LOGGED_IN_COOKIE );
+		$I->sendGET( $this->site_url . '/?post_type=tribe_events&p=' . $event_id );
+		$I->seeResponseCodeIs( 404 );
+	}
 }

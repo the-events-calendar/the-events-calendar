@@ -197,6 +197,64 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 
 	/**
 	 * @test
+	 */
+	public function it_should_build_the_data_of_a_password_protected_event_as_unlocked_when_the_request_has_the_password() {
+		$event_id = $this->factory()->event->create( [ 'post_password' => 'test-password' ] );
+		wp_set_current_user( 0 );
+
+		$required_while_building = null;
+		add_filter(
+			'tribe_rest_event_data',
+			static function ( $data, $event ) use ( &$required_while_building ) {
+				$required_while_building = post_password_required( $event );
+
+				return $data;
+			},
+			10,
+			2
+		);
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+		$request->set_param( 'password', 'test-password' );
+
+		$response = $this->make_instance()->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertFalse( $required_while_building, 'Filters on the event data still see the event as locked.' );
+		$this->assertTrue( post_password_required( $event_id ), 'The password check override leaked out of the REST read.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_a_linked_venue_protected_by_another_password_locked_when_the_request_has_the_event_password() {
+		$venue_id = $this->factory()->venue->create(
+			[
+				'post_content'  => 'venue-secret-content',
+				'post_password' => 'venue-password',
+			]
+		);
+		$event_id = $this->factory()->event->create(
+			[
+				'post_password' => 'test-password',
+				'venue'         => $venue_id,
+			]
+		);
+		wp_set_current_user( 0 );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $event_id );
+		$request->set_param( 'password', 'test-password' );
+
+		$response = $this->make_instance()->get( $request );
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertStringNotContainsString( 'venue-secret-content', wp_json_encode( $response->get_data() ) );
+	}
+
+	/**
+	 * @test
 	 * it should return 403 with event-not-accessible for private event
 	 */
 	public function it_should_return_403_with_event_not_accessible_for_private_event() {

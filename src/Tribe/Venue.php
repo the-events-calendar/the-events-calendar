@@ -7,6 +7,8 @@
  *
  */
 
+use TEC\Events\Linked_Posts\Existing_Match;
+
  /**
 	* Class Tribe__Events__Venue
   */
@@ -401,6 +403,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base { // phpcs:
 	 *
 	 * @since 4.2
 	 * @since 6.18.4.1 An existing venue is only updated when the current user can edit it.
+	 * @since 6.18.5 A typed name links to an existing venue only when its address does not conflict, and never changes that venue.
 	 *
 	 * @param int|null $id          ID of event venue
 	 * @param array    $data        The venue data.
@@ -435,9 +438,15 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base { // phpcs:
 		}
 
 		// Check the option for whether duplicate venues are allowed.
-		$avoid_duplicates = ! tribe_get_option( 'allow_duplicate_venues', false );
+		if ( is_array( $data ) && ! tribe_get_option( 'allow_duplicate_venues', false ) ) {
+			$existing_id = tribe( Existing_Match::class )->find_venue( $data );
 
-		return $this->create( $data, $post_status, $avoid_duplicates );
+			if ( $existing_id ) {
+				return $existing_id;
+			}
+		}
+
+		return $this->create( $data, $post_status );
 	}
 
 	/**
