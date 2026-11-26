@@ -1,3 +1,9 @@
+> [!NOTE]
+> This repository is a mirror: its code is developed in the team's monorepo and copied here
+> automatically, so pull requests are not merged here. The team reviews yours and, if it is
+> accepted, it is ported to the monorepo, arrives here with the next sync, and this pull request
+> is closed. Thank you for contributing!
+
 ### 🎫 Ticket
 
 [TICKET_ID]
@@ -7,8 +13,8 @@
 
 [CHANGE_ID]
 <!--
-The OpenSpec change this PR implements, from the shared tec-plans store — normally the ticket ID.
-Don't have one yet? `openspec new change <TICKET-ID> --store tec-plans`
+The OpenSpec change this PR implements, from the shared tec-plans store — normally the ticket ID, in lower case.
+Don't have one yet? `openspec new change soft-1234 --store tec-plans`, with your ticket ID in lower case.
 More: https://github.com/the-events-calendar/plans
 -->
 

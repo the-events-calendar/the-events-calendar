@@ -1,301 +1,142 @@
-name: "Release on GH"
+name: "Release receiver"
 
-# Merges a release and publishes it on GitHub: the release branch into main, then the GitHub release
-# for the version at the merged commit, with the production zip attached and the version's
-# readme.txt changelog as the notes. Nothing is merged back into develop: we work with release
-# branches. Set develop-branch on the merge step for a repository that keeps one. Run it on the
-# release branch: with its pull request approved it releases straight away, otherwise it waits for a
-# reviewer of the github-release environment.
+# The only workflow a plugin's public repository (a mirror of the TEC plugins monorepo) keeps.
+# The monorepo's Release on GH dispatches it after merging, tagging and syncing a release: it
+# publishes the GitHub release here, tagged with the bare version, at the mirror commit holding the
+# released code, with the changelog and the production zip.
 #
-# The branch arrives prepared: the version names the tag and the title, and no file is checked
-# against it. The merge is ours (.github/actions/release-merge); publishing is the toolbox's,
-# through our wrapper in .github/actions, which pins it to a commit.
+# Installed at cutover as .github/workflows/release.yml in every mirror, replacing its other
+# workflows; the sync keeps a mirror's own workflows, so it stays the only one. Its source is
+# tools/mirror/release.yml in the monorepo, next to the mirror's pull request template.
+
+run-name: "Release ${{ inputs.version }} (${{ inputs.request-id }})"
 
 on:
   workflow_dispatch:
     inputs:
-      type:
-        description: 'Release type, used in the title: "<type> Release <version>"'
-        required: true
-        type: choice
-        options:
-          - Maintenance
-          - Feature
-          - Security
-          - Hotfix
       version:
-        description: 'Version to release, e.g. 6.18.3 or 6.18.2.1'
+        description: Version to release, e.g. 6.19.0 or 6.18.3.1
         required: true
         type: string
-      branch:
-        description: 'Release branch to merge, e.g. release/T24.centaur. The run has to be on it'
+      target:
+        description: Full hash of the mirror commit to release
         required: true
         type: string
-      zip-url:
-        description: 'HTTPS link to the production zip of this version. Empty publishes without a zip'
+      title:
+        description: Release title
+        required: true
+        type: string
+      notes:
+        description: Release notes, the version's changelog
         required: false
         type: string
-
-# One release at a time for the whole repository: two with the same version would otherwise merge
-# side by side. A cancelled run is started again.
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
+      zip-url:
+        description: HTTPS link to the production zip. Empty releases without a zip
+        required: false
+        type: string
+      zip-name:
+        description: The asset's name before the version, the plugin's .puprc zip_name (events-calendar-pro for events-pro). Empty uses the repository name
+        required: false
+        type: string
+      request-id:
+        description: The dispatching run's id, so it can find this run
+        required: true
+        type: string
 
 permissions:
   contents: read
 
+# One publication at a time across versions: two runs that both read the same Latest release would
+# each mark theirs Latest, and the one finishing last would win. queue: max keeps every pending run.
+concurrency:
+  group: release-publish
+  cancel-in-progress: false
+  queue: max
+
 jobs:
-  # Decides how the run is approved. The bot token bypasses main's review rule and anyone with write
-  # access can dispatch this workflow, so a release needs one of two approvals: the release pull
-  # request approved at the very commit the run started on, or, without that, a reviewer of the
-  # github-release environment approving the run, as the WordPress.org workflows do.
-  check:
+  publish:
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    permissions:
-      contents: read
-      # Read the release pull request's reviews.
-      pull-requests: read
-    outputs:
-      approved: ${{ steps.approval.outputs.approved }}
+    timeout-minutes: 15
     steps:
-      # A failing step, not an `if:`: a skipped job reads as a success to whoever dispatched it.
-      - name: Check that the run is on the release branch it merges
+      # Anyone with write access could dispatch this; only the monorepo's bot may.
+      - name: Check the request
         env:
-          BRANCH: ${{ inputs.branch }}
-          VERSION: ${{ inputs.version }}
-        run: |
-          if [ "$BRANCH" != "$GITHUB_REF_NAME" ]; then
-            echo "::error::This run is on '$GITHUB_REF_NAME' but was asked to release '$BRANCH'. Start it on the release branch."
-            exit 1
-          fi
-
-          # The bot token bypasses the branch rules: any other branch would reach main unreviewed.
-          case "$BRANCH" in
-            release/*) ;;
-            *)
-              echo "::error::'$BRANCH' is not a release branch. Only release/* branches are merged."
-              exit 1
-              ;;
-          esac
-
-          # Checked here, not only by the toolbox: the steps before the merge read it too.
-          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
-            echo "::error::'$VERSION' is not a version: three or four numeric parts, e.g. 6.18.3 or 6.18.2.1."
-            exit 1
-          fi
-
-      # main's rules keep an approval after a push, so the pull request's review state alone could be
-      # an approval of an earlier commit: the approval has to be of this one. A merged pull request
-      # counts, so a run repeated after a late failure passes. No approval is not a failure: the run
-      # then waits for an environment reviewer.
-      - name: Check whether the release pull request is approved at this commit
-        id: approval
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ inputs.branch }}
-          BASE: main
-          SHA: ${{ github.sha }}
           ACTOR: ${{ github.actor }}
-          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
-        run: |
-          set -euo pipefail
-
-          pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base "$BASE" --state all \
-            --json number,state,headRefOid,isCrossRepository \
-            | jq -r --arg sha "$SHA" '[.[] | select(.isCrossRepository | not) | select(.state == "OPEN" or .state == "MERGED")
-              | select(.headRefOid == $sha) | .number] | first // empty')
-
-          approvers=""
-          if [ -n "$pr" ]; then
-            # Nobody approves their own release: not whoever starts the run, nor whoever wrote or
-            # committed the commit it releases. They wait for an environment reviewer instead.
-            self=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${SHA}" \
-              | jq -c --arg a "$ACTOR" --arg t "$TRIGGERING_ACTOR" '[$a, $t, .author.login?, .committer.login?] | map(select(. != null and . != ""))')
-
-            # Each reviewer's latest approving or blocking review, as GitHub counts them, from people
-            # with write access: on a public repository anyone can review. The reviews'
-            # author_association can't tell: it shows a private org member as a CONTRIBUTOR.
-            reviews=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/${pr}/reviews" \
-              | jq -s 'add | map(select(.state != "COMMENTED" and .state != "PENDING" and .user.type != "Bot"))
-                | group_by(.user.id) | map(last)')
-            writers=()
-            for login in $(jq -r '.[].user.login' <<< "$reviews"); do
-              permission=$(gh api "repos/${GITHUB_REPOSITORY}/collaborators/${login}/permission" --jq .permission 2>/dev/null || echo none)
-              if [ "$permission" = admin ] || [ "$permission" = write ]; then
-                writers+=("$login")
-              fi
-            done
-            writers_json=$(printf '%s\n' "${writers[@]}" | jq -Rnc '[inputs | select(. != "")]')
-
-            # A change requested by a writer counts as no approval.
-            approvers=$(jq -r --arg sha "$SHA" --argjson self "$self" --argjson writers "$writers_json" '
-              map(select(.user.login | IN($writers[])))
-              | if any(.state == "CHANGES_REQUESTED") then ""
-                else map(select(.state == "APPROVED" and .commit_id == $sha and (.user.login | IN($self[]) | not)))
-                  | map(.user.login) | join(", ") end' <<< "$reviews")
-          fi
-
-          if [ -n "$approvers" ]; then
-            echo "#${pr} approved at ${SHA} by ${approvers}: releasing without waiting."
-            echo "approved=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "::notice::No approved release pull request at ${SHA}: the run waits for a reviewer of the github-release environment."
-            echo "approved=false" >> "$GITHUB_OUTPUT"
-          fi
-
-  release:
-    needs: check
-    runs-on: blacksmith-4vcpu-ubuntu-2404
-    permissions:
-      contents: read
-      # Read the environment's protection rules.
-      actions: read
-    # Without an approved pull request the job waits here for a reviewer of the environment, like
-    # the WordPress.org workflows. Empty runs it in no environment.
-    environment: ${{ needs.check.outputs.approved != 'true' && 'github-release' || '' }}
-    steps:
-      # A job naming an environment the repository lacks gets one created on the fly, with no
-      # reviewers, and runs straight through. Refuse that rather than merge with nobody's approval.
-      - name: Check that the environment has reviewers
-        if: needs.check.outputs.approved != 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ENVIRONMENT: github-release
-        run: |
-          set -euo pipefail
-
-          if ! gh api "repos/${GITHUB_REPOSITORY}/environments/${ENVIRONMENT}" \
-            --jq '.protection_rules | any(.type == "required_reviewers")' | grep -qx true; then
-            echo "::error::No approved release pull request, and the ${ENVIRONMENT} environment has no required reviewers, so nobody approved this run. Get the pull request approved, or add reviewers to the environment, then start the run again."
-            exit 1
-          fi
-
-      - name: Check that main has nothing the branch lacks
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ inputs.branch }}
-          BASE: main
-          SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-
-          # Every commit on main has to be in the branch already: otherwise the merge commit, which is
-          # what gets tagged, holds code the zip, built from the branch, does not. "behind" is a
-          # repeated run, where the branch is already in main.
-          status=$(gh api "repos/${GITHUB_REPOSITORY}/compare/${BASE}...${SHA}" --jq .status)
-          if [ "$status" = "diverged" ]; then
-            echo "::error::$BASE has commits $BRANCH does not. Merge $BASE into $BRANCH, rebuild the zip, and start the run again."
-            exit 1
-          fi
-
-      # The changelog and the zip are checked before the merge, so a mistake stops the run before
-      # main is touched. github.sha is the commit release-merge refuses to merge past.
-      - name: Checkout the release branch at the commit the run started on
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ github.sha }}
-          persist-credentials: false
-
-      - name: Read the title, zip name and changelog
-        id: prep
-        env:
-          TYPE: ${{ inputs.type }}
+          BOT: ${{ vars.RELEASE_BOT_LOGIN }}
           VERSION: ${{ inputs.version }}
+          TARGET: ${{ inputs.target }}
+          ZIP_URL: ${{ inputs.zip-url }}
+          ZIP_NAME: ${{ inputs.zip-name }}
+        run: |
+          if [ -z "$BOT" ] || [ "$ACTOR" != "$BOT" ]; then
+            echo "::error::Only the monorepo's release bot (vars.RELEASE_BOT_LOGIN) may publish here, not '$ACTOR'. Release from the monorepo with Release on GH."
+            exit 1
+          fi
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+            echo "::error::'$VERSION' is not a version: three or four numeric parts."
+            exit 1
+          fi
+          if ! [[ "$TARGET" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::target must be a full commit hash, got '$TARGET'."
+            exit 1
+          fi
+          if [ -n "$ZIP_URL" ] && [[ "$ZIP_URL" != https://* ]]; then
+            echo "::error::zip-url must be an HTTPS link."
+            exit 1
+          fi
+          # It becomes a file name.
+          if ! [[ "$ZIP_NAME" =~ ^[A-Za-z0-9._-]*$ ]]; then
+            echo "::error::zip-name must be a plain file name, got '$ZIP_NAME'."
+            exit 1
+          fi
+
+      - name: Check the target is on main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET: ${{ inputs.target }}
         run: |
           set -euo pipefail
-
-          zip_name=$(jq -r '.zip_name // empty' .puprc 2>/dev/null || true)
-          zip_name="${zip_name:-${GITHUB_REPOSITORY#*/}}"
-          # It becomes a path and a $GITHUB_OUTPUT line: no slashes, no newlines.
-          if ! [[ "$zip_name" =~ ^[A-Za-z0-9._-]+$ ]]; then
-            echo "::error file=.puprc::zip_name '${zip_name}' has to be a plain file name."
+          status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$TARGET...main" --jq .status)
+          if [ "$status" != ahead ] && [ "$status" != identical ]; then
+            echo "::error::$TARGET is not on main ($status): only a commit the sync wrote is released."
             exit 1
           fi
 
-          # The plugin's main file: the root-level PHP file .puprc lists under paths.versions.
-          main_file=$(jq -r '[.paths.versions[]?.file | select(test("^[^/]+\\.php$"))] | first // empty' .puprc 2>/dev/null || true)
-          main_file="${main_file:-${zip_name}.php}"
-          if ! [[ "$main_file" =~ ^[A-Za-z0-9._-]+\.php$ ]]; then
-            echo "::error file=.puprc::The main plugin file '${main_file}' has to be a plain file name."
-            exit 1
-          fi
-
-          # The version's section of readme.txt, with "-" bullets, and the blank lines around it dropped.
-          notes="$RUNNER_TEMP/notes.md"
-          awk -v head="= [$VERSION]" '
-            { sub(/\r$/, "") }
-            index($0, head) == 1 { found = 1; next }
-            !found { next }
-            /^=/ { exit }
-            !NF { if (printed) blanks++; next }
-            { while (blanks) { print ""; blanks-- } sub(/^\* /, "- "); print; printed = 1 }
-          ' readme.txt > "$notes"
-
-          if [ ! -s "$notes" ]; then
-            echo "::error file=readme.txt::No changelog for ${VERSION} in readme.txt. Run \"Release: Prep\" on the branch first."
-            exit 1
-          fi
-
-          {
-            echo "title=${TYPE} Release ${VERSION}"
-            echo "zip-name=${zip_name}"
-            echo "main-file=${main_file}"
-            echo "notes=${notes}"
-          } >> "$GITHUB_OUTPUT"
-
+      # release-publish reads the notes and the assets relative to the workspace.
       - name: Download and check the zip
         id: zip
         if: inputs.zip-url != ''
         env:
           ZIP_URL: ${{ inputs.zip-url }}
           VERSION: ${{ inputs.version }}
-          ZIP_NAME: ${{ steps.prep.outputs.zip-name }}
-          MAIN_FILE: ${{ steps.prep.outputs.main-file }}
+          NAME: ${{ inputs.zip-name || github.event.repository.name }}
         run: |
           set -euo pipefail
-
-          # Inside the workspace: release-publish reads assets relative to the checkout.
-          zip="${ZIP_NAME}.${VERSION}.zip"
+          zip="$NAME.$VERSION.zip"
           curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' --max-time 600 \
-            --output "$zip" "$ZIP_URL"
-          unzip -tq "$zip"
+            --output "$GITHUB_WORKSPACE/$zip" "$ZIP_URL"
+          echo "path=$zip" >> "$GITHUB_OUTPUT"
 
-          # Exactly one <plugin dir>/<main file> in the zip: another PHP file carrying the version,
-          # or no main file at all, must not pass.
-          main="${ZIP_NAME}/${MAIN_FILE}"
-          if [ "$(unzip -Z1 "$zip" | grep -Fxc -e "$main" || true)" != 1 ]; then
-            echo "::error::The zip at that link has no ${main}, the plugin's main file."
-            exit 1
-          fi
+      - name: Write the notes
+        env:
+          NOTES: ${{ inputs.notes }}
+        run: printf '%s\n' "$NOTES" > "$GITHUB_WORKSPACE/notes.md"
 
-          # The plugin header has to carry this version: attaching the previous release's zip is
-          # the mistake this catches.
-          if ! unzip -p "$zip" "$main" \
-            | grep -E "^[[:space:]*]*Version:[[:space:]]*${VERSION//./\\.}[[:space:]]*$" > /dev/null; then
-            echo "::error::The zip at that link is not version ${VERSION}: ${main} does not say 'Version: ${VERSION}'."
-            exit 1
-          fi
-
-          echo "path=${zip}" >> "$GITHUB_OUTPUT"
-
-      - name: Merge the release
-        id: merge
-        uses: the-events-calendar/actions/.github/actions/release-merge@main
-        with:
-          branch: ${{ inputs.branch }}
-          # A push to the branch after the run started is refused rather than merged unreviewed.
-          head: ${{ github.sha }}
-          version: ${{ inputs.version }}
-          # The bot token: the tag ruleset and the branch rules block everyone off their bypass list.
-          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
-
-      - name: Publish the GitHub release
-        uses: the-events-calendar/actions/.github/actions/release-publish@main
+      # Skips a release that already exists, so a repeated Release on GH completes.
+      - name: Publish the release
+        id: publish
+        uses: the-events-calendar/actions/.github/actions/release-publish@0ab353c3ca88c4c4116c1ace11f282159e47e416 # main
         with:
           version: ${{ inputs.version }}
-          target: ${{ steps.merge.outputs.base-sha }}
-          title: ${{ steps.prep.outputs.title }}
-          notes-file: ${{ steps.prep.outputs.notes }}
+          target: ${{ inputs.target }}
+          title: ${{ inputs.title }}
+          notes-file: notes.md
           files: ${{ steps.zip.outputs.path }}
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
+
+      - name: Summary
+        env:
+          URL: ${{ steps.publish.outputs.release-url }}
+          PUBLISHED: ${{ steps.publish.outputs.published }}
+        run: |
+          echo "Release $PUBLISHED: $URL" >> "$GITHUB_STEP_SUMMARY"
