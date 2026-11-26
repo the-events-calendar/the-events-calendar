@@ -11,8 +11,9 @@
  *
  * @since 6.2.0 Added the `tec_events_view_venue_after_address` action.
  * @since 6.15.3 Added post password protection.
+ * @since 6.18.4.1 Hides the Venue address from users who may not see the Venue.
  *
- * @version 6.15.3
+ * @version 6.18.4.1
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var string  $slug  The slug of the view.
@@ -34,7 +35,7 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 		<?php echo wp_kses_post( $venue->post_title ); ?>
 	</span>
 	<span class="tribe-events-calendar-day__event-venue-address">
-		<?php if ( ! post_password_required( $venue->ID ) ) { ?>
+		<?php if ( Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( $venue->ID ) ) { ?>
 			<?php echo esc_html( $address ); ?>
 			<?php if ( $append_after_address ) : ?>
 					<?php echo esc_html( reset( $append_after_address ) ); ?>

@@ -11,6 +11,9 @@ use Tribe__Events__REST__V1__Endpoints__Single_Organizer as Single_Organizer;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main;
+use WP_REST_Request;
+use WP_REST_Response;
 
 class Single_OrganizerTest extends WPRestApiTestCase {
 	use With_Clock_Mock;
@@ -309,6 +312,265 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function it_should_not_write_to_a_matching_organizer_the_user_cannot_edit() {
+		$existing_data = [
+			'organizer' => 'Shared Organizer',
+			'phone'     => '555-0100',
+			'email'     => 'original@example.test',
+		];
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$existing_id = $this->make_instance()->create( $this->make_request( $existing_data ), true );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'contributor' ] ) );
+		$response = $this->make_instance()->create(
+			$this->make_request(
+				[
+					'organizer' => $existing_data['organizer'],
+					'phone'     => '555-0199',
+					'email'     => 'submitted@example.test',
+				]
+			)
+		);
+
+		$this->assertInstanceOf( WP_REST_Response::class, $response );
+		$this->assertNotEquals( $existing_id, $response->get_data()['id'] );
+		$this->assertEquals( $existing_data['phone'], tribe_get_organizer_phone( $existing_id ) );
+		$this->assertEquals( $existing_data['email'], get_post_meta( $existing_id, '_OrganizerEmail', true ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_check_the_organizer_capability_when_publishing() {
+		wp_set_current_user( $this->create_organizer_editor( [ get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->publish_posts ] ) );
+
+		$organizer = $this->create_organizer_with_status( 'publish' );
+
+		$this->assertEquals( 'pending', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_publish_status_for_an_organizer_publisher() {
+		wp_set_current_user( $this->create_organizer_editor( [ $this->organizer_cap( 'publish_posts' ) ] ) );
+
+		$organizer = $this->create_organizer_with_status( 'publish' );
+
+		$this->assertEquals( 'publish', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_scale_back_the_private_status_without_the_publish_capability() {
+		wp_set_current_user( $this->create_organizer_editor() );
+
+		$organizer = $this->create_organizer_with_status( 'private' );
+
+		$this->assertEquals( 'pending', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_draft_status_without_the_publish_capability() {
+		wp_set_current_user( $this->create_organizer_editor() );
+
+		$organizer = $this->create_organizer_with_status( 'draft' );
+
+		$this->assertEquals( 'draft', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_scale_back_a_custom_status_without_the_publish_capability() {
+		register_post_status( 'tec_test_custom', [ 'public' => true ] );
+		$user_id = $this->create_organizer_editor();
+		$organizer = $this->factory()->organizer->create( [ 'post_author' => $user_id, 'post_status' => 'draft' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_organizer_status( $organizer, 'tec_test_custom' );
+
+		$this->assertEquals( 'pending', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_current_status_when_trashing_without_the_delete_capability() {
+		$user_id = $this->create_organizer_editor();
+		/* Pending, not draft, so the kept status is distinguishable from the create fallback. */
+		$organizer = $this->factory()->organizer->create( [ 'post_author' => $user_id, 'post_status' => 'pending' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_organizer_status( $organizer, 'trash' );
+
+		$this->assertEquals( 'pending', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_trash_on_update_with_the_delete_capability() {
+		$user_id = $this->create_organizer_editor( [ $this->organizer_cap( 'delete_posts' ) ] );
+		$organizer = $this->factory()->organizer->create( [ 'post_author' => $user_id, 'post_status' => 'pending' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_organizer_status( $organizer, 'trash' );
+
+		$this->assertEquals( 'trash', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_create_a_draft_when_trashing_without_the_delete_capability() {
+		wp_set_current_user( $this->create_organizer_editor() );
+
+		$organizer = $this->create_organizer_with_status( 'trash' );
+
+		$this->assertEquals( 'draft', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_take_the_status_of_an_id_sent_on_create() {
+		$published = $this->factory()->organizer->create( [ 'post_status' => 'publish' ] );
+		wp_set_current_user( $this->create_organizer_editor() );
+
+		$request = new WP_REST_Request( 'POST', '/tribe/events/v1/organizers' );
+		$request->set_param( 'organizer', 'A organizer' );
+		$request->set_param( 'status', 'trash' );
+		$request->set_param( 'id', $published );
+		$organizer = $this->make_instance()->create( $request, true );
+
+		$this->assertTrue( tribe_is_organizer( $organizer ) );
+		$this->assertNotEquals( $published, $organizer );
+		$this->assertEquals( 'draft', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_current_status_when_an_update_omits_it() {
+		$user_id   = $this->create_organizer_editor( [ $this->organizer_cap( 'publish_posts' ) ] );
+		$organizer = $this->factory()->organizer->create( [ 'post_author' => $user_id, 'post_status' => 'draft' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_organizer( $organizer, [ 'organizer' => 'A renamed organizer' ] );
+
+		$this->assertEquals( 'A renamed organizer', get_post_field( 'post_title', $organizer ) );
+		$this->assertEquals( 'draft', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_write_back_the_status_read_before_the_update() {
+		$user_id = $this->create_organizer_editor( [ $this->organizer_cap( 'publish_posts' ) ] );
+		$organizer = $this->factory()->organizer->create( [ 'post_author' => $user_id, 'post_status' => 'draft' ] );
+		wp_set_current_user( $user_id );
+		/* A status change saved by another request after the status check, before the write. */
+		add_filter(
+			'tribe_events_rest_organizer_prepare_postarr',
+			static function ( $postarr ) use ( $organizer ) {
+				wp_update_post( [ 'ID' => $organizer, 'post_status' => 'private' ] );
+
+				return $postarr;
+			}
+		);
+
+		$this->update_organizer( $organizer, [ 'organizer' => 'A renamed organizer' ] );
+
+		$this->assertEquals( 'A renamed organizer', get_post_field( 'post_title', $organizer ) );
+		$this->assertEquals( 'private', get_post_status( $organizer ) );
+	}
+
+	/**
+	 * Creates a user who can edit organizers and holds only the extra capabilities given.
+	 *
+	 * @param string[] $extra_caps The capabilities to grant on top of the organizer `edit_posts` one.
+	 *
+	 * @return int The user ID.
+	 */
+	private function create_organizer_editor( array $extra_caps = [] ): int {
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		$user    = get_user_by( 'id', $user_id );
+
+		foreach ( array_merge( [ $this->organizer_cap( 'edit_posts' ) ], $extra_caps ) as $cap ) {
+			$user->add_cap( $cap );
+		}
+
+		return $user_id;
+	}
+
+	/**
+	 * Returns the organizer post type's mapping of a primitive capability.
+	 *
+	 * @param string $cap The generic capability name, e.g. `publish_posts`.
+	 *
+	 * @return string The organizer capability name.
+	 */
+	private function organizer_cap( string $cap ): string {
+		return get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE )->cap->{$cap};
+	}
+
+	/**
+	 * Creates an organizer through the endpoint as the current user.
+	 *
+	 * @param string $status The requested status.
+	 *
+	 * @return int The created organizer ID.
+	 */
+	private function create_organizer_with_status( string $status ): int {
+		$request = new WP_REST_Request();
+		$request->set_param( 'organizer', 'A organizer' );
+		$request->set_param( 'status', $status );
+
+		$organizer = $this->make_instance()->create( $request, true );
+
+		$this->assertTrue( tribe_is_organizer( $organizer ) );
+
+		return $organizer;
+	}
+
+	/**
+	 * Updates an organizer's status through the endpoint as the current user.
+	 *
+	 * @param int    $organizer The organizer ID.
+	 * @param string $status    The requested status.
+	 *
+	 * @return void
+	 */
+	private function update_organizer_status( int $organizer, string $status ): void {
+		$this->update_organizer( $organizer, [ 'status' => $status ] );
+	}
+
+	/**
+	 * Updates an organizer through the endpoint as the current user, with the ID in the route as the API sets it.
+	 *
+	 * @param int                   $organizer The organizer ID.
+	 * @param array<string, string> $params    The body parameters to send.
+	 *
+	 * @return void
+	 */
+	private function update_organizer( int $organizer, array $params ): void {
+		$request = new WP_REST_Request( 'POST', '/tribe/events/v1/organizers/' . $organizer );
+		$request->set_url_params( [ 'id' => $organizer ] );
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$this->assertInstanceOf( WP_REST_Response::class, $this->make_instance()->update( $request ) );
+	}
+
+	/**
 	 * Creates an editor who may set other authors on events but not on organizers.
 	 *
 	 * @return int The user ID.
@@ -320,5 +582,21 @@ class Single_OrganizerTest extends WPRestApiTestCase {
 		$this->assertTrue( user_can( $user_id, get_post_type_object( \Tribe__Events__Main::POSTTYPE )->cap->edit_others_posts ) );
 
 		return $user_id;
+	}
+
+	/**
+	 * Builds a request carrying the given body parameters.
+	 *
+	 * @param array<string,string> $params The request parameters.
+	 *
+	 * @return WP_REST_Request The request.
+	 */
+	private function make_request( array $params ): WP_REST_Request {
+		$request = new WP_REST_Request();
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		return $request;
 	}
 }

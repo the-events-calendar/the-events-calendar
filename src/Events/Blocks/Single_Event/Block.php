@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Blocks\Single_Event;
 
+use TEC\Events\Traits\Neutralizes_Shortcodes;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 /**
@@ -12,6 +13,8 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
  * @package TEC\Events\Blocks\Single_Event
  */
 class Block extends \Tribe__Editor__Blocks__Abstract {
+	use Neutralizes_Shortcodes;
+
 	/**
 	 * @since 6.3.3
 	 *
@@ -46,6 +49,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since 6.3.3
 	 * @since 6.17.5 Prevents full event views from rendering inside event descriptions.
+	 * @since 6.18.4.1 Returns HTML in which no registered shortcode can be run by a later pass.
 	 *
 	 * @param array $attributes The block attributes.
 	 *
@@ -63,6 +67,8 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 		// Add the rendering attributes into global context.
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
-		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
+		$html = tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
+
+		return $this->neutralize_shortcodes( $html );
 	}
 }

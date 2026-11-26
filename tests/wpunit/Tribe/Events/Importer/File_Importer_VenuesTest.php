@@ -49,6 +49,9 @@ class File_Importer_VenuesTest extends \Codeception\TestCase\WPTestCase {
 
 		// your set up methods here
 		$this->featured_image_uploader = $this->prophesize( 'Tribe__Events__Importer__Featured_Image_Uploader' );
+
+		/* An import only updates posts the user running it can edit. */
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
 	}
 
 	public function tearDown() {

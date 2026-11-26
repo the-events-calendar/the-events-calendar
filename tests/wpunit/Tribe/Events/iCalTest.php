@@ -3,6 +3,7 @@
 namespace Tribe\Events;
 
 use Codeception\TestCase\WPTestCase;
+use RuntimeException;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__API;
 use Tribe__Events__iCal as iCal;
@@ -765,6 +766,96 @@ multiple lines",
 	}
 
 	/**
+	 * Published post types other than events, from public to not publicly viewable.
+	 *
+	 * @return array<string, array{0: string}>
+	 */
+	public function non_event_post_type_provider(): array {
+		return [
+			'post'                  => [ 'post' ],
+			'page'                  => [ 'page' ],
+			'reusable block'        => [ 'wp_block' ],
+			'not publicly viewable' => [ 'tec_ical_hidden' ],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider non_event_post_type_provider
+	 *
+	 * @param string $post_type The post type of the published post handed to the feed.
+	 */
+	public function should_not_export_a_published_post_that_is_not_an_event( string $post_type ): void {
+		register_post_type( 'tec_ical_hidden', [ 'public' => false ] );
+
+		$post_id = $this->factory()->post->create(
+			[
+				'post_type'    => $post_type,
+				'post_status'  => 'publish',
+				'post_title'   => "Published {$post_type} title",
+				'post_content' => "Published {$post_type} content",
+			]
+		);
+
+		$this->assertFalse( iCal::has_access_to_see_event_exists( $post_id ) );
+		$this->assertSame( '', $this->make_instance()->generate_ical_feed( [ $post_id ], false ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_keep_the_events_and_drop_the_rest_of_a_mixed_list(): void {
+		$event_title   = 'Public event title';
+		$block_title   = 'Internal reusable block title';
+		$block_content = 'Internal reusable block content';
+		$event_id      = $this->factory()->event->create( [ 'post_title' => $event_title ] );
+		$block_id      = $this->factory()->post->create(
+			[
+				'post_type'    => 'wp_block',
+				'post_status'  => 'publish',
+				'post_title'   => $block_title,
+				'post_content' => $block_content,
+			]
+		);
+
+		$ical = $this->make_instance()->generate_ical_feed( [ $event_id, $block_id ], false );
+
+		$this->assertContains( "SUMMARY:{$event_title}", $ical );
+		$this->assertStringNotContainsString( $block_title, $ical );
+		$this->assertStringNotContainsString( $block_content, $ical );
+		$this->assertEventsCount( 1, $ical );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_cap_the_requested_event_ids_at_the_feed_size(): void {
+		$feed_size = 2; // Smaller than the request, so the cap is what limits the export.
+		add_filter( 'tribe_ical_feed_posts_per_page', static fn() => $feed_size );
+		$event_ids = $this->factory()->event->create_many( $feed_size + 1 );
+
+		$ical = $this->export_requested_event_ids( $event_ids );
+
+		$this->assertEventsCount( $feed_size, $ical );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_export_a_repeated_event_id_once(): void {
+		$event_ids = $this->factory()->event->create_many( 2 );
+		$repeated  = array_fill( 0, 3, $event_ids[0] );
+		$titles    = array_map( 'get_the_title', $event_ids );
+
+		$ical = $this->export_requested_event_ids( array_merge( $repeated, [ $event_ids[1] ] ) );
+
+		$this->assertEventsCount( count( $event_ids ), $ical );
+		foreach ( $titles as $title ) {
+			$this->assertSame( 1, substr_count( $ical, "SUMMARY:{$title}" ) );
+		}
+	}
+
+	/**
 	 * Ensures SAVEQUERIES is on so `$wpdb->queries` is populated for assertions.
 	 *
 	 * @return void
@@ -812,5 +903,42 @@ multiple lines",
 				);
 			}
 		}
+	}
+
+	/**
+	 * Runs the iCal template for a request carrying `?ical=1&event_ids=...` and returns the feed.
+	 *
+	 * @param array<int> $event_ids The event post IDs the request asks for, in request order.
+	 *
+	 * @return string The iCal feed the template sent.
+	 */
+	private function export_requested_event_ids( array $event_ids ): string {
+		$_GET['ical']          = '1';
+		$_REQUEST['ical']      = '1';
+		$_GET['event_ids']     = implode( ',', $event_ids );
+		$_REQUEST['event_ids'] = $_GET['event_ids'];
+
+		/*
+		 * The template ends the request after sending the feed. Throwing from the exit handler
+		 * hands the feed back here instead, before the template reaches its own bare `die()`.
+		 */
+		add_filter(
+			'tribe_exit',
+			static function () {
+				return static function ( $content ) {
+					throw new RuntimeException( $content );
+				};
+			}
+		);
+
+		try {
+			$this->make_instance()->do_ical_template();
+		} catch ( RuntimeException $exit ) {
+			return $exit->getMessage();
+		} finally {
+			unset( $_GET['ical'], $_REQUEST['ical'], $_GET['event_ids'], $_REQUEST['event_ids'] );
+		}
+
+		$this->fail( 'The iCal template did not send a feed.' );
 	}
 }

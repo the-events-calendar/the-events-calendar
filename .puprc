@@ -20,7 +20,6 @@
 			"npm run build"
 		],
 		"tec-zip": [
-			"git submodule update --recursive --init",
 			"pup build",
 			"pup package $(pup get-version)",
 			"pup clean"

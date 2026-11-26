@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.18.3.1\n"
+"Project-Id-Version: The Events Calendar 6.18.4\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-10T22:46:08+00:00\n"
+"POT-Creation-Date: 2026-11-19T00:09:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -711,17 +711,17 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:40
 #: src/admin-views/tribe-options-imports.php:57
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:718
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:776
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:644
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:735
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:793
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:663
 msgid "No"
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:41
 #: src/admin-views/tribe-options-imports.php:58
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:717
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:775
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:643
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:734
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:792
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:662
 msgid "Yes"
 msgstr ""
 
@@ -860,7 +860,7 @@ msgstr ""
 #: src/admin-views/tribe-options-imports.php:534
 #: src/admin-views/tribe-options-imports.php:597
 #: src/admin-views/tribe-options-imports.php:644
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:772
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:791
 msgid "Show Map"
 msgstr ""
 
@@ -1525,7 +1525,7 @@ msgid "Address:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:82
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:964
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:983
 #: src/Tribe/Importer/Column_Mapper.php:144
 msgid "Venue Address"
 msgstr ""
@@ -1575,7 +1575,7 @@ msgid "Venue Zip Code"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:190
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:891
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:910
 #: src/Tribe/Importer/Column_Mapper.php:149
 msgid "Venue Phone"
 msgstr ""
@@ -3093,8 +3093,8 @@ msgid "Edit date format"
 msgstr ""
 
 #: src/Events/Admin/Onboarding/Landing_Page.php:293
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:53
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:594
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:54
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:611
 #: src/modules/blocks/event-organizer/index.js:20
 msgid "Event Organizer"
 msgstr ""
@@ -3104,8 +3104,8 @@ msgid "Add Organizer"
 msgstr ""
 
 #: src/Events/Admin/Onboarding/Landing_Page.php:315
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:55
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:535
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:56
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:554
 #: src/Tribe/Editor/Meta.php:109
 #: src/modules/blocks/event-venue/index.js:22
 msgid "Event Venue"
@@ -4359,7 +4359,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:236
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Datetime.php:409
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Title.php:156
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:585
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:604
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Traits/With_Shared_Controls.php:65
 msgid "HTML Tag"
 msgstr ""
@@ -4390,13 +4390,13 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Categories.php:274
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:200
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Datetime.php:329
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:694
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:752
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:811
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:711
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:769
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:828
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:281
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:617
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:677
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:730
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:636
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:696
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:749
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Website.php:192
 msgid "Show Header"
 msgstr ""
@@ -4404,9 +4404,9 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Categories.php:282
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:209
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Datetime.php:338
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:704
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:762
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:821
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:721
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:779
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:838
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:289
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Website.php:200
 msgid "Header HTML Tag"
@@ -4565,7 +4565,7 @@ msgid "Right"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:243
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1143
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1162
 msgid "Width"
 msgstr ""
 
@@ -4574,7 +4574,7 @@ msgid "Max Width"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:313
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1181
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1200
 msgid "Height"
 msgstr ""
 
@@ -4663,7 +4663,7 @@ msgid "Hover Animation"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:486
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1216
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1235
 msgid "Border Radius"
 msgstr ""
 
@@ -4675,133 +4675,133 @@ msgstr ""
 msgid "Link Hover Styling"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:128
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:129
 msgctxt "Placeholder name for widget preview"
 msgid "John Doe"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:186
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:203
 msgctxt "The header string for the Elementor event organizer widget email section."
 msgid "Email:"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:213
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:230
 msgctxt "The header string for the Elementor event organizer widget phone section."
 msgid "Phone:"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:240
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:257
 msgctxt "The header string for the Elementor event organizer widget website section."
 msgid "Website:"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:602
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:543
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:619
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:562
 msgid "Show Widget Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:611
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:628
 msgid "Widget Header HTML Tag"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:645
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:881
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:570
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:662
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:898
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:589
 msgid "Name"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:652
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:577
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:669
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:596
 msgid "Show Name"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:660
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:677
 msgid "Name HTML Tag"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:678
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:919
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:603
-#: src/views/blocks/parts/organizer.php:63
-#: src/views/modules/meta/organizer.php:50
-#: src/views/modules/meta/venue.php:48
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:695
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:936
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:622
+#: src/views/blocks/parts/organizer.php:64
+#: src/views/modules/meta/organizer.php:51
+#: src/views/modules/meta/venue.php:49
 msgid "Phone"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:686
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:609
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:703
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:628
 msgid "Show Phone"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:714
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:731
 msgid "Link organizer phone."
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:715
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:732
 msgid "Make organizer phone number a callable link."
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:736
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:990
-#: src/views/blocks/parts/organizer.php:76
-#: src/views/modules/meta/organizer.php:63
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:753
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1007
+#: src/views/blocks/parts/organizer.php:77
+#: src/views/modules/meta/organizer.php:64
 msgid "Email"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:744
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:761
 msgid "Show Email"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:772
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:789
 msgid "Link organizer email."
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:773
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:790
 msgid "Make organizer email a mailto link."
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:794
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1061
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:715
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:811
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1078
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:734
 #: src/functions/template-tags/organizer.php:516
 #: src/functions/template-tags/venue.php:938
-#: src/views/blocks/parts/organizer.php:89
+#: src/views/blocks/parts/organizer.php:90
 msgid "Website"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:803
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:722
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:820
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:741
 msgid "Show Website"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:843
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:860
 msgid "Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:931
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:903
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:948
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:922
 msgid "Phone Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:955
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:972
 msgid "Phone Text"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1002
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1019
 msgid "Email Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1026
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1043
 msgid "Email Text"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1073
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1071
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1090
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1090
 msgid "Website Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1097
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1098
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1114
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1117
 msgid "Website Url"
 msgstr ""
 
@@ -4969,104 +4969,104 @@ msgctxt "Mock Title for previewing the Event Title widget"
 msgid "Your Events Calendar Template"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:133
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:134
 msgctxt "A mock venue name for the widget preview"
 msgid "Mock Venue"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:147
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:148
 msgctxt "A mock venue name for the widget preview"
 msgid "Mock Venue 2"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:228
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:247
 msgctxt "The main header string for the Elementor event venue widget."
 msgid "Venue"
 msgid_plural "Venues"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:257
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:276
 msgctxt "The header string for the Elementor event venue widget website section."
 msgid "Website:"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:284
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:303
 msgctxt "The header string for the Elementor event venue widget phone section."
 msgid "Phone:"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:311
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:330
 msgctxt "The header string for the Elementor event venue widget address section."
 msgid "Address:"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:629
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:689
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:742
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:648
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:708
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:761
 msgid "Header Tag"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:640
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:659
 msgid "Link venue phone."
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:641
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:660
 msgid "Make venue phone number a callable link."
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:661
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:680
 msgid "Address"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:668
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:687
 msgid "Show Address"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:700
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:719
 msgid "Show Map Link"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:763
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:782
 msgid "Map"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:787
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:806
 msgid "Mock Data"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:795
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:814
 msgid "Show Two Venues"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:814
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:833
 msgid "Venue Header"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:852
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:871
 #: src/Tribe/Importer/Column_Mapper.php:141
 msgid "Venue Name"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:930
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:978
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:949
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:997
 msgid "Phone Number"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1005
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1024
 msgid "Address Text"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1021
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1040
 msgid "Map Link"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1059
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1078
 #: src/Tribe/Importer/Column_Mapper.php:150
 msgid "Venue Website"
 msgstr ""
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1132
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1151
 msgid "Venue Map"
 msgstr ""
 
@@ -5187,7 +5187,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:97
 #: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:178
 #: src/functions/template-tags/venue.php:583
-#: src/Tribe/Venue.php:463
+#: src/Tribe/Venue.php:470
 msgid "United States"
 msgstr ""
 
@@ -6273,9 +6273,9 @@ msgid "Venues"
 msgstr ""
 
 #: src/functions/template-tags/venue.php:1035
-#: src/views/v2/day/event/venue.php:27
-#: src/views/v2/latest-past/event/venue.php:23
-#: src/views/v2/list/event/venue.php:27
+#: src/views/v2/day/event/venue.php:28
+#: src/views/v2/latest-past/event/venue.php:25
+#: src/views/v2/list/event/venue.php:28
 msgctxt "Address separator"
 msgid ", "
 msgstr ""
@@ -6294,9 +6294,9 @@ msgstr ""
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:222
 #: src/Tribe/Main.php:2122
 #: src/Tribe/Organizer.php:103
-#: src/Tribe/Organizer.php:812
+#: src/Tribe/Organizer.php:827
 #: src/Tribe/Venue.php:165
-#: src/Tribe/Venue.php:969
+#: src/Tribe/Venue.php:984
 #, php-format
 msgid "Edit %s"
 msgstr ""
@@ -8127,13 +8127,13 @@ msgstr ""
 msgid "Calendar Date Bar Color"
 msgstr ""
 
-#: src/Tribe/Editor.php:290
-#: src/Tribe/Editor.php:333
+#: src/Tribe/Editor.php:407
+#: src/Tribe/Editor.php:450
 msgid "Add Description..."
 msgstr ""
 
-#: src/Tribe/Editor.php:585
-#: src/Tribe/Editor.php:618
+#: src/Tribe/Editor.php:702
+#: src/Tribe/Editor.php:735
 msgid "Event Blocks"
 msgstr ""
 
@@ -8304,13 +8304,13 @@ msgstr ""
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 msgstr ""
 
-#: src/Tribe/iCal.php:594
+#: src/Tribe/iCal.php:603
 #, php-format
 msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr ""
 
-#: src/Tribe/iCal.php:903
+#: src/Tribe/iCal.php:912
 msgctxt "Description in iCal content for events with hidden/protected content."
 msgid "Content is protected."
 msgstr ""
@@ -8617,17 +8617,23 @@ msgstr ""
 msgid "Failed to import record in row %d."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:298
+#. translators: %d: The row number in the CSV file.
+#: src/Tribe/Importer/File_Importer.php:310
+#, php-format
+msgid "Skipped row %d: the matching post cannot be edited by the user who started the import."
+msgstr ""
+
+#: src/Tribe/Importer/File_Importer.php:321
 #, php-format
 msgid "%s (post ID %d) updated."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:303
+#: src/Tribe/Importer/File_Importer.php:326
 #, php-format
 msgid "%s (post ID %d) created."
 msgstr ""
 
-#: src/Tribe/Importer/File_Importer.php:466
+#: src/Tribe/Importer/File_Importer.php:489
 #, php-format
 msgid "Missing required fields in row %d."
 msgstr ""
@@ -9265,12 +9271,12 @@ msgstr ""
 msgid "organizers"
 msgstr ""
 
-#: src/Tribe/Organizer.php:412
+#: src/Tribe/Organizer.php:422
 #, php-format
 msgid "Unnamed %s"
 msgstr ""
 
-#: src/Tribe/Organizer.php:741
+#: src/Tribe/Organizer.php:756
 #: src/Tribe/Venue.php:326
 #, php-format
 msgid "%s Information"
@@ -10584,7 +10590,7 @@ msgctxt "Metabox title"
 msgid "Location"
 msgstr ""
 
-#: src/Tribe/Venue.php:531
+#: src/Tribe/Venue.php:541
 msgid "Unnamed Venue"
 msgstr ""
 

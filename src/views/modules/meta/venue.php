@@ -5,11 +5,12 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta/venue.php
  *
- * @version 6.15.11
+ * @version 6.18.4.1
  *
  * @since 4.6.19
  * @since 6.15.3 Added post password protection.
  * @since 6.15.11 Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
+ * @since 6.18.4.1 Hides the Venue details from users who may not see the Venue.
  *
  * @package TribeEventsCalendar
  */
@@ -30,7 +31,7 @@ $website_title = tribe_events_get_venue_website_title();
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 		<li class="tribe-events-meta-item tribe-venue"> <?php echo wp_kses_post( tribe_get_venue() ); ?> </li>
 
-		<?php if ( ! post_password_required( tribe_get_venue_id() ) ) : ?>
+		<?php if ( Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( tribe_get_venue_id() ) ) ) : ?>
 			<?php if ( tribe_address_exists() ) : ?>
 				<li class="tribe-events-meta-item tribe-venue-location">
 					<address class="tribe-events-address">

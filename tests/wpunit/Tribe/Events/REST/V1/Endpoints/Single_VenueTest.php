@@ -11,6 +11,9 @@ use Tribe__Events__REST__V1__Endpoints__Single_Venue as Single_Venue;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main;
+use WP_REST_Request;
+use WP_REST_Response;
 
 class Single_VenueTest extends WPRestApiTestCase {
 	use With_Clock_Mock;
@@ -422,5 +425,232 @@ class Single_VenueTest extends WPRestApiTestCase {
 
 		$this->assertWPError( $response );
 		$this->assertEquals( 'could-not-update-venue', $response->get_error_code() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_write_to_a_matching_venue_the_user_cannot_edit() {
+		$existing_data = [
+			'venue'   => 'Shared Venue',
+			'address' => '1 Original Road',
+			'phone'   => '555-0100',
+		];
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$existing_id = $this->make_instance()->create( $this->make_request( $existing_data ), true );
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'contributor' ] ) );
+		$response = $this->make_instance()->create(
+			$this->make_request(
+				[
+					'venue'   => $existing_data['venue'],
+					'address' => '2 Submitted Road',
+					'phone'   => '555-0199',
+				]
+			)
+		);
+
+		$this->assertInstanceOf( WP_REST_Response::class, $response );
+		$this->assertNotEquals( $existing_id, $response->get_data()['id'] );
+		$this->assertEquals( $existing_data['address'], tribe_get_address( $existing_id ) );
+		$this->assertEquals( $existing_data['phone'], tribe_get_phone( $existing_id ) );
+	}
+
+	/**
+	 * Builds a request carrying the given body parameters.
+	 *
+	 * @param array<string,string> $params The request parameters.
+	 *
+	 * @return WP_REST_Request The request.
+	 */
+	private function make_request( array $params ): WP_REST_Request {
+		$request = new WP_REST_Request();
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		return $request;
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_check_the_venue_capability_when_publishing() {
+		wp_set_current_user( $this->create_venue_editor( [ get_post_type_object( Tribe__Events__Main::POSTTYPE )->cap->publish_posts ] ) );
+
+		$venue = $this->create_venue_with_status( 'publish' );
+
+		$this->assertEquals( 'pending', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_publish_status_for_a_venue_publisher() {
+		wp_set_current_user( $this->create_venue_editor( [ $this->venue_cap( 'publish_posts' ) ] ) );
+
+		$venue = $this->create_venue_with_status( 'publish' );
+
+		$this->assertEquals( 'publish', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_scale_back_the_private_status_without_the_publish_capability() {
+		wp_set_current_user( $this->create_venue_editor() );
+
+		$venue = $this->create_venue_with_status( 'private' );
+
+		$this->assertEquals( 'pending', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_current_status_when_trashing_without_the_delete_capability() {
+		$user_id = $this->create_venue_editor();
+		/* Pending, not draft, so the kept status is distinguishable from the create fallback. */
+		$venue = $this->factory()->venue->create( [ 'post_author' => $user_id, 'post_status' => 'pending' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_venue( $venue, [ 'status' => 'trash' ] );
+
+		$this->assertEquals( 'pending', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_trash_on_update_with_the_delete_capability() {
+		$user_id = $this->create_venue_editor( [ $this->venue_cap( 'delete_posts' ) ] );
+		$venue   = $this->factory()->venue->create( [ 'post_author' => $user_id, 'post_status' => 'pending' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_venue( $venue, [ 'status' => 'trash' ] );
+
+		$this->assertEquals( 'trash', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_take_the_status_of_an_id_sent_on_create() {
+		$published = $this->factory()->venue->create( [ 'post_status' => 'publish' ] );
+		wp_set_current_user( $this->create_venue_editor() );
+
+		$request = new WP_REST_Request( 'POST', '/tribe/events/v1/venues' );
+		$request->set_param( 'venue', 'A venue' );
+		$request->set_param( 'status', 'trash' );
+		$request->set_param( 'id', $published );
+		$venue = $this->make_instance()->create( $request, true );
+
+		$this->assertTrue( tribe_is_venue( $venue ) );
+		$this->assertNotEquals( $published, $venue );
+		$this->assertEquals( 'draft', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_keep_the_current_status_when_an_update_omits_it() {
+		$user_id = $this->create_venue_editor( [ $this->venue_cap( 'publish_posts' ) ] );
+		$venue   = $this->factory()->venue->create( [ 'post_author' => $user_id, 'post_status' => 'draft' ] );
+		wp_set_current_user( $user_id );
+
+		$this->update_venue( $venue, [ 'venue' => 'A renamed venue' ] );
+
+		$this->assertEquals( 'A renamed venue', get_post_field( 'post_title', $venue ) );
+		$this->assertEquals( 'draft', get_post_status( $venue ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_write_back_the_status_read_before_the_update() {
+		$user_id = $this->create_venue_editor( [ $this->venue_cap( 'publish_posts' ) ] );
+		$venue = $this->factory()->venue->create( [ 'post_author' => $user_id, 'post_status' => 'draft' ] );
+		wp_set_current_user( $user_id );
+		/* A status change saved by another request after the status check, before the write. */
+		add_filter(
+			'tribe_events_rest_venue_prepare_postarr',
+			static function ( $postarr ) use ( $venue ) {
+				wp_update_post( [ 'ID' => $venue, 'post_status' => 'private' ] );
+
+				return $postarr;
+			}
+		);
+
+		$this->update_venue( $venue, [ 'venue' => 'A renamed venue' ] );
+
+		$this->assertEquals( 'A renamed venue', get_post_field( 'post_title', $venue ) );
+		$this->assertEquals( 'private', get_post_status( $venue ) );
+	}
+
+	/**
+	 * Creates a user who can edit venues and holds only the extra capabilities given.
+	 *
+	 * @param string[] $extra_caps The capabilities to grant on top of the venue `edit_posts` one.
+	 *
+	 * @return int The user ID.
+	 */
+	private function create_venue_editor( array $extra_caps = [] ): int {
+		$user_id = $this->factory()->user->create( [ 'role' => 'subscriber' ] );
+		$user    = get_user_by( 'id', $user_id );
+
+		foreach ( array_merge( [ $this->venue_cap( 'edit_posts' ) ], $extra_caps ) as $cap ) {
+			$user->add_cap( $cap );
+		}
+
+		return $user_id;
+	}
+
+	/**
+	 * Returns the venue post type's mapping of a primitive capability.
+	 *
+	 * @param string $cap The generic capability name, e.g. `publish_posts`.
+	 *
+	 * @return string The venue capability name.
+	 */
+	private function venue_cap( string $cap ): string {
+		return get_post_type_object( Tribe__Events__Main::VENUE_POST_TYPE )->cap->{$cap};
+	}
+
+	/**
+	 * Creates a venue through the endpoint as the current user.
+	 *
+	 * @param string $status The requested status.
+	 *
+	 * @return int The created venue ID.
+	 */
+	private function create_venue_with_status( string $status ): int {
+		$request = new WP_REST_Request( 'POST', '/tribe/events/v1/venues' );
+		$request->set_param( 'venue', 'A venue' );
+		$request->set_param( 'status', $status );
+
+		$venue = $this->make_instance()->create( $request, true );
+
+		$this->assertTrue( tribe_is_venue( $venue ) );
+
+		return $venue;
+	}
+
+	/**
+	 * Updates a venue through the endpoint as the current user, with the ID in the route as the API sets it.
+	 *
+	 * @param int                   $venue  The venue ID.
+	 * @param array<string, string> $params The body parameters to send.
+	 *
+	 * @return void
+	 */
+	private function update_venue( int $venue, array $params ): void {
+		$request = new WP_REST_Request( 'POST', '/tribe/events/v1/venues/' . $venue );
+		$request->set_url_params( [ 'id' => $venue ] );
+
+		foreach ( $params as $key => $value ) {
+			$request->set_param( $key, $value );
+		}
+
+		$this->assertInstanceOf( WP_REST_Response::class, $this->make_instance()->update( $request ) );
 	}
 }

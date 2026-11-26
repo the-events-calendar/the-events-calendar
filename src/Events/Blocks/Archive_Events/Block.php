@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Blocks\Archive_Events;
 
+use TEC\Events\Traits\Neutralizes_Shortcodes;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 /**
@@ -12,6 +13,8 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
  * @package TEC\Events\Blocks\Archive_Events
  */
 class Block extends \Tribe__Editor__Blocks__Abstract {
+	use Neutralizes_Shortcodes;
+
 	/**
 	 * @since 6.3.3
 	 *
@@ -67,81 +70,5 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 		$html = tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
 
 		return $this->neutralize_shortcodes( $html );
-	}
-
-	/**
-	 * Encodes the bracket that opens each registered shortcode in the view HTML.
-	 *
-	 * Inside post content the block renders before core runs `do_shortcode()`, and the view
-	 * prints request values, so a shortcode typed into a search would run. In HTML `&#91;`
-	 * displays as `[`; in script text (the view's JSON) `\u005b` parses as `[`.
-	 *
-	 * @since 6.18.3.1
-	 *
-	 * @param string $html The rendered block HTML.
-	 *
-	 * @return string The HTML with no runnable shortcode.
-	 */
-	private function neutralize_shortcodes( string $html ): string {
-		global $shortcode_tags;
-
-		if ( empty( $shortcode_tags ) || false === strpos( $html, '[' ) ) {
-			return $html;
-		}
-
-		$tags    = implode( '|', array_map( static fn( $tag ) => preg_quote( $tag, '/' ), array_keys( $shortcode_tags ) ) );
-		$pattern = '/\\[(?=\\/?(?:' . $tags . ')(?![\\w-]))/';
-		$length  = strlen( $html );
-		$offset  = 0;
-		$result  = '';
-
-		/*
-		 * Scripts are found with a string scan, not a regex: matching a whole view JSON hits
-		 * PCRE's backtrack limit at about 1 MB. Script text is not HTML, so it gets `\u005b`,
-		 * which a script reads as `[`; `&#91;` would change the value.
-		 */
-		while ( $offset < $length ) {
-			$start = stripos( $html, '<script', $offset );
-			$end   = false === $start ? false : stripos( $html, '</script>', $start );
-
-			if ( false === $end ) {
-				$start = $length;
-				$end   = $length;
-			} else {
-				$end += strlen( '</script>' );
-			}
-
-			$text   = preg_replace( $pattern, '&#91;', substr( $html, $offset, $start - $offset ) );
-			$script = preg_replace( $pattern, '\\u005b', substr( $html, $start, $end - $start ) );
-
-			if ( null === $text || null === $script ) {
-				return $this->fail_shortcode_check();
-			}
-
-			$result .= $text . $script;
-			$offset  = $end;
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Logs a failed shortcode check and returns the empty block HTML.
-	 *
-	 * Printing part of the view would ship broken markup, so the block renders nothing.
-	 *
-	 * @since 6.18.3.1
-	 *
-	 * @return string An empty string.
-	 */
-	private function fail_shortcode_check(): string {
-		do_action(
-			'tribe_log',
-			'error',
-			'Archive Events block HTML could not be checked for shortcodes.',
-			[ 'preg_error' => preg_last_error() ]
-		);
-
-		return '';
 	}
 }

@@ -1,5 +1,20 @@
 # Changelog
 
+### [6.18.4.1] 2026-11-19
+
+* Fix - Resolved a multisite fatal error, "Cannot redeclare check_upload_size()", that could happen when a plugin or theme loaded WordPress admin files after an Events Calendar database query.
+* Security - Added additional protection to how Venues and Organizers are saved. Props to Dthangws for reporting.
+* Security - Added additional protection to the details of password-protected Events, Venues and Organizers in the WordPress REST API.
+* Security - Added additional protection to the Venue and Organizer details shown on Event pages and in the calendar views.
+* Security - Hardened how dependent form fields look up the field they depend on. Props to ytaero for reporting.
+* Security - Hardened the CSV importer. Props to Cavid Gulaliyev for reporting.
+* Security - Strengthened the permission checks on organizer and venue statuses set through the REST API.
+* Security - Tightened access checks on the calendar export. Props to peppa for reporting.
+* Security - Tightened shortcode handling in the Single Event block. Props to Pham Cong Lap (Clapboiz) of HPT VN for reporting.
+* Tweak - Added filters: `tec_events_editor_password_protected_meta`
+* Tweak - Changed views: `blocks/event-organizer`, `blocks/event-venue`, `blocks/parts/map`, `blocks/parts/organizer`, `blocks/parts/venue`, `integrations/elementor/widgets/event-organizer/details`, `integrations/elementor/widgets/event-venue/single-venue`, `modules/meta/map`, `modules/meta/organizer`, `modules/meta/venue`, `v2/day/event/venue`, `v2/latest-past/event/venue`, `v2/list/event/venue`
+* Language - 1 new strings added, 74 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.18.4] 2026-11-12
 
 * Fix - Avoided a fatal error when a database table prefix of 31 or more characters pushed the migrations table name past MySQL's 64-character limit, added an admin notice explaining how to shorten the prefix, and stopped the Shepherd tables error notice from causing an error when displayed.

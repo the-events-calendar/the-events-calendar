@@ -192,6 +192,56 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
+	 * Falls back on a post status the current user is allowed to set, checking each status's own capability.
+	 *
+	 * Any status other than `draft`, `pending` and `trash` requires the post type's `publish_posts`
+	 * capability, and `trash` requires the capability to delete the post. A status the user may not set
+	 * falls back on `pending`; a `trash` the user may not set keeps the post's current status, or `draft`
+	 * when there is no post yet. An update that omits the status keeps the current one.
+	 *
+	 * To keep a post's status, an empty string is returned rather than the status read now, so the update
+	 * writes no status and cannot overwrite a change saved between this check and the write.
+	 *
+	 * @since 6.18.4.1
+	 *
+	 * @param string|null $post_status The requested post status, if any.
+	 * @param string      $post_type   The post type whose capabilities are checked.
+	 * @param int|null    $post_id     The ID of the post being updated, taken from the route, or `null` when
+	 *                                 creating one. Never an ID read from the request body.
+	 *
+	 * @return string The post status to use, or an empty string to leave the updated post's status as it is.
+	 */
+	protected function scale_back_post_status_for( $post_status, $post_type, $post_id = null ) {
+		if ( ! $post_status && $post_id ) {
+			return '';
+		}
+
+		$cap = get_post_type_object( $post_type )->cap;
+
+		if ( ! $post_status ) {
+			return current_user_can( $cap->publish_posts ) ? 'publish' : 'draft';
+		}
+
+		if ( 'trash' === $post_status ) {
+			$can_delete = $post_id
+				? current_user_can( $cap->delete_post, $post_id )
+				: current_user_can( $cap->delete_posts );
+
+			if ( $can_delete ) {
+				return $post_status;
+			}
+
+			return $post_id ? '' : 'draft';
+		}
+
+		if ( in_array( $post_status, [ 'draft', 'pending' ], true ) || current_user_can( $cap->publish_posts ) ) {
+			return $post_status;
+		}
+
+		return 'pending';
+	}
+
+	/**
 	 * Returns the default value of posts per page.
 	 an*
 	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.

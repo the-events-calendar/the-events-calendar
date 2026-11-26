@@ -5,12 +5,13 @@
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe-events/modules/meta/organizer.php
  *
- * @version 6.15.16
+ * @version 6.18.4.1
  *
  * @since 4.6.19
  * @since 6.15.3 Added post password protection.
  * @since 6.15.11 Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
  * @since 6.15.16 Fixed issue with multiple organizers and post password protection.
+ * @since 6.18.4.1 Hides the Organizer details from users who may not see the Organizer.
  *
  * @package TribeEventsCalendar
  */
@@ -42,7 +43,7 @@ $website_title = tribe_events_get_organizer_website_title();
 			<?php
 		}
 
-		if ( ! $multiple && ! empty( $organizer_ids[0] ) && ! post_password_required( $organizer_ids[0] ) ) {
+		if ( ! $multiple && ! empty( $organizer_ids[0] ) && Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( $organizer_ids[0] ) ) ) {
 			if ( ! empty( $phone ) ) {
 				?>
 				<li class="tribe-events-meta-item">

@@ -9,10 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.15.11
+ * @version 6.18.4.1
  *
  * @since 4.7
  * @since 6.15.11 Replaced definition list markup with unordered list and removed empty dt tags for improved accessibility.
+ * @since 6.18.4.1 Hides the Organizer details from users who may not see the Organizer.
  *
  */
 
@@ -55,7 +56,7 @@ $website = tribe_get_organizer_website_link();
 			<?php
 		}
 
-		if ( ! $multiple ) { // Only show organizer details if there is one.
+		if ( ! $multiple && ! empty( $organizer_ids[0] ) && Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( $organizer_ids[0] ) ) ) { // Only show organizer details if there is one.
 			if ( ! empty( $phone ) ) {
 				?>
 				<li class="tribe-events-meta-item">

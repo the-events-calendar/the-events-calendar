@@ -119,11 +119,11 @@ class Archive_EventsTest extends HtmlTestCase {
 		$logged = [];
 		add_action(
 			'tribe_log',
-			static function ( $level, $message ) use ( &$logged ) {
-				$logged[] = [ $level, $message ];
+			static function ( $level, $message, $context ) use ( &$logged ) {
+				$logged[] = [ $level, $message, $context['block'] ];
 			},
 			10,
-			2
+			3
 		);
 		$jit             = ini_set( 'pcre.jit', '0' );
 		$backtrack_limit = ini_set( 'pcre.backtrack_limit', '1' );
@@ -137,7 +137,7 @@ class Archive_EventsTest extends HtmlTestCase {
 		}
 
 		$this->assertSame( '', $html );
-		$this->assertSame( [ [ 'error', 'Archive Events block HTML could not be checked for shortcodes.' ] ], $logged );
+		$this->assertSame( [ [ 'error', 'Block HTML could not be checked for shortcodes.', 'tec/archive-events' ] ], $logged );
 	}
 
 	/**

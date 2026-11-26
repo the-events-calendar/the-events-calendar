@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77859a16ec599404820631ac421b3057",
+    "content-hash": "6d6c1c7de6d683e251d53f9469a9e51e",
     "packages": [],
     "packages-dev": [
         {
@@ -54,68 +54,6 @@
                 "source": "https://github.com/antecedent/patchwork/tree/2.1.28"
             },
             "time": "2024-02-06T09:26:11+00:00"
-        },
-        {
-            "name": "automattic/jetpack-changelogger",
-            "version": "v4.2.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Automattic/jetpack-changelogger.git",
-                "reference": "72c219fa6e61bdcd760a68e8ff968a4365593f48"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-changelogger/zipball/72c219fa6e61bdcd760a68e8ff968a4365593f48",
-                "reference": "72c219fa6e61bdcd760a68e8ff968a4365593f48",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "symfony/console": "^3.4 || ^4.4 || ^5.2 || ^6.0 || ^7.0",
-                "symfony/process": "^3.4 || ^4.4 || ^5.2 || ^6.0 || ^7.0"
-            },
-            "require-dev": {
-                "wikimedia/testing-access-wrapper": "^1.0 || ^2.0 || ^3.0",
-                "yoast/phpunit-polyfills": "1.1.0"
-            },
-            "bin": [
-                "bin/changelogger"
-            ],
-            "type": "project",
-            "extra": {
-                "autotagger": true,
-                "branch-alias": {
-                    "dev-trunk": "4.2.x-dev"
-                },
-                "mirror-repo": "Automattic/jetpack-changelogger",
-                "version-constants": {
-                    "::VERSION": "src/Application.php"
-                },
-                "changelogger": {
-                    "link-template": "https://github.com/Automattic/jetpack-changelogger/compare/${old}...${new}"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Automattic\\Jetpack\\Changelog\\": "lib",
-                    "Automattic\\Jetpack\\Changelogger\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "Jetpack Changelogger tool. Allows for managing changelogs by dropping change files into a changelog directory with each PR.",
-            "keywords": [
-                "changelog",
-                "cli",
-                "dev",
-                "keepachangelog"
-            ],
-            "support": {
-                "source": "https://github.com/Automattic/jetpack-changelogger/tree/v4.2.5"
-            },
-            "time": "2024-06-27T12:55:08+00:00"
         },
         {
             "name": "automattic/vipwpcs",
@@ -6794,12 +6732,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stellarwp/coding-standards.git",
-                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789"
+                "reference": "2ed6b456fc8f26053a56f82f2734c43f7987f4a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/bb7ea48c2c824553a2c173410307e8cdb9171789",
-                "reference": "bb7ea48c2c824553a2c173410307e8cdb9171789",
+                "url": "https://api.github.com/repos/stellarwp/coding-standards/zipball/2ed6b456fc8f26053a56f82f2734c43f7987f4a5",
+                "reference": "2ed6b456fc8f26053a56f82f2734c43f7987f4a5",
                 "shasum": ""
             },
             "require": {
@@ -6845,7 +6783,7 @@
             "support": {
                 "source": "https://github.com/stellarwp/coding-standards/tree/main"
             },
-            "time": "2025-05-16T22:33:56+00:00"
+            "time": "2025-11-07T21:01:20+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -11236,5 +11174,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

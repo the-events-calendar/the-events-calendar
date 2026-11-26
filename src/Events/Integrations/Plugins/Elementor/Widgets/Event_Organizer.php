@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use Tribe__Events__Linked_Posts;
 
 /**
  * Class Event_Organizer
@@ -138,6 +139,7 @@ class Event_Organizer extends Abstract_Widget {
 	 * Get the organizer data for the widget.
 	 *
 	 * @since 6.4.0
+	 * @since 6.18.4.1 Leaves the details empty for an Organizer the current user may not see.
 	 *
 	 * @return array The organizer data.
 	 */
@@ -149,14 +151,29 @@ class Event_Organizer extends Abstract_Widget {
 		$target        = $settings['organizer_website_link_target'] ?? '_self';
 
 		foreach ( $organizer_ids as $organizer_id ) {
+			if ( ! Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( $organizer_id ) ) ) {
+				$organizers[ $organizer_id ] = [
+					'id'              => $organizer_id,
+					'name'            => tribe_get_organizer( $organizer_id ),
+					'phone'           => '',
+					'phone_link'      => false,
+					'website'         => '',
+					'email'           => '',
+					'details_visible' => false,
+				];
+
+				continue;
+			}
+
 			$phone                       = tribe_get_organizer_phone( $organizer_id );
 			$organizers[ $organizer_id ] = [
-				'id'         => $organizer_id,
-				'name'       => tribe_get_organizer( $organizer_id ),
-				'phone'      => $phone,
-				'phone_link' => tribe_is_truthy( $settings['link_organizer_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
-				'website'    => tribe_get_organizer_website_link( $organizer_id, null, $target ),
-				'email'      => tribe_get_organizer_email( $organizer_id ),
+				'id'              => $organizer_id,
+				'name'            => tribe_get_organizer( $organizer_id ),
+				'phone'           => $phone,
+				'phone_link'      => tribe_is_truthy( $settings['link_organizer_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
+				'website'         => tribe_get_organizer_website_link( $organizer_id, null, $target ),
+				'email'           => tribe_get_organizer_email( $organizer_id ),
+				'details_visible' => true,
 			];
 		}
 

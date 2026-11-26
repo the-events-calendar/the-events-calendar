@@ -9,7 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 6.18.4.1
+ *
+ * @since 6.18.4.1 Hides the Organizer details from users who may not see the Organizer.
  *
  */
 
@@ -19,9 +21,14 @@ if ( ! $organizer ) {
 	return;
 }
 
-$phone   = tribe_get_organizer_phone( $organizer );
-$website = tribe_get_organizer_website_link( $organizer );
-$email   = tribe_get_organizer_email( $organizer );
+// The attribute holds the Organizer ID, or the Organizer post itself when the block is rendered from code.
+$organizer_post = get_post( $organizer );
+$is_visible     = $organizer_post instanceof WP_Post
+	&& Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( $organizer_post->ID );
+
+$phone   = $is_visible ? tribe_get_organizer_phone( $organizer ) : '';
+$website = $is_visible ? tribe_get_organizer_website_link( $organizer ) : '';
+$email   = $is_visible ? tribe_get_organizer_email( $organizer ) : '';
 
 $default_classes = [ 'tribe-block', 'tribe-block__organizer__details', 'tribe-clearfix' ];
 

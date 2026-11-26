@@ -7,18 +7,20 @@
  *
  * @since 4.4
  * @since 6.15.3 Added post password protection.
+ * @since 6.18.4.1 Hides the map from users who may not see the Venue.
  *
  * @package TribeEventsCalendar
- * @version 6.15.3
+ * @version 6.18.4.1
  */
 
-$map = tribe_get_embedded_map();
-
-if ( empty( $map ) ) {
+// Checked before the map is built, because building it hands the address to the map script.
+if ( ! Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( tribe_get_venue_id() ) ) ) {
 	return;
 }
 
-if ( post_password_required( tribe_get_venue_id() ) ) {
+$map = tribe_get_embedded_map(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The template is included in a function scope.
+
+if ( empty( $map ) ) {
 	return;
 }
 

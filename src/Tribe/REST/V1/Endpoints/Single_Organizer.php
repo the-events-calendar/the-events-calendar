@@ -333,9 +333,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	/**
 	 * Prepares an array with the or data from the specified request.
 	 *
-	 * @param WP_REST_Request $request
+	 * @since 4.6
+	 * @since 6.18.4.1 Checked the requested status against the organizer post type's capabilities.
 	 *
-	 * @return array
+	 * @param WP_REST_Request $request The create or update request.
+	 *
+	 * @return array The organizer data to save.
 	 */
 	public function prepare_postarr( WP_REST_Request $request ) {
 		$post_date = isset( $request['date'] )
@@ -345,7 +348,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
 			: false;
 
-		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
+		/*
+		 * Only an update route carries the ID in its URL. On create, `id` can still arrive in the body,
+		 * and must not be used to pick up another post's status.
+		 */
+		$post_id     = isset( $request->get_url_params()['id'] ) ? $request['id'] : null;
+		$post_status = $this->scale_back_post_status_for( $request['status'], Tribe__Events__Main::ORGANIZER_POST_TYPE, $post_id );
 		$postarr = [
 			$this->get_id_index() => $request['id'],
 			'post_author'         => $this->scale_back_author( $request['author'], Tribe__Events__Main::ORGANIZER_POST_TYPE ),

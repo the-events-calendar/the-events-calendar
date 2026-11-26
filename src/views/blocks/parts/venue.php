@@ -9,10 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.15.11
+ * @version 6.18.4.1
  *
  * @since 6.2.0 Be specific about which venue to render.
  * @since 6.15.11 Added proper escaping for phone output.
+ * @since 6.18.4.1 Hides the Venue details from users who may not see the Venue.
  *
  * @var bool $show_map_link Whether to show the map link or not.
  * @var ?int $venue_id The ID of the venue to display.
@@ -35,7 +36,7 @@ $website = tribe_get_venue_website_link( $venue_id );
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
-	<?php if ( ! post_password_required( $venue_id ) ) : ?>
+	<?php if ( Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( tribe_get_venue_id( $venue_id ) ) ) ) : ?>
 		<?php if ( tribe_address_exists( $venue_id ) ) : ?>
 			<address class="tribe-block__venue__address">
 				<?php echo tribe_get_full_address( $venue_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>

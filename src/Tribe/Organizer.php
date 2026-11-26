@@ -317,6 +317,9 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	/**
 	 * Saves the event organizer information passed via an event
 	 *
+	 * @since 4.2
+	 * @since 6.18.4.1 An existing organizer is only updated when the current user can edit it.
+	 *
 	 * @param int|null $id ID of event organizer
 	 * @param array $data The organizer data
 	 * @param string $post_type The post type
@@ -328,6 +331,10 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		if ( isset( $data['OrganizerID'] ) && intval( $data['OrganizerID'] ) > 0 ) {
 			if ( count( $data ) == 1 ) {
 				// Only an ID was passed and we should do nothing.
+				return $data['OrganizerID'];
+			}
+
+			if ( ! current_user_can( 'edit_post', $data['OrganizerID'] ) ) {
 				return $data['OrganizerID'];
 			}
 
@@ -379,6 +386,9 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * Creates a new organizer
+	 *
+	 * @since 4.2
+	 * @since 6.18.4.1 A duplicate is only reused when the current user can edit it; otherwise a new organizer is created.
 	 *
 	 * @param array  $data        The organizer data.
 	 * @param string $post_status the intended post status.
@@ -442,6 +452,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 				);
 
 				$found = $duplicates->find_for( $candidate_data );
+
+				// Reusing a match writes the submitted data onto it, so only reuse one the user may edit.
+				if ( false !== $found && ! current_user_can( 'edit_post', $found ) ) {
+					$found = false;
+				}
 			}
 
 			$organizer_id = false === $found

@@ -6,6 +6,7 @@
  * [your-theme]/tribe/events/integrations/elementor/widgets/venue/single-venue.php
  *
  * @since 6.4.0
+ * @since 6.18.4.1 Hides the Venue details from users who may not see the Venue.
  *
  *
  * Show toggles, default true.
@@ -43,17 +44,22 @@ if ( empty( $venue ) ) {
 	return;
 }
 
+$details_visible = $venue['details_visible'] ?? true;
 ?>
 <div <?php tec_classes( $widget->get_widget_class() . '-details' ); ?>>
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-venue/name' );
 
-	$this->template( 'views/integrations/elementor/widgets/event-venue/address' );
+	if ( $details_visible ) {
+		$this->template( 'views/integrations/elementor/widgets/event-venue/address' );
 
-	$this->template( 'views/integrations/elementor/widgets/event-venue/phone' );
+		$this->template( 'views/integrations/elementor/widgets/event-venue/phone' );
 
-	$this->template( 'views/integrations/elementor/widgets/event-venue/website' );
+		$this->template( 'views/integrations/elementor/widgets/event-venue/website' );
+	}
 	?>
 </div>
 <?php
-$this->template( 'views/integrations/elementor/widgets/event-venue/map' );
+if ( $details_visible ) {
+	$this->template( 'views/integrations/elementor/widgets/event-venue/map' );
+}

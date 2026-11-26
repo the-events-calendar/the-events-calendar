@@ -6,6 +6,7 @@
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-organizer/details.php
  *
  * @since 6.4.0
+ * @since 6.18.4.1 Hides the Organizer details from users who may not see the Organizer.
  *
  * @var bool   $multiple If there are multiple organizers.
  * @var string $phone_header_tag The phone header tag.
@@ -31,6 +32,10 @@
 
 // Only show organizer details if there's just one.
 if ( $multiple ) {
+	return;
+}
+
+if ( ! ( $organizer['details_visible'] ?? true ) ) {
 	return;
 }
 ?>

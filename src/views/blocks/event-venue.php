@@ -9,8 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 6.2.0
+ * @version 6.18.4.1
  * @since 6.2.0 Reworked class handling.
+ * @since 6.18.4.1 Leaves out the map class for users who may not see the Venue.
  *
  * @var bool $show_map Whether to show the map or not.
  */
@@ -20,7 +21,7 @@ $default_classes = [
 	'tribe-block',
 	'tribe-block__venue',
 	'tribe-clearfix',
-	'tribe-block__venue--has-map' => $show_map && ! post_password_required( isset( $venue_id ) ? $venue_id : tribe_get_venue_id() ),
+	'tribe-block__venue--has-map' => $show_map && Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( tribe_get_venue_id( $venue_id ?? null ) ) ),
 ];
 
 // Add the custom classes from the block attributes.

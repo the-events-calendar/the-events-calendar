@@ -287,6 +287,8 @@ class VenueTest extends Events_TestCase {
 	 * @test
 	 */
 	public function it_should_not_create_duplicate_venues_and_should_update_existing_with_same_title() {
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+
 		$venue = $this->make_instance();
 
 		$data = [
@@ -367,5 +369,92 @@ class VenueTest extends Events_TestCase {
 
 		// Disable the filter after we're done.
 		remove_filter( 'tribe_get_option_allow_duplicate_venues', '__return_true' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_create_a_new_venue_when_the_matching_venue_is_not_editable_by_the_user() {
+		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		$existing_data  = [
+			'Venue'   => 'Shared Venue',
+			'Address' => '1 Original Road',
+			'City'    => 'Original City',
+			'Phone'   => '555-0100',
+		];
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$existing_id = $this->make_instance()->create( $existing_data, 'publish' );
+
+		wp_set_current_user( $contributor_id );
+		$submitted_data = [
+			'Venue'   => $existing_data['Venue'],
+			'Address' => '2 Submitted Road',
+			'City'    => 'Submitted City',
+			'Phone'   => '555-0199',
+		];
+		$venue_id = $this->make_instance()->create( $submitted_data, 'draft', true );
+
+		$this->assertNotEquals( $existing_id, $venue_id );
+		$this->assertEquals( $submitted_data['Address'], tribe_get_address( $venue_id ) );
+		$this->assertEquals( $existing_data['Address'], tribe_get_address( $existing_id ) );
+		$this->assertEquals( $existing_data['City'], tribe_get_city( $existing_id ) );
+		$this->assertEquals( $existing_data['Phone'], tribe_get_phone( $existing_id ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_reuse_the_matching_venue_when_the_user_can_edit_it() {
+		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+
+		wp_set_current_user( $contributor_id );
+		$existing_id    = $this->make_instance()->create(
+			[
+				'Venue'       => 'Own Venue',
+				'Address'     => '1 Original Road',
+				'post_author' => $contributor_id,
+			],
+			'draft'
+		);
+		$submitted_data = [
+			'Venue'   => get_the_title( $existing_id ),
+			'Address' => '2 Submitted Road',
+		];
+		$venue_id       = $this->make_instance()->create( $submitted_data, 'draft', true );
+
+		$this->assertEquals( $existing_id, $venue_id );
+		$this->assertEquals( $submitted_data['Address'], tribe_get_address( $existing_id ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_update_a_linked_venue_the_user_cannot_edit() {
+		$contributor_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		$address        = '1 Original Road';
+
+		wp_set_current_user( $this->factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$existing_id = $this->make_instance()->create(
+			[
+				'Venue'   => 'Linked Venue',
+				'Address' => $address,
+			],
+			'publish'
+		);
+
+		wp_set_current_user( $contributor_id );
+		$venue_id = $this->make_instance()->save(
+			null,
+			[
+				'VenueID' => $existing_id,
+				'Address' => '2 Submitted Road',
+			],
+			Venue::POSTTYPE,
+			'draft'
+		);
+
+		$this->assertEquals( $existing_id, $venue_id );
+		$this->assertEquals( $address, tribe_get_address( $existing_id ) );
 	}
 }

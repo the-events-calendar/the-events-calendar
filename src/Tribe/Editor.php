@@ -9,11 +9,56 @@ use Tribe__Events__Main as TEC;
  * @since 4.7
  */
 class Tribe__Events__Editor extends Tribe__Editor {
+	/**
+	 * The meta each post type hides while its password is required, with the value shown instead.
+	 *
+	 * Plugins add the meta they register through the `tec_events_editor_password_protected_meta` filter.
+	 *
+	 * @since 6.18.4.1
+	 *
+	 * @var array<string,array<string,string|bool|array{}>>
+	 */
+	private const PASSWORD_PROTECTED_META = [
+		TEC::POSTTYPE            => [
+			'_EventAllDay'           => false,
+			'_EventURL'              => '',
+			'_EventCost'             => '',
+			'_EventCostDescription'  => '',
+			'_EventCurrencySymbol'   => '',
+			'_EventCurrencyCode'     => '',
+			'_EventCurrencyPosition' => '',
+			'_EventShowMap'          => false,
+			'_EventShowMapLink'      => false,
+			'_EventOrganizerID'      => [],
+			'_EventVenueID'          => [],
+		],
+		TEC::ORGANIZER_POST_TYPE => [
+			'_OrganizerEmail'   => '',
+			'_OrganizerPhone'   => '',
+			'_OrganizerWebsite' => '',
+		],
+		TEC::VENUE_POST_TYPE     => [
+			'_VenueAddress'       => '',
+			'_VenueCity'          => '',
+			'_VenueCountry'       => '',
+			'_VenueProvince'      => '',
+			'_VenueState'         => '',
+			'_VenueZip'           => '',
+			'_VenuePhone'         => '',
+			'_VenueURL'           => '',
+			'_VenueStateProvince' => '',
+			'_VenueLat'           => '',
+			'_VenueLng'           => '',
+			'_VenueShowMap'       => false,
+			'_VenueShowMapLink'   => false,
+		],
+	];
 
 	/**
 	 * Hooks actions from the editor into the correct places
 	 *
 	 * @since 4.7
+	 * @since 6.18.4.1 Hides the meta of password-protected events, venues and organizers from REST reads.
 	 *
 	 * @return bool
 	 */
@@ -24,6 +69,15 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_filter( 'tribe_events_register_event_type_args', [ $this, 'add_rest_support' ] );
 		add_filter( 'tribe_events_register_venue_type_args', [ $this, 'add_rest_support' ] );
 		add_filter( 'tribe_events_register_organizer_type_args', [ $this, 'add_rest_support' ] );
+
+		foreach ( array_keys( self::PASSWORD_PROTECTED_META ) as $protected_post_type ) {
+			/*
+			 * Hooked with the REST support, not with the block editor meta: other plugins register
+			 * meta on these post types with the block editor off. Priority 20 runs after
+			 * Tribe__Events__Editor__Meta::meta_backwards_compatibility(), which writes `_EventAllDay` back.
+			 */
+			add_filter( "rest_prepare_{$protected_post_type}", [ $this, 'remove_password_protected_meta' ], 20, 3 );
+		}
 
 		// Maybe add flag from classic editor
 		add_action( 'load-post.php', [ $this, 'flag_post_from_classic_editor' ], 0 );
@@ -62,6 +116,69 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_venue' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_organizer' ], 10, 2 );
 		add_filter( 'use_block_editor_for_post_type', [ $this, 'deactivate_blocks_editor_event' ], 10, 2 );
+	}
+
+	/**
+	 * Blanks the protected meta of a password-protected post in a REST response.
+	 *
+	 * Core REST reads registered meta without checking the post password, so a reader who has
+	 * not supplied it, and cannot edit the post, gets the same empty fields the plugin's own REST
+	 * API returns. Collection responses run through this filter once per post.
+	 *
+	 * @since 6.18.4.1
+	 *
+	 * @param WP_REST_Response $response The response for one post.
+	 * @param WP_Post          $post     The post the response describes.
+	 * @param WP_REST_Request  $request  The request being served.
+	 *
+	 * @return WP_REST_Response The response, with the protected meta blanked when the password is required.
+	 */
+	public function remove_password_protected_meta( $response, $post, $request ) {
+		if (
+			! $response instanceof WP_REST_Response
+			|| ! $post instanceof WP_Post
+			|| ! $request instanceof WP_REST_Request
+		) {
+			return $response;
+		}
+
+		$data = $response->get_data();
+
+		if ( ! isset( $data['meta'] ) || ! is_array( $data['meta'] ) ) {
+			return $response;
+		}
+
+		if (
+			! post_password_required( $post )
+			|| tribe( 'tec.rest-v1.validator' )->can_access_password_content( $post, $request )
+		) {
+			return $response;
+		}
+
+		$default_meta = self::PASSWORD_PROTECTED_META[ $post->post_type ] ?? [];
+
+		/**
+		 * Filters the meta hidden from a REST read of a password-protected Event, Venue or Organizer.
+		 *
+		 * @since 6.18.4.1
+		 *
+		 * @param array<string,string|bool|array{}> $protected_meta The value to show for each protected meta key.
+		 * @param WP_Post                           $post           The post the response describes.
+		 * @param WP_REST_Request                   $request        The request being served.
+		 */
+		$protected_meta = apply_filters( 'tec_events_editor_password_protected_meta', $default_meta, $post, $request );
+
+		if ( ! is_array( $protected_meta ) ) {
+			$protected_meta = $default_meta;
+		}
+
+		foreach ( array_intersect_key( $protected_meta, $data['meta'] ) as $meta_key => $blank_value ) {
+			$data['meta'][ $meta_key ] = $blank_value;
+		}
+
+		$response->set_data( $data );
+
+		return $response;
 	}
 
 	/**

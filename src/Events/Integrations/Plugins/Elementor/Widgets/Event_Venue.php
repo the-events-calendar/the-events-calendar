@@ -13,6 +13,7 @@ use Elementor\Controls_Manager;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use Tribe__Events__Linked_Posts;
 
 /**
  * Class Event_Venue
@@ -162,6 +163,7 @@ class Event_Venue extends Abstract_Widget {
 	 * Get the venue data for the widget.
 	 *
 	 * @since 6.4.0
+	 * @since 6.18.4.1 Leaves the details empty for a Venue the current user may not see.
 	 *
 	 * @return array The venue data.
 	 */
@@ -173,16 +175,33 @@ class Event_Venue extends Abstract_Widget {
 		$target    = $settings['venue_website_link_target'] ?? '_self';
 
 		foreach ( $venue_ids as $venue_id ) {
+			if ( ! Tribe__Events__Linked_Posts::instance()->is_linked_post_visible( absint( $venue_id ) ) ) {
+				$venues[ $venue_id ] = [
+					'id'              => $venue_id,
+					'name'            => tribe_get_venue( $venue_id ),
+					'address'         => '',
+					'phone'           => '',
+					'phone_link'      => false,
+					'map_link'        => '',
+					'website'         => '',
+					'map'             => '',
+					'details_visible' => false,
+				];
+
+				continue;
+			}
+
 			$phone               = tribe_get_phone( $venue_id );
 			$venues[ $venue_id ] = [
-				'id'         => $venue_id,
-				'name'       => tribe_get_venue( $venue_id ),
-				'address'    => tribe_get_full_address( $venue_id ),
-				'phone'      => $phone,
-				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
-				'map_link'   => tribe_get_map_link_html( $venue_id ),
-				'website'    => tribe_get_venue_website_link( $venue_id, null, $target ),
-				'map'        => tribe_get_embedded_map( $venue_id, '100%', '100%' ),
+				'id'              => $venue_id,
+				'name'            => tribe_get_venue( $venue_id ),
+				'address'         => tribe_get_full_address( $venue_id ),
+				'phone'           => $phone,
+				'phone_link'      => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
+				'map_link'        => tribe_get_map_link_html( $venue_id ),
+				'website'         => tribe_get_venue_website_link( $venue_id, null, $target ),
+				'map'             => tribe_get_embedded_map( $venue_id, '100%', '100%' ),
+				'details_visible' => true,
 			];
 		}
 
